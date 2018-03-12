@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28E76ED54A0452A49E6AF587 /* Pods_BossCommonClass_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9FC9884C0E53ECD5167434E /* Pods_BossCommonClass_Example.framework */; };
-		437FCFC9B6F631C6EB5A284B /* Pods_BossCommonClass_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB1F5CFAACBA4936D69DD2E /* Pods_BossCommonClass_Tests.framework */; };
+		29FFF3FE2056778D009A2186 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FFF3FD2056778D009A2186 /* ViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* BossAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* BossAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* BossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* BossViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -24,6 +22,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		EDC0E8E3516E5D09B3EA73EA /* libPods-BossCommonClass_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BF6AC8AD6E055F795077C2 /* libPods-BossCommonClass_Example.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D447B2C7941196AE278D915 /* Pods-BossCommonClass_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BossCommonClass_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BossCommonClass_Tests/Pods-BossCommonClass_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		2201993737585A905E75BC92 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		411525FCB18DCF13AE7BDE95 /* Pods-BossCommonClass_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BossCommonClass_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BossCommonClass_Tests/Pods-BossCommonClass_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		436B9108FF8B2F71AFD901A7 /* BossCommonClass.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = BossCommonClass.podspec; path = ../BossCommonClass.podspec; sourceTree = "<group>"; };
+		2201993737585A905E75BC92 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		27BF6AC8AD6E055F795077C2 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		29FFF3FC2056778D009A2186 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		29FFF3FD2056778D009A2186 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		436B9108FF8B2F71AFD901A7 /* BossCommonClass.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BossCommonClass.podspec; path = ../BossCommonClass.podspec; sourceTree = "<group>"; };
 		4BB1F5CFAACBA4936D69DD2E /* Pods_BossCommonClass_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BossCommonClass_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* BossCommonClass_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BossCommonClass_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,8 +52,6 @@
 		6003F59B195388D20070C39A /* BossCommonClass-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BossCommonClass-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* BossAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* BossAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* BossViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* BossViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* BossCommonClass_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BossCommonClass_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -62,10 +60,9 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		75D9C615A645211A2669B1A9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		75D9C615A645211A2669B1A9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7BA627571376192F534643F /* Pods-BossCommonClass_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BossCommonClass_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BossCommonClass_Example/Pods-BossCommonClass_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E9FC9884C0E53ECD5167434E /* Pods_BossCommonClass_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BossCommonClass_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F419B906A546798A312162AE /* Pods-BossCommonClass_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BossCommonClass_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-BossCommonClass_Example/Pods-BossCommonClass_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +74,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				28E76ED54A0452A49E6AF587 /* Pods_BossCommonClass_Example.framework in Frameworks */,
+				EDC0E8E3516E5D09B3EA73EA /* libPods-BossCommonClass_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +85,6 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				437FCFC9B6F631C6EB5A284B /* Pods_BossCommonClass_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +119,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				E9FC9884C0E53ECD5167434E /* Pods_BossCommonClass_Example.framework */,
 				4BB1F5CFAACBA4936D69DD2E /* Pods_BossCommonClass_Tests.framework */,
+				27BF6AC8AD6E055F795077C2 /* libPods-BossCommonClass_Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -134,9 +130,9 @@
 			children = (
 				6003F59C195388D20070C39A /* BossAppDelegate.h */,
 				6003F59D195388D20070C39A /* BossAppDelegate.m */,
+				29FFF3FC2056778D009A2186 /* ViewController.h */,
+				29FFF3FD2056778D009A2186 /* ViewController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* BossViewController.h */,
-				6003F5A6195388D20070C39A /* BossViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -190,8 +186,6 @@
 			children = (
 				E7BA627571376192F534643F /* Pods-BossCommonClass_Example.debug.xcconfig */,
 				F419B906A546798A312162AE /* Pods-BossCommonClass_Example.release.xcconfig */,
-				0D447B2C7941196AE278D915 /* Pods-BossCommonClass_Tests.debug.xcconfig */,
-				411525FCB18DCF13AE7BDE95 /* Pods-BossCommonClass_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -223,12 +217,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "BossCommonClass_Tests" */;
 			buildPhases = (
-				DF55057F920A27EEC82D8D60 /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				0AB617561D41D71FE081B316 /* [CP] Embed Pods Frameworks */,
-				83DD217E00E43E583F484864 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +241,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = JiaYuanchao;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = ZH956JYR6T;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -297,21 +291,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AB617561D41D71FE081B316 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BossCommonClass_Tests/Pods-BossCommonClass_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2E3FE416D772D2B58562324C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,21 +321,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		83DD217E00E43E583F484864 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BossCommonClass_Tests/Pods-BossCommonClass_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CF7D7F2B8619237D2FFBACE6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,21 +336,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BossCommonClass_Example/Pods-BossCommonClass_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF55057F920A27EEC82D8D60 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -394,8 +343,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29FFF3FE2056778D009A2186 /* ViewController.m in Sources */,
 				6003F59E195388D20070C39A /* BossAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* BossViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,9 +473,11 @@
 			baseConfigurationReference = E7BA627571376192F534643F /* Pods-BossCommonClass_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZH956JYR6T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BossCommonClass/BossCommonClass-Prefix.pch";
 				INFOPLIST_FILE = "BossCommonClass/BossCommonClass-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -539,9 +490,11 @@
 			baseConfigurationReference = F419B906A546798A312162AE /* Pods-BossCommonClass_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZH956JYR6T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BossCommonClass/BossCommonClass-Prefix.pch";
 				INFOPLIST_FILE = "BossCommonClass/BossCommonClass-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -551,7 +504,6 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D447B2C7941196AE278D915 /* Pods-BossCommonClass_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -575,7 +527,6 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 411525FCB18DCF13AE7BDE95 /* Pods-BossCommonClass_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

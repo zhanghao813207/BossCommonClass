@@ -1,11 +1,8 @@
-use_frameworks!
-
+source 'https://git.coding.net/J_YC/JYCRepoSpecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
 target 'BossCommonClass_Example' do
+    #use_frameworks!
   pod 'BossCommonClass', :path => '../'
+  pod 'BasicCommonClass', '~> 0.1.0'
 
-  target 'BossCommonClass_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

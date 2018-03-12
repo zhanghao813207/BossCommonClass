@@ -1,0 +1,58 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Baidu-Maps-iOS-SDK (3.0.0)
+  - BasicCommonClass (0.1.0)
+  - BGFMDB (1.51):
+    - BGFMDB/BG (= 1.51)
+    - BGFMDB/FMDB (= 1.51)
+  - BGFMDB/BG (1.51):
+    - BGFMDB/FMDB
+  - BGFMDB/FMDB (1.51)
+  - BossCommonClass (0.1.0):
+    - AFNetworking (~> 3.1.0)
+    - Baidu-Maps-iOS-SDK (~> 3.0.0)
+    - BasicCommonClass (~> 0.1.0)
+    - BGFMDB (~> 1.51)
+    - Qiniu (~> 7.1)
+    - SobotFramework (~> 1.3.2)
+  - HappyDNS (0.3.12)
+  - Qiniu (7.1.8):
+    - AFNetworking (~> 3)
+    - HappyDNS (~> 0.3)
+  - SobotFramework (1.3.2)
+
+DEPENDENCIES:
+  - BasicCommonClass (~> 0.1.0)
+  - BossCommonClass (from `../`)
+
+EXTERNAL SOURCES:
+  BossCommonClass:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Baidu-Maps-iOS-SDK: 9aafd9643ee1db4cac04a90ab7290db6c116b46a
+  BasicCommonClass: a0132c6eb3728ee47455c25142db6d71394dda4f
+  BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
+  BossCommonClass: ce18366a93c13493eae00f4b63d11f0caa62de06
+  HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
+  Qiniu: 2f1b9d13904b6a7608a66a2d02c5b7b24575622a
+  SobotFramework: 70137fd14008bf1726a6447f3c41ab7fee2e31b7
+
+PODFILE CHECKSUM: fe358aedddbbdabea6c95879dc4905baa0c28ca9
+
+COCOAPODS: 1.2.1
