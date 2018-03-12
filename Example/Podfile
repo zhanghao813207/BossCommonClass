@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BossCommonClass_Example' do
+  pod 'BossCommonClass', :path => '../'
+
+  target 'BossCommonClass_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
