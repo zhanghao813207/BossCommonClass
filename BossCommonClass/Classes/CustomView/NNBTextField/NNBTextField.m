@@ -7,14 +7,14 @@
 //
 
 #import "NNBTextField.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @implementation NNBTextField
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.font = NNBBlodFont(14.f);
+        self.font = BossBlodFont(14.f);
         self.leftView = ({
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 35)];
             view;

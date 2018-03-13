@@ -7,7 +7,7 @@
 //
 
 #import "InputPhoneNumberView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 CGFloat const kInputPhoneNumberViewHeight = 263;
 
 @interface InputPhoneNumberView()<UITextFieldDelegate>
@@ -46,7 +46,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         self.errorNoticeLabel.hidden = NO;
         return;
     }
-    BOOL isPhone = [NNBSimpleToolClass isPhoneStringWithString:phone];
+    BOOL isPhone = [JYCSimpleToolClass isPhoneStringWithString:phone];
     if (!isPhone) {
         self.errorNoticeLabel.hidden = NO;
         return;
@@ -99,14 +99,14 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         CGFloat height = IsPhone_Size_4 ? 30 : 36;
         _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, Y, kScreenWidth - 40, height)];
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _phoneTextField.font = NNBBlodFont(25.f);
+        _phoneTextField.font = BossBlodFont(25.f);
         NSMutableAttributedString *placeholderAttString = [[NSMutableAttributedString alloc] initWithString:@"请输入手机号码"];
-        [placeholderAttString addAttributes:@{NSFontAttributeName:NNBRegularFont(25.f)} range:NSMakeRange(0, placeholderAttString.length)];
+        [placeholderAttString addAttributes:@{NSFontAttributeName:BossRegularFont(25.f)} range:NSMakeRange(0, placeholderAttString.length)];
         _phoneTextField.attributedPlaceholder = placeholderAttString;
         _phoneTextField.textColor = kHexRGBA(0x0000000, 0.8);
         _phoneTextField.delegate = self;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-        _phoneTextField.tintColor = kMainColor;
+        _phoneTextField.tintColor = kAppMainColor;
     }
     return _phoneTextField;
 }
@@ -125,7 +125,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     if (!_errorNoticeLabel) {
         _errorNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.line.frame) + 10, kScreenWidth - 40, 17)];
         _errorNoticeLabel.text = @"您的手机号格式不正确";
-        _errorNoticeLabel.font = NNBRegularFont(12.f);
+        _errorNoticeLabel.font = BossRegularFont(12.f);
         _errorNoticeLabel.textColor = kHexRGBA(0xD0021B, 0.4);
         _errorNoticeLabel.hidden = YES;
     }

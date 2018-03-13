@@ -8,5 +8,14 @@
 #ifndef BossBasicDefine_h
 #define BossBasicDefine_h
 
+#import "JYCBasicDefine.h"
+#import "BossEnumDefin.h"
+#import "BossConstDataDefine.h"
+#import "BossMethodDefine.h"
+#import "NNBButton.h"
+#import "NNBAccount.h"
+#import "BGFMDB.h"
+#import "UIView+ShowView.h"
+
 
 #endif /* BossBasicDefine_h */

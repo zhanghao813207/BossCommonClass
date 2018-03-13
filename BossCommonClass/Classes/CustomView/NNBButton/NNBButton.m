@@ -7,7 +7,7 @@
 //
 
 #import "NNBButton.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @implementation NNBButton
 
 + (__kindof NNBButton *)buttonWithFrame:(CGRect)frame
@@ -18,7 +18,7 @@
     nnbButton.frame = frame;
     nnbButton.backgroundColor = kHexRGB(0xFF6000);
     [nnbButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    nnbButton.titleLabel.font = NNBRegularFont(16.f);
+    nnbButton.titleLabel.font = BossRegularFont(16.f);
     return nnbButton;
 }
 
@@ -43,7 +43,7 @@
     nnbButton.frame = frame;
     nnbButton.backgroundColor = kHexRGB(0xEEEEEE);
     [nnbButton setTitleColor:kHexRGBA(0x000000, 0.8) forState:UIControlStateNormal];
-    nnbButton.titleLabel.font = NNBRegularFont(16.f);
+    nnbButton.titleLabel.font = BossRegularFont(16.f);
     return nnbButton;
 }
 

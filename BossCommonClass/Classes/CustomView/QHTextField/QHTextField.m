@@ -7,7 +7,7 @@
 //
 
 #import "QHTextField.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface QHTextField()<UITextFieldDelegate>
 
@@ -118,7 +118,7 @@
     NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:placeHolder];
     
     //设置字体格式和大小
-    [attriStr addAttribute:NSFontAttributeName value:NNBFont(fontSize) range:NSMakeRange(0, [placeHolder length])];
+    [attriStr addAttribute:NSFontAttributeName value:BossFont(fontSize) range:NSMakeRange(0, [placeHolder length])];
     
     //设置字体颜色
     [attriStr addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, [placeHolder length])];
@@ -143,7 +143,7 @@
     NSMutableAttributedString *attributePlaceHolder = [self.textField.attributedPlaceholder mutableCopy];
     NSString *placeHolder = self.placeHolder;
     //设置字体格式和大小
-    [attributePlaceHolder addAttribute:NSFontAttributeName value:NNBFont(fontSize) range:NSMakeRange(0, [placeHolder length])];
+    [attributePlaceHolder addAttribute:NSFontAttributeName value:BossFont(fontSize) range:NSMakeRange(0, [placeHolder length])];
     self.textField.attributedPlaceholder = [attributePlaceHolder copy];
 }
 
@@ -303,7 +303,7 @@
         _textField.backgroundColor = [UIColor clearColor];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = [UIColor blackColor];
-        _textField.font = NNBFont(16);
+        _textField.font = BossFont(16);
         _textField.textAlignment = NSTextAlignmentLeft;
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }

@@ -10,7 +10,7 @@
 #import "QHErrorView.h"
 #import "UIImage+Category.h"
 #import "UIImage+Category.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface NNBUploadManager()
 @property (nonatomic, strong) QNUploadManager *upLoader;
@@ -37,7 +37,7 @@
     
     [self.upLoader putData:data key:key token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (info.error) {
-            [[[QHErrorView alloc] initWithTitle:@"图片上传失败，请稍后重试"] showInView:[NNBSimpleToolClass getCurrentVC].view];
+            [[[QHErrorView alloc] initWithTitle:@"图片上传失败，请稍后重试"] showInView:[JYCSimpleToolClass getCurrentVC].view];
         } else {
             if (complete) {
                 complete(info,key,resp);

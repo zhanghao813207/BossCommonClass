@@ -8,7 +8,7 @@
 
 #import "QHScanManager.h"
 #import <AVFoundation/AVFoundation.h>
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 typedef void(^ResultBlock)(NSArray<NSString *> *resultStrs);
 

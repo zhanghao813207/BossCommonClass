@@ -8,7 +8,8 @@
 
 #import "NNBBottomAlertView.h"
 #import "JYCAlertView.h"
-#import "NNBBasicDefine.h"
+#import "NNBButton.h"
+#import "BossBasicDefine.h"
 @interface NNBBottomAlertView()<JYCAlertViewDatasource>
 
 @property (nonatomic, strong) JYCAlertView *alertView;
@@ -233,7 +234,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 187, self.width, 16)];
         _nameLabel.text = self.name ? : @"";
-        _nameLabel.font = NNBBlodFont(16.f);
+        _nameLabel.font = BossBlodFont(16.f);
         _nameLabel.textColor = kHexRGBA(0x00000, 0.87);
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -246,7 +247,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, self.alertContentView.height - 44)];
         _titleLabel.textColor = kHexRGB(0xFF6000);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = NNBBlodFont(25.f);
+        _titleLabel.font = BossBlodFont(25.f);
         _titleLabel.text = self.title;
         _titleLabel.numberOfLines = 0;
     }
@@ -258,7 +259,7 @@
     if (!_subTitleLabel) {
         _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 192, self.width, 18)];
         _subTitleLabel.text = self.subTitle ? : @"";
-        _subTitleLabel.font = NNBBlodFont(18.f);
+        _subTitleLabel.font = BossBlodFont(18.f);
         _subTitleLabel.textColor = kHexRGBA(0x00000, 1.0);
         _subTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -271,7 +272,7 @@
         _leftNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.nameLabel.frame) + 20, self.width / 2.0, 12)];
         _leftNoticeLabel.text = @"货品袋数（袋）";
         _leftNoticeLabel.textColor = kHexRGBA(0x000000, 0.3);
-        _leftNoticeLabel.font = NNBRegularFont(12.f);
+        _leftNoticeLabel.font = BossRegularFont(12.f);
         _leftNoticeLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _leftNoticeLabel;
@@ -283,7 +284,7 @@
         _rightNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width / 2.0, CGRectGetMaxY(self.nameLabel.frame) + 20, self.width / 2.0, 12)];
         _rightNoticeLabel.text = @"商品数量（件）";
         _rightNoticeLabel.textColor = kHexRGBA(0x000000, 0.3);
-        _rightNoticeLabel.font = NNBRegularFont(12.f);
+        _rightNoticeLabel.font = BossRegularFont(12.f);
         _rightNoticeLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _rightNoticeLabel;
@@ -295,7 +296,7 @@
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.leftNoticeLabel.frame) + 20, self.width / 2.0, 42)];
         _leftTitleLabel.text = self.leftTitle;
         _leftTitleLabel.textColor = kHexRGBA(0x000000, 0.8);
-        _leftTitleLabel.font = NNBRegularFont(30.f);
+        _leftTitleLabel.font = BossRegularFont(30.f);
         _leftTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _leftTitleLabel;
@@ -307,7 +308,7 @@
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width / 2.0, CGRectGetMaxY(self.leftNoticeLabel.frame) + 20, self.width / 2.0, 42)];
         _rightTitleLabel.text = self.rightTitle;
         _rightTitleLabel.textColor = kHexRGBA(0x000000, 0.8);
-        _rightTitleLabel.font = NNBRegularFont(30.f);
+        _rightTitleLabel.font = BossRegularFont(30.f);
         _rightTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _rightTitleLabel;

@@ -8,7 +8,7 @@
 
 #import "NNBLoadingView.h"
 #import "JYCAlertView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 #define kCurrentViewWidth (self.bounds.size.width)
 
@@ -68,7 +68,7 @@
     UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(loadingImageView.frame) + kCurrentWidth(10), backGroundView.bounds.size.width, 20)];
     loadingLabel.text = @"加载中";
     loadingLabel.textAlignment = NSTextAlignmentCenter;
-    loadingLabel.font = NNBFont(14.f);
+    loadingLabel.font = BossFont(14.f);
     loadingLabel.textColor = [UIColor whiteColor];
     [backGroundView addSubview:loadingLabel];
     return backGroundView;

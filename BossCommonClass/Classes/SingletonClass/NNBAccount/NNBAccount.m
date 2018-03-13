@@ -7,7 +7,7 @@
 //
 
 #import "NNBAccount.h"
-#import "NNBWhiteNavigationController.h"
+#import "BossWhiteNavigationController.h"
 #import "LoginVC.h"
 
 @interface NNBAccount()
@@ -129,7 +129,7 @@ static NNBAccount *defaultAccount = nil;
     if ([viewController isKindOfClass:[UIViewController class]]) {
         LoginVC *loginVC = [[LoginVC alloc] init];
         loginVC.loginSuccessBlock = success;
-        NNBWhiteNavigationController *loginNC = [[NNBWhiteNavigationController alloc] initWithRootViewController:loginVC];
+        BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
         [viewController.navigationController presentViewController:loginNC animated:YES completion:nil];
     }
 }

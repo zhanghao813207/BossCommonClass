@@ -7,7 +7,7 @@
 //
 
 #import "CodeView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface CodeView()<UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *textArray;
@@ -37,10 +37,10 @@
             codeTextField.textAlignment = NSTextAlignmentCenter;
             codeTextField.delegate = self;
             codeTextField.tag = 1000 + i;
-            codeTextField.font = NNBBlodFont(25.f);
+            codeTextField.font = BossBlodFont(25.f);
             codeTextField.textColor = kHexRGBA(0x000000, 0.8);
             codeTextField.keyboardType = UIKeyboardTypeNumberPad;
-            codeTextField.tintColor = kMainColor;
+            codeTextField.tintColor = kAppMainColor;
             [self addSubview:codeTextField];
             [self.textArray addObject:codeTextField];
         }

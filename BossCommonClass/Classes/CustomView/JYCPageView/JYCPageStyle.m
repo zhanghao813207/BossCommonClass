@@ -1,20 +1,20 @@
 //
 //  JYCPageStyle.m
-//  NNBarKnight
+//  BossarKnight
 //
 //  Created by 贾远潮 on 2017/9/20.
 //  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "JYCPageStyle.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @implementation JYCPageStyle
 
 - (UIColor *)selectColor
 {
     if (!_selectColor) {
-        _selectColor = kMainColor;
+        _selectColor = kAppMainColor;
     }
     return _selectColor;
 }
@@ -30,7 +30,7 @@
 - (UIFont *)titleFont
 {
     if (!_titleFont) {
-        _titleFont = NNBRegularFont(14.f);
+        _titleFont = BossRegularFont(14.f);
     }
     return _titleFont;
 }

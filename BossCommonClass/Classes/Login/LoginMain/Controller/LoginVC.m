@@ -11,7 +11,8 @@
 #import "InputCodeView.h"
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
+#import "UIView+ShowView.h"
 
 @interface LoginVC ()<InputCodeViewDelegate>
 

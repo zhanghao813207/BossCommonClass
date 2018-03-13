@@ -29,7 +29,7 @@
                                @"mobile":phoneNumber,
                                @"verify_code":authCode
                                };
-    [NNBBasicRequest postLoginJsonWithUrl:NNBBasicURL parameters:paramDic CMD:@"auth.account.login" success:^(id responseObject) {
+    [NNBBasicRequest postLoginJsonWithUrl:BossBasicURL parameters:paramDic CMD:@"auth.account.login" success:^(id responseObject) {
         if ([self saveAccountInfoWithAccountDic:responseObject]) {
             if (successBlock) {
                 successBlock(kCurrentAccount);

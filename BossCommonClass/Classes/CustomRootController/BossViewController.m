@@ -6,31 +6,62 @@
 //
 
 #import "BossViewController.h"
+#import "UINavigationBar+BackgroundColor.h"
+#import "BossBasicDefine.h"
+@interface BossViewController ()<UIGestureRecognizerDelegate>
 
-@interface BossViewController ()
+@property (nonatomic, strong) UITapGestureRecognizer *packKeybordTap;
 
 @end
 
 @implementation BossViewController
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //取消view的编辑状态
+    [self.view endEditing:YES];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = kBossBGColor;
+    self.packUpKeybordEnable = YES;
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITapGestureRecognizer *)packKeybordTap
+{
+    if (!_packKeybordTap) {
+        _packKeybordTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditing:)];
+        _packKeybordTap.delegate = self;
+    }
+    return _packKeybordTap;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setPackUpKeybordEnable:(BOOL)packUpKeybordEnable
+{
+    _packUpKeybordEnable = packUpKeybordEnable;
+    if (packUpKeybordEnable) {
+        [self.view addGestureRecognizer:self.packKeybordTap];
+    } else {
+        if (_packKeybordTap) {
+            [self.view removeGestureRecognizer:self.packKeybordTap];
+        }
+    }
 }
-*/
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - tap gestureRecognizer action method
+- (void)endEditing:(UITapGestureRecognizer *)tap {
+    
+    [self.view endEditing:YES];
+}
+
 
 @end

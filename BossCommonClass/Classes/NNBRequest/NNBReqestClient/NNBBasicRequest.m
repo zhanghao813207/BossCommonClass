@@ -10,7 +10,7 @@
 #import "NNBRequestManager.h"
 #import "QHErrorView.h"
 #import "NNBResponseModel.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @implementation NNBBasicRequest
 
@@ -29,10 +29,10 @@
         if (dic[@"err_code"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIView *showView;
-                if ([NNBSimpleToolClass getCurrentVC].parentViewController) {
-                    showView = [NNBSimpleToolClass getCurrentVC].parentViewController.view;
+                if ([JYCSimpleToolClass getCurrentVC].parentViewController) {
+                    showView = [JYCSimpleToolClass getCurrentVC].parentViewController.view;
                 } else {
-                    showView = [NNBSimpleToolClass getCurrentVC].view;
+                    showView = [JYCSimpleToolClass getCurrentVC].view;
                 }
                 [[[QHErrorView alloc] initWithTitle:dic[@"zh_message"] ? : @"未知错误"] showInView:showView];
             });
@@ -47,10 +47,10 @@
     } fail:^(id error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIView *showView;
-            if ([NNBSimpleToolClass getCurrentVC].parentViewController) {
-                showView = [NNBSimpleToolClass getCurrentVC].parentViewController.view;
+            if ([JYCSimpleToolClass getCurrentVC].parentViewController) {
+                showView = [JYCSimpleToolClass getCurrentVC].parentViewController.view;
             } else {
-                showView = [NNBSimpleToolClass getCurrentVC].view;
+                showView = [JYCSimpleToolClass getCurrentVC].view;
             }
             [[[QHErrorView alloc] initWithTitle:@"网络连接错误"] showInView:showView];
         });
@@ -77,10 +77,10 @@
             NSLog(@"dic = %@",dic);
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIView *showView;
-                if ([NNBSimpleToolClass getCurrentVC].parentViewController) {
-                    showView = [NNBSimpleToolClass getCurrentVC].parentViewController.view;
+                if ([JYCSimpleToolClass getCurrentVC].parentViewController) {
+                    showView = [JYCSimpleToolClass getCurrentVC].parentViewController.view;
                 } else {
-                    showView = [NNBSimpleToolClass getCurrentVC].view;
+                    showView = [JYCSimpleToolClass getCurrentVC].view;
                 }
                 [showView showStatus:dic[@"zh_message"] ? : @"未知错误"];
                 if (fail) {
@@ -95,10 +95,10 @@
     } fail:^(id error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIView *showView;
-            if ([NNBSimpleToolClass getCurrentVC].parentViewController) {
-                showView = [NNBSimpleToolClass getCurrentVC].parentViewController.view;
+            if ([JYCSimpleToolClass getCurrentVC].parentViewController) {
+                showView = [JYCSimpleToolClass getCurrentVC].parentViewController.view;
             } else {
-                showView = [NNBSimpleToolClass getCurrentVC].view;
+                showView = [JYCSimpleToolClass getCurrentVC].view;
             }
             [showView showStatus:@"网络连接错误"];
             if (fail) {
@@ -178,10 +178,10 @@
     responseModel.code = [NSString stringWithFormat:@"%ld",(long)errorCode];
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView *showView;
-        if ([NNBSimpleToolClass getCurrentVC].parentViewController) {
-            showView = [NNBSimpleToolClass getCurrentVC].parentViewController.view;
+        if ([JYCSimpleToolClass getCurrentVC].parentViewController) {
+            showView = [JYCSimpleToolClass getCurrentVC].parentViewController.view;
         } else {
-            showView = [NNBSimpleToolClass getCurrentVC].view;
+            showView = [JYCSimpleToolClass getCurrentVC].view;
         }
         [[[QHErrorView alloc] initWithTitle:responseModel.illustrate] showInView:showView];
     });

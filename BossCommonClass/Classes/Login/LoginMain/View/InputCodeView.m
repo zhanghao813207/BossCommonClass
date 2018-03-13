@@ -9,7 +9,7 @@
 #import "InputCodeView.h"
 #import "CodeView.h"
 #import "CountdownView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 CGFloat const kInputCodeViewHeight = 242;
 
 @interface InputCodeView()<CountdownViewDelegate>
@@ -121,7 +121,7 @@ CGFloat const kInputCodeViewHeight = 242;
         CGFloat y = IsPhone_Size_4 ? 8 : 18;
         _sendPhoneNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, kScreenWidth - 40, 16)];
         _sendPhoneNumberLabel.textColor = kHexRGBA(0x000000, 0.4);
-        _sendPhoneNumberLabel.font = NNBRegularFont(16.f);
+        _sendPhoneNumberLabel.font = BossRegularFont(16.f);
     }
     return _sendPhoneNumberLabel;
 }
@@ -130,7 +130,7 @@ CGFloat const kInputCodeViewHeight = 242;
 {
     if (!_inputCodeNoticeLabel) {
         _inputCodeNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.sendPhoneNumberLabel.frame) + 10, kScreenWidth - 40, 22)];
-        _inputCodeNoticeLabel.font = NNBRegularFont(16.f);
+        _inputCodeNoticeLabel.font = BossRegularFont(16.f);
         _inputCodeNoticeLabel.textColor = kHexRGBA(0x000000, 0.2);
         _inputCodeNoticeLabel.text = @"输入验证码";
     }
@@ -171,7 +171,7 @@ CGFloat const kInputCodeViewHeight = 242;
         CGFloat y = IsPhone_Size_4 ? CGRectGetMaxY(self.codeView.frame) + 60 : CGRectGetMaxY(self.codeView.frame) + 105;
         _voiceCodeButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _voiceCodeButton.frame = CGRectMake(20, y, kScreenWidth - 40, 14);
-        _voiceCodeButton.titleLabel.font = NNBRegularFont(14.f);
+        _voiceCodeButton.titleLabel.font = BossRegularFont(14.f);
         [_voiceCodeButton setTitle:@"收不到验证码？试一试语音验证码" forState:UIControlStateNormal];
         [_voiceCodeButton setTitleColor:kHexRGB(0x000000) forState:UIControlStateNormal];
         [_voiceCodeButton setImage:[[UIImage imageNamed:@"voiceIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];

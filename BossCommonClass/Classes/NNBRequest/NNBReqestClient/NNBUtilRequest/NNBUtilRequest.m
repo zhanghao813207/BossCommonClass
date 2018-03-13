@@ -8,7 +8,7 @@
 
 #import "NNBUtilRequest.h"
 #import "NNBBasicRequest.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @implementation NNBUtilRequest
 
 /**
@@ -23,8 +23,8 @@
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@",NNBBasicURL];
-    NSLog(@"%@",NNBBasicURL);
+    NSString *url = [NSString stringWithFormat:@"%@",BossBasicURL];
+    NSLog(@"%@",BossBasicURL);
     NSDictionary *paraDic = @{
                               @"mobile":phoneNumber,
                               @"type":@(smsType)
@@ -53,7 +53,7 @@
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@",NNBBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@",BossBasicURL];
     NSDictionary *paraDic = @{
                               @"mobile":phoneNumber,
                               @"type":@(smsType)
@@ -78,11 +78,12 @@
  */
 + (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock
 {
-    NSString *path = [NNBSimpleToolClass qiniuPathWithOperateType:operateType];
+//    NSString *path = [JYCSimpleToolClass qiniuPathWithOperateType:operateType];
+    NSString *path = @"";
     NSDictionary *paramDic = @{
                                @"path":path,
                                };
-    [NNBBasicRequest postJsonWithUrl:NNBBasicURL parameters:paramDic CMD:@"io.qiniu.get_token" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURL parameters:paramDic CMD:@"io.qiniu.get_token" success:^(id responseObject) {
         if (successBlock) {
             successBlock(responseObject[@"qiniu_path"], responseObject[@"qiniu_token"]);
         }

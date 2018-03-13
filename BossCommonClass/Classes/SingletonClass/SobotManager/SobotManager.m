@@ -8,7 +8,7 @@
 
 #import "SobotManager.h"
 #import <SobotKit/SobotKit.h>
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface SobotManager()
 
@@ -56,21 +56,21 @@
      */
     
     //顶部导航条标题文字 评价标题文字 系统相册标题文字 评价客服（立即结束 取消）按钮文字
-    kitInfo.titleFont = NNBFont(18.f);
+    kitInfo.titleFont = BossFont(18.f);
     
     //返回按钮 输入框文字 评价客服是否有以下情况 label 文字 提价评价按钮
-    kitInfo.listTitleFont = NNBFont(16.f);
+    kitInfo.listTitleFont = BossFont(16.f);
     
     //没有网络提醒的button 没有更多记录label的文字 语音输入的按钮文字 评价不满意（4个button）文字
     
     //占位图片的lablel文字 语音输入时间label文字 语音tipLabel的文字 voiceButton标题文字
-    kitInfo.listDetailFont = NNBFont(14.f);
+    kitInfo.listDetailFont = BossFont(14.f);
     
     //消息提醒 （转人工、客服接待等）
-    kitInfo.listTimeFont = NNBFont(14.f);
+    kitInfo.listTimeFont = BossFont(14.f);
     
     //聊天气泡中的文字
-    kitInfo.chatFont = NNBFont(16.f);
+    kitInfo.chatFont = BossFont(16.f);
     
     //聊天的背景颜色
     kitInfo.backgroundColor = kHexRGB(0xeaeff7);

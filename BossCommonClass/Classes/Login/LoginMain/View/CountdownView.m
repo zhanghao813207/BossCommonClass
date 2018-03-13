@@ -7,7 +7,7 @@
 //
 
 #import "CountdownView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface CountdownView ()
 
 @property (nonatomic, assign) NSInteger countTime;
@@ -144,7 +144,7 @@
     if (_sendMsgButton == nil) {
         _sendMsgButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendMsgButton.frame = CGRectMake((self.width - 90) / 2.0, (self.height - 30) / 2.0, 90, 30);
-        _sendMsgButton.titleLabel.font = NNBRegularFont(14.f);
+        _sendMsgButton.titleLabel.font = BossRegularFont(14.f);
         _sendMsgButton.layer.cornerRadius = 4.f;
 //        _sendMsgButton.layer.masksToBounds = YES;
         [_sendMsgButton addTarget:self action:@selector(clickTheCountDownButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -156,7 +156,7 @@
 {
     if (!_countDownLabel) {
         _countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.height - 49) / 2.0, self.width, 49)];
-        _countDownLabel.font = NNBRegularFont(35.f);
+        _countDownLabel.font = BossRegularFont(35.f);
         _countDownLabel.textColor = kHexRGBA(0x000000, 0.6);
         _countDownLabel.textAlignment = NSTextAlignmentCenter;
     }

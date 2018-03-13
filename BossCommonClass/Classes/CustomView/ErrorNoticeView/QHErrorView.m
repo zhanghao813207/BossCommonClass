@@ -7,7 +7,7 @@
 //
 
 #import "QHErrorView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface QHErrorView ()
 @property (nonatomic, strong) UILabel *msgLabel;
@@ -33,7 +33,7 @@
             _msgLabel.textColor = kHexRGB(0x262626);
         }
         
-        _msgLabel.font = NNBFont(16);
+        _msgLabel.font = BossFont(16);
         _msgLabel.textAlignment = NSTextAlignmentCenter;
         _msgLabel.text = errorMsg;
         [self addSubview:_msgLabel];
@@ -118,7 +118,7 @@
         _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44, [UIScreen mainScreen].bounds.size.width, 35)];
         _msgLabel.backgroundColor = kHexRGB(0x1C2227);
         _msgLabel.textColor = [UIColor whiteColor];
-        _msgLabel.font = NNBFont(16);
+        _msgLabel.font = BossFont(16);
         _msgLabel.textAlignment = NSTextAlignmentCenter;
         _msgLabel.text = string;
         _msgLabel.numberOfLines = 0;

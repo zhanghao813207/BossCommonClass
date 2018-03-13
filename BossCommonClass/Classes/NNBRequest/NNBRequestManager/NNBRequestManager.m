@@ -7,9 +7,9 @@
 //
 
 #import "NNBRequestManager.h"
-#import "QHAES256.h"
+#import "JYCAES256.h"
 #import "NSDate+Helper.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 float const kNetworkTimeoutInterval = 30.0f;
 
 @interface NNBRequestManager ()
@@ -94,7 +94,7 @@ static NNBRequestManager *sharedManager = nil;
 - (void)addTokenWithCMD:(NSString *)cmd
 {
     int date = (int)[[NSDate date] timeIntervalSince1970];
-    [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[NNBSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
+    [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[JYCSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
     if (cmd) {
         [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"nnbar.%@",cmd] forHTTPHeaderField:@"X-CMD"];
     }
@@ -111,13 +111,13 @@ static NNBRequestManager *sharedManager = nil;
 
 // AUTH请求方式 hMD5加密
 + (NSString *)headAuthStr:(int)date{
-    NSString *str = [NNBSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%d",[NNBSimpleToolClass getUUID],date]];
+    NSString *str = [JYCSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%d",[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 
 // TOKEN请求方式 hMD5加密
 + (NSString *)headTokenStr:(int)date {
-    NSString *str = [NNBSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.APP_ACCESS_TOKEN,[NNBSimpleToolClass getUUID],date]];
+    NSString *str = [JYCSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.APP_ACCESS_TOKEN,[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 

@@ -8,7 +8,7 @@
 
 #import "JYCTitleView.h"
 #import "JYCContentView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface JYCTitleView ()
 {

@@ -8,7 +8,7 @@
 
 #import "NNBLoadStatusView.h"
 #import "JYCAlertView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface NNBLoadStatusView()<JYCAlertViewDatasource>
 
 @property (nonatomic, strong) JYCAlertView *alertView;
@@ -70,7 +70,7 @@
     CGSize size = CGSizeMake(0, 0);
     if (title && ![title isEqualToString:@""]) {
         CGFloat labelMaxWidth = success ? kScreenWidth * 2 / 3.0 - 16 - 50 - 5 : kScreenWidth * 2 / 3.0 - 50;
-        size = [title sizeOfStringWithFont:NNBRegularFont(16.f) maxSize:CGSizeMake(labelMaxWidth, 200)];
+        size = [title sizeOfStringWithFont:BossRegularFont(16.f) maxSize:CGSizeMake(labelMaxWidth, 200)];
     }
     self.contentView.width = success ? size.width + 16 + 50 + 5 : size.width + 50;
     self.contentView.height = size.height > 0 ? size.height + 13 : 35;
@@ -132,7 +132,7 @@
 {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] init];
-        _statusLabel.font = NNBRegularFont(16.f);
+        _statusLabel.font = BossRegularFont(16.f);
         _statusLabel.textColor = kHexRGB(0x000000);
         _statusLabel.numberOfLines = 0;
     }

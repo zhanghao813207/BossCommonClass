@@ -8,7 +8,7 @@
 
 #import "NNBStatusView.h"
 #import "JYCAlertView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 
 @interface NNBStatusView()<JYCAlertViewDatasource>
 
@@ -71,7 +71,7 @@
 - (void)layoutWithTitle:(NSString *)title success:(BOOL)success
 {
     CGFloat labelMaxWidth = success ? kScreenWidth * 2 / 3.0 - 14 - 30 : kScreenWidth * 2 / 3.0 - 20;
-    CGSize size = [title sizeOfStringWithFont:NNBRegularFont(14.f) maxSize:CGSizeMake(labelMaxWidth, 200)];
+    CGSize size = [title sizeOfStringWithFont:BossRegularFont(14.f) maxSize:CGSizeMake(labelMaxWidth, 200)];
     self.contentView.width = success ? size.width + 14 + 30 : size.width + 20;
     self.contentView.height = size.height + 10;
     self.contentView.center = self.center;
@@ -122,7 +122,7 @@
 {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] init];
-        _statusLabel.font = NNBRegularFont(14.f);
+        _statusLabel.font = BossRegularFont(14.f);
         _statusLabel.textColor = [UIColor whiteColor];
         _statusLabel.numberOfLines = 0;
     }

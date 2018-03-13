@@ -9,4 +9,9 @@
 
 @interface BossViewController : UIViewController
 
+/**
+ 是否点击屏幕收起键盘 默认可以收起
+ */
+@property (nonatomic, assign) BOOL packUpKeybordEnable;
+
 @end

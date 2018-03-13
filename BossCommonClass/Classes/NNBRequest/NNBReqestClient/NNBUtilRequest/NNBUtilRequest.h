@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface NNBUtilRequest : NSObject
 
 /**

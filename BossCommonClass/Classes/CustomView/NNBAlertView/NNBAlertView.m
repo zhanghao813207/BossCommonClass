@@ -8,7 +8,7 @@
 
 #import "NNBAlertView.h"
 #import "JYCAlertView.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface NNBAlertView()<JYCAlertViewDatasource>
 
 @property (nonatomic, strong) JYCAlertView *alertView;
@@ -106,7 +106,7 @@
                 UILabel *dontLeaveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, BGView.width, 30)];
                 dontLeaveLabel.text = @"请不要离开微仓";
                 dontLeaveLabel.textColor = kHexRGB(0xFF000A);
-                dontLeaveLabel.font = NNBBlodFont(30);
+                dontLeaveLabel.font = BossBlodFont(30);
                 dontLeaveLabel.textAlignment = NSTextAlignmentCenter;
                 [BGView addSubview:dontLeaveLabel];
                 
@@ -117,7 +117,7 @@
                     waitLabel.text = @"请等候...";
                 }
                 waitLabel.textColor = kHexRGBA(0x000000, 0.6);
-                waitLabel.font = NNBRegularFont(16);
+                waitLabel.font = BossRegularFont(16);
                 waitLabel.textAlignment = NSTextAlignmentCenter;
                 [BGView addSubview:waitLabel];
 
@@ -129,7 +129,7 @@
                 refreshButton.frame = CGRectMake(0, 113, BGView.width, 41);
                 [refreshButton setTitle:@"刷新查看" forState:UIControlStateNormal];
                 [refreshButton setTitleColor:kHexRGB(0xFF6000) forState:UIControlStateNormal];
-                refreshButton.titleLabel.font = NNBBlodFont(14.f);
+                refreshButton.titleLabel.font = BossBlodFont(14.f);
                 [refreshButton addTarget:self action:@selector(refreshButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 [BGView addSubview:refreshButton];
                 break;
@@ -146,14 +146,14 @@
                     UILabel *dontLeaveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, BGView.width, 30)];
                     dontLeaveLabel.text = @"微仓已通过";
                     dontLeaveLabel.textColor = kHexRGB(0x67B412);
-                    dontLeaveLabel.font = NNBBlodFont(30);
+                    dontLeaveLabel.font = BossBlodFont(30);
                     dontLeaveLabel.textAlignment = NSTextAlignmentCenter;
                     [BGView addSubview:dontLeaveLabel];
                     
                     UILabel *waitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(dontLeaveLabel.frame) + 10, BGView.width, 22)];
                     waitLabel.text = @"请前往门店";
                     waitLabel.textColor = kHexRGBA(0x000000, 0.6);
-                    waitLabel.font = NNBRegularFont(16);
+                    waitLabel.font = BossRegularFont(16);
                     waitLabel.textAlignment = NSTextAlignmentCenter;
                     [BGView addSubview:waitLabel];
                 } else {
@@ -166,14 +166,14 @@
                     UILabel *dontLeaveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, BGView.width, 30)];
                     dontLeaveLabel.text = @"微仓已清点完退货";
                     dontLeaveLabel.textColor = kHexRGB(0x67B412);
-                    dontLeaveLabel.font = NNBBlodFont(30);
+                    dontLeaveLabel.font = BossBlodFont(30);
                     dontLeaveLabel.textAlignment = NSTextAlignmentCenter;
                     [BGView addSubview:dontLeaveLabel];
                     
                     UILabel *waitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(dontLeaveLabel.frame) + 10, BGView.width, 22)];
                     waitLabel.text = @"请查看并签收";
                     waitLabel.textColor = kHexRGBA(0x000000, 0.6);
-                    waitLabel.font = NNBRegularFont(16);
+                    waitLabel.font = BossRegularFont(16);
                     waitLabel.textAlignment = NSTextAlignmentCenter;
                     [BGView addSubview:waitLabel];
                     
@@ -185,7 +185,7 @@
                     countingButton.frame = CGRectMake(0, 113, BGView.width, 41);
                     [countingButton setTitle:@"查看结果并签收" forState:UIControlStateNormal];
                     [countingButton setTitleColor:kHexRGB(0xFF6000) forState:UIControlStateNormal];
-                    countingButton.titleLabel.font = NNBBlodFont(14.f);
+                    countingButton.titleLabel.font = BossBlodFont(14.f);
                     [countingButton addTarget:self action:@selector(signButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                     [BGView addSubview:countingButton];
                 }
@@ -203,14 +203,14 @@
                 UILabel *dontLeaveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, BGView.width, 30)];
                 dontLeaveLabel.text = @"微仓已驳回";
                 dontLeaveLabel.textColor = kHexRGB(0xFF000A);
-                dontLeaveLabel.font = NNBBlodFont(30);
+                dontLeaveLabel.font = BossBlodFont(30);
                 dontLeaveLabel.textAlignment = NSTextAlignmentCenter;
                 [BGView addSubview:dontLeaveLabel];
                 
                 UILabel *waitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(dontLeaveLabel.frame) + 10, BGView.width, 22)];
                 waitLabel.text = @"请重新清点货品";
                 waitLabel.textColor = kHexRGBA(0x000000, 0.6);
-                waitLabel.font = NNBRegularFont(16);
+                waitLabel.font = BossRegularFont(16);
                 waitLabel.textAlignment = NSTextAlignmentCenter;
                 [BGView addSubview:waitLabel];
                 
@@ -222,7 +222,7 @@
                 countingButton.frame = CGRectMake(0, 113, BGView.width, 41);
                 [countingButton setTitle:@"开始清点" forState:UIControlStateNormal];
                 [countingButton setTitleColor:kHexRGB(0xFF6000) forState:UIControlStateNormal];
-                countingButton.titleLabel.font = NNBBlodFont(14.f);
+                countingButton.titleLabel.font = BossBlodFont(14.f);
                 [countingButton addTarget:self action:@selector(countingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 [BGView addSubview:countingButton];
                 break;

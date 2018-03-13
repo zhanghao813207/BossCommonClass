@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ProviderModel.h"
 #import "AccountInfoModel.h"
-#import "NNBBasicDefine.h"
+#import "BossBasicDefine.h"
 @interface NNBAccount : NSObject
 
 + (__kindof NNBAccount *)defaultAccount;
