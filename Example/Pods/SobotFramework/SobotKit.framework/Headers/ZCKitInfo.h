@@ -7,6 +7,32 @@
 //
 #import "ZCLibInitInfo.h"
 
+
+
+////////////////////////////////////////////////////////////////
+// 自定义回调）
+////////////////////////////////////////////////////////////////
+@protocol ZCReceivedMessageDelegate <NSObject>
+
+/**
+ *  未读消息数获取
+ *
+ *  @param object 当前消息
+ *  @param nleft  未读消息数
+ */
+-(void)onReceivedMessage:(id) message unRead:(int) nleft;
+
+@end
+
+/**
+ *  未读消息数，block方式获取
+ *
+ *  @param message 当前消息
+ *  @param nleft   未读消息数
+ */
+typedef void(^ReceivedMessageBlock)(id message,int nleft);
+
+
 /**
  *  配置初始化自定义类
  *  自定义字体（可选） 自定义背景、边框线颜色（可选） 初始化必须参数（ZCLibInitInfo）
@@ -20,9 +46,77 @@
 
 
 /**
+ *  接口域名
+ */
+@property(nonatomic,strong) NSString *apiHost;
+
+
+/**
+ *  是否保持会话，默认NO,点击返回直接断开会话链接
+ */
+@property (nonatomic,assign) BOOL    isKeepSession;
+
+
+/**
+ *  自定义关闭的时候是否推送满意度评价
+ *  默认为N0;
+ *
+ */
+@property (nonatomic,assign) BOOL    isShowEvaluate;
+
+/**
  *  机器人优先模式，是否直接显示转人工按钮(值为NO时，会在机器人无法回答时显示转人工按钮)，默认，YES
  */
 @property (nonatomic,assign) BOOL    isShowTansfer;
+
+/**
+ *  机器人优先模式，通过记录机器人未知说辞的次数设置是否直接显示转人工按钮
+ *  默认 0次。
+ */
+@property (nonatomic,strong) NSString *unWordsCount;
+
+/**
+ *  技能组编号
+ *  null
+ *  根据传递的值转接到对应的技能组,不传不起作用
+ */
+@property (nonatomic,strong) NSString   *skillSetId;
+
+/**
+ *  技能组名称(同一个技能组，不同名称是需要)
+ *  null
+ */
+@property (nonatomic,strong) NSString   *skillSetName;
+
+/**
+ *  是否开启语音功能
+ *  默认开启
+ */
+@property (nonatomic,assign) BOOL    isOpenRecord;
+
+////////////////////////////////////////////////////////////////
+// 自定义咨询内容，在转接人工成功时，方便用户发送自己咨询的信息，（可选）
+////////////////////////////////////////////////////////////////
+
+/**
+ *  图片URL null
+ */
+@property(nonatomic,strong) NSString *goodsImage;
+
+/**
+ *  标题，如果要显示必须填写
+ *  not null
+ */
+@property(nonatomic,strong) NSString *goodsTitle;
+
+/**
+ *  发送给客服的内容，如果要显示必须填写
+ *  not null
+ */
+@property(nonatomic,strong) NSString *goodsSendText;
+
+
+
 
 ////////////////////////////////////////////////////////////////
 // 自定义字体，（可选）
@@ -53,6 +147,10 @@
  */
 @property (nonatomic,strong) UIFont    *chatFont;
 
+/**
+ *  录音按钮的文字
+ */
+@property (nonatomic,strong) UIFont    *voiceButtonFont;
 
 
 ////////////////////////////////////////////////////////////////
@@ -69,6 +167,20 @@
  *
  */
 @property (nonatomic,strong) UIColor    *customBannerColor;
+
+
+/**
+ *  相册导航栏的颜色
+ *
+ */
+@property (nonatomic,strong) UIColor   *imagePickerColor;
+
+/**
+ *  相册导航栏的标题颜色
+ *
+ */
+@property (nonatomic,strong) UIColor  *imagePickerTitleColor;
+
 
 /**
  *  左边聊天气泡颜色
@@ -92,14 +204,24 @@
 @property (nonatomic,strong) UIColor    *bottomLineColor;
 
 /**
- *  评价普通按钮颜色(默认跟随主题色customBannerColor)
+ *  评价普通按钮选中背景颜色和边框(默认跟随主题色customBannerColor)
  */
-@property (nonatomic,strong) UIColor    *commentButtonBgColor;
+@property (nonatomic,strong) UIColor    *commentOtherButtonBgColor;
 
 /**
- *  评价提交按钮颜色(默认跟随主题色customBannerColor)
+ *  评价(立即结束、取消)按钮文字颜色(默认跟随主题色customBannerColor)
  */
 @property (nonatomic,strong) UIColor    *commentCommitButtonColor;
+
+/**
+ * 评价提交按钮背景颜色和边框(默认跟随主题色customBannerColor)
+ */
+@property (nonatomic,strong) UIColor    *commentCommitButtonBgColor;
+
+/**
+ *  评价提交按钮点击后背景色，默认0x089899, 0.95
+ */
+@property (nonatomic,strong) UIColor    *commentCommitButtonBgHighColor;
 
 
 /**
@@ -109,9 +231,15 @@
 
 
 
+
 ////////////////////////////////////////////////////////////////
 // 自定义文字颜色，（可选）
 ////////////////////////////////////////////////////////////////
+
+/**
+ *  提价评价按钮的文字颜色
+ */
+@property (nonatomic,strong) UIColor    *submitEvaluationColor;
 
 /**
  *  顶部文字颜色
@@ -144,5 +272,31 @@
  */
 @property (nonatomic,strong) UIColor    *serviceNameTextColor;
 
+/**
+ *  提示cell中客服昵称的文字颜色
+ */
+@property (nonatomic,strong) UIColor    *nickNameTextColor;
+
+
+/**
+ *  左边气泡中的链接颜色
+ */
+@property (nonatomic,strong) UIColor   *chatLeftLinkColor;
+
+
+/**
+ *  右边气泡中的链接颜色
+ */
+@property(nonatomic,strong) UIColor    *chatRightLinkColor;
+
+
+/**
+ *  是否设置相册背景图片
+ */
+@property (nonatomic ,assign) BOOL    isSetPhotoLibraryBgImage;
+
+
+@property (nonatomic,strong) id<ZCReceivedMessageDelegate> delegate;
+@property (nonatomic,strong) ReceivedMessageBlock          receivedBlock;
 
 @end

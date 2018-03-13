@@ -10,27 +10,27 @@
 		</data>
 		<key>Headers/ZCKitInfo.h</key>
 		<data>
-		vOI2MOC8Npk95OEvYOvLgJsK2i8=
+		Xtnrn8RFlT5PlzPwtDa7T4WE5QM=
 		</data>
 		<key>Headers/ZCLibInitInfo.h</key>
 		<data>
-		1Kxw08J52/XpczcIFnt6lx5IpIE=
+		TmvyzUEPz2OKfPy/xr8QJMJ0ev0=
 		</data>
 		<key>Headers/ZCSobot.h</key>
 		<data>
-		Hsx014T2KnbXKbhOkHlf4rPPwCg=
+		m1ntXtLDwFSAXeaIT5ywV3QxETc=
 		</data>
 		<key>Headers/ZCUIBaseController.h</key>
 		<data>
-		4YWMblauF6oMxRRwLMAVvnp8quk=
+		OtKwX40HA+PHiqFpBuZKK/W1poc=
 		</data>
 		<key>Headers/ZCUIChatController.h</key>
 		<data>
-		yUQ6Wo+6qeNRbtK2S/rfSYZjRKo=
+		VdKBglTX6SZm5m8oEK7ADpposxg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		gUcSaaHY8lsx+25WlYJu+GgfJVw=
+		/Pv04YHXIOTrCCQZWZIM/5gCVuQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -40,33 +40,82 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/SobotKit.h</key>
-		<data>
-		F6q3CBowWlARfqelALgBWQzObkQ=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			F6q3CBowWlARfqelALgBWQzObkQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			RPzMrsuiqAPn6yO9Sx3ujt8YtKcigvZ8oWNZsJ4QG3s=
+			</data>
+		</dict>
 		<key>Headers/ZCKitInfo.h</key>
-		<data>
-		vOI2MOC8Npk95OEvYOvLgJsK2i8=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			Xtnrn8RFlT5PlzPwtDa7T4WE5QM=
+			</data>
+			<key>hash2</key>
+			<data>
+			0S6jnUjx6DeNGQ/xzBWmv4mVd3G3bivHMcEFiWoALSU=
+			</data>
+		</dict>
 		<key>Headers/ZCLibInitInfo.h</key>
-		<data>
-		1Kxw08J52/XpczcIFnt6lx5IpIE=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			TmvyzUEPz2OKfPy/xr8QJMJ0ev0=
+			</data>
+			<key>hash2</key>
+			<data>
+			t9tN69/ZZtGTGQYgazUFaQaMAldab1EdMgJeNzHHC5k=
+			</data>
+		</dict>
 		<key>Headers/ZCSobot.h</key>
-		<data>
-		Hsx014T2KnbXKbhOkHlf4rPPwCg=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			m1ntXtLDwFSAXeaIT5ywV3QxETc=
+			</data>
+			<key>hash2</key>
+			<data>
+			OCPwSxucop6W7mHDyml/oCwrhCRjBPjV2dj9okKxKxI=
+			</data>
+		</dict>
 		<key>Headers/ZCUIBaseController.h</key>
-		<data>
-		4YWMblauF6oMxRRwLMAVvnp8quk=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			OtKwX40HA+PHiqFpBuZKK/W1poc=
+			</data>
+			<key>hash2</key>
+			<data>
+			4I0or5ZmnpF1TaITXzYEhWX3TOBriIroDhSi2Y5COQU=
+			</data>
+		</dict>
 		<key>Headers/ZCUIChatController.h</key>
-		<data>
-		yUQ6Wo+6qeNRbtK2S/rfSYZjRKo=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			VdKBglTX6SZm5m8oEK7ADpposxg=
+			</data>
+			<key>hash2</key>
+			<data>
+			dNF4/jgqspiU8vi6lioeJT386MnWcjfdaYGHnbbWzb4=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		jRUTPvbvsk+dRzaOvvoJhbiW6fQ=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			jRUTPvbvsk+dRzaOvvoJhbiW6fQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			+/vfbnUaJxtTO658++KyAvgiOI9NEY3NsaWHwp8Wl2A=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>

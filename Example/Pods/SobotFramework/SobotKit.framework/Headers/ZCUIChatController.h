@@ -10,12 +10,6 @@
 #import "ZCKitInfo.h"
 #import "ZCUIBaseController.h"
 
-/**ZCPageBlockType回调类型*/
-typedef NS_ENUM(NSInteger,ZCPageBlockType) {
-    ZCPageBlockGoBack     = 1,// 点击返回
-    ZCPageBlockLoadFinish = 2,// 加载界面完成，可对UI进行修改
-};
-
 /**
  *  智齿 聊天页面VC
  */
@@ -42,6 +36,18 @@ typedef NS_ENUM(NSInteger,ZCPageBlockType) {
 -(id)initWithInitInfo:(ZCKitInfo *)info;
 
 
+/**
+ *  仅限于对UI大小有自定义的需求使用
+ *
+ *  @param info  初始化参数
+ *  @param width 宽
+ *  @param h     高
+ *
+ *  @return <#return value description#>
+ */
+-(id)initWithInitInfo:(ZCKitInfo *)info width:(CGFloat )width height:(CGFloat) h;
+
+
 
 /**
  *  点击返回后的回调（注意：实现此方法后，sdk不自动实现返回事件）
@@ -57,5 +63,6 @@ typedef NS_ENUM(NSInteger,ZCPageBlockType) {
  *  @return UITextView 
  */
 -(UITextView *)getChatTextView;
+
 
 @end

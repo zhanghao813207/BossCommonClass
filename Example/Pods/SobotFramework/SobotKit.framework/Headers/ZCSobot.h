@@ -17,6 +17,7 @@
  */
 @interface ZCSobot : NSObject
 
+
 /**
  *
  *  启动智齿客服
@@ -29,11 +30,11 @@
 +(void)startZCChatView:(ZCKitInfo *) info
                   with:(UIViewController *) byController
              pageBlock:(void (^)(ZCUIChatController *object,ZCPageBlockType type))pageClick
-      messageLinkClick:(void (^)(NSString *link)) linkBlock;
+      messageLinkClick:(void (^)(NSString *link)) messagelinkBlock;
 
 
 /**
- *  获取系统版本号
+ *  获取SDK版本号
  *
  *  @return 版本号
  */
@@ -48,5 +49,12 @@
 +(NSString *)getChannel;
 
 
+
+/**
+ *  显示日志信息
+ *
+ *  @param isShowDebug 默认不显示
+ */
++(void) setShowDebug:(BOOL) isShowDebug;
 
 @end

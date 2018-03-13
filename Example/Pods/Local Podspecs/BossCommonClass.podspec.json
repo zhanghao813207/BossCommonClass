@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "a common class of boss system",
   "description": "these are common classes,they are used by boss system.",
-  "homepage": "https://github.com/JiaYuanchao/BossCommonClass",
+  "homepage": "https://git.coding.net/J_YC/BossCommonClass",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,7 +12,7 @@
     "JiaYuanchao": "yuanchao__2106@163.com"
   },
   "source": {
-    "git": "https://github.com/JiaYuanchao/BossCommonClass.git",
+    "git": "https://git.coding.net/J_YC/BossCommonClass.git",
     "tag": "0.1.0"
   },
   "platforms": {
@@ -36,7 +36,7 @@
       "~> 3.0.0"
     ],
     "SobotFramework": [
-      "~> 1.3.2"
+      "~> 1.7.0"
     ]
   }
 }

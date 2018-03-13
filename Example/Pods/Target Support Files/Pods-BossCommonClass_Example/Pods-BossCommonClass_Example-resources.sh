@@ -81,9 +81,13 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "SobotFramework/SobotKit.bundle"
+  install_resource "SobotFramework/ZCEmojiExpression.bundle"
+  install_resource "SobotFramework/SobotLocalizable.strings"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "SobotFramework/SobotKit.bundle"
+  install_resource "SobotFramework/ZCEmojiExpression.bundle"
+  install_resource "SobotFramework/SobotLocalizable.strings"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

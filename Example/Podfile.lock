@@ -28,12 +28,12 @@ PODS:
     - BasicCommonClass (~> 0.1.0)
     - BGFMDB (~> 1.51)
     - Qiniu (~> 7.1)
-    - SobotFramework (~> 1.3.2)
+    - SobotFramework (~> 1.7.0)
   - HappyDNS (0.3.12)
   - Qiniu (7.1.8):
     - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
-  - SobotFramework (1.3.2)
+  - SobotFramework (1.7.0)
 
 DEPENDENCIES:
   - BasicCommonClass (~> 0.1.0)
@@ -48,11 +48,11 @@ SPEC CHECKSUMS:
   Baidu-Maps-iOS-SDK: 9aafd9643ee1db4cac04a90ab7290db6c116b46a
   BasicCommonClass: a0132c6eb3728ee47455c25142db6d71394dda4f
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: ce18366a93c13493eae00f4b63d11f0caa62de06
+  BossCommonClass: 0e3326e00d862758a5fd5d20fc7b23ed84d240e8
   HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
   Qiniu: 2f1b9d13904b6a7608a66a2d02c5b7b24575622a
-  SobotFramework: 70137fd14008bf1726a6447f3c41ab7fee2e31b7
+  SobotFramework: 8c657dcb677c8969684069b08fa1a9d07eccf650
 
-PODFILE CHECKSUM: fe358aedddbbdabea6c95879dc4905baa0c28ca9
+PODFILE CHECKSUM: d8e4bc80429c1786cdc6b899e788c7379c8d2eed
 
 COCOAPODS: 1.2.1
