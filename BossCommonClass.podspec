@@ -43,8 +43,4 @@ these are common classes,they are used by boss system.
   s.dependency 'Qiniu', '~> 7.1'
   s.dependency 'BGFMDB', '~> 1.51'
 
-  s.dependency 'Baidu-Maps-iOS-SDK', '~> 3.0.0'
-  s.dependency 'SobotFramework', '~> 1.7.0'
-
-
 end

@@ -31,12 +31,6 @@
     ],
     "BGFMDB": [
       "~> 1.51"
-    ],
-    "Baidu-Maps-iOS-SDK": [
-      "~> 3.0.0"
-    ],
-    "SobotFramework": [
-      "~> 1.7.0"
     ]
   }
 }
