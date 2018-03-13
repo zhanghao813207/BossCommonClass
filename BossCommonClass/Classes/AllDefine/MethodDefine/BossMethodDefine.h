@@ -8,8 +8,6 @@
 #ifndef BossMethodDefine_h
 #define BossMethodDefine_h
 
-#import "JYCMethodDefine.h"
-
 /** 获取当前的登录的用户*/
 #define kCurrentAccount ([NNBAccount defaultAccount])
 

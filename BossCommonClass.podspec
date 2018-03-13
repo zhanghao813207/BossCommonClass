@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 these are common classes,they are used by boss system.
                        DESC
 
-  s.homepage         = 'https://git.coding.net/J_YC/BossCommonClass'
+  s.homepage         = 'https://git.coding.net/J_YC/BossCommonClass.git'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'JiaYuanchao' => 'yuanchao__2106@163.com' }

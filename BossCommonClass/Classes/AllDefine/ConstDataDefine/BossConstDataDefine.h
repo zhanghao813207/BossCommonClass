@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JYCConstDataDefine.h"
 @interface BossConstDataDefine : NSObject
 
 UIKIT_EXTERN NSString *const BossBasicURL;

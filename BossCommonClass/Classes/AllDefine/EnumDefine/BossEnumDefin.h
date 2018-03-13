@@ -7,7 +7,6 @@
 
 #ifndef BossEnumDefin_h
 #define BossEnumDefin_h
-#import "JYCEnumDefine.h"
 
 #import "OperationTypes.h"
 
