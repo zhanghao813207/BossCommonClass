@@ -8,7 +8,6 @@
 
 #import "NNBBottomAlertView.h"
 #import "JYCAlertView.h"
-#import "NNBButton.h"
 #import "BossBasicDefine.h"
 @interface NNBBottomAlertView()<JYCAlertViewDatasource>
 
