@@ -61,7 +61,7 @@
 - (UIBarButtonItem *)customCommentLeftBarButtonItem
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
-    [buttonItem_back setTintColor:kHexRGBA(0x000000, 0.8)];
+    [buttonItem_back setTintColor:kAppMainColor];
     _customCommentLeftBarButtonItem = buttonItem_back;
     return _customCommentLeftBarButtonItem;
 }

@@ -24,7 +24,7 @@
 #define BossBlodFont(f_size) IsPhone_Size_4?[UIFont fontWithName:@"PingFangSC-Medium" size:(f_size-2)]:[UIFont fontWithName:@"PingFangSC-Medium" size:f_size]
 
 // 系统主颜色
-#define kAppMainColor (kHexRGB(0xFF7700))
+#define kAppMainColor (kHexRGB(0x3589DE))
 
 // 背景颜色
 #define kBossBGColor (kHexRGB(0xf5f5f5))
