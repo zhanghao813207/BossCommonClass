@@ -32,6 +32,17 @@ NSString *const SECRET_KEY = @"c50b708089c9fcaac9040649dc86c667";
 
 NSString *const SOBOT_KEY = @"20631dce86e641aca874c6d50562056f";
 
+#ifdef NNBSELLER
+/* 销售版App Store下载路径*/
+NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1319820359?l=zh&ls=1&mt=8";
+#elif defined NNBKNIGHT
+/* 骑士版App Store下载路径 */
+NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1250287758?l=zh&ls=1&mt=8";
+#else
+/* 预留的其他app */
+NSString *const APPDOWNLOADURL = @"";
+#endif
+
 #pragma mark --UserDefaultKey
 
 // 保存账号信息

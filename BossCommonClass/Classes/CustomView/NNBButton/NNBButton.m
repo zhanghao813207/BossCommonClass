@@ -16,7 +16,7 @@
 //    frame.size.height = 44;
     nnbButton.clickEnable = YES;
     nnbButton.frame = frame;
-    nnbButton.backgroundColor = kHexRGB(0xFF6000);
+    nnbButton.backgroundColor = kAppMainColor;
     [nnbButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     nnbButton.titleLabel.font = BossRegularFont(16.f);
     return nnbButton;

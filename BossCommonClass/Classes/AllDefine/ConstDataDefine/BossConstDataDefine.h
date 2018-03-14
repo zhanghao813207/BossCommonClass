@@ -16,6 +16,8 @@ UIKIT_EXTERN NSString *const SECRET_KEY;
 
 UIKIT_EXTERN NSString *const SOBOT_KEY;  // 智齿客服的企业编号
 
+UIKIT_EXTERN NSString *const APPDOWNLOADURL; // app在appStore的下载链接
+
 /********* userdefaultKey ************/
 
 UIKIT_EXTERN NSString *const AccountInfoKey; // 存放登录的用户信息
