@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '0.1.1'
+  s.version          = '0.2.0'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -38,7 +38,7 @@ these are common classes,they are used by boss system.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'BasicCommonClass', '~> 0.1.0'
+  s.dependency 'BasicCommonClass', '~> 0.2.0'
   s.dependency 'AFNetworking', '~> 3.1.0'
   s.dependency 'Qiniu', '~> 7.1'
   s.dependency 'BGFMDB', '~> 1.51'

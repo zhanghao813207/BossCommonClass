@@ -68,7 +68,7 @@
 
 - (void)popToLastViewController:(UIBarButtonItem *)sender
 {
-    [self popToRootViewControllerAnimated:YES];
+    [self popViewControllerAnimated:YES];
 }
 
 @end
