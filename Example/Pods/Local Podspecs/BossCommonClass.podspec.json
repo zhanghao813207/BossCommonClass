@@ -1,9 +1,9 @@
 {
   "name": "BossCommonClass",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "summary": "a common class of boss system",
   "description": "these are common classes,they are used by boss system.",
-  "homepage": "https://git.coding.net/J_YC/BossCommonClass",
+  "homepage": "https://git.coding.net/J_YC/BossCommonClass.git",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://git.coding.net/J_YC/BossCommonClass.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"
@@ -21,7 +21,7 @@
   "source_files": "BossCommonClass/Classes/**/*",
   "dependencies": {
     "BasicCommonClass": [
-      "~> 0.1.0"
+      "~> 0.2.0"
     ],
     "AFNetworking": [
       "~> 3.1.0"
