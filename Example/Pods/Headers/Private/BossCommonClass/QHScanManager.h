@@ -1,0 +1,1 @@
+../../../../../BossCommonClass/Classes/SingletonClass/QHScanManager/QHScanManager.h
