@@ -46,7 +46,7 @@
 #define kRandomColor  ([UIColor colorWithRed:(CGFloat)arc4random_uniform(256) / 256 green:(CGFloat)arc4random_uniform(256) / 256 blue:(CGFloat)arc4random_uniform(256) / 256 alpha:1.f])
 
 /** weakSelf*/
-#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
 /** 打印log日志*/
 #ifdef DEBUG
@@ -64,5 +64,32 @@
 #   define ELog(err)
 #endif
 #endif
+
+/** 快速创建单利类*/
+// @interface
+#define singleton_interface(className) \
++ (className *)shared##className;
+
+
+// @implementation
+#define singleton_implementation(className) \
+static className *_instance; \
++ (id)allocWithZone:(NSZone *)zone \
+{ \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instance = [super allocWithZone:zone]; \
+}); \
+return _instance; \
+} \
++ (className *)shared##className \
+{ \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instance = [[self alloc] init]; \
+}); \
+return _instance; \
+}
+
 
 #endif /* JYCMethodDefine_h */

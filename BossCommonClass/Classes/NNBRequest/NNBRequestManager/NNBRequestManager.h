@@ -50,5 +50,12 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
  */
 - (void)cleanToken;
 
+/**
+ 将后台返回的用户信息保存
+
+ @param dic 后台返回的信息
+ @return 是否保存成功
+ */
++ (BOOL)saveAccountInfoWithAccountDic:(NSDictionary *)dic;
 
 @end

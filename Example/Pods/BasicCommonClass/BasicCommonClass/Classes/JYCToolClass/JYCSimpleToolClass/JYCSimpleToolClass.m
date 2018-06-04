@@ -204,21 +204,25 @@
  */
 + (BOOL)isPhoneStringWithString:(NSString *)string
 {
-    
-    NSArray *mobilePhone = @[@"134",@"135",@"136",@"137",@"138",@"139",@"147",@"150",@"151",@"152",@"157",@"158",@"159",@"177",@"170",@"173",@"178",@"182",@"183",@"184",@"187",@"188",@"130",@"131",@"132",@"145",@"155",@"156",@"175",@"176",@"185",@"186",@"133",@"149",@"153",@"173",@"177",@"180",@"181",@"189",@"171"];
-    if (string.length < 1) {
-        return YES;
-    }else if(string.length < 3){
-        return [self regularNumber:string];
-    } if(string.length > 2 && ![mobilePhone containsObject:[string substringWithRange:NSMakeRange(0, 3)]]){
-        return NO;
-    }else if(string.length >=11){
-        return [self regularPhone:string];
-    }else if ([[string substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"]) {
-        return YES;
-    }else{
+//    NSArray *mobilePhone = @[@"134",@"135",@"136",@"137",@"138",@"139",@"147",@"150",@"151",@"152",@"157",@"158",@"159",@"177",@"170",@"173",@"178",@"182",@"183",@"184",@"187",@"188",@"130",@"131",@"132",@"145",@"155",@"156",@"175",@"176",@"185",@"186",@"133",@"149",@"153",@"173",@"177",@"180",@"181",@"189",@"171"];
+    if (string.length < 11) {
         return NO;
     }
+//    else if(string.length < 3){
+//        return [self regularNumber:string];
+//    }
+//    if(string.length > 2 && ![mobilePhone containsObject:[string substringWithRange:NSMakeRange(0, 3)]]){
+//        return NO;
+//    }else
+    return [self regularPhone:string];
+//    if(string.length >= 11){
+//    }
+//    return NO;
+//    else if ([[string substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"]) {
+//        return YES;
+//    } else{
+//        return NO;
+//    }
 }
 
 + (BOOL)regularNumber:(NSString *)num
@@ -229,7 +233,7 @@
 
 + (BOOL)regularPhone:(NSString*)phone
 {
-    NSString *phoneRegex = @"^(1[34578])\\d{9}$";
+    NSString *phoneRegex = @"^(1[345678])\\d{9}$";
     
     return [self regularString:phone regex:phoneRegex];
 }
@@ -238,6 +242,20 @@
 {
     NSPredicate *regexPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [regexPredicate evaluateWithObject:str];
+}
+
+/**
+ 字符串是否是银行卡号
+ 
+ @param bankCardNumber 银行卡号
+ @return 是否是
+ */
++ (BOOL)stringIsBankCardNumber:(NSString *)bankCardNumber
+{
+    if (bankCardNumber.length < 15 || bankCardNumber.length > 19) {
+        return NO;
+    }
+    return YES;
 }
 
 /**
@@ -355,6 +373,20 @@
     UIImage *image = [UIImage creatNonInterpolatedUIImageFormCIImage:outputImage withSize:10000];
     
     return image;
+}
+
+/**
+ 字符串是否为空
+ 
+ @param string 需要判断的字符串
+ @return 是否空
+ */
++ (BOOL)stringIsEmpty:(NSString *)string
+{
+    if (string && ![string isEqualToString:@""]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

@@ -53,16 +53,18 @@ static NNBRequestManager *sharedManager = nil;
 
 - (void)configureManager
 {
-    NSString *certFilePath = [[NSBundle mainBundle] pathForResource:@"o3cloud" ofType:@"cer"];
+    NSString *certFilePath = [[NSBundle mainBundle] pathForResource:@"aoaosong" ofType:@"cer"];
     NSData *certData = [NSData dataWithContentsOfFile:certFilePath];
     NSSet *certSet = [NSSet setWithObject:certData];
     AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
+    policy.allowInvalidCertificates = YES;
     policy.validatesDomainName = NO;
     sharedManager.securityPolicy = policy;
     
-    sharedManager.responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[[AFHTTPRequestSerializer serializer],[AFJSONResponseSerializer serializer]]];
+    sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[[AFHTTPRequestSerializer serializer],[AFJSONResponseSerializer serializer]]];
     sharedManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+
     [sharedManager.requestSerializer setValue:ACCESS_KEY forHTTPHeaderField:@"X-APP-KEY"];
     
     [sharedManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -141,6 +143,18 @@ static NNBRequestManager *sharedManager = nil;
     self.expired_at = @"";
     [[NSUserDefaults standardUserDefaults] setObject:@{} forKey:@"APP_TOKEN"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)saveAccountInfoWithAccountDic:(NSDictionary *)dic
+{
+    [kCurrentAccount setValuesForKeysWithDictionary:dic];
+    
+    NSDictionary *localAccountInfoDic = [kCurrentAccount decodeToDic];
+    
+    [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
+    
+    [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentAccount.access_token refrech_token:kCurrentAccount.refresh_token expired_at:kCurrentAccount.expired_at];
+    return YES;
 }
 
 @end

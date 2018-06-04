@@ -16,29 +16,36 @@
  
  @param phoneNumber 手机号
  @param smsType 验证码类型
+ @param begainSendBlock 开始发送验证码
  @param successBlock 发送成功的回调 OK：是否成功 mockMessage：测试环境（不发验证码）模拟数据
  */
-+ (void)UtilRequestSendSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType success:(void(^)(BOOL ok,NSString *mockMessage))successBlock fail:(void(^)())failBlock
++ (void)UtilRequestSendSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType begainSend:(void(^)(void))begainSendBlock success:(void(^)(BOOL ok,NSString *mockMessage))successBlock fail:(void(^)(void))failBlock
 {
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
     NSLog(@"%@",BossBasicURL);
-    NSDictionary *paraDic = @{
-                              @"mobile":phoneNumber,
-                              @"type":@(smsType)
-                              };
-    [NNBBasicRequest postLoginJsonWithUrl:url parameters:paraDic CMD:@"io.sms.send" success:^(id responseObject) {
+    NSMutableDictionary *paraDic = @{
+                              @"phone":phoneNumber,
+                              @"if_voice":@(NO)
+                              }.mutableCopy;
+    if (smsType == NNBSendSMSTypeChangePhoneNumber) {
+        [paraDic setValue:@"exchange_mobile" forKey:@"event"];
+    }
+    if (begainSendBlock) {
+        begainSendBlock();
+    }
+    [NNBBasicRequest getLoginJsonWithUrl:url parameters:paraDic CMD:nil success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
+
     } fail:^(id error) {
         if (failBlock) {
             failBlock();
         }
     }];
-    
 }
 
 /**
@@ -48,26 +55,29 @@
  @param smsType 验证码类型
  @param successBlock 发送成功的回调 OK：是否成功 mockMessage：测试环境（不发验证码）模拟数据
  */
-+ (void)UtilRequestSendVoiceSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType success:(void(^)(BOOL ok,NSString *mockMessage))successBlock fail:(void(^)())failBlock
++ (void)UtilRequestSendVoiceSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType success:(void(^)(BOOL ok,NSString *mockMessage))successBlock fail:(void(^)(void))failBlock
 {
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@",BossBasicURL];
-    NSDictionary *paraDic = @{
-                              @"mobile":phoneNumber,
-                              @"type":@(smsType)
-                              };
-    [NNBBasicRequest postLoginJsonWithUrl:url parameters:paraDic CMD:@"io.sms.send_voice" success:^(id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
+    NSMutableDictionary *paraDic = @{
+                                     @"phone":phoneNumber,
+                                     @"if_voice":@(YES)
+                                     }.mutableCopy;
+    if (smsType == NNBSendSMSTypeChangePhoneNumber) {
+        [paraDic setValue:@"exchange_mobile" forKey:@"event"];
+    }
+    [NNBBasicRequest getLoginJsonWithUrl:url parameters:paraDic CMD:nil success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
+        
     } fail:^(id error) {
         if (failBlock) {
             failBlock();
         }
     }];
-    
 }
 
 /**
@@ -79,13 +89,19 @@
 + (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock
 {
 //    NSString *path = [JYCSimpleToolClass qiniuPathWithOperateType:operateType];
-    NSString *path = @"";
+    
+    NSString *url = [NSString stringWithFormat:@"%@upload/get_token",BossBasicURL];
+    
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSince1970];
+    
+    NSString *path = [NSString stringWithFormat:@"%.0f.jpg",timeInterval];
     NSDictionary *paramDic = @{
-                               @"path":path,
+                               @"file_name":path,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURL parameters:paramDic CMD:@"io.qiniu.get_token" success:^(id responseObject) {
+    [NNBBasicRequest getJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         if (successBlock) {
-            successBlock(responseObject[@"qiniu_path"], responseObject[@"qiniu_token"]);
+            successBlock(responseObject[@"path"], responseObject[@"token"]);
         }
     } fail:^(id error) {
         

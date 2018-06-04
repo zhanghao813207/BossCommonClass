@@ -8,6 +8,7 @@
 
 #import "JYCPageStyle.h"
 #import "BossBasicDefine.h"
+#import <UIKit/UIKit.h>
 
 @implementation JYCPageStyle
 

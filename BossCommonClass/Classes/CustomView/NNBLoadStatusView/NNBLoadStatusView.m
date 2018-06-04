@@ -41,7 +41,10 @@
 
 - (void)showLoadingStatus:(NSString *)status
 {
+    self.contentView.backgroundColor = [UIColor whiteColor];
     self.statusLabel.text = status;
+    self.statusLabel.textColor = kHexRGB(0x000000);
+    self.loadingImageView.image = [[UIImage imageNamed:@"loadingStatusIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self layoutWithTitle:status success:YES];
     self.alertView.isBlur = YES;
     [self.alertView showJYCAlertView];
@@ -49,7 +52,21 @@
 
 - (void)showClearLoadingStatus:(NSString *)status
 {
+    self.contentView.backgroundColor = [UIColor whiteColor];
     self.statusLabel.text = status;
+    self.statusLabel.textColor = kHexRGB(0x000000);
+    self.loadingImageView.image = [[UIImage imageNamed:@"loadingStatusIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [self layoutWithTitle:status success:YES];
+    self.alertView.isBlur = NO;
+    [self.alertView showJYCAlertView];
+}
+
+- (void)showGrayLoadingStatus:(NSString *)status
+{
+    self.contentView.backgroundColor = kHexRGBA(0x000000, 0.5);
+    self.statusLabel.text = status;
+    self.statusLabel.textColor = kHexRGB(0xffffff);
+    self.loadingImageView.image = [[UIImage imageNamed:@"loadingStatusWhiteIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self layoutWithTitle:status success:YES];
     self.alertView.isBlur = NO;
     [self.alertView showJYCAlertView];
@@ -102,7 +119,6 @@
 {
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth / 6.0, (self.height - 35) / 2.0, kScreenWidth * 2 / 3.0, 35)];
-        _contentView.backgroundColor = [UIColor whiteColor];
         [_contentView addSubview:self.loadingImageView];
         [_contentView addSubview:self.statusLabel];
     }
@@ -113,7 +129,6 @@
 {
     if (!_loadingImageView) {
         _loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 16, 16)];
-        _loadingImageView.image = [[UIImage imageNamed:@"loadingStatusIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
@@ -133,7 +148,6 @@
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] init];
         _statusLabel.font = BossRegularFont(16.f);
-        _statusLabel.textColor = kHexRGB(0x000000);
         _statusLabel.numberOfLines = 0;
     }
     return _statusLabel;

@@ -9,39 +9,51 @@
 
 @implementation BossConstDataDefine
 
+///**
+// *  true 是打开调试模式
+// *  false 是关闭调试模式
+// */
+//#define Debug
+
+
 #pragma mark -- 访问域名
-#ifdef DEBUG
+#ifdef Debug
 ///*-------------*********移动测试环境公共接口********-------*/
 /** 测试环境总域名 URL*/
-NSString *const BossBasicURL = @"https:nnb-api-v2-dev.o3cloud.cn/2.0";
+
+//NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
+
+//NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
+
+// 后端刘昌颜 ip
+//NSString *const BossBasicURL = @"http://192.168.1.144:8081/1.0/";
+
+// 后端段飞 ip
+//NSString *const BossBasicURL = @"http://192.168.1.127:8081/1.0/";
+
 #else
 /*-------------*********移动正式环境公共接口********-------*/
 /** 正式环境总域名 URL*/
-NSString *const BossBasicURL = @"https://nnb-api-v2.o3cloud.cn/2.0";
+NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
 #endif
 
 #pragma mark -- ACCESS_KEY 和 SECRET_KEY
 
-#ifdef DEBUG
-NSString *const ACCESS_KEY = @"cd1577396e897202cd627fe7a7863213";
-NSString *const SECRET_KEY = @"bb0ff82cef95f159c0013d9a0249f0e1";
+#ifdef Debug
+NSString *const ACCESS_KEY = @"5aab926e14fef90e81eba4e5";
+NSString *const SECRET_KEY = @"5aab926e14fef90e81eba4e6";
 #else
-NSString *const ACCESS_KEY = @"9cebc6a65415167804d397b0fa3debc8";
-NSString *const SECRET_KEY = @"c50b708089c9fcaac9040649dc86c667";
+NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
+NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
 #endif
+
+NSString *const APPCODE = @"aoao_boss_app_ios";
+
+BOOL const kIsAlertPassword = NO;
 
 NSString *const SOBOT_KEY = @"20631dce86e641aca874c6d50562056f";
 
-#ifdef NNBSELLER
-/* 销售版App Store下载路径*/
-NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1319820359?l=zh&ls=1&mt=8";
-#elif defined NNBKNIGHT
-/* 骑士版App Store下载路径 */
-NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1250287758?l=zh&ls=1&mt=8";
-#else
-/* 预留的其他app */
-NSString *const APPDOWNLOADURL = @"";
-#endif
+NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 
 #pragma mark --UserDefaultKey
 

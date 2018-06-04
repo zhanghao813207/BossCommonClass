@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface JYCSimpleToolClass : NSObject
 
 /**
@@ -109,5 +109,21 @@
  @return 二维码图片
  */
 + (UIImage *)createQRCodeWithString:(NSString *)codeString;
+
+/**
+ 字符串是否为空
+
+ @param string 需要判断的字符串
+ @return 是否空
+ */
++ (BOOL)stringIsEmpty:(NSString *)string;
+
+/**
+ 字符串是否是银行卡号
+
+ @param bankCardNumber 银行卡号
+ @return 是否是
+ */
++ (BOOL)stringIsBankCardNumber:(NSString *)bankCardNumber;
 
 @end

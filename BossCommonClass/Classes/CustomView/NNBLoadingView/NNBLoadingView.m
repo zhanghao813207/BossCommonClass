@@ -20,6 +20,15 @@
 
 @property (nonatomic, strong) JYCAlertView *alertView;
 
+@property (nonatomic, strong) UIImageView *loadingImageView;
+
+
+@property (nonatomic, strong) UILabel *statusLabel;
+
+@property (nonatomic, strong) UIView *backGroundView;
+
+
+
 //@property (nonatomic, strong) NSArray *loadingImageArray;
 
 @end
@@ -46,38 +55,27 @@
     alertView.backgroundColor = [UIColor clearColor];
     alertView.BGColor = self.BGColor;
     alertView.maskAlpha = 0.f;
-    UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((kCurrentViewWidth - kCurrentWidth(120)) / 2.0, (kCurrentViewHeight - kCurrentWidth(120)) / 2.0, kCurrentWidth(120), kCurrentWidth(120))];
-    backGroundView.backgroundColor = [UIColor blackColor];
-    backGroundView.layer.cornerRadius = 2.f;
-    // 38 38
-    UIImageView *loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kCurrentWidth(120) - kCurrentWidth(38)) / 2.0, kCurrentWidth(30), kCurrentWidth(38), kCurrentWidth(38))];
-    loadingImageView.image = [UIImage imageNamed:@"loading"];
-    
-    CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
-    animation.fromValue = @(0.f);
-    animation.toValue = @(M_PI *2);
-    animation.duration  = 1.f;
-    animation.autoreverses = NO;
-    animation.fillMode =kCAFillModeForwards;
-    animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
-    [loadingImageView.layer addAnimation:animation forKey:nil];
-    
-    [backGroundView addSubview:loadingImageView];
-    
-    UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(loadingImageView.frame) + kCurrentWidth(10), backGroundView.bounds.size.width, 20)];
-    loadingLabel.text = @"加载中";
-    loadingLabel.textAlignment = NSTextAlignmentCenter;
-    loadingLabel.font = BossFont(14.f);
-    loadingLabel.textColor = [UIColor whiteColor];
-    [backGroundView addSubview:loadingLabel];
-    return backGroundView;
+    return self.backGroundView;
 
 }
 
 #pragma mark -- view的展示取消
-- (void)showNNBLoadingView
+- (void)showNNBLoadingViews:(NSString *)status;
 {
+    if (status) {
+        self.statusLabel.text = status;
+    }
+    [self.alertView showJYCAlertView];
+}
+
+- (void)showNNBClearLoadingViews:(NSString *)status
+{
+    if (status) {
+        self.statusLabel.text = status;
+    }
+    self.backGroundView.backgroundColor = [UIColor clearColor];
+    self.statusLabel.textColor = kHexRGBA(0x000000, 0.6);
+    self.loadingImageView.image = [UIImage imageNamed:@"grayLoadingIcon"];
     [self.alertView showJYCAlertView];
 }
 
@@ -126,6 +124,58 @@
         _alertView.datasource = self;
     }
     return _alertView;
+}
+
+-(UIView *)backGroundView
+{
+    if (!_backGroundView) {
+        UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((kCurrentViewWidth - kCurrentWidth(120)) / 2.0, (kCurrentViewHeight - kCurrentWidth(120)) / 2.0, kCurrentWidth(120), kCurrentWidth(120))];
+        backGroundView.backgroundColor = kHexRGBA(0x000000, 0.6);
+        backGroundView.layer.cornerRadius = 2.f;
+        
+        [backGroundView addSubview:self.loadingImageView];
+        
+        [backGroundView addSubview:self.statusLabel];
+
+        _backGroundView = backGroundView;
+    }
+    return _backGroundView;
+
+}
+
+- (UILabel *)statusLabel
+{
+    if (!_statusLabel) {
+        UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.loadingImageView.frame) + kCurrentWidth(10), kCurrentWidth(120), 20)];
+        loadingLabel.text = @"加载中";
+        loadingLabel.textAlignment = NSTextAlignmentCenter;
+        loadingLabel.font = BossRegularFont(14.f);
+        loadingLabel.textColor = [UIColor whiteColor];
+        _statusLabel = loadingLabel;
+    }
+    return _statusLabel;
+}
+
+- (UIImageView *)loadingImageView
+{
+    if (!_loadingImageView) {
+        // 34 34
+        UIImageView *loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kCurrentWidth(120) - kCurrentWidth(34)) / 2.0, kCurrentWidth(30), kCurrentWidth(34), kCurrentWidth(34))];
+        loadingImageView.image = [UIImage imageNamed:@"loading"];
+        
+        CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
+        animation.fromValue = @(0.f);
+        animation.toValue = @(M_PI *2);
+        animation.duration  = 1.f;
+        animation.autoreverses = NO;
+        animation.fillMode =kCAFillModeForwards;
+        animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
+        [loadingImageView.layer addAnimation:animation forKey:nil];
+        _loadingImageView = loadingImageView;
+    }
+    return _loadingImageView;
+
 }
 
 @end

@@ -12,7 +12,9 @@
 
 @property (nonatomic, strong) UIColor *BGColor;
 
-- (void)showNNBLoadingView;
+- (void)showNNBLoadingViews:(NSString *)status;
+
+- (void)showNNBClearLoadingViews:(NSString *)status;
 
 - (void)dismissNNBLoadingViewWithComplettion:(void (^)(BOOL))completion;
 

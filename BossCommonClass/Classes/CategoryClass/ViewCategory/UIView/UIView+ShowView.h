@@ -13,17 +13,19 @@
 
 #pragma mark -- LoadingView -- 加载的页面
 
-- (void)showLoadingView;
+- (void)showLoadingView:(NSString *)status;
 
-- (void)showClearLoadingView;
+- (void)showClearLoadingView:(NSString *)status;
 
-- (void)dismissLoadingView;
+- (void)dismissLoadingViewWithCompletion:(void (^)(BOOL finish))completion;
 
 #pragma mark -- LoadingStatusView -- 带文字的加载
 
 - (void)showLoadingStatus:(NSString *)status;
 
 - (void)showClearLoadingStatus:(NSString *)status;
+
+- (void)showGrayLoadingStatus:(NSString *)status;
 
 - (void)dismissLoadingStatusViewWithCompletion:(void (^)(BOOL))completion;
 
@@ -40,6 +42,15 @@
 - (void)showStatus:(NSString *)status;
 
 - (void)showSuccessStaus:(NSString *)status;
+
+#pragma mark -- statusAnimationView -- 带动画的提示页面
+
+- (void)showAnimationStatus:(NSString *)status completion:(void (^)(BOOL finish))completion;
+
+- (void)showAnimationSuccessStaus:(NSString *)status completion:(void (^)(BOOL finish))completion;
+
+- (void)showAnimationErrorStaus:(NSString *)status completion:(void (^)(BOOL finish))completion;
+
 
 
 @end

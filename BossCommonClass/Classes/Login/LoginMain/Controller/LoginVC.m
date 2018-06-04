@@ -84,8 +84,11 @@
 {
     inputCodeView.showVoiceCode = YES;
     inputCodeView.inputCodeViewStatus = InputCodeViewStatusBegainCount;
-    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin success:^(BOOL ok, NSString *mockMessage) {
+    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
         if (ok) {
+            if (kIsAlertPassword) {
+                [self.navigationController.view showAnimationStatus:mockMessage completion:nil];
+            }
             inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
         }
     } fail:^{
@@ -125,13 +128,18 @@
         _inputPhoneNumberView = [[InputPhoneNumberView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputPhoneNumberViewHeight)];
         WS(weakSelf);
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
-            [weakSelf.navigationController.view showClearLoadingStatus:@"加载中..."];
-            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin success:^(BOOL ok, NSString *mockMessage) {
+            [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
+            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                 if (ok) {
+                    if (kIsAlertPassword) {
+                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
+                    }
                     [weakSelf showView:weakSelf.inputCodeView dismissView:weakSelf.inputPhoneNumberView showBack:YES commplete:^(BOOL finish) {
                         weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
-                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+                        if (!kIsAlertPassword) {
+                            [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+                        }
                     }];
                     weakSelf.inputCodeView.phoneNumber = textFieldText;
                 }
@@ -157,6 +165,9 @@
         WS(weakSelf);
         [_inputCodeView setVoiceCodeBlock:^{
             [NNBUtilRequest UtilRequestSendVoiceSMSWithPhhoneNumber:weakSelf.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin success:^(BOOL ok, NSString *mockMessage) {
+                if (kIsAlertPassword) {
+                    [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
+                }
                 [weakSelf.navigationController.view showSuccessStaus:@"验证码将通过语音电话010-86396960呼叫到您的手机，请保持电话畅通。"];
             } fail:^{
                 
@@ -170,6 +181,12 @@
             } completion:^(BOOL finished) {
                 [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                 [NNBAuthRequest authRequestLoginWithPhoneNumber:phoneNumber authCode:code success:^(NNBAccount *accountInfo) {
+                    if (!accountInfo) {
+                        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
+                            [weakSelf backBarButtonItemAction:nil];
+                        }];
+                        return;
+                    }
                     [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                         [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                         if (weakSelf.loginSuccessBlock) {
@@ -187,8 +204,6 @@
                     }];
                 }];
             }];
-            
-            
         }];
     }
     return _inputCodeView;

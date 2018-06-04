@@ -60,19 +60,44 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.text.length >= 13 && ![string isEqualToString:@""]) {
-        return NO;
-    }
-    if (textField.text.length == 1 && [string isEqualToString:@""]) {
-        self.nextStepButton.clickEnable = NO;
-        self.errorNoticeLabel.hidden = YES;
+    if (string.length == 1 || [string isEqualToString:@""]) {
+        NSString *phoneNumber = textField.text;
+        phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        if (phoneNumber.length >= 11 && ![string isEqualToString:@""]) {
+            return NO;
+        }
+        if (textField.text.length <= 13 && [string isEqualToString:@""]) {
+            NSRange firstRange = [textField.text rangeOfString:@" "];
+            NSRange lastRange = [textField.text rangeOfString:@" " options:NSBackwardsSearch];
+            if (phoneNumber.length == 11 && (range.location == firstRange.location || range.location == lastRange.location)) {
+                self.nextStepButton.clickEnable = YES;
+            } else {
+                self.nextStepButton.clickEnable = NO;
+                self.errorNoticeLabel.hidden = YES;
+            }
+        } else if(phoneNumber.length < 10 && ![string isEqualToString:@""]) {
+            self.nextStepButton.clickEnable = NO;
+        } else {
+            self.nextStepButton.clickEnable = YES;
+        }
+        if ((textField.text.length == 3 || textField.text.length == 8) && ![string isEqualToString:@""]) {
+            textField.text = [textField.text stringByAppendingString:@" "];
+        }
+        return YES;
     } else {
-        self.nextStepButton.clickEnable = YES;
+        NSString *phoneNumber = [NSString stringWithFormat:@"%@",string];
+        if (phoneNumber.length >= 13) {
+            phoneNumber = [phoneNumber substringToIndex:13];
+        }
+        phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if (phoneNumber.length >= 11) {
+            self.nextStepButton.clickEnable = YES;
+        } else {
+            self.nextStepButton.clickEnable = NO;
+        }
+        return YES;
     }
-    if ((textField.text.length == 3 || textField.text.length == 8) && ![string isEqualToString:@""]) {
-        textField.text = [textField.text stringByAppendingString:@" "];
-    }
-    return YES;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField

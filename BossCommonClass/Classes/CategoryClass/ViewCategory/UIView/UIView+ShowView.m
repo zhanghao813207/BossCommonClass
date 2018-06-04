@@ -11,7 +11,8 @@
 #import "NNBStatusView.h"
 #import "NNBLoadStatusView.h"
 #import <objc/runtime.h>
-//#import "ShowSupportTagView.h"
+#import "NNBStatusAnimationView.h"
+
 @implementation UIView (ShowView)
 
 #pragma mark -- LoadingView -- 加载的页面
@@ -28,27 +29,39 @@ static char loadingViewKey;
     return objc_getAssociatedObject(self, &loadingViewKey);
 }
 
-- (void)showLoadingView
+- (void)showLoadingView:(NSString *)status
 {
     if (!self.loadingView) {
         self.loadingView = [[NNBLoadingView alloc] initWithFrame:self.bounds];
     }
     [self addSubview:self.loadingView];
-    [self.loadingView showNNBLoadingView];
-}
-
-- (void)showClearLoadingView
-{
-    [self showLoadingView];
     self.loadingView.BGColor = [UIColor clearColor];
+    [self.loadingView showNNBLoadingViews:status];
 }
 
-- (void)dismissLoadingView
+- (void)showClearLoadingView:(NSString *)status;
+{
+    if (!self.loadingView) {
+        self.loadingView = [[NNBLoadingView alloc] initWithFrame:self.bounds];
+    }
+    self.loadingView.BGColor = [UIColor clearColor];
+    [self addSubview:self.loadingView];
+    [self.loadingView showNNBClearLoadingViews:status];
+}
+
+- (void)dismissLoadingViewWithCompletion:(void (^)(BOOL finish))completion
 {
     if (self.loadingView) {
         [self.loadingView dismissNNBLoadingViewWithComplettion:^(BOOL finish) {
+            if (completion) {
+                completion(finish);
+            }
             self.loadingView = nil;
         }];
+    } else {
+        if (completion) {
+            completion(YES);
+        }
     }
 }
 
@@ -71,7 +84,9 @@ static char loadingStatusViewKey;
     if (!self.loadingStatusView) {
         self.loadingStatusView = [[NNBLoadStatusView alloc] initWithFrame:self.bounds];
     }
-    [self addSubview:self.loadingStatusView];
+    if (!self.loadingStatusView.superview) {
+        [self addSubview:self.loadingStatusView];
+    }
     [self.loadingStatusView showLoadingStatus:status];
 }
 
@@ -84,6 +99,15 @@ static char loadingStatusViewKey;
     [self.loadingStatusView showClearLoadingStatus:status];
 }
 
+- (void)showGrayLoadingStatus:(NSString *)status
+{
+    if (!self.loadingStatusView) {
+        self.loadingStatusView = [[NNBLoadStatusView alloc] initWithFrame:self.bounds];
+    }
+    [self addSubview:self.loadingStatusView];
+    [self.loadingStatusView showGrayLoadingStatus:status];
+}
+
 - (void)dismissLoadingStatusViewWithCompletion:(void (^)(BOOL))completion
 {
     
@@ -94,9 +118,12 @@ static char loadingStatusViewKey;
             }
             self.loadingStatusView = nil;
         }];
+    } else {
+        if (completion) {
+            completion(YES);
+        }
     }
 }
-
 
 #pragma mark -- NoInternetView -- 没有网的页面
 static char noInternetEmptyViewKey;
@@ -178,5 +205,69 @@ static char statusViewKey;
         self.statusView = nil;
     }
 }
+
+#pragma mark -- statusAnimationView -- 带动画的提示页面
+
+static char statusAnimationViewKey;
+
+- (void)setStatusAnimationView:(NNBStatusAnimationView *)statusView
+{
+    objc_setAssociatedObject(self, &statusAnimationViewKey, statusView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NNBStatusAnimationView *)statusAnimationView
+{
+    return objc_getAssociatedObject(self, &statusAnimationViewKey);
+}
+
+
+- (void)showAnimationStatus:(NSString *)status completion:(void (^)(BOOL finish))completion
+{
+    if (!self.statusAnimationView) {
+        self.statusAnimationView = [[NNBStatusAnimationView alloc] initWithFrame:self.bounds];
+    }
+    [self addSubview:self.statusAnimationView];
+    [self.statusAnimationView showStatus:status];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:8.f];
+}
+
+- (void)showAnimationSuccessStaus:(NSString *)status completion:(void (^)(BOOL finish))completion
+{
+    if (!self.statusAnimationView) {
+        self.statusAnimationView = [[NNBStatusAnimationView alloc] initWithFrame:self.bounds];
+    }
+    [self addSubview:self.statusAnimationView];
+    [self.statusAnimationView showSuccessStatus:status];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:3.f];
+}
+
+- (void)showAnimationErrorStaus:(NSString *)status completion:(void (^)(BOOL finish))completion
+{
+    if (!self.statusAnimationView) {
+        self.statusAnimationView = [[NNBStatusAnimationView alloc] initWithFrame:self.bounds];
+    }
+    [self addSubview:self.statusAnimationView];
+    [self.statusAnimationView showErrorStatus:status];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:3.f];
+}
+
+- (void)dismissStatusAnimationViewWithCompletion:(void (^)(BOOL finish))completion
+{
+    if (self.statusAnimationView) {
+        [self.statusAnimationView dismissWithComplettion:^(BOOL complete) {
+            [self.statusAnimationView removeFromSuperview];
+            if (completion) {
+                completion(complete);
+            }
+            self.statusAnimationView = nil;
+            
+        }];
+    } else {
+        if (completion) {
+            completion(YES);
+        }
+    }
+}
+
 
 @end

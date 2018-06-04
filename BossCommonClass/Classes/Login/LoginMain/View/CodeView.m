@@ -7,8 +7,9 @@
 //
 
 #import "CodeView.h"
+#import "JYCTextField.h"
 #import "BossBasicDefine.h"
-@interface CodeView()<UITextFieldDelegate>
+@interface CodeView()<UITextFieldDelegate,JYCTextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *textArray;
 
@@ -30,12 +31,13 @@
         CGFloat marginAll = (self.width - self.height * maxNumber);
         CGFloat margin = marginAll > 0 ? marginAll / (maxNumber - 1) : 0;
         for (NSInteger i = 0; i < maxNumber; i++) {
-            UITextField *codeTextField = [[UITextField alloc] initWithFrame:CGRectMake((self.height + margin) * i, 0, self.height, self.height)];
+            JYCTextField *codeTextField = [[JYCTextField alloc] initWithFrame:CGRectMake((self.height + margin) * i, 0, self.height, self.height)];
             codeTextField.layer.cornerRadius = 2.f;
             codeTextField.layer.borderColor = kHexRGBA(0x000000, 0.6).CGColor;
             codeTextField.layer.borderWidth = 0.5f;
             codeTextField.textAlignment = NSTextAlignmentCenter;
             codeTextField.delegate = self;
+            codeTextField.jyc_delegate = self;
             codeTextField.tag = 1000 + i;
             codeTextField.font = BossBlodFont(25.f);
             codeTextField.textColor = kHexRGBA(0x000000, 0.8);
@@ -101,6 +103,16 @@
         return YES;
     }
     return YES;
+}
+
+- (void)textFieldDeleteBackward:(JYCTextField *)textField
+{
+    NSInteger index = textField.tag - 1000;
+    if (index > 0) {
+        JYCTextField *textField = self.textArray[index - 1];
+        textField.text = @"";
+        [textField becomeFirstResponder];
+    }
 }
 
 - (void)inputEnd

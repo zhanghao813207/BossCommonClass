@@ -14,6 +14,8 @@
 
 - (void)showClearLoadingStatus:(NSString *)status;
 
+- (void)showGrayLoadingStatus:(NSString *)status;
+
 - (void)dismissNNBLoadingStatusViewWithCompletion:(void (^)(BOOL))completion;
 
 @end
