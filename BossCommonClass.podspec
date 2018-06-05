@@ -32,6 +32,7 @@ these are common classes,they are used by boss system.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'BossCommonClass/Classes/**/*'
+  s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
   # s.resource_bundles = {
   #   'BossCommonClass' => ['BossCommonClass/Assets/*.png']
   # }
