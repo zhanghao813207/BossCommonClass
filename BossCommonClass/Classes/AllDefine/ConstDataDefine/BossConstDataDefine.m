@@ -53,7 +53,14 @@ BOOL const kIsAlertPassword = NO;
 
 NSString *const SOBOT_KEY = @"20631dce86e641aca874c6d50562056f";
 
+#ifdef kBossKnight
 NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
+#elif KBossManger
+
+NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id382923244?l=zh&ls=1&mt=8";
+#else
+
+#endif
 
 #pragma mark --UserDefaultKey
 
