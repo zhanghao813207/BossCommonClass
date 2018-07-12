@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "BossBasicDefine.h"
+#import "LoginVC.h"
 @interface ViewController ()
 
 @end
@@ -16,7 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [NNBAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+        
+    } withController:self];
 }
 
 - (void)didReceiveMemoryWarning {

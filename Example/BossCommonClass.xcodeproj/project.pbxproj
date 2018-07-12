@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2905B9F320F742FF00750949 /* aoaosong.cer in Resources */ = {isa = PBXBuildFile; fileRef = 2905B9F220F742FF00750949 /* aoaosong.cer */; };
 		29FFF3FE2056778D009A2186 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FFF3FD2056778D009A2186 /* ViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		2201993737585A905E75BC92 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		27BF6AC8AD6E055F795077C2 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2905B9F220F742FF00750949 /* aoaosong.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = aoaosong.cer; sourceTree = "<group>"; };
 		29FFF3FC2056778D009A2186 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		29FFF3FD2056778D009A2186 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		436B9108FF8B2F71AFD901A7 /* BossCommonClass.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BossCommonClass.podspec; path = ../BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -144,6 +146,7 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2905B9F220F742FF00750949 /* aoaosong.cer */,
 				6003F595195388D20070C39A /* BossCommonClass-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				2905B9F320F742FF00750949 /* aoaosong.cer in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -448,6 +452,22 @@
 				DEVELOPMENT_TEAM = ZH956JYR6T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BossCommonClass/BossCommonClass-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib／libsqlite3.dylib",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/BGFMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/BasicCommonClass\"",
+					"\"${PODS_ROOT}/Headers/Public/BossCommonClass\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/Qiniu\"",
+					"$(PODS_ROOT)/**",
+				);
 				INFOPLIST_FILE = "BossCommonClass/BossCommonClass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MODULE_NAME = ExampleApp;
@@ -466,6 +486,22 @@
 				DEVELOPMENT_TEAM = ZH956JYR6T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BossCommonClass/BossCommonClass-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib／libsqlite3.dylib",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/BGFMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/BasicCommonClass\"",
+					"\"${PODS_ROOT}/Headers/Public/BossCommonClass\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/Qiniu\"",
+					"$(PODS_ROOT)/**",
+				);
 				INFOPLIST_FILE = "BossCommonClass/BossCommonClass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MODULE_NAME = ExampleApp;
