@@ -1,6 +1,6 @@
 {
   "name": "BossCommonClass",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "summary": "a common class of boss system",
   "description": "these are common classes,they are used by boss system.",
   "homepage": "https://git.coding.net/J_YC/BossCommonClass.git",
@@ -13,12 +13,15 @@
   },
   "source": {
     "git": "https://git.coding.net/J_YC/BossCommonClass.git",
-    "tag": "0.3.0"
+    "tag": "0.3.1"
   },
   "platforms": {
     "ios": "8.0"
   },
   "source_files": "BossCommonClass/Classes/**/*",
+  "user_target_xcconfig": {
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
   "dependencies": {
     "BasicCommonClass": [
       "~> 0.3.0"

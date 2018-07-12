@@ -21,7 +21,7 @@ PODS:
   - BGFMDB/BG (1.51):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (1.51)
-  - BossCommonClass (0.3.0):
+  - BossCommonClass (0.3.1):
     - AFNetworking (~> 3.1.0)
     - BasicCommonClass (~> 0.3.0)
     - BGFMDB (~> 1.51)
@@ -51,7 +51,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BasicCommonClass: e35ce8ddcbc18769bb7b01ccda32b0f0c71043b4
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: efae1603351199b0787e6434cdd07d0ec7deca0e
+  BossCommonClass: f7ced271bb0ba6b52d5dac282d23928de404a6d7
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
 

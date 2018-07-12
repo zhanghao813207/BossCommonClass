@@ -1,3 +1,4 @@
+CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) $(SDKROOT)/usr/lib／libsqlite3.dylib "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/BGFMDB" "${PODS_ROOT}/Headers/Public/BasicCommonClass" "${PODS_ROOT}/Headers/Public/BossCommonClass" "${PODS_ROOT}/Headers/Public/HappyDNS" "${PODS_ROOT}/Headers/Public/Qiniu"
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/BGFMDB" "${PODS_CONFIGURATION_BUILD_DIR}/BasicCommonClass" "${PODS_CONFIGURATION_BUILD_DIR}/BossCommonClass" "${PODS_CONFIGURATION_BUILD_DIR}/HappyDNS" "${PODS_CONFIGURATION_BUILD_DIR}/Qiniu"

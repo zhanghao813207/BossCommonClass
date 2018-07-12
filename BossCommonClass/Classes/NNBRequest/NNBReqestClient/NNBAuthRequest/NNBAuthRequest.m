@@ -25,7 +25,15 @@
     if (!phoneNumber || !authCode) {
         return;
     }
+    
+#ifdef kBossKnight
     NSString *url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
+#elif defined kBossManager
+    NSString *url = [NSString stringWithFormat:@"%@auth/login",BossBasicURL];
+#else
+    NSString *url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
+#endif
+
 
     NSDictionary *paramDic = @{
                                @"phone":phoneNumber,
