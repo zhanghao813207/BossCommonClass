@@ -453,6 +453,14 @@
 + (void)userInfoIsPerfect:(void(^)(BOOL isPerfect))perfectBlock toPerfect:(void(^)(void))toPerfectBlock withController:(UIViewController *)viewController;
 
 /**
+ 当前用户是否登录，登录信息是否过期
+
+ @param loginBlock 是否登录
+ @param expeiredBlock 登录是否过期（只有登录才会回调是否过期）
+ */
++ (void)userIsLogin:(void(^)(BOOL isLogin))loginBlock Expired:(void (^)(BOOL isExpired))expeiredBlock;
+
+/**
  用户退出登录
 
  @param confirmBlock 点击确认后的回调

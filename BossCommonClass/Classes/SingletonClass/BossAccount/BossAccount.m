@@ -29,24 +29,46 @@ static BossAccount *defaultAccount = nil;
         return;
     }
     
-//    if ([key isEqualToString:@"sku_lines"]) {
-//        PosInfoModel *model = [[PosInfoModel alloc] init];
-//        [model setValuesForKeysWithDictionary:value];
-//        self.sku_lines = model;
-//        return;
-//    }
-//
-//    if ([key isEqualToString:@"sku_lines"]) {
-//        NSMutableArray *array = [NSMutableArray array];
-//        for (NSDictionary *dic in value) {
-//            PosInfoModel *model = [[PosInfoModel alloc] init];
-//            [model setValuesForKeysWithDictionary:dic];
-//            [array addObject:model];
-//        }
-//        self.sku_lines = [array copy];
-//        return;
-//    }
+    if ([key isEqualToString:@"permission"]) {
+        PermissionModel *model = [[PermissionModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.permission = model;
+        return;
+    }
     
+    if ([key isEqualToString:@"jurisdictional_position_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            JurisdictionalPositionModel *model = [[JurisdictionalPositionModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.jurisdictional_position_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"jurisdictional_role_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            JurisdictionalRoleModel *model = [[JurisdictionalRoleModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.jurisdictional_role_list = [array copy];
+        return;
+    }
+
+    if ([key isEqualToString:@"allow_exchange_account"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            AllowExchangeAccountModel *model = [[AllowExchangeAccountModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.allow_exchange_account = [array copy];
+        return;
+    }
+
     [super setValue:value forKey:key];
 }
 
@@ -65,7 +87,7 @@ static BossAccount *defaultAccount = nil;
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withController:(UIViewController *)viewController
 {
     // 当前用户已经登录
-    if (defaultAccount.account_id && ![defaultAccount.account_id isEqualToString:@""]) {
+    if (kCurrentBossAccount.account_id && ![kCurrentBossAccount.account_id isEqualToString:@""]) {
         if (success) {
             success(YES,NO);
         }
@@ -78,11 +100,11 @@ static BossAccount *defaultAccount = nil;
             if (!success) {
                 return;
             }
-            defaultAccount.isFirstLogin = NO;
+            kCurrentBossAccount.isFirstLogin = NO;
             success(isLogin,YES);
         }];
         BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
-        [viewController.navigationController presentViewController:loginNC animated:!defaultAccount.isFirstLogin completion:nil];
+        [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossAccount.isFirstLogin completion:nil];
     }
 }
 
@@ -98,24 +120,24 @@ static BossAccount *defaultAccount = nil;
     if (dic) {
         // 未过期的情况 用户上次登录过 且 不需要重新登录
         if (![[NNBRequestManager shareNNBRequestManager] accountTockenIsExpiredWithExpired_at:dic[@"expired_at"]]) {
-            [kCurrentAccount setValuesForKeysWithDictionary:dic];
-            kCurrentAccount.isNeedUpdate = YES;
-            kCurrentAccount.isFirstLogin = YES;
-            if (!expeiredBlock) {
-                return;
-            }
-            expeiredBlock(NO);
-        } else {
-            // 过期的情况（目前不做处理，相当于没有登录过，会去重新登录(同安卓一样)）后期可以考虑刷新tocken
-            kCurrentAccount.isFirstLogin = YES;
+            [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
+            kCurrentBossAccount.isNeedUpdate = YES;
+            kCurrentBossAccount.isFirstLogin = YES;
             if (!expeiredBlock) {
                 return;
             }
             expeiredBlock(YES);
+        } else {
+            // 过期的情况（目前不做处理，相当于没有登录过，会去重新登录(同安卓一样)）后期可以考虑刷新tocken
+            kCurrentBossAccount.isFirstLogin = YES;
+            if (!expeiredBlock) {
+                return;
+            }
+            expeiredBlock(NO);
         }
     } else {
         // 没有登录过
-        kCurrentAccount.isFirstLogin = YES;
+        kCurrentBossAccount.isFirstLogin = YES;
         if (!loginBlock) {
             return;
         }
@@ -188,14 +210,14 @@ static BossAccount *defaultAccount = nil;
                                           @"refresh_token":self.refresh_token ? : @"",
                                           @"expired_at":self.expired_at ? : @"",
 
-                                          @"permission":self.permission ? : @[],
-                                          @"all_permission":self.all_permission ? : @[],
+                                          @"permission":self.permission ? [self.permission decodeToDic] : @{},
+                                          
                                           @"region":self.region ? : @[],
                                           @"permission_id_list":self.permission_id_list ? : @[],
-                                          @"allow_exchange_account":self.allow_exchange_account ? : @[],
-                                          @"jurisdictional_role_list":self.jurisdictional_role_list ? : @[],
                                           
-                                          @"jurisdictional_position_list":self.jurisdictional_position_list ? [self encodeArrayToArray:self.jurisdictional_position_list] : @[],
+                                          @"jurisdictional_position_list": [self encodeArrayToArray:self.jurisdictional_position_list],
+                                          @"allow_exchange_account": [self encodeArrayToArray:self.allow_exchange_account],
+                                          @"jurisdictional_role_list": [self encodeArrayToArray:self.jurisdictional_role_list],
 
                                           };
     return localAccountInfoDic;

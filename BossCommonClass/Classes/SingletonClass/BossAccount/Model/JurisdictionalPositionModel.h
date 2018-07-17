@@ -9,4 +9,14 @@
 
 @interface JurisdictionalPositionModel : NSObject
 
+@property (nonatomic, assign) BOOL operable;
+
+@property (nonatomic, assign) NSUInteger pid;
+
+@property (nonatomic, strong) NSString *position_id;
+
+@property (nonatomic, strong) NSString *position_name;
+
+- (NSDictionary *)decodeToDic;
+
 @end

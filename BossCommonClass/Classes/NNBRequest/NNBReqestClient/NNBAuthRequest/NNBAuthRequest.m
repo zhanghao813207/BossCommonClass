@@ -20,7 +20,7 @@
  @param authCode 验证码
  @param successBlock 成功的回调（返回当前登录用户的信息，是单例类 也可以用[NNBAccount defaultAccount]获取）
  */
-+ (void)authRequestLoginWithPhoneNumber:(NSString *)phoneNumber authCode:(NSString *)authCode success:(void (^)(NNBAccount *accountInfo))successBlock fail:(void(^)(id error))fail
++ (void)authRequestLoginWithPhoneNumber:(NSString *)phoneNumber authCode:(NSString *)authCode success:(void (^)(id accountInfo))successBlock fail:(void(^)(id error))fail
 {
     if (!phoneNumber || !authCode) {
         return;
@@ -42,10 +42,22 @@
                                };
     [NNBBasicRequest postLoginJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
+#ifdef kBossKnight
             kCurrentAccount.isNeedUpdate = NO;
             if (successBlock) {
                 successBlock(kCurrentAccount);
             }
+#elif defined kBossManager
+            kCurrentBossAccount.isNeedUpdate = NO;
+            if (successBlock) {
+                successBlock(kCurrentBossAccount);
+            }
+#else
+            kCurrentAccount.isNeedUpdate = NO;
+            if (successBlock) {
+                successBlock(kCurrentAccount);
+            }
+#endif
         } else {
             
         }

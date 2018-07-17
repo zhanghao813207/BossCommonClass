@@ -7,6 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
+#import "JurisdictionalPositionModel.h"
+#import "JurisdictionalRoleModel.h"
+#import "PermissionModel.h"
+#import "AllowExchangeAccountModel.h"
+#import "RegionModel.h"
 
 @interface BossAccount : NSObject
 
@@ -18,29 +23,19 @@
 @property (nonatomic, strong) NSString *account_id;
 
 /**
- 权限列表
+ 权限
  */
-@property (nonatomic, strong) NSArray *permission;
-
-/**
- 职位id
- */
-@property (nonatomic, assign) NSInteger position_id;
+@property (nonatomic, strong) PermissionModel *permission;
 
 /**
  可管辖职位列表
  */
-@property (nonatomic, strong) NSArray *jurisdictional_position_list;
+@property (nonatomic, strong) NSArray <JurisdictionalPositionModel *>*jurisdictional_position_list;
 
 /**
  用户手机号
  */
 @property (nonatomic, strong) NSString *phone;
-
-/**
- 所有权限列表
- */
-@property (nonatomic, strong) NSArray *all_permission;
 
 /**
  员工id
@@ -54,7 +49,7 @@
 /**
  范围
  */
-@property (nonatomic, strong) NSArray *region;
+@property (nonatomic, strong) NSArray <RegionModel *>*region;
 
 /**
  权限id列表
@@ -64,17 +59,22 @@
 /**
  可切换的账号
  */
-@property (nonatomic, strong) NSArray *allow_exchange_account;
+@property (nonatomic, strong) NSArray <AllowExchangeAccountModel *>*allow_exchange_account;
+
+/**
+ 职位id
+ */
+@property (nonatomic, assign) PositionID position_id;
 
 /**
  角色id
  */
-@property (nonatomic, assign) PositionID gid;
+@property (nonatomic, assign) NSInteger gid;
 
 /**
  可管辖角色列表
  */
-@property (nonatomic, strong) NSArray *jurisdictional_role_list;
+@property (nonatomic, strong) NSArray <JurisdictionalRoleModel *>*jurisdictional_role_list;
 
 /**
  access_token
@@ -92,6 +92,11 @@
 @property (nonatomic, strong) NSString *expired_at;
 
 #pragma mark -- help property
+
+/**
+ 个人信息是否需要更新
+ */
+@property (nonatomic, assign) BOOL isNeedUpdate;
 
 /**
  判断用户是否是第一次登录

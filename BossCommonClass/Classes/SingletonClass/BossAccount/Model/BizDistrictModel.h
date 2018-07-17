@@ -9,4 +9,10 @@
 
 @interface BizDistrictModel : NSObject
 
+@property (nonatomic, strong) NSString *biz_district_id;
+
+@property (nonatomic, strong) NSString *biz_district_name;
+
+- (NSDictionary *)decodeToDic;
+
 @end

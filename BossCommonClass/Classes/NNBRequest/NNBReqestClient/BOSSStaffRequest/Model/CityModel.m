@@ -15,6 +15,17 @@
         return;
     }
     
+    if ([key isEqualToString:@"biz_district_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            BizDistrictModel *model = [[BizDistrictModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.biz_district_list = [array copy];
+        return;
+    }
+    
     [super setValue:value forKey:key];
 }
 
@@ -26,6 +37,7 @@
 - (NSDictionary *)decodeToDic
 {
     NSDictionary *localDic = @{
+                               @"biz_district_list":[self encodeArrayToArray:self.biz_district_list],
                                @"city_name":self.city_name ? : @"",
                                @"city":self.city ? : @"",
                                @"city_spelling":self.city_spelling ? : @"",
@@ -34,5 +46,16 @@
     return localDic;
 }
 
+- (NSArray *)encodeArrayToArray:(NSArray *)array
+{
+    NSMutableArray *arrayM = [NSMutableArray array];
+    for (id model in array) {
+        if ([model respondsToSelector:@selector(decodeToDic)]) {
+            NSDictionary *dic = [model decodeToDic];
+            [arrayM addObject:dic];
+        }
+    }
+    return [arrayM copy];
+}
 
 @end

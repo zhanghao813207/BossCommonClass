@@ -8,8 +8,13 @@
 #ifndef BossMethodDefine_h
 #define BossMethodDefine_h
 
-/** 获取当前的登录的用户*/
+/** 获取当前的登录的用户（骑士）*/
 #define kCurrentAccount ([NNBAccount defaultAccount])
+
+/**
+ 获取当前的管理级用户
+ */
+#define kCurrentBossAccount ([BossAccount defaultAccount])
 
 /**
  字体

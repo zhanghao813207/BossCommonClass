@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BizDistrictModel.h"
 @interface CityModel : NSObject
 
 /**
@@ -28,6 +28,12 @@
  城市名称_平台名称
  */
 @property (nonatomic, strong) NSString *city_name_joint;
+
+/**
+ 业务区域列表
+ */
+@property (nonatomic, strong) NSArray <BizDistrictModel *>*biz_district_list;
+
 
 - (NSDictionary *)decodeToDic;
 

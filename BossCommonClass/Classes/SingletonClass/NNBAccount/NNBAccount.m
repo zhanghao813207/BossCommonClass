@@ -246,6 +246,43 @@ static NNBAccount *defaultAccount = nil;
 }
 
 /**
+ 当前用户是否登录，登录信息是否过期
+ 
+ @param loginBlock 是否登录
+ @param expeiredBlock 登录是否过期（只有登录才会回调是否过期）
+ */
++ (void)userIsLogin:(void(^)(BOOL isLogin))loginBlock Expired:(void (^)(BOOL isExpired))expeiredBlock
+{
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:AccountInfoKey];
+    if (dic) {
+        // 未过期的情况 用户上次登录过 且 不需要重新登录
+        if (![[NNBRequestManager shareNNBRequestManager] accountTockenIsExpiredWithExpired_at:dic[@"expired_at"]]) {
+            [kCurrentAccount setValuesForKeysWithDictionary:dic];
+            kCurrentAccount.isNeedUpdate = YES;
+            kCurrentAccount.isFirstLogin = YES;
+            if (!expeiredBlock) {
+                return;
+            }
+            expeiredBlock(NO);
+        } else {
+            // 过期的情况（目前不做处理，相当于没有登录过，会去重新登录(同安卓一样)）后期可以考虑刷新tocken
+            kCurrentAccount.isFirstLogin = YES;
+            if (!expeiredBlock) {
+                return;
+            }
+            expeiredBlock(YES);
+        }
+    } else {
+        // 没有登录过
+        kCurrentAccount.isFirstLogin = YES;
+        if (!loginBlock) {
+            return;
+        }
+    }
+}
+
+
+/**
  用户退出登录
  
  @param confirmBlock 点击确认后的回调

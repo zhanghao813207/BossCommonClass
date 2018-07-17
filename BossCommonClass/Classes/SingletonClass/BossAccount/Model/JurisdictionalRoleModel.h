@@ -9,4 +9,17 @@
 
 @interface JurisdictionalRoleModel : NSObject
 
+@property (nonatomic, assign) NSInteger gid;
+
+@property (nonatomic, strong) NSString *name;
+
+@property (nonatomic, assign) BOOL operable;
+
+@property (nonatomic, strong) NSArray *permission_id_list;
+
+@property (nonatomic, assign) NSInteger pid;
+
+- (NSDictionary *)decodeToDic;
+
+
 @end

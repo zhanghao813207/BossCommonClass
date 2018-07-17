@@ -147,14 +147,34 @@ static NNBRequestManager *sharedManager = nil;
 
 + (BOOL)saveAccountInfoWithAccountDic:(NSDictionary *)dic
 {
+    if (!dic) {
+        return NO;
+    }
+    
+#ifdef kBossKnight
     [kCurrentAccount setValuesForKeysWithDictionary:dic];
     
     NSDictionary *localAccountInfoDic = [kCurrentAccount decodeToDic];
     
     [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
+    [kUserDefault synchronize];
     
     [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentAccount.access_token refrech_token:kCurrentAccount.refresh_token expired_at:kCurrentAccount.expired_at];
     return YES;
+#elif defined kBossManager
+    [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
+    
+    NSDictionary *localAccountInfoDic = [kCurrentBossAccount decodeToDic];
+    
+    [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
+    [kUserDefault synchronize];
+    
+    [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
+    return YES;
+#else
+    return YES;
+#endif
+
 }
 
 @end
