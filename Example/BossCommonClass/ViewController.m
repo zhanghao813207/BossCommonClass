@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [NNBAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
         
     } withController:self];
 }
