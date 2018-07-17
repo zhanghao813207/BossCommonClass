@@ -16,6 +16,7 @@
 #import "BossMethodDefine.h"
 #import "NNBButton.h"
 #import "NNBAccount.h"
+#import "BossAccount.h"
 #import "BGFMDB.h"
 #import "UIView+ShowView.h"
 

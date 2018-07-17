@@ -1,0 +1,1 @@
+../../../../../BossCommonClass/Classes/SingletonClass/BossAccount/Model/JurisdictionalRoleModel.h

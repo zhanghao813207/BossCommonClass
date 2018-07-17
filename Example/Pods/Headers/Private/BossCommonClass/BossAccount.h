@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/BossAccount.h
+../../../../../BossCommonClass/Classes/SingletonClass/BossAccount/BossAccount.h
