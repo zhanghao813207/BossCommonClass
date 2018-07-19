@@ -233,7 +233,7 @@
 
 + (BOOL)regularPhone:(NSString*)phone
 {
-    NSString *phoneRegex = @"^(1[345678])\\d{9}$";
+    NSString *phoneRegex = @"^(1[3456789])\\d{9}$";
     
     return [self regularString:phone regex:phoneRegex];
 }
