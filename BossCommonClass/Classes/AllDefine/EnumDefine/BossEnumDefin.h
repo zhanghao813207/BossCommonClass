@@ -43,13 +43,31 @@ typedef NS_ENUM(NSUInteger, PaymentTypes) {
 };
 
 typedef NS_ENUM(NSUInteger, PositionID) {
-    PositionIDDirector        = 2003, // 总监
-    PositionIDCityManger      = 2004, // 城市经理
-    PositionIDCityAssistant   = 2005, // 城市助理
-    PositionIDDispatcher      = 2006, // 调度
-    PositionIDStationAgent    = 2007, // 站长
-    PositionIDKnightCommander = 2008, // 骑士长
-    PositionIDKnight          = 2009, // 骑士
+    PositionIDAdministrator    = 1000, // 超级管理员
+    PositionIDCOO              = 1001, // COO
+    PositionIDOperationManager = 1002, // 运营管理
+    PositionIDDirector         = 1003, // 总监
+    PositionIDCityManger       = 1004, // 城市经理
+    PositionIDCityAssistant    = 1005, // 城市助理
+    PositionIDDispatcher       = 1006, // 调度
+    PositionIDStationAgent     = 1007, // 站长
+    PositionIDBuyer            = 1008, // 采购员
+    PositionIDKnightCommander  = 1009, // 骑士长
+    PositionIDKnight           = 1010, // 骑士
+    PositionIDProjectDirector  = 1011, // 项目总监
+    PositionIDPersonnel        = 1012, // 人事或人事总监
+    PositionIDA1013            = 1013, // 张仕洋
+    PositionIDA1014            = 1014, // 巴朕巴总
+    PositionIDA1015            = 1015, // 总裁特别助理
+    PositionIDA1016            = 1016, // 财务负责人
+    PositionIDA1017            = 1017, // 财务经理
+    PositionIDA1018            = 1018, // 出纳
+    PositionIDA1019            = 1019, // 人事专员
+    PositionIDCEO              = 1020, // CEO
+    PositionIDA1021            = 1021, // 行政经理
+    PositionIDA1022            = 1022, // 行政专员
+    PositionIDA1023            = 1023, // 行政主管
+    PositionIDA1024            = 1024, // 主体总监
 };
 
 typedef NS_ENUM(NSUInteger, MaterialStates) {

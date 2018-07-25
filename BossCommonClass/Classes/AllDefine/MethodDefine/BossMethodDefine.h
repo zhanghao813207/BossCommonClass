@@ -29,10 +29,26 @@
 #define BossBlodFont(f_size) IsPhone_Size_4?[UIFont fontWithName:@"PingFangSC-Medium" size:(f_size-2)]:[UIFont fontWithName:@"PingFangSC-Medium" size:f_size]
 
 // 系统主颜色
+#ifdef kBossKnight
+
 #define kAppMainColor (kHexRGB(0x3589DE))
+
+#elif defined kBossManager
+
+#define kAppMainColor (kHexRGB(0x479CFF))
+
+#else
+
+#define kAppMainColor (kHexRGB(0x3589DE))
+
+#endif
+
 
 // 背景颜色
 #define kBossBGColor (kHexRGB(0xf5f5f5))
+
+// 线的颜色
+#define kLineColor (kHexRGBA(0x000000,0.1))
 
 
 #endif /* BossMethodDefine_h */
