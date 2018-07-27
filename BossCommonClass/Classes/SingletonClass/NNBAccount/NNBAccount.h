@@ -224,6 +224,12 @@
 @property (nonatomic, strong) NSString *supplier_id;
 
 /**
+ 银行卡上传方式 1：自动识别，2：手动填写
+ */
+@property (nonatomic, assign) NSUInteger bank_info_type;
+
+
+/**
  商圈描述
  */
 @property (nonatomic, strong) NSArray *district_description;
