@@ -114,6 +114,11 @@
     if (staffInfo.health_certificate_back) {
         [paramDic setValue:staffInfo.health_certificate_back forKey:@"health_certificate_back"];
     }
+    
+    if (staffInfo.bank_info_type) {
+        [paramDic setValue:@(staffInfo.bank_info_type) forKey:@"bank_info_type"];
+    }
+    
     if (staffInfo.identity_card_front) {
         [paramDic setValue:staffInfo.identity_card_front forKey:@"identity_card_front"];
     }
