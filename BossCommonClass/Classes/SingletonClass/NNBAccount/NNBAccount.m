@@ -114,6 +114,7 @@ static NNBAccount *defaultAccount = nil;
                                           @"recruitment_channel_id":@(self.recruitment_channel_id),
                                           @"state":@(self.state),
                                           @"gender_id":@(self.gender_id),
+                                          @"bank_info_type":@(self.bank_info_type),
 
                                           @"bank_card_front_key":self.bank_card_front_key ? : @"",
                                           @"bust_key":self.bust_key ? : @"",
