@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "BossBasicDefine.h"
 #import "LoginVC.h"
+#import "ThirdRequest.h"
 @interface ViewController ()
 
 @end
@@ -17,9 +18,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+//    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+//        
+//    } withController:self];
+    
+    [ThirdRequest ThirdRequestGetBankByBankcardId:@"621434" success:^(BOOL resp,NSString *bankName) {
         
-    } withController:self];
+    } fail:^(NSError *err) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
