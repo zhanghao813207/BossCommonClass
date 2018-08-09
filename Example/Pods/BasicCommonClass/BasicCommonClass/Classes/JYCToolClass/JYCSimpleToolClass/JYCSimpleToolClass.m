@@ -389,4 +389,65 @@
     return YES;
 }
 
+
+/**
+ 给view指定的角切圆角
+
+ @param corners 切圆角的位置
+ @param cornerRadii 切圆角的大小
+ @param view 被切圆角的view
+ */
++ (void)maskCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView *)view
+{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corners cornerRadii:cornerRadii];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.layer.mask = maskLayer;
+}
+
+/**
+ 改变字符串中某些文字的颜色
+ 
+ @param changeColorStringArray 要改变颜色的字符串
+ @param string 总字符串
+ @param color 要改变的颜色
+ @return 富文本
+ */
++ (NSAttributedString *)changeColorString:(NSArray <NSString *>*)changeColorStringArray inString:(NSString *)string withColor:(UIColor *)color
+{
+    if (changeColorStringArray.count < 1) {
+        return [[NSAttributedString alloc] initWithString:@""];
+    }
+    
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    for (NSInteger i = 0; i < changeColorStringArray.count; i++) {
+        NSString *targetString = changeColorStringArray[i];
+        NSRange stringRange = [string rangeOfString:targetString options:NSBackwardsSearch];
+        if (stringRange.location != NSNotFound) {
+            [attString addAttributes:@{NSForegroundColorAttributeName:color} range:stringRange];
+        }
+    }
+    return [attString copy];
+}
+
+/**
+ 模型数组转字典数组
+
+ @param array 模型数组(模型需要实现decodeToDic方法)
+ @return 字典数组
+ */
++ (NSArray *)encodeArrayToArray:(NSArray *)array
+{
+    NSMutableArray *arrayM = [NSMutableArray array];
+    for (id model in array) {
+        if ([model respondsToSelector:@selector(decodeToDic)]) {
+            NSDictionary *dic = [model performSelector:@selector(decodeToDic)];
+            [arrayM addObject:dic];
+        }
+    }
+    return [arrayM copy];
+}
+
 @end

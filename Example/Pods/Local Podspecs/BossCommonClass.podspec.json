@@ -1,6 +1,6 @@
 {
   "name": "BossCommonClass",
-  "version": "0.4.3",
+  "version": "0.4.8",
   "summary": "a common class of boss system",
   "description": "these are common classes,they are used by boss system.",
   "homepage": "https://git.coding.net/J_YC/BossCommonClass.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://git.coding.net/J_YC/BossCommonClass.git",
-    "tag": "0.4.3"
+    "tag": "0.4.8"
   },
   "platforms": {
     "ios": "8.0"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "BasicCommonClass": [
-      "~> 0.3.1"
+      "~> 0.3.3"
     ],
     "AFNetworking": [
       "~> 3.1.0"

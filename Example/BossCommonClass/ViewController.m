@@ -10,21 +10,59 @@
 #import "BossBasicDefine.h"
 #import "LoginVC.h"
 #import "ThirdRequest.h"
+#import "BossOaExamineRequest.h"
+#import "BossAssistantRequest.h"
+#import "BossNoticeRequest.h"
 @interface ViewController ()
+
+@property (nonatomic, strong) ApplyOrderModel *applyModel;
+
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
-//        
 //    } withController:self];
     
-    [ThirdRequest ThirdRequestGetBankByBankcardId:@"621434" success:^(BOOL resp,NSString *bankName) {
-        
-    } fail:^(NSError *err) {
+//    [BossAssistantRequest BossAssistantRequestFindAssistantWithPage:1 Limit:1 Success:^(NSArray *messageList, NSInteger totalCount) {
+//
+//    } fail:^(id error) {
+//
+//    }];
+    
+//    [BossNoticeRequest noticeRequsetFindListWithPage:1 limit:10 Success:^(NSArray *noticeList, NSInteger totalCount) {
+//        for (NoticeModuleModel *model in noticeList) {
+//            DLog(@"%ld,%ld",model.examineFlowBriefModel.state,totalCount);
+//        }
+//    } fail:^(id error) {
+//
+//    }];
+    
+//    [BossOaExamineRequest OaExamineRequestGetExamineListWithType:MOBILE_WAIT_EXAMINE successBlock:^(NSArray<ExamineFlowModel *> *examineFlowList) {
+//        
+//    } fail:^(id error) {
+//        
+//    }];
+    
+//    5b6aa308636d0735fb4c2ea1
+    
+//    [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:@"5b6aa308636d0735fb4c2ea1" successBlock:^(ExamineFlowModel *examineFlowList) {
+//
+//    } fail:^(id error) {
+//
+//    }];
+    
+//    5b6aa320636d0735fb4c2eb3
+    
+    [BossOaExamineRequest OaApplyOrderDetailWithOrderId:@"5b6aa320636d0735fb4c2eb3" successBlock:^(ApplyOrderModel *applyOrder) {
+        self.applyModel = applyOrder;
+        DLog(@"%@",applyOrder);
+    } fail:^(id error) {
         
     }];
 }

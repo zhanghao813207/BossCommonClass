@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BOSSStaffRequest/Model/BizDistrictModel.h
+../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossStaffRequest/Model/BizDistrictModel.h

@@ -78,4 +78,63 @@ typedef NS_ENUM(NSUInteger, MaterialStates) {
     MATERIAL_KNIGHT_REFUND_FAILED = 9022,  // 退货驳回
 };
 
+typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
+    MOBILE_WAIT_EXAMINE         = 1,  // 待我审批的
+    
+    MOBILE_PUT_EXAMINE_ALL      = 2,  // 我提报的（全部）
+    MOBILE_PUT_EXAMINE_PRESENT  = 3,  // 我提报的(审核中)
+    MOBILE_PUT_EXAMINE_SUCCEED  = 4,  // 我提报的(已通过)
+    MOBILE_PUT_EXAMINE_FAIL     = 5,  // 我提报的(已驳回)
+    
+    MOBILE_PASS_EXAMINE_ALL     = 6,  // 我经手的(全部)
+    MOBILE_PASS_EXAMINE_PRESENT = 7,  // 我经手的(审批中)
+    MOBILE_PASS_EXAMINE_SUCCEED = 8,  // 我经手的(已通过)
+    MOBILE_PASS_EXAMINE_FAIL    = 9,  // 我经手的(已驳回),
+};
+
+// 审批单整体状态
+typedef NS_ENUM(NSUInteger, OA_EXAMINE_STATE) {
+    OA_EXAMEINE_DELETE   = -2,  // 删除
+    OA_EXAMEINE_FAILT    = -1,  // 驳回、不通过
+    OA_EXAMEINE_INIT     =  0,  // 待提交
+    OA_EXAMEINE_WAIT     =  1,  // 待审核，审核中
+    OA_EXAMEINE_SUCCESS  =  2,  // 通过, 所有审批人都通过
+};
+// 审批节点状态
+typedef NS_ENUM(NSUInteger, OA_EXAMINE_NODE_STATE) {
+    OA_EXAMEINEFLOW_FAILT    = -1,  // 驳回、不通过
+    OA_EXAMEINEFLOW_INIT     =  0,  // 审批中
+    OA_EXAMEINEFLOW_SUCCESS  =  1,  // 通过
+};
+
+typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {
+    BOSS_MODULE_TYPE_OA  = 1, // 费用模块
+};
+
+//# boss助理(费用模块)
+typedef NS_ENUM(NSUInteger, BOSS_ASSISTANT_TYPE) {
+    BOSS_ASSISTANT_URGE = 101,  // 助理类型为催办
+    BOSS_ASSISTANT_WAIT =  99,  // 助理类型为代办
+};
+
+// 费用类型(枚举跟后端一致，名字那么low不是我起的)
+typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
+    OA_TEMPLATE_ONE          = 1, // 报销
+    OA_TEMPLATE_TWO          = 2, // 租房
+    OS_COSTCLASS_SALARY      = 3, // 薪资
+    OS_COSTCLASS_SUBJOIN     = 4, // 租房
+    OS_COSTCLASS_AGENCY      = 5, // 中介费
+    OS_COSTCLASS_PLEDGE      = 6, // 押金(中介费)
+};
+
+typedef NS_ENUM(NSUInteger, OA_HOUSE_STATES) {
+    OA_HOUSE_STATE_DEL      = -2,  // 删除
+    OA_HOUSE_STATE_STOP     = -1,  // 断租，算违约
+    OA_HOUSE_STATE_EXP      =  0,  // 退租，合同到期，合法解除
+    OA_HOUSE_STATE_NEW      =  1,  // 新租
+    OA_HOUSE_STATE_KEEP     =  2,  // 续租
+    OA_HOUSE_STATE_DOUKEEP  =  3,  // 续签
+    OA_HOUSE_STATE_NEW_LOCK =  4,  // 已续租（不显示续租按钮，但是前端还是现实新租）,
+};
+
 #endif /* BossEnumDefin_h */

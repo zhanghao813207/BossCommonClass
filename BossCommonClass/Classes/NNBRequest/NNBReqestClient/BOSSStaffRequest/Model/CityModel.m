@@ -6,7 +6,7 @@
 //
 
 #import "CityModel.h"
-
+#import "JYCSimpleToolClass.h"
 @implementation CityModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
@@ -37,25 +37,13 @@
 - (NSDictionary *)decodeToDic
 {
     NSDictionary *localDic = @{
-                               @"biz_district_list":[self encodeArrayToArray:self.biz_district_list],
+                               @"biz_district_list":[JYCSimpleToolClass encodeArrayToArray:self.biz_district_list],
                                @"city_name":self.city_name ? : @"",
                                @"city":self.city ? : @"",
                                @"city_spelling":self.city_spelling ? : @"",
                                @"city_name_joint":self.city_name_joint ? : @"",
                                };
     return localDic;
-}
-
-- (NSArray *)encodeArrayToArray:(NSArray *)array
-{
-    NSMutableArray *arrayM = [NSMutableArray array];
-    for (id model in array) {
-        if ([model respondsToSelector:@selector(decodeToDic)]) {
-            NSDictionary *dic = [model decodeToDic];
-            [arrayM addObject:dic];
-        }
-    }
-    return [arrayM copy];
 }
 
 @end

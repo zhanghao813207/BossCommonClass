@@ -17,13 +17,13 @@
 
 //NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
 
-NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
+//NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 
 // 后端刘昌颜 ip
 //NSString *const BossBasicURL = @"http://192.168.1.144:8081/1.0/";
 
 // 后端段飞 ip
-//NSString *const BossBasicURL = @"http://192.168.1.127:8081/1.0/";
+NSString *const BossBasicURL = @"http://192.168.1.133:8081/1.0/";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/

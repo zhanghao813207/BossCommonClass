@@ -174,10 +174,10 @@ static NNBAccount *defaultAccount = nil;
                                           @"district_description":self.district_description ? : @[],
                                           @"bank_location":self.bank_location ? : @[],
 
-                                          @"platform_list":self.platform_list ? [self encodeArrayToArray:self.platform_list] : @[],
-                                          @"city_list":self.city_list ? [self encodeArrayToArray:self.city_list] : @[],
-                                          @"departure_log":self.departure_log ? [self encodeArrayToArray:self.departure_log] : @[],
-                                          @"biz_district_list":self.biz_district_list ? [self encodeArrayToArray:self.biz_district_list] : @[],
+                                          @"platform_list":self.platform_list ? [JYCSimpleToolClass encodeArrayToArray:self.platform_list] : @[],
+                                          @"city_list":self.city_list ? [JYCSimpleToolClass encodeArrayToArray:self.city_list] : @[],
+                                          @"departure_log":self.departure_log ? [JYCSimpleToolClass encodeArrayToArray:self.departure_log] : @[],
+                                          @"biz_district_list":self.biz_district_list ? [JYCSimpleToolClass encodeArrayToArray:self.biz_district_list] : @[],
                                           };
     return localAccountInfoDic;
 }
@@ -314,18 +314,6 @@ static NNBAccount *defaultAccount = nil;
     [kUserDefault removeObjectForKey:AccountInfoKey];
     [kUserDefault synchronize];
     [[NNBRequestManager shareNNBRequestManager] cleanToken];
-}
-
-- (NSArray *)encodeArrayToArray:(NSArray *)array
-{
-    NSMutableArray *arrayM = [NSMutableArray array];
-    for (id model in array) {
-        if ([model respondsToSelector:@selector(decodeToDic)]) {
-            NSDictionary *dic = [model decodeToDic];
-            [arrayM addObject:dic];
-        }
-    }
-    return [arrayM copy];
 }
 
 - (NSString *)postionIDString

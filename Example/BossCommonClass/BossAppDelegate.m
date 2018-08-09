@@ -24,6 +24,7 @@
             DLog(@"过期")
             return;
         }
+        DLog(@"kCurrentBossAccount.account_id = %@",kCurrentBossAccount.account_id);
         DLog(@"还在有效期");
     }];
     return YES;

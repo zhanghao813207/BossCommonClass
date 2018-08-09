@@ -30,42 +30,57 @@ static BossAccount *defaultAccount = nil;
     }
     
     if ([key isEqualToString:@"permission"]) {
-        PermissionModel *model = [[PermissionModel alloc] init];
-        [model setValuesForKeysWithDictionary:value];
-        self.permission = model;
-        return;
-    }
-    
-    if ([key isEqualToString:@"jurisdictional_position_list"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
-            JurisdictionalPositionModel *model = [[JurisdictionalPositionModel alloc] init];
+            PermissionModel *model = [[PermissionModel alloc] init];
             [model setValuesForKeysWithDictionary:dic];
             [array addObject:model];
         }
-        self.jurisdictional_position_list = [array copy];
-        return;
-    }
-    
-    if ([key isEqualToString:@"jurisdictional_role_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            JurisdictionalRoleModel *model = [[JurisdictionalRoleModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.jurisdictional_role_list = [array copy];
+        self.permission = [array copy];
         return;
     }
 
-    if ([key isEqualToString:@"allow_exchange_account"]) {
+    if ([key isEqualToString:@"supplier_list"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
-            AllowExchangeAccountModel *model = [[AllowExchangeAccountModel alloc] init];
+            SupplierModel *model = [[SupplierModel alloc] init];
             [model setValuesForKeysWithDictionary:dic];
             [array addObject:model];
         }
-        self.allow_exchange_account = [array copy];
+        self.supplier_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"city_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            CityModel *model = [[CityModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.city_list = [array copy];
+        return;
+    }
+
+    if ([key isEqualToString:@"platform_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            PlatformModel *model = [[PlatformModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.platform_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"biz_district_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            BizDistrictModel *model = [[BizDistrictModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.biz_district_list = [array copy];
         return;
     }
 
@@ -178,18 +193,6 @@ static BossAccount *defaultAccount = nil;
     [[NNBRequestManager shareNNBRequestManager] cleanToken];
 }
 
-- (NSArray *)encodeArrayToArray:(NSArray *)array
-{
-    NSMutableArray *arrayM = [NSMutableArray array];
-    for (id model in array) {
-        if ([model respondsToSelector:@selector(decodeToDic)]) {
-            NSDictionary *dic = [model decodeToDic];
-            [arrayM addObject:dic];
-        }
-    }
-    return [arrayM copy];
-}
-
 /**
  模型转字典
  
@@ -198,6 +201,7 @@ static BossAccount *defaultAccount = nil;
 - (NSDictionary *)decodeToDic
 {
     NSDictionary *localAccountInfoDic = @{
+                                          @"state":@(self.state),
                                           @"position_id":@(self.position_id),
                                           @"gid":@(self.gid),
 
@@ -205,19 +209,27 @@ static BossAccount *defaultAccount = nil;
                                           @"phone":self.phone ? : @"",
                                           @"staff_id":self.staff_id ? : @"",
                                           @"name":self.name ? : @"",
+                                          @"updated_at":self.updated_at ? : @"",
+                                          @"operator_id":self.operator_id ? : @"",
+                                          @"position_name":self.position_name ? : @"",
+                                          @"created_at":self.created_at ? : @"",
+                                          @"operator_name":self.operator_name ? : @"",
+                                          @"_id":self._id ? : @"",
+
 
                                           @"access_token":self.access_token ? : @"",
                                           @"refresh_token":self.refresh_token ? : @"",
                                           @"expired_at":self.expired_at ? : @"",
 
-                                          @"permission":self.permission ? [self.permission decodeToDic] : @{},
                                           
-                                          @"region":self.region ? : @[],
-                                          @"permission_id_list":self.permission_id_list ? : @[],
+                                          @"supplier_cascade_list":self.supplier_cascade_list ? : @[],
+                                          @"city_cascade_list":self.city_cascade_list ? : @[],
                                           
-                                          @"jurisdictional_position_list": [self encodeArrayToArray:self.jurisdictional_position_list],
-                                          @"allow_exchange_account": [self encodeArrayToArray:self.allow_exchange_account],
-                                          @"jurisdictional_role_list": [self encodeArrayToArray:self.jurisdictional_role_list],
+                                          @"permission": [JYCSimpleToolClass encodeArrayToArray:self.permission],
+                                          @"city_list": [JYCSimpleToolClass encodeArrayToArray:self.city_list],
+                                          @"platform_list": [JYCSimpleToolClass encodeArrayToArray:self.platform_list],
+                                          @"biz_district_list": [JYCSimpleToolClass encodeArrayToArray:self.biz_district_list],
+                                          @"supplier_list": [JYCSimpleToolClass encodeArrayToArray:self.supplier_list],
 
                                           };
     return localAccountInfoDic;

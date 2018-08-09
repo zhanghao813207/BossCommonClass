@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
-#import "JurisdictionalPositionModel.h"
-#import "JurisdictionalRoleModel.h"
 #import "PermissionModel.h"
-#import "AllowExchangeAccountModel.h"
-#import "RegionModel.h"
+#import "SupplierModel.h"
+#import "CityModel.h"
+#import "PlatformModel.h"
+#import "BizDistrictModel.h"
 
 @interface BossAccount : NSObject
 
@@ -25,12 +25,22 @@
 /**
  权限
  */
-@property (nonatomic, strong) PermissionModel *permission;
+@property (nonatomic, strong) NSArray <PermissionModel *>*permission;
 
 /**
- 可管辖职位列表
+ 供应商级联
  */
-@property (nonatomic, strong) NSArray <JurisdictionalPositionModel *>*jurisdictional_position_list;
+@property (nonatomic, strong) NSArray *supplier_cascade_list;
+
+/**
+ 城市级联
+ */
+@property (nonatomic, strong) NSArray *city_cascade_list;
+
+/**
+ 更新时间
+ */
+@property (nonatomic, strong) NSString *updated_at;
 
 /**
  用户手机号
@@ -38,28 +48,54 @@
 @property (nonatomic, strong) NSString *phone;
 
 /**
+ 操作人ID
+ */
+@property (nonatomic, strong) NSString *operator_id;
+
+/**
+ 角色
+ */
+@property (nonatomic, strong) NSString *position_name;
+
+/**
  员工id
  */
 @property (nonatomic, strong) NSString *staff_id;
+
 /**
  用户姓名
  */
 @property (nonatomic, strong) NSString *name;
 
 /**
- 范围
+ 城市列表
  */
-@property (nonatomic, strong) NSArray <RegionModel *>*region;
+@property (nonatomic, strong) NSArray <CityModel *>*city_list;
 
 /**
- 权限id列表
+ 平台列表
  */
-@property (nonatomic, strong) NSArray *permission_id_list;
+@property (nonatomic, strong) NSArray <PlatformModel *>*platform_list;
 
 /**
- 可切换的账号
+ 商圈列表
  */
-@property (nonatomic, strong) NSArray <AllowExchangeAccountModel *>*allow_exchange_account;
+@property (nonatomic, strong) NSArray <BizDistrictModel *>*biz_district_list;
+
+/**
+ 供应商列表
+ */
+@property (nonatomic, strong) NSArray <SupplierModel *>*supplier_list;
+
+/**
+ 创建时间
+ */
+@property (nonatomic, strong) NSString *created_at;
+
+/**
+ 状态
+ */
+@property (nonatomic, assign) NSInteger state;
 
 /**
  职位id
@@ -72,9 +108,14 @@
 @property (nonatomic, assign) NSInteger gid;
 
 /**
- 可管辖角色列表
+ 操作人
  */
-@property (nonatomic, strong) NSArray <JurisdictionalRoleModel *>*jurisdictional_role_list;
+@property (nonatomic, strong) NSString *operator_name;
+
+/**
+ 用户ID
+ */
+@property (nonatomic, strong) NSString *_id;
 
 /**
  access_token

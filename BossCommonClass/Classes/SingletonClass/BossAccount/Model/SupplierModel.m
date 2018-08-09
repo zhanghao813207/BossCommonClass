@@ -1,21 +1,20 @@
 //
-//  PermissionModel.m
-//  BossCommonClass
+//  SupplierModel.m
+//  AFNetworking
 //
-//  Created by 贾远潮 on 2018/7/16.
+//  Created by 贾远潮 on 2018/8/8.
 //
 
-#import "PermissionModel.h"
+#import "SupplierModel.h"
 
-@implementation PermissionModel
+@implementation SupplierModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
     if (!value || value == [NSNull null]) {
         return;
     }
-    
-    
+        
     [super setValue:value forKey:key];
 }
 
@@ -27,8 +26,8 @@
 - (NSDictionary *)decodeToDic
 {
     NSDictionary *localDic = @{
-                               @"permission_code":self.permission_code ? : @"",
-                               @"permission_name":self.permission_name ? : @"",
+                               @"_id":self._id ? : @"",
+                               @"name":self.name ? : @"",
                                };
     return localDic;
 }

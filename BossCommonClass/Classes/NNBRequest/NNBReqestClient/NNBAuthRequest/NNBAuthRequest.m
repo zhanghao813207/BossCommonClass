@@ -10,7 +10,7 @@
 #import "NNBBasicRequest.h"
 #import "NNBRequestManager.h"
 #import "QHErrorView.h"
-
+#import "BossAccountRequest.h"
 @implementation NNBAuthRequest
 
 /**
@@ -41,26 +41,45 @@
                                @"app_code":APPCODE
                                };
     [NNBBasicRequest postLoginJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
 #ifdef kBossKnight
+        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
             kCurrentAccount.isNeedUpdate = NO;
             if (successBlock) {
                 successBlock(kCurrentAccount);
             }
-#elif defined kBossManager
-            kCurrentBossAccount.isNeedUpdate = NO;
-            if (successBlock) {
-                successBlock(kCurrentBossAccount);
-            }
-#else
-            kCurrentAccount.isNeedUpdate = NO;
-            if (successBlock) {
-                successBlock(kCurrentAccount);
-            }
-#endif
         } else {
             
         }
+#elif defined kBossManager
+        kCurrentBossAccount.isNeedUpdate = NO;
+        NSDictionary *dic = @{
+                              @"account_id":responseObject[@"account_id"],
+                              @"access_token":responseObject[@"access_token"],
+                              @"refresh_token":responseObject[@"refresh_token"],
+                              @"expired_at":responseObject[@"expired_at"],
+                              };
+        [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
+        [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
+        
+        [BossAccountRequest BossAccountRequestGainAccountWithAccountId:kCurrentBossAccount.account_id success:^{
+            if (successBlock) {
+                successBlock(kCurrentBossAccount);
+            }
+        } fail:^(id error) {
+            if (fail) {
+                fail(error);
+            }
+        }];
+#else
+        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
+            kCurrentAccount.isNeedUpdate = NO;
+            if (successBlock) {
+                successBlock(kCurrentAccount);
+            }
+        } else {
+            
+        }
+#endif
     } fail:^(id error) {
         if (fail) {
             fail(error);
