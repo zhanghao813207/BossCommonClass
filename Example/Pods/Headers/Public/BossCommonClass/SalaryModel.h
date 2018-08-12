@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossSalaryDetailReuest/Model/SalaryModel.h
+../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossSalaryReuest/Model/SalaryModel.h
