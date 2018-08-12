@@ -56,6 +56,8 @@
 		26DC99F1EBD31A144A6522B695D9DC1B /* UINavigationBar+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = CABE10910D10841D77530E7AFC63EDB4 /* UINavigationBar+BackgroundColor.m */; };
 		2825F7DFBDF1D853CBDC3C466800C931 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921D275AC6AA48C031BF91FD4592584 /* Foundation.framework */; };
 		28880BCDC4C6A456FBCC847338359C66 /* EmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CFEBB805F96021CE71E9C4AC80EC6A /* EmptyView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2916E90A212045AC00E1ECA4 /* BossSalaryRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */; };
+		2916E90B212045AC00E1ECA4 /* BossSalaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */; };
 		29D221887670387A248AD92AA94253C2 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FDA39943B596C643745482808A2B8B /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		29FE6AA0A24F09CEEDB2C33654904A29 /* NSDate+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 955A1DD654C0641542A44A700D6EA981 /* NSDate+Helper.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2A8CA39B51CB68A7810BE242E77A8B2D /* QNConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DE27258F0ECAA7137A95CCC38E374375 /* QNConfiguration.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -143,7 +145,6 @@
 		66E1040543AF7BA3DC3731FE17C85F5B /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = F1095204A5A630BB85F3BA41BAECD3C7 /* AFSecurityPolicy.m */; };
 		6770E9B3AE988C08AB0AF419DA4BFBF0 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B66DF66D7219E40D24148BE252F14F9 /* QNUploadOption.m */; };
 		67850665BC0F6B2B9857E0EB2D6145A8 /* QNHosts.h in Headers */ = {isa = PBXBuildFile; fileRef = 30EF9542522D3AD1AC16A88333C3FF9D /* QNHosts.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		687E965A757104B2E239844DAC50E869 /* BossSalaryRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FBF9880513C1965FC07CDCE367CB99 /* BossSalaryRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		68E2229000D2AFFC33049DD285A2C37E /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BE824026CF41DC55DE0546DE89024F8 /* FMDB.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6A88C9E82DD68D466E8380EB5EE4EE40 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3111844445C3088240D63F1DC958EB37 /* FMResultSet.m */; };
 		6B3DDCC68256B1C88C6318D7DA134577 /* PlatformModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E27B4F40D6A8B623D9C4EEA060A647 /* PlatformModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -188,7 +189,6 @@
 		89D25A9663850397B246049C1678A7C3 /* JYCScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB673E6EE2FAC169EB05B71C4C625CE6 /* JYCScaleView.m */; };
 		8ABAFC72E538C8B44FB3563C5476EB8F /* QHTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC55B1AA59FCD7E658E9BBF9688EC /* QHTextField.m */; };
 		8AF77534CE2BB299DBD82BA28B02C09D /* HappyDNS.h in Headers */ = {isa = PBXBuildFile; fileRef = DEF63E288653D42BDD31AE5C6E9694CB /* HappyDNS.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8B60C4FFB0E166A31D574DA05B4DA94A /* BossSalaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BD60BEA3F83FF08A1FDBA570DF6311 /* BossSalaryRequest.m */; };
 		8C6457B0A510AD13644DF81C1C37F6E2 /* NNBLoadStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70108DF758094ED35C9AA5BE1DFBE328 /* NNBLoadStatusView.m */; };
 		8CAA8D6FD83684B0E53C1E8D47DB52FD /* NNBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CE356D7072E65D39E7059D6DAC606 /* NNBAlertView.m */; };
 		8E84A9DAE2144B1234090F412405DA5F /* NNBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FFF47C6C0EAC0B590591396C5690D7 /* NNBAccount.m */; };
@@ -459,8 +459,8 @@
 		05E8B06C580B82C768A81DEC414FA11D /* ProviderModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ProviderModel.m; sourceTree = "<group>"; };
 		066A283D743E0CDDFBCB9102F3DFB547 /* AssistantMessageModuleModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AssistantMessageModuleModel.m; sourceTree = "<group>"; };
 		069A1D379BB45B2DC7D9D55A6164AA9E /* QNFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNFile.h; path = QiniuSDK/Common/QNFile.h; sourceTree = "<group>"; };
-		0899F6753D8177F8F63F43F0E1063E4D /* libBossCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBossCommonClass.a; path = libBossCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		08B9D2F58D4759412C0334D72EEBC453 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		0899F6753D8177F8F63F43F0E1063E4D /* libBossCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBossCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		08B9D2F58D4759412C0334D72EEBC453 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		091583B4E465E724F783E7F170523BE2 /* JYCTitleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JYCTitleView.h; sourceTree = "<group>"; };
 		0A980B23F90C840871DDBA6B33C7A602 /* QNConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNConfiguration.m; path = QiniuSDK/Storage/QNConfiguration.m; sourceTree = "<group>"; };
 		0B5206AA0FF6B17D825D4AFF512DFCF9 /* BossAccountRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossAccountRequest.h; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 		13E54E830219B04F48F7B0B64EB98C5F /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
 		13FF5D2729DCC8D39354DCE5D641C2E8 /* BossOaExamineRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossOaExamineRequest.m; sourceTree = "<group>"; };
 		1438D1837E3166867A747356C04F6B69 /* QNFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNFile.m; path = QiniuSDK/Common/QNFile.m; sourceTree = "<group>"; };
-		153E7FDD340BC832F072E86C74B23E6D /* libHappyDNS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libHappyDNS.a; path = libHappyDNS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		153E7FDD340BC832F072E86C74B23E6D /* libHappyDNS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHappyDNS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1567BB1055FF2F9930CF16A9EF23C5FF /* ProviderModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ProviderModel.h; sourceTree = "<group>"; };
 		1579BFF969BED6577EA1C8A9335154FD /* DepartureLogModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DepartureLogModel.h; sourceTree = "<group>"; };
 		1600BCFBDFD80AF4D6E1CB76B3A7F5CD /* BossMethodDefine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossMethodDefine.h; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 		1B18EE062B1E07F6E1653500BD22D484 /* BizDistrictModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BizDistrictModel.m; sourceTree = "<group>"; };
 		1C84E26B79DE9DC10CA01B2AE7BE5BED /* HappyDNS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HappyDNS.xcconfig; sourceTree = "<group>"; };
 		1DACAA6251F97C9D19D4D641E2FD5F22 /* QNPipeline.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNPipeline.m; path = QiniuSDK/BigData/QNPipeline.m; sourceTree = "<group>"; };
-		1DADE00BA88C1B64D69C7BD1B37B5730 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		1DADE00BA88C1B64D69C7BD1B37B5730 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1EC456E3C2A847199E6BF9006907ED35 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = BGFMDB/libs/FMDB/FMDatabasePool.m; sourceTree = "<group>"; };
 		1F49C0CB1783BD87075B6CE1E3B26937 /* ApplyOrderModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ApplyOrderModel.m; sourceTree = "<group>"; };
 		2071489DBAD3888277A7025814FAD392 /* NNBTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NNBTextField.m; sourceTree = "<group>"; };
@@ -507,6 +507,8 @@
 		24384F297D7D07362D73A5E715E24BC4 /* OrderModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		25DC5373BB979F2FC7860F54A3C7CF3D /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		2610A336D7DD487732AE37E82EA40943 /* PlatformModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PlatformModel.m; sourceTree = "<group>"; };
+		2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossSalaryRequest.h; sourceTree = "<group>"; };
+		2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossSalaryRequest.m; sourceTree = "<group>"; };
 		29D1A70B175917534726F260F056078D /* InputCodeView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = InputCodeView.m; sourceTree = "<group>"; };
 		2B4142D5B77D7727266048F9981837A2 /* AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.xcconfig; sourceTree = "<group>"; };
 		2D03DD6A6150AEC49C3AEC3DE71C5942 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = BGFMDB/libs/FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -535,7 +537,7 @@
 		3961B60148DD58E6F809F44E034C61AD /* NNBAuthRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBAuthRequest.h; sourceTree = "<group>"; };
 		39BAAC105D6696833631ABF6676E28AA /* ExamineModuleModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ExamineModuleModel.h; sourceTree = "<group>"; };
 		3A08F177E83283519925F665F70D49B5 /* BossWhiteNavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossWhiteNavigationController.h; sourceTree = "<group>"; };
-		3AE02C0CA73FFAC5D0157F9639188FA1 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BossCommonClass_Example.a"; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AE02C0CA73FFAC5D0157F9639188FA1 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC7D241869B881E7E38E267B7B87E47 /* QNSystem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNSystem.h; path = QiniuSDK/Common/QNSystem.h; sourceTree = "<group>"; };
 		3DBA1F61D4C3D19D5569EE2BCC9E2327 /* PayeeInfoModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PayeeInfoModel.h; sourceTree = "<group>"; };
 		3E81D5863029D6FCC757973B4EB56C06 /* JYCPageStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JYCPageStyle.h; sourceTree = "<group>"; };
@@ -607,7 +609,7 @@
 		6AF54FBB682369DE092B7A5F28A3D99B /* BizDistrictModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BizDistrictModel.h; sourceTree = "<group>"; };
 		6B22CAE72DD9751BDF1E7B22B1B74C6E /* NSString+CaleSize.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+CaleSize.m"; path = "BasicCommonClass/Classes/CategoryClass/ObjectCategory/NSString/NSString+CaleSize.m"; sourceTree = "<group>"; };
 		6B8B69C3930F9FF48F91FEA412EF8780 /* QNResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNResolver.h; path = HappyDNS/Local/QNResolver.h; sourceTree = "<group>"; };
-		6BD01C43B9179C7508DE6709E7368858 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAFNetworking.a; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BD01C43B9179C7508DE6709E7368858 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD7362F43565026BBF8E5D9CDE69935 /* NSCache+BGCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSCache+BGCache.h"; path = "BGFMDB/libs/BG/NSCache+BGCache.h"; sourceTree = "<group>"; };
 		6D35D3CB5DAEF8830EA6FF26F0FEDA85 /* JYCEnumDefine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCEnumDefine.h; path = BasicCommonClass/Classes/AllDefine/EnumDefine/JYCEnumDefine.h; sourceTree = "<group>"; };
 		6DF8912CF4A9A7868B3BB7ED4EAF044B /* JYCAES256.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JYCAES256.m; path = BasicCommonClass/Classes/JYCToolClass/JYCAES256/JYCAES256.m; sourceTree = "<group>"; };
@@ -656,7 +658,7 @@
 		8D2C7FC934548EA94409CB6192FDD55E /* QNPipeline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNPipeline.h; path = QiniuSDK/BigData/QNPipeline.h; sourceTree = "<group>"; };
 		8F16FDD5C816DFDC5723CFDFA1296989 /* QNFileDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNFileDelegate.h; path = QiniuSDK/Common/QNFileDelegate.h; sourceTree = "<group>"; };
 		92B6AB58DCF4FEEF3797C9650103522A /* Pods-BossCommonClass_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BossCommonClass_Example.release.xcconfig"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93C82BFADCD8FFE7CD5467BF5FFA6EC2 /* UIImage+Category.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Category.m"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UIImage/UIImage+Category.m"; sourceTree = "<group>"; };
 		95246689546B4A7D68C4DE93F2B8D63D /* InputCodeView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = InputCodeView.h; sourceTree = "<group>"; };
 		955A1DD654C0641542A44A700D6EA981 /* NSDate+Helper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+Helper.h"; path = "BasicCommonClass/Classes/CategoryClass/ObjectCategory/NSDate/NSDate+Helper.h"; sourceTree = "<group>"; };
@@ -675,7 +677,7 @@
 		A64716173FC0305057230E14CDCC7A77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		A6558BE1860523E9B3FC9EA273A47B57 /* QNHttpDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNHttpDelegate.h; path = QiniuSDK/Http/QNHttpDelegate.h; sourceTree = "<group>"; };
 		A663A06F6640AEEE4B350FF70A0B5E04 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		A6F9A0F610FFA73B074CFC2E0CAB5E64 /* BossCommonClass.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A6F9A0F610FFA73B074CFC2E0CAB5E64 /* BossCommonClass.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A79CB3CA0F6ADCF48DCC28E4BD614220 /* QNUrlSafeBase64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNUrlSafeBase64.m; path = QiniuSDK/Common/QNUrlSafeBase64.m; sourceTree = "<group>"; };
 		A7C8EAAE14D25C900581F2EB1A568782 /* NNBBottomAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NNBBottomAlertView.m; sourceTree = "<group>"; };
 		A80E7E456E53D3CA1A122A95813D86CA /* PayeeInfoModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PayeeInfoModel.m; sourceTree = "<group>"; };
@@ -704,7 +706,7 @@
 		BCA74A69139C48199DD09BADEA25E65D /* JYCAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCAlertView.h; path = BasicCommonClass/Classes/CustomView/JYCAlertView/JYCAlertView.h; sourceTree = "<group>"; };
 		BCA994F6277F9D7AFD5E83048FC3BFC1 /* QNRecorderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNRecorderDelegate.h; path = QiniuSDK/Recorder/QNRecorderDelegate.h; sourceTree = "<group>"; };
 		BCAAEBADDE8141DC56B5731C572C6D25 /* QNFileRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNFileRecorder.h; path = QiniuSDK/Recorder/QNFileRecorder.h; sourceTree = "<group>"; };
-		BCFF0B340936B02B072C72FF34941457 /* libQiniu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libQiniu.a; path = libQiniu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCFF0B340936B02B072C72FF34941457 /* libQiniu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQiniu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD88E0E1C9DD854862BDC468F9A95D16 /* Pods-BossCommonClass_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BossCommonClass_Example-frameworks.sh"; sourceTree = "<group>"; };
 		BDBE6F2C9970D75E81B09D653265D655 /* Qiniu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Qiniu-prefix.pch"; sourceTree = "<group>"; };
 		BDCAEE748DCA3D9DD258F7943591FA0D /* QNDes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNDes.h; path = HappyDNS/Util/QNDes.h; sourceTree = "<group>"; };
@@ -718,7 +720,6 @@
 		C19EFAF98379B9FD80E4ADAA91BE078F /* QNIP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNIP.h; path = HappyDNS/Util/QNIP.h; sourceTree = "<group>"; };
 		C1A4889D958C0F20151AB6283AF31E22 /* NNBBottomAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBBottomAlertView.h; sourceTree = "<group>"; };
 		C1B3177B81C00EA615E7018621CB9D16 /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
-		C2BD60BEA3F83FF08A1FDBA570DF6311 /* BossSalaryRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossSalaryRequest.m; sourceTree = "<group>"; };
 		C45CDE947531969465E4580052FF3680 /* BGFMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BGFMDB-prefix.pch"; sourceTree = "<group>"; };
 		C4F2B4F6BAAA640013BD42877B46DE71 /* QNFormUpload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNFormUpload.m; path = QiniuSDK/Storage/QNFormUpload.m; sourceTree = "<group>"; };
 		C54E04413FAC38FA15F27934AF578560 /* BasicCommonClass-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BasicCommonClass-dummy.m"; sourceTree = "<group>"; };
@@ -731,7 +732,7 @@
 		C88EA50CA88D9D36FF036F93084BB55A /* ExamineNodeMdoel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ExamineNodeMdoel.m; sourceTree = "<group>"; };
 		C9FFF47C6C0EAC0B590591396C5690D7 /* NNBAccount.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NNBAccount.m; sourceTree = "<group>"; };
 		CA4D96729939D48584695DC7BBB70FC7 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		CA7E8CD6E7FD1E35ED924B47A0955A92 /* libBGFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBGFMDB.a; path = libBGFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA7E8CD6E7FD1E35ED924B47A0955A92 /* libBGFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBGFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA8DD88BB13C30431A75FCEFD373D17D /* QNIpModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNIpModel.m; path = HappyDNS/Assessment/QNIpModel.m; sourceTree = "<group>"; };
 		CA9091604E1E7837E6C39CF269D2B368 /* QN_GTM_Base64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QN_GTM_Base64.m; path = QiniuSDK/Common/QN_GTM_Base64.m; sourceTree = "<group>"; };
 		CABE10910D10841D77530E7AFC63EDB4 /* UINavigationBar+BackgroundColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+BackgroundColor.m"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UINavigationBar/UINavigationBar+BackgroundColor.m"; sourceTree = "<group>"; };
@@ -752,10 +753,9 @@
 		D282343851148752A1BB114AD15FFDEC /* Pods-BossCommonClass_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BossCommonClass_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D2E4630CCD47DE4FC9151643581769BA /* JYCLinePath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCLinePath.h; path = BasicCommonClass/Classes/CustomView/JYCDrawPathView/JYCLinePath.h; sourceTree = "<group>"; };
 		D3E64EF7463375F6E5FEB3D73EB2E39B /* QHErrorView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QHErrorView.h; sourceTree = "<group>"; };
-		D3FBF9880513C1965FC07CDCE367CB99 /* BossSalaryRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossSalaryRequest.h; sourceTree = "<group>"; };
 		D4657A6604F2FEBA6421085661764B2A /* QNHosts.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNHosts.m; path = HappyDNS/Local/QNHosts.m; sourceTree = "<group>"; };
 		D4BDEB5BD0C0C6D7E2CCA12EB683385C /* JYCDrawPathView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JYCDrawPathView.m; path = BasicCommonClass/Classes/CustomView/JYCDrawPathView/JYCDrawPathView.m; sourceTree = "<group>"; };
-		D583019906CAB82D77E1E65333346BFC /* libBasicCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBasicCommonClass.a; path = libBasicCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D583019906CAB82D77E1E65333346BFC /* libBasicCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBasicCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E805D4BAA06AB716F771D071ACEC91 /* BossNavigationController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossNavigationController.m; sourceTree = "<group>"; };
 		D6484203E77FC4667AEE3AC75ED1C453 /* BossNoticeRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossNoticeRequest.h; sourceTree = "<group>"; };
 		D789821D9AFE266CA61C542CC3C95F5D /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
@@ -944,7 +944,6 @@
 				E5E8A2F96CB740FAEFBB42654FEFA36E /* NNBUtilRequest */,
 				F3F7C96B11BCBDB92CF6EC8A1F8CBD11 /* ThirdRequest */,
 			);
-			name = NNBReqestClient;
 			path = NNBReqestClient;
 			sourceTree = "<group>";
 		};
@@ -959,7 +958,6 @@
 				2C51CB335F654D815C0555A269E5482A /* Support Files */,
 				05E8C4894A201DE997BCAC4D409BC606 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -981,7 +979,6 @@
 				627791977897900A2019FBB890C37633 /* BossStaffRequest.m */,
 				720F960DE213126D0E55F7583CE0D2E1 /* Model */,
 			);
-			name = BOSSStaffRequest;
 			path = BOSSStaffRequest;
 			sourceTree = "<group>";
 		};
@@ -991,7 +988,6 @@
 				7BEE9286FAEC41B3084ECCBEF602241E /* UITextView+Placeholder.h */,
 				B210DB264CB0C99D60066D00F1F03781 /* UITextView+Placeholder.m */,
 			);
-			name = UITextView;
 			path = UITextView;
 			sourceTree = "<group>";
 		};
@@ -1001,7 +997,6 @@
 				348FCA3996C697BB1A72CB16BC78964A /* NNBStatusAnimationView.h */,
 				B5F119882A3DE8EA78E32C029DA497D1 /* NNBStatusAnimationView.m */,
 			);
-			name = NNBStatusAnimationView;
 			path = NNBStatusAnimationView;
 			sourceTree = "<group>";
 		};
@@ -1034,7 +1029,6 @@
 				1567BB1055FF2F9930CF16A9EF23C5FF /* ProviderModel.h */,
 				05E8B06C580B82C768A81DEC414FA11D /* ProviderModel.m */,
 			);
-			name = NNBAccount;
 			path = NNBAccount;
 			sourceTree = "<group>";
 		};
@@ -1044,7 +1038,6 @@
 				DE498586C9135FE925F5AF75613382C9 /* NoticeModuleModel.h */,
 				BF86A41860ED87B1D9B4513A7D1A0ACD /* NoticeModuleModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1055,7 +1048,6 @@
 				21AABCEEF8139F89996EB3EB87E4326D /* BossAssistantRequest.m */,
 				F3255644F976919BB8AC4E693548626F /* Model */,
 			);
-			name = BossAssistantRequest;
 			path = BossAssistantRequest;
 			sourceTree = "<group>";
 		};
@@ -1064,7 +1056,6 @@
 			children = (
 				BB19B9302859D98905FB2744C98A66C7 /* BossEnumDefin.h */,
 			);
-			name = EnumDefine;
 			path = EnumDefine;
 			sourceTree = "<group>";
 		};
@@ -1132,7 +1123,6 @@
 				704389FD10BBA096221D97B3C34DD11C /* QNVersion.h */,
 				1825DCD21C80CEBC1266EC78197E0325 /* Support Files */,
 			);
-			name = Qiniu;
 			path = Qiniu;
 			sourceTree = "<group>";
 		};
@@ -1153,7 +1143,6 @@
 				5E17E676F381A63AEE6A65AFC1F867CE /* OperationTypes.h */,
 				18C1CBB20E0724D03EB3698E053599DC /* OperationTypes.m */,
 			);
-			name = OperateTypes;
 			path = OperateTypes;
 			sourceTree = "<group>";
 		};
@@ -1163,7 +1152,6 @@
 				5C6DA48032F8DD2CD0F60211F7219798 /* NNBUploadManager.h */,
 				F182B97F449884AB31578907826B4601 /* NNBUploadManager.m */,
 			);
-			name = NNBUploadManager;
 			path = NNBUploadManager;
 			sourceTree = "<group>";
 		};
@@ -1206,7 +1194,6 @@
 				83CA1638DC80C006938CDA101F8D8302 /* NNBButton.h */,
 				4C588C926E8F351EF5E843BB9D9FE9DB /* NNBButton.m */,
 			);
-			name = NNBButton;
 			path = NNBButton;
 			sourceTree = "<group>";
 		};
@@ -1215,7 +1202,6 @@
 			children = (
 				1600BCFBDFD80AF4D6E1CB76B3A7F5CD /* BossMethodDefine.h */,
 			);
-			name = MethodDefine;
 			path = MethodDefine;
 			sourceTree = "<group>";
 		};
@@ -1225,7 +1211,6 @@
 				D3E64EF7463375F6E5FEB3D73EB2E39B /* QHErrorView.h */,
 				0074FAB72074E8758A2FA65CABFB24FC /* QHErrorView.m */,
 			);
-			name = ErrorNoticeView;
 			path = ErrorNoticeView;
 			sourceTree = "<group>";
 		};
@@ -1246,7 +1231,6 @@
 				8B5DD0753DBF88431CB0F53973F4F735 /* BossMaterialFlowRequest.h */,
 				9C95E53590C84228E5AA37E91E68275D /* BossMaterialFlowRequest.m */,
 			);
-			name = BossMaterialFlowRequest;
 			path = BossMaterialFlowRequest;
 			sourceTree = "<group>";
 		};
@@ -1262,7 +1246,6 @@
 				C5E27B4F40D6A8B623D9C4EEA060A647 /* PlatformModel.h */,
 				2610A336D7DD487732AE37E82EA40943 /* PlatformModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1272,7 +1255,6 @@
 				CB2B28D224FA3CD3E53B104831F587F4 /* NNBResponseModel.h */,
 				7D9BAB5375F0137731F2516E6A39F8CE /* NNBResponseModel.m */,
 			);
-			name = NNBResponseModel;
 			path = NNBResponseModel;
 			sourceTree = "<group>";
 		};
@@ -1282,7 +1264,6 @@
 				1D395D8D5DD756746B645D237BD54879 /* UITextView */,
 				E15B134068297DC77AEA480ECDD396D9 /* UIView */,
 			);
-			name = ViewCategory;
 			path = ViewCategory;
 			sourceTree = "<group>";
 		};
@@ -1306,7 +1287,6 @@
 				A951F9248DF24BA99AA6E6BAF57001AE /* SupplierModel.h */,
 				77577C475CBA9F590F96876A72E8CECF /* SupplierModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1349,7 +1329,6 @@
 				F5CF8787CBB7104562D4CC3BCC0171F0 /* NNBAlertView.h */,
 				5A2CE356D7072E65D39E7059D6DAC606 /* NNBAlertView.m */,
 			);
-			name = NNBAlertView;
 			path = NNBAlertView;
 			sourceTree = "<group>";
 		};
@@ -1361,7 +1340,6 @@
 				9FCC45B39A29332B28D1CA103A98CD00 /* FMDB */,
 				F05A591B42CC0372E663202BE123E947 /* Support Files */,
 			);
-			name = BGFMDB;
 			path = BGFMDB;
 			sourceTree = "<group>";
 		};
@@ -1390,7 +1368,6 @@
 				0D1F9ED76342D10ACD3EAA3A24E85972 /* BossKnightMaterialRequest.m */,
 				B5D6E501BBBA97A6B1873C7C789CCF2E /* Model */,
 			);
-			name = BossKnightMaterialRequest;
 			path = BossKnightMaterialRequest;
 			sourceTree = "<group>";
 		};
@@ -1446,7 +1423,6 @@
 				34B71010CC0CA7936174C4928AE7022C /* UIView+ResetFrame.m */,
 				37B429B217015B41028FB196520721AD /* Support Files */,
 			);
-			name = BasicCommonClass;
 			path = BasicCommonClass;
 			sourceTree = "<group>";
 		};
@@ -1457,18 +1433,16 @@
 				B3A17C8CF9245AB4DCA74B5ECBD0F4E9 /* NNBAuthRequest.m */,
 				C958403CDE2426865C0B775A80E3FE1F /* Model */,
 			);
-			name = NNBAuthRequest;
 			path = NNBAuthRequest;
 			sourceTree = "<group>";
 		};
 		AA2A1C3D57848BC706F16F1FF911F1EF /* BossSalaryDetailReuest */ = {
 			isa = PBXGroup;
 			children = (
-				D3FBF9880513C1965FC07CDCE367CB99 /* BossSalaryRequest.h */,
-				C2BD60BEA3F83FF08A1FDBA570DF6311 /* BossSalaryRequest.m */,
+				2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */,
+				2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */,
 				CA3C1902275CB484120B6855874A2A45 /* Model */,
 			);
-			name = BossSalaryDetailReuest;
 			path = BossSalaryDetailReuest;
 			sourceTree = "<group>";
 		};
@@ -1478,7 +1452,6 @@
 				0B5206AA0FF6B17D825D4AFF512DFCF9 /* BossAccountRequest.h */,
 				A4097A6AC03F2CBD80C73DB41175B318 /* BossAccountRequest.m */,
 			);
-			name = BossAccountRequest;
 			path = BossAccountRequest;
 			sourceTree = "<group>";
 		};
@@ -1497,7 +1470,6 @@
 				804A6C37A6E5EEC7E1D52675BA6226EB /* QHScanManager.h */,
 				CB8ABB03293B56700AC3CF4B8DC83A8B /* QHScanManager.m */,
 			);
-			name = QHScanManager;
 			path = QHScanManager;
 			sourceTree = "<group>";
 		};
@@ -1507,7 +1479,6 @@
 				0C9564408A20A83ABD868C5CC21DCE1C /* NNBStatusView.h */,
 				C7E8442AC36C83DC2CD7594B58FBC481 /* NNBStatusView.m */,
 			);
-			name = NNBStatusView;
 			path = NNBStatusView;
 			sourceTree = "<group>";
 		};
@@ -1519,7 +1490,6 @@
 				24384F297D7D07362D73A5E715E24BC4 /* OrderModel.h */,
 				EF04909107ED9D51CF843274A28A75B3 /* OrderModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1530,7 +1500,6 @@
 				F42910545DDE6B44ECD8080333F2303B /* BossAccount.m */,
 				7DD53E0038A3F7BD22FC60B2834B49CD /* Model */,
 			);
-			name = BossAccount;
 			path = BossAccount;
 			sourceTree = "<group>";
 		};
@@ -1566,7 +1535,6 @@
 				5AAD967B4557868D06468D8AF12D5CCD /* NNBLoadingView.h */,
 				0F7A2A6897CC42554098A5F9BBCDD54B /* NNBLoadingView.m */,
 			);
-			name = NNBLoadingView;
 			path = NNBLoadingView;
 			sourceTree = "<group>";
 		};
@@ -1576,7 +1544,6 @@
 				F9DDF36B3EE152EB048D757F0BA96F58 /* NNBRequestManager.h */,
 				A24C2948EE8A4F46A559CC79839A32E3 /* NNBRequestManager.m */,
 			);
-			name = NNBRequestManager;
 			path = NNBRequestManager;
 			sourceTree = "<group>";
 		};
@@ -1592,7 +1559,6 @@
 				3DBA1F61D4C3D19D5569EE2BCC9E2327 /* PayeeInfoModel.h */,
 				A80E7E456E53D3CA1A122A95813D86CA /* PayeeInfoModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1603,7 +1569,6 @@
 				841BBB86C91A4CDD5D6DAD66A6D8D633 /* BossNoticeRequest.m */,
 				293019D99E757B3D07FADE0C3DC8733A /* Model */,
 			);
-			name = BossNoticeRequest;
 			path = BossNoticeRequest;
 			sourceTree = "<group>";
 		};
@@ -1613,7 +1578,6 @@
 				8420DC2C67454946F41E049EF85D094A /* SalaryModel.h */,
 				2D78B0E95763B2D348EEEC8B521A9C99 /* SalaryModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1651,7 +1615,6 @@
 				13FF5D2729DCC8D39354DCE5D641C2E8 /* BossOaExamineRequest.m */,
 				DC165FA6589C5DB141F1A27566F4DEF0 /* Model */,
 			);
-			name = BossOaExamineRequest;
 			path = BossOaExamineRequest;
 			sourceTree = "<group>";
 		};
@@ -1679,7 +1642,6 @@
 				EFC21CE628D2CBC2FF2E44DC4D26281C /* Controller */,
 				FB49AB6FAF34662E946DA776E9D72485 /* View */,
 			);
-			name = LoginMain;
 			path = LoginMain;
 			sourceTree = "<group>";
 		};
@@ -1689,7 +1651,6 @@
 				B7757841BF68418EC6D5A43F499E59F8 /* QHTextField.h */,
 				4BEBC55B1AA59FCD7E658E9BBF9688EC /* QHTextField.m */,
 			);
-			name = QHTextField;
 			path = QHTextField;
 			sourceTree = "<group>";
 		};
@@ -1699,7 +1660,6 @@
 				A8C02DF9271F85DC655DAAA6257307CC /* ExamineOrderModel.h */,
 				D1497C5F575569A3720D493F7FC33287 /* ExamineOrderModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1709,7 +1669,6 @@
 				671E3FBDA82A5FB08F5E60D31C5E0D6E /* BossConstDataDefine.h */,
 				30EEF9528445C19BEE6B638F238E0865 /* BossConstDataDefine.m */,
 			);
-			name = ConstDataDefine;
 			path = ConstDataDefine;
 			sourceTree = "<group>";
 		};
@@ -1719,7 +1678,6 @@
 				045C09696947094E3E2D3C5579C2DE47 /* UIView+ShowView.h */,
 				FB38F98C112DEB52313F2F68B5DD921B /* UIView+ShowView.m */,
 			);
-			name = UIView;
 			path = UIView;
 			sourceTree = "<group>";
 		};
@@ -1729,7 +1687,6 @@
 				2E0C8492F7DA79340EA7A67E4731D1B8 /* SignView.h */,
 				7BDD2DFEB0BEEA8931AA7A810C6C17A7 /* SignView.m */,
 			);
-			name = SignView;
 			path = SignView;
 			sourceTree = "<group>";
 		};
@@ -1739,7 +1696,6 @@
 				8C5BF73537A985D38F5FC800FBC8897C /* NNBUtilRequest.h */,
 				CCF1130641656E14D747832EC5FF3981 /* NNBUtilRequest.m */,
 			);
-			name = NNBUtilRequest;
 			path = NNBUtilRequest;
 			sourceTree = "<group>";
 		};
@@ -1765,7 +1721,6 @@
 				D1655C0913A9C322140A950ACB9DE818 /* UICollectionView+ScrollEdge.h */,
 				C7A70D6D7D633AD29721A6F37E77CF76 /* UICollectionView+ScrollEdge.m */,
 			);
-			name = JYCPageView;
 			path = JYCPageView;
 			sourceTree = "<group>";
 		};
@@ -1786,7 +1741,6 @@
 				F277D091E7DEB7CCDCDD27884E85E97D /* NNBLoadStatusView.h */,
 				70108DF758094ED35C9AA5BE1DFBE328 /* NNBLoadStatusView.m */,
 			);
-			name = NNBLoadStatusView;
 			path = NNBLoadStatusView;
 			sourceTree = "<group>";
 		};
@@ -1796,7 +1750,6 @@
 				44030AA5506669B715CB03C4736F6B31 /* JYCTextField.h */,
 				8CD3A390E65BDC8E230F4A131EA33CBA /* JYCTextField.m */,
 			);
-			name = JYCTextField;
 			path = JYCTextField;
 			sourceTree = "<group>";
 		};
@@ -1806,7 +1759,6 @@
 				963A4C7F3691DC07C9983D92C168EA9E /* NNBTextField.h */,
 				2071489DBAD3888277A7025814FAD392 /* NNBTextField.m */,
 			);
-			name = NNBTextField;
 			path = NNBTextField;
 			sourceTree = "<group>";
 		};
@@ -1816,7 +1768,6 @@
 				C1A4889D958C0F20151AB6283AF31E22 /* NNBBottomAlertView.h */,
 				A7C8EAAE14D25C900581F2EB1A568782 /* NNBBottomAlertView.m */,
 			);
-			name = NNBBottomAlertView;
 			path = NNBBottomAlertView;
 			sourceTree = "<group>";
 		};
@@ -1834,7 +1785,6 @@
 				501791DA15328BD7616CD24D6B8F2FCD /* LoginVC.h */,
 				44B0825F6390939470B7E3062A537C24 /* LoginVC.m */,
 			);
-			name = Controller;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -1857,7 +1807,6 @@
 				39BAAC105D6696833631ABF6676E28AA /* ExamineModuleModel.h */,
 				96534B0A267CEEF6634F39A4ED846CCF /* ExamineModuleModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1867,7 +1816,6 @@
 				F618FD05EF0D66EFBC48392CC1C84565 /* ThirdRequest.h */,
 				2148F89BFECBF1D11C70641F9F9C820A /* ThirdRequest.m */,
 			);
-			name = ThirdRequest;
 			path = ThirdRequest;
 			sourceTree = "<group>";
 		};
@@ -1897,7 +1845,6 @@
 				21F2B13AD8400BB14305353F790685B3 /* InputPhoneNumberView.h */,
 				30E44FB1B7EF9FB9EB0D2AA885F2806F /* InputPhoneNumberView.m */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -1971,7 +1918,6 @@
 				F0B2452FBD950F7CD24E9F34236E05E3 /* QNTxtResolver.m */,
 				22145A34E21CA3A0A9742E102FE9D723 /* Support Files */,
 			);
-			name = HappyDNS;
 			path = HappyDNS;
 			sourceTree = "<group>";
 		};
@@ -2040,11 +1986,11 @@
 				A1C2C284183672F8688EED1849FAD210 /* BossNavigationController.h in Headers */,
 				4694455F1825C9EBE47663DC88EAC547 /* BossNoticeRequest.h in Headers */,
 				60646022D0FD3CA885967A32331FB9C9 /* BossOaExamineRequest.h in Headers */,
-				687E965A757104B2E239844DAC50E869 /* BossSalaryRequest.h in Headers */,
 				975620939A217D5DC3AF1157B1B23F92 /* BossStaffRequest.h in Headers */,
 				92BB2C1550C8168F5CADA866D419E2F1 /* BossViewController.h in Headers */,
 				BD3E481A92831C0E199023F5AA41ECE9 /* BossWhiteNavigationController.h in Headers */,
 				75E11528F0BBA32538CB965F885F7281 /* CityModel.h in Headers */,
+				2916E90A212045AC00E1ECA4 /* BossSalaryRequest.h in Headers */,
 				42497AE23B19AB6F50054927A8761DAA /* CodeView.h in Headers */,
 				2C5D577E1D37A0A894C0984E30A1F94F /* CountdownView.h in Headers */,
 				7FE4E393D491A31AA08BE3F1F9EF71AF /* DepartureLogModel.h in Headers */,
@@ -2474,7 +2420,7 @@
 				487E5B5051512F374B3202DB428EAA89 /* BossNavigationController.m in Sources */,
 				37A2566762B41A16620805642BA6378A /* BossNoticeRequest.m in Sources */,
 				8821DEAC5D16992F0F2FFFE02374B665 /* BossOaExamineRequest.m in Sources */,
-				8B60C4FFB0E166A31D574DA05B4DA94A /* BossSalaryRequest.m in Sources */,
+				2916E90B212045AC00E1ECA4 /* BossSalaryRequest.m in Sources */,
 				7D8D6C4288A081FA8B0AA1E58A82AFB0 /* BossStaffRequest.m in Sources */,
 				22A7B0A50CDAE4355A250101B8B3A562 /* BossViewController.m in Sources */,
 				E9998457CCF24D60FE6AB7431A4F384A /* BossWhiteNavigationController.m in Sources */,
