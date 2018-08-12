@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossSalaryDetailReuest/未命名文件夹/SalaryModel.h
+../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossSalaryDetailReuest/Model/SalaryModel.h
