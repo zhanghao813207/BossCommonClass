@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
+#import "ExamineNodeMdoel.h"
 
 @interface ExamineModuleModel : NSObject
 
@@ -18,9 +19,11 @@
 
 @property (nonatomic, strong) NSString *examine_id;
 
-@property (nonatomic, strong) NSString *flow_name;
+@property (nonatomic, strong) NSString *examineflow_name;
 
-@property (nonatomic, assign) NSInteger gid;
+@property (nonatomic, assign) NSInteger apply_gid;
+
+@property (nonatomic, strong) NSString *examine_account;
 
 @property (nonatomic, assign) BOSS_ASSISTANT_TYPE is_what;
 
@@ -29,5 +32,12 @@
 @property (nonatomic, strong) NSArray *supplier_list;
 
 @property (nonatomic, assign) CGFloat total_money;
+
+@property (nonatomic, strong) NSString *alert_time;
+
+@property (nonatomic, strong, readonly) ExamineNodeMdoel *examine;
+
+@property (nonatomic, strong) NSString *gidString;
+
 
 @end

@@ -35,6 +35,4 @@
 @property (nonatomic, strong) NSString *costclass_name;
 
 
-
-
 @end

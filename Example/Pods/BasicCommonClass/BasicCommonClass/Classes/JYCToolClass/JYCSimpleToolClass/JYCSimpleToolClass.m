@@ -433,8 +433,34 @@
 }
 
 /**
- 模型数组转字典数组
+ 改变字符中某些文字的字体大小
 
+ @param changeFontStringArray 要改变字体的数组
+ @param string 总字符串
+ @param font 要改变的font
+ @return 富文本
+ */
++ (NSAttributedString *)changeFontString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withFont:(UIFont *)font
+{
+    if (changeFontStringArray.count < 1) {
+        return [[NSAttributedString alloc] initWithString:@""];
+    }
+    
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    for (NSInteger i = 0; i < changeFontStringArray.count; i++) {
+        NSString *targetString = changeFontStringArray[i];
+        NSRange stringRange = [string rangeOfString:targetString options:NSBackwardsSearch];
+        if (stringRange.location != NSNotFound) {
+            [attString addAttributes:@{NSFontAttributeName:font} range:stringRange];
+        }
+    }
+    return [attString copy];
+}
+
+/**
+ 模型数组转字典数组
+ 
  @param array 模型数组(模型需要实现decodeToDic方法)
  @return 字典数组
  */
@@ -445,9 +471,33 @@
         if ([model respondsToSelector:@selector(decodeToDic)]) {
             NSDictionary *dic = [model performSelector:@selector(decodeToDic)];
             [arrayM addObject:dic];
+        } else {
+            NSLog(@"当前模型请实现 decodeToDic 方法");
         }
     }
     return [arrayM copy];
+}
+/**
+ 快速修改日期格式
+
+ @param timeString 标准时间字符串
+ @return xx月xx日 上午/下午 xx:xx 格式的时间
+ */
++ (NSString *)quickChangeTimeWithTimeString:(NSString *)timeString
+{
+    NSDate *date = [NSDate dateFromString:timeString withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *string = [NSDate stringFromDate:date withFormat:@"M月d日 HH:mm"];
+    NSRange range = NSMakeRange(5, 2);
+    NSString *hoursString = [string substringWithRange:range];
+    NSInteger hours = [hoursString integerValue];
+    
+    NSString *lastString;
+    if (hours >= 12) {
+        lastString = [string stringByReplacingOccurrencesOfString:hoursString withString:[NSString stringWithFormat:@"下午%ld",hours - 12]];
+    } else {
+        lastString = [string stringByReplacingOccurrencesOfString:hoursString withString:[NSString stringWithFormat:@"上午%ld",hours]];
+    }
+    return lastString;
 }
 
 @end

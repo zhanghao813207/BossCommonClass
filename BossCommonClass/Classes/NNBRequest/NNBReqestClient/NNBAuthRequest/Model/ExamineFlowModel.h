@@ -142,4 +142,7 @@
  */
 @property (nonatomic, assign) BOOL is_alert;
 
+@property (nonatomic, strong, readonly) NSString *gidString;
+
+
 @end

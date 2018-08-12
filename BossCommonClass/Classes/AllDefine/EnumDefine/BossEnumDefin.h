@@ -105,6 +105,7 @@ typedef NS_ENUM(NSUInteger, OA_EXAMINE_NODE_STATE) {
     OA_EXAMEINEFLOW_FAILT    = -1,  // 驳回、不通过
     OA_EXAMEINEFLOW_INIT     =  0,  // 审批中
     OA_EXAMEINEFLOW_SUCCESS  =  1,  // 通过
+    OA_EXAMINEFLOW_SUBMIT    =  2,  // 提报
 };
 
 typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {

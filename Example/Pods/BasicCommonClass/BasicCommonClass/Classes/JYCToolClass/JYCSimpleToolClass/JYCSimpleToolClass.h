@@ -146,11 +146,29 @@
 + (NSAttributedString *)changeColorString:(NSArray <NSString *>*)changeColorStringArray inString:(NSString *)string withColor:(UIColor *)color;
 
 /**
+ 改变字符中某些文字的字体大小
+ 
+ @param changeFontStringArray 要改变字体的数组
+ @param string 总字符串
+ @param font 要改变的font
+ @return 富文本
+ */
++ (NSAttributedString *)changeFontString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withFont:(UIFont *)font;
+
+/**
  模型数组转字典数组
  
  @param array 模型数组(模型需要实现decodeToDic方法)
  @return 字典数组
  */
 + (NSArray *)encodeArrayToArray:(NSArray *)array;
+
+/**
+ 快速修改日期格式
+ 
+ @param timeString 标准时间字符串
+ @return xx月xx日 上午/下午 xx:xx 格式的时间
+ */
++ (NSString *)quickChangeTimeWithTimeString:(NSString *)timeString;
 
 @end

@@ -15,6 +15,13 @@
         return;
     }
     
+    if ([key isEqualToString:@"created_at"]) {
+        NSString *valueString = [NSString stringWithFormat:@"%@",value];
+        
+        self.created_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:valueString];
+        return;
+    }
+    
     [super setValue:value forKey:key];
 }
 
