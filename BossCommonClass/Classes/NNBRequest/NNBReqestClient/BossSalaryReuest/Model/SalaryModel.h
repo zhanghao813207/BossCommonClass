@@ -238,5 +238,4 @@
  */
 @property (nonatomic, assign) CGFloat knight_deduction_amount;
 
-
 @end

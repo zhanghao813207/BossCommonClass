@@ -56,8 +56,10 @@
 		26DC99F1EBD31A144A6522B695D9DC1B /* UINavigationBar+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = CABE10910D10841D77530E7AFC63EDB4 /* UINavigationBar+BackgroundColor.m */; };
 		2825F7DFBDF1D853CBDC3C466800C931 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921D275AC6AA48C031BF91FD4592584 /* Foundation.framework */; };
 		28880BCDC4C6A456FBCC847338359C66 /* EmptyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CFEBB805F96021CE71E9C4AC80EC6A /* EmptyView.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2916E90A212045AC00E1ECA4 /* BossSalaryRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */; };
-		2916E90B212045AC00E1ECA4 /* BossSalaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */; };
+		2916E9122120495A00E1ECA4 /* BossSalaryRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2916E90D2120495A00E1ECA4 /* BossSalaryRequest.h */; };
+		2916E9132120495A00E1ECA4 /* BossSalaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2916E90E2120495A00E1ECA4 /* BossSalaryRequest.m */; };
+		2916E9142120495A00E1ECA4 /* SalaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2916E9102120495A00E1ECA4 /* SalaryModel.m */; };
+		2916E9152120495A00E1ECA4 /* SalaryModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2916E9112120495A00E1ECA4 /* SalaryModel.h */; };
 		29D221887670387A248AD92AA94253C2 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FDA39943B596C643745482808A2B8B /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		29FE6AA0A24F09CEEDB2C33654904A29 /* NSDate+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 955A1DD654C0641542A44A700D6EA981 /* NSDate+Helper.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2A8CA39B51CB68A7810BE242E77A8B2D /* QNConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DE27258F0ECAA7137A95CCC38E374375 /* QNConfiguration.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -171,13 +173,11 @@
 		7C6328982955D8D6EACC2C18F3BCAE3C /* BossEnumDefin.h in Headers */ = {isa = PBXBuildFile; fileRef = BB19B9302859D98905FB2744C98A66C7 /* BossEnumDefin.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7D803D1DD1BC256DC80A23585715F25B /* BGTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B490CEA62FFC850B8C299A517CA7D3 /* BGTool.m */; };
 		7D8D6C4288A081FA8B0AA1E58A82AFB0 /* BossStaffRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 627791977897900A2019FBB890C37633 /* BossStaffRequest.m */; };
-		7E5FE6DD3A440F9A9F4A367CD683E671 /* SalaryModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8420DC2C67454946F41E049EF85D094A /* SalaryModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E8B661884460612A38F9C6A82D40A30 /* QHErrorView.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E64EF7463375F6E5FEB3D73EB2E39B /* QHErrorView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7FC16262B21FFD4F5F53B9F9DBCFC546 /* QNFormUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4AFC38F975C9763466B9C2F4086ECC /* QNFormUpload.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7FE4E393D491A31AA08BE3F1F9EF71AF /* DepartureLogModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1579BFF969BED6577EA1C8A9335154FD /* DepartureLogModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		83AC53B9699F385302C8FE78F764E027 /* UIView+ChangeScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 64545D74083B07046CA8260DCE786C0A /* UIView+ChangeScope.m */; };
 		83B156B36A22A9580FDAEB43D7AA9901 /* BossKnightMaterialRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 662585110F2C39CE213CAFD8E2D9BC5F /* BossKnightMaterialRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8518E2E889B9D01391B659A1DB914FF4 /* SalaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D78B0E95763B2D348EEEC8B521A9C99 /* SalaryModel.m */; };
 		85494919BCBEBFE17DEC90FADC3FBCC6 /* PermissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74197D2C5AFA3A54290010B13C0EB4A4 /* PermissionModel.m */; };
 		85D30678FF4F0AB306399A368EAA46B2 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F415353A31AD4BCE7EAE1EBC6ED51F8A /* AFURLResponseSerialization.m */; };
 		86349263BB092170E54474C4DA8C07BE /* QNIP.h in Headers */ = {isa = PBXBuildFile; fileRef = C19EFAF98379B9FD80E4ADAA91BE078F /* QNIP.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -507,12 +507,13 @@
 		24384F297D7D07362D73A5E715E24BC4 /* OrderModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		25DC5373BB979F2FC7860F54A3C7CF3D /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		2610A336D7DD487732AE37E82EA40943 /* PlatformModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PlatformModel.m; sourceTree = "<group>"; };
-		2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossSalaryRequest.h; sourceTree = "<group>"; };
-		2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossSalaryRequest.m; sourceTree = "<group>"; };
+		2916E90D2120495A00E1ECA4 /* BossSalaryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossSalaryRequest.h; sourceTree = "<group>"; };
+		2916E90E2120495A00E1ECA4 /* BossSalaryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossSalaryRequest.m; sourceTree = "<group>"; };
+		2916E9102120495A00E1ECA4 /* SalaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalaryModel.m; sourceTree = "<group>"; };
+		2916E9112120495A00E1ECA4 /* SalaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalaryModel.h; sourceTree = "<group>"; };
 		29D1A70B175917534726F260F056078D /* InputCodeView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = InputCodeView.m; sourceTree = "<group>"; };
 		2B4142D5B77D7727266048F9981837A2 /* AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.xcconfig; sourceTree = "<group>"; };
 		2D03DD6A6150AEC49C3AEC3DE71C5942 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = BGFMDB/libs/FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		2D78B0E95763B2D348EEEC8B521A9C99 /* SalaryModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SalaryModel.m; sourceTree = "<group>"; };
 		2DF772E33AFD44E997A66E0FCC694824 /* JYCContentView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JYCContentView.h; sourceTree = "<group>"; };
 		2E0C8492F7DA79340EA7A67E4731D1B8 /* SignView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SignView.h; sourceTree = "<group>"; };
 		2F576F8157189EDEE5A27416025B79DC /* Qiniu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Qiniu-dummy.m"; sourceTree = "<group>"; };
@@ -643,7 +644,6 @@
 		828621134350C985FD8AFC814C648AC6 /* QNRefresher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNRefresher.m; path = HappyDNS/QNRefresher.m; sourceTree = "<group>"; };
 		83CA1638DC80C006938CDA101F8D8302 /* NNBButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBButton.h; sourceTree = "<group>"; };
 		841BBB86C91A4CDD5D6DAD66A6D8D633 /* BossNoticeRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossNoticeRequest.m; sourceTree = "<group>"; };
-		8420DC2C67454946F41E049EF85D094A /* SalaryModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SalaryModel.h; sourceTree = "<group>"; };
 		84BA5156F4926FBDECA55672FEFF3914 /* QN_GTM_Base64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QN_GTM_Base64.h; path = QiniuSDK/Common/QN_GTM_Base64.h; sourceTree = "<group>"; };
 		85D9A27CC1515C002E2DDACCAB59D608 /* NotDateEmptyView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NotDateEmptyView.h; path = BasicCommonClass/Classes/CustomView/EmptyView/NotDateEmptyView.h; sourceTree = "<group>"; };
 		87489C49B600DB6CE8B7064DBD62FE7B /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = BGFMDB/libs/FMDB/FMDatabase.h; sourceTree = "<group>"; };
@@ -932,13 +932,13 @@
 			children = (
 				F3FFB67401358474D2A6BDDF3CB0ECB0 /* NNBBasicRequest.h */,
 				5DB969F3F998DFCEE1634D7C1D498C38 /* NNBBasicRequest.m */,
+				2916E90C2120494600E1ECA4 /* BossSalaryReuest */,
 				ACAF77705B2E113E8D1F248E1C7D4DB7 /* BossAccountRequest */,
 				2AEC7ADBE6590731A8ADFF35D8110F52 /* BossAssistantRequest */,
 				A734F33CA72E048FB535F91BC771C091 /* BossKnightMaterialRequest */,
 				68EE89DD0DBFF173611A07BCC8C1CEF1 /* BossMaterialFlowRequest */,
 				C9FEF04F440B489DEEF7F4BA1AFEBC6E /* BossNoticeRequest */,
 				CCBD646102389A412B5AC611750A0B80 /* BossOaExamineRequest */,
-				AA2A1C3D57848BC706F16F1FF911F1EF /* BossSalaryDetailReuest */,
 				196E3B51BD7C3A32730AC37AFF7381AE /* BOSSStaffRequest */,
 				A85EAF462BC594197382CB9EA62D7280 /* NNBAuthRequest */,
 				E5E8A2F96CB740FAEFBB42654FEFA36E /* NNBUtilRequest */,
@@ -1030,6 +1030,25 @@
 				05E8B06C580B82C768A81DEC414FA11D /* ProviderModel.m */,
 			);
 			path = NNBAccount;
+			sourceTree = "<group>";
+		};
+		2916E90C2120494600E1ECA4 /* BossSalaryReuest */ = {
+			isa = PBXGroup;
+			children = (
+				2916E90D2120495A00E1ECA4 /* BossSalaryRequest.h */,
+				2916E90E2120495A00E1ECA4 /* BossSalaryRequest.m */,
+				2916E90F2120495A00E1ECA4 /* Model */,
+			);
+			path = BossSalaryReuest;
+			sourceTree = "<group>";
+		};
+		2916E90F2120495A00E1ECA4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2916E9112120495A00E1ECA4 /* SalaryModel.h */,
+				2916E9102120495A00E1ECA4 /* SalaryModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		293019D99E757B3D07FADE0C3DC8733A /* Model */ = {
@@ -1436,16 +1455,6 @@
 			path = NNBAuthRequest;
 			sourceTree = "<group>";
 		};
-		AA2A1C3D57848BC706F16F1FF911F1EF /* BossSalaryDetailReuest */ = {
-			isa = PBXGroup;
-			children = (
-				2916E908212045AC00E1ECA4 /* BossSalaryRequest.h */,
-				2916E909212045AC00E1ECA4 /* BossSalaryRequest.m */,
-				CA3C1902275CB484120B6855874A2A45 /* Model */,
-			);
-			path = BossSalaryDetailReuest;
-			sourceTree = "<group>";
-		};
 		ACAF77705B2E113E8D1F248E1C7D4DB7 /* BossAccountRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -1570,15 +1579,6 @@
 				293019D99E757B3D07FADE0C3DC8733A /* Model */,
 			);
 			path = BossNoticeRequest;
-			sourceTree = "<group>";
-		};
-		CA3C1902275CB484120B6855874A2A45 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8420DC2C67454946F41E049EF85D094A /* SalaryModel.h */,
-				2D78B0E95763B2D348EEEC8B521A9C99 /* SalaryModel.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		CB79318D3E8AF2183319FF8098C5AE5E /* iOS */ = {
@@ -1974,6 +1974,7 @@
 				8F0D74FD406EC153960D6F3C119E5197 /* ApplyOrderModel.h in Headers */,
 				92A3087126F988644B75AE40BEBB0B3C /* AssistantMessageModuleModel.h in Headers */,
 				30CC9D62988092FB619B9065FEA775E8 /* BizDistrictModel.h in Headers */,
+				2916E9152120495A00E1ECA4 /* SalaryModel.h in Headers */,
 				620474362817C33C6D87F531D5E3BEF1 /* BossAccount.h in Headers */,
 				D15A588D9B4A375A9FF49DFC866FFECA /* BossAccountRequest.h in Headers */,
 				86C1610D406C761676066412445AF0DE /* BossAssistantRequest.h in Headers */,
@@ -1990,7 +1991,6 @@
 				92BB2C1550C8168F5CADA866D419E2F1 /* BossViewController.h in Headers */,
 				BD3E481A92831C0E199023F5AA41ECE9 /* BossWhiteNavigationController.h in Headers */,
 				75E11528F0BBA32538CB965F885F7281 /* CityModel.h in Headers */,
-				2916E90A212045AC00E1ECA4 /* BossSalaryRequest.h in Headers */,
 				42497AE23B19AB6F50054927A8761DAA /* CodeView.h in Headers */,
 				2C5D577E1D37A0A894C0984E30A1F94F /* CountdownView.h in Headers */,
 				7FE4E393D491A31AA08BE3F1F9EF71AF /* DepartureLogModel.h in Headers */,
@@ -2024,6 +2024,7 @@
 				AB0F496C8DD690456698A1B4EBADBF6D /* NNBUtilRequest.h in Headers */,
 				C39E8D45E009182B829B737302D71479 /* NoticeModuleModel.h in Headers */,
 				5CDF91534C9EF6433EE28451123B39F7 /* OperationTypes.h in Headers */,
+				2916E9122120495A00E1ECA4 /* BossSalaryRequest.h in Headers */,
 				31608E67CCCD01EE529BD7B5EB822C0E /* OrderModel.h in Headers */,
 				6C52F18AC2A58C0F51F486D40C9D5C1F /* PayeeInfoModel.h in Headers */,
 				384EF460CA3B14A43639EF67304692BF /* PermissionModel.h in Headers */,
@@ -2032,7 +2033,6 @@
 				7E8B661884460612A38F9C6A82D40A30 /* QHErrorView.h in Headers */,
 				AE1D0295DEC578523478E8C6F679EB6A /* QHScanManager.h in Headers */,
 				BF89C20C14DD7DC065F02E087B3FE852 /* QHTextField.h in Headers */,
-				7E5FE6DD3A440F9A9F4A367CD683E671 /* SalaryModel.h in Headers */,
 				5E91559B67ECD69CB37B017C72632032 /* SignView.h in Headers */,
 				B32DBB05AE7D8C742E0A286F69CBF28A /* SupplierModel.h in Headers */,
 				C56F9EA990EAF92DB0CD7534860A992A /* ThirdRequest.h in Headers */,
@@ -2420,7 +2420,6 @@
 				487E5B5051512F374B3202DB428EAA89 /* BossNavigationController.m in Sources */,
 				37A2566762B41A16620805642BA6378A /* BossNoticeRequest.m in Sources */,
 				8821DEAC5D16992F0F2FFFE02374B665 /* BossOaExamineRequest.m in Sources */,
-				2916E90B212045AC00E1ECA4 /* BossSalaryRequest.m in Sources */,
 				7D8D6C4288A081FA8B0AA1E58A82AFB0 /* BossStaffRequest.m in Sources */,
 				22A7B0A50CDAE4355A250101B8B3A562 /* BossViewController.m in Sources */,
 				E9998457CCF24D60FE6AB7431A4F384A /* BossWhiteNavigationController.m in Sources */,
@@ -2445,6 +2444,7 @@
 				8CAA8D6FD83684B0E53C1E8D47DB52FD /* NNBAlertView.m in Sources */,
 				90EBD80A1D23F615948EBB803283EF87 /* NNBAuthRequest.m in Sources */,
 				4F9785044A825F030CADA43188776228 /* NNBBasicRequest.m in Sources */,
+				2916E9132120495A00E1ECA4 /* BossSalaryRequest.m in Sources */,
 				994C64EA7951E632F027C506D3042B79 /* NNBBottomAlertView.m in Sources */,
 				57E7000866FF7F56A26DF13FC26579CA /* NNBButton.m in Sources */,
 				CBFE27EAD6B08E7F02E905C99CC58842 /* NNBLoadingView.m in Sources */,
@@ -2466,8 +2466,8 @@
 				98ADBE1CBC623D3D19964801BBAA2209 /* QHErrorView.m in Sources */,
 				C405FD7EB9E4251CC01AB11AF7E66809 /* QHScanManager.m in Sources */,
 				8ABAFC72E538C8B44FB3563C5476EB8F /* QHTextField.m in Sources */,
-				8518E2E889B9D01391B659A1DB914FF4 /* SalaryModel.m in Sources */,
 				16F1D9CD6D29A6F6F881F3E5A4B83BD3 /* SignView.m in Sources */,
+				2916E9142120495A00E1ECA4 /* SalaryModel.m in Sources */,
 				DCAA933190072B2B96E7459534C71606 /* SupplierModel.m in Sources */,
 				155FD2A676991F851A150ED1108AA60A /* ThirdRequest.m in Sources */,
 				2BC0FFE414AEEB5AFC03A05188AA3940 /* UICollectionView+ScrollEdge.m in Sources */,
