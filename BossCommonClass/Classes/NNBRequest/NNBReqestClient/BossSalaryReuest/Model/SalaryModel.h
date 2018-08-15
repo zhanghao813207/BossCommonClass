@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
+#import "BossBasicDefine.h"
+#import "Specification.h"
 @interface SalaryModel : NSObject
 
 /**
@@ -73,7 +73,7 @@
 /**
  在职状态id
  */
-@property (nonatomic, assign) NSInteger work_state;
+@property (nonatomic, assign) StaffStates work_state;
 
 /**
  审核日期
@@ -88,7 +88,7 @@
 /**
  指标列表
  */
-@property (nonatomic, strong) NSArray *specification_list;
+@property (nonatomic, strong) NSArray <Specification *>*specification_list;
 
 /**
  银行卡号
@@ -237,5 +237,20 @@
  骑士扣款
  */
 @property (nonatomic, assign) CGFloat knight_deduction_amount;
+
+/**
+ 职位名称
+ */
+@property (nonatomic, strong, readonly) NSString *posSting;
+
+/**
+ 在职状态
+ */
+@property (nonatomic, strong, readonly) NSString *workStateString;
+
+/**
+ 招聘渠道名称
+ */
+@property (nonatomic, strong, readonly) NSString *recruitment_channel_name;
 
 @end

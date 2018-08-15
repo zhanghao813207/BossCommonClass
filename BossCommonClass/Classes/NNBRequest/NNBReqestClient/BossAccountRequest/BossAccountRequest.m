@@ -30,7 +30,7 @@
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         if ([NNBRequestManager saveAccountInfoWithAccountDic:((NSArray *)responseObject[@"data"]).firstObject]) {
-            kCurrentAccount.isNeedUpdate = NO;
+            kCurrentBossAccount.isNeedUpdate = NO;
             if (successBlock) {
                 successBlock();
             }

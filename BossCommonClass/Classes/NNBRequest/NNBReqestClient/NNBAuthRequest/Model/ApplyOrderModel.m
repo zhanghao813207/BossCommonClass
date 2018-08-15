@@ -41,5 +41,77 @@
     
 }
 
+- (NSString *)thingStateString
+{
+    switch (self.thing_state) {
+        case OA_HOUSE_STATE_DEL:
+            return @"删除";
+            break;
+        case OA_HOUSE_STATE_STOP:
+            return @"断租";
+            break;
+        case OA_HOUSE_STATE_EXP:
+            return @"退租";
+            break;
+        case OA_HOUSE_STATE_NEW:
+            return @"新租";
+            break;
+        case OA_HOUSE_STATE_KEEP:
+            return @"续租";
+            break;
+        case OA_HOUSE_STATE_DOUKEEP:
+            return @"续签";
+            break;
+        case OA_HOUSE_STATE_NEW_LOCK:
+            return @"已续租";
+            break;
+        default:
+            return @"未知";
+            break;
+    }
+}
+
+- (NSString *)costBelongString
+{
+    switch (self.cost_belong) {
+        case 6:
+            return @"平均分摊";
+            break;
+        case 7:
+            return @"单量比例分摊";
+            break;
+        case 8:
+            return @"自定义分摊";
+            break;
+        default:
+            return @"未知";
+            break;
+    }
+}
+
+- (NSString *)costCenterString
+{
+    switch (self.cost_center) {
+        case 1:
+           return @"项目";
+            break;
+        case 2:
+            return @"项目主体";
+            break;
+        case 3:
+            return @"城市";
+            break;
+        case 4:
+            return @"商圈";
+            break;
+        case 5:
+            return @"骑士";
+            break;
+        default:
+            return @"未知";
+            break;
+    }
+}
+
 
 @end

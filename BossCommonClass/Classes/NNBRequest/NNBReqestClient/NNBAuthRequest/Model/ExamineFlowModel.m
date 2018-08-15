@@ -21,24 +21,44 @@
     }
     
     if ([key isEqualToString:@"examine"]) {
+        if (![value isKindOfClass:[NSDictionary class]]) {
+            return;
+        }
         ExamineNodeMdoel *model = [[ExamineNodeMdoel alloc] init];
         [model setValuesForKeysWithDictionary:value];
         self.examine = model;
         return;
     }
-    
-    if ([key isEqualToString:@"examineflow_detail_list"]) {
+    if ([key isEqualToString:@"examine_list"]) {
+        if (![value isKindOfClass:[NSArray class]]) {
+            return;
+        }
         NSMutableArray *array = [NSMutableArray array];
-        for (NSInteger i = [value count] - 1; i >= 0; i--) {
-            NSArray *nodeArray = (NSArray *)value[i];
-            for (NSInteger j = nodeArray.count - 1; j >= 0; j--) {
-                NSDictionary *dic = nodeArray[j];
-                ExamineNodeMdoel *model = [[ExamineNodeMdoel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
+        NSMutableArray *auditArray = [NSMutableArray array];
+        NSMutableArray *nameArray = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            ExamineNodeMdoel *model = [[ExamineNodeMdoel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            if (model.state == OA_EXAMEINEFLOW_INIT) {
+                [auditArray addObject:model];
+                [nameArray addObject:model.name];
+            } else {
                 [array addObject:model];
             }
         }
-        self.examineflow_detail_list = [array copy];
+        if (auditArray.count > 1) {
+            ExamineNodeMdoel *model = auditArray.firstObject;
+            model.name = [nameArray componentsJoinedByString:@"、"];
+            [array insertObject:model atIndex:0];
+        } else if (auditArray.count == 1){
+            [array insertObject:auditArray.firstObject atIndex:0];
+        }
+        self.examine_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"examineflow_detail_list"]) {
+        self.examineflow_detail_list = [self unitSameStateWithState:OA_EXAMEINEFLOW_INIT jsonList:value];
         return;
     }
     
@@ -54,6 +74,39 @@
     }
     
     [super setValue:value forKey:key];
+}
+
+- (NSArray *)unitSameStateWithState:(OA_EXAMINE_NODE_STATE)state jsonList:(NSArray *)value
+{
+    if (![value isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *auditArray = [NSMutableArray array];
+    NSMutableArray *nameArray = [NSMutableArray array];
+    for (NSInteger i = [value count] - 1; i >= 0; i--) {
+        NSArray *nodeArray = (NSArray *)value[i];
+        for (NSInteger j = nodeArray.count - 1; j >= 0; j--) {
+            NSDictionary *dic = nodeArray[j];
+            ExamineNodeMdoel *model = [[ExamineNodeMdoel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            if (model.state == state) {
+                [auditArray addObject:model];
+                [nameArray addObject:model.name];
+            } else {
+                [array addObject:model];
+            }
+        }
+    }
+    
+    if (auditArray.count > 1) {
+        ExamineNodeMdoel *model = auditArray.firstObject;
+        model.name = [nameArray componentsJoinedByString:@"、"];
+        [array insertObject:model atIndex:0];
+    } else if (auditArray.count == 1){
+        [array insertObject:auditArray.firstObject atIndex:0];
+    }
+    return [array copy];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key

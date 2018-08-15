@@ -16,12 +16,12 @@
  @param successBlock 返回审批列表
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type successBlock:(void(^)(NSArray <ExamineFlowModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
++ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(NSArray <ExamineFlowModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_examine/mobile_examine_list",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"m_type":@(type),
-                               @"page":@"1",
+                               @"page":@(page),
                                @"limit":@"30",
                                };
     [NNBBasicRequest getJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
@@ -92,7 +92,12 @@
         }
         ApplyOrderModel *model = [[ApplyOrderModel alloc] init];
         if ([responseObject[@"result"] count] > 0) {
-            [model setValuesForKeysWithDictionary:responseObject[@"result"][0]];
+            for (NSDictionary *dic in responseObject[@"result"]) {
+                if ([orderId isEqualToString:dic[@"_id"]]) {
+                    [model setValuesForKeysWithDictionary:dic];
+                    break;
+                }
+            }
         }
         successBlock(model);
     } fail:^(id error) {

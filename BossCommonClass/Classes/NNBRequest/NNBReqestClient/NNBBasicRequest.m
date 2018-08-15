@@ -155,6 +155,7 @@ typedef NS_ENUM(NSUInteger, ResultDealTypes) {
             }
             if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
                 [NNBAccount clearAccountInfo];
+                [BossAccount clearAccountInfo];
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
             }
         });
@@ -178,7 +179,7 @@ typedef NS_ENUM(NSUInteger, ResultDealTypes) {
         [currentVc.navigationController popToRootViewControllerAnimated:YES];
     }
     
-    if([rootVc isKindOfClass:NSClassFromString(@"ViewController")]){
+    if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowVc")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
         [rootVc viewWillAppear:YES];
     }
 }

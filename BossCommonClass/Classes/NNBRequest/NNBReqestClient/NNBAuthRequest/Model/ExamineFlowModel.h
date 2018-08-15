@@ -103,6 +103,11 @@
 @property (nonatomic, strong) ExamineNodeMdoel *examine;
 
 /**
+ 审批信息
+ */
+@property (nonatomic, strong) NSArray <ExamineNodeMdoel *>*examine_list;
+
+/**
  归属供应商名称
  */
 @property (nonatomic, strong) NSArray *supplier_list;

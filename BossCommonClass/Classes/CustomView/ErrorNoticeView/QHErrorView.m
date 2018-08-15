@@ -113,9 +113,14 @@
 }
 
 - (instancetype)initWithTitle:(NSString *)string{
-    self = [super initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44, [UIScreen mainScreen].bounds.size.width, 35)];
+    UIViewController *currentVC = [JYCSimpleToolClass getCurrentVC];
+    CGFloat y = [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44;
+    if (!currentVC.tabBarController.tabBar.isHidden) {
+        y -= 49;
+    }
+    self = [super initWithFrame:CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, 35)];
     if (self) {
-        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44, [UIScreen mainScreen].bounds.size.width, 35)];
+        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, 35)];
         _msgLabel.backgroundColor = kHexRGB(0x1C2227);
         _msgLabel.textColor = [UIColor whiteColor];
         _msgLabel.font = BossFont(16);
@@ -124,7 +129,7 @@
         _msgLabel.numberOfLines = 0;
         [_msgLabel sizeToFit];
         _msgLabel.frame = CGRectMake(0, 0, _msgLabel.bounds.size.width+40, 35);
-        self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-_msgLabel.bounds.size.width)/2.0, [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44, _msgLabel.bounds.size.width, 35);
+        self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-_msgLabel.bounds.size.width)/2.0, y, _msgLabel.bounds.size.width, 35);
         [self addSubview:_msgLabel];
         [self addGestureRecognizer:self.tap];
     }

@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
 };
 
 // 审批单整体状态
-typedef NS_ENUM(NSUInteger, OA_EXAMINE_STATE) {
+typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
     OA_EXAMEINE_DELETE   = -2,  // 删除
     OA_EXAMEINE_FAILT    = -1,  // 驳回、不通过
     OA_EXAMEINE_INIT     =  0,  // 待提交
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, OA_EXAMINE_STATE) {
     OA_EXAMEINE_SUCCESS  =  2,  // 通过, 所有审批人都通过
 };
 // 审批节点状态
-typedef NS_ENUM(NSUInteger, OA_EXAMINE_NODE_STATE) {
+typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
     OA_EXAMEINEFLOW_FAILT    = -1,  // 驳回、不通过
     OA_EXAMEINEFLOW_INIT     =  0,  // 审批中
     OA_EXAMEINEFLOW_SUCCESS  =  1,  // 通过
@@ -123,12 +123,12 @@ typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
     OA_TEMPLATE_ONE          = 1, // 报销
     OA_TEMPLATE_TWO          = 2, // 租房
     OS_COSTCLASS_SALARY      = 3, // 薪资
-    OS_COSTCLASS_SUBJOIN     = 4, // 租房
-    OS_COSTCLASS_AGENCY      = 5, // 中介费
-    OS_COSTCLASS_PLEDGE      = 6, // 押金(中介费)
+    OS_COSTCLASS_SUBJOIN     = 4, // 租房、中介费、押金(租房)
+    OS_COSTCLASS_AGENCY      = 5, // 租房、中介费、押金(中介费)
+    OS_COSTCLASS_PLEDGE      = 6, // 租房、中介费、押金(押金)
 };
 
-typedef NS_ENUM(NSUInteger, OA_HOUSE_STATES) {
+typedef NS_ENUM(NSInteger, OA_HOUSE_STATES) {
     OA_HOUSE_STATE_DEL      = -2,  // 删除
     OA_HOUSE_STATE_STOP     = -1,  // 断租，算违约
     OA_HOUSE_STATE_EXP      =  0,  // 退租，合同到期，合法解除

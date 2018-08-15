@@ -17,7 +17,7 @@
  @param successBlock 返回审批列表
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type successBlock:(void(^)(NSArray <ExamineFlowModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(NSArray <ExamineFlowModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  费用汇总单详情

@@ -56,6 +56,12 @@
 @property (nonatomic, assign) CGFloat total_money;
 
 /**
+ 报销金额
+ */
+@property (nonatomic, assign) CGFloat reimb_money;
+
+
+/**
  收款人信息
  */
 @property (nonatomic, strong) PayeeInfoModel *payee_info;
@@ -122,12 +128,12 @@
 /**
  附件地址列表
  */
-@property (nonatomic, strong) NSArray <NSString *>*files_address;
+@property (nonatomic, strong) NSArray <NSDictionary *>*files_address;
 
 /**
  是否开具发票
  */
-@property (nonatomic, strong) NSString *has_invoice;
+@property (nonatomic, assign) BOOL has_invoice;
 
 /**
  历史订单
@@ -192,6 +198,26 @@
  科目
  */
 @property (nonatomic, strong) NSString *catalog_id;
+
+/**
+ 房屋断租日期
+ */
+@property (nonatomic, strong) NSString *relet_break_date;
+
+/**
+ 房屋状态字符串
+ */
+@property (nonatomic, strong, readonly) NSString *thingStateString;
+
+/**
+ 成本中心字符
+ */
+@property (nonatomic, strong, readonly) NSString *costCenterString;
+
+/**
+ 成本归属字符
+ */
+@property (nonatomic, strong, readonly) NSString *costBelongString;
 
 
 @end
