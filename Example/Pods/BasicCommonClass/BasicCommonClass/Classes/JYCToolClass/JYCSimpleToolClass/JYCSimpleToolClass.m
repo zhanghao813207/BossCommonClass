@@ -146,33 +146,34 @@
 + (UIViewController *)getCurrentVC
 {
     
-    UIWindow *window = [[UIApplication sharedApplication].windows firstObject];
-    if (!window) {
-        return nil;
-    }
-    UIView *tempView;
-    for (UIView *subview in window.subviews) {
-        if ([[subview.classForCoder description] isEqualToString:@"UILayoutContainerView"]) {
-            tempView = subview;
-            break;
-        }
-    }
-    if (!tempView) {
-        tempView = [window.subviews lastObject];
-    }
-    
-    id nextResponder = [tempView nextResponder];
-    while (![nextResponder isKindOfClass:[UIViewController class]] || [nextResponder isKindOfClass:[UINavigationController class]] || [nextResponder isKindOfClass:[UITabBarController class]]) {
-        tempView =  [tempView.subviews firstObject];
-        
-        if (!tempView) {
-            return nil;
-        }
-        nextResponder = [tempView nextResponder];
-    }
-    return  (UIViewController *)nextResponder;
+    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+    UIViewController *currentVC = [self getCurrentVCFrom:rootVC];
+    return  currentVC;
 }
 
++ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC
+{
+    UIViewController *currentVC;
+    
+    if ([rootVC presentedViewController]) {
+        // 视图是被presented出来的
+        rootVC = [rootVC presentedViewController];
+    }
+    
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        // 根视图为UITabBarController
+        currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
+        
+    } else if ([rootVC isKindOfClass:[UINavigationController class]]){
+        // 根视图为UINavigationController
+        currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
+    } else {
+        // 根视图为非导航类
+        currentVC = rootVC;
+    }
+    return currentVC;
+}
 /**
  生成纯色图片
  
@@ -486,16 +487,17 @@
 + (NSString *)quickChangeTimeWithTimeString:(NSString *)timeString
 {
     NSDate *date = [NSDate dateFromString:timeString withFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *string = [NSDate stringFromDate:date withFormat:@"M月d日 HH:mm"];
-    NSRange range = NSMakeRange(5, 2);
-    NSString *hoursString = [string substringWithRange:range];
-    NSInteger hours = [hoursString integerValue];
+    NSString *MString = [NSDate stringFromDate:date withFormat:@"M月d日"];
+    NSString *hString = [NSDate stringFromDate:date withFormat:@"HH"];
+    NSString *mString = [NSDate stringFromDate:date withFormat:@"ss"];
+
+    NSInteger hours = [hString integerValue];
     
     NSString *lastString;
     if (hours >= 12) {
-        lastString = [string stringByReplacingOccurrencesOfString:hoursString withString:[NSString stringWithFormat:@"下午%ld",hours - 12]];
+        lastString = [NSString stringWithFormat:@"%@ 下午%ld:%@",MString,hours - 12,mString];
     } else {
-        lastString = [string stringByReplacingOccurrencesOfString:hoursString withString:[NSString stringWithFormat:@"上午%ld",hours]];
+        lastString = [NSString stringWithFormat:@"%@ 上午%ld:%@",MString,hours,mString];
     }
     return lastString;
 }

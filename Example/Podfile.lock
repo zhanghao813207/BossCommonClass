@@ -14,16 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - BasicCommonClass (0.3.5)
+  - BasicCommonClass (0.3.6)
   - BGFMDB (1.51):
     - BGFMDB/BG (= 1.51)
     - BGFMDB/FMDB (= 1.51)
   - BGFMDB/BG (1.51):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (1.51)
-  - BossCommonClass (0.5.3):
+  - BossCommonClass (0.5.5):
     - AFNetworking (~> 3.1.0)
-    - BasicCommonClass (~> 0.3.5)
+    - BasicCommonClass (~> 0.3.6)
     - BGFMDB (~> 1.51)
     - Qiniu (~> 7.1)
   - HappyDNS (0.3.14)
@@ -31,7 +31,7 @@ PODS:
     - HappyDNS (~> 0.3)
 
 DEPENDENCIES:
-  - BasicCommonClass (~> 0.3.5)
+  - BasicCommonClass (~> 0.3.6)
   - BossCommonClass (from `../`)
 
 SPEC REPOS:
@@ -49,12 +49,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  BasicCommonClass: 101c8170c1ff8e35a299b38e75e206f00b5eeb37
+  BasicCommonClass: 6e5c8f759e0d1bafb29409e78fcf93a6cda6a90c
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: 3c7569981501d72da2d692bbb89a39d943cf0ce9
+  BossCommonClass: 00364dc0ac72bcad9127f3bbaddffe4b9b44b169
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
 
-PODFILE CHECKSUM: c1b8125e8b9993ed1f67529deb191915bdcc1d82
+PODFILE CHECKSUM: e9db09e0ee52e105447348242602aec14ebf3984
 
 COCOAPODS: 1.5.3
