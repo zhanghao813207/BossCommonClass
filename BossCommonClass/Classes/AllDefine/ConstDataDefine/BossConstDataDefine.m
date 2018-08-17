@@ -54,13 +54,14 @@ NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
     NSString *const ACCESS_KEY = @"5b4703f05ac78422a669bc9c";
     NSString *const SECRET_KEY = @"5b4703f05ac78422a669bc9d";
     #else
-    NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
-    NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
+    NSString *const ACCESS_KEY = @"5b73cbd5ce6d2a6036a46685";
+    NSString *const SECRET_KEY = @"5b73cbd5ce6d2a6036a46686";
     #endif
 
     NSString *const APPCODE = @"aoao_boss_manager_ios";
 
-    NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id382923244?l=zh&ls=1&mt=8";
+    NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
+
 #else
 
     #ifdef DEBUG

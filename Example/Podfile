@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'BossCommonClass_Example' do
     #use_frameworks!
   pod 'BossCommonClass', :path => '../'
-  pod 'BasicCommonClass', '~> 0.3.5'
+  pod 'BasicCommonClass', '~> 0.3.6'
 #  pod 'Baidu-Maps-iOS-SDK', '~> 3.0.0'
 #  pod 'SobotFramework', '~> 1.7.0'
 end
