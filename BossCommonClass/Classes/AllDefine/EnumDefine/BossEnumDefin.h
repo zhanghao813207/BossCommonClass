@@ -94,18 +94,24 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
 
 // 审批单整体状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
-    OA_EXAMEINE_DELETE   = -2,  // 删除
-    OA_EXAMEINE_FAILT    = -1,  // 驳回、不通过
-    OA_EXAMEINE_INIT     =  0,  // 待提交
-    OA_EXAMEINE_WAIT     =  1,  // 待审核，审核中
-    OA_EXAMEINE_SUCCESS  =  2,  // 通过, 所有审批人都通过
+    OA_EXAMINE_STATE_INIT     =    1,  // 待提交
+    OA_EXAMINE_STATE_UNDERWAY =   10,  // 进行中
+    OA_EXAMEINE_STATE_DONE    =  100,  // 流程完成
+    OA_EXAMINE_STATE_SHUTDOWN = -100,  // 流程关闭
 };
 // 审批节点状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
-    OA_EXAMEINEFLOW_FAILT    = -1,  // 驳回、不通过
-    OA_EXAMEINEFLOW_INIT     =  0,  // 审批中
-    OA_EXAMEINEFLOW_SUCCESS  =  1,  // 通过
-    OA_EXAMINEFLOW_SUBMIT    =  2,  // 提报
+    OA_EXAMINE_NODE_STATE_INIT       =    1,  // 待处理
+    OA_EXAMINE_NODE_STATE_SUPPLEMENT =   10,  // 待补充
+    OA_EXAMINE_NODE_STATE_ERROR      =   50,  // 异常
+    OA_EXAMINE_NODE_STATE_AGREE      =  100,  // 通过
+    OA_EXAMINE_NODE_STATE_REJECT     = -100,  // 驳回
+};
+
+typedef NS_ENUM(NSInteger, PAY_STATE) {
+    PAY_STATE_DONE   =  1, // 已打款
+    PAY_STATE_ERROR  = -1, // 异常
+    PAY_STATE_NONE   =  0, // 暂无异常
 };
 
 typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {
@@ -116,6 +122,20 @@ typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {
 typedef NS_ENUM(NSUInteger, BOSS_ASSISTANT_TYPE) {
     BOSS_ASSISTANT_URGE = 101,  // 助理类型为催办
     BOSS_ASSISTANT_WAIT =  99,  // 助理类型为代办
+};
+
+// 费用单状态
+typedef NS_ENUM(NSInteger, COST_ORDER_STATE) {
+    COST_ORDER_STATE_DEL     = -100, // 删除
+    COST_ORDER_STATE_DOING   =   50, // 进行中
+    COST_ORDER_STATE_DONE    =  100, // 审批完成
+    COST_ORDER_STATE_INIT    =    1, // 待提交
+};
+
+// 成本归属分摊模式
+typedef NS_ENUM(NSUInteger, ALLOCATION_MODE) {
+    ALLOCATION_MODE_BALANCE  =  6, // 平均分摊
+    ALLOCATION_MODE_CUSTOM   =  8, // 自定义分摊
 };
 
 // 费用类型(枚举跟后端一致，名字那么low不是我起的)
@@ -129,13 +149,10 @@ typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
 };
 
 typedef NS_ENUM(NSInteger, OA_HOUSE_STATES) {
-    OA_HOUSE_STATE_DEL      = -2,  // 删除
-    OA_HOUSE_STATE_STOP     = -1,  // 断租，算违约
-    OA_HOUSE_STATE_EXP      =  0,  // 退租，合同到期，合法解除
-    OA_HOUSE_STATE_NEW      =  1,  // 新租
-    OA_HOUSE_STATE_KEEP     =  2,  // 续租
-    OA_HOUSE_STATE_DOUKEEP  =  3,  // 续签
-    OA_HOUSE_STATE_NEW_LOCK =  4,  // 已续租（不显示续租按钮，但是前端还是现实新租）,
+    OA_HOUSE_STATE_STOP     = -100,  // 终止（断租）
+    OA_HOUSE_STATE_INIT     =    1,  // 未执行/待审批（新租/续签）
+    OA_HOUSE_STATE_KEEP     =   50,  // 执行中（续租)
+    OA_HOUSE_STATE_DONE     =  100,  // 完成（退租)
 };
 
 #endif /* BossEnumDefin_h */

@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/NNBAuthRequest/Model/PayeeInfoModel.h
+../../../../../BossCommonClass/Classes/NNBRequest/NNBReqestClient/BossOaExamineRequest/Model/PayeeInfoModel.h

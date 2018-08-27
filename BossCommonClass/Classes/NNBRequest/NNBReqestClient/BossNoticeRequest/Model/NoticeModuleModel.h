@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
-#import "ExamineFlowModel.h"
+#import "ExamineOrderModel.h"
 @interface NoticeModuleModel : NSObject
 
 @property (nonatomic, strong) NSString *_id;
@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong) NSDictionary *data;
 
-@property (nonatomic, strong) ExamineFlowModel *examineFlowBriefModel;
-
+@property (nonatomic, strong) ExamineOrderModel *examineFlowBriefModel;
 
 @end

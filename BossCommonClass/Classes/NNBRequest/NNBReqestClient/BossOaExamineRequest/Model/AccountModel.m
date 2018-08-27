@@ -1,41 +1,17 @@
 //
-//  ExamineModuleModel.m
+//  AccountModel.m
 //  AFNetworking
 //
-//  Created by 贾远潮 on 2018/8/9.
+//  Created by 贾远潮 on 2018/8/24.
 //
 
-#import "ExamineModuleModel.h"
-#import "NSDate+Helper.h"
-@interface ExamineModuleModel()
+#import "AccountModel.h"
 
-@property (nonatomic, strong) ExamineFlowNodeModel *examine;
-
-
-@end
-
-@implementation ExamineModuleModel
+@implementation AccountModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
     if (!value || value == [NSNull null]) {
-        return;
-    }
-    
-    if ([key isEqualToString:@"examine_account"]) {
-        self.examine_account = value;
-        ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
-//        model.name = value;
-//        model.state = OA;
-        self.examine = model;
-        return;
-    }
-    
-    if ([key isEqualToString:@"alert_time"]) {
-        NSString *valueString = [NSString stringWithFormat:@"%@",value];
-        NSDate *date = [NSDate dateFromString:valueString withFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSString *string = [NSDate stringFromDate:date withFormat:@"yyyy年MM月dd日"];
-        self.alert_time = string;
         return;
     }
     
@@ -50,7 +26,7 @@
 
 - (NSString *)gidString
 {
-    switch (self.apply_gid) {
+    switch (self.gid) {
         case PositionIDAdministrator:
             return @"超级管理员";
             break;
@@ -127,6 +103,4 @@
             break;
     }
 }
-
-
 @end

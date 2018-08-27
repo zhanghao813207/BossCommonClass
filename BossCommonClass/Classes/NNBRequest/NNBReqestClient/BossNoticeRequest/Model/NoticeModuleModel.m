@@ -30,11 +30,11 @@
     
 }
 
-- (ExamineFlowModel *)examineFlowBriefModel
+- (ExamineOrderModel *)examineFlowBriefModel
 {
     if (!_examineFlowBriefModel) {
         _examineFlowBriefModel = self.type == BOSS_MODULE_TYPE_OA ? ({
-            ExamineFlowModel *model = [[ExamineFlowModel alloc] init];
+            ExamineOrderModel *model = [[ExamineOrderModel alloc] init];
             [model setValuesForKeysWithDictionary:self.data];
             model;
         }) : nil;

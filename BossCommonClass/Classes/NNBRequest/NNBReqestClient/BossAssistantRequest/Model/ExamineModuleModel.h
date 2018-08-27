@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
-#import "ExamineNodeMdoel.h"
+#import "ExamineFlowNodeModel.h"
 
 @interface ExamineModuleModel : NSObject
 
@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) NSString *alert_time;
 
-@property (nonatomic, strong, readonly) ExamineNodeMdoel *examine;
+@property (nonatomic, strong, readonly) ExamineFlowNodeModel *examine;
 
 @property (nonatomic, strong) NSString *gidString;
 

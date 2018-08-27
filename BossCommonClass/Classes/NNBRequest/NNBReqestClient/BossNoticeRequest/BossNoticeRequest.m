@@ -22,12 +22,14 @@
  */
 + (void)noticeRequsetFindListWithPage:(NSInteger)page limit:(NSInteger)limit Success:(void(^)(NSArray <NoticeModuleModel *>*noticeList, NSInteger totalCount))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@boss_notice",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@boss_notice/find",BossBasicURL];
     NSDictionary *paramDic = @{
+                               @"_meta":@{
                                @"page":@(page),
                                @"limit":@(limit),
+                               }
                                };
-    [NNBBasicRequest getJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         DLog(@"responseObject = %@",responseObject);
         if (!successBlock) {
             return;
