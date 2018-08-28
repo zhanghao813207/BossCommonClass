@@ -13,6 +13,7 @@
 #import "BossOaExamineRequest.h"
 #import "BossAssistantRequest.h"
 #import "BossNoticeRequest.h"
+#import "BorderView.h"
 @interface ViewController ()
 
 @property (nonatomic, strong) CostOrderModel *applyModel;
@@ -58,9 +59,9 @@
 //    }];
     
 //    [BossOaExamineRequest OaExamineRequestGetCostOrderListWithPage:1 successBlock:^(NSArray<CostOrderModel *> *costOrderList) {
-//        
+//
 //    } fail:^(id error) {
-//        
+//
 //    }];
     
 //    5afd4d41ce6d2a06a8332341
@@ -88,6 +89,14 @@
 //    } fail:^(id error) {
 //
 //    }];
+    BorderView *view = [[BorderView alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
+//    view.backgroundColor = [UIColor clearColor];
+    view.cornerRadius = 20.f;
+    view.borderWidth = 10.f;
+    view.borderColor = [UIColor redColor];
+    view.rectCorner = BorderDirectionRight | BorderDirectionTop | BorderDirectionBottom;
+    [self.view addSubview:view];
+    
 }
 
 - (void)didReceiveMemoryWarning {

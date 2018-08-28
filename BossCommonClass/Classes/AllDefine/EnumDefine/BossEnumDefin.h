@@ -101,6 +101,7 @@ typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
 };
 // 审批节点状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
+    OA_EXAMINE_NODE_STATE_COMMIT     =    0,  // 提报
     OA_EXAMINE_NODE_STATE_INIT       =    1,  // 待处理
     OA_EXAMINE_NODE_STATE_SUPPLEMENT =   10,  // 待补充
     OA_EXAMINE_NODE_STATE_ERROR      =   50,  // 异常

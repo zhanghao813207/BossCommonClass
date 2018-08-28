@@ -26,7 +26,7 @@
 //NSString *const BossBasicURL = @"http://192.168.1.113:8081/1.0/";
 
 // 后端潘总 ip
-NSString *const BossBasicURL = @"http://192.168.1.115:8080/1.0/";
+NSString *const BossBasicURL = @"http://192.168.1.137:8080/1.0/";
 
 
 
