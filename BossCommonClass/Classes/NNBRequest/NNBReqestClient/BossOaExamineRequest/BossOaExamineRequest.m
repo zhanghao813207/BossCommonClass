@@ -19,12 +19,90 @@
 + (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(NSArray <ExamineOrderModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_application_order/find",BossBasicURL];
-    NSDictionary *paramDic = @{
-                               @"_meta":@{
-                                       @"page":@(page),
-                                       @"limit":@(30),
-                                       }
-                               };
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    @"_meta":@{
+                                                                                            @"page":@(page),
+                                                                                            @"limit":@(30),
+                                                                                            @"sort":@{
+                                                                                                    @"submit_at":@(-1),
+                                                                                                    }
+                                                                                            }
+                                                                                    }];
+    NSArray *bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+    switch (type) {
+        case MOBILE_WAIT_EXAMINE:
+        {
+            [paramDic setObject:@{
+                                  @"page":@(page),
+                                  @"limit":@(30),
+                                  @"sort":@{
+                                          @"urge_state":@(1),
+                                          @"submit_at":@(-1),
+                                          }
+                                  } forKey:@"_meta"];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"current_pending_accounts"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PUT_EXAMINE_ALL:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT),@(OA_EXAMINE_NODE_STATE_AGREE),@(OA_EXAMINE_NODE_STATE_REJECT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+        case MOBILE_PUT_EXAMINE_PRESENT:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PUT_EXAMINE_SUCCEED:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_AGREE)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PUT_EXAMINE_FAIL:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_REJECT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PASS_EXAMINE_ALL:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT),@(OA_EXAMINE_NODE_STATE_AGREE),@(OA_EXAMINE_NODE_STATE_REJECT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PASS_EXAMINE_PRESENT:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PASS_EXAMINE_SUCCEED:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_AGREE)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        case MOBILE_PASS_EXAMINE_FAIL:
+        {
+            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_REJECT)];
+            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+        }
+            break;
+        default:
+            break;
+    }
+    
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
@@ -140,7 +218,7 @@
 /**
  审核同意
  
- @param examineFlowId 审批单ID
+ @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param note 原因
  @param successBlock 服务器响应返回

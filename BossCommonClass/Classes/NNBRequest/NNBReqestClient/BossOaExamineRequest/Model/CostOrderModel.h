@@ -49,6 +49,11 @@
 @property (nonatomic, assign) BOOL invoice_flag;
 
 /**
+ 费用分摊方式
+ */
+@property (nonatomic, assign) ALLOCATION_MODE allocation_mode;
+
+/**
  备注
  */
 @property (nonatomic, strong) NSString *note;
@@ -100,6 +105,12 @@
  OA 成本费用记录分摊清单
  */
 @property (nonatomic, strong) NSArray <CostAllocationModel *>*cost_allocation_list;
+
+/**
+ 费用分摊方式 字符串
+ */
+@property (nonatomic, strong, readonly) NSString *allocation_name;
+
 
 
 @end

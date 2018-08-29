@@ -51,7 +51,7 @@
 /**
  审核同意
 
- @param examineFlowId 审批单ID
+ @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param note 原因
  @param successBlock 服务器响应返回

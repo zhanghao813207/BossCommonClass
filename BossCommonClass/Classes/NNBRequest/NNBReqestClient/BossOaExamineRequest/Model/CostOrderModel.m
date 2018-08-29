@@ -7,6 +7,15 @@
 
 #import "CostOrderModel.h"
 
+@interface CostOrderModel()
+
+/**
+ 费用分摊方式 字符串
+ */
+@property (nonatomic, strong) NSString *allocation_name;
+
+@end
+
 @implementation CostOrderModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
@@ -62,5 +71,20 @@
     
 }
 
+- (NSString *)allocation_name
+{
+    switch (self.allocation_mode) {
+        case ALLOCATION_MODE_BALANCE:
+            _allocation_name = @"平均分摊";
+            break;
+        case ALLOCATION_MODE_CUSTOM:
+            _allocation_name = @"自定义分摊";
+            break;
+        default:
+            _allocation_name = @"未知";
+            break;
+    }
+    return _allocation_name;
+}
 
 @end
