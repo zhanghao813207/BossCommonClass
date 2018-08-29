@@ -56,6 +56,10 @@
                 [path addLineToPoint:CGPointMake(leftTopPoint.x, cornerLeftTopPoint.y)];
             }
             [path addLineToPoint:CGPointMake(leftBottomPoint.x, cornerLeftBottomPoint.y)];
+            if (self.rectCorner & BorderDirectionBottom) {
+            } else {
+                [path addLineToPoint:leftBottomPoint];
+            }
         } else {
             [path moveToPoint:leftBottomPoint];
         }
@@ -65,10 +69,14 @@
                 [path moveToPoint:CGPointMake(leftBottomPoint.x, cornerLeftBottomPoint.y)];
                 [path addArcWithCenter:cornerLeftBottomPoint radius:self.cornerRadius - self.borderWidth startAngle:-M_PI endAngle:-M_PI_2 * 3 clockwise:NO];
             } else {
-                [path moveToPoint:leftBottomPoint];
-                [path addLineToPoint:CGPointMake(cornerLeftBottomPoint.x, leftBottomPoint.y)];
+                [path addLineToPoint:leftBottomPoint];
+                [path addLineToPoint:CGPointMake(cornerRightBottomPoint.x, leftBottomPoint.y)];
             }
             [path addLineToPoint:CGPointMake(cornerRightBottomPoint.x, rightBottomPoint.y)];
+            if (self.rectCorner & BorderDirectionRight) {
+            } else {
+                [path addLineToPoint:rightBottomPoint];
+            }
         } else {
             [path moveToPoint:rightBottomPoint];
         }
@@ -78,10 +86,14 @@
                 [path moveToPoint:CGPointMake(cornerRightBottomPoint.x, rightBottomPoint.y)];
                 [path addArcWithCenter:cornerRightBottomPoint radius:self.cornerRadius - self.borderWidth startAngle:M_PI_2 endAngle:0 clockwise:NO];
             } else {
-                [path moveToPoint:rightBottomPoint];
+                [path addLineToPoint:rightBottomPoint];
                 [path addLineToPoint:CGPointMake(rightBottomPoint.x, cornerRightBottomPoint.y)];
             }
             [path addLineToPoint:CGPointMake(rightTopPoint.x, cornerRightTopPoint.y)];
+            if (self.rectCorner & BorderDirectionTop) {
+            } else {
+                [path addLineToPoint:rightTopPoint];
+            }
         } else {
             [path moveToPoint:rightTopPoint];
         }
@@ -90,10 +102,14 @@
                 [path moveToPoint:CGPointMake(rightTopPoint.x, cornerRightTopPoint.y)];
                 [path addArcWithCenter:cornerRightTopPoint radius:self.cornerRadius - self.borderWidth startAngle:0 endAngle:-M_PI_2 clockwise:NO];
             } else {
-                [path moveToPoint:rightTopPoint];
+                [path addLineToPoint:rightTopPoint];
                 [path addLineToPoint:CGPointMake(cornerRightTopPoint.x, rightTopPoint.y)];
             }
             [path addLineToPoint:CGPointMake(cornerLeftTopPoint.x, leftTopPoint.y)];
+            if (self.rectCorner & BorderDirectionLeft) {
+            } else {
+                [path addLineToPoint:leftTopPoint];
+            }
         } else {
             [path moveToPoint:leftTopPoint];
         }

@@ -91,11 +91,11 @@
 //    }];
     
 //    BorderView *view = [[BorderView alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
-////    view.backgroundColor = [UIColor clearColor];
-//    view.cornerRadius = 30.f;
+//    view.backgroundColor = [UIColor grayColor];
+//    view.cornerRadius = 10.f;
 //    view.borderWidth = 0.5f;
 //    view.borderColor = [UIColor redColor];
-//    view.rectCorner = BorderDirectionRight | BorderDirectionTop | BorderDirectionBottom | BorderDirectionLeft;
+//    view.rectCorner = BorderDirectionRight | BorderDirectionBottom;
 //    [self.view addSubview:view];
     
 }
