@@ -10,13 +10,22 @@
 @interface JYCSimpleToolClass : NSObject
 
 /**
- 将数组转换成字典
+ 获取当前控制器
  
- @param array 数组
- @param key 数组中对象的某个属性
- @return 转换成的字典
+ @return 当前控制器
  */
-+ (NSDictionary *)changeToDictionaryWithArray:(NSArray *)array byKey:(NSString *)key;
++ (UIViewController *)getCurrentVC;
+
+#pragma mark -- 设备信息获取
+
+/**
+ 获取UUID
+ 
+ @return uuid 字符串
+ */
++ (NSString *)getUUID;
+
+#pragma mark -- 数据加密
 
 /**
  HmacMD5 加密
@@ -35,28 +44,7 @@
  */
 + (NSString *)md5String:(NSString *)codeString;
 
-/**
- 获取UUID
- 
- @return uuid 字符串
- */
-+ (NSString *)getUUID;
-
-/**
- 获取当前控制器
- 
- @return 当前控制器
- */
-+ (UIViewController *)getCurrentVC;
-
-/**
- 生成纯色图片
- 
- @param color 颜色
- @return 返回图片
- */
-+ (UIImage *)imageWithColor:(UIColor *)color;
-
+#pragma mark -- 字符校验相关
 /**
  是否是手机号
  
@@ -68,14 +56,86 @@
 + (BOOL)regularNumber:(NSString *)num;
 
 /**
- 将后台传出的时间格式改成一般格式
+ 字符串是否是银行卡号
  
- @param timeString 后端返回的时间
- @return 一般时间格式
+ @param bankCardNumber 银行卡号
+ @return 是否是
  */
-+ (NSString *)changeNormalTimeWithString:(NSString *)timeString;
++ (BOOL)stringIsBankCardNumber:(NSString *)bankCardNumber;
 
+/**
+ 字符串是否为空
+ 
+ @param string 需要判断的字符串
+ @return 是否空
+ */
++ (BOOL)stringIsEmpty:(NSString *)string;
+
+
+#pragma mark -- data转换相关
+
+/**
+ 将数组转换成字典
+ 
+ @param array 数组
+ @param key 数组中对象的某个属性
+ @return 转换成的字典
+ */
++ (NSDictionary *)changeToDictionaryWithArray:(NSArray *)array byKey:(NSString *)key;
+
+/**
+ 字典转json字符串
+
+ @param dic 字典
+ @return json字符串
+ */
 + (NSString*)dictionaryToJson:(NSDictionary *)dic;
+
+/**
+ 字典转模型时使用
+ 
+ @param class 目标模型
+ @param value 字典 或者  模型
+ @return 返回值
+ */
++ (id)setValueOfClass:(Class)class withValue:(id)value;
+
+/**
+ 模型数组转字典数组
+ 
+ @param array 模型数组(模型需要实现decodeToDic方法)
+ @return 字典数组
+ */
++ (NSArray *)encodeArrayToArray:(NSArray *)array;
+
+#pragma mark -- UI相关
+
+/**
+ 给view指定的角切圆角
+ 
+ @param corners 切圆角的位置
+ @param cornerRadii 切圆角的大小
+ @param view 被切圆角的view
+ */
++ (void)maskCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView *)view;
+
+#pragma mark -- image相关
+
+/**
+ 生成二维码
+ 
+ @param codeString 二维码信息
+ @return 二维码图片
+ */
++ (UIImage *)createQRCodeWithString:(NSString *)codeString;
+
+/**
+ 生成纯色图片
+ 
+ @param color 颜色
+ @return 返回图片
+ */
++ (UIImage *)imageWithColor:(UIColor *)color;
 
 /**
  截图
@@ -93,47 +153,7 @@
  */
 + (NSData *)dataByImage:(UIImage *)image;
 
-/**
- 字典转模型时使用
- 
- @param class 目标模型
- @param value 字典 或者  模型
- @return 返回值
- */
-+ (id)setValueOfClass:(Class)class withValue:(id)value;
-
-/**
- 生成二维码
- 
- @param codeString 二维码信息
- @return 二维码图片
- */
-+ (UIImage *)createQRCodeWithString:(NSString *)codeString;
-
-/**
- 字符串是否为空
-
- @param string 需要判断的字符串
- @return 是否空
- */
-+ (BOOL)stringIsEmpty:(NSString *)string;
-
-/**
- 字符串是否是银行卡号
-
- @param bankCardNumber 银行卡号
- @return 是否是
- */
-+ (BOOL)stringIsBankCardNumber:(NSString *)bankCardNumber;
-
-/**
- 给view指定的角切圆角
- 
- @param corners 切圆角的位置
- @param cornerRadii 切圆角的大小
- @param view 被切圆角的view
- */
-+ (void)maskCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView *)view;
+#pragma mark -- 富文本
 
 /**
  改变字符串中某些文字的颜色
@@ -155,13 +175,24 @@
  */
 + (NSAttributedString *)changeFontString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withFont:(UIFont *)font;
 
+
+#pragma mark -- date 时间相关
+
 /**
- 模型数组转字典数组
+ 将后台传出的时间格式改成一般格式 中时区转东八区
  
- @param array 模型数组(模型需要实现decodeToDic方法)
- @return 字典数组
+ @param timeString 后端返回的时间
+ @return 一般时间格式
  */
-+ (NSArray *)encodeArrayToArray:(NSArray *)array;
++ (NSString *)changeNormalTimeWithString:(NSString *)timeString;
+
+/**
+ 将后台传出的时间格式改成一般格式 只是转格式
+ 
+ @param timeString 后端返回的时间
+ @return 一般时间格式
+ */
++ (NSString *)fastChangeToNormalTimeWithString:(NSString *)timeString;
 
 /**
  快速修改日期格式

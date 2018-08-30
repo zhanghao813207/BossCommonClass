@@ -6,7 +6,7 @@
 //
 
 #import "ExamineFlowRecordModel.h"
-
+#import "NSDate+Helper.h"
 @implementation ExamineFlowRecordModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
@@ -23,6 +23,16 @@
             [array addObject:model];
         }
         self.operate_account_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"operated_at"]) {
+//        yyyy-MM-dd HH:mm:ss
+        NSString *normalTimeString = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        NSDate *date = [NSDate dateFromString:normalTimeString];
+        NSString *timeString = [NSDate stringFromDate:date withFormat:@"HH:mm MM-dd"];
+        self.operated_at = timeString;
+        DLog(@"operated_at = %@",self.operated_at);
         return;
     }
     

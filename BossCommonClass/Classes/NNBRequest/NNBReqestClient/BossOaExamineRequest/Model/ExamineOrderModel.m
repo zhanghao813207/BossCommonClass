@@ -71,7 +71,7 @@
                 [nodeArray addObject:array];
             } else {
                 ExamineFlowRecordModel *lastRecordModel = self.flow_record_list[idx - 1];
-                if (lastRecordModel.node_id == recordModel.node_id) {
+                if ([lastRecordModel.node_id isEqualToString:recordModel.node_id]) {
                     [nodeArray.lastObject addObject:recordModel];
                 } else {
                     NSMutableArray *array = [NSMutableArray array];
@@ -98,6 +98,13 @@
             [array addObject:model];
         }
         self.cost_order_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"submit_at"]) {
+        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.updated_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
+        DLog(@"updated_at = %@",self.updated_at);
         return;
     }
     

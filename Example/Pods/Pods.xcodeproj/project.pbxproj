@@ -475,7 +475,7 @@
 		053E6568B1E85D8980B91C7F07F8B756 /* QNNiuDns.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNNiuDns.h; path = HappyDNS/Http/QNNiuDns.h; sourceTree = "<group>"; };
 		0737EF69317760A5CF6A7ECF3E8C1B27 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = BGFMDB/libs/FMDB/FMDatabasePool.m; sourceTree = "<group>"; };
 		0883499B482F8357B92978BBE93464EB /* QNSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNSessionManager.h; path = QiniuSDK/Http/QNSessionManager.h; sourceTree = "<group>"; };
-		0899F6753D8177F8F63F43F0E1063E4D /* libBossCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBossCommonClass.a; path = libBossCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0899F6753D8177F8F63F43F0E1063E4D /* libBossCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBossCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CC14658DA5536EA61FFFADC93B8637 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		08FF4B5137BEE1CF334BBD2E9650C051 /* JYCAES256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCAES256.h; path = BasicCommonClass/Classes/JYCToolClass/JYCAES256/JYCAES256.h; sourceTree = "<group>"; };
 		09701A6CF06E3812A1A44335725EA46F /* JYCPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JYCPageView.h; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 		14364B991893B38766114D50C5B8118E /* AccountInfoModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AccountInfoModel.m; sourceTree = "<group>"; };
 		1486E5611E17658D6C009E7C4A77D35E /* DepartureLogModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DepartureLogModel.m; sourceTree = "<group>"; };
 		1538B41E74025E9C7EBA91E64096D142 /* QNResumeUpload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNResumeUpload.m; path = QiniuSDK/Storage/QNResumeUpload.m; sourceTree = "<group>"; };
-		153E7FDD340BC832F072E86C74B23E6D /* libHappyDNS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libHappyDNS.a; path = libHappyDNS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		153E7FDD340BC832F072E86C74B23E6D /* libHappyDNS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHappyDNS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		166D321E46F52804C7BAEE547C8DA40B /* QNSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNSessionManager.m; path = QiniuSDK/Http/QNSessionManager.m; sourceTree = "<group>"; };
 		1725794BEED6C4368F6E69DBB9CB39C6 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		17BE8EE09329CB32FFA03462BDD75AAC /* CountdownView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CountdownView.m; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 		205DA46998859F825939557AFB4DB6DD /* OrderModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		20B799E097A0173DF888A3C4B3471D2E /* QN_GTM_Base64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QN_GTM_Base64.m; path = QiniuSDK/Common/QN_GTM_Base64.m; sourceTree = "<group>"; };
 		20D75BA8C42A14BA5BB013DA020B5513 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
-		22DA519B38EBF3D231AEB5809C68B625 /* BossCommonClass.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		22DA519B38EBF3D231AEB5809C68B625 /* BossCommonClass.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		243B886D5AF9E66EE08F3A2B393D747F /* NNBButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NNBButton.m; sourceTree = "<group>"; };
 		24631CC9B618269CD782E573F2133764 /* BossKnightMaterialRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossKnightMaterialRequest.m; sourceTree = "<group>"; };
 		249BBF3E26DEE493A16575803A4300F3 /* UIView+ChangeScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+ChangeScope.m"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UIView/UIView+ChangeScope.m"; sourceTree = "<group>"; };
@@ -551,7 +551,7 @@
 		37BD5A72F0255AF059DC8DDD5CF78E01 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = BGFMDB/libs/FMDB/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		39846AD35F64242700A5971514D514ED /* ThirdRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ThirdRequest.h; sourceTree = "<group>"; };
 		3A1DF710D47F3946AF38F0BA0766859C /* QNResumeUpload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNResumeUpload.h; path = QiniuSDK/Storage/QNResumeUpload.h; sourceTree = "<group>"; };
-		3AE02C0CA73FFAC5D0157F9639188FA1 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BossCommonClass_Example.a"; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AE02C0CA73FFAC5D0157F9639188FA1 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0A915A476571CE2F3865C4A9DAAFFF /* JYCSimpleToolClass.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JYCSimpleToolClass.m; path = BasicCommonClass/Classes/JYCToolClass/JYCSimpleToolClass/JYCSimpleToolClass.m; sourceTree = "<group>"; };
 		3B2F794D662E810A0A1E00167CF6533E /* JYCTitleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JYCTitleView.m; sourceTree = "<group>"; };
 		3BDDCC9A4DD3D7E28A8D7308BF23D577 /* QNUploadOption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNUploadOption.h; path = QiniuSDK/Storage/QNUploadOption.h; sourceTree = "<group>"; };
@@ -571,7 +571,7 @@
 		46A0D81507F9AC1D61F77D52D0D545D9 /* JYCDrawPathView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCDrawPathView.h; path = BasicCommonClass/Classes/CustomView/JYCDrawPathView/JYCDrawPathView.h; sourceTree = "<group>"; };
 		473482FA555BBFADE348D4F5C4BD8D9B /* NNBStatusAnimationView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NNBStatusAnimationView.m; sourceTree = "<group>"; };
 		4750328962BFC6AA2BE5DB49B6D3576B /* BGFMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BGFMDB-prefix.pch"; sourceTree = "<group>"; };
-		484E94B2BD23211CDD12772A1906E386 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		484E94B2BD23211CDD12772A1906E386 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4912027BA6910CFA0D06DFC6F5E74D1C /* EmptyView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EmptyView.h; path = BasicCommonClass/Classes/CustomView/EmptyView/EmptyView.h; sourceTree = "<group>"; };
 		4923BEEF2F97CC44CE13E9FB493C8108 /* JYCConstDataDefine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JYCConstDataDefine.m; path = BasicCommonClass/Classes/AllDefine/ConstDataDefine/JYCConstDataDefine.m; sourceTree = "<group>"; };
 		49F3DD5C7E51F776B70D4CBA71A8AB39 /* CostAccountingModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CostAccountingModel.h; sourceTree = "<group>"; };
@@ -622,7 +622,7 @@
 		6B6679FFF29C4361B52F70B634177A9B /* OaHouseContractModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OaHouseContractModel.h; sourceTree = "<group>"; };
 		6B7CF98A5CE4CBF727E7387F2C787807 /* BossNoticeRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossNoticeRequest.m; sourceTree = "<group>"; };
 		6B9481844D0C41C8051B68E451E60BE7 /* BossCommonClass-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BossCommonClass-dummy.m"; sourceTree = "<group>"; };
-		6BD01C43B9179C7508DE6709E7368858 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAFNetworking.a; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BD01C43B9179C7508DE6709E7368858 /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BD859192E0B8ED96E5F322A488E06FD /* QNMD5.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNMD5.m; path = HappyDNS/Util/QNMD5.m; sourceTree = "<group>"; };
 		6C4322E645DDF578108EBD356E04B9BE /* QNIP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNIP.h; path = HappyDNS/Util/QNIP.h; sourceTree = "<group>"; };
 		6D5256AC82646C403C0E4217EBD1589C /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
@@ -691,7 +691,7 @@
 		9274E5FA310F45724D553AB14EF846C5 /* ExamineOrderModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ExamineOrderModel.m; sourceTree = "<group>"; };
 		92B6AB58DCF4FEEF3797C9650103522A /* Pods-BossCommonClass_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BossCommonClass_Example.release.xcconfig"; sourceTree = "<group>"; };
 		92D8C7240DC0D4095CE89099FA9ECF56 /* CostAllocationModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CostAllocationModel.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		942CCD94E93B17601466E46C7900A59B /* JYCLinePath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JYCLinePath.m; path = BasicCommonClass/Classes/CustomView/JYCDrawPathView/JYCLinePath.m; sourceTree = "<group>"; };
 		95A2C945FEE364788310ED2F0D06C9CC /* KnightMaterialModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = KnightMaterialModel.m; sourceTree = "<group>"; };
 		95BCE7247A26E69742B13B3454C0E4AB /* UIImage+Category.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Category.m"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UIImage/UIImage+Category.m"; sourceTree = "<group>"; };
@@ -715,7 +715,7 @@
 		A4DBA048F46437952C31E47EF47E5792 /* NNBAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBAlertView.h; sourceTree = "<group>"; };
 		A520495EFF9AC0F781C0B4FFA3A49E76 /* BossAssistantRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BossAssistantRequest.m; sourceTree = "<group>"; };
 		A5BB7154AE9F16946670E8CBAA564E32 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
-		A5BF27495460F417AA291FC677E02B62 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		A5BF27495460F417AA291FC677E02B62 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5DE0E5E140C77B3189EA257599A3FD7 /* QNPipeline.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNPipeline.h; path = QiniuSDK/BigData/QNPipeline.h; sourceTree = "<group>"; };
 		A64716173FC0305057230E14CDCC7A77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		A64AD130854F37CAA5F6583085C8851E /* UIView+ChangeScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+ChangeScope.h"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UIView/UIView+ChangeScope.h"; sourceTree = "<group>"; };
@@ -760,7 +760,7 @@
 		BA5109B7951311B5590252590D682D09 /* JYCScaleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JYCScaleView.h; path = BasicCommonClass/Classes/CustomView/JYCScaleView/JYCScaleView.h; sourceTree = "<group>"; };
 		BC0CC30D9F88284BB8D2CCB16A3176CF /* PayeeInfoModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PayeeInfoModel.m; sourceTree = "<group>"; };
 		BC65E777FD4DF0BDBB0FBAD1C0919888 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
-		BCFF0B340936B02B072C72FF34941457 /* libQiniu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libQiniu.a; path = libQiniu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCFF0B340936B02B072C72FF34941457 /* libQiniu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQiniu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD77CE4B44C01721DAC4F8F13AF2CF26 /* ExamineModuleModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ExamineModuleModel.m; sourceTree = "<group>"; };
 		BD88E0E1C9DD854862BDC468F9A95D16 /* Pods-BossCommonClass_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BossCommonClass_Example-frameworks.sh"; sourceTree = "<group>"; };
 		BE6EB6A0BE71E4CB9BB07B8218517AB8 /* UINavigationBar+BackgroundColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+BackgroundColor.m"; path = "BasicCommonClass/Classes/CategoryClass/ViewCategory/UINavigationBar/UINavigationBar+BackgroundColor.m"; sourceTree = "<group>"; };
@@ -780,7 +780,7 @@
 		C89B93A3A74ED00101FA9546AAAE8100 /* SupplierModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SupplierModel.h; sourceTree = "<group>"; };
 		C9A7442F8B53E1EAE9CBF5E587C66048 /* NNBBottomAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBBottomAlertView.h; sourceTree = "<group>"; };
 		C9FAA03ADD345F4B031C4FBD8B99EFA2 /* AccountModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AccountModel.h; sourceTree = "<group>"; };
-		CA7E8CD6E7FD1E35ED924B47A0955A92 /* libBGFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBGFMDB.a; path = libBGFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA7E8CD6E7FD1E35ED924B47A0955A92 /* libBGFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBGFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADCBD3A39C843F9C21114CF2FFD78CC /* NNBRequestManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBRequestManager.h; sourceTree = "<group>"; };
 		CB35216A4C81E3D9374A01B04504DCDF /* Pods-BossCommonClass_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BossCommonClass_Example-dummy.m"; sourceTree = "<group>"; };
 		CBEFCC51889F8CD6866185D4CCEF1987 /* BossEnumDefin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = BossEnumDefin.h; sourceTree = "<group>"; };
@@ -795,7 +795,7 @@
 		D282343851148752A1BB114AD15FFDEC /* Pods-BossCommonClass_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BossCommonClass_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D4232A41A5ABC6ACFFD6206AEBAEFCB7 /* CostOrderModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CostOrderModel.m; sourceTree = "<group>"; };
 		D485DA16471154981B4806CCD371A50F /* SalaryModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SalaryModel.h; sourceTree = "<group>"; };
-		D583019906CAB82D77E1E65333346BFC /* libBasicCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBasicCommonClass.a; path = libBasicCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D583019906CAB82D77E1E65333346BFC /* libBasicCommonClass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBasicCommonClass.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DC3FFFD629F1BE398E6E5154096859 /* NSObject+Property.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Property.m"; path = "BasicCommonClass/Classes/CategoryClass/ObjectCategory/NSObject/NSObject+Property.m"; sourceTree = "<group>"; };
 		D6B683D2630BEDBC36FFF21301043A95 /* NSCache+BGCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSCache+BGCache.m"; path = "BGFMDB/libs/BG/NSCache+BGCache.m"; sourceTree = "<group>"; };
 		D720E699CDF0F97AB94CE3BC7FDF5902 /* UIView+ShowView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+ShowView.h"; sourceTree = "<group>"; };
@@ -937,7 +937,6 @@
 				A520495EFF9AC0F781C0B4FFA3A49E76 /* BossAssistantRequest.m */,
 				D0943A75CD877E20AD56343F700CD261 /* Model */,
 			);
-			name = BossAssistantRequest;
 			path = BossAssistantRequest;
 			sourceTree = "<group>";
 		};
@@ -989,7 +988,6 @@
 				48231914AFD2BF4C9AC64611FE3FCA53 /* Controller */,
 				F64C4A585392679BB96FB9FE2E5CC0E9 /* View */,
 			);
-			name = LoginMain;
 			path = LoginMain;
 			sourceTree = "<group>";
 		};
@@ -1016,7 +1014,6 @@
 				9A8F9ECCA79ED26B6D078BC57B965349 /* ProviderModel.h */,
 				D816F2292CB4689D3A668CB9AA70C47B /* ProviderModel.m */,
 			);
-			name = NNBAccount;
 			path = NNBAccount;
 			sourceTree = "<group>";
 		};
@@ -1037,7 +1034,6 @@
 				A0EA5686F5423DB97E18395D5C454B49 /* NNBResponseModel.h */,
 				9239BE265DBCB573BD3391465605076F /* NNBResponseModel.m */,
 			);
-			name = NNBResponseModel;
 			path = NNBResponseModel;
 			sourceTree = "<group>";
 		};
@@ -1056,7 +1052,6 @@
 				35069AFDA2B0BBCE09FE7BA8BC60CF74 /* BossSalaryRequest.m */,
 				48A77D370DA550773282E0172F4D8666 /* Model */,
 			);
-			name = BossSalaryReuest;
 			path = BossSalaryReuest;
 			sourceTree = "<group>";
 		};
@@ -1066,7 +1061,6 @@
 				A4DBA048F46437952C31E47EF47E5792 /* NNBAlertView.h */,
 				EF1795ACDC60B4062337A1D6C49ED755 /* NNBAlertView.m */,
 			);
-			name = NNBAlertView;
 			path = NNBAlertView;
 			sourceTree = "<group>";
 		};
@@ -1085,7 +1079,6 @@
 				F07BC38906CDA9AD7A36BE5D0B1EB4B8 /* SignView.h */,
 				FDCCEDCC599BEF824A156FE0A9365E5D /* SignView.m */,
 			);
-			name = SignView;
 			path = SignView;
 			sourceTree = "<group>";
 		};
@@ -1095,7 +1088,6 @@
 				D875B1C9C9C08EA6C15F70D03C57E7DE /* NotDateEmptyView.h */,
 				7C7E7805096400459C06FC76DBA124E7 /* NotDateEmptyView.m */,
 			);
-			name = EmptyView;
 			path = EmptyView;
 			sourceTree = "<group>";
 		};
@@ -1105,7 +1097,6 @@
 				5A484420DE7C45A02A6C6A8311B86EDB /* QHTextField.h */,
 				8529F0ABF4C6C2B26AA8047C08516272 /* QHTextField.m */,
 			);
-			name = QHTextField;
 			path = QHTextField;
 			sourceTree = "<group>";
 		};
@@ -1115,7 +1106,6 @@
 				7D21817CD7ECA0AEBBB2AE7B75CFBCCD /* JYCTextField.h */,
 				C0C1C5E00F742D6937FE37D95DF8268E /* JYCTextField.m */,
 			);
-			name = JYCTextField;
 			path = JYCTextField;
 			sourceTree = "<group>";
 		};
@@ -1131,7 +1121,6 @@
 				E56D62F252B9D63A547075F8357893FD /* PlatformModel.h */,
 				41390D4ACF22CA2F7FC5FD1C6B8B2BA7 /* PlatformModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1141,7 +1130,6 @@
 				752919CC0E67AFCB3564931E7B9C8A0C /* LoginVC.h */,
 				9C3C371F4E613A6B4136C92B22D3ACA6 /* LoginVC.m */,
 			);
-			name = Controller;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -1155,7 +1143,6 @@
 				1C5B854B9853D80C4CB06A18EC412FA1 /* SubItemBean.h */,
 				0F34A20D1D1E3C8C330C2DE7C2C5C94F /* SubItemBean.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1166,7 +1153,6 @@
 				9E3F4BCD91A5B07CA6B1E1A0AF28970B /* UITextView */,
 				F7EC163833FB15AC102C3CF31F7D4313 /* UIView */,
 			);
-			name = ViewCategory;
 			path = ViewCategory;
 			sourceTree = "<group>";
 		};
@@ -1184,7 +1170,6 @@
 				FE8F52FBC9353267DAD4FAEEE4945F66 /* UICollectionView+ScrollEdge.h */,
 				EA02CB3036773E0026113222E7FBA447 /* UICollectionView+ScrollEdge.m */,
 			);
-			name = JYCPageView;
 			path = JYCPageView;
 			sourceTree = "<group>";
 		};
@@ -1194,7 +1179,6 @@
 				04635EC6FE0367C26ED7A7C505A56303 /* NNBStatusAnimationView.h */,
 				473482FA555BBFADE348D4F5C4BD8D9B /* NNBStatusAnimationView.m */,
 			);
-			name = NNBStatusAnimationView;
 			path = NNBStatusAnimationView;
 			sourceTree = "<group>";
 		};
@@ -1215,7 +1199,6 @@
 				73BABBD46DDFB30096A902FC6D076F11 /* NNBButton.h */,
 				243B886D5AF9E66EE08F3A2B393D747F /* NNBButton.m */,
 			);
-			name = NNBButton;
 			path = NNBButton;
 			sourceTree = "<group>";
 		};
@@ -1273,7 +1256,6 @@
 				1CC92E5E07CE34F946BCE223CBEE7141 /* Support Files */,
 				BC1E4710EB06ED2BFC3F92DB0E24B522 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -1283,7 +1265,6 @@
 				AFA8D10E125AF8962041B601810CC803 /* BossMaterialFlowRequest.h */,
 				B816786C70C35DEDC551421E6D71C8B9 /* BossMaterialFlowRequest.m */,
 			);
-			name = BossMaterialFlowRequest;
 			path = BossMaterialFlowRequest;
 			sourceTree = "<group>";
 		};
@@ -1294,7 +1275,6 @@
 				0475761AA9623B82B9C868A5BA036883 /* BossAccount.m */,
 				F4FF7D0CB8228F5828FB32405AF5D64C /* Model */,
 			);
-			name = BossAccount;
 			path = BossAccount;
 			sourceTree = "<group>";
 		};
@@ -1304,7 +1284,6 @@
 				BEA908A2B86D783C8C2500910A7F0344 /* NNBUploadManager.h */,
 				C77C5C5B03F181B7A1F70B927BA58341 /* NNBUploadManager.m */,
 			);
-			name = NNBUploadManager;
 			path = NNBUploadManager;
 			sourceTree = "<group>";
 		};
@@ -1314,7 +1293,6 @@
 				39846AD35F64242700A5971514D514ED /* ThirdRequest.h */,
 				1845A7C0A0727E72EEF012D0B41013B5 /* ThirdRequest.m */,
 			);
-			name = ThirdRequest;
 			path = ThirdRequest;
 			sourceTree = "<group>";
 		};
@@ -1324,7 +1302,6 @@
 				C9A7442F8B53E1EAE9CBF5E587C66048 /* NNBBottomAlertView.h */,
 				B357153EC24C3FDA73ED687BA0F76D04 /* NNBBottomAlertView.m */,
 			);
-			name = NNBBottomAlertView;
 			path = NNBBottomAlertView;
 			sourceTree = "<group>";
 		};
@@ -1334,7 +1311,6 @@
 				C0AFFC6EE51F8EE1540711F9CAC5FCE7 /* BorderView.h */,
 				C70ED1BF0CEFA4D488E0227E1EB469B7 /* BorderView.m */,
 			);
-			name = BordView;
 			path = BordView;
 			sourceTree = "<group>";
 		};
@@ -1399,7 +1375,6 @@
 				896A6C044F99B0F2378A8ECDB7371394 /* QNTxtResolver.m */,
 				5CB34B21A9089026FCCAD34696EDD3C6 /* Support Files */,
 			);
-			name = HappyDNS;
 			path = HappyDNS;
 			sourceTree = "<group>";
 		};
@@ -1456,7 +1431,6 @@
 				7E67DC9820AEFCBB8D3AC57EFBFD289C /* QNVersion.h */,
 				972D2921986328F974364D8C20774E62 /* Support Files */,
 			);
-			name = Qiniu;
 			path = Qiniu;
 			sourceTree = "<group>";
 		};
@@ -1466,7 +1440,6 @@
 				CADCBD3A39C843F9C21114CF2FFD78CC /* NNBRequestManager.h */,
 				2B1CDC1E4851C56A66A52CD1D07D0AE6 /* NNBRequestManager.m */,
 			);
-			name = NNBRequestManager;
 			path = NNBRequestManager;
 			sourceTree = "<group>";
 		};
@@ -1476,7 +1449,6 @@
 				8FD185A4D9333FFD248ECBF7D970F382 /* NNBStatusView.h */,
 				1CB3FE389620C97EC9B5ED99C0E696DD /* NNBStatusView.m */,
 			);
-			name = NNBStatusView;
 			path = NNBStatusView;
 			sourceTree = "<group>";
 		};
@@ -1487,7 +1459,6 @@
 				24631CC9B618269CD782E573F2133764 /* BossKnightMaterialRequest.m */,
 				AAB73DBB47AD643D7BDDA088F3AD13AB /* Model */,
 			);
-			name = BossKnightMaterialRequest;
 			path = BossKnightMaterialRequest;
 			sourceTree = "<group>";
 		};
@@ -1498,7 +1469,6 @@
 				547860A80CAE9379972227229E2E7C4D /* BossStaffRequest.m */,
 				473FBDE06A38205FD20066CB3D2F020F /* Model */,
 			);
-			name = BOSSStaffRequest;
 			path = BOSSStaffRequest;
 			sourceTree = "<group>";
 		};
@@ -1508,7 +1478,6 @@
 				37970C9F6A54CC43E0AC5317ED434B34 /* QHScanManager.h */,
 				D1EDD52D64899252BD85EC81C7A6FD28 /* QHScanManager.m */,
 			);
-			name = QHScanManager;
 			path = QHScanManager;
 			sourceTree = "<group>";
 		};
@@ -1520,7 +1489,6 @@
 				AC6E7A96DCB5C146967D9BCE34642722 /* FMDB */,
 				5A03A1B4A1A5ADB802B7C87D6F3733F3 /* Support Files */,
 			);
-			name = BGFMDB;
 			path = BGFMDB;
 			sourceTree = "<group>";
 		};
@@ -1569,7 +1537,6 @@
 				FF4272DA1D5DE6ACA11F8D123B9F586A /* OperationTypes.h */,
 				439D77465A2820674DBF69C0A7997D98 /* OperationTypes.m */,
 			);
-			name = OperateTypes;
 			path = OperateTypes;
 			sourceTree = "<group>";
 		};
@@ -1579,7 +1546,6 @@
 				8A4D640D8D01C542A145B673036E96F9 /* UITextView+Placeholder.h */,
 				8D8DCDC0DC53BB172BC9BDE5C7F1A656 /* UITextView+Placeholder.m */,
 			);
-			name = UITextView;
 			path = UITextView;
 			sourceTree = "<group>";
 		};
@@ -1589,7 +1555,6 @@
 				4415BA16A2E51C9E389232844445CABF /* UITabBar+Bage.h */,
 				3E0196D6756672872D62F4A7493B2678 /* UITabBar+Bage.m */,
 			);
-			name = UITabBar;
 			path = UITabBar;
 			sourceTree = "<group>";
 		};
@@ -1617,7 +1582,6 @@
 				09D3DF359327C254EAEE46248334DD66 /* NNBTextField.h */,
 				4DAB0E883EE097A4D740316718256AEA /* NNBTextField.m */,
 			);
-			name = NNBTextField;
 			path = NNBTextField;
 			sourceTree = "<group>";
 		};
@@ -1629,7 +1593,6 @@
 				FEB7484C8BF4CC371B4AEDBB4030BDC6 /* OrderModel.h */,
 				205DA46998859F825939557AFB4DB6DD /* OrderModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1657,7 +1620,6 @@
 				2C028F749AA8F3E6A216884A1249738E /* NNBLoadingView.h */,
 				EC9AA608985722614957A59D171CCBFB /* NNBLoadingView.m */,
 			);
-			name = NNBLoadingView;
 			path = NNBLoadingView;
 			sourceTree = "<group>";
 		};
@@ -1667,7 +1629,6 @@
 				180E3994755412F1D0AC56044833A39A /* NoticeModuleModel.h */,
 				B6C4D50DEB252ED09664BBAD29D45D14 /* NoticeModuleModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1677,7 +1638,6 @@
 				F085CC1E3D6D6130D8DB3A00AD0A33D5 /* NNBUtilRequest.h */,
 				AEAE33AEE702B8845FBC45C3C24CE27C /* NNBUtilRequest.m */,
 			);
-			name = NNBUtilRequest;
 			path = NNBUtilRequest;
 			sourceTree = "<group>";
 		};
@@ -1731,7 +1691,6 @@
 				920E38D0ED200B2FAC455F7FEC0C8F99 /* UIView+ResetFrame.m */,
 				116BE7DDFB601837346AD037F061124D /* Support Files */,
 			);
-			name = BasicCommonClass;
 			path = BasicCommonClass;
 			sourceTree = "<group>";
 		};
@@ -1786,7 +1745,6 @@
 				64E582E271D16C23FD4CBABFDE0695EC /* PayeeInfoModel.h */,
 				BC0CC30D9F88284BB8D2CCB16A3176CF /* PayeeInfoModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1795,7 +1753,6 @@
 			children = (
 				CBEFCC51889F8CD6866185D4CCEF1987 /* BossEnumDefin.h */,
 			);
-			name = EnumDefine;
 			path = EnumDefine;
 			sourceTree = "<group>";
 		};
@@ -1805,7 +1762,6 @@
 				84FE3B654F2EB4FF36299F3F168CB467 /* BossAccountRequest.h */,
 				D7706F273437B39BA63C9DDAAF9D8E69 /* BossAccountRequest.m */,
 			);
-			name = BossAccountRequest;
 			path = BossAccountRequest;
 			sourceTree = "<group>";
 		};
@@ -1855,7 +1811,6 @@
 				7080AA2EC415A917429D15101A901FFD /* ExamineModuleModel.h */,
 				BD77CE4B44C01721DAC4F8F13AF2CF26 /* ExamineModuleModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1864,7 +1819,6 @@
 			children = (
 				1CA6A348BE2D8D7E974D92DDA4A1AF1F /* BossMethodDefine.h */,
 			);
-			name = MethodDefine;
 			path = MethodDefine;
 			sourceTree = "<group>";
 		};
@@ -1887,7 +1841,6 @@
 				6B7CF98A5CE4CBF727E7387F2C787807 /* BossNoticeRequest.m */,
 				AEE1CE138A8C41611D71C97F20EF39E4 /* Model */,
 			);
-			name = BossNoticeRequest;
 			path = BossNoticeRequest;
 			sourceTree = "<group>";
 		};
@@ -1916,7 +1869,6 @@
 				BA61B1C7DE1539B55C859315F484215B /* NNBUtilRequest */,
 				6F322AB2DB0CD9C70B2B08CED1D200CE /* ThirdRequest */,
 			);
-			name = NNBReqestClient;
 			path = NNBReqestClient;
 			sourceTree = "<group>";
 		};
@@ -1949,7 +1901,6 @@
 				DED709D73167A714D3A4425F797ED905 /* NNBAuthRequest.h */,
 				1CC344DC1B0A9CE52542ADA844C66341 /* NNBAuthRequest.m */,
 			);
-			name = NNBAuthRequest;
 			path = NNBAuthRequest;
 			sourceTree = "<group>";
 		};
@@ -1967,7 +1918,6 @@
 				1C25213B11ADA96AA09C85BBD54C5C17 /* NNBLoadStatusView.h */,
 				76DBFBDF34135894626CDFC3B479A463 /* NNBLoadStatusView.m */,
 			);
-			name = NNBLoadStatusView;
 			path = NNBLoadStatusView;
 			sourceTree = "<group>";
 		};
@@ -1979,7 +1929,6 @@
 				C89B93A3A74ED00101FA9546AAAE8100 /* SupplierModel.h */,
 				75E189946A159C944D0A22568CB51D0A /* SupplierModel.m */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -1990,7 +1939,6 @@
 				EBCBAB890434E406D66A08C8B370E2CF /* BossOaExamineRequest.m */,
 				C057120189B1B51D0AE0E55BBDF3CEE5 /* Model */,
 			);
-			name = BossOaExamineRequest;
 			path = BossOaExamineRequest;
 			sourceTree = "<group>";
 		};
@@ -2006,7 +1954,6 @@
 				7EB1666F20C93E174742299B56BEE7A2 /* InputPhoneNumberView.h */,
 				F37CE4CBA730435D912B47CD2F255C7F /* InputPhoneNumberView.m */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -2016,7 +1963,6 @@
 				CCEB865A8A2864CF5F865F5053937D70 /* QHErrorView.h */,
 				F0521F8F8F3F299F8E0E3AEF1165F76B /* QHErrorView.m */,
 			);
-			name = ErrorNoticeView;
 			path = ErrorNoticeView;
 			sourceTree = "<group>";
 		};
@@ -2036,7 +1982,6 @@
 				D720E699CDF0F97AB94CE3BC7FDF5902 /* UIView+ShowView.h */,
 				AFD6774ACBDE0D25C67C164180E88B03 /* UIView+ShowView.m */,
 			);
-			name = UIView;
 			path = UIView;
 			sourceTree = "<group>";
 		};
@@ -2046,7 +1991,6 @@
 				72FD3924337F5E3329A904FF3C1EBE82 /* BossConstDataDefine.h */,
 				CEB0ED2863CE3C7A44AAD9C17898F3A2 /* BossConstDataDefine.m */,
 			);
-			name = ConstDataDefine;
 			path = ConstDataDefine;
 			sourceTree = "<group>";
 		};
@@ -2872,6 +2816,7 @@
 					"POD_CONFIGURATION_DEBUG=1",
 					"DEBUG=1",
 					"$(inherited)",
+					"kBossManager=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -3188,6 +3133,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
+					"kBossManager=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

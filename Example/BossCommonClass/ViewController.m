@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+//
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
 //    } withController:self];
     
@@ -44,7 +44,7 @@
 //
 //    }];
     
-//    [BossOaExamineRequest OaExamineRequestGetExamineListWithType:1 page:1 successBlock:^(NSArray<ExamineOrderModel *> *examineFlowList) {
+//    [BossOaExamineRequest OaExamineRequestGetExamineListWithType:MOBILE_PASS_EXAMINE_FAIL page:1 successBlock:^(NSArray<ExamineOrderModel *> *examineFlowList) {
 //
 //    } fail:^(id error) {
 //
@@ -52,11 +52,11 @@
     
 //    5afd4d41ce6d2a06a8332345 状态100的单子 5b74db05ce6d2a63b4ac77e2 状态10的单子
     
-//    [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:@"5b8266c9421aa92abb5b91a9" successBlock:^(ExamineOrderModel *examineFlowList) {
-//
-//    } fail:^(id error) {
-//
-//    }];
+    [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:@"5b74db05ce6d2a63b4ac77e2" successBlock:^(ExamineOrderModel *examineFlowList) {
+
+    } fail:^(id error) {
+
+    }];
     
 //    [BossOaExamineRequest OaExamineRequestGetCostOrderListWithPage:1 successBlock:^(NSArray<CostOrderModel *> *costOrderList) {
 //
