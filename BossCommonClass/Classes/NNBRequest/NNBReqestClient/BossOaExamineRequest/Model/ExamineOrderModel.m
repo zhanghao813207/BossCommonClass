@@ -103,11 +103,11 @@
     
     if ([key isEqualToString:@"submit_at"]) {
         NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
-        self.updated_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
-        DLog(@"updated_at = %@",self.updated_at);
+        self.submit_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
+        DLog(@"submit_at = %@",self.submit_at);
         return;
     }
-    
+
     [super setValue:value forKey:key];
 }
 

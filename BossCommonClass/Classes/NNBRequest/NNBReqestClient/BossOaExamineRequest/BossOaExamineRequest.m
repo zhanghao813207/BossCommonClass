@@ -40,7 +40,7 @@
                                           @"submit_at":@(-1),
                                           }
                                   } forKey:@"_meta"];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"current_pending_accounts"];
+            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"current_pending_accounts"];
             [paramDic setObject:bizStateArray forKey:@"biz_state"];
         }
             break;
@@ -74,28 +74,28 @@
         case MOBILE_PASS_EXAMINE_ALL:
         {
             bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT),@(OA_EXAMINE_NODE_STATE_AGREE),@(OA_EXAMINE_NODE_STATE_REJECT)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
             [paramDic setObject:bizStateArray forKey:@"biz_state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_PRESENT:
         {
             bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
             [paramDic setObject:bizStateArray forKey:@"biz_state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_SUCCEED:
         {
             bizStateArray = @[@(OA_EXAMINE_NODE_STATE_AGREE)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
             [paramDic setObject:bizStateArray forKey:@"biz_state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_FAIL:
         {
             bizStateArray = @[@(OA_EXAMINE_NODE_STATE_REJECT)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
             [paramDic setObject:bizStateArray forKey:@"biz_state"];
         }
             break;
