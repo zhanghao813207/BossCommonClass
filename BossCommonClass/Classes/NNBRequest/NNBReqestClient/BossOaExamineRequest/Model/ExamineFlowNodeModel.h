@@ -24,6 +24,11 @@
  */
 @property (nonatomic, assign) NSInteger index_num;
 
+/**
+ 节点审批人摘要列表
+ */
+@property (nonatomic, strong) NSArray <AccountModel *>*account_list;
+
 #pragma mark -- 计算属性
 /**
  审批流记录列表

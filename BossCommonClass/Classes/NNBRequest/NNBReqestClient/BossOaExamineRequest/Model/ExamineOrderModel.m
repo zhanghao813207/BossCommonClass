@@ -123,6 +123,7 @@
         model._id = recordModel.node_id;
         model.index_num = recordModel.index_num;
         model.state = recordModel.state;
+        model.name = recordModel.node_name;
         BOOL isUrge = NO;
         if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT && recordModel.urge_state == YES) {
             isUrge = YES;

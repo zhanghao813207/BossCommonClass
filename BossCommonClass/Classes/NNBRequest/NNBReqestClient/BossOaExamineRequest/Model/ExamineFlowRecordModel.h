@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
 #import "AccountModel.h"
+@class ExamineFlowNodeModel;
 
 @interface ExamineFlowRecordModel : NSObject
 
@@ -32,6 +33,12 @@
 @property (nonatomic, strong) NSString *reject_to_node_id;
 
 /**
+ 驳回至节点信息
+ */
+@property (nonatomic, strong) ExamineFlowNodeModel *reject_to_node_info;
+
+
+/**
  审批状态
  */
 @property (nonatomic, assign) OA_EXAMINE_NODE_STATE state;
@@ -50,6 +57,11 @@
  审批流程节点ID: 提报记录节点为 None
  */
 @property (nonatomic, strong) NSString *node_id;
+
+/**
+ 审批流节点名称
+ */
+@property (nonatomic, strong) NSString *node_name;
 
 
 /**

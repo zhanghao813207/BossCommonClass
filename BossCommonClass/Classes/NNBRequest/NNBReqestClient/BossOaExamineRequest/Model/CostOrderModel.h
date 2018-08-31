@@ -64,6 +64,11 @@
 @property (nonatomic, strong) NSArray *attachemnts;
 
 /**
+ 附件下载地址列表
+ */
+@property (nonatomic, strong) NSArray *attachment_private_urls;
+
+/**
  用途
  */
 @property (nonatomic, strong) NSString *usage;

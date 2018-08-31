@@ -7,6 +7,8 @@
 
 #import "ExamineFlowRecordModel.h"
 #import "NSDate+Helper.h"
+#import "ExamineFlowNodeModel.h"
+
 @implementation ExamineFlowRecordModel
 
 - (void)setValue:(id)value forKey:(NSString *)key
@@ -23,6 +25,13 @@
             [array addObject:model];
         }
         self.operate_account_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"reject_to_node_info"]) {
+        ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.reject_to_node_info = model;
         return;
     }
     
