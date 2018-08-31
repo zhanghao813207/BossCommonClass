@@ -5,29 +5,15 @@
 //  Created by 贾远潮 on 2018/8/24.
 //
 
-#import <Foundation/Foundation.h>
+#import "ExamineFlowNodeBriefModel.h"
 #import "ExamineFlowRecordModel.h"
-@interface ExamineFlowNodeModel : NSObject
 
-/**
- 节点id
- */
-@property (nonatomic, strong) NSString *_id;
-
-/**
- 节点名称
- */
-@property (nonatomic, strong) NSString *name;
+@interface ExamineFlowNodeModel : ExamineFlowNodeBriefModel
 
 /**
  流程节点索引序号， 0 开始
  */
 @property (nonatomic, assign) NSInteger index_num;
-
-/**
- 节点审批人摘要列表
- */
-@property (nonatomic, strong) NSArray <AccountModel *>*account_list;
 
 #pragma mark -- 计算属性
 /**

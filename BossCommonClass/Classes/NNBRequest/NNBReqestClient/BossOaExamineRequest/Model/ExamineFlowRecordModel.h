@@ -8,8 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
 #import "AccountModel.h"
-@class ExamineFlowNodeModel;
-
+#import "ExamineFlowNodeBriefModel.h"
 @interface ExamineFlowRecordModel : NSObject
 
 /**
@@ -35,7 +34,7 @@
 /**
  驳回至节点信息
  */
-@property (nonatomic, strong) ExamineFlowNodeModel *reject_to_node_info;
+@property (nonatomic, strong) ExamineFlowNodeBriefModel *reject_to_node_info;
 
 
 /**

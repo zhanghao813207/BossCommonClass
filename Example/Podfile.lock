@@ -21,7 +21,7 @@ PODS:
   - BGFMDB/BG (1.51):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (1.51)
-  - BossCommonClass (0.6.4):
+  - BossCommonClass (0.6.5):
     - AFNetworking (~> 3.1.0)
     - BasicCommonClass (~> 0.3.7)
     - BGFMDB (~> 1.51)
@@ -31,7 +31,7 @@ PODS:
     - HappyDNS (~> 0.3)
 
 DEPENDENCIES:
-  - BasicCommonClass (~> 0.3.6)
+  - BasicCommonClass (~> 0.3.7)
   - BossCommonClass (from `../`)
 
 SPEC REPOS:
@@ -51,10 +51,10 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BasicCommonClass: 4389aa2c57139e18b20629520e64c8906148137b
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: ff1d4c169710bc3d5a6a80621a1647aeba1c0f2b
+  BossCommonClass: 9192431402d46e290f18481350b0a5929bf112a0
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Qiniu: 65384bca1cdb0480a68d9b9b8f54db53418c0355
 
-PODFILE CHECKSUM: e9db09e0ee52e105447348242602aec14ebf3984
+PODFILE CHECKSUM: c67fb431885c18a7ae0b7cb2ce8f46d2d2e863fb
 
 COCOAPODS: 1.5.3

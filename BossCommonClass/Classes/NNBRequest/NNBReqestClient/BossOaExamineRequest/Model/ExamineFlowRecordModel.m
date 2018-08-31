@@ -29,7 +29,7 @@
     }
     
     if ([key isEqualToString:@"reject_to_node_info"]) {
-        ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
+        ExamineFlowNodeBriefModel *model = [[ExamineFlowNodeBriefModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
         self.reject_to_node_info = model;
         return;
