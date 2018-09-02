@@ -304,4 +304,34 @@
         }
     }];
 }
+
+/**
+ 获取催办记录详情
+ 
+ @param urgeId 催办记录ID
+ @param recordId 被催办的审批记录ID
+ @param successBlock 催办记录
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetUrgeDetailWithUrgeId:(NSString *)urgeId orderRecordId:(NSString *)recordId success:(void(^)(ApplicationUrgeRecordModel *urgeRecordModel))successBlock fail:(void(^)(id error))failBlock
+{
+    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/get_urge_detail",BossBasicURL];
+    NSDictionary *paramDic = @{
+                               @"id":urgeId,
+                               @"order_record_id":recordId,
+                               };
+    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        ApplicationUrgeRecordModel *model = [[ApplicationUrgeRecordModel alloc] init];
+        [model setValuesForKeysWithDictionary:responseObject];
+        successBlock(model);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
 @end

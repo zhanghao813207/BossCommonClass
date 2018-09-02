@@ -29,11 +29,11 @@
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
 //    } withController:self];
     
-//    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
-//
-//    } fail:^(id error) {
-//
-//    }];
+    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
+
+    } fail:^(id error) {
+
+    }];
     
 //    [BossMessageRequest msgRequestCountMsgWithChannleId:@"BA" state:@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)] success:^(NSInteger cnt) {
 //

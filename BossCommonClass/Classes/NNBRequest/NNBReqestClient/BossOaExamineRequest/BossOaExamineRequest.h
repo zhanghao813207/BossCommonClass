@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
 #import "ExamineOrderModel.h"
+#import "ApplicationUrgeRecordModel.h"
 @interface BossOaExamineRequest : NSObject
 
 /**
@@ -79,5 +80,15 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaExamineRequestUrgedWithExamineId:(NSString *)examineId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
+
+/**
+ 获取催办记录详情
+
+ @param urgeId 催办记录ID
+ @param recordId 被催办的审批记录ID
+ @param successBlock 催办记录
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetUrgeDetailWithUrgeId:(NSString *)urgeId orderRecordId:(NSString *)recordId success:(void(^)(ApplicationUrgeRecordModel *urgeRecordModel))successBlock fail:(void(^)(id error))failBlock;
 
 @end
