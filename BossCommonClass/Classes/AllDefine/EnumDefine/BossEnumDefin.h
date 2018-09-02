@@ -156,4 +156,32 @@ typedef NS_ENUM(NSInteger, OA_HOUSE_STATES) {
     OA_HOUSE_STATE_DONE     =  100,  // 完成（退租)
 };
 
+typedef NS_ENUM(NSInteger, MESSAGE_TYPE) {
+    MESSAGE_TYPE_NEW       =    1,  // 新消息
+    MESSAGE_TYPE_SEND      =   90,  // 已送达
+    MESSAGE_TYPE_READ      =  100,  // 已读
+    MESSAGE_TYPE_DEL       = -100,  // 已删除
+};
+
+typedef NS_ENUM(NSInteger, OA_EVENT) {
+    OA_EVENT_URGE               =  1, // 催办提醒
+    OA_EVENT_PENDING            =  2, // 待办提醒
+    OA_EVENT_NODE_APPROVED      = 10, // 审核通过
+    OA_EVENT_NODE_REJECT        = 11, // 审核驳回
+    OA_EVENT_APPLICATION_PAID   = 12, // 财务打款
+    OA_EVENT_APPLICATION_DONE   = 13, // 审批通过
+    OA_EVENT_APPLICATION_CANCLE = 14, // 审批关闭
+};
+
+typedef NS_ENUM(NSInteger, BROAD_TYPE) {
+    BROAD_TYPE_GLOBAL     =  1, // 全局
+    BROAD_TYPE_ORIERN     = 10, // 定向
+};
+
+typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
+    URGE_RECORD_STATE_INIT     =    1, // 未处理
+    URGE_RECORD_STATE_COMPLETE =  100, // 已办理
+    URGE_RECORD_STATE_SHUTDOWN = -100, // 关闭
+};
+
 #endif /* BossEnumDefin_h */

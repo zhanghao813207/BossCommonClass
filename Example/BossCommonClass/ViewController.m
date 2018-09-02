@@ -11,9 +11,8 @@
 #import "LoginVC.h"
 #import "ThirdRequest.h"
 #import "BossOaExamineRequest.h"
-#import "BossAssistantRequest.h"
-#import "BossNoticeRequest.h"
 #import "BorderView.h"
+#import "BossMessageRequest.h"
 @interface ViewController ()
 
 @property (nonatomic, strong) CostOrderModel *applyModel;
@@ -30,16 +29,19 @@
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
 //    } withController:self];
     
-//    [BossAssistantRequest BossAssistantRequestFindAssistantWithPage:1 Limit:1 Success:^(NSArray *messageList, NSInteger totalCount) {
+//    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
 //
 //    } fail:^(id error) {
 //
 //    }];
     
-//    [BossNoticeRequest noticeRequsetFindListWithPage:1 limit:10 Success:^(NSArray *noticeList, NSInteger totalCount) {
-//        for (NoticeModuleModel *model in noticeList) {
-//            DLog(@"%ld,%ld",model.examineFlowBriefModel.state,totalCount);
-//        }
+//    [BossMessageRequest msgRequestCountMsgWithChannleId:@"BA" state:@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)] success:^(NSInteger cnt) {
+//
+//    } fail:^(id error) {
+//
+//    }];
+//    [BossMessageRequest msgRequestGetSysChannelMessageWithPage:1 limit:30 success:^(NSArray<BossNoticeMessageModel *> *msgList) {
+//
 //    } fail:^(id error) {
 //
 //    }];
@@ -52,11 +54,11 @@
     
 //    5afd4d41ce6d2a06a8332345 状态100的单子 5b74db05ce6d2a63b4ac77e2 状态10的单子
     
-    [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:@"5b74db05ce6d2a63b4ac77e2" successBlock:^(ExamineOrderModel *examineFlowList) {
-
-    } fail:^(id error) {
-
-    }];
+//    [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:@"5b74db05ce6d2a63b4ac77e2" successBlock:^(ExamineOrderModel *examineFlowList) {
+//
+//    } fail:^(id error) {
+//
+//    }];
     
 //    [BossOaExamineRequest OaExamineRequestGetCostOrderListWithPage:1 successBlock:^(NSArray<CostOrderModel *> *costOrderList) {
 //
