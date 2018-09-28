@@ -16,15 +16,13 @@
     }
         
     if ([key isEqualToString:@"account_list"]) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            NSMutableArray *array = [NSMutableArray array];
-            for (NSDictionary *dic in value) {
-                AccountModel *model = [[AccountModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [array addObject:model];
-            }
-            self.account_list = [array copy];
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            AccountModel *model = [[AccountModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
         }
+        self.account_list = [array copy];
         return;
     }
     

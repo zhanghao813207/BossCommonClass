@@ -24,10 +24,11 @@
  费用汇总单详情
 
  @param examineId 汇总单ID
+ @param showError 是否展示错误
  @param successBlock 返回审批单详情
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId showError:(BOOL)showError successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock;
 
 
 /**
@@ -80,6 +81,18 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaExamineRequestUrgedWithExamineId:(NSString *)examineId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
+
+/**
+ 标记打款
+
+ @param orderId 审批单ID
+ @param orderRecordId 审批记录ID
+ @param payState -1(异常) 100 （已打款）
+ @param note 原因
+ @param successBlock 标记打款成功
+ @param failBlock 服务器未响应
+ */
++ (void)OaExamineRequestMarkPaidWithOrderId:(NSString *)orderId orderRecordId:(NSString *)orderRecordId paidState:(PAY_STATE)payState note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  获取催办记录详情

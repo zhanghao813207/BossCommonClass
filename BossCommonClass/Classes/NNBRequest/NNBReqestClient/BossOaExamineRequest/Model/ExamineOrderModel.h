@@ -82,12 +82,12 @@
 /**
  打款状态
  */
-@property (nonatomic, assign) PAY_STATE pay_state;
+@property (nonatomic, assign) PAY_STATE paid_state;
 
 /**
  打款备注
  */
-@property (nonatomic, strong) NSString *pay_note;
+@property (nonatomic, strong) NSString *paid_note;
 
 /**
  附件地址
@@ -108,6 +108,12 @@
  提交时间(成本归属时间）
  */
 @property (nonatomic, strong) NSString *submit_at;
+
+/**
+ 微信时间格式
+ */
+@property (nonatomic, strong) NSString *wchat_submit_at;
+
 
 /**
  完成时间
@@ -153,24 +159,33 @@
 @property (nonatomic, strong) NSArray  <AccountModel *>*current_operate_account_list;
 
 /**
+ 当前等待处理的人员账号列表
+ */
+@property (nonatomic, strong) NSArray <NSString *>*current_pending_accounts;
+
+
+/**
  当前节点的审批记录详情
  */
 @property (nonatomic, strong) NSArray <ExamineFlowRecordModel *>*current_record_list;
-
-/**
- 当前节点的详情
- */
-@property (nonatomic, strong) ExamineFlowNodeModel *current_node;
 
 /**
  审批单的流转明细记录，倒序排列
  */
 @property (nonatomic, strong) NSArray <ExamineFlowRecordModel *>*flow_record_list;
 
+@property (nonatomic, strong) ExamineFlowNodeModel *current_flow_node_info;
+
 /**
- 审批单的流转
+ 审批单的流转 flow_record_list 计算得来
  */
 @property (nonatomic, strong) NSArray <ExamineFlowNodeModel *>*flow_node_list;
+
+/**
+ 当前节点的详情 current_record_list 计算得来
+ */
+@property (nonatomic, strong) ExamineFlowNodeModel *current_node;
+
 
 /**
  消费单列表

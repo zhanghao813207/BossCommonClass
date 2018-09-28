@@ -147,7 +147,12 @@ typedef NS_ENUM(NSUInteger, ResultDealTypes) {
                 showView = [JYCSimpleToolClass getCurrentVC].view;
             }
             [showView dismissLoadingViewWithCompletion:nil];
-            NSString *errorMsg = [self zh_msgWithErrorCode:[dic[@"err_code"] integerValue]];
+            NSString *errorMsg;
+            if (dic[@"zh_message"]) {
+                errorMsg = dic[@"zh_message"];
+            } else {
+               errorMsg = [self zh_msgWithErrorCode:[dic[@"err_code"] integerValue]];
+            }
             if (dealType == ResultDealTypesQHErrorView) {
                 [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
             } else if (dealType == ResultDealTypesNNBStatusView){
@@ -216,9 +221,9 @@ typedef NS_ENUM(NSUInteger, ResultDealTypes) {
         
         [showView dismissLoadingViewWithCompletion:nil];
         if (dealType == ResultDealTypesQHErrorView) {
-            [[[QHErrorView alloc] initWithTitle:@"网络连接错误"] showInView:showView];
+            [[[QHErrorView alloc] initWithTitle:@"网络异常，请检查网络设置"] showInView:showView];
         } else if (dealType == ResultDealTypesNNBStatusView){
-            [showView showStatus:@"网络连接错误"];
+            [showView showStatus:@"网络异常，请检查网络设置"];
         }
         if (fail) {
             fail(error);

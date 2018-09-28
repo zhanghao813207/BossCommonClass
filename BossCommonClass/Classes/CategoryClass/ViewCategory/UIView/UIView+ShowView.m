@@ -12,7 +12,7 @@
 #import "NNBLoadStatusView.h"
 #import <objc/runtime.h>
 #import "NNBStatusAnimationView.h"
-
+#import "BossLoadView.h"
 @implementation UIView (ShowView)
 
 #pragma mark -- LoadingView -- 加载的页面
@@ -268,6 +268,47 @@ static char statusAnimationViewKey;
         }
     }
 }
+
+#pragma mark -- LoadingView -- 点点点的加载
+
+static char bossLoadingViewKey;
+
+- (void)setBossLoadingView:(BossLoadView *)bossLoadingView
+{
+    objc_setAssociatedObject(self, &bossLoadingViewKey, bossLoadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BossLoadView *)bossLoadingView
+{
+    return objc_getAssociatedObject(self, &bossLoadingViewKey);
+}
+
+
+- (void)showBossLoadingView:(NSString *)status
+{
+    if (!self.bossLoadingView) {
+        self.bossLoadingView = [[BossLoadView alloc] initWithFrame:self.bounds];
+    }
+    [self addSubview:self.bossLoadingView];
+    [self.bossLoadingView showBossLoadViews:status];
+}
+
+- (void)dismissBossLoadingViewWithCompletion:(void (^)(BOOL finish))completion
+{
+    if (self.bossLoadingView) {
+        [self.bossLoadingView dismissBossLoadViewWithComplettion:^(BOOL finish) {
+            if (completion) {
+                completion(finish);
+            }
+            self.bossLoadingView = nil;
+        }];
+    } else {
+        if (completion) {
+            completion(YES);
+        }
+    }
+}
+
 
 
 @end

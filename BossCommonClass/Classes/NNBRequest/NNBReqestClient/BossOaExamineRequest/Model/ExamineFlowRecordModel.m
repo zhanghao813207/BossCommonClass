@@ -38,12 +38,27 @@
     if ([key isEqualToString:@"operated_at"]) {
 //        yyyy-MM-dd HH:mm:ss
         NSString *normalTimeString = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.operated_at = normalTimeString;
+
         NSDate *date = [NSDate dateFromString:normalTimeString];
-        NSString *timeString = [NSDate stringFromDate:date withFormat:@"HH:mm MM-dd"];
-        self.operated_at = timeString;
-        DLog(@"operated_at = %@",self.operated_at);
+        
+        NSString *mainString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:YES showFullYear:NO showChineYear:NO];
+        
+        NSString *lastString = [JYCSimpleToolClass segementOneDayByDate:date segement:NO];
+        
+        NSString *timeString = [NSString stringWithFormat:@"%@ %@",lastString,mainString];
+
+        self.wchat_operated_at = timeString;
         return;
     }
+    
+    if ([key isEqualToString:@"flow_node_info"]) {
+        ExamineFlowNodeBriefModel *model = [[ExamineFlowNodeBriefModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.flow_node_info = model;
+        return;
+    }
+
     
     [super setValue:value forKey:key];
 }

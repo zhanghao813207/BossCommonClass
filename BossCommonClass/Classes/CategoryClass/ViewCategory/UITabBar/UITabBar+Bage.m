@@ -17,15 +17,15 @@
     //新建小红点
     UIView *badgeView = [[UIView alloc]init];
     badgeView.tag = 888 + index;
-    badgeView.layer.cornerRadius = 5;
+    badgeView.layer.cornerRadius = 4;
     badgeView.backgroundColor = [UIColor redColor];
     CGRect tabFrame = self.frame;
     
     //确定小红点的位置
-    float percentX = (index +0.6) / self.items.count;
+    float percentX = (index + 0.6) / self.items.count;
     CGFloat x = ceilf(percentX * tabFrame.size.width);
     CGFloat y = ceilf(0.1 * tabFrame.size.height);
-    badgeView.frame = CGRectMake(x, y, 10, 10);
+    badgeView.frame = CGRectMake(x, y, 8, 8);
     [self addSubview:badgeView];
     
 }

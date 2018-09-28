@@ -29,6 +29,8 @@
 
 @property (nonatomic, assign) BOOL urgeRecordInfoResponse;
 
+@property (nonatomic, assign) BOOL loadError;
+
 #pragma mark -- boss助理 --- boss 通知 --- end
 
 @end
@@ -49,19 +51,6 @@
             [self updateDate];
             return;
         }
-        WS(weakSelf);
-        [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:self.oa_application_order_id successBlock:^(ExamineOrderModel *examineFlowModel) {
-            weakSelf.orderInfoResponse = YES;
-            if (self.oa_application_record_id) {
-                NSDictionary *recordDic = [JYCSimpleToolClass changeToDictionaryWithArray:examineFlowModel.flow_record_list byKey:@"_id"];
-                self.flowRecordInfo = recordDic[self.oa_application_record_id];
-            }
-            self.examineOrderInfo = examineFlowModel;
-            [weakSelf updateDate];
-        } fail:^(id error) {
-            weakSelf.orderInfoResponse = YES;
-            [weakSelf updateDate];
-        }];
         return;
     }
 
@@ -77,15 +66,6 @@
             [self updateDate];
             return;
         }
-        WS(weakSelf);
-        [BossOaExamineRequest OaExamineRequestGetUrgeDetailWithUrgeId:self.oa_urge_record_id orderRecordId:@"" success:^(ApplicationUrgeRecordModel *urgeRecordModel) {
-            weakSelf.urgeRecordInfo = urgeRecordModel;
-            weakSelf.urgeRecordInfoResponse = YES;
-            [weakSelf updateDate];
-        } fail:^(id error) {
-            weakSelf.urgeRecordInfoResponse = YES;
-            [weakSelf updateDate];
-        }];
         return;
     }
 
@@ -101,12 +81,66 @@
     
 }
 
+- (void)reloadDate
+{
+    self.loadError = NO;
+    if (self.oa_urge_record_id) {
+        WS(weakSelf);
+        self.needUrgeInfo = YES;
+        [BossOaExamineRequest OaExamineRequestGetUrgeDetailWithUrgeId:self.oa_urge_record_id orderRecordId:self.oa_application_order_id?:@"" success:^(ApplicationUrgeRecordModel *urgeRecordModel) {
+            weakSelf.urgeRecordInfo = urgeRecordModel;
+            weakSelf.examineOrderInfo = urgeRecordModel.application_order_info;
+            weakSelf.flowRecordInfo = urgeRecordModel.flow_record_info;
+            weakSelf.orderInfoResponse = YES;
+            weakSelf.urgeRecordInfoResponse = YES;
+            [weakSelf updateDate];
+        } fail:^(id error) {
+            weakSelf.urgeRecordInfoResponse = YES;
+            [weakSelf updateDateError];
+        }];
+        return;
+    }
+    if (self.oa_application_order_id) {
+        WS(weakSelf);
+        [BossOaExamineRequest OaExamineRequestGetExamineDetailWithExamineId:self.oa_application_order_id showError:NO successBlock:^(ExamineOrderModel *examineFlowModel) {
+            weakSelf.orderInfoResponse = YES;
+            if (self.oa_application_record_id) {
+                NSDictionary *recordDic = [JYCSimpleToolClass changeToDictionaryWithArray:examineFlowModel.flow_record_list byKey:@"_id"];
+                self.flowRecordInfo = recordDic[self.oa_application_record_id];
+            }
+            self.examineOrderInfo = examineFlowModel;
+            [weakSelf updateDate];
+        } fail:^(id error) {
+            weakSelf.orderInfoResponse = YES;
+            [weakSelf updateDateError];
+        }];
+    }
+}
+
 - (void)updateDate
 {
-    if (self.orderInfoResponse && self.urgeRecordInfoResponse) {
+    if (self.needUrgeInfo && (self.orderInfoResponse && self.urgeRecordInfoResponse)) {
         if (self.dateNeedUpdateBlock) {
             self.dateNeedUpdateBlock(self);
         }
+        if (self.footDateNeedUpdateBlock) {
+            self.footDateNeedUpdateBlock(self);
+        }
+    } else if(!self.needUrgeInfo && self.orderInfoResponse) {
+        if (self.dateNeedUpdateBlock) {
+            self.dateNeedUpdateBlock(self);
+        }
+        if (self.footDateNeedUpdateBlock) {
+            self.footDateNeedUpdateBlock(self);
+        }
+    }
+}
+
+- (void)updateDateError
+{
+    self.loadError = YES;
+    if (self.dateLoadErrorBlock) {
+        self.dateLoadErrorBlock();
     }
 }
 

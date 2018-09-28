@@ -6,6 +6,7 @@
 //
 
 #import "ExamineOrderModel.h"
+#import "NSDate+Helper.h"
 
 @implementation ExamineOrderModel
 
@@ -49,8 +50,6 @@
             [array addObject:model];
         }
         self.current_record_list = [array copy];
-
-        self.current_node = [self nodeByRecordList:self.current_record_list];
         return;
     }
 
@@ -62,7 +61,97 @@
             [array addObject:model];
         }
         self.flow_record_list = [array copy];
+        return;
+    }
+
+    if ([key isEqualToString:@"cost_order_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            CostOrderModel *model = [[CostOrderModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.cost_order_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"submit_at"]) {
+        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.submit_at = normalTime;
         
+        NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+
+        NSString *mainTitleString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:NO showFullYear:YES showChineYear:YES];
+        
+        NSString *lastString = [JYCSimpleToolClass segementOneDayByDate:date segement:YES];
+        
+        self.wchat_submit_at = [NSString stringWithFormat:@"%@ %@",mainTitleString, lastString];
+
+        return;
+    }
+    
+    if ([key isEqualToString:@"created_at"]) {
+        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.created_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
+        return;
+    }
+
+    if ([key isEqualToString:@"current_flow_node_info"]) {
+        ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.current_flow_node_info = model;
+        return;
+    }
+    
+    [super setValue:value forKey:key];
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
+
+- (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
+{
+    ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
+    for (ExamineFlowRecordModel *recordModel in recordList) {
+        model._id = recordModel.flow_node_info._id;
+        model.index_num = recordModel.index_num;
+        model.state = recordModel.state;
+        model.name = recordModel.flow_node_info.name;
+        model.is_payment_node = recordModel.flow_node_info.is_payment_node;
+        if (model.is_payment_node) {
+            if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT) {
+                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                if (self.paid_state == PAY_STATE_ERROR) {
+                    recordModel.pay_state = PAY_STATE_ERROR;
+                    recordModel.note = self.paid_note;
+                } else {
+                    recordModel.pay_state = PAY_STATE_INIT;
+                }
+            } else {
+                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                recordModel.pay_state = PAY_STATE_DONE;
+            }
+        }
+        BOOL isUrge = NO;
+        if ((recordModel.state == OA_EXAMINE_NODE_STATE_INIT) && recordModel.urge_state == YES) {
+            isUrge = YES;
+            model.urge_state = YES;
+            break;
+        }
+        model.urge_state = NO;
+    }
+    model.record_list = recordList;
+    return model;
+}
+
+- (NSArray<ExamineFlowNodeModel *> *)flow_node_list
+{
+    if (!_flow_node_list) {
+        if (!self.flow_record_list) {
+            return nil;
+        }
         NSMutableArray *nodeArray = [NSMutableArray array];
         [self.flow_record_list enumerateObjectsUsingBlock:^(ExamineFlowRecordModel * _Nonnull recordModel, NSUInteger idx, BOOL * _Nonnull stop) {
             if (idx == 0) {
@@ -84,57 +173,25 @@
         NSMutableArray *nodeModleArray = [NSMutableArray array];
         for (NSMutableArray *recordArray in nodeArray) {
             ExamineFlowNodeModel *nodeModel = [self nodeByRecordList:recordArray];
-            [nodeModleArray addObject:nodeModel];
+            if (nodeModel) {
+                [nodeModleArray addObject:nodeModel];
+            }
         }
-        self.flow_node_list = [nodeModleArray copy];
-        return;
+        _flow_node_list = [nodeModleArray copy];
     }
-
-    if ([key isEqualToString:@"cost_order_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            CostOrderModel *model = [[CostOrderModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.cost_order_list = [array copy];
-        return;
-    }
-    
-    if ([key isEqualToString:@"submit_at"]) {
-        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
-        self.submit_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
-        DLog(@"submit_at = %@",self.submit_at);
-        return;
-    }
-
-    [super setValue:value forKey:key];
+    return _flow_node_list;
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+- (ExamineFlowNodeModel *)current_node
 {
-    
-}
-
-- (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
-{
-    ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
-    for (ExamineFlowRecordModel *recordModel in recordList) {
-        model._id = recordModel.node_id;
-        model.index_num = recordModel.index_num;
-        model.state = recordModel.state;
-        model.name = recordModel.node_name;
-        BOOL isUrge = NO;
-        if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT && recordModel.urge_state == YES) {
-            isUrge = YES;
-            model.urge_state = YES;
-            break;
+    if (!_current_node) {
+        if (!self.current_record_list) {
+            return nil;
         }
-        model.urge_state = NO;
+        _current_node = [self nodeByRecordList:self.current_record_list];
     }
-    model.record_list = recordList;
-    return model;
-}
+    return _current_node;
 
+}
 
 @end

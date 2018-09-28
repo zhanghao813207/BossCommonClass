@@ -51,5 +51,14 @@
  */
 @property (nonatomic, strong) NSString *created_at;
 
+/**
+ 微信格式的创建时间
+ */
+@property (nonatomic, strong) NSString *wchat_created_at;
+
+/**
+ 微信格式的标题创建时间
+ */
+@property (nonatomic, strong) NSString *wchat_title_created_at;
 
 @end

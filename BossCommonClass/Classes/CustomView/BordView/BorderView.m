@@ -24,6 +24,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
+
 //    self.layer.cornerRadius = self.cornerRadius;
     
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -142,8 +143,6 @@
     [path setLineCapStyle:kCGLineCapRound];
     
     path.lineWidth = self.borderWidth;
-    
-    
     
     [self.borderColor setStroke];
     

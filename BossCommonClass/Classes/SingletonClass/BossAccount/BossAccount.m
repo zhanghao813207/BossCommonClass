@@ -120,6 +120,7 @@ static BossAccount *defaultAccount = nil;
         }];
         BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
         [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossAccount.isFirstLogin completion:nil];
+        [viewController.tabBarController setSelectedIndex:0];
     }
 }
 

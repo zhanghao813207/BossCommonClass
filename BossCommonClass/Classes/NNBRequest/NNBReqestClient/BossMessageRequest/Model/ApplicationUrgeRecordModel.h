@@ -7,7 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
-
+#import "AccountModel.h"
+#import "ExamineOrderModel.h"
+#import "ExamineFlowRecordModel.h"
 @interface ApplicationUrgeRecordModel : NSObject
 
 /**
@@ -59,5 +61,21 @@
  创建时间
  */
 @property (nonatomic, strong) NSString *created_at;
+
+/**
+ 创建人信息
+ */
+@property (nonatomic, strong) AccountModel *creator_info;
+
+/**
+ OA审批单信息
+ */
+@property (nonatomic, strong) ExamineOrderModel *application_order_info;
+
+/**
+ OA审批单流转明细记录
+ */
+@property (nonatomic, strong) ExamineFlowRecordModel *flow_record_info;
+
 
 @end

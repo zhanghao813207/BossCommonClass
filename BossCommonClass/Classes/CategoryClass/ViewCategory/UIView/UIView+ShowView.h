@@ -51,6 +51,12 @@
 
 - (void)showAnimationErrorStaus:(NSString *)status completion:(void (^)(BOOL finish))completion;
 
+#pragma mark -- LoadingView -- 点点点的加载
+
+- (void)showBossLoadingView:(NSString *)status;
+
+- (void)dismissBossLoadingViewWithCompletion:(void (^)(BOOL finish))completion;
+
 
 
 @end

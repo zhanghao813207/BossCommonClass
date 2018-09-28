@@ -28,7 +28,7 @@
                                                                                                     }
                                                                                             }
                                                                                     }];
-    NSArray *bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+    NSArray *stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
     switch (type) {
         case MOBILE_WAIT_EXAMINE:
         {
@@ -41,62 +41,63 @@
                                           }
                                   } forKey:@"_meta"];
             [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"current_pending_accounts"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_ALL:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT),@(OA_EXAMINE_NODE_STATE_AGREE),@(OA_EXAMINE_NODE_STATE_REJECT)];
+            stateArray = @[@(OA_EXAMINE_STATE_DONE),@(OA_EXAMINE_STATE_SHUTDOWN),@(OA_EXAMINE_STATE_UNDERWAY)];
             [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
+            break;
         case MOBILE_PUT_EXAMINE_PRESENT:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+            stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
             [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_SUCCEED:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_AGREE)];
+            stateArray = @[@(OA_EXAMINE_STATE_DONE)];
             [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_FAIL:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_REJECT)];
+            stateArray = @[@(OA_EXAMINE_STATE_SHUTDOWN)];
             [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_ALL:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT),@(OA_EXAMINE_NODE_STATE_AGREE),@(OA_EXAMINE_NODE_STATE_REJECT)];
+            stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY),@(OA_EXAMINE_STATE_DONE),@(OA_EXAMINE_STATE_SHUTDOWN)];
             [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_PRESENT:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_INIT)];
+            stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
             [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_SUCCEED:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_AGREE)];
+            stateArray = @[@(OA_EXAMINE_STATE_DONE)];
             [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_FAIL:
         {
-            bizStateArray = @[@(OA_EXAMINE_NODE_STATE_REJECT)];
+            stateArray = @[@(OA_EXAMINE_STATE_SHUTDOWN)];
             [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
-            [paramDic setObject:bizStateArray forKey:@"biz_state"];
+            [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         default:
@@ -104,7 +105,7 @@
     }
     
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+//        DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
         }
@@ -126,29 +127,48 @@
  费用汇总单详情
  
  @param examineId 汇总单ID
+ @param showError 是否展示错误
  @param successBlock 返回审批单详情
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock
++ (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId showError:(BOOL)showError successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_application_order/get",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"id":examineId,
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
-        if (!successBlock) {
-            return;
-        }
-        ExamineOrderModel *model = [[ExamineOrderModel alloc] init];
-        [model setValuesForKeysWithDictionary:responseObject];
-        successBlock(model);
-        
-    } fail:^(id error) {
-        if(failBlock){
-            failBlock(error);
-        }
-    }];
+    NSLog(@"paramDic = %@",paramDic);
+    if (showError) {
+        [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+            DLog(@"%@", responseObject);
+            if (!successBlock) {
+                return;
+            }
+            ExamineOrderModel *model = [[ExamineOrderModel alloc] init];
+            [model setValuesForKeysWithDictionary:responseObject];
+            successBlock(model);
+            
+        } fail:^(id error) {
+            if(failBlock){
+                failBlock(error);
+            }
+        }];
+    } else {
+        [NNBBasicRequest postJsonNativeWithUrl:url parameters:paramDic cmd:nil success:^(id responseObject) {
+            DLog(@"%@", responseObject);
+            if (!successBlock) {
+                return;
+            }
+            ExamineOrderModel *model = [[ExamineOrderModel alloc] init];
+            [model setValuesForKeysWithDictionary:responseObject];
+            successBlock(model);
+
+        } fail:^(id error) {
+            if(failBlock){
+                failBlock(error);
+            }
+        }];
+    }
 }
 
 /**
@@ -227,11 +247,13 @@
 + (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_application_order/approve",BossBasicURL];
-    NSDictionary *paramDic = @{
-                               @"order_id":examineOrderId,
-                               @"order_record_id":recordId,
-                               @"note":note,
-                               };
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    @"order_id":examineOrderId,
+                                                                                    @"order_record_id":recordId,
+                                                                                    }];
+    if (![JYCSimpleToolClass stringIsEmpty:note]) {
+        [paramDic setObject:note forKey:@"note"];
+    }
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
@@ -261,10 +283,46 @@
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                @"order_id":examineOrderId,
                                @"order_record_id":recordId,
-                               @"note":note,
                                }];
+    if (![JYCSimpleToolClass stringIsEmpty:note]) {
+        [paramDic setObject:note forKey:@"note"];
+    }
     if (![JYCSimpleToolClass stringIsEmpty:rejectNodeId]) {
         [paramDic setObject:rejectNodeId forKey:@"reject_to_node_id"];
+    }
+    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        successBlock([responseObject[@"ok"] boolValue]);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ 标记打款
+ 
+ @param orderId 审批单ID
+ @param orderRecordId 审批记录ID
+ @param payState -1(异常) 100 （已打款）
+ @param note 原因
+ @param successBlock 标记打款成功
+ @param failBlock 服务器未响应
+ */
++ (void)OaExamineRequestMarkPaidWithOrderId:(NSString *)orderId orderRecordId:(NSString *)orderRecordId paidState:(PAY_STATE)payState note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
+{
+    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/mark_paid",BossBasicURL];
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    @"order_id":orderId,
+                                                                                    @"order_record_id":orderRecordId,
+                                                                                    @"paid_state":@(payState),
+                                                                                    }];
+    if (![JYCSimpleToolClass stringIsEmpty:note]) {
+        [paramDic setObject:note forKey:@"note"];
     }
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         DLog(@"%@", responseObject);
@@ -290,7 +348,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_application_order/urge",BossBasicURL];
     NSDictionary *paramDic = @{
-                               @"examine_id":examineId,
+                               @"order_id":examineId,
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         DLog(@"%@", responseObject);

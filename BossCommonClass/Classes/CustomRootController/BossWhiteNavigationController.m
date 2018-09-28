@@ -32,8 +32,24 @@
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:kHexRGBA(0x000000, 0.8)};
     
     //设置navigationBar背景色
-    [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor]];
+    
+    if (self.hasLine) {
+        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
+    } else {
+        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
+    }
+
     self.navigationBar.translucent = NO;
+}
+
+- (void)setHasLine:(BOOL)hasLine
+{
+    _hasLine = hasLine;
+    if (self.hasLine) {
+        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
+    } else {
+        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
+    }
 }
 
 //push的时候将手势禁用
@@ -72,9 +88,9 @@
 #ifdef kBossKnight
     [buttonItem_back setTintColor:kAppMainColor];
 #elif defined kBossManager
-    [buttonItem_back setTintColor:kHexRGB(0x06041)];
+    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
 #else
-    [buttonItem_back setTintColor:kHexRGB(0x06041)];
+    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
 #endif
     _customCommentLeftBarButtonItem = buttonItem_back;
     return _customCommentLeftBarButtonItem;

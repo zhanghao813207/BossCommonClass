@@ -17,11 +17,12 @@
     
     if ([key isEqualToString:@"event_extra"]) {
         EventExtraModel *model = [[EventExtraModel alloc] init];
+        model.needUrgeInfo = ![JYCSimpleToolClass stringIsEmpty:value[@"oa_urge_record_id"]] ? YES : NO;
         [model setValuesForKeysWithDictionary:value];
         self.event_extra = model;
         return;
     }
-    
+        
     [super setValue:value forKey:key];
 }
 

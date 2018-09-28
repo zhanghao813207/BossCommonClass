@@ -9,11 +9,11 @@
 
 @interface PayeeInfoModel : NSObject
 
-@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *bank_details;
 
 @property (nonatomic, strong) NSString *card_num;
 
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *card_name;
 
 
 

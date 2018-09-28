@@ -10,7 +10,7 @@
 #import "JYCAES256.h"
 #import "NSDate+Helper.h"
 #import "BossBasicDefine.h"
-float const kNetworkTimeoutInterval = 30.0f;
+float const kNetworkTimeoutInterval = 60.0f;
 
 @interface NNBRequestManager ()
 

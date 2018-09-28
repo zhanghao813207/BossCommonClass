@@ -12,6 +12,9 @@
 @interface EventExtraModel : NSObject
 
 #pragma mark -- boss助理 --- boss 通知 --- start
+
+@property (nonatomic, assign) BOOL needUrgeInfo;
+
 /**
  审批单ID
  */
@@ -46,6 +49,21 @@
  数据请求来的需要更新
  */
 @property (nonatomic, copy) void (^dateNeedUpdateBlock)(EventExtraModel *eventModel);
+
+/**
+ 底部数据需要更新
+ */
+@property (nonatomic, copy) void (^footDateNeedUpdateBlock)(EventExtraModel *eventModel);
+
+@property (nonatomic, assign, readonly) BOOL loadError;
+
+
+/**
+ 数据请求失败
+ */
+@property (nonatomic, copy) void (^dateLoadErrorBlock)(void);
+
+- (void)reloadDate;
 
 
 #pragma mark -- boss助理 --- boss 通知 --- end

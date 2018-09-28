@@ -13,10 +13,12 @@
 #import "BossOaExamineRequest.h"
 #import "BorderView.h"
 #import "BossMessageRequest.h"
-@interface ViewController ()
+#import "BossPresentVc.h"
+#import "BossDismissTranstion.h"
 
-@property (nonatomic, strong) CostOrderModel *applyModel;
+@interface ViewController ()<UIViewControllerTransitioningDelegate>
 
+@property(nonatomic,strong) BossDismissTranstion *bossDismissTranstion;
 
 @end
 
@@ -29,11 +31,11 @@
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
 //    } withController:self];
     
-    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
-
-    } fail:^(id error) {
-
-    }];
+//    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
+//
+//    } fail:^(id error) {
+//
+//    }];
     
 //    [BossMessageRequest msgRequestCountMsgWithChannleId:@"BA" state:@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)] success:^(NSInteger cnt) {
 //
@@ -92,15 +94,40 @@
 //
 //    }];
     
-//    BorderView *view = [[BorderView alloc] initWithFrame:CGRectMake(100, 100, 200, 200)];
-//    view.backgroundColor = [UIColor grayColor];
+//    BorderView *view = [[BorderView alloc] initWithFrame:CGRectMake(100.3, 100, 20, 20)];
+//    view.backgroundColor = kHexRGBA(0x000000, 0.1);
 //    view.cornerRadius = 10.f;
 //    view.borderWidth = 0.5f;
 //    view.borderColor = [UIColor redColor];
 //    view.rectCorner = BorderDirectionRight | BorderDirectionBottom;
 //    [self.view addSubview:view];
+//
+//
+//    [self performSelector:@selector(changeRect:) withObject:view afterDelay:10];
     
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(0, 200, 200, 50);
+    btn.backgroundColor = [UIColor redColor];
+    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
+
+
+- (void)btnAction:(UIButton *)sender
+{
+    BossPresentVc *vc = [[BossPresentVc alloc] init];
+    vc.transitioningDelegate = self;
+    NSLog(@"self.navigationController = %@",self.navigationController);
+    self.bossDismissTranstion = [[BossDismissTranstion alloc] initWithPressentViewController:vc];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
+{
+    return self.bossDismissTranstion.interactionInProgress ? self.bossDismissTranstion : nil;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

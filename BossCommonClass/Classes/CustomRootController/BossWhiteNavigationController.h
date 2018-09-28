@@ -9,4 +9,7 @@
 
 @interface BossWhiteNavigationController : UINavigationController
 
+@property (nonatomic, assign) BOOL hasLine;
+
+
 @end

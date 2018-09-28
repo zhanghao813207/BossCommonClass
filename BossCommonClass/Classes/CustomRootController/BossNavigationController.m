@@ -31,7 +31,7 @@
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossRegularFont(18),NSForegroundColorAttributeName:[UIColor whiteColor]};
     
     //设置navigationBar背景色
-    [self.navigationBar lt_setBackgroundColor:kAppMainColor];
+    [self.navigationBar lt_setBackgroundColor:kAppMainColor showdowColor:[UIColor whiteColor]];
     self.navigationBar.translucent = NO;
 
 }

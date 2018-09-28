@@ -58,12 +58,6 @@
 @property (nonatomic, strong) NSString *node_id;
 
 /**
- 审批流节点名称
- */
-@property (nonatomic, strong) NSString *node_name;
-
-
-/**
  创建时间
  */
 @property (nonatomic, strong) NSString *created_at;
@@ -73,11 +67,25 @@
  */
 @property (nonatomic, strong) NSString *operated_at;
 
+/**
+ 仿微信格式时间
+ */
+@property (nonatomic, strong) NSString *wchat_operated_at;
 
 /**
  审批人列表
  */
 @property (nonatomic, strong) NSArray <AccountModel *>*operate_account_list;
+
+/**
+ 审批流程节点摘要
+ */
+@property (nonatomic, strong) ExamineFlowNodeBriefModel *flow_node_info;
+
+/**
+ 自己构建的支付节点状态
+ */
+@property (nonatomic, assign) PAY_STATE pay_state;
 
 
 @end

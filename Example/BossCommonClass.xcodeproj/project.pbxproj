@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2905B9F320F742FF00750949 /* aoaosong.cer in Resources */ = {isa = PBXBuildFile; fileRef = 2905B9F220F742FF00750949 /* aoaosong.cer */; };
+		2910CF892151FD5D00587E32 /* BossPresentVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 2910CF882151FD5D00587E32 /* BossPresentVc.m */; };
+		2910CF8C21522CD900587E32 /* BossDismissTranstion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2910CF8B21522CD900587E32 /* BossDismissTranstion.m */; };
 		29FFF3FE2056778D009A2186 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FFF3FD2056778D009A2186 /* ViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -40,6 +42,10 @@
 		2201993737585A905E75BC92 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		27BF6AC8AD6E055F795077C2 /* libPods-BossCommonClass_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BossCommonClass_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2905B9F220F742FF00750949 /* aoaosong.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = aoaosong.cer; sourceTree = "<group>"; };
+		2910CF872151FD5D00587E32 /* BossPresentVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossPresentVc.h; sourceTree = "<group>"; };
+		2910CF882151FD5D00587E32 /* BossPresentVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossPresentVc.m; sourceTree = "<group>"; };
+		2910CF8A21522CD900587E32 /* BossDismissTranstion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BossDismissTranstion.h; sourceTree = "<group>"; };
+		2910CF8B21522CD900587E32 /* BossDismissTranstion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BossDismissTranstion.m; sourceTree = "<group>"; };
 		29FFF3FC2056778D009A2186 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		29FFF3FD2056778D009A2186 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		436B9108FF8B2F71AFD901A7 /* BossCommonClass.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BossCommonClass.podspec; path = ../BossCommonClass.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -134,6 +140,10 @@
 				6003F59D195388D20070C39A /* BossAppDelegate.m */,
 				29FFF3FC2056778D009A2186 /* ViewController.h */,
 				29FFF3FD2056778D009A2186 /* ViewController.m */,
+				2910CF872151FD5D00587E32 /* BossPresentVc.h */,
+				2910CF882151FD5D00587E32 /* BossPresentVc.m */,
+				2910CF8A21522CD900587E32 /* BossDismissTranstion.h */,
+				2910CF8B21522CD900587E32 /* BossDismissTranstion.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -321,6 +331,8 @@
 				29FFF3FE2056778D009A2186 /* ViewController.m in Sources */,
 				6003F59E195388D20070C39A /* BossAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				2910CF892151FD5D00587E32 /* BossPresentVc.m in Sources */,
+				2910CF8C21522CD900587E32 /* BossDismissTranstion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,26 +12,31 @@
 /**
  城市名称列表
  */
-@property (nonatomic, strong) NSArray *city_names;
+@property (nonatomic, strong) NSString *city_name;
 
 /**
  供应商名称列表
  */
-@property (nonatomic, strong) NSArray *supplier_names;
+@property (nonatomic, strong) NSString *supplier_name;
 
 /**
  平台名称列表
  */
-@property (nonatomic, strong) NSArray *platform_names;
+@property (nonatomic, strong) NSString *platform_name;
 
 /**
  商圈名称列表
  */
-@property (nonatomic, strong) NSArray *biz_district_names;
+@property (nonatomic, strong) NSString *biz_district_name;
 
 /**
  分摊金额(分)
  */
 @property (nonatomic, assign) NSInteger money;
+
+/**
+ 分摊明细字符串
+ */
+@property (nonatomic, strong) NSString *allocationString;
 
 @end

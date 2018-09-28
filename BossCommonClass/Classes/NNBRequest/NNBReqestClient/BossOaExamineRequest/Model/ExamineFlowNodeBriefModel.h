@@ -25,4 +25,10 @@
  */
 @property (nonatomic, strong) NSArray <AccountModel *>*account_list;
 
+/**
+ 是否是支付节点
+ */
+@property (nonatomic, assign) BOOL is_payment_node;
+
+
 @end

@@ -70,7 +70,7 @@
                                @"account_ids":@[kCurrentBossAccount.account_id],
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         if (!successBlock) {
             return;
         }
@@ -134,7 +134,7 @@
                                @"state":states,
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+//        DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
         }

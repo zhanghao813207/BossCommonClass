@@ -34,19 +34,19 @@ static const void *characterLabelKey = &characterLabelKey;
     textView.text = placeHolder;
     textView.font = BossFont(14.f);
     
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width-80, frame.size.height-30, 70, 20)];
-    countLabel.backgroundColor = [UIColor clearColor];
-    countLabel.font = BossFont(14.f);
-    countLabel.textColor = kHexRGBA(0x000000, 0.6);
-    countLabel.textAlignment = NSTextAlignmentCenter;
-    countLabel.text = [NSString stringWithFormat:@"0/%2d字",(int)count];
-    
-    textView.characterLabel = countLabel;
+//    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width-80, frame.size.height-30, 70, 20)];
+//    countLabel.backgroundColor = [UIColor clearColor];
+//    countLabel.font = BossFont(14.f);
+//    countLabel.textColor = kHexRGBA(0x000000, 0.6);
+//    countLabel.textAlignment = NSTextAlignmentCenter;
+//    countLabel.text = [NSString stringWithFormat:@"0/%2d字",(int)count];
+//
+//    textView.characterLabel = countLabel;
     
     [[NSNotificationCenter defaultCenter] addObserver:textView selector:@selector(textViewEditChanged:)
                                                 name:@"UITextViewTextDidChangeNotification"
                                               object:textView];
-    [textView addSubview:countLabel];
+//    [textView addSubview:countLabel];
     return textView;
 }
 

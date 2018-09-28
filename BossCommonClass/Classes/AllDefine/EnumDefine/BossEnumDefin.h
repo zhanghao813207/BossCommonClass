@@ -96,23 +96,28 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
 typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
     OA_EXAMINE_STATE_INIT     =    1,  // 待提交
     OA_EXAMINE_STATE_UNDERWAY =   10,  // 进行中
-    OA_EXAMEINE_STATE_DONE    =  100,  // 流程完成
+    OA_EXAMINE_STATE_DONE     =  100,  // 流程完成
     OA_EXAMINE_STATE_SHUTDOWN = -100,  // 流程关闭
 };
 // 审批节点状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
+    OA_EXAMINE_NODE_STATE_PAY        =   -2,  // 支付节点
+    OA_EXAMINE_NODE_STATE_UNCOMMIT   =   -1,  // 待提报
     OA_EXAMINE_NODE_STATE_COMMIT     =    0,  // 提报
     OA_EXAMINE_NODE_STATE_INIT       =    1,  // 待处理
     OA_EXAMINE_NODE_STATE_SUPPLEMENT =   10,  // 待补充
     OA_EXAMINE_NODE_STATE_ERROR      =   50,  // 异常
     OA_EXAMINE_NODE_STATE_AGREE      =  100,  // 通过
     OA_EXAMINE_NODE_STATE_REJECT     = -100,  // 驳回
+    OA_EXAMINE_NODE_STATE_DONE       =  101,  // 完成
+    OA_EXAMINE_NODE_STATE_CANCLE     = -101,  // 关闭
 };
 
 typedef NS_ENUM(NSInteger, PAY_STATE) {
-    PAY_STATE_DONE   =  1, // 已打款
-    PAY_STATE_ERROR  = -1, // 异常
-    PAY_STATE_NONE   =  0, // 暂无异常
+    PAY_STATE_DONE   =  100, // 已打款
+    PAY_STATE_ERROR  =   -1, // 异常
+    PAY_STATE_NONE   =    0, // 暂无异常
+    PAY_STATE_INIT   =    1, // 待处理
 };
 
 typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {
@@ -180,6 +185,7 @@ typedef NS_ENUM(NSInteger, BROAD_TYPE) {
 
 typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
     URGE_RECORD_STATE_INIT     =    1, // 未处理
+    URGE_RECORD_STATE_READ     =   10, // 已读
     URGE_RECORD_STATE_COMPLETE =  100, // 已办理
     URGE_RECORD_STATE_SHUTDOWN = -100, // 关闭
 };
