@@ -19,7 +19,7 @@
 #define kEmptyImageViewWidth kCurrentWidth(83)
 #define kEmptyImageViewHeight kCurrentWidth(61)
 
-#define kEmptyButtonHeight kCurrentWidth(32)
+#define kEmptyButtonHeight kCurrentWidth(30)
 
 @interface EmptyView ()
 
@@ -50,8 +50,8 @@
     if (!_emptyLabel) {
         _emptyLabel = [[UILabel alloc] init];
         _emptyLabel.text = self.emptyString;
-        _emptyLabel.textColor = kHexRGB(0x666666);
-        _emptyLabel.font = [UIFont systemFontOfSize:13.f];
+        _emptyLabel.textColor = kHexRGBA(0x000000, 0.6);
+        _emptyLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:12.f];
         _emptyLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _emptyLabel;
@@ -75,11 +75,11 @@
 {
     if (!_emptyButton) {
         _emptyButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_emptyButton setTitleColor:kHexRGB(0x666666) forState:UIControlStateNormal];
-        _emptyButton.titleLabel.font = [UIFont systemFontOfSize:15.f];
+        [_emptyButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
+        _emptyButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14.f];
         _emptyButton.layer.cornerRadius = 2.f;
-        _emptyButton.layer.borderWidth = 1.f;
-        _emptyButton.layer.borderColor = kHexRGB(0xa0a0a0).CGColor;
+        _emptyButton.layer.borderWidth = 0.5f;
+        _emptyButton.layer.borderColor = kHexRGB(0x1173E4).CGColor;
         [_emptyButton addTarget:self action:@selector(emptyButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_emptyButton setTitle:self.emptyButtonTitle forState:UIControlStateNormal];
     }
@@ -90,7 +90,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         _emptyImage = [UIImage imageNamed:@""];
         _emptyString = @"当前页面为空";
         _emptyButtonTitle = @"点我啊";
@@ -169,15 +169,15 @@
         
         self.emptyImageView.frame = CGRectMake((kCurrentViewWidth - kEmptyImageViewWidth) / 2.0, kCurrentViewHeight / 3.0 - 20, kEmptyImageViewWidth, kEmptyImageViewHeight);
         
-        self.emptyLabel.frame = CGRectMake(0, CGRectGetMaxY(self.emptyImageView.frame) + 18, kCurrentViewWidth, 17);
+        self.emptyLabel.frame = CGRectMake(0, CGRectGetMaxY(self.emptyImageView.frame), kCurrentViewWidth, 17);
         
-        self.emptyDetailLabel.frame = CGRectMake(0, CGRectGetMaxY(self.emptyLabel.frame) + 13, kCurrentViewWidth, 17);
-        CGSize emptyDetailSize = [self.emptyDetailString sizeOfStringWithFont:self.emptyDetailLabel.font maxSize:CGSizeMake(kCurrentViewWidth, 100)];
-        [self.emptyDetailLabel setHeight:emptyDetailSize.height];
+//        self.emptyDetailLabel.frame = CGRectMake(0, CGRectGetMaxY(self.emptyLabel.frame) + 13, kCurrentViewWidth, 17);
+//        CGSize emptyDetailSize = [self.emptyDetailString sizeOfStringWithFont:self.emptyDetailLabel.font maxSize:CGSizeMake(kCurrentViewWidth, 100)];
+//        [self.emptyDetailLabel setHeight:emptyDetailSize.height];
 
         
         CGSize buttonSize =  [self.emptyButtonTitle sizeOfStringWithFont:self.emptyButton.titleLabel.font maxSize:CGSizeMake(kCurrentViewWidth, kEmptyButtonHeight)];
-        self.emptyButton.frame = CGRectMake((kCurrentViewWidth - buttonSize.width - 10) / 2.0f, (CGFloat)[@(CGRectGetMaxY(self.emptyDetailLabel.frame) + 10) integerValue], buttonSize.width + 10, kEmptyButtonHeight);
+        self.emptyButton.frame = CGRectMake((kCurrentViewWidth - buttonSize.width - 20) / 2.0f, (CGFloat)[@(CGRectGetMaxY(self.emptyLabel.frame) + 10) integerValue], buttonSize.width + 20, kEmptyButtonHeight);
         
     } else if (self.emptyViewType == EmptyViewTypeNoButton){
         

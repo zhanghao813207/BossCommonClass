@@ -9,7 +9,7 @@
 #import "UINavigationBar+BackgroundColor.h"
 #import <objc/runtime.h>
 #import "JYCSimpleToolClass.h"
-
+#import "JYCBasicDefine.h"
 @implementation UINavigationBar (BackgroundColor)
 
 //static char overlayKey;
@@ -30,10 +30,10 @@
 //    objc_setAssociatedObject(self, &overlayKey, overlay, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //}
 
-- (void)lt_setBackgroundColor:(UIColor *)backgroundColor
+- (void)lt_setBackgroundColor:(UIColor *)backgroundColor showdowColor:(UIColor *)shadowColor
 {
     [self setBackgroundImage:[JYCSimpleToolClass imageWithColor:backgroundColor] forBarMetrics:UIBarMetricsDefault];
-    [self setShadowImage:[JYCSimpleToolClass imageWithColor:backgroundColor]];
+    [self setShadowImage:[JYCSimpleToolClass imageWithColor:shadowColor]];
 //    if (!self.overlay) {
 //        self.overlay = [[UIView alloc] initWithFrame:CGRectMake(0, - 20, [UIScreen mainScreen].bounds.size.width, CGRectGetHeight(self.bounds) + 20)];
 //        self.overlay.userInteractionEnabled = NO;

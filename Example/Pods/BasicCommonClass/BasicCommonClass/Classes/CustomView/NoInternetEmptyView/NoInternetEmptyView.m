@@ -44,8 +44,8 @@
 
     } else if (noInternetEmptyViewType == EmptyViewTypeHasButton){
         self.emptyView.emptyImage = [UIImage imageNamed:@"NoInternet_empty_icon"];
-        self.emptyView.emptyString = @"网络请求失败";
-        self.emptyView.emptyDetailString = @"请检查您的网络\n重新加载吧";
+        self.emptyView.emptyString = @"加载失败";
+//        self.emptyView.emptyDetailString = @"请检查您的网络\n重新加载吧";
         self.emptyView.emptyButtonTitle = @"重新加载";
         if (self.emptyButtonIsSelect) {
             self.emptyView.emptyButtonIsSelect = self.emptyButtonIsSelect;

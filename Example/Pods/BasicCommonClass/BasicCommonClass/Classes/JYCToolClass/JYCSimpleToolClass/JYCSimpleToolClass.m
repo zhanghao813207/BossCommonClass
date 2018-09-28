@@ -531,18 +531,200 @@
 {
     NSDate *date = [NSDate dateFromString:timeString withFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *MString = [NSDate stringFromDate:date withFormat:@"M月d日"];
-    NSString *hString = [NSDate stringFromDate:date withFormat:@"HH"];
-    NSString *mString = [NSDate stringFromDate:date withFormat:@"ss"];
     
-    NSInteger hours = [hString integerValue];
-    
-    NSString *lastString;
-    if (hours >= 12) {
-        lastString = [NSString stringWithFormat:@"%@ 下午%ld:%@",MString,hours - 12,mString];
-    } else {
-        lastString = [NSString stringWithFormat:@"%@ 上午%ld:%@",MString,hours,mString];
-    }
+    NSString *lastString = [self segementOneDayByDate:date segement:YES];
+    lastString = [NSString stringWithFormat:@"%@ %@",MString,lastString];
     return lastString;
 }
 
+/**
+ 将一天时间分割开
+
+ @param date 需要分割的时间
+ @return 时间点
+ */
++ (NSString *)segementOneDayByDate:(NSDate *)date segement:(BOOL)segement
+{
+    NSString *hString = [NSDate stringFromDate:date withFormat:@"HH"];
+    NSString *mString = [NSDate stringFromDate:date withFormat:@"mm"];
+    
+    if (segement) {
+        NSInteger hours = [hString integerValue];
+        
+        NSString *lastString;
+        
+        if (hours > 12) {
+            lastString = [NSString stringWithFormat:@"下午%ld:%@",hours - 12,mString];
+        } else if(hours == 12) {
+            lastString = [NSString stringWithFormat:@"下午%ld:%@",hours,mString];
+        } else if(hours < 6 && hours >= 0) {
+            lastString = [NSString stringWithFormat:@"凌晨%ld:%@",hours,mString];
+        } else {
+            lastString = [NSString stringWithFormat:@"上午%ld:%@",hours,mString];
+        }
+        return lastString;
+    } else {
+        return [NSString stringWithFormat:@"%@:%@",hString,mString];
+    }
+}
+
+/**
+ 标准时间格式转微信时间格式
+
+ @param passDate 待比较的时间
+ @param nowDate 当前的时间
+ @param showToday 是否显示今天
+ @param fullYear 是否显示全年
+ @param chinaYear 是否显示xx年xx月xx日
+ @return 微信时间格式
+ */
++ (NSString *)standardTimeFormatterToWChatTimeFormatterByDate:(NSDate *)passDate nowDate:(NSDate *)nowDate showToday:(BOOL)showToday showFullYear:(BOOL)fullYear showChineYear:(BOOL)chinaYear
+{
+    // 精确 到 秒
+    NSTimeInterval passDateInterval = [passDate timeIntervalSince1970];
+    NSTimeInterval nowDateInterval = [nowDate timeIntervalSince1970];
+    
+    if (passDateInterval > nowDateInterval) {
+        NSLog(@"传入的过去时间比要比较的时间靠后！");
+        return @"";
+    }
+    
+    NSString *passDateMString = [NSDate stringFromDate:passDate withFormat:@"M月d日"];
+    NSString *nowDateMString = [NSDate stringFromDate:nowDate withFormat:@"M月d日"];
+
+    if ([passDateMString isEqualToString:nowDateMString]) {
+        // 同一天
+//        NSLog(@"传入的为同一天");
+        if (showToday) {
+            return @"今天";
+        } else {
+            return @"";
+        }
+    }
+    
+    NSDate *yesterdayDate = [NSDate dateWithTimeInterval:-60 * 60 * 24 sinceDate:nowDate];
+    NSString *yesterdayMString = [NSDate stringFromDate:yesterdayDate withFormat:@"M月d日"];
+
+    if ([yesterdayMString isEqualToString:passDateMString]) {
+        // 昨天
+        return @"昨天";
+    }
+    
+    if(![self isSameYearOfDate:passDate nowDate:nowDate]){
+        // 不同年
+        if (fullYear) {
+            if (chinaYear) {
+                return [NSDate stringFromDate:passDate withFormat:@"yyyy年MM月dd日"];
+            } else {
+                return [NSDate stringFromDate:passDate withFormat:@"yyyy/MM/dd"];
+            }
+        } else {
+            if (chinaYear) {
+                return [NSDate stringFromDate:passDate withFormat:@"yy年MM月dd日"];
+            } else {
+                return [NSDate stringFromDate:passDate withFormat:@"yy/MM/dd"];
+            }
+        }
+    }
+    
+    // 同年
+    
+    if (![self isSameMonthOfDate:passDate nowDate:nowDate]) {
+        // 不同月
+        if (chinaYear) {
+            return [NSDate stringFromDate:passDate withFormat:@"MM月dd日"];
+        } else {
+            return [NSDate stringFromDate:passDate withFormat:@"MM/dd"];
+        }
+    }
+    
+    // 同月
+    NSTimeInterval timeInterval = nowDateInterval - passDateInterval;
+    
+    if (timeInterval < 60 * 60 * 24 * 7) {
+        // 没超过七天 同一周
+        if ([self getWeekWithDate:passDate china:YES] < [self getWeekWithDate:nowDate china:YES]) {
+            return [self weekdayStringFromDate:passDate];
+        }
+    }
+    if (chinaYear) {
+        return [NSDate stringFromDate:passDate withFormat:@"MM月dd日"];
+    } else {
+        return [NSDate stringFromDate:passDate withFormat:@"MM/dd"];
+    }
+}
+
++ (BOOL)isSameMonthOfDate:(NSDate *)passDate nowDate:(NSDate *)nowDate
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    int unit = NSCalendarUnitMonth | NSCalendarUnitYear;
+    
+    //1.获得当前时间的 年月日
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:nowDate];
+    
+    //2.获得self
+    NSDateComponents *passCmps = [calendar components:unit fromDate:passDate];
+    
+    return (nowCmps.year == passCmps.year) && (nowCmps.month == passCmps.month);
+}
+
++ (BOOL)isSameYearOfDate:(NSDate *)passDate nowDate:(NSDate *)nowDate
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    int unit = NSCalendarUnitYear;
+    
+    //1.获得当前时间的 年月日
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:nowDate];
+    
+    //2.获得self
+    NSDateComponents *passCmps = [calendar components:unit fromDate:passDate];
+    
+    return nowCmps.year == passCmps.year;
+}
+
+/***
+ 计算同一周的一种方式  后来学到的 历法是有从哪天算这周开始的参数的
+ 
+ NSCalendar *calender = [NSCalendar currentCalendar];
+ 
+ calender.firstWeekday = 2;//设置每周第一天从周一开始
+ 
+ //计算两个日期分别为这年第几周
+ NSUInteger countSelf = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:self];
+ NSUInteger countDate = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:date];
+ */
+
+//把时间转换成星期
++ (NSString*)weekdayStringFromDate:(NSDate*)inputDate {
+    
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
+    return [weekdays objectAtIndex:[self getWeekWithDate:inputDate china:NO]];
+}
+
++ (NSInteger)getWeekWithDate:(NSDate *)inputDate china:(BOOL)china
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"zh-Hans"];
+    
+    [calendar setTimeZone:timeZone];
+    
+    NSCalendarUnit calendarUnit = NSCalendarUnitWeekday;
+    
+    NSDateComponents *theComponents = [calendar components:calendarUnit fromDate:inputDate];
+    
+    if (!china) {
+        return theComponents.weekday;
+    } else {
+        if (theComponents.weekday == 1) {
+            return 7;
+        } else {
+            return theComponents.weekday - 1;
+        }
+    }
+    
+    
+}
 @end

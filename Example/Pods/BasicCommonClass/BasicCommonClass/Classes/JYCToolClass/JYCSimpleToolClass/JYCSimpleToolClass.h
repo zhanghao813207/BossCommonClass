@@ -202,4 +202,25 @@
  */
 + (NSString *)quickChangeTimeWithTimeString:(NSString *)timeString;
 
+/**
+ 标准时间格式转微信时间格式
+ 
+ @param passDate 待比较的时间
+ @param nowDate 当前的时间
+ @param showToday 是否显示今天
+ @param fullYear 是否显示全年
+ @param chinaYear 是否显示xx年xx月xx日
+ @return 微信时间格式
+ */
++ (NSString *)standardTimeFormatterToWChatTimeFormatterByDate:(NSDate *)passDate nowDate:(NSDate *)nowDate showToday:(BOOL)showToday showFullYear:(BOOL)fullYear showChineYear:(BOOL)chinaYear;
+
+/**
+ 将一天时间分割开
+ 
+ @param date 需要分割的时间
+ @return 时间点
+ */
++ (NSString *)segementOneDayByDate:(NSDate *)date segement:(BOOL)segement;
+
+
 @end
