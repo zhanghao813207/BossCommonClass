@@ -15,6 +15,8 @@
 #import "BossMessageRequest.h"
 #import "BossPresentVc.h"
 #import "BossDismissTranstion.h"
+#import "BossPayrollRequest.h"
+
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -27,6 +29,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    [BossPayrollRequest payrollGetBizDistrictByCityList:@[@"beijing_elem"] success:^(NSArray * _Nonnull bizDistrictList) {
+//
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
+    
+//    [BossPayrollRequest payrollFindWithPlatform:@"elem" supplierId:@[@"5a62f3dfce6d2a295a472022"] city:@[@"beijing_elem"] workType:@[@(3001)] state:@[@(50)] success:^(NSArray * _Nonnull payrollStatementArray) {
+//
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
+    
+    [BossPayrollRequest payrollFindPayrollWithPage:1 statementId:@"5bda72d735587a9665ed16f5" bizDistrictId:@"" name:@"" paySalaryState:PaySalaryStateNormal success:^(BOOL hasMore, NSArray * _Nonnull payroll_list) {
+
+    } fail:^(id  _Nonnull error) {
+
+    }];
+    
 //
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
 //    } withController:self];
@@ -105,11 +126,11 @@
 //
 //    [self performSelector:@selector(changeRect:) withObject:view afterDelay:10];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn.frame = CGRectMake(0, 200, 200, 50);
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//    btn.frame = CGRectMake(0, 200, 200, 50);
+//    btn.backgroundColor = [UIColor redColor];
+//    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
 }
 
 

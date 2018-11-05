@@ -11,6 +11,8 @@
 
 UIKIT_EXTERN NSString *const BossBasicURL;
 
+UIKIT_EXTERN NSString *const BossBasicURLV2;
+
 UIKIT_EXTERN NSString *const ACCESS_KEY;
 
 UIKIT_EXTERN NSString *const SECRET_KEY;

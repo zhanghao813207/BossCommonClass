@@ -98,7 +98,8 @@ static NNBRequestManager *sharedManager = nil;
     int date = (int)[[NSDate date] timeIntervalSince1970];
     [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[JYCSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
     if (cmd) {
-        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"nnbar.%@",cmd] forHTTPHeaderField:@"X-CMD"];
+        
+        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"boss.%@",cmd] forHTTPHeaderField:@"X-CMD"];
     }
     if (self.APP_ACCESS_TOKEN.length > 0) {
         NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",self.APP_ACCESS_TOKEN,[NNBRequestManager headTokenStr:date]];

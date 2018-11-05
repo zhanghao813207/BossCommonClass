@@ -190,4 +190,24 @@ typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
     URGE_RECORD_STATE_SHUTDOWN = -100, // 关闭
 };
 
+typedef NS_ENUM(NSUInteger, STAFFWORKTYPE) {
+    STAFFWORKTYPEFULLTIME        =  3002, // 全职
+    STAFFWORKTYPEPARTTIME        =  3001, // 兼职
+};
+
+typedef NS_ENUM(NSUInteger, PayrooCycleType) {
+    PayrooCycleTypeMonth    = 1, // 按月
+    PayrooCycleTypeDay      = 2, // 按日
+};
+
+typedef NS_ENUM(NSInteger, PaySalaryState) {
+    PaySalaryStateNormal       =  1, // 正常
+    PaySalaryStateDelayed      = -1, // 缓发
+};
+
+typedef NS_ENUM(NSUInteger, StatementDataDomain) {
+    StatementDataDomainBizDistrict = 2, // 商圈
+    StatementDataDomainCity        = 3, // 城市
+};
+
 #endif /* BossEnumDefin_h */
