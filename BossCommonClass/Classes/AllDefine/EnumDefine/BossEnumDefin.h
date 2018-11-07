@@ -210,4 +210,23 @@ typedef NS_ENUM(NSUInteger, StatementDataDomain) {
     StatementDataDomainCity        = 3, // 城市
 };
 
+typedef NS_ENUM(NSUInteger, SalaryRuleCollectionType) {
+    SalaryRuleCollectionTypeOrder          = 1, // 单量
+    SalaryRuleCollectionTypeAttendance     = 2, // 出勤
+    SalaryRuleCollectionTypeQuality        = 3, // 质量
+    SalaryRuleCollectionTypeManage         = 4, // 管理
+};
+
+typedef NS_ENUM(NSUInteger, WorkLogicType) {
+    WorkLogicTypeByOnce        = 1, // 一次补贴
+    WorkLogicTypeByOrderUnit   = 2, // 按单补贴
+    WorkLogicTypeBySalaryBase  = 3, // 底薪补贴
+};
+
+typedef NS_ENUM(NSUInteger, SalaryComputeTaskType) {
+    SalaryComputeTaskTypeStaff         = 1,  // 员工
+    SalaryComputeTaskTypeBizDistrict   = 2,  // 商圈
+    SalaryComputeTaskTypeCity          = 3,  // 城市
+};
+
 #endif /* BossEnumDefin_h */

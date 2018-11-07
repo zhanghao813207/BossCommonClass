@@ -16,7 +16,7 @@
 #import "BossPresentVc.h"
 #import "BossDismissTranstion.h"
 #import "BossPayrollRequest.h"
-
+#import "BossSalaryRuleRequest.h"
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -36,17 +36,41 @@
 //
 //    }];
     
+    
 //    [BossPayrollRequest payrollFindWithPlatform:@"elem" supplierId:@[@"5a62f3dfce6d2a295a472022"] city:@[@"beijing_elem"] workType:@[@(3001)] state:@[@(50)] success:^(NSArray * _Nonnull payrollStatementArray) {
 //
 //    } fail:^(id  _Nonnull error) {
 //
 //    }];
     
-    [BossPayrollRequest payrollFindPayrollWithPage:1 statementId:@"5bda72d735587a9665ed16f5" bizDistrictId:@"" name:@"" paySalaryState:PaySalaryStateNormal success:^(BOOL hasMore, NSArray * _Nonnull payroll_list) {
+//    [BossPayrollRequest payrollFindPayrollWithPage:1 statementId:@"5bda72d735587a9665ed16f5" bizDistrictId:@"" name:@"" paySalaryState:PaySalaryStateNormal success:^(BOOL hasMore, NSArray * _Nonnull payroll_list) {
+//
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
+    
+//    [BossSalaryRuleRequest salaryRuleRequestGetSalaryPlaneDetailWithVersionId:@"5bd17757421aa9105e2e93c9" success:^(SalaryPlaneModel * _Nonnull salaryPlaneModel) {
+//
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
 
+//    [BossSalaryRuleRequest salaryRuleRequestFindSalaryRuleListWithRuleCollectionId:@"5bdfb85935587ae1d2855f86" salarRuleCollectionType:SalaryRuleCollectionTypeManage success:^(NSArray<ManageTemplateModel *> * _Nonnull templateList) {
+//        DLog(@"%@",templateList);
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
+    [BossSalaryRuleRequest salaryComputeFindSalaryComputeDataSetWithPage:1 planeVersionId:@"5bdfbd2f5ac78482d13c76d6" type:SalaryComputeTaskTypeStaff success:^(BOOL hasMore, NSArray<SalaryComputeDatasetModel *> * _Nonnull salaryComputeList) {
+        
     } fail:^(id  _Nonnull error) {
-
+        
     }];
+    
+//    [BossSalaryRuleRequest salaryRequestFindSalaryVarListWithPlatformCode:@"elem" success:^(NSArray<IndexInfoModel *> * _Nonnull indexList) {
+//        
+//    } fail:^(id  _Nonnull error) {
+//        
+//    }];
     
 //
 //    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {

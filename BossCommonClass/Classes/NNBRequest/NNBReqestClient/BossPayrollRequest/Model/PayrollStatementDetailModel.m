@@ -28,7 +28,6 @@
         self.staff_info = model;
         return;
     }
-
     
     [super setValue:value forKey:key];
 }
