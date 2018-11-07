@@ -39,7 +39,7 @@ these are common classes,they are used by boss system.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'BasicCommonClass', '~> 0.4.0'
+  s.dependency 'BasicCommonClass', '~> 0.4.1'
   s.dependency 'AFNetworking', '~> 3.1.0'
   s.dependency 'Qiniu', '~> 7.1'
   s.dependency 'BGFMDB', '~> 1.51'

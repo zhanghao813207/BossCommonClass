@@ -696,6 +696,18 @@
  NSUInteger countDate = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:date];
  */
 
++ (BOOL)isSameWeekdayOfDate:(NSDate *)date anotherDate:(NSDate *)anotherDate;
+{
+    NSCalendar *calender = [NSCalendar currentCalendar];
+
+    calender.firstWeekday = 2;//设置每周第一天从周一开始
+
+    //计算两个日期分别为这年第几周
+    NSUInteger countSelf = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:date];
+    NSUInteger countDate = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:anotherDate];
+    return countSelf == countDate;
+}
+
 //把时间转换成星期
 + (NSString*)weekdayStringFromDate:(NSDate*)inputDate {
     

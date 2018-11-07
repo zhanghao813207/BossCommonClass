@@ -194,6 +194,9 @@
  */
 + (NSString *)fastChangeToNormalTimeWithString:(NSString *)timeString;
 
+
++ (BOOL)isSameWeekdayOfDate:(NSDate *)date anotherDate:(NSDate *)anotherDate;
+
 /**
  快速修改日期格式
  
