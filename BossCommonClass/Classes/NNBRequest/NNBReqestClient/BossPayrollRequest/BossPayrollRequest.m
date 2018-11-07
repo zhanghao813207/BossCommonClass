@@ -6,7 +6,6 @@
 //
 
 #import "BossPayrollRequest.h"
-#import "BossBasicDefine.h"
 #import "NNBBasicRequest.h"
 #import "NNBRequestManager.h"
 

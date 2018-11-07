@@ -14,6 +14,7 @@
 #import "ManageTemplateModel.h"
 #import "SalaryComputeDatasetModel.h"
 #import "IndexInfoModel.h"
+#import "BossBasicDefine.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

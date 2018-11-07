@@ -11,7 +11,6 @@
 #import "OrderTemplateModel.h"
 #import "QualityTemplateModel.h"
 #import "ManageTemplateModel.h"
-#import "BossBasicDefine.h"
 
 @implementation BossSalaryRuleRequest
 

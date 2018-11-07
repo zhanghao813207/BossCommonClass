@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "PayrollStatementModel.h"
 #import "PayrollStatementDetailModel.h"
+#import "BossBasicDefine.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BossPayrollRequest : NSObject
