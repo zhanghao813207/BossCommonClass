@@ -6,10 +6,16 @@
 //
 
 #import "TemplateDataBasicModel.h"
+#import "ManageMatchFilter.h"
+#import "ManageComputeLogic.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ManageTemplateModel : TemplateDataBasicModel
+
+@property (nonatomic, strong) ManageMatchFilter *match_filters;
+
+@property (nonatomic, strong) ManageComputeLogic *compute_logic;
 
 @end
 
