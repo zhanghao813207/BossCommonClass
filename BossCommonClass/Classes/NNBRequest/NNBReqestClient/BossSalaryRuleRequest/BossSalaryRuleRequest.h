@@ -53,12 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
  员工薪资计算结果集列表
  
  @param page 页数
- @param planeVersionId 薪资试算方案版本id
+ @param taskId  薪资试算任务id
  @param type '1（员工明细）2（商圈）3（城市）'
  @param successBlock 成功的回调
  @param failBlock 服务器响应失败
  */
-+ (void)salaryComputeFindSalaryComputeDataSetWithPage:(NSInteger)page planeVersionId:(NSString *)planeVersionId type:(SalaryComputeTaskType)type success:(void(^)(BOOL hasMore, NSArray <SalaryComputeDatasetModel *> *salaryComputeList))successBlock fail:(void (^)(id error))failBlock;
++ (void)salaryComputeFindSalaryComputeDataSetWithPage:(NSInteger)page taskID:(NSString *)taskId type:(SalaryComputeTaskType)type success:(void(^)(BOOL hasMore, NSArray <SalaryComputeDatasetModel *> *salaryComputeList))successBlock fail:(void (^)(id error))failBlock;
 
 @end
 

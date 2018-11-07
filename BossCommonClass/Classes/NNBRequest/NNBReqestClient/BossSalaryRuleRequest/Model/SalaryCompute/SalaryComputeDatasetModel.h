@@ -53,10 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *city_code;
 
+@property (nonatomic, strong) NSString *city_name;
+
 /**
  商圈id
  */
 @property (nonatomic, strong) NSString *biz_district_id;
+
+@property (nonatomic, strong) NSString *biz_district_name;
+
 
 /**
  工作类型 3001（全职）3002（兼职）
@@ -97,16 +102,6 @@ NS_ASSUME_NONNULL_BEGIN
  创建时间
  */
 @property (nonatomic, strong) NSString *created_at;
-
-@property (nonatomic, assign) NSInteger state;
-
-@property (nonatomic, assign) NSInteger from_date;
-
-@property (nonatomic, assign) NSInteger to_date;
-
-@property (nonatomic, strong) NSString *city_name;
-
-@property (nonatomic, strong) NSString *updated_at;
 
 
 @end
