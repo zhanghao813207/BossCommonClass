@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BossBasicDefine.h"
 #import "SalaryPlaneModel.h"
 #import "TemplateDataBasicModel.h"
 #import "AttendanceTemplateModel.h"
