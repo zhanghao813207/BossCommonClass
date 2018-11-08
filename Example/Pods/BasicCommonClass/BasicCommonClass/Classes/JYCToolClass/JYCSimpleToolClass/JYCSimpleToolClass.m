@@ -433,20 +433,7 @@
  */
 + (NSAttributedString *)changeColorString:(NSArray <NSString *>*)changeColorStringArray inString:(NSString *)string withColor:(UIColor *)color
 {
-    if (changeColorStringArray.count < 1) {
-        return [[NSAttributedString alloc] initWithString:@""];
-    }
-    
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:string];
-    
-    for (NSInteger i = 0; i < changeColorStringArray.count; i++) {
-        NSString *targetString = changeColorStringArray[i];
-        NSRange stringRange = [string rangeOfString:targetString options:NSBackwardsSearch];
-        if (stringRange.location != NSNotFound) {
-            [attString addAttributes:@{NSForegroundColorAttributeName:color} range:stringRange];
-        }
-    }
-    return [attString copy];
+    return [self changeAttibutesOfChangeString:changeColorStringArray inString:string withAttibutes:@{NSForegroundColorAttributeName:color}];
 }
 
 /**
@@ -459,6 +446,11 @@
  */
 + (NSAttributedString *)changeFontString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withFont:(UIFont *)font
 {
+    return [self changeAttibutesOfChangeString:changeFontStringArray inString:string withAttibutes:@{NSFontAttributeName:font}];
+}
+
++ (NSAttributedString *)changeAttibutesOfChangeString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withAttibutes:(NSDictionary *)attributeDic
+{
     if (changeFontStringArray.count < 1) {
         return [[NSAttributedString alloc] initWithString:@""];
     }
@@ -469,7 +461,7 @@
         NSString *targetString = changeFontStringArray[i];
         NSRange stringRange = [string rangeOfString:targetString options:NSBackwardsSearch];
         if (stringRange.location != NSNotFound) {
-            [attString addAttributes:@{NSFontAttributeName:font} range:stringRange];
+            [attString addAttributes:attributeDic range:stringRange];
         }
     }
     return [attString copy];
@@ -539,7 +531,7 @@
 
 /**
  将一天时间分割开
-
+ 
  @param date 需要分割的时间
  @return 时间点
  */
@@ -570,7 +562,7 @@
 
 /**
  标准时间格式转微信时间格式
-
+ 
  @param passDate 待比较的时间
  @param nowDate 当前的时间
  @param showToday 是否显示今天
@@ -591,10 +583,10 @@
     
     NSString *passDateMString = [NSDate stringFromDate:passDate withFormat:@"M月d日"];
     NSString *nowDateMString = [NSDate stringFromDate:nowDate withFormat:@"M月d日"];
-
+    
     if ([passDateMString isEqualToString:nowDateMString]) {
         // 同一天
-//        NSLog(@"传入的为同一天");
+        //        NSLog(@"传入的为同一天");
         if (showToday) {
             return @"今天";
         } else {
@@ -604,7 +596,7 @@
     
     NSDate *yesterdayDate = [NSDate dateWithTimeInterval:-60 * 60 * 24 sinceDate:nowDate];
     NSString *yesterdayMString = [NSDate stringFromDate:yesterdayDate withFormat:@"M月d日"];
-
+    
     if ([yesterdayMString isEqualToString:passDateMString]) {
         // 昨天
         return @"昨天";
@@ -699,9 +691,9 @@
 + (BOOL)isSameWeekdayOfDate:(NSDate *)date anotherDate:(NSDate *)anotherDate;
 {
     NSCalendar *calender = [NSCalendar currentCalendar];
-
+    
     calender.firstWeekday = 2;//设置每周第一天从周一开始
-
+    
     //计算两个日期分别为这年第几周
     NSUInteger countSelf = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:date];
     NSUInteger countDate = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:anotherDate];

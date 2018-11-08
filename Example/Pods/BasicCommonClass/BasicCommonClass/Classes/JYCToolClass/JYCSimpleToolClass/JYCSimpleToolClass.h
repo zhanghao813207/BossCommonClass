@@ -176,6 +176,8 @@
 + (NSAttributedString *)changeFontString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withFont:(UIFont *)font;
 
 
++ (NSAttributedString *)changeAttibutesOfChangeString:(NSArray <NSString *>*)changeFontStringArray inString:(NSString *)string withAttibutes:(NSDictionary *)attributeDic;
+
 #pragma mark -- date 时间相关
 
 /**
@@ -224,6 +226,7 @@
  @return 时间点
  */
 + (NSString *)segementOneDayByDate:(NSDate *)date segement:(BOOL)segement;
+
 
 
 @end
