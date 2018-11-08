@@ -101,16 +101,6 @@
 		2998E1712193E210001E70F9 /* ApplicationUrgeRecordModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E06C2193E20F001E70F9 /* ApplicationUrgeRecordModel.h */; };
 		2998E1722193E210001E70F9 /* CommonMassageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E06D2193E20F001E70F9 /* CommonMassageModel.h */; };
 		2998E1732193E210001E70F9 /* BossMessageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E06E2193E20F001E70F9 /* BossMessageRequest.m */; };
-		2998E1742193E210001E70F9 /* BossPayrollRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0702193E20F001E70F9 /* BossPayrollRequest.h */; };
-		2998E1752193E210001E70F9 /* BossPayrollRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0712193E20F001E70F9 /* BossPayrollRequest.m */; };
-		2998E1762193E210001E70F9 /* PayrollStatementDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0732193E20F001E70F9 /* PayrollStatementDetailModel.m */; };
-		2998E1772193E210001E70F9 /* PayrollStatementModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0742193E20F001E70F9 /* PayrollStatementModel.m */; };
-		2998E1782193E210001E70F9 /* SalaryDataModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0752193E20F001E70F9 /* SalaryDataModel.h */; };
-		2998E1792193E210001E70F9 /* StaffInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0762193E20F001E70F9 /* StaffInfoModel.m */; };
-		2998E17A2193E210001E70F9 /* PayrollStatementDetailModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0772193E20F001E70F9 /* PayrollStatementDetailModel.h */; };
-		2998E17B2193E210001E70F9 /* PayrollStatementModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0782193E20F001E70F9 /* PayrollStatementModel.h */; };
-		2998E17C2193E210001E70F9 /* SalaryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0792193E20F001E70F9 /* SalaryDataModel.m */; };
-		2998E17D2193E210001E70F9 /* StaffInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E07A2193E20F001E70F9 /* StaffInfoModel.h */; };
 		2998E17E2193E210001E70F9 /* NNBBasicRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E07B2193E20F001E70F9 /* NNBBasicRequest.h */; };
 		2998E17F2193E210001E70F9 /* BossStaffRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E07D2193E20F001E70F9 /* BossStaffRequest.m */; };
 		2998E1802193E210001E70F9 /* DepartureLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E07F2193E20F001E70F9 /* DepartureLogModel.m */; };
@@ -574,16 +564,6 @@
 		2998E06C2193E20F001E70F9 /* ApplicationUrgeRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationUrgeRecordModel.h; sourceTree = "<group>"; };
 		2998E06D2193E20F001E70F9 /* CommonMassageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMassageModel.h; sourceTree = "<group>"; };
 		2998E06E2193E20F001E70F9 /* BossMessageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossMessageRequest.m; sourceTree = "<group>"; };
-		2998E0702193E20F001E70F9 /* BossPayrollRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossPayrollRequest.h; sourceTree = "<group>"; };
-		2998E0712193E20F001E70F9 /* BossPayrollRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossPayrollRequest.m; sourceTree = "<group>"; };
-		2998E0732193E20F001E70F9 /* PayrollStatementDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayrollStatementDetailModel.m; sourceTree = "<group>"; };
-		2998E0742193E20F001E70F9 /* PayrollStatementModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayrollStatementModel.m; sourceTree = "<group>"; };
-		2998E0752193E20F001E70F9 /* SalaryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalaryDataModel.h; sourceTree = "<group>"; };
-		2998E0762193E20F001E70F9 /* StaffInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffInfoModel.m; sourceTree = "<group>"; };
-		2998E0772193E20F001E70F9 /* PayrollStatementDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayrollStatementDetailModel.h; sourceTree = "<group>"; };
-		2998E0782193E20F001E70F9 /* PayrollStatementModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayrollStatementModel.h; sourceTree = "<group>"; };
-		2998E0792193E20F001E70F9 /* SalaryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalaryDataModel.m; sourceTree = "<group>"; };
-		2998E07A2193E20F001E70F9 /* StaffInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffInfoModel.h; sourceTree = "<group>"; };
 		2998E07B2193E20F001E70F9 /* NNBBasicRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NNBBasicRequest.h; sourceTree = "<group>"; };
 		2998E07D2193E20F001E70F9 /* BossStaffRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossStaffRequest.m; sourceTree = "<group>"; };
 		2998E07F2193E20F001E70F9 /* DepartureLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureLogModel.m; sourceTree = "<group>"; };
@@ -1275,7 +1255,6 @@
 			children = (
 				2998E05E2193E20F001E70F9 /* ThirdRequest */,
 				2998E0612193E20F001E70F9 /* BossMessageRequest */,
-				2998E06F2193E20F001E70F9 /* BossPayrollRequest */,
 				2998E07B2193E20F001E70F9 /* NNBBasicRequest.h */,
 				2998E07C2193E20F001E70F9 /* BOSSStaffRequest */,
 				2998E0882193E20F001E70F9 /* NNBBasicRequest.m */,
@@ -1321,31 +1300,6 @@
 				2998E06B2193E20F001E70F9 /* BossNoticeMessageModel.h */,
 				2998E06C2193E20F001E70F9 /* ApplicationUrgeRecordModel.h */,
 				2998E06D2193E20F001E70F9 /* CommonMassageModel.h */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		2998E06F2193E20F001E70F9 /* BossPayrollRequest */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0702193E20F001E70F9 /* BossPayrollRequest.h */,
-				2998E0712193E20F001E70F9 /* BossPayrollRequest.m */,
-				2998E0722193E20F001E70F9 /* Model */,
-			);
-			path = BossPayrollRequest;
-			sourceTree = "<group>";
-		};
-		2998E0722193E20F001E70F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0732193E20F001E70F9 /* PayrollStatementDetailModel.m */,
-				2998E0742193E20F001E70F9 /* PayrollStatementModel.m */,
-				2998E0752193E20F001E70F9 /* SalaryDataModel.h */,
-				2998E0762193E20F001E70F9 /* StaffInfoModel.m */,
-				2998E0772193E20F001E70F9 /* PayrollStatementDetailModel.h */,
-				2998E0782193E20F001E70F9 /* PayrollStatementModel.h */,
-				2998E0792193E20F001E70F9 /* SalaryDataModel.m */,
-				2998E07A2193E20F001E70F9 /* StaffInfoModel.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2171,7 +2125,6 @@
 				2998E1322193E20F001E70F9 /* BossEnumDefin.h in Headers */,
 				2998E1712193E210001E70F9 /* ApplicationUrgeRecordModel.h in Headers */,
 				2998E2032193E210001E70F9 /* UITextView+Placeholder.h in Headers */,
-				2998E1742193E210001E70F9 /* BossPayrollRequest.h in Headers */,
 				2998E1962193E210001E70F9 /* PayeeInfoModel.h in Headers */,
 				2998E1A42193E210001E70F9 /* OaHouseContractModel.h in Headers */,
 				2998E1992193E210001E70F9 /* ExamineFlowNodeBriefModel.h in Headers */,
@@ -2180,11 +2133,9 @@
 				2998E19C2193E210001E70F9 /* AccountModel.h in Headers */,
 				2998E1842193E210001E70F9 /* DepartureLogModel.h in Headers */,
 				2998E1312193E20F001E70F9 /* BossConstDataDefine.h in Headers */,
-				2998E17A2193E210001E70F9 /* PayrollStatementDetailModel.h in Headers */,
 				2998E1652193E210001E70F9 /* NNBRequestManager.h in Headers */,
 				2998E14F2193E20F001E70F9 /* NotDateEmptyView.h in Headers */,
 				2998E17E2193E210001E70F9 /* NNBBasicRequest.h in Headers */,
-				2998E17D2193E210001E70F9 /* StaffInfoModel.h in Headers */,
 				2998E1F52193E210001E70F9 /* BossAccount.h in Headers */,
 				2998E1872193E210001E70F9 /* PlatformModel.h in Headers */,
 				2998E1482193E20F001E70F9 /* NNBStatusView.h in Headers */,
@@ -2195,8 +2146,6 @@
 				2998E1A82193E210001E70F9 /* BossAccountRequest.h in Headers */,
 				2998E1EF2193E210001E70F9 /* OperationTypes.h in Headers */,
 				2998E1A02193E210001E70F9 /* ExamineFlowTemplateModel.h in Headers */,
-				2998E1782193E210001E70F9 /* SalaryDataModel.h in Headers */,
-				2998E17B2193E210001E70F9 /* PayrollStatementModel.h in Headers */,
 				2998E1ED2193E210001E70F9 /* BossMaterialFlowRequest.h in Headers */,
 				2998E15B2193E20F001E70F9 /* QHErrorView.h in Headers */,
 				2998E1412193E20F001E70F9 /* NNBStatusAnimationView.h in Headers */,
@@ -2556,7 +2505,6 @@
 				2998E16A2193E210001E70F9 /* EventExtraModel.m in Sources */,
 				2998E1642193E210001E70F9 /* NNBRequestManager.m in Sources */,
 				2998E1892193E210001E70F9 /* NNBBasicRequest.m in Sources */,
-				2998E1752193E210001E70F9 /* BossPayrollRequest.m in Sources */,
 				2998E1FC2193E210001E70F9 /* NNBAccount.m in Sources */,
 				2998E1422193E20F001E70F9 /* NNBBottomAlertView.m in Sources */,
 				2998E14E2193E20F001E70F9 /* NotDateEmptyView.m in Sources */,
@@ -2578,13 +2526,10 @@
 				2998E1452193E20F001E70F9 /* QHTextField.m in Sources */,
 				2998E1732193E210001E70F9 /* BossMessageRequest.m in Sources */,
 				2998E18B2193E210001E70F9 /* OrderModel.m in Sources */,
-				2998E1792193E210001E70F9 /* StaffInfoModel.m in Sources */,
 				2998E1FD2193E210001E70F9 /* ProviderModel.m in Sources */,
 				2998E19F2193E210001E70F9 /* PayeeInfoModel.m in Sources */,
-				2998E1772193E210001E70F9 /* PayrollStatementModel.m in Sources */,
 				2998E1612193E20F001E70F9 /* NNBLoadingView.m in Sources */,
 				2998E1402193E20F001E70F9 /* NNBStatusAnimationView.m in Sources */,
-				2998E1762193E210001E70F9 /* PayrollStatementDetailModel.m in Sources */,
 				2998E1A72193E210001E70F9 /* ExamineFlowRecordModel.m in Sources */,
 				2998E1662193E210001E70F9 /* ThirdRequest.m in Sources */,
 				2998E1302193E20F001E70F9 /* BossConstDataDefine.m in Sources */,
@@ -2606,7 +2551,6 @@
 				2998E1812193E210001E70F9 /* BizDistrictModel.m in Sources */,
 				2998E20D2193E210001E70F9 /* CountdownView.m in Sources */,
 				2998E14A2193E20F001E70F9 /* SignView.m in Sources */,
-				2998E17C2193E210001E70F9 /* SalaryDataModel.m in Sources */,
 				2998E2022193E210001E70F9 /* UITextView+Placeholder.m in Sources */,
 				2998E1912193E210001E70F9 /* BossOaExamineRequest.m in Sources */,
 			);
