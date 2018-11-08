@@ -16,7 +16,7 @@
 #import "BossPresentVc.h"
 #import "BossDismissTranstion.h"
 #import "BossPayrollRequest.h"
-#import "BossSalaryRuleRequest.h"
+//#import "BossSalaryRuleRequest.h"
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -49,11 +49,11 @@
 //
 //    }];
     
-    [BossSalaryRuleRequest salaryRuleRequestGetSalaryPlaneDetailWithVersionId:@"5bdfbd2f5ac78482d13c76d6" success:^(SalaryPlaneModel * _Nonnull salaryPlaneModel) {
-
-    } fail:^(id  _Nonnull error) {
-
-    }];
+//    [BossSalaryRuleRequest salaryRuleRequestGetSalaryPlaneDetailWithVersionId:@"5bdfbd2f5ac78482d13c76d6" success:^(SalaryPlaneModel * _Nonnull salaryPlaneModel) {
+//
+//    } fail:^(id  _Nonnull error) {
+//
+//    }];
 
 //    [BossSalaryRuleRequest salaryRuleRequestFindSalaryRuleListWithRuleCollectionId:@"5bdfb85935587ae1d2855f86" salarRuleCollectionType:SalaryRuleCollectionTypeManage success:^(NSArray<ManageTemplateModel *> * _Nonnull templateList) {
 //        DLog(@"%@",templateList);

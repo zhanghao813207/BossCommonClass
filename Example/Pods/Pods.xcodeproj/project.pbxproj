@@ -155,68 +155,6 @@
 		2998E1A72193E210001E70F9 /* ExamineFlowRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0AA2193E20F001E70F9 /* ExamineFlowRecordModel.m */; };
 		2998E1A82193E210001E70F9 /* BossAccountRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0AC2193E20F001E70F9 /* BossAccountRequest.h */; };
 		2998E1A92193E210001E70F9 /* BossAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0AD2193E20F001E70F9 /* BossAccountRequest.m */; };
-		2998E1AA2193E210001E70F9 /* BossSalaryRuleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0AF2193E20F001E70F9 /* BossSalaryRuleRequest.m */; };
-		2998E1AB2193E210001E70F9 /* KnightInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0B12193E20F001E70F9 /* KnightInfoModel.h */; };
-		2998E1AC2193E210001E70F9 /* IndexInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0B22193E20F001E70F9 /* IndexInfoModel.h */; };
-		2998E1AD2193E210001E70F9 /* AttendanceMatchFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0B52193E20F001E70F9 /* AttendanceMatchFilter.h */; };
-		2998E1AE2193E210001E70F9 /* AttendanceComputeLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0B62193E20F001E70F9 /* AttendanceComputeLogic.h */; };
-		2998E1AF2193E210001E70F9 /* AttendanceTemplateModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0B72193E20F001E70F9 /* AttendanceTemplateModel.h */; };
-		2998E1B02193E210001E70F9 /* OrderVarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0B82193E20F001E70F9 /* OrderVarModel.m */; };
-		2998E1B12193E210001E70F9 /* WorkLogicSalaryBaseParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0B92193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.m */; };
-		2998E1B22193E210001E70F9 /* WorkLogicOnceParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0BA2193E20F001E70F9 /* WorkLogicOnceParamModel.h */; };
-		2998E1B32193E210001E70F9 /* WorkLogicOrderUnitParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0BB2193E20F001E70F9 /* WorkLogicOrderUnitParamModel.h */; };
-		2998E1B42193E210001E70F9 /* RuleModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0BC2193E20F001E70F9 /* RuleModel.h */; };
-		2998E1B52193E210001E70F9 /* AttendanceTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0BD2193E20F001E70F9 /* AttendanceTemplateModel.m */; };
-		2998E1B62193E210001E70F9 /* AttendanceComputeLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0BE2193E20F001E70F9 /* AttendanceComputeLogic.m */; };
-		2998E1B72193E210001E70F9 /* AttendanceMatchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0BF2193E20F001E70F9 /* AttendanceMatchFilter.m */; };
-		2998E1B82193E210001E70F9 /* WorkLogicOnceParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C02193E20F001E70F9 /* WorkLogicOnceParamModel.m */; };
-		2998E1B92193E210001E70F9 /* OrderVarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0C12193E20F001E70F9 /* OrderVarModel.h */; };
-		2998E1BA2193E210001E70F9 /* WorkLogicSalaryBaseParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0C22193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.h */; };
-		2998E1BB2193E210001E70F9 /* RuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C32193E20F001E70F9 /* RuleModel.m */; };
-		2998E1BC2193E210001E70F9 /* WorkLogicOrderUnitParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C42193E20F001E70F9 /* WorkLogicOrderUnitParamModel.m */; };
-		2998E1BD2193E210001E70F9 /* TemplateDataBasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C52193E20F001E70F9 /* TemplateDataBasicModel.m */; };
-		2998E1BE2193E210001E70F9 /* OrderMatchFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C72193E20F001E70F9 /* OrderMatchFilters.m */; };
-		2998E1BF2193E210001E70F9 /* OrderComputeLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0C82193E20F001E70F9 /* OrderComputeLogic.h */; };
-		2998E1C02193E210001E70F9 /* OrderRangeTableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0C92193E20F001E70F9 /* OrderRangeTableModel.m */; };
-		2998E1C12193E210001E70F9 /* OrderTemplateModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0CA2193E20F001E70F9 /* OrderTemplateModel.h */; };
-		2998E1C22193E210001E70F9 /* OrderParamsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0CB2193E20F001E70F9 /* OrderParamsModel.m */; };
-		2998E1C32193E210001E70F9 /* OrderComputeLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0CC2193E20F001E70F9 /* OrderComputeLogic.m */; };
-		2998E1C42193E210001E70F9 /* OrderMatchFilters.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0CD2193E20F001E70F9 /* OrderMatchFilters.h */; };
-		2998E1C52193E210001E70F9 /* OrderTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0CE2193E20F001E70F9 /* OrderTemplateModel.m */; };
-		2998E1C62193E210001E70F9 /* OrderRangeTableModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0CF2193E20F001E70F9 /* OrderRangeTableModel.h */; };
-		2998E1C72193E210001E70F9 /* OrderParamsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0D02193E20F001E70F9 /* OrderParamsModel.h */; };
-		2998E1C82193E210001E70F9 /* ManageMatchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0D22193E20F001E70F9 /* ManageMatchFilter.m */; };
-		2998E1C92193E210001E70F9 /* ManageComputeLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0D32193E20F001E70F9 /* ManageComputeLogic.m */; };
-		2998E1CA2193E210001E70F9 /* ManageTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0D42193E20F001E70F9 /* ManageTemplateModel.m */; };
-		2998E1CB2193E210001E70F9 /* ManageParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0D52193E20F001E70F9 /* ManageParamModel.m */; };
-		2998E1CC2193E210001E70F9 /* ManageMatchFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0D62193E20F001E70F9 /* ManageMatchFilter.h */; };
-		2998E1CD2193E210001E70F9 /* ManageComputeLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0D72193E20F001E70F9 /* ManageComputeLogic.h */; };
-		2998E1CE2193E210001E70F9 /* ManageParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0D82193E20F001E70F9 /* ManageParamModel.h */; };
-		2998E1CF2193E210001E70F9 /* ManageTemplateModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0D92193E20F001E70F9 /* ManageTemplateModel.h */; };
-		2998E1D02193E210001E70F9 /* MultipleParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0DB2193E20F001E70F9 /* MultipleParamModel.h */; };
-		2998E1D12193E210001E70F9 /* QualityMatchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0DC2193E20F001E70F9 /* QualityMatchFilter.m */; };
-		2998E1D22193E210001E70F9 /* RangeParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0DD2193E20F001E70F9 /* RangeParamModel.h */; };
-		2998E1D32193E210001E70F9 /* LadderModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0DE2193E20F001E70F9 /* LadderModel.h */; };
-		2998E1D42193E210001E70F9 /* QualityTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0DF2193E20F001E70F9 /* QualityTemplateModel.m */; };
-		2998E1D52193E210001E70F9 /* BattleParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0E02193E20F001E70F9 /* BattleParamModel.h */; };
-		2998E1D62193E210001E70F9 /* QuaComputeLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0E12193E20F001E70F9 /* QuaComputeLogic.h */; };
-		2998E1D72193E210001E70F9 /* MultipleParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0E22193E20F001E70F9 /* MultipleParamModel.m */; };
-		2998E1D82193E210001E70F9 /* RangeParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0E32193E20F001E70F9 /* RangeParamModel.m */; };
-		2998E1D92193E210001E70F9 /* QualityMatchFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0E42193E20F001E70F9 /* QualityMatchFilter.h */; };
-		2998E1DA2193E210001E70F9 /* QuaComputeLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0E52193E20F001E70F9 /* QuaComputeLogic.m */; };
-		2998E1DB2193E210001E70F9 /* BattleParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0E62193E20F001E70F9 /* BattleParamModel.m */; };
-		2998E1DC2193E210001E70F9 /* QualityTemplateModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0E72193E20F001E70F9 /* QualityTemplateModel.h */; };
-		2998E1DD2193E210001E70F9 /* LadderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0E82193E20F001E70F9 /* LadderModel.m */; };
-		2998E1DE2193E210001E70F9 /* TemplateDataBasicModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0E92193E20F001E70F9 /* TemplateDataBasicModel.h */; };
-		2998E1DF2193E210001E70F9 /* SalaryPlaneModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0EA2193E20F001E70F9 /* SalaryPlaneModel.h */; };
-		2998E1E02193E210001E70F9 /* KnightInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0EB2193E20F001E70F9 /* KnightInfoModel.m */; };
-		2998E1E12193E210001E70F9 /* IndexInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0EC2193E20F001E70F9 /* IndexInfoModel.m */; };
-		2998E1E22193E210001E70F9 /* ComputeDatasetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0EE2193E20F001E70F9 /* ComputeDatasetInfoModel.m */; };
-		2998E1E32193E210001E70F9 /* SalaryComputeDatasetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0EF2193E20F001E70F9 /* SalaryComputeDatasetModel.m */; };
-		2998E1E42193E210001E70F9 /* SalaryComputeDatasetModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0F02193E20F001E70F9 /* SalaryComputeDatasetModel.h */; };
-		2998E1E52193E210001E70F9 /* ComputeDatasetInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0F12193E20F001E70F9 /* ComputeDatasetInfoModel.h */; };
-		2998E1E62193E210001E70F9 /* SalaryPlaneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0F22193E20F001E70F9 /* SalaryPlaneModel.m */; };
-		2998E1E72193E210001E70F9 /* BossSalaryRuleRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0F32193E20F001E70F9 /* BossSalaryRuleRequest.h */; };
 		2998E1E82193E210001E70F9 /* NNBAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0F52193E20F001E70F9 /* NNBAuthRequest.m */; };
 		2998E1E92193E210001E70F9 /* NNBAuthRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2998E0F62193E20F001E70F9 /* NNBAuthRequest.h */; };
 		2998E1EA2193E210001E70F9 /* NNBUtilRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2998E0F82193E20F001E70F9 /* NNBUtilRequest.m */; };
@@ -690,68 +628,6 @@
 		2998E0AA2193E20F001E70F9 /* ExamineFlowRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamineFlowRecordModel.m; sourceTree = "<group>"; };
 		2998E0AC2193E20F001E70F9 /* BossAccountRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossAccountRequest.h; sourceTree = "<group>"; };
 		2998E0AD2193E20F001E70F9 /* BossAccountRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossAccountRequest.m; sourceTree = "<group>"; };
-		2998E0AF2193E20F001E70F9 /* BossSalaryRuleRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossSalaryRuleRequest.m; sourceTree = "<group>"; };
-		2998E0B12193E20F001E70F9 /* KnightInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KnightInfoModel.h; sourceTree = "<group>"; };
-		2998E0B22193E20F001E70F9 /* IndexInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexInfoModel.h; sourceTree = "<group>"; };
-		2998E0B52193E20F001E70F9 /* AttendanceMatchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceMatchFilter.h; sourceTree = "<group>"; };
-		2998E0B62193E20F001E70F9 /* AttendanceComputeLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceComputeLogic.h; sourceTree = "<group>"; };
-		2998E0B72193E20F001E70F9 /* AttendanceTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceTemplateModel.h; sourceTree = "<group>"; };
-		2998E0B82193E20F001E70F9 /* OrderVarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderVarModel.m; sourceTree = "<group>"; };
-		2998E0B92193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkLogicSalaryBaseParamModel.m; sourceTree = "<group>"; };
-		2998E0BA2193E20F001E70F9 /* WorkLogicOnceParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkLogicOnceParamModel.h; sourceTree = "<group>"; };
-		2998E0BB2193E20F001E70F9 /* WorkLogicOrderUnitParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkLogicOrderUnitParamModel.h; sourceTree = "<group>"; };
-		2998E0BC2193E20F001E70F9 /* RuleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuleModel.h; sourceTree = "<group>"; };
-		2998E0BD2193E20F001E70F9 /* AttendanceTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceTemplateModel.m; sourceTree = "<group>"; };
-		2998E0BE2193E20F001E70F9 /* AttendanceComputeLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceComputeLogic.m; sourceTree = "<group>"; };
-		2998E0BF2193E20F001E70F9 /* AttendanceMatchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceMatchFilter.m; sourceTree = "<group>"; };
-		2998E0C02193E20F001E70F9 /* WorkLogicOnceParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkLogicOnceParamModel.m; sourceTree = "<group>"; };
-		2998E0C12193E20F001E70F9 /* OrderVarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderVarModel.h; sourceTree = "<group>"; };
-		2998E0C22193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkLogicSalaryBaseParamModel.h; sourceTree = "<group>"; };
-		2998E0C32193E20F001E70F9 /* RuleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuleModel.m; sourceTree = "<group>"; };
-		2998E0C42193E20F001E70F9 /* WorkLogicOrderUnitParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkLogicOrderUnitParamModel.m; sourceTree = "<group>"; };
-		2998E0C52193E20F001E70F9 /* TemplateDataBasicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDataBasicModel.m; sourceTree = "<group>"; };
-		2998E0C72193E20F001E70F9 /* OrderMatchFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderMatchFilters.m; sourceTree = "<group>"; };
-		2998E0C82193E20F001E70F9 /* OrderComputeLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderComputeLogic.h; sourceTree = "<group>"; };
-		2998E0C92193E20F001E70F9 /* OrderRangeTableModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderRangeTableModel.m; sourceTree = "<group>"; };
-		2998E0CA2193E20F001E70F9 /* OrderTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTemplateModel.h; sourceTree = "<group>"; };
-		2998E0CB2193E20F001E70F9 /* OrderParamsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderParamsModel.m; sourceTree = "<group>"; };
-		2998E0CC2193E20F001E70F9 /* OrderComputeLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderComputeLogic.m; sourceTree = "<group>"; };
-		2998E0CD2193E20F001E70F9 /* OrderMatchFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderMatchFilters.h; sourceTree = "<group>"; };
-		2998E0CE2193E20F001E70F9 /* OrderTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTemplateModel.m; sourceTree = "<group>"; };
-		2998E0CF2193E20F001E70F9 /* OrderRangeTableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderRangeTableModel.h; sourceTree = "<group>"; };
-		2998E0D02193E20F001E70F9 /* OrderParamsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderParamsModel.h; sourceTree = "<group>"; };
-		2998E0D22193E20F001E70F9 /* ManageMatchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageMatchFilter.m; sourceTree = "<group>"; };
-		2998E0D32193E20F001E70F9 /* ManageComputeLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageComputeLogic.m; sourceTree = "<group>"; };
-		2998E0D42193E20F001E70F9 /* ManageTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTemplateModel.m; sourceTree = "<group>"; };
-		2998E0D52193E20F001E70F9 /* ManageParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageParamModel.m; sourceTree = "<group>"; };
-		2998E0D62193E20F001E70F9 /* ManageMatchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageMatchFilter.h; sourceTree = "<group>"; };
-		2998E0D72193E20F001E70F9 /* ManageComputeLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageComputeLogic.h; sourceTree = "<group>"; };
-		2998E0D82193E20F001E70F9 /* ManageParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageParamModel.h; sourceTree = "<group>"; };
-		2998E0D92193E20F001E70F9 /* ManageTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTemplateModel.h; sourceTree = "<group>"; };
-		2998E0DB2193E20F001E70F9 /* MultipleParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleParamModel.h; sourceTree = "<group>"; };
-		2998E0DC2193E20F001E70F9 /* QualityMatchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QualityMatchFilter.m; sourceTree = "<group>"; };
-		2998E0DD2193E20F001E70F9 /* RangeParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeParamModel.h; sourceTree = "<group>"; };
-		2998E0DE2193E20F001E70F9 /* LadderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LadderModel.h; sourceTree = "<group>"; };
-		2998E0DF2193E20F001E70F9 /* QualityTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QualityTemplateModel.m; sourceTree = "<group>"; };
-		2998E0E02193E20F001E70F9 /* BattleParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleParamModel.h; sourceTree = "<group>"; };
-		2998E0E12193E20F001E70F9 /* QuaComputeLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuaComputeLogic.h; sourceTree = "<group>"; };
-		2998E0E22193E20F001E70F9 /* MultipleParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleParamModel.m; sourceTree = "<group>"; };
-		2998E0E32193E20F001E70F9 /* RangeParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeParamModel.m; sourceTree = "<group>"; };
-		2998E0E42193E20F001E70F9 /* QualityMatchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QualityMatchFilter.h; sourceTree = "<group>"; };
-		2998E0E52193E20F001E70F9 /* QuaComputeLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuaComputeLogic.m; sourceTree = "<group>"; };
-		2998E0E62193E20F001E70F9 /* BattleParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleParamModel.m; sourceTree = "<group>"; };
-		2998E0E72193E20F001E70F9 /* QualityTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QualityTemplateModel.h; sourceTree = "<group>"; };
-		2998E0E82193E20F001E70F9 /* LadderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LadderModel.m; sourceTree = "<group>"; };
-		2998E0E92193E20F001E70F9 /* TemplateDataBasicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDataBasicModel.h; sourceTree = "<group>"; };
-		2998E0EA2193E20F001E70F9 /* SalaryPlaneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalaryPlaneModel.h; sourceTree = "<group>"; };
-		2998E0EB2193E20F001E70F9 /* KnightInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KnightInfoModel.m; sourceTree = "<group>"; };
-		2998E0EC2193E20F001E70F9 /* IndexInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexInfoModel.m; sourceTree = "<group>"; };
-		2998E0EE2193E20F001E70F9 /* ComputeDatasetInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComputeDatasetInfoModel.m; sourceTree = "<group>"; };
-		2998E0EF2193E20F001E70F9 /* SalaryComputeDatasetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalaryComputeDatasetModel.m; sourceTree = "<group>"; };
-		2998E0F02193E20F001E70F9 /* SalaryComputeDatasetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalaryComputeDatasetModel.h; sourceTree = "<group>"; };
-		2998E0F12193E20F001E70F9 /* ComputeDatasetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComputeDatasetInfoModel.h; sourceTree = "<group>"; };
-		2998E0F22193E20F001E70F9 /* SalaryPlaneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalaryPlaneModel.m; sourceTree = "<group>"; };
-		2998E0F32193E20F001E70F9 /* BossSalaryRuleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossSalaryRuleRequest.h; sourceTree = "<group>"; };
 		2998E0F52193E20F001E70F9 /* NNBAuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NNBAuthRequest.m; sourceTree = "<group>"; };
 		2998E0F62193E20F001E70F9 /* NNBAuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NNBAuthRequest.h; sourceTree = "<group>"; };
 		2998E0F82193E20F001E70F9 /* NNBUtilRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NNBUtilRequest.m; sourceTree = "<group>"; };
@@ -1406,7 +1282,6 @@
 				2998E0892193E20F001E70F9 /* BossKnightMaterialRequest */,
 				2998E0912193E20F001E70F9 /* BossOaExamineRequest */,
 				2998E0AB2193E20F001E70F9 /* BossAccountRequest */,
-				2998E0AE2193E20F001E70F9 /* BossSalaryRuleRequest */,
 				2998E0F42193E20F001E70F9 /* NNBAuthRequest */,
 				2998E0F72193E20F001E70F9 /* NNBUtilRequest */,
 				2998E0FA2193E20F001E70F9 /* BossMaterialFlowRequest */,
@@ -1567,131 +1442,6 @@
 				2998E0AD2193E20F001E70F9 /* BossAccountRequest.m */,
 			);
 			path = BossAccountRequest;
-			sourceTree = "<group>";
-		};
-		2998E0AE2193E20F001E70F9 /* BossSalaryRuleRequest */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0AF2193E20F001E70F9 /* BossSalaryRuleRequest.m */,
-				2998E0B02193E20F001E70F9 /* Model */,
-				2998E0F32193E20F001E70F9 /* BossSalaryRuleRequest.h */,
-			);
-			path = BossSalaryRuleRequest;
-			sourceTree = "<group>";
-		};
-		2998E0B02193E20F001E70F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0B12193E20F001E70F9 /* KnightInfoModel.h */,
-				2998E0B22193E20F001E70F9 /* IndexInfoModel.h */,
-				2998E0B32193E20F001E70F9 /* TemplateData */,
-				2998E0EA2193E20F001E70F9 /* SalaryPlaneModel.h */,
-				2998E0EB2193E20F001E70F9 /* KnightInfoModel.m */,
-				2998E0EC2193E20F001E70F9 /* IndexInfoModel.m */,
-				2998E0ED2193E20F001E70F9 /* SalaryCompute */,
-				2998E0F22193E20F001E70F9 /* SalaryPlaneModel.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		2998E0B32193E20F001E70F9 /* TemplateData */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0B42193E20F001E70F9 /* AttendanceTemplate */,
-				2998E0C52193E20F001E70F9 /* TemplateDataBasicModel.m */,
-				2998E0C62193E20F001E70F9 /* OrderTemplate */,
-				2998E0D12193E20F001E70F9 /* ManageTemplate */,
-				2998E0DA2193E20F001E70F9 /* QualityTemplate */,
-				2998E0E92193E20F001E70F9 /* TemplateDataBasicModel.h */,
-			);
-			path = TemplateData;
-			sourceTree = "<group>";
-		};
-		2998E0B42193E20F001E70F9 /* AttendanceTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0B52193E20F001E70F9 /* AttendanceMatchFilter.h */,
-				2998E0B62193E20F001E70F9 /* AttendanceComputeLogic.h */,
-				2998E0B72193E20F001E70F9 /* AttendanceTemplateModel.h */,
-				2998E0B82193E20F001E70F9 /* OrderVarModel.m */,
-				2998E0B92193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.m */,
-				2998E0BA2193E20F001E70F9 /* WorkLogicOnceParamModel.h */,
-				2998E0BB2193E20F001E70F9 /* WorkLogicOrderUnitParamModel.h */,
-				2998E0BC2193E20F001E70F9 /* RuleModel.h */,
-				2998E0BD2193E20F001E70F9 /* AttendanceTemplateModel.m */,
-				2998E0BE2193E20F001E70F9 /* AttendanceComputeLogic.m */,
-				2998E0BF2193E20F001E70F9 /* AttendanceMatchFilter.m */,
-				2998E0C02193E20F001E70F9 /* WorkLogicOnceParamModel.m */,
-				2998E0C12193E20F001E70F9 /* OrderVarModel.h */,
-				2998E0C22193E20F001E70F9 /* WorkLogicSalaryBaseParamModel.h */,
-				2998E0C32193E20F001E70F9 /* RuleModel.m */,
-				2998E0C42193E20F001E70F9 /* WorkLogicOrderUnitParamModel.m */,
-			);
-			path = AttendanceTemplate;
-			sourceTree = "<group>";
-		};
-		2998E0C62193E20F001E70F9 /* OrderTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0C72193E20F001E70F9 /* OrderMatchFilters.m */,
-				2998E0C82193E20F001E70F9 /* OrderComputeLogic.h */,
-				2998E0C92193E20F001E70F9 /* OrderRangeTableModel.m */,
-				2998E0CA2193E20F001E70F9 /* OrderTemplateModel.h */,
-				2998E0CB2193E20F001E70F9 /* OrderParamsModel.m */,
-				2998E0CC2193E20F001E70F9 /* OrderComputeLogic.m */,
-				2998E0CD2193E20F001E70F9 /* OrderMatchFilters.h */,
-				2998E0CE2193E20F001E70F9 /* OrderTemplateModel.m */,
-				2998E0CF2193E20F001E70F9 /* OrderRangeTableModel.h */,
-				2998E0D02193E20F001E70F9 /* OrderParamsModel.h */,
-			);
-			path = OrderTemplate;
-			sourceTree = "<group>";
-		};
-		2998E0D12193E20F001E70F9 /* ManageTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0D22193E20F001E70F9 /* ManageMatchFilter.m */,
-				2998E0D32193E20F001E70F9 /* ManageComputeLogic.m */,
-				2998E0D42193E20F001E70F9 /* ManageTemplateModel.m */,
-				2998E0D52193E20F001E70F9 /* ManageParamModel.m */,
-				2998E0D62193E20F001E70F9 /* ManageMatchFilter.h */,
-				2998E0D72193E20F001E70F9 /* ManageComputeLogic.h */,
-				2998E0D82193E20F001E70F9 /* ManageParamModel.h */,
-				2998E0D92193E20F001E70F9 /* ManageTemplateModel.h */,
-			);
-			path = ManageTemplate;
-			sourceTree = "<group>";
-		};
-		2998E0DA2193E20F001E70F9 /* QualityTemplate */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0DB2193E20F001E70F9 /* MultipleParamModel.h */,
-				2998E0DC2193E20F001E70F9 /* QualityMatchFilter.m */,
-				2998E0DD2193E20F001E70F9 /* RangeParamModel.h */,
-				2998E0DE2193E20F001E70F9 /* LadderModel.h */,
-				2998E0DF2193E20F001E70F9 /* QualityTemplateModel.m */,
-				2998E0E02193E20F001E70F9 /* BattleParamModel.h */,
-				2998E0E12193E20F001E70F9 /* QuaComputeLogic.h */,
-				2998E0E22193E20F001E70F9 /* MultipleParamModel.m */,
-				2998E0E32193E20F001E70F9 /* RangeParamModel.m */,
-				2998E0E42193E20F001E70F9 /* QualityMatchFilter.h */,
-				2998E0E52193E20F001E70F9 /* QuaComputeLogic.m */,
-				2998E0E62193E20F001E70F9 /* BattleParamModel.m */,
-				2998E0E72193E20F001E70F9 /* QualityTemplateModel.h */,
-				2998E0E82193E20F001E70F9 /* LadderModel.m */,
-			);
-			path = QualityTemplate;
-			sourceTree = "<group>";
-		};
-		2998E0ED2193E20F001E70F9 /* SalaryCompute */ = {
-			isa = PBXGroup;
-			children = (
-				2998E0EE2193E20F001E70F9 /* ComputeDatasetInfoModel.m */,
-				2998E0EF2193E20F001E70F9 /* SalaryComputeDatasetModel.m */,
-				2998E0F02193E20F001E70F9 /* SalaryComputeDatasetModel.h */,
-				2998E0F12193E20F001E70F9 /* ComputeDatasetInfoModel.h */,
-			);
-			path = SalaryCompute;
 			sourceTree = "<group>";
 		};
 		2998E0F42193E20F001E70F9 /* NNBAuthRequest */ = {
@@ -2414,7 +2164,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2998E1CC2193E210001E70F9 /* ManageMatchFilter.h in Headers */,
 				2998E20C2193E210001E70F9 /* InputPhoneNumberView.h in Headers */,
 				2998E1432193E20F001E70F9 /* NNBBottomAlertView.h in Headers */,
 				2998E13D2193E20F001E70F9 /* JYCTextField.h in Headers */,
@@ -2422,57 +2171,40 @@
 				2998E1322193E20F001E70F9 /* BossEnumDefin.h in Headers */,
 				2998E1712193E210001E70F9 /* ApplicationUrgeRecordModel.h in Headers */,
 				2998E2032193E210001E70F9 /* UITextView+Placeholder.h in Headers */,
-				2998E1DE2193E210001E70F9 /* TemplateDataBasicModel.h in Headers */,
 				2998E1742193E210001E70F9 /* BossPayrollRequest.h in Headers */,
 				2998E1962193E210001E70F9 /* PayeeInfoModel.h in Headers */,
 				2998E1A42193E210001E70F9 /* OaHouseContractModel.h in Headers */,
 				2998E1992193E210001E70F9 /* ExamineFlowNodeBriefModel.h in Headers */,
-				2998E1D32193E210001E70F9 /* LadderModel.h in Headers */,
 				2998E20E2193E210001E70F9 /* CodeView.h in Headers */,
-				2998E1CE2193E210001E70F9 /* ManageParamModel.h in Headers */,
 				2998E13E2193E20F001E70F9 /* NNBLoadStatusView.h in Headers */,
-				2998E1AB2193E210001E70F9 /* KnightInfoModel.h in Headers */,
 				2998E19C2193E210001E70F9 /* AccountModel.h in Headers */,
 				2998E1842193E210001E70F9 /* DepartureLogModel.h in Headers */,
 				2998E1312193E20F001E70F9 /* BossConstDataDefine.h in Headers */,
-				2998E1CD2193E210001E70F9 /* ManageComputeLogic.h in Headers */,
 				2998E17A2193E210001E70F9 /* PayrollStatementDetailModel.h in Headers */,
 				2998E1652193E210001E70F9 /* NNBRequestManager.h in Headers */,
-				2998E1AF2193E210001E70F9 /* AttendanceTemplateModel.h in Headers */,
 				2998E14F2193E20F001E70F9 /* NotDateEmptyView.h in Headers */,
 				2998E17E2193E210001E70F9 /* NNBBasicRequest.h in Headers */,
 				2998E17D2193E210001E70F9 /* StaffInfoModel.h in Headers */,
-				2998E1E52193E210001E70F9 /* ComputeDatasetInfoModel.h in Headers */,
-				2998E1C42193E210001E70F9 /* OrderMatchFilters.h in Headers */,
 				2998E1F52193E210001E70F9 /* BossAccount.h in Headers */,
 				2998E1872193E210001E70F9 /* PlatformModel.h in Headers */,
 				2998E1482193E20F001E70F9 /* NNBStatusView.h in Headers */,
 				2998E1542193E20F001E70F9 /* UICollectionView+ScrollEdge.h in Headers */,
 				2998E1F22193E210001E70F9 /* SupplierModel.h in Headers */,
-				2998E1E72193E210001E70F9 /* BossSalaryRuleRequest.h in Headers */,
-				2998E1DC2193E210001E70F9 /* QualityTemplateModel.h in Headers */,
-				2998E1D22193E210001E70F9 /* RangeParamModel.h in Headers */,
 				2998E1552193E20F001E70F9 /* JYCTitleView.h in Headers */,
 				2998E2072193E210001E70F9 /* LoginVC.h in Headers */,
 				2998E1A82193E210001E70F9 /* BossAccountRequest.h in Headers */,
 				2998E1EF2193E210001E70F9 /* OperationTypes.h in Headers */,
-				2998E1BF2193E210001E70F9 /* OrderComputeLogic.h in Headers */,
 				2998E1A02193E210001E70F9 /* ExamineFlowTemplateModel.h in Headers */,
 				2998E1782193E210001E70F9 /* SalaryDataModel.h in Headers */,
 				2998E17B2193E210001E70F9 /* PayrollStatementModel.h in Headers */,
 				2998E1ED2193E210001E70F9 /* BossMaterialFlowRequest.h in Headers */,
-				2998E1B92193E210001E70F9 /* OrderVarModel.h in Headers */,
 				2998E15B2193E20F001E70F9 /* QHErrorView.h in Headers */,
-				2998E1AC2193E210001E70F9 /* IndexInfoModel.h in Headers */,
-				2998E1CF2193E210001E70F9 /* ManageTemplateModel.h in Headers */,
 				2998E1412193E20F001E70F9 /* NNBStatusAnimationView.h in Headers */,
 				2998E1EB2193E210001E70F9 /* NNBUtilRequest.h in Headers */,
 				2998E2042193E210001E70F9 /* UITabBar+Bage.h in Headers */,
 				2998E18A2193E210001E70F9 /* BossKnightMaterialRequest.h in Headers */,
 				2998E1A12193E210001E70F9 /* CostAllocationModel.h in Headers */,
-				2998E1AD2193E210001E70F9 /* AttendanceMatchFilter.h in Headers */,
 				2998E1862193E210001E70F9 /* BizDistrictModel.h in Headers */,
-				2998E1C72193E210001E70F9 /* OrderParamsModel.h in Headers */,
 				2998E1442193E20F001E70F9 /* QHTextField.h in Headers */,
 				2998E1F82193E210001E70F9 /* AccountInfoModel.h in Headers */,
 				2998E1A62193E210001E70F9 /* ExamineFlowNodeModel.h in Headers */,
@@ -2484,49 +2216,36 @@
 				2998E12F2193E20F001E70F9 /* BossBasicDefine.h in Headers */,
 				2998E1FF2193E210001E70F9 /* NNBUploadManager.h in Headers */,
 				2998E1972193E210001E70F9 /* CostOrderModel.h in Headers */,
-				2998E1D62193E210001E70F9 /* QuaComputeLogic.h in Headers */,
 				2998E1722193E210001E70F9 /* CommonMassageModel.h in Headers */,
 				2998E18E2193E210001E70F9 /* KnightMaterialModel.h in Headers */,
 				2998E14D2193E20F001E70F9 /* BorderView.h in Headers */,
 				2998E13A2193E20F001E70F9 /* NNBTextField.h in Headers */,
-				2998E1D52193E210001E70F9 /* BattleParamModel.h in Headers */,
-				2998E1B42193E210001E70F9 /* RuleModel.h in Headers */,
 				2998E15E2193E20F001E70F9 /* BossLoadView.h in Headers */,
 				2998E1392193E20F001E70F9 /* BossViewController.h in Headers */,
 				2998E1632193E210001E70F9 /* NNBResponseModel.h in Headers */,
 				2998E1F72193E210001E70F9 /* QHScanManager.h in Headers */,
-				2998E1B32193E210001E70F9 /* WorkLogicOrderUnitParamModel.h in Headers */,
 				2998E1372193E20F001E70F9 /* BossNavigationController.h in Headers */,
 				2998E1F32193E210001E70F9 /* PermissionModel.h in Headers */,
 				2998E14B2193E20F001E70F9 /* SignView.h in Headers */,
 				2998E1572193E20F001E70F9 /* JYCPageView.h in Headers */,
 				2998E1332193E20F001E70F9 /* BossMethodDefine.h in Headers */,
 				2998E1FA2193E210001E70F9 /* NNBAccount.h in Headers */,
-				2998E1D02193E210001E70F9 /* MultipleParamModel.h in Headers */,
 				2998E1F92193E210001E70F9 /* ProviderModel.h in Headers */,
-				2998E1BA2193E210001E70F9 /* WorkLogicSalaryBaseParamModel.h in Headers */,
-				2998E1B22193E210001E70F9 /* WorkLogicOnceParamModel.h in Headers */,
 				2998E1692193E210001E70F9 /* BossAssistantMessageModel.h in Headers */,
 				2998E1672193E210001E70F9 /* ThirdRequest.h in Headers */,
 				2998E15D2193E20F001E70F9 /* NNBAlertView.h in Headers */,
 				2998E1902193E210001E70F9 /* BossOaExamineRequest.h in Headers */,
-				2998E1C12193E210001E70F9 /* OrderTemplateModel.h in Headers */,
 				2998E2092193E210001E70F9 /* CountdownView.h in Headers */,
 				2998E18D2193E210001E70F9 /* OrderModel.h in Headers */,
 				2998E1602193E20F001E70F9 /* NNBLoadingView.h in Headers */,
 				2998E1702193E210001E70F9 /* BossNoticeMessageModel.h in Headers */,
 				2998E1362193E20F001E70F9 /* BossWhiteNavigationController.h in Headers */,
-				2998E1E42193E210001E70F9 /* SalaryComputeDatasetModel.h in Headers */,
-				2998E1C62193E210001E70F9 /* OrderRangeTableModel.h in Headers */,
 				2998E1522193E20F001E70F9 /* JYCPageStyle.h in Headers */,
 				2998E1922193E210001E70F9 /* ExamineOrderModel.h in Headers */,
-				2998E1DF2193E210001E70F9 /* SalaryPlaneModel.h in Headers */,
-				2998E1AE2193E210001E70F9 /* AttendanceComputeLogic.h in Headers */,
 				2998E1A22193E210001E70F9 /* CostAccountingModel.h in Headers */,
 				2998E20B2193E210001E70F9 /* InputCodeView.h in Headers */,
 				2998E19A2193E210001E70F9 /* ExamineFlowRecordModel.h in Headers */,
 				2998E1462193E20F001E70F9 /* NNBButton.h in Headers */,
-				2998E1D92193E210001E70F9 /* QualityMatchFilter.h in Headers */,
 				2998E1682193E210001E70F9 /* BossMessageRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2813,64 +2532,43 @@
 				2998E20A2193E210001E70F9 /* InputPhoneNumberView.m in Sources */,
 				2998E19E2193E210001E70F9 /* CostOrderModel.m in Sources */,
 				2998E2062193E210001E70F9 /* LoginVC.m in Sources */,
-				2998E1E32193E210001E70F9 /* SalaryComputeDatasetModel.m in Sources */,
 				2998E16E2193E210001E70F9 /* BossAssistantMessageModel.m in Sources */,
-				2998E1E12193E210001E70F9 /* IndexInfoModel.m in Sources */,
 				2998E16B2193E210001E70F9 /* CommonMassageModel.m in Sources */,
 				2998E1EC2193E210001E70F9 /* BossMaterialFlowRequest.m in Sources */,
-				2998E1D72193E210001E70F9 /* MultipleParamModel.m in Sources */,
 				2998E1802193E210001E70F9 /* DepartureLogModel.m in Sources */,
 				2998E1472193E20F001E70F9 /* NNBButton.m in Sources */,
 				2998E16D2193E210001E70F9 /* BossNoticeMessageModel.m in Sources */,
 				2998E1FE2193E210001E70F9 /* NNBUploadManager.m in Sources */,
 				2998E1492193E20F001E70F9 /* NNBStatusView.m in Sources */,
-				2998E1CB2193E210001E70F9 /* ManageParamModel.m in Sources */,
-				2998E1BE2193E210001E70F9 /* OrderMatchFilters.m in Sources */,
 				2998E1822193E210001E70F9 /* CityModel.m in Sources */,
 				2998E1512193E20F001E70F9 /* JYCPageView.m in Sources */,
 				2998E18C2193E210001E70F9 /* KnightMaterialModel.m in Sources */,
 				2998E1EE2193E210001E70F9 /* OperationTypes.m in Sources */,
 				2998E15F2193E20F001E70F9 /* BossLoadView.m in Sources */,
-				2998E1B82193E210001E70F9 /* WorkLogicOnceParamModel.m in Sources */,
 				BCBEB1A08AC8CD3820B435A67EF8B34C /* BossCommonClass-dummy.m in Sources */,
-				2998E1BD2193E210001E70F9 /* TemplateDataBasicModel.m in Sources */,
 				2998E1F12193E210001E70F9 /* PermissionModel.m in Sources */,
 				2998E1A92193E210001E70F9 /* BossAccountRequest.m in Sources */,
 				2998E1352193E20F001E70F9 /* BossViewController.m in Sources */,
 				2998E1502193E20F001E70F9 /* JYCContentView.m in Sources */,
 				2998E13B2193E20F001E70F9 /* NNBTextField.m in Sources */,
 				2998E1592193E20F001E70F9 /* UICollectionView+ScrollEdge.m in Sources */,
-				2998E1D82193E210001E70F9 /* RangeParamModel.m in Sources */,
 				2998E1F42193E210001E70F9 /* SupplierModel.m in Sources */,
 				2998E16A2193E210001E70F9 /* EventExtraModel.m in Sources */,
 				2998E1642193E210001E70F9 /* NNBRequestManager.m in Sources */,
-				2998E1B12193E210001E70F9 /* WorkLogicSalaryBaseParamModel.m in Sources */,
-				2998E1CA2193E210001E70F9 /* ManageTemplateModel.m in Sources */,
 				2998E1892193E210001E70F9 /* NNBBasicRequest.m in Sources */,
-				2998E1D12193E210001E70F9 /* QualityMatchFilter.m in Sources */,
 				2998E1752193E210001E70F9 /* BossPayrollRequest.m in Sources */,
-				2998E1BC2193E210001E70F9 /* WorkLogicOrderUnitParamModel.m in Sources */,
-				2998E1C92193E210001E70F9 /* ManageComputeLogic.m in Sources */,
-				2998E1B62193E210001E70F9 /* AttendanceComputeLogic.m in Sources */,
-				2998E1B72193E210001E70F9 /* AttendanceMatchFilter.m in Sources */,
-				2998E1E22193E210001E70F9 /* ComputeDatasetInfoModel.m in Sources */,
 				2998E1FC2193E210001E70F9 /* NNBAccount.m in Sources */,
 				2998E1422193E20F001E70F9 /* NNBBottomAlertView.m in Sources */,
-				2998E1C82193E210001E70F9 /* ManageMatchFilter.m in Sources */,
-				2998E1D42193E210001E70F9 /* QualityTemplateModel.m in Sources */,
 				2998E14E2193E20F001E70F9 /* NotDateEmptyView.m in Sources */,
-				2998E1B52193E210001E70F9 /* AttendanceTemplateModel.m in Sources */,
 				2998E17F2193E210001E70F9 /* BossStaffRequest.m in Sources */,
 				2998E1FB2193E210001E70F9 /* AccountInfoModel.m in Sources */,
 				2998E2082193E210001E70F9 /* CodeView.m in Sources */,
 				2998E13F2193E20F001E70F9 /* NNBLoadStatusView.m in Sources */,
 				2998E19D2193E210001E70F9 /* ExamineOrderModel.m in Sources */,
-				2998E1B02193E210001E70F9 /* OrderVarModel.m in Sources */,
 				2998E1982193E210001E70F9 /* OaHouseContractModel.m in Sources */,
 				2998E15C2193E20F001E70F9 /* NNBAlertView.m in Sources */,
 				2998E16C2193E210001E70F9 /* ApplicationUrgeRecordModel.m in Sources */,
 				2998E2002193E210001E70F9 /* UIView+ShowView.m in Sources */,
-				2998E1C32193E210001E70F9 /* OrderComputeLogic.m in Sources */,
 				2998E1F62193E210001E70F9 /* QHScanManager.m in Sources */,
 				2998E14C2193E20F001E70F9 /* BorderView.m in Sources */,
 				2998E1342193E20F001E70F9 /* BossNavigationController.m in Sources */,
@@ -2879,19 +2577,12 @@
 				2998E2052193E210001E70F9 /* UITabBar+Bage.m in Sources */,
 				2998E1452193E20F001E70F9 /* QHTextField.m in Sources */,
 				2998E1732193E210001E70F9 /* BossMessageRequest.m in Sources */,
-				2998E1E02193E210001E70F9 /* KnightInfoModel.m in Sources */,
-				2998E1AA2193E210001E70F9 /* BossSalaryRuleRequest.m in Sources */,
-				2998E1DB2193E210001E70F9 /* BattleParamModel.m in Sources */,
-				2998E1BB2193E210001E70F9 /* RuleModel.m in Sources */,
 				2998E18B2193E210001E70F9 /* OrderModel.m in Sources */,
 				2998E1792193E210001E70F9 /* StaffInfoModel.m in Sources */,
-				2998E1DA2193E210001E70F9 /* QuaComputeLogic.m in Sources */,
 				2998E1FD2193E210001E70F9 /* ProviderModel.m in Sources */,
 				2998E19F2193E210001E70F9 /* PayeeInfoModel.m in Sources */,
 				2998E1772193E210001E70F9 /* PayrollStatementModel.m in Sources */,
-				2998E1E62193E210001E70F9 /* SalaryPlaneModel.m in Sources */,
 				2998E1612193E20F001E70F9 /* NNBLoadingView.m in Sources */,
-				2998E1C22193E210001E70F9 /* OrderParamsModel.m in Sources */,
 				2998E1402193E20F001E70F9 /* NNBStatusAnimationView.m in Sources */,
 				2998E1762193E210001E70F9 /* PayrollStatementDetailModel.m in Sources */,
 				2998E1A72193E210001E70F9 /* ExamineFlowRecordModel.m in Sources */,
@@ -2899,7 +2590,6 @@
 				2998E1302193E20F001E70F9 /* BossConstDataDefine.m in Sources */,
 				2998E1382193E20F001E70F9 /* BossWhiteNavigationController.m in Sources */,
 				2998E1532193E20F001E70F9 /* JYCTitleView.m in Sources */,
-				2998E1DD2193E210001E70F9 /* LadderModel.m in Sources */,
 				2998E1932193E210001E70F9 /* CostAccountingModel.m in Sources */,
 				2998E1A52193E210001E70F9 /* AccountModel.m in Sources */,
 				2998E1622193E20F001E70F9 /* NNBResponseModel.m in Sources */,
@@ -2916,10 +2606,8 @@
 				2998E1812193E210001E70F9 /* BizDistrictModel.m in Sources */,
 				2998E20D2193E210001E70F9 /* CountdownView.m in Sources */,
 				2998E14A2193E20F001E70F9 /* SignView.m in Sources */,
-				2998E1C52193E210001E70F9 /* OrderTemplateModel.m in Sources */,
 				2998E17C2193E210001E70F9 /* SalaryDataModel.m in Sources */,
 				2998E2022193E210001E70F9 /* UITextView+Placeholder.m in Sources */,
-				2998E1C02193E210001E70F9 /* OrderRangeTableModel.m in Sources */,
 				2998E1912193E210001E70F9 /* BossOaExamineRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
