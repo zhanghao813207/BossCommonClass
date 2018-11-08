@@ -46,6 +46,10 @@ NSString *const BossBasicURLV2 = @"http://192.168.1.109:8081/2.0";
 /*-------------*********移动正式环境公共接口********-------*/
 ///** 正式环境总域名 URL*/
 NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
+
+// 后端明杰 ip
+NSString *const BossBasicURLV2 = @"http://192.168.1.109:8081/2.0";
+
 #endif
 
 #pragma mark -- ACCESS_KEY 和 SECRET_KEY
