@@ -31,24 +31,29 @@
 //NSString *const BossBasicURL = @"http://192.168.1.117:8080/1.0/";
 
 // 后端王清立 ip
-//NSString *const BossBasicURL = @"http://192.168.1.144:8081/1.0/";
+//NSString *const BossBasicURL = @"http://192.168.1.108:8081/1.0/";
+//
+//// 后端王清立 ip
+//NSString *const BossBasicURLV2 = @"http://192.168.1.108:8081/2.0";
 
-// 后端王清立 ip
-//NSString *const BossBasicURLV2 = @"http://192.168.1.144:8081/2.0";
+//// 后端明杰 ip
+//NSString *const BossBasicURL = @"http://192.168.1.139:8081/1.0/";
+//
+//// 后端明杰 ip
+//NSString *const BossBasicURLV2 = @"http://192.168.1.139:8081/2.0";
 
-// 后端明杰 ip
-NSString *const BossBasicURL = @"http://192.168.1.109:8081/1.0/";
+// 测试环境 ip
+NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 
-// 后端明杰 ip
-NSString *const BossBasicURLV2 = @"http://192.168.1.109:8081/2.0";
+// 测试环境 ip
+NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
 ///** 正式环境总域名 URL*/
 NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
 
-// 后端明杰 ip
-NSString *const BossBasicURLV2 = @"http://192.168.1.109:8081/2.0";
+NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0";
 
 #endif
 

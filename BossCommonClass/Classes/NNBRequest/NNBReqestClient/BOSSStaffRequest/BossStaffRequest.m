@@ -171,4 +171,34 @@
         failBlock(error);
     }];
 }
+
+/**
+ 获取骑士标签列表
+ 
+ @param successBlock 成功
+ @param failBlock 服务器响应失败
+ */
++ (void)staffRequestFindStaffTagSuccess:(void(^)(NSArray <StaffTagModel *>*staffTagList))successBlock fail:(void(^)(id error))failBlock
+{
+    NSDictionary *paramDic = @{
+                               @"_meta":@{
+                                       @"page":@(1),
+                                       @"limit":@(500),
+                                       },
+                               };
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff_tag.find" success:^(id responseObject) {
+        if (!successBlock) {
+            return;
+        }
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *tagDic in responseObject[@"data"]) {
+            StaffTagModel *model = [[StaffTagModel alloc] init];
+            [model setValuesForKeysWithDictionary:tagDic];
+            [array addObject:model];
+        }
+        successBlock([array copy]);
+    } fail:^(id error) {
+        DLog(@"payrollerror = %@",error);
+    }];
+}
 @end

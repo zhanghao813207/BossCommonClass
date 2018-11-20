@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
+#import "MoneyDetailItemModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SalaryDataModel : NSObject
@@ -123,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  骑士补款
  */
-@property (nonatomic, assign) NSInteger knight_payment;
+@property (nonatomic, strong) NSArray <MoneyDetailItemModel *>*knight_payment;
 
 /**
  特殊时段补贴
@@ -181,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  骑士扣款
  */
-@property (nonatomic, assign) NSInteger knight_deduction;
+@property (nonatomic, strong) NSArray <MoneyDetailItemModel *>*knight_deduction;
 /**
  平台线下罚款
  */
@@ -241,7 +243,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  人事扣款
  */
-@property (nonatomic, assign) NSInteger adjustment_hr_dec_money;
+@property (nonatomic, strong) NSArray <MoneyDetailItemModel *>*adjustment_hr_dec_money;
 /**
  实扣装备扣款
  */
@@ -249,7 +251,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  实扣三方扣款
  */
-@property (nonatomic, assign) NSInteger real_tripartite_deduction;
+//@property (nonatomic, assign) NSInteger adjustment_hr_dec_money;
 
 /**
  实扣装备保证金

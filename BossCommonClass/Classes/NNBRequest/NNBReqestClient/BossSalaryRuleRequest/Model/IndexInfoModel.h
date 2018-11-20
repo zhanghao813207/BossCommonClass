@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *version;
 
+@property (nonatomic, strong) NSString *unitString;
 
 @end
 

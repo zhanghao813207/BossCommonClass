@@ -19,13 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray *bank_location;
 
-@property (nonatomic, strong) NSArray *biz_district_list;
+@property (nonatomic, strong) NSArray *biz_district_names;
 
 @property (nonatomic, strong) NSArray *city_spelling_list;
 
 @property (nonatomic, strong) NSString *contract_belong_id;
-
-@property (nonatomic, strong) NSArray *biz_district_names;
 
 @property (nonatomic, strong) NSArray *city_names;
 
@@ -51,6 +49,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger recruitment_channel_id;
 
 @property (nonatomic, assign) NSInteger state;
+
+@property (nonatomic, strong) NSString *postionString;
+
+@property (nonatomic, strong) NSString *stateString;
+
+@property (nonatomic, strong) NSString *contract_belong_name;
+
+@property (nonatomic, assign) STAFFWORKTYPE work_type;
 
 @end
 

@@ -20,6 +20,13 @@
         self.data = model;
         return;
     }
+    
+    if ([key isEqualToString:@"staff_info"]) {
+        StaffInfoModel *model = [[StaffInfoModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.staff_info = model;
+        return;
+    }
         
     [super setValue:value forKey:key];
 }

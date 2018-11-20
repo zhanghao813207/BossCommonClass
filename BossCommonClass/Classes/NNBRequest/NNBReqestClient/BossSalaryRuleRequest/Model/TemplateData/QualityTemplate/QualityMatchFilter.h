@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  骑士分类 100:全部, 1:新骑士, 2:老骑士
  */
-@property (nonatomic, strong) NSArray *knight_type;
+@property (nonatomic, assign) NSInteger knight_type;
 
 /**
  骑士标签（分组）100:全部, 其他枚举值调接口
@@ -25,12 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  当月在离职 100:全部, 1:当月在职, 2:当月离职
  */
-@property (nonatomic, strong) NSArray *state;
+@property (nonatomic, assign) NSInteger state;
 
 /**
  质量类型 1： 单人考核 2 竞赛评比
  */
-@property (nonatomic, strong) NSArray *quality_type;
+@property (nonatomic, assign) NSInteger quality_type;
 
 /**
  订单指标
@@ -60,6 +60,21 @@ NS_ASSUME_NONNULL_BEGIN
  排序类型 1:从小到大, 2:从大到小
  */
 @property (nonatomic, assign) NSInteger sort_index_type;
+
+/**
+  数据统计时间 1：按天，2：按月
+ */
+@property (nonatomic, strong) NSString *statistics_time_type_string;
+
+/**
+ 评比范围 1:商圈, 2:城市
+ */
+@property (nonatomic, strong) NSString *sort_scope_string;
+
+/**
+ 排序类型 1:从小到大, 2:从大到小
+ */
+@property (nonatomic, strong) NSString *sort_index_type_string;
 
 
 @end

@@ -20,6 +20,9 @@
  */
 + (void)msgRequestGetSysChannelMessageWithPage:(NSInteger)page limit:(NSInteger)limmit success:(void(^)(NSArray <BossNoticeMessageModel *>*msgList))successBlock fail:(void(^)(id error))failBlock
 {
+    if (!kCurrentBossAccount.account_id) {
+        return;
+    }
     NSString *url = [NSString stringWithFormat:@"%@message_bus/sys_channel",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"_meta":@{
@@ -59,6 +62,9 @@
  */
 + (void)msgRequestGetBaChannelMessageWithPage:(NSInteger)page limit:(NSInteger)limmit success:(void(^)(NSArray <BossAssistantMessageModel *>*msgList))successBlock fail:(void(^)(id error))failBlock
 {
+    if (!kCurrentBossAccount.account_id) {
+        return;
+    }
     NSString *url = [NSString stringWithFormat:@"%@message_bus/ba_channel",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"_meta":@{

@@ -33,4 +33,17 @@
     
 }
 
+- (NSString *)logicString
+{
+    if (!_logicString) {
+        if ([self.unit_day isEqualToString:@"attendance_days"]) {
+            _logicString = [NSString stringWithFormat:@"出勤天数*%ld",self.unit_money];
+        } else {
+            _logicString = [NSString stringWithFormat:@"在职天数*%ld",self.unit_money];
+        }
+    }
+    return _logicString;
+
+}
+
 @end

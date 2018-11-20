@@ -37,7 +37,7 @@
 //    }];
     
     
-//    [BossPayrollRequest payrollFindWithPlatform:@"elem" supplierId:@[@"5a62f3dfce6d2a295a472022"] city:@[@"beijing_elem"] workType:@[@(3001)] state:@[@(50)] success:^(NSArray * _Nonnull payrollStatementArray) {
+//    [BossPayrollRequest payrollFindWithPlatform:@"elem" supplierId:@[@"ww"] city:@[@"beijing_elem"] workType:@[@(3001)] state:@[@(50)] success:^(NSArray * _Nonnull payrollStatementArray) {
 //
 //    } fail:^(id  _Nonnull error) {
 //

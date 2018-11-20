@@ -27,13 +27,13 @@
     NSDictionary *paramDic = @{
                                @"_meta":@{
                                        @"page":@(1),
-                                       @"limit":@(2),
+                                       @"limit":@(1),
                                        },
                                @"platform_code":platform,
                                @"supplier_id":supplierIds,
                                @"city_code":citycode,
-//                               @"work_type":work_types,
-//                               @"state":state,
+                               @"work_type":work_types,
+                               @"state":state,
                                };
     [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll_statement.find" success:^(id responseObject) {
         if (!successBlock) {
@@ -64,16 +64,18 @@
  */
 + (void)payrollFindPayrollWithPage:(NSInteger)page statementId:(NSString *)payrollStatementId bizDistrictId:(NSString *)bizDistrictId name:(NSString *)staffName paySalaryState:(PaySalaryState)pay_salary_state success:(void (^)(BOOL hasMore, NSArray <PayrollStatementDetailModel *>*payroll_list))successBlock fail:(void(^)(id error))failBlock
 {
-    NSDictionary *paramDic = @{
-                               @"_meta":@{
-                                       @"page":@(page),
-                                       @"limit":@(30),
-                                       },
-                               @"salary_statement_id":payrollStatementId,
-//                               @"biz_district_id":bizDistrictId,
-//                               @"name":staffName,
-//                               @"pay_salary_state":@(pay_salary_state),
-                               };
+    NSMutableDictionary *paramDic = @{
+                                      @"_meta":@{
+                                              @"page":@(page),
+                                              @"limit":@(30),
+                                              },
+                                      @"salary_statement_id":payrollStatementId,
+//                                    @"name":staffName,
+                                      @"pay_salary_state":@(pay_salary_state),
+                                      }.mutableCopy;
+    if (bizDistrictId) {
+        [paramDic setObject:bizDistrictId forKey:@"salary_statement_id"];
+    }
     [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll.find" success:^(id responseObject) {
         if (!successBlock) {
             return;

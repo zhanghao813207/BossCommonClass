@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NNBAccount.h"
+#import "StaffTagModel.h"
 
 @interface BossStaffRequest : NSObject
 
@@ -27,5 +28,14 @@
  @param failBlock 服务器响应失败
  */
 + (void)staffRequestUpdateStaffInfoWithStaffInfo:(NNBAccount *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock;
+
+
+/**
+ 获取骑士标签列表
+
+ @param successBlock 成功
+ @param failBlock 服务器响应失败
+ */
++ (void)staffRequestFindStaffTagSuccess:(void(^)(NSArray <StaffTagModel *>*staffTagList))successBlock fail:(void(^)(id error))failBlock;
 
 @end

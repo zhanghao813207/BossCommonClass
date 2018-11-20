@@ -23,4 +23,17 @@
     
 }
 
+- (NSString *)indexString
+{
+    return @"好评单";
+}
+
+- (NSString *)numberString
+{
+    if (!_numberString) {
+        _numberString = [NSString stringWithFormat:@"%@    %@",self.symbol,self.num];
+    }
+    return _numberString;
+}
+
 @end

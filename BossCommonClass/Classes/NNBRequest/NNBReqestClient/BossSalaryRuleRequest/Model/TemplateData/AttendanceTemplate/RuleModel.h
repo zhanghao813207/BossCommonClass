@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *num;
 
+@property (nonatomic, strong) NSString *indexString;
+
+@property (nonatomic, strong) NSString *numberString;
+
+
 
 @end
 

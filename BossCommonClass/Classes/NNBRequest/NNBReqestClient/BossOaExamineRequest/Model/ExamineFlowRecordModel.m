@@ -58,7 +58,13 @@
         self.flow_node_info = model;
         return;
     }
-
+    
+    if ([key isEqualToString:@"account_info"]) {
+        AccountModel *model = [[AccountModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.account_info = model;
+        return;
+    }
     
     [super setValue:value forKey:key];
 }

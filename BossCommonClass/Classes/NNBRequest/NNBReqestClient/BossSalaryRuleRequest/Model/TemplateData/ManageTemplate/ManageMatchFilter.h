@@ -11,6 +11,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ManageMatchFilter : NSObject
 
+/**
+ [1], # 物资|保险 管理类型1：物资扣款，2：保险扣款
+ */
+@property (nonatomic, assign) NSInteger biz_cate;
+
+/**
+ 明细项
+ */
+@property (nonatomic, assign) NSInteger biz_cate_item;
+
+
 #pragma mark -- 物资扣款
 /**
  订单指标

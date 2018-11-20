@@ -21,15 +21,23 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *supplier_id;
 
+@property (nonatomic, strong) NSString *supplier_name;
+
+
 /**
  平台code
  */
 @property (nonatomic, strong) NSString *platform_code;
 
+@property (nonatomic, strong) NSString *platform_name;
+
+
 /**
  城市code
  */
-@property (nonatomic, assign) NSInteger city_code;
+@property (nonatomic, strong) NSString *city_code;
+
+@property (nonatomic, strong) NSString *city_name;
 
 /**
  商圈ID
@@ -46,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) PayrooCycleType payroll_cycle_type;
 
+@property (nonatomic, assign) NSInteger cycle_interval;
+
+
 /**
  薪资计划id
  */
@@ -61,6 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
  职位id
  */
 @property (nonatomic, assign) PositionID position_id;
+
+@property (nonatomic, strong) NSString *position_name;
+
 
 /**
  总单量
@@ -203,6 +217,18 @@ NS_ASSUME_NONNULL_BEGIN
  更新时间
  */
 @property (nonatomic, strong) NSString *updated_at;
+
+/**
+ 工作性质 字符串
+ */
+@property (nonatomic, strong) NSString *workTypeString;
+
+/**
+ 薪资计算描述
+ */
+@property (nonatomic, strong) NSString *payroll_cycle_string;
+
+
 
 @end
 

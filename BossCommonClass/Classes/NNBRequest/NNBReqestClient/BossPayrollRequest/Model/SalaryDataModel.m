@@ -15,6 +15,39 @@
         return;
     }
     
+    if ([key isEqualToString:@"knight_payment"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            MoneyDetailItemModel *model = [[MoneyDetailItemModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.knight_payment = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"knight_deduction"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            MoneyDetailItemModel *model = [[MoneyDetailItemModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.knight_deduction = [array copy];
+        return;
+    }
+
+    if ([key isEqualToString:@"adjustment_hr_dec_money"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            MoneyDetailItemModel *model = [[MoneyDetailItemModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.adjustment_hr_dec_money = [array copy];
+        return;
+    }
+
     [super setValue:value forKey:key];
 }
 

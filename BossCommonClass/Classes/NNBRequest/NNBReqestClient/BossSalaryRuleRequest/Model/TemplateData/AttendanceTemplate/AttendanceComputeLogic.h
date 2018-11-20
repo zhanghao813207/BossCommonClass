@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WorkLogicSalaryBaseParamModel *by_salary_base_params;
 
+@property (nonatomic, strong) NSString *subsidyString;
+
 @end
 
 NS_ASSUME_NONNULL_END

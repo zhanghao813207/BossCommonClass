@@ -21,9 +21,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger match_type;
 
 /**
- 条件规则
+ 出勤天数
  */
+@property (nonatomic, assign) NSInteger attendance_days;
+
+/**
+ 在职天数
+ */
+@property (nonatomic, assign) NSInteger work_days;
+
+/**
+ 骑士标签
+ */
+@property (nonatomic, strong) NSArray *knight_tags;
+
 @property (nonatomic, strong) NSArray <RuleModel *>*rules;
+
 
 #pragma mark --  满足单条件
 

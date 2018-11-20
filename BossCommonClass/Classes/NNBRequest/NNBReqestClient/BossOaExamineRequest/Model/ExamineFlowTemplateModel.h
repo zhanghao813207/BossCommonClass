@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BossBasicDefine.h"
 @interface ExamineFlowTemplateModel : NSObject
 
 /**
@@ -19,6 +19,10 @@
  */
 @property (nonatomic, strong) NSString *name;
 
+/**
+ 业务类型 1成本 90非成本
+ */
+@property (nonatomic, assign) ExamineFlowBizType biz_type;
 
 
 @end

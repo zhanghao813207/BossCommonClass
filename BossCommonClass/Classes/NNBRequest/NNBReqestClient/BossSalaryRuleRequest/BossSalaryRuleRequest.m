@@ -90,6 +90,7 @@
                                        },
                                @"rule_collection_id":ruleCollectionId,
                                @"collection_cate":@(collection_cate),
+                               @"state":@(100),
                                };
     [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"salary.salary_rule.find" success:^(id responseObject) {
         if (!successBlock) {

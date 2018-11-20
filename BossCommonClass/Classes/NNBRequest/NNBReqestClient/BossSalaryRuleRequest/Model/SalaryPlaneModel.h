@@ -8,8 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
 #import "ComputeDatasetInfoModel.h"
-#import "KnightInfoModel.h"
-
+#import "SalaryComputeDatasetModel.h"
+#import "SalaryCompute/TemplateRuleModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SalaryPlaneModel : NSObject
@@ -84,9 +84,37 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  试算数据
  */
-@property (nonatomic, strong) ComputeDatasetInfoModel *compute_dataset_info;
+@property (nonatomic, strong) ComputeDatasetInfoModel *compute_data_set;
 
-@property (nonatomic, strong) KnightInfoModel *knight_info;
+@property (nonatomic, strong) SalaryComputeDatasetModel *compute_task_info;
+
+/**
+ 是否允许试算
+ */
+@property (nonatomic, assign) BOOL can_allow_compute;
+
+/**
+ 是否可以编辑
+ */
+@property (nonatomic, assign) BOOL can_allow_edit;
+
+/**
+ 城市名字
+ */
+@property (nonatomic, strong) NSString *oa_application_order_id;
+
+@property (nonatomic, strong) NSString *platform_name;
+
+@property (nonatomic, strong) NSString *salary_var_plan_id;
+
+@property (nonatomic, strong) NSString *salary_var_plan_version_id;
+
+@property (nonatomic, strong) NSString *supplier_name;
+
+@property (nonatomic, strong) NSArray <TemplateRuleModel *>*rules_list;
+
+@property (nonatomic, strong) NSString *computeMonth;
+
 
 @end
 

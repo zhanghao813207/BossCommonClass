@@ -12,6 +12,8 @@
 #import "ExamineFlowRecordModel.h"
 #import "CostOrderModel.h"
 #import "ExamineFlowNodeModel.h"
+#import "SalaryPlaneModel.h"
+#import "PayrollStatementModel.h"
 
 @interface ExamineOrderModel : NSObject
 
@@ -191,5 +193,21 @@
  消费单列表
  */
 @property (nonatomic, strong) NSArray <CostOrderModel *> *cost_order_list;
+
+/**
+ 薪资方案版本
+ */
+@property (nonatomic, strong) NSString *salary_plan_version_id;
+
+@property (nonatomic, strong) SalaryPlaneModel *salary_plan_version_info;
+
+/**
+ 薪资单版本
+ */
+@property (nonatomic, strong) NSString *payroll_statement_id;
+
+@property (nonatomic, strong) PayrollStatementModel *payroll_statement_info;
+
+
 
 @end

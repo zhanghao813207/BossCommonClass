@@ -16,7 +16,7 @@
  @param successBlock 返回审批列表
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(NSArray <ExamineOrderModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
++ (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(BOOL hasMore, NSArray <ExamineOrderModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
 {
     NSString *url = [NSString stringWithFormat:@"%@oa_application_order/find",BossBasicURL];
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -115,7 +115,7 @@
             [model setValuesForKeysWithDictionary:dataDic];
             [array addObject:model];
         }
-        successBlock([array copy]);
+        successBlock([responseObject[@"_meta"][@"has_more"] boolValue],[array copy]);
     } fail:^(id error) {
         if(failBlock){
             failBlock(error);
@@ -133,13 +133,12 @@
  */
 + (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId showError:(BOOL)showError successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/get",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"id":examineId,
                                };
     NSLog(@"paramDic = %@",paramDic);
     if (showError) {
-        [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+        [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             if (!successBlock) {
                 return;
@@ -154,7 +153,7 @@
             }
         }];
     } else {
-        [NNBBasicRequest postJsonNativeWithUrl:url parameters:paramDic cmd:nil success:^(id responseObject) {
+        [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             if (!successBlock) {
                 return;

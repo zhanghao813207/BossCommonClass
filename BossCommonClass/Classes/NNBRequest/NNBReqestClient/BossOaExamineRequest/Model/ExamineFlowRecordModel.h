@@ -77,6 +77,9 @@
  */
 @property (nonatomic, strong) NSArray <AccountModel *>*operate_account_list;
 
+@property (nonatomic, strong) AccountModel *account_info;
+
+
 /**
  审批流程节点摘要
  */

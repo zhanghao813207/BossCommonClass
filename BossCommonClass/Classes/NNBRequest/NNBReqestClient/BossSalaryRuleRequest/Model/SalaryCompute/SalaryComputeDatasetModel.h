@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
 #import "ComputeDatasetInfoModel.h"
-
+#import "StaffInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SalaryComputeDatasetModel : NSObject
@@ -103,6 +103,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *created_at;
 
+@property (nonatomic, strong) NSString *platform_name;
+
+@property (nonatomic, assign) NSInteger state;
+
+@property (nonatomic, strong) NSString *supplier_name;
+
+@property (nonatomic, strong) NSString *to_date;
+
+@property (nonatomic, strong) NSString *updated_at;
+
+@property (nonatomic, strong) StaffInfoModel *staff_info;
 
 @end
 

@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) NSInteger inc_unit_money;
 
+@property (nonatomic, strong) NSString *orderUnitTypeString;
 @end
 
 NS_ASSUME_NONNULL_END

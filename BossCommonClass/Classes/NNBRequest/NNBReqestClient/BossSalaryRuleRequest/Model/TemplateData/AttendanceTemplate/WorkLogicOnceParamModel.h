@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger once_money;
 
+@property (nonatomic, assign) BOOL auto_inc_option;
+
 /**
  是否扣款
  */

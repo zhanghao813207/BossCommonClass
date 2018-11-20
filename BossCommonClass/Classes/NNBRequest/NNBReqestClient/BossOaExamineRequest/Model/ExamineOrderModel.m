@@ -103,6 +103,21 @@
         return;
     }
     
+    if ([key isEqualToString:@"salary_plan_version_info"]) {
+        SalaryPlaneModel *model = [[SalaryPlaneModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.salary_plan_version_info = model;
+        return;
+    }
+
+    if ([key isEqualToString:@"payroll_statement_info"]) {
+        PayrollStatementModel *model = [[PayrollStatementModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.payroll_statement_info = model;
+        return;
+    }
+
+    
     [super setValue:value forKey:key];
 }
 

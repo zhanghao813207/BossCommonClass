@@ -229,4 +229,9 @@ typedef NS_ENUM(NSUInteger, SalaryComputeTaskType) {
     SalaryComputeTaskTypeCity          = 3,  // 城市
 };
 
+typedef NS_ENUM(NSUInteger, ExamineFlowBizType) {
+    ExamineFlowBizTypeCost    =  1, // 成本
+    ExamineFlowBizTypeNoCost  = 90, // 非成本
+};
+
 #endif /* BossEnumDefin_h */

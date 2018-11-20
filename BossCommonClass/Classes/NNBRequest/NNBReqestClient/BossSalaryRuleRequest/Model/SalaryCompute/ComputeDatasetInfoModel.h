@@ -21,6 +21,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger total_manage;
 
+
+#pragma mark -- 薪资方案
+/**
+ 完成单量
+ */
+@property (nonatomic, assign) NSInteger done_order;
+
+/**
+ 管理总金额
+ */
+@property (nonatomic, assign) NSInteger management_amount;
+
+/**
+ 单量总额
+ */
+@property (nonatomic, assign) NSInteger total_order;
+
+/**
+ 试算总金额
+ */
+@property (nonatomic, assign) NSInteger trial_calculation_amount;
+
+/**
+ 补贴总金额
+ */
+@property (nonatomic, assign) NSInteger subsidy_amount;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

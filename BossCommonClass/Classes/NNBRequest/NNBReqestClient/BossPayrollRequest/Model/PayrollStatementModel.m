@@ -23,5 +23,36 @@
     
 }
 
+- (NSString *)workTypeString
+{
+    switch (self.work_type) {
+            case STAFFWORKTYPEFULLTIME:
+            _workTypeString = @"全职";
+            break;
+            case STAFFWORKTYPEPARTTIME:
+            _workTypeString = @"兼职";
+            break;
+        default:
+            _workTypeString = @"未知";
+            break;
+    }
+    return _workTypeString;
+}
+
+- (NSString *)payroll_cycle_string
+{
+    switch (self.payroll_cycle_type) {
+            case PayrooCycleTypeMonth:
+            _payroll_cycle_string = [NSString stringWithFormat:@"按月/%ld月",self.cycle_interval];
+            break;
+            case PayrooCycleTypeDay:
+            _payroll_cycle_string = [NSString stringWithFormat:@"按日/%ld日",self.cycle_interval];
+            break;
+        default:
+            _payroll_cycle_string = @"未知";
+            break;
+    }
+    return _payroll_cycle_string;
+}
 
 @end
