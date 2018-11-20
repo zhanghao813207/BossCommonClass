@@ -9,7 +9,8 @@
 #import "BossBasicDefine.h"
 #import "ComputeDatasetInfoModel.h"
 #import "SalaryComputeDatasetModel.h"
-#import "SalaryCompute/TemplateRuleModel.h"
+#import "TemplateRuleModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SalaryPlaneModel : NSObject
