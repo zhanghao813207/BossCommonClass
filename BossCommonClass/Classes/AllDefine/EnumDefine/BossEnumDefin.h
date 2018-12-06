@@ -234,4 +234,10 @@ typedef NS_ENUM(NSUInteger, ExamineFlowBizType) {
     ExamineFlowBizTypeNoCost  = 90, // 非成本
 };
 
+typedef enum : NSUInteger {
+    BossRed,
+    BossYellow,
+    BossBlue,
+} BossColor;
+
 #endif /* BossEnumDefin_h */
