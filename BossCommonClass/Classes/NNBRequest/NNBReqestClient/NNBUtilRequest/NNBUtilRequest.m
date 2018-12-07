@@ -24,23 +24,25 @@
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
-    NSLog(@"%@",BossBasicURL);
+    
     NSMutableDictionary *paraDic = @{
                               @"phone":phoneNumber,
                               @"if_voice":@(NO)
                               }.mutableCopy;
+    
     if (smsType == NNBSendSMSTypeChangePhoneNumber) {
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
     }
+    
     if (begainSendBlock) {
         begainSendBlock();
     }
-    [NNBBasicRequest getLoginJsonWithUrl:url parameters:paraDic CMD:nil success:^(id responseObject) {
+    
+    // 执行发送验证码请求
+    [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
-
     } fail:^(id error) {
         if (failBlock) {
             failBlock();
@@ -60,19 +62,21 @@
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-    NSString *url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
+
     NSMutableDictionary *paraDic = @{
                                      @"phone":phoneNumber,
                                      @"if_voice":@(YES)
                                      }.mutableCopy;
+    
     if (smsType == NNBSendSMSTypeChangePhoneNumber) {
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
     }
-    [NNBBasicRequest getLoginJsonWithUrl:url parameters:paraDic CMD:nil success:^(id responseObject) {
+    
+    // 执行发送验证码请求
+    [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
-        
     } fail:^(id error) {
         if (failBlock) {
             failBlock();
@@ -106,6 +110,62 @@
     } fail:^(id error) {
         
     }];
+}
+
+
+/**
+ 发送验证码请求
+
+ @param url 请求url
+ @param parameters 请求参数
+ @param cmd 请求cmd
+ @param success 请求成功回调
+ @param fail 请求失败回调
+ */
++ (void)requestSmsCode:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail{
+#ifdef kBossKnight
+    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+#else
+    [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+#endif
+}
+
+/**
+ 获取请求url,区分Boss骑士和Boss之家
+
+ @return 请求url
+ */
++ (NSString *)urlReuest
+{
+    NSString *url;
+    
+#ifdef kBossKnight
+    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
+#elif defined kBossManager
+    url = BossBasicURLV2;
+#else
+    url = BossBasicURLV2;
+#endif
+    return url;
+}
+
+/**
+ 获取请求cmd，区分Boss骑士和Boss之家
+ 
+ @return cmd字符串
+ */
++ (NSString *)cmdRequest
+{
+    NSString *cmd;
+    
+#ifdef kBossKnight
+    cmd = nil;
+#elif defined kBossManager
+    cmd = @"auth.auth.send_verify_code";
+#else
+    cmd = @"auth.auth.send_verify_code";
+#endif
+    return cmd;
 }
 
 

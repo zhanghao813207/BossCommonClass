@@ -25,22 +25,14 @@
     if (!phoneNumber || !authCode) {
         return;
     }
-    
-#ifdef kBossKnight
-    NSString *url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
-#elif defined kBossManager
-    NSString *url = [NSString stringWithFormat:@"%@auth/login",BossBasicURL];
-#else
-    NSString *url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
-#endif
-
 
     NSDictionary *paramDic = @{
                                @"phone":phoneNumber,
                                @"verify_code":authCode,
                                @"app_code":APPCODE
                                };
-    [NNBBasicRequest postLoginJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postLoginJsonWithUrl:[self urlReuest] parameters:paramDic CMD:[self cmdRequest] success:^(id responseObject) {
 #ifdef kBossKnight
         if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
             kCurrentAccount.isNeedUpdate = NO;
@@ -85,6 +77,45 @@
             fail(error);
         }
     }];
+}
+
+/**
+ 获取请求url,区分Boss骑士和Boss之家
+ 
+ @return 请求url
+ */
++ (NSString *)urlReuest
+{
+    NSString *url;
+    
+#ifdef kBossKnight
+    url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
+#elif defined kBossManager
+    url = BossBasicURLV2;
+#else
+    url = BossBasicURLV2;
+#endif
+    return url;
+}
+
+
+/**
+ 获取登陆cmd，区分Boss骑士和Boss之家
+
+ @return cmd字符串
+ */
++ (NSString *)cmdRequest
+{
+    NSString *cmd;
+    
+#ifdef kBossKnight
+    cmd = nil;
+#elif defined kBossManager
+    cmd = @"auth.auth.login";
+#else
+    cmd = nil;
+#endif
+    return cmd;
 }
 
 @end
