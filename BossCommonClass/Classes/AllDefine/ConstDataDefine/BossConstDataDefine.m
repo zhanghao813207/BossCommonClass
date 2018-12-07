@@ -31,10 +31,10 @@
 //NSString *const BossBasicURL = @"http://192.168.1.117:8080/1.0/";
 
 // 后端王清立 ip
-//NSString *const BossBasicURL = @"http://192.168.1.108:8081/1.0/";
+NSString *const BossBasicURL = @"http://192.168.1.108:8081/1.0/";
 //
 //// 后端王清立 ip
-//NSString *const BossBasicURLV2 = @"http://192.168.1.108:8081/2.0";
+NSString *const BossBasicURLV2 = @"http://192.168.1.108:8081/2.0";
 
 //// 后端明杰 ip
 //NSString *const BossBasicURL = @"http://192.168.1.139:8081/1.0/";
@@ -43,10 +43,10 @@
 //NSString *const BossBasicURLV2 = @"http://192.168.1.139:8081/2.0";
 
 // 测试环境 ip
-NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
+// NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 
 // 测试环境 ip
-NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
+//NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
@@ -63,8 +63,10 @@ NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0";
 #ifdef kBossKnight
 
     #ifdef DEBUG
-    NSString *const ACCESS_KEY = @"5aab926e14fef90e81eba4e5";
-    NSString *const SECRET_KEY = @"5aab926e14fef90e81eba4e6";
+    // NSString *const ACCESS_KEY = @"5aab926e14fef90e81eba4e5";
+    // NSString *const SECRET_KEY = @"5aab926e14fef90e81eba4e6";
+    NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
+    NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
     #else
     NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
     NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
