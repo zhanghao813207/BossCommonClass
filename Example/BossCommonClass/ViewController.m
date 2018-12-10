@@ -72,8 +72,13 @@
 //    }];
     
 //
-//    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+//    [NNBAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+//
 //    } withController:self];
+    
+    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+        
+    } withController:self];
     
 //    [BossMessageRequest msgRequestGetBaChannelMessageWithPage:1 limit:30 success:^(NSArray<BossAssistantMessageModel *> *msgList) {
 //
