@@ -18,16 +18,16 @@
  */
 + (void)OaExamineRequestGetExamineListWithType:(MOBILE_EXAMINE_TYPES)type page:(NSInteger)page successBlock:(void(^)(BOOL hasMore, NSArray <ExamineOrderModel *>*examineFlowList))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/find",BossBasicURL];
-    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                    @"_meta":@{
-                                                                                            @"page":@(page),
-                                                                                            @"limit":@(30),
-                                                                                            @"sort":@{
-                                                                                                    @"submit_at":@(-1),
-                                                                                                    }
-                                                                                            }
-                                                                                    }];
+    // 分页信息
+    NSDictionary *meta = @{
+                           @"page":@(page),
+                           @"limit":@(30),
+                           @"sort":@{
+                                   @"submit_at":@(-1)
+                                   }
+                           };
+    
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:meta];
     NSArray *stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
     switch (type) {
         case MOBILE_WAIT_EXAMINE:
@@ -104,8 +104,8 @@
             break;
     }
     
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-//        DLog(@"%@", responseObject);
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.find" success:^(id responseObject) {
+        DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
         }
@@ -136,7 +136,6 @@
     NSDictionary *paramDic = @{
                                @"id":examineId,
                                };
-    NSLog(@"paramDic = %@",paramDic);
     if (showError) {
         [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
@@ -171,42 +170,7 @@
 }
 
 /**
- 费用单列表
- 
- @param page 页码
- @param successBlock 返回费用单列表
- @param failBlock 服务器响应失败
- */
-+ (void)OaExamineRequestGetCostOrderListWithPage:(NSInteger)page successBlock:(void(^)(NSArray <CostOrderModel *>*costOrderList))successBlock fail:(void(^)(id error))failBlock
-{
-    NSString *url = [NSString stringWithFormat:@"%@oa_cost_order/find",BossBasicURL];
-    NSDictionary *paramDic = @{
-                               @"_meta":@{
-                                       @"page":@(page),
-                                       @"limit":@(30),
-                                       }
-                               };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
-        if (!successBlock) {
-            return;
-        }
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary* dataDic in responseObject[@"data"]) {
-            CostOrderModel *model = [[CostOrderModel alloc] init];
-            [model setValuesForKeysWithDictionary:dataDic];
-            [array addObject:model];
-        }
-        successBlock([array copy]);
-    } fail:^(id error) {
-        if(failBlock){
-            failBlock(error);
-        }
-    }];
-}
-
-/**
- 查看费用申请单详情
+ 费用申请单详情
  
  @param orderId 申请单id
  @param successBlock 成功的回调
@@ -214,11 +178,11 @@
  */
 + (void)OaApplyOrderDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(CostOrderModel *applyOrder))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_cost_order/get",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"id":orderId,
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.cost_order.get" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -245,7 +209,6 @@
  */
 + (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/approve",BossBasicURL];
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"order_id":examineOrderId,
                                                                                     @"order_record_id":recordId,
@@ -253,7 +216,8 @@
     if (![JYCSimpleToolClass stringIsEmpty:note]) {
         [paramDic setObject:note forKey:@"note"];
     }
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -278,7 +242,6 @@
  */
 + (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/reject",BossBasicURL];
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                @"order_id":examineOrderId,
                                @"order_record_id":recordId,
@@ -289,7 +252,33 @@
     if (![JYCSimpleToolClass stringIsEmpty:rejectNodeId]) {
         [paramDic setObject:rejectNodeId forKey:@"reject_to_node_id"];
     }
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        successBlock([responseObject[@"ok"] boolValue]);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ 催办操作
+ 
+ @param examineId 汇总单ID
+ @param successBlock 成功的回调
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestUrgedWithExamineId:(NSString *)examineId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
+{
+    NSDictionary *paramDic = @{
+                               @"order_id":examineId,
+                               };
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.urge" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -314,7 +303,6 @@
  */
 + (void)OaExamineRequestMarkPaidWithOrderId:(NSString *)orderId orderRecordId:(NSString *)orderRecordId paidState:(PAY_STATE)payState note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/mark_paid",BossBasicURL];
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"order_id":orderId,
                                                                                     @"order_record_id":orderRecordId,
@@ -323,33 +311,8 @@
     if (![JYCSimpleToolClass stringIsEmpty:note]) {
         [paramDic setObject:note forKey:@"note"];
     }
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-        DLog(@"%@", responseObject);
-        if (!successBlock) {
-            return;
-        }
-        successBlock([responseObject[@"ok"] boolValue]);
-    } fail:^(id error) {
-        if(failBlock){
-            failBlock(error);
-        }
-    }];
-}
-
-/**
- 催办操作
- 
- @param examineId 汇总单ID
- @param successBlock 成功的回调
- @param failBlock 服务器响应失败
- */
-+ (void)OaExamineRequestUrgedWithExamineId:(NSString *)examineId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
-{
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/urge",BossBasicURL];
-    NSDictionary *paramDic = @{
-                               @"order_id":examineId,
-                               };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.mark_paid" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -372,12 +335,12 @@
  */
 + (void)OaExamineRequestGetUrgeDetailWithUrgeId:(NSString *)urgeId orderRecordId:(NSString *)recordId success:(void(^)(ApplicationUrgeRecordModel *urgeRecordModel))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@oa_application_order/get_urge_detail",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"id":urgeId,
                                @"order_record_id":recordId,
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get_urge_detail" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;

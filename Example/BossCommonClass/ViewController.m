@@ -151,11 +151,11 @@
 //
 //    [self performSelector:@selector(changeRect:) withObject:view afterDelay:10];
     
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-//    btn.frame = CGRectMake(0, 200, 200, 50);
-//    btn.backgroundColor = [UIColor redColor];
-//    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btn];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(0, 200, 200, 50);
+    btn.backgroundColor = [UIColor redColor];
+    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
 
@@ -167,7 +167,12 @@
 //    self.bossDismissTranstion = [[BossDismissTranstion alloc] initWithPressentViewController:vc];
 //    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 //    [self.navigationController presentViewController:vc animated:YES completion:nil];
-    [self sendSmsWithChangePhone:NO];
+    
+    // 发送验证码
+    // [self sendSmsWithChangePhone:NO];
+    
+    // 获取审批单列表
+    [self findOrderList];
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
@@ -196,6 +201,18 @@
         }
     } fail:^{
         DLog(@"发送验证码失败");
+    }];
+}
+
+
+/**
+ 查询审批单列表
+ */
+- (void)findOrderList {
+    MOBILE_EXAMINE_TYPES type = MOBILE_PUT_EXAMINE_ALL;
+    NSInteger page = 1;
+    [BossOaExamineRequest OaExamineRequestGetExamineListWithType:type page:page successBlock:^(BOOL hasMore, NSArray<ExamineOrderModel *> *examineFlowList) {
+    } fail:^(id error) {
     }];
 }
 

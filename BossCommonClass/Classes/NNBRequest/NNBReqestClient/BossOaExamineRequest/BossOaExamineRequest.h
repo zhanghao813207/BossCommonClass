@@ -30,17 +30,6 @@
  */
 + (void)OaExamineRequestGetExamineDetailWithExamineId:(NSString *)examineId showError:(BOOL)showError successBlock:(void(^)(ExamineOrderModel *examineFlowModel))successBlock fail:(void(^)(id error))failBlock;
 
-
-/**
- 费用单列表
-
- @param page 页码
- @param successBlock 返回费用单列表
- @param failBlock 服务器响应失败
- */
-+ (void)OaExamineRequestGetCostOrderListWithPage:(NSInteger)page successBlock:(void(^)(NSArray <CostOrderModel *>*costOrderList))successBlock fail:(void(^)(id error))failBlock;
-
-
 /**
  查看费用申请单详情
 

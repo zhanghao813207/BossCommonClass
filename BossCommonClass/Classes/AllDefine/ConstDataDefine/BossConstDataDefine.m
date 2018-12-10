@@ -15,9 +15,9 @@
 ///*-------------*********移动测试环境公共接口********-------*/
 /** 测试环境总域名 URL*/
 
-// NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
+NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
 
-//NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
+NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
 
 //NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 
@@ -31,22 +31,22 @@
 //NSString *const BossBasicURL = @"http://192.168.1.117:8080/1.0/";
 
 // 后端王清立 ip
-NSString *const BossBasicURL = @"http://192.168.1.108:8081/1.0/";
-//
-//// 后端王清立 ip
-NSString *const BossBasicURLV2 = @"http://192.168.1.108:8081/2.0";
+//NSString *const BossBasicURL = @"http://192.168.1.108:8081/1.0/";
 
-//// 后端明杰 ip
+// 后端王清立 ip
+//NSString *const BossBasicURLV2 = @"http://192.168.1.108:8081/2.0";
+
+// 后端明杰 ip
 //NSString *const BossBasicURL = @"http://192.168.1.139:8081/1.0/";
 //
-//// 后端明杰 ip
+// 后端明杰 ip
 //NSString *const BossBasicURLV2 = @"http://192.168.1.139:8081/2.0";
 
 // 测试环境 ip
 // NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 
 // 测试环境 ip
-//NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
+// NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
@@ -63,33 +63,39 @@ NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0";
 #ifdef kBossKnight
 
     #ifdef DEBUG
-    // NSString *const ACCESS_KEY = @"5aab926e14fef90e81eba4e5";
-    // NSString *const SECRET_KEY = @"5aab926e14fef90e81eba4e6";
-    NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
-    NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
+    // NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
+    // NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
+
+    // dev
+    NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
+    NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
     #else
     NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
     NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
     #endif
 
     NSString *const APPCODE = @"aoao_boss_app_ios";
+    NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
 
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 
 #elif defined kBossManager
 
     #ifdef DEBUG
-//    NSString *const ACCESS_KEY = @"5b4703f05ac78422a669bc9c";
-//    NSString *const SECRET_KEY = @"5b4703f05ac78422a669bc9d";
+    // NSString *const ACCESS_KEY = @"5b73cbd5ce6d2a6036a46685";
+    // NSString *const SECRET_KEY = @"5b73cbd5ce6d2a6036a46686";
 
-    NSString *const ACCESS_KEY = @"5b73cbd5ce6d2a6036a46685";
-    NSString *const SECRET_KEY = @"5b73cbd5ce6d2a6036a46686";
+    // dev
+    NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
+    NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
+
     #else
     NSString *const ACCESS_KEY = @"5b73cbd5ce6d2a6036a46685";
     NSString *const SECRET_KEY = @"5b73cbd5ce6d2a6036a46686";
     #endif
 
     NSString *const APPCODE = @"aoao_boss_manager_ios";
+    NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe900";
 
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
 
