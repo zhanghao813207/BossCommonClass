@@ -23,7 +23,6 @@
     if (!kCurrentBossAccount.account_id) {
         return;
     }
-    NSString *url = [NSString stringWithFormat:@"%@message_bus/sys_channel",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"_meta":@{
                                        @"page":@(page),
@@ -33,7 +32,8 @@
                                @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
                                @"account_ids":@[kCurrentBossAccount.account_id],
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.sys_channel" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -65,7 +65,6 @@
     if (!kCurrentBossAccount.account_id) {
         return;
     }
-    NSString *url = [NSString stringWithFormat:@"%@message_bus/ba_channel",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"_meta":@{
                                        @"page":@(page),
@@ -75,7 +74,7 @@
                                @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
                                @"account_ids":@[kCurrentBossAccount.account_id],
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.ba_channel" success:^(id responseObject) {
         NSLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -105,13 +104,13 @@
  */
 + (void)msgRequestMarkMsgStateWithMsgIds:(NSArray *)msgIds channelId:(NSString *)channelId state:(MESSAGE_TYPE)type success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@message_bus/mark_state",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"ids":msgIds,
                                @"channel_id":channelId,
                                @"state":@(type),
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.mark_state" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -134,12 +133,11 @@
  */
 + (void)msgRequestCountMsgWithChannleId:(NSString *)channelId state:(NSArray *)states success:(void(^)(NSInteger cnt))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@message_bus/channel_counter",BossBasicURL];
     NSDictionary *paramDic = @{
                                @"channel_id":channelId,
                                @"state":states,
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.channel_counter" success:^(id responseObject) {
 //        DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
