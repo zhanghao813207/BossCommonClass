@@ -13,6 +13,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//    [NNBAccount userIsLogin:^(BOOL isLogin) {
+//        if (!isLogin) {
+//            // 未登录
+//            DLog(@"未登录");
+//            return;
+//        }
+//    } Expired:^(BOOL isExpired) {
+//        if (!isExpired) {
+//            DLog(@"过期")
+//            return;
+//        }
+//        DLog(@"kCurrentBossAccount.account_id = %@",kCurrentBossAccount.account_id);
+//        DLog(@"还在有效期");
+//    }];
     [BossAccount userIsLogin:^(BOOL isLogin) {
         if (!isLogin) {
             // 未登录

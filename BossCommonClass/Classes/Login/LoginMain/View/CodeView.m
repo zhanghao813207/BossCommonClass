@@ -9,11 +9,17 @@
 #import "CodeView.h"
 #import "JYCTextField.h"
 #import "BossBasicDefine.h"
+
+#define kDelayTime (0.0f)
+
 @interface CodeView()<UITextFieldDelegate,JYCTextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *textArray;
 
 @property (nonatomic, strong) NSString *codeString;
+
+@property (nonatomic, assign) BOOL autoInputEnd;
+
 
 @end
 
@@ -26,7 +32,7 @@
         if (maxNumber < 1) {
             return self;
         }
-        
+        self.autoInputEnd = YES;
         [self.textArray removeAllObjects];
         CGFloat marginAll = (self.width - self.height * maxNumber);
         CGFloat margin = marginAll > 0 ? marginAll / (maxNumber - 1) : 0;
@@ -42,7 +48,8 @@
             codeTextField.font = BossBlodFont(25.f);
             codeTextField.textColor = kHexRGBA(0x000000, 0.8);
             codeTextField.keyboardType = UIKeyboardTypeNumberPad;
-            codeTextField.tintColor = kAppMainColor;
+            codeTextField.tintColor = [UIColor clearColor];
+            
             [self addSubview:codeTextField];
             [self.textArray addObject:codeTextField];
         }
@@ -69,17 +76,38 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    if (!self.autoInputEnd && ![textField.text isEqualToString:@""]) {
+        return NO;
+    }
+    if (string.length > 1) {
+        self.autoInputEnd = NO;
+        
+        for (NSInteger i = 0; i < string.length; i++) {
+            NSRange strRang = NSMakeRange(i, 1);
+            UITextField *textFieldL;
+            if (i + 1 <= self.textArray.count) {
+                textFieldL = self.textArray[i];
+                textFieldL.text = [string substringWithRange:strRang];
+            }
+        }
+        if (string.length == self.textArray.count){
+            [self performSelector:@selector(inputEnd) withObject:nil afterDelay:0.25];
+        } else {
+            self.autoInputEnd = YES;
+        }
+        return YES;
+    }
     if (textField.text.length >= 1 && ![string isEqualToString:@""]) {
         NSInteger index = textField.tag - 1000;
         if (index + 2 < self.textArray.count) {
             UITextField *textField = self.textArray[index + 1];
             textField.text = string;
             UITextField *firstTextField = self.textArray[index + 2];
-            [firstTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
+            [firstTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:kDelayTime];
         } else if (index + 2 == self.textArray.count){
             UITextField *textField = self.textArray[index + 1];
             textField.text = string;
-            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
+            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:kDelayTime];
             [self performSelector:@selector(inputEnd) withObject:nil afterDelay:0.25];
         } else if (index + 1 == self.textArray.count){
             [self performSelector:@selector(inputEnd) withObject:nil afterDelay:0.25];
@@ -89,7 +117,7 @@
         NSInteger index = textField.tag - 1000;
         if (index + 1 < self.textArray.count) {
             UITextField *textField = self.textArray[index + 1];
-            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
+            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:kDelayTime];
         } else if(index + 1 == self.textArray.count) {
             [self performSelector:@selector(inputEnd) withObject:nil afterDelay:0.25];
         }
@@ -98,7 +126,7 @@
         NSInteger index = textField.tag - 1000;
         if (index - 1 >= 0) {
             UITextField *textField = self.textArray[index - 1];
-            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
+            [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:kDelayTime];
         }
         return YES;
     }
@@ -118,8 +146,9 @@
 - (void)inputEnd
 {
     if (self.inputCodeEndBlock) {
-        DLog(@"self.codeString = %@",self.codeString);
-        self.inputCodeEndBlock(self.codeString);
+        NSString *code = self.codeString;
+        self.autoInputEnd = YES;
+        self.inputCodeEndBlock(code);
     }
 }
 
@@ -178,6 +207,5 @@
     _codeString = code;
     return _codeString;
 }
-
 
 @end

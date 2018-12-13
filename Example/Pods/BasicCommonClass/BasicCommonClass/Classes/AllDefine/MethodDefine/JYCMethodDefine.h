@@ -35,6 +35,8 @@
 //是否是4寸以下设备宽度
 #define IsPhone_Size_4 ([UIScreen mainScreen].bounds.size.width < 321.0?YES:NO)
 
+#define kIsiPhoneX ((((kScreenWidth == 375) && (kScreenHeight == 812)) ||                    ((kScreenWidth == 414) && (kScreenHeight == 896))) ? YES : NO)
+
 /** 颜色*/
 // 设置RGB
 #define kHexRGB(rgbValue) ([UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0])

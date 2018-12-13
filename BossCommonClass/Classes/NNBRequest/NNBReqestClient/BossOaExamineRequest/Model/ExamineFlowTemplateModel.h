@@ -24,5 +24,10 @@
  */
 @property (nonatomic, assign) ExamineFlowBizType biz_type;
 
+/**
+ 审批节点列表（包含除提报外所有节点）
+ */
+@property (nonatomic, strong) NSArray <>*node_list;
+
 
 @end
