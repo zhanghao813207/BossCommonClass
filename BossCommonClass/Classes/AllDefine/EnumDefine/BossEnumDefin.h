@@ -240,4 +240,20 @@ typedef enum : NSUInteger {
     BossBlue,
 } BossColor;
 
+typedef NS_ENUM(NSUInteger, NodePickMode) {
+    NodePickModeManual     = 1, // 手动
+    NodePickModeAuto       = 2, // 自动
+};
+
+typedef NS_ENUM(NSInteger, CostUpdateRule) {
+    CostUpdateRuleDown          = -1, // 向下
+    CostUpdateRuleNone          =  0, // 无限制
+    CostUpdateRuleUp            =  1, // 向上
+};
+
+typedef NS_ENUM(NSInteger, SupplementOpinionState) {
+    SupplementOpinionStateDelete   =  -101, // 删除
+    SupplementOpinionStateNormal   =   100, // 正常
+};
+
 #endif /* BossEnumDefin_h */

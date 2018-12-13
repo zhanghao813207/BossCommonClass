@@ -206,6 +206,20 @@
         _current_node = [self nodeByRecordList:self.current_record_list];
     }
     return _current_node;
+}
+
+- (NSDictionary *)file_url_dic
+{
+    if (!_file_url_dic) {
+        NSMutableDictionary *dic = @{}.mutableCopy;
+        for (NSDictionary *fileDic in self.file_url_list) {
+            if (fileDic[@"file_url"]) {
+                [dic setObject:fileDic[@"file_url"] forKey:fileDic[@"file_name"]];
+            }
+        }
+        _file_url_dic = dic.copy;
+    }
+    return _file_url_dic;
 
 }
 

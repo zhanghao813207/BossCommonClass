@@ -179,17 +179,6 @@
 @property (nonatomic, strong) ExamineFlowNodeModel *current_flow_node_info;
 
 /**
- 审批单的流转 flow_record_list 计算得来
- */
-@property (nonatomic, strong) NSArray <ExamineFlowNodeModel *>*flow_node_list;
-
-/**
- 当前节点的详情 current_record_list 计算得来
- */
-@property (nonatomic, strong) ExamineFlowNodeModel *current_node;
-
-
-/**
  消费单列表
  */
 @property (nonatomic, strong) NSArray <CostOrderModel *> *cost_order_list;
@@ -207,6 +196,23 @@
 @property (nonatomic, strong) NSString *payroll_statement_id;
 
 @property (nonatomic, strong) PayrollStatementModel *payroll_statement_info;
+
+@property (nonatomic, strong) NSArray <NSDictionary *>*file_url_list;
+
+#pragma mark -- 计算属性
+/**
+ 审批单的流转 flow_record_list 计算得来
+ */
+@property (nonatomic, strong) NSArray <ExamineFlowNodeModel *>*flow_node_list;
+
+/**
+ 当前节点的详情 current_record_list 计算得来
+ */
+@property (nonatomic, strong) ExamineFlowNodeModel *current_node;
+
+
+@property (nonatomic, strong) NSDictionary *file_url_dic;
+
 
 
 

@@ -9,6 +9,7 @@
 #import "BossBasicDefine.h"
 #import "AccountModel.h"
 #import "ExamineFlowNodeBriefModel.h"
+#import "SupplementOpinionModel.h"
 @interface ExamineFlowRecordModel : NSObject
 
 /**
@@ -89,6 +90,11 @@
  自己构建的支付节点状态
  */
 @property (nonatomic, assign) PAY_STATE pay_state;
+
+/**
+ 补充意见列表
+ */
+@property (nonatomic, strong) NSArray <SupplementOpinionModel *>*extra_info_list;
 
 
 @end

@@ -152,7 +152,7 @@
             }
         }];
     } else {
-        [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             if (!successBlock) {
                 return;
@@ -160,7 +160,6 @@
             ExamineOrderModel *model = [[ExamineOrderModel alloc] init];
             [model setValuesForKeysWithDictionary:responseObject];
             successBlock(model);
-
         } fail:^(id error) {
             if(failBlock){
                 failBlock(error);
@@ -204,10 +203,11 @@
  @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param note 原因
+ @param nextNodeAccountId 下一节点的审批人
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
++ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 {
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"order_id":examineOrderId,
@@ -215,6 +215,10 @@
                                                                                     }];
     if (![JYCSimpleToolClass stringIsEmpty:note]) {
         [paramDic setObject:note forKey:@"note"];
+    }
+    
+    if (![JYCSimpleToolClass stringIsEmpty:nextNodeAccountId]) {
+        [paramDic setObject:nextNodeAccountId forKey:@"next_node_account_id"];
     }
     
     [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
@@ -236,24 +240,93 @@
  @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param rejectNodeId 被驳回的节点id
+ @param rejectToAccountId 退回指定节点审批人
  @param note 原因
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
++ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 {
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                @"order_id":examineOrderId,
                                @"order_record_id":recordId,
                                }];
-    if (![JYCSimpleToolClass stringIsEmpty:note]) {
-        [paramDic setObject:note forKey:@"note"];
-    }
     if (![JYCSimpleToolClass stringIsEmpty:rejectNodeId]) {
         [paramDic setObject:rejectNodeId forKey:@"reject_to_node_id"];
     }
     
+    if (![JYCSimpleToolClass stringIsEmpty:rejectToAccountId]) {
+        [paramDic setObject:rejectToAccountId forKey:@"reject_to_account_id"];
+    }
+
+    if (![JYCSimpleToolClass stringIsEmpty:note]) {
+        [paramDic setObject:note forKey:@"note"];
+    }
+    
     [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        successBlock([responseObject[@"ok"] boolValue]);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ 添加补充意见
+ 
+ @param examineOrderId 审批单ID
+ @param recordId 流转记录ID
+ @param content 补充意见说明
+ @param fileList 附件列表
+ @param successBlock 服务器响应返回
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestCreateFlowExtraWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId content:(NSString *)content fileList:(NSArray <NSString *>*)fileList success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
+{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    @"order_id":examineOrderId,
+                                                                                    @"record_id":recordId,
+     
+                                                                }];
+    if (![JYCSimpleToolClass stringIsEmpty:content]) {
+        [paramDic setObject:content forKey:@"content"];
+    }
+    
+    if (fileList.count > 0) {
+        [paramDic setObject:fileList forKey:@"file_list"];
+    }
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.create_flow_extra" success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        successBlock([responseObject[@"ok"] boolValue]);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ 删除补充意见
+ 
+ @param flowExtraId 补充意见ID
+ @param successBlock 服务器响应返回
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestDeleteFlowExtraWithFlowExtraId:(NSString *)flowExtraId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock
+{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    @"id":flowExtraId,
+                                                                                    }];
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.delete_flow_extra" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;

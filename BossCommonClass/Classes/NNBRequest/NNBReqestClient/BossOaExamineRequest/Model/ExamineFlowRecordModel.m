@@ -28,6 +28,18 @@
         return;
     }
     
+    if ([key isEqualToString:@"extra_info_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            SupplementOpinionModel *model = [[SupplementOpinionModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.extra_info_list = [array copy];
+        return;
+    }
+
+    
     if ([key isEqualToString:@"reject_to_node_info"]) {
         ExamineFlowNodeBriefModel *model = [[ExamineFlowNodeBriefModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
