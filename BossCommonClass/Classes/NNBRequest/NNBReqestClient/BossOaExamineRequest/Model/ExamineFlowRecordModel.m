@@ -33,7 +33,9 @@
         for (NSDictionary *dic in value) {
             SupplementOpinionModel *model = [[SupplementOpinionModel alloc] init];
             [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
+            if (model.state == SupplementOpinionStateNormal) {
+                [array addObject:model];
+            }
         }
         self.extra_info_list = [array copy];
         return;

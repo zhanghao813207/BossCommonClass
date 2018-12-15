@@ -112,6 +112,12 @@
 @property (nonatomic, strong) NSString *submit_at;
 
 /**
+ 提交时间(201802 形式)
+ */
+@property (nonatomic, strong) NSString *submit_at_int;
+
+
+/**
  微信时间格式
  */
 @property (nonatomic, strong) NSString *wchat_submit_at;

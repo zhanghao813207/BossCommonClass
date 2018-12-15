@@ -427,4 +427,69 @@
         }
     }];
 }
+
+/**
+ 费用金额汇总
+ @param applyOrder 费用单
+ @param successBlock 服务器响应成功
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetAmountSummaryWithApplyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
+{
+//    @param accountingId 费用科目id
+//    @param costTargetId 归属对象(供应商/城市/商圈/平台）ID
+//    @param bookMonth 记账月份（201808）
+//    @param costCenterType 成本归属类型
+    
+    CostAccountingModel *costAccountingModel = applyOrder.cost_accounting_info;
+    NSString *accountingId = costAccountingModel._id;
+    NSString *costTargetId = @"";
+    switch (costAccountingModel.cost_center_type) {
+        case CostCenterTypeItem:
+            costTargetId = applyOrder.platform_names.firstObject?:@"";
+            break;
+        case CostCenterTypeItemMainHQ:
+            costTargetId = applyOrder.supplier_ids.firstObject?:@"";
+            break;
+        case CostCenterTypeCity:
+            costTargetId = applyOrder.city_codes.firstObject?:@"";
+            break;
+        case CostCenterTypeBD:
+            costTargetId = applyOrder.biz_district_ids.firstObject?:@"";
+            break;
+        case CostCenterTypeKnight:
+            costTargetId = applyOrder.biz_district_ids.firstObject?:@"";
+            break;
+        default:
+            break;
+    }
+    
+    NSString *bookMonth = applyOrder.submit_at_int;
+    CostCenterType type = costAccountingModel.cost_center_type;
+    
+    NSDictionary *paramDic = @{
+                               @"accounting_id":accountingId,
+                               @"cost_target_id":costTargetId,
+                               @"book_month":bookMonth,
+                               @"cost_center_type":@(type)
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
+        DLog(@"%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        CostBookMonthBriefModel *model = [[CostBookMonthBriefModel alloc] init];
+        [model setValuesForKeysWithDictionary:responseObject];
+        successBlock(model);
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+
+    
+
+}
+
 @end

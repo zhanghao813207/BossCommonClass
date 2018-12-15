@@ -7,6 +7,7 @@
 //
 
 #import "SupplementOpinionModel.h"
+#import "NSDate+Helper.h"
 
 @implementation SupplementOpinionModel
 
@@ -22,6 +23,24 @@
         self.creator_info = model;
         return;
     }
+    
+    if ([key isEqualToString:@"created_at"]) {
+        //        yyyy-MM-dd HH:mm:ss
+        NSString *normalTimeString = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.created_at = normalTimeString;
+        
+        NSDate *date = [NSDate dateFromString:normalTimeString];
+        
+        NSString *mainString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:YES showFullYear:NO showChineYear:NO];
+        
+        NSString *lastString = [JYCSimpleToolClass segementOneDayByDate:date segement:NO];
+        
+        NSString *timeString = [NSString stringWithFormat:@"%@ %@",lastString,mainString];
+        
+        self.wchat_created_at = timeString;
+        return;
+    }
+
         
     [super setValue:value forKey:key];
 }

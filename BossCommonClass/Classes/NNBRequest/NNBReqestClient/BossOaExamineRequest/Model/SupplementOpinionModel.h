@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *updated_at;
 
+@property (nonatomic, strong) NSString *wchat_created_at;
+
+
 
 @end
 

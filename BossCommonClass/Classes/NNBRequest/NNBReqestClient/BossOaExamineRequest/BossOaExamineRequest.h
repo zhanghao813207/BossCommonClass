@@ -9,6 +9,7 @@
 #import "BossBasicDefine.h"
 #import "ExamineOrderModel.h"
 #import "ApplicationUrgeRecordModel.h"
+#import "CostBookMonthBriefModel.h"
 @interface BossOaExamineRequest : NSObject
 
 /**
@@ -115,5 +116,14 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaExamineRequestGetUrgeDetailWithUrgeId:(NSString *)urgeId orderRecordId:(NSString *)recordId success:(void(^)(ApplicationUrgeRecordModel *urgeRecordModel))successBlock fail:(void(^)(id error))failBlock;
+
+
+/**
+ 费用金额汇总
+ @param applyOrder 费用单
+ @param successBlock 服务器响应成功
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetAmountSummaryWithApplyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
 
 @end

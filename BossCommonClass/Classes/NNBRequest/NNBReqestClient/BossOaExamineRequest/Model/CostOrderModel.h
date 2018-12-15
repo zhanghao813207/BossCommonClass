@@ -23,20 +23,32 @@
  */
 @property (nonatomic, strong) NSArray *city_names;
 
+@property (nonatomic, strong) NSArray *city_codes;
+
+
 /**
  供应商名称列表
  */
 @property (nonatomic, strong) NSArray *supplier_names;
+
+@property (nonatomic, strong) NSArray *supplier_ids;
+
 
 /**
  平台名称列表
  */
 @property (nonatomic, strong) NSArray *platform_names;
 
+@property (nonatomic, strong) NSArray *platform_ids;
+
+
 /**
  商圈名称列表
  */
 @property (nonatomic, strong) NSArray *biz_district_names;
+
+@property (nonatomic, strong) NSArray *biz_district_ids;
+
 
 /**
  费用分组名称
@@ -88,6 +100,13 @@
  */
 @property (nonatomic, strong) NSString *created_at;
 
+@property (nonatomic, strong) NSString *submit_at;
+
+/**
+ 提交时间(201802 形式)
+ */
+@property (nonatomic, strong) NSString *submit_at_int;
+
 /**
  费用科目
  */
@@ -115,7 +134,5 @@
  费用分摊方式 字符串
  */
 @property (nonatomic, strong, readonly) NSString *allocation_name;
-
-
 
 @end
