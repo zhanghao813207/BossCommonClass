@@ -120,10 +120,11 @@
 
 /**
  费用金额汇总
+ @param examineOrderModel 审批单
  @param applyOrder 费用单
  @param successBlock 服务器响应成功
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetAmountSummaryWithApplyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
 
 @end

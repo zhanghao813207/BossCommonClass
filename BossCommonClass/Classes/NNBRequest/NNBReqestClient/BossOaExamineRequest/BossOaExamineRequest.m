@@ -430,11 +430,12 @@
 
 /**
  费用金额汇总
+ @param examineOrderModel 审批单
  @param applyOrder 费用单
  @param successBlock 服务器响应成功
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetAmountSummaryWithApplyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
 {
 //    @param accountingId 费用科目id
 //    @param costTargetId 归属对象(供应商/城市/商圈/平台）ID
@@ -464,7 +465,7 @@
             break;
     }
     
-    NSString *bookMonth = applyOrder.submit_at_int;
+    NSString *bookMonth = examineOrderModel.submit_at_int;
     CostCenterType type = costAccountingModel.cost_center_type;
     
     NSDictionary *paramDic = @{
