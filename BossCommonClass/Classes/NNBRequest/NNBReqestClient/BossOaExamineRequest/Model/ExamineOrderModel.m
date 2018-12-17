@@ -80,6 +80,8 @@
         self.submit_at = normalTime;
         
         NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        self.submit_at_int = [date stringWithFormat:@"yyyyMM"];
 
         NSString *mainTitleString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:NO showFullYear:YES showChineYear:YES];
         
@@ -130,11 +132,15 @@
 {
     ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
     for (ExamineFlowRecordModel *recordModel in recordList) {
-        model._id = recordModel.flow_node_info._id;
-        model.index_num = recordModel.index_num;
+        if (recordModel.flow_node_info) {
+            model._id = recordModel.flow_node_info._id;
+            model.name = recordModel.flow_node_info.name;
+            model.is_payment_node = recordModel.flow_node_info.is_payment_node;
+            model.account_list = recordModel.flow_node_info.account_list;
+            model.pick_mode = recordModel.flow_node_info.pick_mode;
+            model.index_num = recordModel.flow_node_info.index_num;
+        }
         model.state = recordModel.state;
-        model.name = recordModel.flow_node_info.name;
-        model.is_payment_node = recordModel.flow_node_info.is_payment_node;
         if (model.is_payment_node) {
             if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT) {
                 recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
@@ -206,6 +212,20 @@
         _current_node = [self nodeByRecordList:self.current_record_list];
     }
     return _current_node;
+}
+
+- (NSDictionary *)file_url_dic
+{
+    if (!_file_url_dic) {
+        NSMutableDictionary *dic = @{}.mutableCopy;
+        for (NSDictionary *fileDic in self.file_url_list) {
+            if (fileDic[@"file_url"]) {
+                [dic setObject:fileDic[@"file_url"] forKey:fileDic[@"file_name"]];
+            }
+        }
+        _file_url_dic = dic.copy;
+    }
+    return _file_url_dic;
 
 }
 

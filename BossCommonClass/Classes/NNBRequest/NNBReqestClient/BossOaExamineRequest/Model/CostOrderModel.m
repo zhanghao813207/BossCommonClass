@@ -6,6 +6,7 @@
 //
 
 #import "CostOrderModel.h"
+#import "NSDate+Helper.h"
 
 @interface CostOrderModel()
 
@@ -60,6 +61,16 @@
             [array addObject:model];
         }
         self.cost_allocation_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"submit_at"]) {
+        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:value];
+        self.submit_at = normalTime;
+        
+        NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        self.submit_at_int = [date stringWithFormat:@"yyyyMM"];
         return;
     }
 

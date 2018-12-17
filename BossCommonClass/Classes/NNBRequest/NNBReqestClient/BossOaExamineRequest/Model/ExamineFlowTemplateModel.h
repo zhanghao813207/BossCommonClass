@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "BossBasicDefine.h"
+#import "ExamineFlowNodeModel.h"
+
 @interface ExamineFlowTemplateModel : NSObject
 
 /**
@@ -27,7 +29,7 @@
 /**
  审批节点列表（包含除提报外所有节点）
  */
-@property (nonatomic, strong) NSArray <>*node_list;
+@property (nonatomic, strong) NSArray <ExamineFlowNodeModel *>*node_list;
 
 
 @end

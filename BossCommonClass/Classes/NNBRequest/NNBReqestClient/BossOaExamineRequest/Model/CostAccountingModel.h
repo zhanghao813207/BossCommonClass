@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BossBasicDefine.h"
 @interface CostAccountingModel : NSObject
 
 /**
@@ -23,6 +23,11 @@
  名称
  */
 @property (nonatomic, strong) NSString *name;
+
+/**
+ 成本中心归属类型
+ */
+@property (nonatomic, assign) CostCenterType cost_center_type;
 
 /**
  成本中心归属类型名称

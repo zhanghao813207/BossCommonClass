@@ -30,5 +30,21 @@
  */
 @property (nonatomic, assign) BOOL is_payment_node;
 
+/**
+ 流程节点索引序号， 0 开始
+ */
+@property (nonatomic, assign) NSInteger index_num;
+
+/**
+  是否可修改提报的费用记录
+ */
+@property (nonatomic, assign) BOOL can_update_cost_record;
+
+/**
+ 费用记录修改规则
+ */
+@property (nonatomic, assign) CostUpdateRule cost_update_rule;
+
+@property (nonatomic, assign) NodePickMode pick_mode;
 
 @end

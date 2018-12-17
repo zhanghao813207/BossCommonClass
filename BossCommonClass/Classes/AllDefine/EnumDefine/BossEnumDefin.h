@@ -240,4 +240,28 @@ typedef enum : NSUInteger {
     BossBlue,
 } BossColor;
 
+typedef NS_ENUM(NSUInteger, NodePickMode) {
+    NodePickModeManual     = 1, // 手动
+    NodePickModeAuto       = 2, // 自动
+};
+
+typedef NS_ENUM(NSInteger, CostUpdateRule) {
+    CostUpdateRuleDown          = -1, // 向下
+    CostUpdateRuleNone          =  0, // 无限制
+    CostUpdateRuleUp            =  1, // 向上
+};
+
+typedef NS_ENUM(NSInteger, SupplementOpinionState) {
+    SupplementOpinionStateDelete   =  -101, // 删除
+    SupplementOpinionStateNormal   =   100, // 正常
+};
+
+typedef NS_ENUM(NSUInteger, CostCenterType) {
+    CostCenterTypeKnight     = 1, // 骑士
+    CostCenterTypeBD         = 2, // 商圈
+    CostCenterTypeCity       = 3, // 城市
+    CostCenterTypeItemMainHQ = 4, // 项目主体总部
+    CostCenterTypeItem       = 5, // 项目
+};
+
 #endif /* BossEnumDefin_h */

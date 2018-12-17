@@ -10,14 +10,6 @@
 
 @interface ExamineFlowNodeModel : ExamineFlowNodeBriefModel
 
-/**
- 流程节点索引序号， 0 开始
- */
-@property (nonatomic, assign) NSInteger index_num;
-
-
-
-
 #pragma mark -- 计算属性
 /**
  审批流记录列表

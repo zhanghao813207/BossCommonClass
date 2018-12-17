@@ -9,6 +9,7 @@
 #import "BossBasicDefine.h"
 #import "ExamineOrderModel.h"
 #import "ApplicationUrgeRecordModel.h"
+#import "CostBookMonthBriefModel.h"
 @interface BossOaExamineRequest : NSObject
 
 /**
@@ -45,10 +46,32 @@
  @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param note 原因
+ @param nextNodeAccountId 下一节点的审批人
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
+
+/**
+ 添加补充意见
+
+ @param examineOrderId 审批单ID
+ @param recordId 流转记录ID
+ @param content 补充意见说明
+ @param fileList 附件列表
+ @param successBlock 服务器响应返回
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestCreateFlowExtraWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId content:(NSString *)content fileList:(NSArray <NSString *>*)fileList success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
+
+/**
+ 删除补充意见
+
+ @param flowExtraId 补充意见ID
+ @param successBlock 服务器响应返回
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestDeleteFlowExtraWithFlowExtraId:(NSString *)flowExtraId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  审核驳回
@@ -56,11 +79,12 @@
  @param examineOrderId 审批单ID
  @param recordId 审批流转记录ID
  @param rejectNodeId 被驳回的节点id
+ @param rejectToAccountId 退回指定节点审批人
  @param note 原因
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  催办操作
@@ -92,5 +116,15 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaExamineRequestGetUrgeDetailWithUrgeId:(NSString *)urgeId orderRecordId:(NSString *)recordId success:(void(^)(ApplicationUrgeRecordModel *urgeRecordModel))successBlock fail:(void(^)(id error))failBlock;
+
+
+/**
+ 费用金额汇总
+ @param examineOrderModel 审批单
+ @param applyOrder 费用单
+ @param successBlock 服务器响应成功
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
 
 @end
