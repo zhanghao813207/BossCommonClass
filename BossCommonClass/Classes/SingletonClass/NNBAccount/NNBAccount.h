@@ -129,6 +129,12 @@
 @property (nonatomic, strong) NSString *identity_card_front;
 
 /**
+ 身份证有效期限
+ */
+@property (nonatomic, strong) NSString *identity_card_valid_term;
+
+
+/**
  银行卡号
  */
 @property (nonatomic, strong) NSString *bank_card_id;
@@ -344,6 +350,12 @@
  */
 @property (nonatomic, strong) NSString *expired_at;
 
+/**
+ 员工类型
+ */
+@property (nonatomic, assign) NSInteger work_type;
+
+
 #pragma mark -- 枚举对应的字符串
 
 /**
@@ -361,7 +373,10 @@
  */
 @property (nonatomic, strong, readonly) NSString *genderString;
 
-
+/**
+ 员工类型
+ */
+@property (nonatomic, strong, readonly) NSString *work_type_name;
 
 
 #pragma mark -- 更新用户信息是需要使用的属性

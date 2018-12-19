@@ -25,6 +25,9 @@
  */
 @property (nonatomic, strong) NSString *oa_application_record_id;
 
+@property (nonatomic, strong) NSString *oa_application_record_extra_id;
+
+
 /**
  催办记录ID
  */

@@ -47,4 +47,7 @@
 
 @property (nonatomic, assign) NodePickMode pick_mode;
 
+@property (nonatomic, assign) NodeApproveMode approve_mode;
+
+
 @end
