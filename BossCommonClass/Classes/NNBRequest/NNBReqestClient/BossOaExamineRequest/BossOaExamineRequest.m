@@ -489,11 +489,9 @@
                                    @"book_month":bookMonth,
                                    @"cost_center_type":@(type)
                                    };
-        
-        [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             [self getListWithResponseObject:responseObject applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
-            
         } fail:^(id error) {
             [self getListWithResponseObject:@{} applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
             return;
