@@ -176,6 +176,7 @@ typedef NS_ENUM(NSInteger, OA_EVENT) {
     OA_EVENT_APPLICATION_PAID   = 12, // 财务打款
     OA_EVENT_APPLICATION_DONE   = 13, // 审批通过
     OA_EVENT_APPLICATION_CANCLE = 14, // 审批关闭
+    OA_EVENT_APPLICATION_EXTRA  = 15, // 补充意见
 };
 
 typedef NS_ENUM(NSInteger, BROAD_TYPE) {
@@ -262,6 +263,11 @@ typedef NS_ENUM(NSUInteger, CostCenterType) {
     CostCenterTypeCity       = 3, // 城市
     CostCenterTypeItemMainHQ = 4, // 项目主体总部
     CostCenterTypeItem       = 5, // 项目
+};
+
+typedef NS_ENUM(NSUInteger, NodeApproveMode) {
+    NodeApproveModeAny = 20, // 任意
+    NodeApproveModeAll = 10, // 全部
 };
 
 #endif /* BossEnumDefin_h */

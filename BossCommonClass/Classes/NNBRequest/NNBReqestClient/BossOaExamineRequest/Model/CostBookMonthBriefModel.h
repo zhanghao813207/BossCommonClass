@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger money;
 
+@property (nonatomic, strong) NSString *costBookString;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

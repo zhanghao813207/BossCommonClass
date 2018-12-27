@@ -28,15 +28,33 @@
         return;
     }
     
-    if ([key isEqualToString:@"extra_info_list"]) {
+    if ([key isEqualToString:@"reject_to_record_accounts"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
-            SupplementOpinionModel *model = [[SupplementOpinionModel alloc] init];
+            AccountModel *model = [[AccountModel alloc] init];
             [model setValuesForKeysWithDictionary:dic];
-            if (model.state == SupplementOpinionStateNormal) {
-                [array addObject:model];
+            [array addObject:model];
+        }
+        self.reject_to_record_accounts = [array copy];
+        return;
+    }
+
+    
+    if ([key isEqualToString:@"extra_info_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        NSMutableArray *allArray = @[].mutableCopy;
+        if ([value count] > 0) {
+            for (NSInteger i = [(NSArray *)value count] - 1; i >= 0; i--) {
+                NSDictionary *dic = value[i];
+                SupplementOpinionModel *model = [[SupplementOpinionModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [allArray addObject:model];
+                if (model.state == SupplementOpinionStateNormal) {
+                    [array addObject:model];
+                }
             }
         }
+        self.extra_info_all_list = [allArray copy];
         self.extra_info_list = [array copy];
         return;
     }

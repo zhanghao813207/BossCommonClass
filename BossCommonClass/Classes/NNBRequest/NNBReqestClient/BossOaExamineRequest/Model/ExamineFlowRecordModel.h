@@ -37,6 +37,7 @@
  */
 @property (nonatomic, strong) ExamineFlowNodeBriefModel *reject_to_node_info;
 
+@property (nonatomic, strong) NSArray <AccountModel *>*reject_to_record_accounts;
 
 /**
  审批状态
@@ -95,6 +96,13 @@
  补充意见列表
  */
 @property (nonatomic, strong) NSArray <SupplementOpinionModel *>*extra_info_list;
+
+/**
+ 补充意见列表 全部
+ */
+@property (nonatomic, strong) NSArray <SupplementOpinionModel *>*extra_info_all_list;
+
+
 
 
 @end

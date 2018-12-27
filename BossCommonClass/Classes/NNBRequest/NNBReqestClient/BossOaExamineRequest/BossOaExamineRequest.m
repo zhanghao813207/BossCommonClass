@@ -7,6 +7,8 @@
 
 #import "BossOaExamineRequest.h"
 #import "NNBBasicRequest.h"
+#import "NSDate+Helper.h"
+
 @implementation BossOaExamineRequest
 
 /**
@@ -435,7 +437,7 @@
  @param successBlock 服务器响应成功
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(NSArray <CostBookMonthBriefModel *> *costBookMonthList))successBlock fail:(void(^)(id error))failBlock
 {
 //    @param accountingId 费用科目id
 //    @param costTargetId 归属对象(供应商/城市/商圈/平台）ID
@@ -445,52 +447,82 @@
     CostAccountingModel *costAccountingModel = applyOrder.cost_accounting_info;
     NSString *accountingId = costAccountingModel._id;
     NSString *costTargetId = @"";
-    switch (costAccountingModel.cost_center_type) {
-        case CostCenterTypeItem:
-            costTargetId = applyOrder.platform_names.firstObject?:@"";
-            break;
-        case CostCenterTypeItemMainHQ:
-            costTargetId = applyOrder.supplier_ids.firstObject?:@"";
-            break;
-        case CostCenterTypeCity:
-            costTargetId = applyOrder.city_codes.firstObject?:@"";
-            break;
-        case CostCenterTypeBD:
-            costTargetId = applyOrder.biz_district_ids.firstObject?:@"";
-            break;
-        case CostCenterTypeKnight:
-            costTargetId = applyOrder.biz_district_ids.firstObject?:@"";
-            break;
-        default:
-            break;
-    }
     
     NSString *bookMonth = examineOrderModel.submit_at_int;
     CostCenterType type = costAccountingModel.cost_center_type;
+
+    NSMutableDictionary *listDic = @{}.mutableCopy;
+    NSMutableArray *list = @[].mutableCopy;
     
-    NSDictionary *paramDic = @{
-                               @"accounting_id":accountingId,
-                               @"cost_target_id":costTargetId,
-                               @"book_month":bookMonth,
-                               @"cost_center_type":@(type)
-                               };
-    
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
-        if (!successBlock) {
+    for (NSInteger i = 0; i < applyOrder.cost_allocation_list.count; i++) {
+        if (applyOrder.cost_allocation_list.count == 0) {
             return;
         }
-        CostBookMonthBriefModel *model = [[CostBookMonthBriefModel alloc] init];
-        [model setValuesForKeysWithDictionary:responseObject];
-        successBlock(model);
-    } fail:^(id error) {
-        if(failBlock){
-            failBlock(error);
+        
+        NSString *key = [NSString stringWithFormat:@"%ld",i];
+        
+        CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
+        
+        switch (costAccountingModel.cost_center_type) {
+            case CostCenterTypeItem:
+                costTargetId = allocationModel.platform_code?:@"";
+                break;
+            case CostCenterTypeItemMainHQ:
+                costTargetId = allocationModel.supplier_id?:@"";
+                break;
+            case CostCenterTypeCity:
+                costTargetId = allocationModel.city_code?:@"";
+                break;
+            case CostCenterTypeBD:
+                costTargetId = allocationModel.biz_district_id?:@"";
+                break;
+            case CostCenterTypeKnight:
+                costTargetId = allocationModel.biz_district_id?:@"";
+                break;
+            default:
+                break;
         }
-    }];
+        
+        NSDictionary *paramDic = @{
+                                   @"accounting_id":accountingId,
+                                   @"cost_target_id":costTargetId,
+                                   @"book_month":bookMonth,
+                                   @"cost_center_type":@(type)
+                                   };
+        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
+            DLog(@"%@", responseObject);
+            [self getListWithResponseObject:responseObject applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
+        } fail:^(id error) {
+            [self getListWithResponseObject:@{} applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
+            return;
+        }];
+    }
+}
 
++ (void)getListWithResponseObject:(id)responseObject applyOrderModel:(CostOrderModel *)applyOrder key:(NSString *)key bookMonth:(NSString *)bookMonth listDic:(NSMutableDictionary *)listDic list:(NSMutableArray *)list success:(void(^)(NSArray <CostBookMonthBriefModel *> *costBookMonthList))successBlock
+{
+    if (!successBlock) {
+        return;
+    }
+    CostBookMonthBriefModel *model = [[CostBookMonthBriefModel alloc] init];
+    [model setValuesForKeysWithDictionary:responseObject];
     
-
+    NSDate *bookDate = [NSDate dateFromString:bookMonth withFormat:@"yyyyMM"];
+    NSString *costDateString = [bookDate stringWithFormat:@"yyyy年MM月"];
+    
+    model.costBookString = [NSString stringWithFormat:@"%@已付款费用合计：￥%.2f",costDateString,model.money / 100.0];
+    [listDic setObject:model forKey:key];
+    if (listDic.count == applyOrder.cost_allocation_list.count) {
+        for (NSInteger index = 0; index < listDic.count; index++) {
+            NSString *indexKey = [NSString stringWithFormat:@"%ld",index];
+            
+            CostBookMonthBriefModel *indexModel = listDic[indexKey];
+            
+            [list addObject:indexModel];
+            
+        }
+        successBlock(list.copy);
+    }
 }
 
 @end

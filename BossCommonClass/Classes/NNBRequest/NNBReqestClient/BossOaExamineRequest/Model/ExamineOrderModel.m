@@ -141,20 +141,43 @@
             model.index_num = recordModel.flow_node_info.index_num;
         }
         model.state = recordModel.state;
-        if (model.is_payment_node) {
-            if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT) {
-                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-                if (self.paid_state == PAY_STATE_ERROR) {
-                    recordModel.pay_state = PAY_STATE_ERROR;
-                    recordModel.note = self.paid_note;
-                } else {
-                    recordModel.pay_state = PAY_STATE_INIT;
+        
+        switch (recordModel.state) {
+            case OA_EXAMINE_NODE_STATE_INIT:
+                {
+                    if (model.is_payment_node && self.paid_state == PAY_STATE_ERROR) {
+                        recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                        recordModel.pay_state = PAY_STATE_ERROR;
+                        recordModel.note = self.paid_note;
+                    }
                 }
-            } else {
-                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-                recordModel.pay_state = PAY_STATE_DONE;
+                break;
+            case OA_EXAMINE_NODE_STATE_AGREE:
+            {
+                if (model.is_payment_node) {
+                    recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                    recordModel.pay_state = PAY_STATE_DONE;
+                }
             }
+            default:
+                break;
         }
+        
+        
+//        if (model.is_payment_node) {
+//            if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT) {
+//                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+//                if (self.paid_state == PAY_STATE_ERROR) {
+//                    recordModel.pay_state = PAY_STATE_ERROR;
+//                    recordModel.note = self.paid_note;
+//                } else {
+//                    recordModel.pay_state = PAY_STATE_INIT;
+//                }
+//            } else {
+//                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+//                recordModel.pay_state = PAY_STATE_DONE;
+//            }
+//        }
         BOOL isUrge = NO;
         if ((recordModel.state == OA_EXAMINE_NODE_STATE_INIT) && recordModel.urge_state == YES) {
             isUrge = YES;

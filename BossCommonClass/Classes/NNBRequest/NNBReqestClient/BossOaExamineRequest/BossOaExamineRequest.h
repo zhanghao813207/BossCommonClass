@@ -125,6 +125,6 @@
  @param successBlock 服务器响应成功
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(CostBookMonthBriefModel *costBookMonthModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(NSArray <CostBookMonthBriefModel *> *costBookMonthList))successBlock fail:(void(^)(id error))failBlock;
 
 @end

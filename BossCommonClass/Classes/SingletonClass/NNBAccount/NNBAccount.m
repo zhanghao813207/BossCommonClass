@@ -19,6 +19,10 @@
 
 @property (nonatomic, strong) NSString *genderString;
 
+/**
+ 员工类型
+ */
+@property (nonatomic, strong) NSString *work_type_name;
 
 @end
 
@@ -115,7 +119,8 @@ static NNBAccount *defaultAccount = nil;
                                           @"state":@(self.state),
                                           @"gender_id":@(self.gender_id),
                                           @"bank_info_type":@(self.bank_info_type),
-
+                                          @"work_type":@(self.work_type),
+                                          
                                           @"bank_card_front_key":self.bank_card_front_key ? : @"",
                                           @"bust_key":self.bust_key ? : @"",
                                           @"departure_reason":self.departure_reason ? : @"",
@@ -174,10 +179,10 @@ static NNBAccount *defaultAccount = nil;
                                           @"district_description":self.district_description ? : @[],
                                           @"bank_location":self.bank_location ? : @[],
 
-                                          @"platform_list":self.platform_list ? [JYCSimpleToolClass encodeArrayToArray:self.platform_list] : @[],
-                                          @"city_list":self.city_list ? [JYCSimpleToolClass encodeArrayToArray:self.city_list] : @[],
-                                          @"departure_log":self.departure_log ? [JYCSimpleToolClass encodeArrayToArray:self.departure_log] : @[],
-                                          @"biz_district_list":self.biz_district_list ? [JYCSimpleToolClass encodeArrayToArray:self.biz_district_list] : @[],
+                                          @"platform_list":self.platform_list ? [self encodeArrayToArray:self.platform_list] : @[],
+                                          @"city_list":self.city_list ? [self encodeArrayToArray:self.city_list] : @[],
+                                          @"departure_log":self.departure_log ? [self encodeArrayToArray:self.departure_log] : @[],
+                                          @"biz_district_list":self.biz_district_list ? [self encodeArrayToArray:self.biz_district_list] : @[],
                                           };
     return localAccountInfoDic;
 }
@@ -316,6 +321,18 @@ static NNBAccount *defaultAccount = nil;
     [[NNBRequestManager shareNNBRequestManager] cleanToken];
 }
 
+- (NSArray *)encodeArrayToArray:(NSArray *)array
+{
+    NSMutableArray *arrayM = [NSMutableArray array];
+    for (id model in array) {
+        if ([model respondsToSelector:@selector(decodeToDic)]) {
+            NSDictionary *dic = [model decodeToDic];
+            [arrayM addObject:dic];
+        }
+    }
+    return [arrayM copy];
+}
+
 - (NSString *)postionIDString
 {
     switch (self.position_id) {
@@ -382,6 +399,24 @@ static NNBAccount *defaultAccount = nil;
             break;
     }
     return _genderString;
+}
+
+- (NSString *)work_type_name
+{
+    if (!_work_type_name) {
+        switch (self.work_type) {
+            case 3001:
+                _work_type_name = @"全职";
+                break;
+            case 3002:
+                _work_type_name = @"兼职";
+                break;
+            default:
+                _work_type_name = @"无";
+                break;
+        }
+    }
+    return _work_type_name;
 }
 
 #pragma mark -- help property
