@@ -25,6 +25,14 @@
 
 @implementation CodeView
 
+
+/**
+ 初始化CodeView
+
+ @param frame frame大小
+ @param maxNumber 验证码个数
+ @return 验证码View
+ */
 - (__kindof CodeView *)initWithFrame:(CGRect)frame
                            maxNumber:(NSInteger)maxNumber
 {

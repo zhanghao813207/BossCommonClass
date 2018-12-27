@@ -10,6 +10,10 @@
 
 @interface LoginVC : UIViewController
 
+
+/**
+ 登陆成功回调
+ */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
 
 @end

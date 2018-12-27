@@ -25,17 +25,30 @@
     return self;
 }
 
+
+/**
+ 添加滑动手势
+ */
 - (void)addPanGR
 {
     UIPanGestureRecognizer * panGestureGecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizerAction:)];
     panGestureGecognizer.delegate = self;
+    // 设置监听手指数量
     [panGestureGecognizer setMaximumNumberOfTouches:1];
     [panGestureGecognizer setMinimumNumberOfTouches:1];
+    
     [self addGestureRecognizer:panGestureGecognizer];
 }
 
+
+/**
+ 滑动手势响应方法
+
+ @param pan 滑动手势
+ */
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)pan {
     
+    // 滑动中 || 滑动结束
     if (pan.state == UIGestureRecognizerStateChanged ||
         pan.state == UIGestureRecognizerStateEnded) {
         
@@ -44,17 +57,19 @@
         CGPoint offset = [pan translationInView:view];
         
         CGRect viewRect = view.frame;
-        if (self.panDerection == JYCPanDerectionHorizontal) {
+        // 判断滑动方向
+        if (self.panDerection == JYCPanDerectionHorizontal) { // 水平
             viewRect = [self changeRectXWithViewFrame:viewRect offset:offset];
-        } else if (self.panDerection == JYCPanDerectionVertical){
+        } else if (self.panDerection == JYCPanDerectionVertical){ // 竖直
             viewRect = [self changeRectYWithViewFrame:viewRect offset:offset];
-        } else if (self.panDerection == (JYCPanDerectionHorizontal | JYCPanDerectionVertical)){
+        } else if (self.panDerection == (JYCPanDerectionHorizontal | JYCPanDerectionVertical)){// 水平 | 竖直
             viewRect = [self changeRectXWithViewFrame:viewRect offset:offset];
             viewRect = [self changeRectYWithViewFrame:viewRect offset:offset];
         }
         
-        if (pan.state == UIGestureRecognizerStateEnded) {
+        if (pan.state == UIGestureRecognizerStateEnded) { // 滑动结束
             CGRect rect = view.frame;
+            // 计算滑动后X或Y的位置
             if (self.panDerection == JYCPanDerectionHorizontal) {
                 rect.origin.x = [self setEndRectXWithWithViewFrame:viewRect offset:offset];
             } else if (self.panDerection == JYCPanDerectionVertical){
@@ -63,9 +78,11 @@
                 rect.origin.x = [self setEndRectXWithWithViewFrame:viewRect offset:offset];
                 rect.origin.y = [self setEndRectYWithWithViewFrame:viewRect offset:offset];
             }
+            // 判断是否有滑动动画结束回调
             if (self.customAnimationBlock) {
                 self.customAnimationBlock(rect);
             } else {
+                // 滑动动画结束默认回调
                 [UIView animateWithDuration:0.25 animations:^{
                     view.frame = rect;
                 } completion:^(BOOL finished) {
@@ -79,9 +96,11 @@
                     }
                 }];
             }
-        } else {
+        } else { // 滑动中
             view.frame = CGRectMake(viewRect.origin.x, viewRect.origin.y, view.bounds.size.width, view.bounds.size.height);
         }
+        
+        // 把偏移量做一次复位,清0(不让偏移量进行累加)
         [pan setTranslation:CGPointMake(0, 0) inView:view];
     }
 }
@@ -116,6 +135,13 @@
 }
 
 
+/**
+ 改变X的位置
+
+ @param viewFrame 原始FrameF
+ @param offset 滑动偏移量
+ @return 滑动后的Frame
+ */
 - (CGRect)changeRectXWithViewFrame:(CGRect)viewFrame offset:(CGPoint)offset
 {
     CGRect rect = viewFrame;
@@ -131,6 +157,13 @@
     return rect;
 }
 
+/**
+ 改变Y的位置
+ 
+ @param viewFrame 原始FrameF
+ @param offset 滑动偏移量
+ @return 滑动后的Frame
+ */
 - (CGRect)changeRectYWithViewFrame:(CGRect)viewFrame offset:(CGPoint)offset
 {
     CGRect rect = viewFrame;
@@ -146,6 +179,14 @@
     return rect;
 }
 
+
+/**
+ 计算X的结束位置
+
+ @param viewFrame 原始Frame
+ @param offset X方向偏移量
+ @return 水平方向滑动后的X位置
+ */
 - (CGFloat)setEndRectXWithWithViewFrame:(CGRect)viewFrame offset:(CGPoint)offset
 {
     CGFloat currentX = viewFrame.origin.x;
@@ -158,6 +199,13 @@
     return currentX;
 }
 
+/**
+ 计算Y的结束位置
+ 
+ @param viewFrame 原始Frame
+ @param offset Y方向偏移量
+ @return 竖直方向滑动后的Y位置
+ */
 - (CGFloat)setEndRectYWithWithViewFrame:(CGRect)viewFrame offset:(CGPoint)offset
 {
     CGFloat currentY = viewFrame.origin.y;
@@ -170,6 +218,12 @@
     return currentY;
 }
 
+
+/**
+ 滑动水平方向最大值回调
+
+ @param rect 滑动结束位置
+ */
 - (void)slideHorizontalResultWithEndFrame:(CGRect)rect
 {
     if (self.viewHasSlidHorizontalMax) {
@@ -181,6 +235,11 @@
     }
 }
 
+/**
+ 滑动竖直方向最大值回调
+ 
+ @param rect 滑动结束位置
+ */
 - (void)slideVerticalResultWithEndFrame:(CGRect)rect
 {
     if (self.viewHasSlideVerticalMax) {
