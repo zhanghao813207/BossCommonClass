@@ -108,8 +108,9 @@ typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
     OA_EXAMINE_NODE_STATE_SUPPLEMENT =   10,  // 待补充
     OA_EXAMINE_NODE_STATE_ERROR      =   50,  // 异常
     OA_EXAMINE_NODE_STATE_AGREE      =  100,  // 通过
-    OA_EXAMINE_NODE_STATE_REJECT     = -100,  // 驳回
     OA_EXAMINE_NODE_STATE_DONE       =  101,  // 完成
+    OA_EXAMINE_NODE_STATE_WITHDRAW   =  -50,  // 撤回
+    OA_EXAMINE_NODE_STATE_REJECT     = -100,  // 驳回
     OA_EXAMINE_NODE_STATE_CANCLE     = -101,  // 关闭
 };
 
