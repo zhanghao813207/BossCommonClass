@@ -1,6 +1,6 @@
 //
 //  InputPhoneNumberView.m
-//  NNB
+//  输入手机号View
 //
 //  Created by 贾远潮 on 2017/12/20.
 //  Copyright © 2017年 贾远潮. All rights reserved.
@@ -8,6 +8,10 @@
 
 #import "InputPhoneNumberView.h"
 #import "BossBasicDefine.h"
+
+/**
+ 输入手机号View的高度
+ */
 CGFloat const kInputPhoneNumberViewHeight = 263;
 
 @interface InputPhoneNumberView()<UITextFieldDelegate>

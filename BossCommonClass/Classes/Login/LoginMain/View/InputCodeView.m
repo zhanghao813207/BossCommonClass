@@ -1,6 +1,6 @@
 //
 //  InputCodeView.m
-//  NNB
+//  输入验证码View
 //
 //  Created by 贾远潮 on 2017/12/20.
 //  Copyright © 2017年 贾远潮. All rights reserved.
@@ -10,6 +10,10 @@
 #import "CodeView.h"
 #import "CountdownView.h"
 #import "BossBasicDefine.h"
+
+/**
+ 输入验证码View高度
+ */
 CGFloat const kInputCodeViewHeight = 242;
 
 @interface InputCodeView()<CountdownViewDelegate>
@@ -165,6 +169,12 @@ CGFloat const kInputCodeViewHeight = 242;
     return _countDownView;
 }
 
+
+/**
+ 初始化语音验证码按钮
+
+ @return 语音验证码
+ */
 - (UIButton *)voiceCodeButton
 {
     if (!_voiceCodeButton) {

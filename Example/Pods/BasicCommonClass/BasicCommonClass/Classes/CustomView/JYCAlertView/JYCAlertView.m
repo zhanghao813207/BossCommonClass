@@ -17,6 +17,10 @@
     CGRect targetRect;
 }
 
+
+/**
+ Alert背景View
+ */
 @property (nonatomic, strong) UIView *maskView;
 
 @end
@@ -81,6 +85,10 @@
     }
 }
 
+
+/**
+ 轻拍手势回调
+ */
 - (void)maskViewDidClick
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(JYCAlertView:MaskViewDidClick:)]) {
@@ -288,13 +296,23 @@
 
 #pragma mark--lazy
 
+/**
+ maskView初始化
+ 懒加载
+
+ @return UIView
+ */
 - (UIView *)maskView
 {
     if (!_maskView) {
         _maskView = [[UIView alloc] initWithFrame:self.bounds];
+        // 设置全透明
         _maskView.alpha = 0.0f;
+        // 设置背景色
         _maskView.backgroundColor = [UIColor blackColor];
+        // 初始化轻拍手势
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(maskViewDidClick)];
+        // 监听轻拍手势
         [_maskView addGestureRecognizer:tapGR];
     }
     return _maskView;
