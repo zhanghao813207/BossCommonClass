@@ -10,6 +10,7 @@
 #import "ExamineOrderModel.h"
 #import "ApplicationUrgeRecordModel.h"
 #import "CostBookMonthBriefModel.h"
+#import "CostOrderSubmitAmountModel.h"
 @interface BossOaExamineRequest : NSObject
 
 /**
@@ -126,5 +127,15 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaExamineRequestGetAmountSummaryWithExamineOrderModel:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(NSArray <CostBookMonthBriefModel *> *costBookMonthList))successBlock fail:(void(^)(id error))failBlock;
+
+/**
+ 提报费用金额统计
+
+ @param examineOrderModel 审批单
+ @param applyOrder 费用单
+ @param successBlock 请求成功回调
+ @param failBlock 请求失败回调
+ */
++ (void)OaExamineRequestGetSubmitAmount:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(NSArray <CostOrderSubmitAmountModel *> *submitAmountList))successBlock fail:(void(^)(id error))failBlock;
 
 @end
