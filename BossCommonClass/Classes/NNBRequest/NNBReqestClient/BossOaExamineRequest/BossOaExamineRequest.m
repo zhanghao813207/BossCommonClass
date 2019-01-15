@@ -223,7 +223,7 @@
         [paramDic setObject:nextNodeAccountId forKey:@"next_node_account_id"];
     }
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -265,7 +265,7 @@
         [paramDic setObject:note forKey:@"note"];
     }
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -353,7 +353,7 @@
     NSDictionary *paramDic = @{
                                @"order_id":examineId,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.urge" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.urge" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -387,7 +387,7 @@
         [paramDic setObject:note forKey:@"note"];
     }
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.mark_paid" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.mark_paid" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
