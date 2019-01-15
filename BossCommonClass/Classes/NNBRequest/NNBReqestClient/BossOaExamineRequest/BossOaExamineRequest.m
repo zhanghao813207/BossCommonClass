@@ -459,7 +459,7 @@
             return;
         }
         
-        NSString *key = [NSString stringWithFormat:@"%ld",i];
+        NSString *key = [NSString stringWithFormat:@"%tu",i];
         
         CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
         
@@ -499,6 +499,92 @@
     }
 }
 
+/**
+ 提报费用金额统计
+ 
+ request param:
+ - accounting_id 费用科目id Y
+ - platform_code 平台code N
+ - supplier_id 供应商id N
+ - city_code 城市code N
+ - biz_district_id 商圈id N
+ - submit_at 提报时间(2018-01) Y
+ 
+ 传参规则: 参数有值就传，没有就传null
+ 参数说明:
+ 1. 如果精确到platform_code, 则传到platform_code即可
+ 2. 如果精确到supplier_id, 则传到platform_code, supplier_id即可
+ 3. 如果精确到city_code, 则传到platform_code, supplier_id, city_code即可
+ 4. 如果精确到biz_district_id, 则传到platform_code, supplier_id, city_code, biz_district_id即
+ 
+ @param examineOrderModel 审批单
+ @param applyOrder 费用单
+ @param successBlock 服务器响应成功
+ @param failBlock 服务器响应失败
+ */
++ (void)OaExamineRequestGetSubmitAmount:(ExamineOrderModel *)examineOrderModel applyOrderModel:(CostOrderModel *)applyOrder success:(void(^)(NSArray <CostOrderSubmitAmountModel *> *submitAmountList))successBlock fail:(void(^)(id error))failBlock
+{
+    
+    CostAccountingModel *costAccountingModel = applyOrder.cost_accounting_info;
+    NSString *accountingId = costAccountingModel._id;
+    NSString *submitAt = examineOrderModel.submit_at;
+    
+    NSMutableDictionary *listDic = @{}.mutableCopy;
+    NSMutableArray *list = @[].mutableCopy;
+    
+    for (NSInteger i = 0; i < applyOrder.cost_allocation_list.count; i++) {
+        if (applyOrder.cost_allocation_list.count == 0) {
+            return;
+        }
+        
+        NSString *key = [NSString stringWithFormat:@"%tu",i];
+        
+        CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
+        
+        // 请求参数
+        NSMutableDictionary *paramDic = [BossOaExamineRequest getSubmitAmountRequestParams:accountingId submitAt:submitAt allocationModel:allocationModel];
+        
+        // 发送网络请求
+        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.cost_order.get_amount_with_submit" success:^(id responseObject) {
+            DLog(@"%@", responseObject);
+            [BossOaExamineRequest handleGetSubmitAmountResponse:responseObject applyOrderModel:applyOrder key:key submitAt:submitAt listDic:listDic list:list success:successBlock];
+        } fail:^(id error) {
+            [BossOaExamineRequest handleGetSubmitAmountResponse:@{} applyOrderModel:applyOrder key:key submitAt:submitAt listDic:listDic list:list success:successBlock];
+        }];
+    }
+}
+
+/**
+ 提报费用金额统计请求参数
+ 
+ @return 请求参数
+ */
++ (NSMutableDictionary *)getSubmitAmountRequestParams:(NSString *)accountingId submitAt:(NSString *) submitAt allocationModel:(CostAllocationModel *)allocationModel
+{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
+    
+    // 科目Id
+    [paramDic setValue:accountingId forKey:@"accounting_id"];
+    
+    // 提报时间 eg:"2018-01-14"
+    NSDate *date = [NSDate dateFromString:submitAt withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *submitAtStr = [date stringWithFormat:@"yyyy-MM-dd"];
+    [paramDic setValue:submitAtStr forKey:@"submit_at"];
+    
+    
+    // 请求参数value = @““会被过滤
+    // 平台code
+    [paramDic setValue:allocationModel.platform_code?:@"" forKey:@"platform_code"];
+    // 供应商Id
+    [paramDic setValue:allocationModel.supplier_id?:@"" forKey:@"supplier_id"];
+    // 城市code
+    [paramDic setValue:allocationModel.city_code?:@"" forKey:@"city_code"];
+    // 商圈Id
+    [paramDic setValue:allocationModel.biz_district_id?:@"" forKey:@"biz_district_id"];
+    
+    return paramDic;
+}
+
 + (void)getListWithResponseObject:(id)responseObject applyOrderModel:(CostOrderModel *)applyOrder key:(NSString *)key bookMonth:(NSString *)bookMonth listDic:(NSMutableDictionary *)listDic list:(NSMutableArray *)list success:(void(^)(NSArray <CostBookMonthBriefModel *> *costBookMonthList))successBlock
 {
     if (!successBlock) {
@@ -514,9 +600,42 @@
     [listDic setObject:model forKey:key];
     if (listDic.count == applyOrder.cost_allocation_list.count) {
         for (NSInteger index = 0; index < listDic.count; index++) {
-            NSString *indexKey = [NSString stringWithFormat:@"%ld",index];
+            NSString *indexKey = [NSString stringWithFormat:@"%tu",index];
             
             CostBookMonthBriefModel *indexModel = listDic[indexKey];
+            
+            [list addObject:indexModel];
+        }
+        successBlock(list.copy);
+    }
+}
+
+/**
+ 提报费用金额统计请求处理
+ 
+ @param responseObject 请求结果
+ @param applyOrder 费用单
+ @param key key
+ @param submitAt 提报时间
+ @param listDic 提报费用金额统计集合
+ @param list 提报费用金额统计列表
+ @param successBlock 请求结果回调
+ */
++ (void)handleGetSubmitAmountResponse:(id)responseObject applyOrderModel:(CostOrderModel *)applyOrder key:(NSString *)key submitAt:(NSString *)submitAt listDic:(NSMutableDictionary *)listDic list:(NSMutableArray *)list success:(void(^)(NSArray <CostOrderSubmitAmountModel *> *costBookMonthList))successBlock
+{
+    CostOrderSubmitAmountModel *model = [[CostOrderSubmitAmountModel alloc] init];
+    [model setValuesForKeysWithDictionary:responseObject];
+    
+    NSDate *date = [NSDate dateFromString:submitAt withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *submitAtString = [date stringWithFormat:@"yyyy年MM月"];
+    // eg:"XXXX年XX月已提报费用合计：￥00.00"
+    model.submitAmountStr = [NSString stringWithFormat:@"%@已提报费用合计：￥%.2f",submitAtString,model.amount_money / 100.0];
+    [listDic setObject:model forKey:key];
+    if (listDic.count == applyOrder.cost_allocation_list.count) {
+        for (NSInteger index = 0; index < listDic.count; index++) {
+            NSString *indexKey = [NSString stringWithFormat:@"%tu",index];
+            
+            CostOrderSubmitAmountModel *indexModel = listDic[indexKey];
             
             [list addObject:indexModel];
             
