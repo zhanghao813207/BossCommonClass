@@ -12,7 +12,8 @@
     "JiaYuanchao": "yuanchao__2106@163.com"
   },
   "source": {
-    "git": "~/soft/develop/ios/BossCommonClass-master"
+    "git": "https://git.coding.net/J_YC/BossCommonClass.git",
+    "tag": "1.1.6"
   },
   "platforms": {
     "ios": "8.0"

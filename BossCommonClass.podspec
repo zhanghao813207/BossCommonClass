@@ -26,8 +26,8 @@ these are common classes,they are used by boss system.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'JiaYuanchao' => 'yuanchao__2106@163.com' }
-  # s.source           = { :git => 'https://git.coding.net/J_YC/BossCommonClass.git', :tag => s.version.to_s }
-  s.source           = { :git => '~/soft/develop/ios/BossCommonClass-master'}
+  s.source           = { :git => 'https://git.coding.net/J_YC/BossCommonClass.git', :tag => s.version.to_s }
+  # s.source           = { :git => '~/soft/develop/ios/BossCommonClass-master'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
