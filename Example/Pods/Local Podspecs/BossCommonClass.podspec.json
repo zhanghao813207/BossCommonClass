@@ -12,7 +12,7 @@
     "JiaYuanchao": "yuanchao__2106@163.com"
   },
   "source": {
-    "git": "~/soft/develop/ios/BossCommonClass-master/BossCommonClass"
+    "git": "~/soft/develop/ios/BossCommonClass-master"
   },
   "platforms": {
     "ios": "8.0"
