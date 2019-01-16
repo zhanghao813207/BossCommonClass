@@ -13,13 +13,25 @@
 #import "BossBasicDefine.h"
 @class ViewController;
 
-typedef NS_ENUM(NSUInteger, ResultDealTypes) {
-    ResultDealTypesNone           = 1, // 不做处理
-    ResultDealTypesQHErrorView    = 2, // 使用QHErrorView弹出错误
-    ResultDealTypesNNBStatusView  = 3, // 使用NNBStatusView弹出错误
-};
-
 @implementation NNBBasicRequest
+
+/**
+ post请求 错误参数不做统一校验
+ 
+ @param url URL
+ @param parameters 请求参数
+ @param success 成功返回参数
+ @param fail 失败返回参数
+ */
+/** post请求 ,所有错误不做统一校验 再返回 */
++ (void)postJsonNoneWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
+{
+    [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
+        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesNone success:success fail:fail];
+    } fail:^(id error) {
+        [self handleFailWithError:error dealType:ResultDealTypesNone success:success fail:fail];
+    }];
+}
 
 /**
  post请求 错误参数统一处理
