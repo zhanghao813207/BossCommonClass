@@ -90,7 +90,7 @@
  @param operateType 操作类型
  @param successBlock 获取成功的回调 返回七牛token
  */
-+ (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock
++ (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void (^)(id error))failBlock
 {
 //    NSString *path = [JYCSimpleToolClass qiniuPathWithOperateType:operateType];
     
@@ -108,7 +108,9 @@
             successBlock(responseObject[@"path"], responseObject[@"token"]);
         }
     } fail:^(id error) {
-        
+        if(error){
+            failBlock(error);
+        }
     }];
 }
 

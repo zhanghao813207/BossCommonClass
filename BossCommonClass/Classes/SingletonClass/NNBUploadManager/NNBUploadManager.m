@@ -29,7 +29,7 @@
     return manager;
 }
 
-- (void)putData:(NSData *)data key:(NSString *)key token:(NSString *)token progressHandler:(void(^)(NSString *key, float percent))progressHandler complete:(void(^)(QNResponseInfo *info, NSString *key, NSDictionary *resp))complete
+- (void)putData:(NSData *)data key:(NSString *)key token:(NSString *)token progressHandler:(void(^)(NSString *key, float percent))progressHandler complete:(void(^)(QNResponseInfo *info, NSString *key, NSDictionary *resp))complete fail:(void(^)(id error))failBlock
 {
     QNUploadOption *percentOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:progressHandler params:nil checkCrc:NO cancellationSignal:^BOOL(){
         return NO;
@@ -37,6 +37,9 @@
     
     [self.upLoader putData:data key:key token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (info.error) {
+            if(failBlock){
+                failBlock(info.error);
+            }
             [[[QHErrorView alloc] initWithTitle:@"图片上传失败，请稍后重试"] showInView:[JYCSimpleToolClass getCurrentVC].view];
         } else {
             if (complete) {
