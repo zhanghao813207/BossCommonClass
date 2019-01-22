@@ -15,29 +15,22 @@
 ///*-------------*********移动测试环境公共接口********-------*/
 /** 测试环境总域名 URL*/
 
-NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
-
-NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
-
-//NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
-
 // local
-// NSString *const BossBasicURL = @"http://192.168.1.147:8081/1.0/";
+NSString *const BossBasicURL = @"http://192.168.1.124:8081/1.0/";
+NSString *const BossBasicURLV2 = @"http://192.168.1.124:8081/2.0";
 
-// local
-// NSString *const BossBasicURLV2 = @"http://192.168.1.147:8081/2.0";
+// dev
+// NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
+// NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
 
-// 测试环境 ip
+// test
 // NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
-
-// 测试环境 ip
 // NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
-///** 正式环境总域名 URL*/
+// release
 NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
-
 NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0";
 
 #endif
@@ -48,12 +41,12 @@ NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0";
 #ifdef kBossKnight
 
     #ifdef DEBUG
-    // NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
-    // NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";
-
-    // dev
     NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
     NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
+
+    // dev
+    // NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
+    // NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
     #else
     NSString *const ACCESS_KEY = @"5ac19960ce6d2ab290eca20a";
     NSString *const SECRET_KEY = @"5ac19960ce6d2ab290eca20b";

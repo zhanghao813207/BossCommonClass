@@ -23,9 +23,30 @@ typedef NS_ENUM(NSUInteger, GenderIDs) {
 };
 
 typedef NS_ENUM(NSInteger, StaffStates) {
-    StaffStateOnTheJob      =  50, // 在职
-    StaffStateLeaveToReview =   1, // 离职待审核
-    StaffStateLeave         = -50, // 离职
+    StaffStatePendingSign            =  1,    // 待签约
+    StaffStateSigned                 =  100,  // 已签约-正常
+    StaffStateWaitingRenewal         =  101,  // 已签约-待换签
+    StaffStateRenewaled              =  102,  // 已签约-待续签
+    StaffStateTerminated             =  -100, // 已解约
+};
+
+typedef NS_ENUM(NSInteger, StaffPositionType) {
+    StaffPositionTypeAccount      =  10 // 个户
+};
+
+typedef NS_ENUM(NSInteger, StaffIndividualType) {
+    StaffIndividualTypeA      =  3001, // 甲类
+    StaffIndividualTypeB      =  3002, // 乙类
+};
+
+typedef NS_ENUM(NSInteger, StaffSignType) {
+    StaffSignTypePaper      =  10, // 纸质签约
+    StaffSignTypeElectronic =  20, // 电子签约
+};
+
+typedef NS_ENUM(NSInteger, StaffSignCycle) {
+    StaffSignCycleOne      =  1, // 一年
+    StaffSignCycleThree    =  3, // 三年
 };
 
 typedef NS_ENUM(NSUInteger, FlowStates) {
@@ -34,6 +55,14 @@ typedef NS_ENUM(NSUInteger, FlowStates) {
     FlowStateRefundWaitReview    = 9013, // 退货申请待审核
     FlowStateRefundReviewed      = 9014, // 退货申请审核通过
     FlowStateRefundNoReviewed    = 9015, // 退货申请审核不通过
+};
+
+typedef NS_ENUM(NSUInteger, RecruitmentChannelId) {
+    RecruitmentChannelIdThird        = 5001, // 第三方
+    RecruitmentChannelIdPersonal     = 5002, // 个人推荐
+    RecruitmentChannelIdOther        = 5003, // 其他
+    RecruitmentChannelIdTransfer     = 5004, // 转签
+    RecruitmentChannelIdInternal     = 5005, // 内部推荐
 };
 
 typedef NS_ENUM(NSUInteger, PaymentTypes) {

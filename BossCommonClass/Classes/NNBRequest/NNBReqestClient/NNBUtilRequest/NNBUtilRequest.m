@@ -71,7 +71,7 @@
     if (smsType == NNBSendSMSTypeChangePhoneNumber) {
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
     }
-    
+    DLog(@"request params:\n%@",paraDic);
     // 执行发送验证码请求
     [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
@@ -125,11 +125,12 @@
  @param fail 请求失败回调
  */
 + (void)requestSmsCode:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail{
-#ifdef kBossKnight
-    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-#else
+//#ifdef kBossKnight
+//    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+//#else
+//    [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+//#endif
     [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-#endif
 }
 
 /**
@@ -139,16 +140,17 @@
  */
 + (NSString *)urlReuest
 {
-    NSString *url;
-    
-#ifdef kBossKnight
-    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
-#elif defined kBossManager
-    url = BossBasicURLV2;
-#else
-    url = BossBasicURLV2;
-#endif
-    return url;
+//    NSString *url;
+//
+//#ifdef kBossKnight
+//    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
+//#elif defined kBossManager
+//    url = BossBasicURLV2;
+//#else
+//    url = BossBasicURLV2;
+//#endif
+//    return url;
+    return BossBasicURLV2;
 }
 
 /**
@@ -158,16 +160,17 @@
  */
 + (NSString *)cmdRequest
 {
-    NSString *cmd;
-    
-#ifdef kBossKnight
-    cmd = nil;
-#elif defined kBossManager
-    cmd = @"auth.auth.send_verify_code";
-#else
-    cmd = @"auth.auth.send_verify_code";
-#endif
-    return cmd;
+//    NSString *cmd;
+//
+//#ifdef kBossKnight
+//    cmd = nil;
+//#elif defined kBossManager
+//    cmd = @"auth.auth.send_verify_code";
+//#else
+//    cmd = @"auth.auth.send_verify_code";
+//#endif
+//    return cmd;
+    return @"auth.auth.send_verify_code";
 }
 
 

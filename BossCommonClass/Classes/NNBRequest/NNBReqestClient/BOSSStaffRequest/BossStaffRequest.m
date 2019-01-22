@@ -25,12 +25,11 @@
         DLog(@"员工id不能为空");
         return;
     }
-    NSString *url = [NSString stringWithFormat:@"%@staff/get_staff_info",BossBasicURL];
     
     NSDictionary *paramDic = @{
                                @"staff_id":staffId,
                                };
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff.get" success:^(id responseObject) {
         if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
             kCurrentAccount.isNeedUpdate = NO;
             if (successBlock) {
@@ -48,7 +47,7 @@
 }
 
 /**
- 手持端编辑员工
+ 更新员工信息
  
  @param staffInfo 员工信息
  @param successBlock 是否更新成功
@@ -60,10 +59,9 @@
         DLog(@"员工信息为空");
         return;
     }
-    NSString *url = [NSString stringWithFormat:@"%@staff/mobile_update_staff_info",BossBasicURL];
     
     NSDictionary *paramDic = @{
-                               @"staff_id":kCurrentAccount.staff_id
+                               @"staff_id":kCurrentAccount._id
                                }.mutableCopy;
     
     if (staffInfo.befor_phone) {
@@ -99,15 +97,7 @@
     if (staffInfo.state) {
         [paramDic setValue:@(staffInfo.state) forKey:@"state"];
     }
-    if (staffInfo.departure_reason) {
-        [paramDic setValue:staffInfo.departure_reason forKey:@"departure_reason"];
-    }
-    if (staffInfo.departure_approver_account_id) {
-        [paramDic setValue:staffInfo.departure_approver_account_id forKey:@"departure_approver_account_id"];
-    }
-    if (staffInfo.job_transfer_remark) {
-        [paramDic setValue:staffInfo.job_transfer_remark forKey:@"job_transfer_remark"];
-    }
+
     if (staffInfo.health_certificate) {
         [paramDic setValue:staffInfo.health_certificate forKey:@"health_certificate"];
     }
@@ -157,7 +147,7 @@
         [paramDic setValue:staffInfo.bust forKey:@"bust"];
     }
         
-    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff.app_update" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }

@@ -86,16 +86,17 @@
  */
 + (NSString *)urlReuest
 {
-    NSString *url;
-    
-#ifdef kBossKnight
-    url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
-#elif defined kBossManager
-    url = BossBasicURLV2;
-#else
-    url = BossBasicURLV2;
-#endif
-    return url;
+//    NSString *url;
+//
+//#ifdef kBossKnight
+//    url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
+//#elif defined kBossManager
+//    url = BossBasicURLV2;
+//#else
+//    url = BossBasicURLV2;
+//#endif
+//    return url;
+    return BossBasicURLV2;
 }
 
 
@@ -107,9 +108,9 @@
 + (NSString *)cmdRequest
 {
     NSString *cmd;
-    
+
 #ifdef kBossKnight
-    cmd = nil;
+    cmd = @"auth.auth.app_login";
 #elif defined kBossManager
     cmd = @"auth.auth.login";
 #else

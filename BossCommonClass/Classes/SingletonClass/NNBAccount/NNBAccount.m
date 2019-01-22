@@ -10,6 +10,7 @@
 #import "BossWhiteNavigationController.h"
 #import "LoginVC.h"
 #import "NNBRequestManager.h"
+#import "NSDate+Helper.h"
 
 @interface NNBAccount()
 
@@ -19,13 +20,21 @@
 
 @property (nonatomic, strong) NSString *genderString;
 
-/**
- 员工类型
- */
-@property (nonatomic, strong) NSString *work_type_name;
+@property (nonatomic, strong) NSString *individualTypeStr;
+
+@property (nonatomic, strong) NSString *recruitmentChannelStr;
+
+@property (nonatomic, strong) NSString *supplier_name;
+
+@property (nonatomic, strong) NSString *platform_name;
+
+@property (nonatomic, strong) NSString *city_name;
+
+@property (nonatomic, strong) NSString *biz_district_name;
+
+@property (nonatomic, strong) NSString *contract_belong_name;
 
 @end
-
 
 @implementation NNBAccount
 
@@ -47,51 +56,14 @@ static NNBAccount *defaultAccount = nil;
     }
     
     if ([key isEqualToString:@"expired_at"]) {
-        self.expired_at = [NSString stringWithFormat:@"%@",value];
+        self.expired_at = [NSString stringWithFormat:@"%@", value];
         return;
     }
     
-    if ([key isEqualToString:@"city_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            CityModel *model = [[CityModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.city_list = [array copy];
-        return;
-    }
-    
-    if ([key isEqualToString:@"platform_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            PlatformModel *model = [[PlatformModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.platform_list = [array copy];
-        return;
-    }
-
-    if ([key isEqualToString:@"departure_log"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            DepartureLogModel *model = [[DepartureLogModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.departure_log = [array copy];
-        return;
-    }
-
-    if ([key isEqualToString:@"biz_district_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            BizDistrictModel *model = [[BizDistrictModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.biz_district_list = [array copy];
+    if ([key isEqualToString:@"contract_belong_info"]) {
+        ContractBelongModel *model = [[ContractBelongModel alloc] init];
+        [model setValuesForKeysWithDictionary:value];
+        self.contract_belong_info = model;
         return;
     }
     
@@ -103,7 +75,6 @@ static NNBAccount *defaultAccount = nil;
     
 }
 
-
 /**
  模型转字典
  
@@ -112,77 +83,53 @@ static NNBAccount *defaultAccount = nil;
 - (NSDictionary *)decodeToDic
 {
     NSDictionary *localAccountInfoDic = @{
-                                          @"position_id":@(self.position_id),
-                                          @"job_category_id":@(self.job_category_id),
-                                          @"pay_salary_cycle":@(self.pay_salary_cycle),
-                                          @"recruitment_channel_id":@(self.recruitment_channel_id),
-                                          @"state":@(self.state),
-                                          @"gender_id":@(self.gender_id),
-                                          @"bank_info_type":@(self.bank_info_type),
-                                          @"work_type":@(self.work_type),
-                                          
-                                          @"bank_card_front_key":self.bank_card_front_key ? : @"",
-                                          @"bust_key":self.bust_key ? : @"",
-                                          @"departure_reason":self.departure_reason ? : @"",
-                                          @"departure_date":self.departure_date ? : @"",
-                                          @"national":self.national ? : @"",
-                                          @"updated_at":self.updated_at ? : @"",
-                                          @"bank_branch":self.bank_branch ? : @"",
-                                          @"health_certificate_key":self.health_certificate_key ? : @"",
-                                          @"education":self.education ? : @"",
-                                          @"health_certificate":self.health_certificate ? : @"",
-                                          @"platform_name":self.platform_name ? : @"",
-                                          @"biz_district_name":self.biz_district_name ? : @"",
-                                          @"staff_id":self.staff_id ? : @"",
-                                          @"emergency_contact":self.emergency_contact ? : @"",
-                                          @"contract_photo_key_list":self.contract_photo_key_list ? : @"",
-                                          @"bank_card_id":self.bank_card_id ? : @"",
-                                          @"bust":self.bust ? : @"",
-                                          @"entry_date":self.entry_date ? : @"",
-                                          @"emergency_contact_phone":self.emergency_contact_phone ? : @"",
-                                          @"health_certificate_back":self.health_certificate_back ? : @"",
-                                          @"bank_card_front":self.bank_card_front ? : @"",
-                                          @"recruitment_channel":self.recruitment_channel ? : @"",
-                                          @"identity_card_back_key":self.identity_card_back_key ? : @"",
-                                          @"operator_id":self.operator_id ? : @"",
-                                          @"contract_belong_name":self.contract_belong_name ? : @"",
-                                          @"referrer_name":self.referrer_name ? : @"",
-                                          @"departure_approver_name":self.departure_approver_name ? : @"",
-                                          @"knight_type_id":self.knight_type_id ? : @"",
-                                          @"identity_card_back":self.identity_card_back ? : @"",
-                                          @"supplier_id":self.supplier_id ? : @"",
-                                          @"supplier_name":self.supplier_name ? : @"",
-                                          @"city_name":self.city_name ? : @"",
-                                          @"associated_knight_id":self.associated_knight_id ? : @"",
-                                          @"departure_approver_account_id":self.departure_approver_account_id ? : @"",
-                                          @"knight_type_name":self.knight_type_name ? : @"",
-                                          @"contract_belong_id":self.contract_belong_id ? : @"",
-                                          @"name":self.name ? : @"",
-                                          @"phone":self.phone ? : @"",
-                                          @"identity_card_front" : self.identity_card_front ? : @"",
-                                          @"identity_card_front_key":self.identity_card_front_key ? : @"",
-                                          @"created_at":self.created_at ? : @"",
-                                          @"identity_card_id":self.identity_card_id ? : @"",
-                                          @"associated_identity_card_id":self.associated_identity_card_id ? : @"",
-                                          @"operator_name":self.operator_name ? : @"",
-                                          @"cardholder_name":self.cardholder_name ? : @"",
-                                          @"_id":self._id ? : @"",
-                                          @"cardholder_name":self.cardholder_name ? : @"",
-                                          @"job_transfer_remark":self.job_transfer_remark ? : @"",
                                           @"access_token":self.access_token ? : @"",
                                           @"refresh_token":self.refresh_token ? : @"",
                                           @"expired_at":self.expired_at ? : @"",
-
+                                          
+                                          @"_id":self._id ? : @"",
+                                          @"name":self.name ? : @"",
+                                          @"phone":self.phone ? : @"",
+                                          @"gender_id":@(self.gender_id),
+                                          @"national":self.national ? : @"",
+                                          @"emergency_contact":self.emergency_contact ? : @"",
+                                          @"emergency_contact_phone":self.emergency_contact_phone ? : @"",
+                                          @"education":self.education ? : @"",
+                                          @"state":@(self.state),
+                                          @"often_address":self.often_address ? : @"",
+                                          @"entry_date":self.entry_date ? : @"",
+                                          @"signed_date":self.signed_date ? : @"",
+                                          @"created_at":self.created_at ? : @"",
+                                          @"updated_at":self.updated_at ? : @"",
+                                          @"referrer_company_id":self.referrer_company_id ? : @"",
+                                          @"sign_type":@(self.sign_type),
+                                          @"position_type":@(self.position_type),
+                                          @"individual_type":@(self.individual_type),
+                                          @"sign_cycle":@(self.sign_cycle),
+                                          @"signed_date_id":self.signed_date_id ? : @"",
+                                          @"recruitment_channel_id":@(self.recruitment_channel_id),
+                                          @"bust":self.bust ? : @"",
+                                          @"identity_card_id":self.identity_card_id ? : @"",
+                                          @"identity_card_front" : self.identity_card_front ? : @"",
+                                          @"identity_card_back":self.identity_card_back ? : @"",
+                                          @"health_certificate":self.health_certificate ? : @"",
+                                          @"health_certificate_back":self.health_certificate_back ? : @"",
+                                          @"platform_names":self.platform_names ? : @[],
+                                          @"biz_district_names":self.biz_district_names ? : @[],
+                                          @"supplier_names":self.supplier_names ? : @[],
+                                          @"city_names":self.city_names ? : @[],
+                                          @"associated_identity_card_id":self.associated_identity_card_id ? : @"",
                                           @"associated_knight_id_list":self.associated_knight_id_list ? : @[],
-                                          @"job_category_log":self.job_category_log ? : @[],
+                                          @"associated_knight_id":self.associated_knight_id ? : @"",
+                                          @"contract_belong_id":self.contract_belong_id ? : @"",
+                                          @"contract_belong_info":self.contract_belong_info ? [self.contract_belong_info decodeToDic] : @{},
                                           @"contract_photo_list":self.contract_photo_list ? : @[],
-                                          @"district_description":self.district_description ? : @[],
+                                          @"bank_card_id":self.bank_card_id ? : @"",
+                                          @"cardholder_name":self.cardholder_name ? : @"",
                                           @"bank_location":self.bank_location ? : @[],
-
-                                          @"platform_list":self.platform_list ? [self encodeArrayToArray:self.platform_list] : @[],
-                                          @"city_list":self.city_list ? [self encodeArrayToArray:self.city_list] : @[],
-                                          @"departure_log":self.departure_log ? [self encodeArrayToArray:self.departure_log] : @[],
-                                          @"biz_district_list":self.biz_district_list ? [self encodeArrayToArray:self.biz_district_list] : @[],
+                                          @"bank_branch":self.bank_branch ? : @"",
+                                          @"bank_card_front":self.bank_card_front ? : @"",
+                                          @"operator_id":self.operator_id ? : @""
                                           };
     return localAccountInfoDic;
 }
@@ -197,7 +144,7 @@ static NNBAccount *defaultAccount = nil;
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withController:(UIViewController *)viewController
 {
     // 当前用户已经登录
-    if (kCurrentAccount.staff_id && ![kCurrentAccount.staff_id isEqualToString:@""]) {
+    if (kCurrentAccount._id && ![kCurrentAccount._id isEqualToString:@""]) {
         if (success) {
             success(YES,NO);
         }
@@ -260,6 +207,7 @@ static NNBAccount *defaultAccount = nil;
 + (void)userIsLogin:(void(^)(BOOL isLogin))loginBlock Expired:(void (^)(BOOL isExpired))expeiredBlock
 {
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:AccountInfoKey];
+    DLog(@"userIsLogin account date:\n%@",dic);
     if (dic) {
         // 未过期的情况 用户上次登录过 且 不需要重新登录
         if (![[NNBRequestManager shareNNBRequestManager] accountTockenIsExpiredWithExpired_at:dic[@"expired_at"]]) {
@@ -333,50 +281,23 @@ static NNBAccount *defaultAccount = nil;
     return [arrayM copy];
 }
 
-- (NSString *)postionIDString
-{
-    switch (self.position_id) {
-        case PositionIDDirector:
-            _postionIDString =  @"总监";
-            break;
-        case PositionIDCityManger:
-            _postionIDString =  @"城市经理";
-            break;
-        case PositionIDCityAssistant:
-            _postionIDString =  @"城市助理";
-            break;
-        case PositionIDDispatcher:
-            _postionIDString =  @"调度";
-            break;
-        case PositionIDStationAgent:
-            _postionIDString =  @"站长";
-            break;
-        case PositionIDKnightCommander:
-            _postionIDString =  @"骑士长";
-            break;
-        case PositionIDKnight:
-            _postionIDString =  @"骑士";
-            break;
-        default:
-            _postionIDString =  @"骑士";
-            break;
-    }
-    return _postionIDString;
-}
 - (NSString *)staffStateString
 {
     switch (self.state) {
-        case StaffStateOnTheJob:
-            _staffStateString = @"在职";
+        case StaffStatePendingSign:
+            _staffStateString = @"待签约";
             break;
-        case StaffStateLeaveToReview:
-            _staffStateString = @"离职待审核";
+        case StaffStateSigned:
+            _staffStateString = @"已签约-正常";
             break;
-        case StaffStateLeave:
-            _staffStateString = @"离职";
+        case StaffStateWaitingRenewal:
+            _staffStateString = @"已签约-待换签";
             break;
-        default:
-            _staffStateString = @"在职";
+        case StaffStateRenewaled:
+            _staffStateString = @"已签约-待续签";
+            break;
+        case StaffStateTerminated:
+            _staffStateString = @"已解约";
             break;
     }
     return _staffStateString;
@@ -401,22 +322,69 @@ static NNBAccount *defaultAccount = nil;
     return _genderString;
 }
 
-- (NSString *)work_type_name
+- (NSString *)individualTypeStr
 {
-    if (!_work_type_name) {
-        switch (self.work_type) {
-            case 3001:
-                _work_type_name = @"全职";
-                break;
-            case 3002:
-                _work_type_name = @"兼职";
-                break;
-            default:
-                _work_type_name = @"无";
-                break;
-        }
+    switch (self.individual_type) {
+        case StaffIndividualTypeA:
+            _individualTypeStr = @"甲类";
+            break;
+        case StaffIndividualTypeB:
+            _individualTypeStr = @"乙类";
+            break;
     }
-    return _work_type_name;
+    return _individualTypeStr;
+}
+
+- (NSString *)recruitmentChannelStr
+{
+    switch (self.recruitment_channel_id) {
+        case RecruitmentChannelIdThird:
+            _recruitmentChannelStr = @"第三方";
+            break;
+        case RecruitmentChannelIdPersonal:
+            _recruitmentChannelStr = @"个人推荐";
+            break;
+        case RecruitmentChannelIdOther:
+            _recruitmentChannelStr = @"其他";
+            break;
+        case RecruitmentChannelIdTransfer:
+            _recruitmentChannelStr = @"转签";
+            break;
+        case RecruitmentChannelIdInternal:
+            _recruitmentChannelStr = @"内部推荐";
+            break;
+    }
+    return _recruitmentChannelStr;
+}
+
+- (NSString *)supplier_name
+{
+    BOOL checkEmpty = self.supplier_names && [self.supplier_names count] >= 1;
+    return checkEmpty ? self.supplier_names[0] : @"";
+}
+
+- (NSString *)platform_name
+{
+    BOOL checkEmpty = self.platform_names && [self.platform_names count] >= 1;
+    return checkEmpty ? self.platform_names[0] : @"";
+}
+
+- (NSString *)city_name
+{
+    BOOL checkEmpty = self.city_names && [self.city_names count] >= 1;
+    return checkEmpty ? self.city_names[0] : @"";
+}
+
+- (NSString *)biz_district_name
+{
+    BOOL checkEmpty = self.biz_district_names && [self.biz_district_names count] >= 1;
+    return checkEmpty ? self.biz_district_names[0] : @"";
+}
+
+- (NSString *)contract_belong_name
+{
+    BOOL checkNil = self.contract_belong_info && self.contract_belong_info.name;
+    return checkNil ? self.contract_belong_info.name : @"";
 }
 
 #pragma mark -- help property
