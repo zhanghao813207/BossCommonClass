@@ -62,6 +62,11 @@ static NNBAccount *defaultAccount = nil;
         return;
     }
     
+    if ([key isEqualToString:@"signed_date"]) {
+        self.signed_date = [NSString stringWithFormat:@"%@", value];
+        return;
+    }
+    
     if ([key isEqualToString:@"contract_belong_info"]) {
         ContractBelongModel *model = [[ContractBelongModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
