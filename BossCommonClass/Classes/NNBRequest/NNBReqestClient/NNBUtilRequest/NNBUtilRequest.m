@@ -92,9 +92,6 @@
  */
 + (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void (^)(id error))failBlock
 {
-//    NSString *path = [JYCSimpleToolClass qiniuPathWithOperateType:operateType];
-    
-    NSString *url = [NSString stringWithFormat:@"%@upload/get_token",BossBasicURL];
     
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [currentDate timeIntervalSince1970];
@@ -103,12 +100,13 @@
     NSDictionary *paramDic = @{
                                @"file_name":path,
                                };
-    [NNBBasicRequest getJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:[self urlReuest] parameters:paramDic CMD:@"tool.tool.get_qiniu_token" success:^(id responseObject) {
         if (successBlock) {
             successBlock(responseObject[@"path"], responseObject[@"token"]);
         }
     } fail:^(id error) {
-        if(error){
+        if(failBlock){
             failBlock(error);
         }
     }];
