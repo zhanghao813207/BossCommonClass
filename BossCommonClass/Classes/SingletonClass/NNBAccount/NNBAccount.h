@@ -135,6 +135,12 @@
 @property (nonatomic, strong) NSString *contract_asset_id;
 
 /**
+ 电子签约合同 url
+ - pdf格式
+ */
+@property (nonatomic, strong) NSString *contract_asset_url;
+
+/**
  招聘渠道Id(5001:第三方，5002:个人推荐，5003:其他 5004:转签 5005:内部推荐)
  */
 @property (nonatomic, assign) RecruitmentChannelId recruitment_channel_id;
@@ -143,6 +149,11 @@
  半身照(照片)
  */
 @property (nonatomic, strong) NSString *bust;
+
+/**
+ 半身照(照片) url
+ */
+@property (nonatomic, strong) NSString *bust_url;
 
 /**
  身份证号
@@ -155,9 +166,19 @@
 @property (nonatomic, strong) NSString *identity_card_front;
 
 /**
+ 身份证正面照(照片) url
+ */
+@property (nonatomic, strong) NSString *identity_card_front_url;
+
+/**
  身份证背面照(照片)
  */
 @property (nonatomic, strong) NSString *identity_card_back;
+
+/**
+ 身份证背面照(照片) url
+ */
+@property (nonatomic, strong) NSString *identity_card_back_url;
 
 /**
  健康证(正面照片)
@@ -165,9 +186,19 @@
 @property (nonatomic, strong) NSString *health_certificate;
 
 /**
+ 健康证(正面照片) url
+ */
+@property (nonatomic, strong) NSString *health_certificate_url;
+
+/**
  健康证(背面照片)
  */
 @property (nonatomic, strong) NSString *health_certificate_back;
+
+/**
+ 健康证(背面照片) url
+ */
+@property (nonatomic, strong) NSString *health_certificate_back_url;
 
 /**
  平台名称列表
@@ -188,6 +219,11 @@
  城市名称列表
  */
 @property (nonatomic, strong) NSArray *city_names;
+
+/**
+ 平台ID
+ */
+@property (nonatomic, strong) NSString *custom_id;
 
 /**
  平台身份证
@@ -215,9 +251,14 @@
 @property (nonatomic, strong) ContractBelongModel *contract_belong_info;
 
 /**
- 合同照片
+ 纸质签约合同图片名称
  */
 @property (nonatomic, strong) NSArray *contract_photo_list;
+
+/**
+ 纸质签约合同图片 url
+ */
+@property (nonatomic, strong) NSArray *contract_photo_list_url;
 
 /**
  银行卡号
@@ -245,6 +286,11 @@
 @property (nonatomic, strong) NSString *bank_card_front;
 
 /**
+ 银行卡正面照(照片)
+ */
+@property (nonatomic, strong) NSString *bank_card_front_url;
+
+/**
  身份证有效期限
  */
 @property (nonatomic, strong) NSString *identity_card_valid_term;
@@ -267,7 +313,7 @@
 @property (nonatomic, strong, readonly) NSString *postionIDString;
 
 /**
- 岗位状态
+ 状态
  */
 @property (nonatomic, strong, readonly) NSString *staffStateString;
 
@@ -300,6 +346,25 @@
  合同归属
  */
 @property (nonatomic, strong, readonly) NSString *contract_belong_name;
+
+ /**
+ 电子签约合同url - PDF
+ */
+@property (nonatomic, strong, readonly) NSString *contract_url_electronic;
+
+/**
+ 纸质签约合同url - 多张照片
+ 
+ @return return 合同url列表
+ */
+@property (nonatomic, strong, readonly) NSArray *contract_url_list_paper;
+
+/**
+ 电子签约状态信息
+ - 未完成 - 未签约
+ - 已完成 - 已签约-正常、已签约-待续签、已签约-待换签
+ */
+@property (nonatomic, strong, readonly) NSString *electronicContractStateStr;
 
 #pragma mark -- 更新用户信息是需要使用的属性
 
@@ -356,11 +421,6 @@
 @property (nonatomic, assign, readonly) BOOL bankCardInfoIsPerfect;
 
 /**
- 合同照片是否上传
- */
-@property (nonatomic, assign, readonly) BOOL contractPhotosInfoIsPerfect;
-
-/**
  近期半身照是否上传
  */
 @property (nonatomic, assign, readonly) BOOL bustInfoIsPerfect;
@@ -369,6 +429,21 @@
  健康证是否上传
  */
 @property (nonatomic, assign, readonly) BOOL healthCertificateInfoIsPerfect;
+
+/**
+ 检查是否签约
+ */
+@property (nonatomic, assign, readonly) BOOL checkSigned;
+
+/**
+ 检查是否电子签约
+ */
+@property (nonatomic, assign, readonly) BOOL checkElectronicContract;
+
+/**
+ 检查合同是否上传
+ */
+@property (nonatomic, assign, readonly) BOOL checkContractUploaded;
 
 #pragma mark --method
 
@@ -394,6 +469,15 @@
  @param viewController 弹出去完善的按钮
  */
 + (void)userInfoIsPerfect:(void(^)(BOOL isPerfect))perfectBlock toPerfect:(void(^)(void))toPerfectBlock withController:(UIViewController *)viewController;
+
+/**
+ 判断是否需电子签约
+ 
+ @param onterContractBlock      其他签约回调
+ @param electronicContractBlock 电子签约回调
+ @param viewController          弹出去完善的按钮
+ */
++ (void)checkElectronicContract:(void(^)(void))onterContractBlock electronicContractBlock:(void(^)(void))electronicContractBlock withController:(UIViewController *)viewController;
 
 /**
  当前用户是否登录，登录信息是否过期

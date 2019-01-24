@@ -165,12 +165,12 @@ static NNBRequestManager *sharedManager = nil;
         return NO;
     }
     
+    DLog(@"account data:\n%@", dic);
+    
 #ifdef kBossKnight
     [kCurrentAccount setValuesForKeysWithDictionary:dic];
     
     NSDictionary *localAccountInfoDic = [kCurrentAccount decodeToDic];
-    
-    NSLog(@"account data \n %@", localAccountInfoDic);
     
     [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
     [kUserDefault synchronize];

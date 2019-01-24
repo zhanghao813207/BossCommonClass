@@ -155,6 +155,7 @@
         kCurrentAccount.isNeedUpdate = YES;
         successBlock(ok);
     } fail:^(id error) {
+        NSLog(@"error: %@", error);
         if (!failBlock) {
             return;
         }

@@ -33,6 +33,9 @@
                                };
     
     [NNBBasicRequest postLoginJsonWithUrl:[self urlReuest] parameters:paramDic CMD:[self cmdRequest] success:^(id responseObject) {
+        
+         NSLog(@"postLoginJsonWithUrl->response\n%@", responseObject);
+        
 #ifdef kBossKnight
         if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
             kCurrentAccount.isNeedUpdate = NO;
