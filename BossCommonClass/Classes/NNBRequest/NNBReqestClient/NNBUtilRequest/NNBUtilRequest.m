@@ -71,7 +71,7 @@
     if (smsType == NNBSendSMSTypeChangePhoneNumber) {
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
     }
-    
+    DLog(@"request params:\n%@",paraDic);
     // 执行发送验证码请求
     [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
@@ -92,9 +92,6 @@
  */
 + (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void (^)(id error))failBlock
 {
-//    NSString *path = [JYCSimpleToolClass qiniuPathWithOperateType:operateType];
-    
-    NSString *url = [NSString stringWithFormat:@"%@upload/get_token",BossBasicURL];
     
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [currentDate timeIntervalSince1970];
@@ -103,12 +100,13 @@
     NSDictionary *paramDic = @{
                                @"file_name":path,
                                };
-    [NNBBasicRequest getJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
+    
+    [NNBBasicRequest postJsonWithUrl:[self urlReuest] parameters:paramDic CMD:@"tool.tool.get_qiniu_token" success:^(id responseObject) {
         if (successBlock) {
             successBlock(responseObject[@"path"], responseObject[@"token"]);
         }
     } fail:^(id error) {
-        if(error){
+        if(failBlock){
             failBlock(error);
         }
     }];
@@ -125,11 +123,12 @@
  @param fail 请求失败回调
  */
 + (void)requestSmsCode:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail{
-#ifdef kBossKnight
-    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-#else
+//#ifdef kBossKnight
+//    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+//#else
+//    [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
+//#endif
     [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-#endif
 }
 
 /**
@@ -139,16 +138,17 @@
  */
 + (NSString *)urlReuest
 {
-    NSString *url;
-    
-#ifdef kBossKnight
-    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
-#elif defined kBossManager
-    url = BossBasicURLV2;
-#else
-    url = BossBasicURLV2;
-#endif
-    return url;
+//    NSString *url;
+//
+//#ifdef kBossKnight
+//    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
+//#elif defined kBossManager
+//    url = BossBasicURLV2;
+//#else
+//    url = BossBasicURLV2;
+//#endif
+//    return url;
+    return BossBasicURLV2;
 }
 
 /**
@@ -158,16 +158,17 @@
  */
 + (NSString *)cmdRequest
 {
-    NSString *cmd;
-    
-#ifdef kBossKnight
-    cmd = nil;
-#elif defined kBossManager
-    cmd = @"auth.auth.send_verify_code";
-#else
-    cmd = @"auth.auth.send_verify_code";
-#endif
-    return cmd;
+//    NSString *cmd;
+//
+//#ifdef kBossKnight
+//    cmd = nil;
+//#elif defined kBossManager
+//    cmd = @"auth.auth.send_verify_code";
+//#else
+//    cmd = @"auth.auth.send_verify_code";
+//#endif
+//    return cmd;
+    return @"auth.auth.send_verify_code";
 }
 
 

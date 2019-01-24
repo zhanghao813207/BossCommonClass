@@ -10,6 +10,7 @@
 #import "JYCAES256.h"
 #import "NSDate+Helper.h"
 #import "BossBasicDefine.h"
+#import "JYCSimpleToolClass.h"
 float const kNetworkTimeoutInterval = 60.0f;
 
 @interface NNBRequestManager ()
@@ -89,7 +90,8 @@ static NNBRequestManager *sharedManager = nil;
     }
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval =  currentDate.timeIntervalSince1970;
-    NSTimeInterval expired_at = [expired_atString doubleValue];
+    NSTimeInterval expired_at = [[NSDate dateFromString:[JYCSimpleToolClass fastChangeToNormalTimeWithString:expired_atString]] timeIntervalSince1970];
+    NSLog(@"timeInterval = %f expired_at = %f", timeInterval, expired_at);
     return timeInterval >= expired_at ? YES : NO;
 }
 
@@ -162,6 +164,8 @@ static NNBRequestManager *sharedManager = nil;
     if (!dic) {
         return NO;
     }
+    
+    DLog(@"account data:\n%@", dic);
     
 #ifdef kBossKnight
     [kCurrentAccount setValuesForKeysWithDictionary:dic];

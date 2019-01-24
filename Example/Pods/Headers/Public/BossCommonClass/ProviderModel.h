@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/ProviderModel.h
+../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/Model/ProviderModel.h

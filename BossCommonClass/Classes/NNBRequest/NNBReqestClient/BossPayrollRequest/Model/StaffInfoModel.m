@@ -107,17 +107,20 @@
 - (NSString *)stateString
 {
     switch (self.state) {
-            case StaffStateOnTheJob:
-            _stateString = @"在职";
+        case StaffStatePendingSign:
+            _stateString = @"待签约";
             break;
-            case StaffStateLeave:
-            _stateString = @"离职";
+        case StaffStateSigned:
+            _stateString = @"已签约";
             break;
-            case StaffStateLeaveToReview:
-            _stateString = @"离职待审核";
+        case StaffStateWaitingRenewal:
+            _stateString = @"已签约-待换签";
             break;
-        default:
-            _stateString = @"未知";
+        case StaffStateRenewaled:
+            _stateString = @"已签约-待续签";
+            break;
+        case StaffStateTerminated:
+            _stateString = @"已解约";
             break;
     }
     return _stateString;
