@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/AccountInfoModel.h
+../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/Model/AccountInfoModel.h

@@ -37,6 +37,7 @@
     
     [self.upLoader putData:data key:key token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (info.error) {
+            
             if(failBlock){
                 failBlock(info.error);
             }
@@ -71,7 +72,12 @@
 #pragma mark -- lazy property
 - (QNUploadManager *)upLoader
 {
+    
     if (!_upLoader) {
+//        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+//            builder.zone = QNFixedZone.zone1;
+//        }];
+//        _upLoader = [[QNUploadManager alloc] initWithConfiguration:config];
         _upLoader = [[QNUploadManager alloc] init];
     }
     return _upLoader;
