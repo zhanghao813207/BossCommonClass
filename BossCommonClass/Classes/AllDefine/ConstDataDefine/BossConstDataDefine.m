@@ -20,15 +20,15 @@
 // NSString *const BossBasicURLV2 = @"http://192.168.1.110:8081/2.0/";
 
 // dev
-// NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
-// NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
+NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com/1.0/";
+NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com/2.0/";
 
 // test
 // NSString *const BossBasicURL = @"http://123.124.17.55:8051/1.0/";
 // NSString *const BossBasicURLV2 = @"http://123.124.17.55:8051/2.0/";
 
-NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8201//1.0/";
-NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8201/2.0/";
+// NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8201/1.0/";
+// NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8201/2.0/";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
