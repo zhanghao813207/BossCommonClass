@@ -90,7 +90,7 @@ static NNBRequestManager *sharedManager = nil;
     }
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval =  currentDate.timeIntervalSince1970;
-    NSTimeInterval expired_at = [[NSDate dateFromString:[JYCSimpleToolClass fastChangeToNormalTimeWithString:expired_atString]] timeIntervalSince1970];
+    NSTimeInterval expired_at = [expired_atString doubleValue];
     NSLog(@"timeInterval = %f expired_at = %f", timeInterval, expired_at);
     return timeInterval >= expired_at ? YES : NO;
 }
