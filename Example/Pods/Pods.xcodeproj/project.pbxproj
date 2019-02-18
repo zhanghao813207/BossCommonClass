@@ -3132,92 +3132,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		04D83A2CDCFCC2CD8CC3FED034624A73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6397745473B08537329147DBEE255334 /* BGFMDB.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BGFMDB/BGFMDB-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BGFMDB;
-				PRODUCT_NAME = BGFMDB;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		097F4ABDE37AAF8EDB694D2397E4F99E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13FCEC5AE4DD87CF72EF857626CD1415 /* BossCommonClass.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BossCommonClass/BossCommonClass-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BossCommonClass;
-				PRODUCT_NAME = BossCommonClass;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1CB6F72534F40130B386F61E92760D1C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13FCEC5AE4DD87CF72EF857626CD1415 /* BossCommonClass.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BossCommonClass/BossCommonClass-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BossCommonClass;
-				PRODUCT_NAME = BossCommonClass;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		2409F71C1D49AC40FB0217598432CF17 /* Release */ = {
+		0CC9A765B5E420ADA78B16A80F10315F /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DB4E1AE317242F92A7A2C4C287F2515 /* AFNetworking.xcconfig */;
 			buildSettings = {
@@ -3229,7 +3144,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "";
@@ -3246,34 +3161,7 @@
 			};
 			name = Release;
 		};
-		26BA3B583B0A73BF267E17A7C6F62E73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92B6AB58DCF4FEEF3797C9650103522A /* Pods-BossCommonClass_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		273D9749584797CD7C3D3F7619E2280B /* Release */ = {
+		317BBD4362A2EA1E6177F52C88A5959E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B46D20303AF9E258D681CFAD2B2339D /* Qiniu.xcconfig */;
 			buildSettings = {
@@ -3285,7 +3173,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "";
@@ -3302,7 +3190,7 @@
 			};
 			name = Release;
 		};
-		37C469A82D58911CCDBC26A4824A78D6 /* Debug */ = {
+		32AE222F56CA177B3C676B4B6CB8B24A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE3963CE90FDB6FECF0A2141DDAFA4B2 /* HappyDNS.xcconfig */;
 			buildSettings = {
@@ -3314,7 +3202,90 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = HappyDNS;
+				PRODUCT_NAME = HappyDNS;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4A96882C231D9800CD11DF44703E57FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02739B735DF4935CC89C759736D501B0 /* BasicCommonClass.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BasicCommonClass/BasicCommonClass-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BasicCommonClass;
+				PRODUCT_NAME = BasicCommonClass;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		53CC7C3AD054763CEB5DBD22505FC572 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D282343851148752A1BB114AD15FFDEC /* Pods-BossCommonClass_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		58A972240B124EBA3E29F03DA6273081 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE3963CE90FDB6FECF0A2141DDAFA4B2 /* HappyDNS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/HappyDNS/HappyDNS-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "";
@@ -3329,64 +3300,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		50E4EA23D9286B9E0CB0313CBBCA39A6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6397745473B08537329147DBEE255334 /* BGFMDB.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BGFMDB/BGFMDB-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BGFMDB;
-				PRODUCT_NAME = BGFMDB;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		5C764C124C67BCCAB1A4F26E37734FE8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02739B735DF4935CC89C759736D501B0 /* BasicCommonClass.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BasicCommonClass/BasicCommonClass-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BasicCommonClass;
-				PRODUCT_NAME = BasicCommonClass;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		5DE19CECB206ACCCACF04D62F93FFDA6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -3450,33 +3363,63 @@
 			};
 			name = Release;
 		};
-		827CCC8A72F0FA3D62C94C5737B2D0C8 /* Debug */ = {
+		67F465CAE02DA99EEE68BBBC1E24C311 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02739B735DF4935CC89C759736D501B0 /* BasicCommonClass.xcconfig */;
+			baseConfigurationReference = 6397745473B08537329147DBEE255334 /* BGFMDB.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/BasicCommonClass/BasicCommonClass-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/BGFMDB/BGFMDB-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = BasicCommonClass;
-				PRODUCT_NAME = BasicCommonClass;
+				PRODUCT_MODULE_NAME = BGFMDB;
+				PRODUCT_NAME = BGFMDB;
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
+		};
+		73779EE9B42095CC279B10F1CAB03C2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13FCEC5AE4DD87CF72EF857626CD1415 /* BossCommonClass.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BossCommonClass/BossCommonClass-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BossCommonClass;
+				PRODUCT_NAME = BossCommonClass;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		858D01EEFE984249A9581D18DBEA53F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3544,7 +3487,34 @@
 			};
 			name = Debug;
 		};
-		A219EA73F34FB162699DFC7E20261DAD /* Debug */ = {
+		8D8EC178E6F357605011FFB612B92C8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92B6AB58DCF4FEEF3797C9650103522A /* Pods-BossCommonClass_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A2FE692A57A23BB4AE2CBF6743AB8EA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B46D20303AF9E258D681CFAD2B2339D /* Qiniu.xcconfig */;
 			buildSettings = {
@@ -3556,7 +3526,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "";
@@ -3572,7 +3542,64 @@
 			};
 			name = Debug;
 		};
-		B3C045EC84028483FFA40E6EA28EC1FC /* Debug */ = {
+		C6FC81CB6C7B67EB123622845E9FE204 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13FCEC5AE4DD87CF72EF857626CD1415 /* BossCommonClass.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BossCommonClass/BossCommonClass-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BossCommonClass;
+				PRODUCT_NAME = BossCommonClass;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D1F6F3DBD750BFEDA88B18A226BF4893 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02739B735DF4935CC89C759736D501B0 /* BasicCommonClass.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/BasicCommonClass/BasicCommonClass-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"kBossManager=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = BasicCommonClass;
+				PRODUCT_NAME = BasicCommonClass;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE650D6A55E18DC9D3B16827A0F1BA7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DB4E1AE317242F92A7A2C4C287F2515 /* AFNetworking.xcconfig */;
 			buildSettings = {
@@ -3584,7 +3611,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "";
@@ -3600,57 +3627,30 @@
 			};
 			name = Debug;
 		};
-		B4B45050820923FA003FAC5A346C730D /* Release */ = {
+		FE1446A2041A182BD02B967530DB0FDB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE3963CE90FDB6FECF0A2141DDAFA4B2 /* HappyDNS.xcconfig */;
+			baseConfigurationReference = 6397745473B08537329147DBEE255334 /* BGFMDB.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/HappyDNS/HappyDNS-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/BGFMDB/BGFMDB-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"kBossKnight=1",
+					"kBossManager=1",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = HappyDNS;
-				PRODUCT_NAME = HappyDNS;
+				PRODUCT_MODULE_NAME = BGFMDB;
+				PRODUCT_NAME = BGFMDB;
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		D06B19C54157D7F86EC8098F7470D6AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D282343851148752A1BB114AD15FFDEC /* Pods-BossCommonClass_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"kBossKnight=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3661,8 +3661,8 @@
 		043C628A56C8EF3CCF0B95B164651416 /* Build configuration list for PBXNativeTarget "Qiniu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A219EA73F34FB162699DFC7E20261DAD /* Debug */,
-				273D9749584797CD7C3D3F7619E2280B /* Release */,
+				A2FE692A57A23BB4AE2CBF6743AB8EA7 /* Debug */,
+				317BBD4362A2EA1E6177F52C88A5959E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3670,8 +3670,8 @@
 		2A8605828617DB8E58A3BC33BBC83B2E /* Build configuration list for PBXNativeTarget "BossCommonClass" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1CB6F72534F40130B386F61E92760D1C /* Debug */,
-				097F4ABDE37AAF8EDB694D2397E4F99E /* Release */,
+				C6FC81CB6C7B67EB123622845E9FE204 /* Debug */,
+				73779EE9B42095CC279B10F1CAB03C2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3688,8 +3688,8 @@
 		7998FC983D2C8D802A0CA233F1CBCD42 /* Build configuration list for PBXNativeTarget "AFNetworking" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B3C045EC84028483FFA40E6EA28EC1FC /* Debug */,
-				2409F71C1D49AC40FB0217598432CF17 /* Release */,
+				DE650D6A55E18DC9D3B16827A0F1BA7C /* Debug */,
+				0CC9A765B5E420ADA78B16A80F10315F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3697,8 +3697,8 @@
 		88C4B791CBCABE0E273BC5093AABD51D /* Build configuration list for PBXNativeTarget "BGFMDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				04D83A2CDCFCC2CD8CC3FED034624A73 /* Debug */,
-				50E4EA23D9286B9E0CB0313CBBCA39A6 /* Release */,
+				FE1446A2041A182BD02B967530DB0FDB /* Debug */,
+				67F465CAE02DA99EEE68BBBC1E24C311 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3706,8 +3706,8 @@
 		92FD3C2480B723FDF29B7068101DA617 /* Build configuration list for PBXNativeTarget "Pods-BossCommonClass_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D06B19C54157D7F86EC8098F7470D6AE /* Debug */,
-				26BA3B583B0A73BF267E17A7C6F62E73 /* Release */,
+				53CC7C3AD054763CEB5DBD22505FC572 /* Debug */,
+				8D8EC178E6F357605011FFB612B92C8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3715,8 +3715,8 @@
 		9725364B8E8DEDBDC331A0B96C1A2CE2 /* Build configuration list for PBXNativeTarget "BasicCommonClass" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				827CCC8A72F0FA3D62C94C5737B2D0C8 /* Debug */,
-				5C764C124C67BCCAB1A4F26E37734FE8 /* Release */,
+				4A96882C231D9800CD11DF44703E57FA /* Debug */,
+				D1F6F3DBD750BFEDA88B18A226BF4893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3724,8 +3724,8 @@
 		E4EE5B081D7217E63B0D964CCA700D52 /* Build configuration list for PBXNativeTarget "HappyDNS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				37C469A82D58911CCDBC26A4824A78D6 /* Debug */,
-				B4B45050820923FA003FAC5A346C730D /* Release */,
+				58A972240B124EBA3E29F03DA6273081 /* Debug */,
+				32AE222F56CA177B3C676B4B6CB8B24A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
