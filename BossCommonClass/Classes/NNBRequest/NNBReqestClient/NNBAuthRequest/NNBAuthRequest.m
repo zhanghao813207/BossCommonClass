@@ -11,6 +11,11 @@
 #import "NNBRequestManager.h"
 #import "QHErrorView.h"
 #import "BossAccountRequest.h"
+#import "BossKnightAccount.h"
+#import "BossManagerAccount.h"
+#import "BossCache.h"
+#import "SaasModel.h"
+
 @implementation NNBAuthRequest
 
 /**
@@ -32,33 +37,53 @@
                                @"app_code":APPCODE
                                };
     
-    [NNBBasicRequest postLoginJsonWithUrl:[self urlReuest] parameters:paramDic CMD:[self cmdRequest] success:^(id responseObject) {
-        
+    [NNBBasicRequest postLoginJsonWithUrl:kUrl parameters:paramDic CMD:[self cmdRequest] success:^(id responseObject) {
+
          NSLog(@"postLoginJsonWithUrl->response\n%@", responseObject);
         
 #ifdef kBossKnight
         if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
-            kCurrentAccount.isNeedUpdate = NO;
+            kCurrentBossKnightAccount.isNeedUpdate = NO;
             if (successBlock) {
-                successBlock(kCurrentAccount);
+                successBlock(kCurrentBossKnightAccount);
             }
         } else {
-            
+
         }
 #elif defined kBossManager
-        kCurrentBossAccount.isNeedUpdate = NO;
-        NSDictionary *dic = @{
-                              @"account_id":responseObject[@"account_id"],
-                              @"access_token":responseObject[@"access_token"],
-                              @"refresh_token":responseObject[@"refresh_token"],
-                              @"expired_at":responseObject[@"expired_at"],
-                              };
-        [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
-        [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
+        kCurrentBossManagerAccount.isNeedUpdate = NO;
         
-        [BossAccountRequest BossAccountRequestGainAccountWithAccountId:kCurrentBossAccount.account_id success:^{
+        TokenModel *token = [[TokenModel alloc] init];
+        [token setValuesForKeysWithDictionary:responseObject];
+        
+        
+//        NSDictionary *dic = @{
+//                              @"account_id":responseObject[@"account_id"],
+//                              @"access_token":responseObject[@"access_token"],
+//                              @"refresh_token":responseObject[@"refresh_token"],
+//                              @"expired_at":responseObject[@"expired_at"],
+//                              };
+//        [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
+//        [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
+        
+        BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
+        managerAccount.tokenModel = token;
+        
+        kCurrentBossManagerAccount = managerAccount;
+        
+        [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
+            
+            managerAccount.accountModel = accountModel;
+            kCurrentBossManagerAccount = managerAccount;
+            
+            [kCache addAccount:[kCurrentBossManagerAccount decodeToDic]];
+            
+            NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->kCurrentBossManagerAccount\n%@", [kCurrentBossManagerAccount decodeToDic]);
+            
+            NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->saasAccountList\n%@",kCache.saasAccountList);
+            
             if (successBlock) {
-                successBlock(kCurrentBossAccount);
+                successBlock(managerAccount);
             }
         } fail:^(id error) {
             if (fail) {
@@ -66,14 +91,14 @@
             }
         }];
 #else
-        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
-            kCurrentAccount.isNeedUpdate = NO;
-            if (successBlock) {
-                successBlock(kCurrentAccount);
-            }
-        } else {
-            
-        }
+//        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
+//            kCurrentAccount.isNeedUpdate = NO;
+//            if (successBlock) {
+//                successBlock(kCurrentBossKnightAccount);
+//            }
+//        } else {
+//
+//        }
 #endif
     } fail:^(id error) {
         if (fail) {
@@ -81,27 +106,6 @@
         }
     }];
 }
-
-/**
- 获取请求url,区分Boss骑士和Boss之家
- 
- @return 请求url
- */
-+ (NSString *)urlReuest
-{
-//    NSString *url;
-//
-//#ifdef kBossKnight
-//    url = [NSString stringWithFormat:@"%@auth/app_login",BossBasicURL];
-//#elif defined kBossManager
-//    url = BossBasicURLV2;
-//#else
-//    url = BossBasicURLV2;
-//#endif
-//    return url;
-    return BossBasicURLV2;
-}
-
 
 /**
  获取登陆cmd，区分Boss骑士和Boss之家

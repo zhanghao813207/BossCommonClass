@@ -16,6 +16,16 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 
 @interface InputPhoneNumberView()<UITextFieldDelegate>
 
+/**
+ 商户号
+ */
+@property (nonatomic, strong) UILabel *merchantCodeLabel;
+
+/**
+ 商户名称
+ */
+@property (nonatomic, strong) UILabel *merchantNameLabel;
+
 @property (nonatomic, strong) UITextField *phoneTextField;
 
 @property (nonatomic, strong) UIView *line;
@@ -34,6 +44,8 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addSubview:self.merchantCodeLabel];
+        [self addSubview:self.merchantNameLabel];
         [self addSubview:self.phoneTextField];
         [self addSubview:self.line];
         [self addSubview:self.errorNoticeLabel];
@@ -121,12 +133,46 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     [self.phoneTextField resignFirstResponder];
 }
 
+- (void)setSaasModel:(SaasModel *)saasModel
+{
+    if(_saasModel != saasModel){
+        _saasModel = saasModel;
+        self.merchantCodeLabel.text = saasModel.merchant_info.merchant_code;
+        self.merchantNameLabel.text = saasModel.merchant_info.name;
+    }
+}
+
+#pragma mark --lazy
+
+- (UILabel *)merchantCodeLabel
+{
+    if(!_merchantCodeLabel){
+        // CGFloat Y = IsPhone_Size_4 ? 34 : 70;
+        _merchantCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kScreenWidth - 40, 18)];
+        _merchantCodeLabel.textColor = kHexRGB(0x0B0817);
+        _merchantCodeLabel.font = BossRegularFont(18.f);
+        // _merchantCodeLabel.text = @"123456";
+        
+    }
+    return _merchantCodeLabel;
+}
+
+- (UILabel *)merchantNameLabel
+{
+    if(!_merchantNameLabel){
+        _merchantNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.merchantCodeLabel.frame) + 10, kScreenWidth - 40, 14)];
+        _merchantNameLabel.textColor = kHexRGBA(0x0B0817, 0.8);
+        _merchantNameLabel.font = BossFont(14.f);
+        // _merchantNameLabel.text = @"上海易继达科技有限公司";
+    }
+    return _merchantNameLabel;
+}
+
 - (UITextField *)phoneTextField
 {
     if (!_phoneTextField) {
-        CGFloat Y = IsPhone_Size_4 ? 34 : 70;
         CGFloat height = IsPhone_Size_4 ? 30 : 36;
-        _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, Y, kScreenWidth - 40, height)];
+        _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.merchantNameLabel.frame) + 20, kScreenWidth - 40, height)];
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.font = BossBlodFont(25.f);
         NSMutableAttributedString *placeholderAttString = [[NSMutableAttributedString alloc] initWithString:@"请输入手机号码"];

@@ -7,6 +7,8 @@
 
 #import "BossMessageRequest.h"
 #import "NNBBasicRequest.h"
+#import "BossManagerAccount.h"
+#import "SaasModel.h"
 
 @implementation BossMessageRequest
 
@@ -20,7 +22,7 @@
  */
 + (void)msgRequestGetSysChannelMessageWithPage:(NSInteger)page limit:(NSInteger)limmit success:(void(^)(NSArray <BossNoticeMessageModel *>*msgList))successBlock fail:(void(^)(id error))failBlock
 {
-    if (!kCurrentBossAccount.account_id) {
+    if (!kCurrentBossManagerAccount.accountModel._id) {
         return;
     }
     NSDictionary *paramDic = @{
@@ -30,10 +32,10 @@
                                        },
                                @"broad_type":@(BROAD_TYPE_ORIERN),
                                @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
-                               @"account_ids":@[kCurrentBossAccount.account_id],
+                               @"account_ids":@[kCurrentBossManagerAccount.accountModel._id]
                                };
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.sys_channel" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.sys_channel" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -62,7 +64,7 @@
  */
 + (void)msgRequestGetBaChannelMessageWithPage:(NSInteger)page limit:(NSInteger)limmit success:(void(^)(NSArray <BossAssistantMessageModel *>*msgList))successBlock fail:(void(^)(id error))failBlock
 {
-    if (!kCurrentBossAccount.account_id) {
+    if (!kCurrentBossManagerAccount.accountModel._id) {
         return;
     }
     NSDictionary *paramDic = @{
@@ -72,9 +74,9 @@
                                        },
                                @"broad_type":@(BROAD_TYPE_ORIERN),
                                @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
-                               @"account_ids":@[kCurrentBossAccount.account_id],
+                               @"account_ids":@[kCurrentBossManagerAccount.accountModel._id],
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.ba_channel" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.ba_channel" success:^(id responseObject) {
         NSLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -110,7 +112,7 @@
                                @"state":@(type),
                                };
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.mark_state" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.mark_state" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -137,7 +139,7 @@
                                @"channel_id":channelId,
                                @"state":states,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"notify.message_bus.channel_counter" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.channel_counter" success:^(id responseObject) {
 //        DLog(@"%@", responseObject);
         if (!successBlock) {
             return;

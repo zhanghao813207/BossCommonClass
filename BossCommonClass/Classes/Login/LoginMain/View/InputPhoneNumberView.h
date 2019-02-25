@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SaasModel.h"
+
 UIKIT_EXTERN CGFloat const kInputPhoneNumberViewHeight;
 
 @interface InputPhoneNumberView : UIView
+
+/**
+ Saas信息
+ */
+@property (nonatomic, strong) SaasModel *saasModel;
 
 @property (nonatomic, strong, readonly) NSString *phoneNumber;
 

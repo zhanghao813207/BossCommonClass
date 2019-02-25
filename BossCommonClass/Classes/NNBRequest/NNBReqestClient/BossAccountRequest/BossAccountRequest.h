@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BossManagerAccountModel.h>
 
 @interface BossAccountRequest : NSObject
 
@@ -16,6 +17,6 @@
  @param successBlock 成功的回调
  @param failBlock 失败的回调
  */
-+ (void)BossAccountRequestGainAccountWithAccountId:(NSString *)accountId success:(void(^)(void))successBlock fail:(void(^)(id error))failBlock;
++ (void)BossAccountRequestGainAccountWithAccountId:(NSString *)accountId success:(void(^)(BossManagerAccountModel *))successBlock fail:(void(^)(id error))failBlock;
 
 @end

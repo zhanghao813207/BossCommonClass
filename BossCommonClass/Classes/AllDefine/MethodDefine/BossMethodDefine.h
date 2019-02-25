@@ -7,15 +7,25 @@
 
 #ifndef BossMethodDefine_h
 #define BossMethodDefine_h
+// 缓存
+#define kCache ([BossCache defaultCache])
 
-/** 获取当前的登录的用户（骑士）*/
-#define kCurrentAccount ([NNBAccount defaultAccount])
+// 当前Boss骑士登录帐号 - BossKnightAccount
+#define kCurrentBossKnightAccount kCache.currentKnightAccount
 
-/**
- 获取当前的管理级用户
- */
-#define kCurrentBossAccount ([BossAccount defaultAccount])
+// 当前Boss之家登录帐号 - BossMangerAccount
+#define kCurrentBossManagerAccount kCache.currentManagerAccount
 
+// 是否启用本地配置
+#define kLocalConfig ([kCache localConfig])
+
+#define kUrlApiVersion(api_version) kLocalConfig ? BossBasicURLV2 : [NSString stringWithFormat:@"%@%@", kCache.url, api_version]
+
+#define kUrl kUrlApiVersion(@"/2.0")
+
+#define kAccessKey kLocalConfig ? ACCESS_KEY : kCache.accessKey
+
+#define kSeretKey kLocalConfig ? SECRET_KEY : kCache.secretKey
 /**
  字体
  app 统一使用PingFangSC字体
