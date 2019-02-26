@@ -10,10 +10,20 @@
 
 @interface LoginVC : UIViewController
 
+/**
+ 当前操作View
+ */
+typedef NS_ENUM(NSInteger, OperatingView) {
+    MerchantCodeView,   // 输入商户号View
+    PhoneNumberView,    // 输入手机号View
+    CodeView,           // 输入验证码View
+};
 
 /**
  登陆成功回调
  */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
+
+- (void)showOperatingView:(OperatingView)operatingView;
 
 @end

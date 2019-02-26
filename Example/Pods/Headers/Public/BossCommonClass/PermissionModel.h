@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/BossAccount/Model/PermissionModel.h
+../../../../../BossCommonClass/Classes/SingletonClass/Account/BossManager/Model/PermissionModel.h

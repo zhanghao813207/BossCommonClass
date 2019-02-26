@@ -35,7 +35,7 @@
                                @"work_type":work_types,
                                @"state":state,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll_statement.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"payroll.payroll_statement.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -76,7 +76,7 @@
     if (bizDistrictId) {
         [paramDic setObject:bizDistrictId forKey:@"salary_statement_id"];
     }
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"payroll.payroll.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }

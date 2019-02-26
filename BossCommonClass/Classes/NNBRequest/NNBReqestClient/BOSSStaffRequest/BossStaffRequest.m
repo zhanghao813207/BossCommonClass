@@ -9,34 +9,33 @@
 #import "BossBasicDefine.h"
 #import "NNBBasicRequest.h"
 #import "NNBRequestManager.h"
+#import "SaasModel.h"
 
 @implementation BossStaffRequest
 
 /**
  获取员工详情
- 
- @param staffId 员工ID
+
  @param successBlock 成功返回员工的信息
  @param failBlock 响应失败
  */
-+ (void)staffRequestGetStaffInfoWithId:(NSString *)staffId success:(void(^)(NNBAccount *staffInfoModel))successBlock fail:(void(^)(id error))failBlock
++ (void)staffRequestGetStaffInfoWithId:(void(^)(void))successBlock fail:(void(^)(id error))failBlock
 {
-    if (!staffId) {
-        DLog(@"员工id不能为空");
-        return;
-    }
-    
     NSDictionary *paramDic = @{
-                               @"staff_id":staffId,
+                               @"staff_id":kCurrentBossKnightAccount.tokenModel.account_id,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff.get" success:^(id responseObject) {
-        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
-            kCurrentAccount.isNeedUpdate = NO;
-            if (successBlock) {
-                successBlock(kCurrentAccount);
-            }
-        } else {
-            
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.get" success:^(id responseObject) {
+        BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
+        [accountModel setValuesForKeysWithDictionary:responseObject];
+        
+        BossKnightAccount *knightAccount  = [[BossKnightAccount alloc] init];
+        knightAccount.tokenModel = kCurrentBossKnightAccount.tokenModel;
+        knightAccount.accountModel = accountModel;
+        
+        kCurrentBossKnightAccount = knightAccount;
+        kCurrentBossKnightAccount.isNeedUpdate = NO;
+        if (successBlock) {
+            successBlock();
         }
     } fail:^(id error) {
         if (!failBlock) {
@@ -53,7 +52,7 @@
  @param successBlock 是否更新成功
  @param failBlock 服务器响应失败
  */
-+ (void)staffRequestUpdateStaffInfoWithStaffInfo:(NNBAccount *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock
++ (void)staffRequestUpdateStaffInfoWithStaffInfo:(BossKnightAccountModel *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock
 {
     if (!staffInfo) {
         DLog(@"员工信息为空");
@@ -61,7 +60,7 @@
     }
     
     NSDictionary *paramDic = @{
-                               @"staff_id":kCurrentAccount._id
+                               @"staff_id":kCurrentBossKnightAccount.tokenModel.account_id
                                }.mutableCopy;
     
     if (staffInfo.befor_phone) {
@@ -147,12 +146,12 @@
         [paramDic setValue:staffInfo.bust forKey:@"bust"];
     }
         
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff.app_update" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.app_update" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
         BOOL ok = [responseObject[@"ok"] boolValue];
-        kCurrentAccount.isNeedUpdate = YES;
+        kCurrentBossKnightAccount.isNeedUpdate = YES;
         successBlock(ok);
     } fail:^(id error) {
         NSLog(@"error: %@", error);
@@ -177,7 +176,7 @@
                                        @"limit":@(500),
                                        },
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"staff.staff_tag.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff_tag.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }

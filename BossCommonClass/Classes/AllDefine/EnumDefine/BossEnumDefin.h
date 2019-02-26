@@ -16,6 +16,15 @@ typedef NS_ENUM(NSUInteger, NNBSendSMSType) {
     NNBSendSMSTypeChangePhoneNumber  = 3, // 修改手机号
 };
 
+/**
+ 商户状态
+ */
+typedef NS_ENUM(NSUInteger, MerchantState) {
+    MerchantStateEnable              = 100,  // 启用
+    MerchantStateDisable             = -100, // 禁用
+    MerchantStateRemoved             = -101, // 删除
+};
+
 typedef NS_ENUM(NSUInteger, GenderIDs) {
     GenderIDUnknown   =  0, // 未知
     GenderIDMan       = 10, // 男人

@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/BossAccount/Model/SupplierModel.h
+../../../../../BossCommonClass/Classes/SingletonClass/Account/BossManager/Model/SupplierModel.h

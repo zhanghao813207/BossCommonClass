@@ -27,14 +27,6 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
 - (void)addTokenWithCMD:(NSString *)cmd;
 
 /**
- 判断accountTocken是否过期
- 
- @param expired_atString 过期时间的时间戳
- @return 是否过期
- */
-- (BOOL)accountTockenIsExpiredWithExpired_at:(NSString *)expired_atString;
-
-/**
  保存token
  
  @param token app的接入token

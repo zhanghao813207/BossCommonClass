@@ -11,6 +11,8 @@
 #import "QHErrorView.h"
 #import "NNBResponseModel.h"
 #import "BossBasicDefine.h"
+#import "BossKnightAccount.h"
+#import "BossManagerAccount.h"
 @class ViewController;
 
 @implementation NNBBasicRequest
@@ -171,8 +173,8 @@
                 [showView showStatus:errorMsg];
             }
             if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
-                [NNBAccount clearAccountInfo];
-                [BossAccount clearAccountInfo];
+                [BossKnightAccount clearAccountInfo];
+                [BossManagerAccount clearAccountInfo];
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
             }
         });

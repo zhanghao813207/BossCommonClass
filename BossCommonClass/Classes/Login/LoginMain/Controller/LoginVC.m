@@ -7,8 +7,10 @@
 //
 
 #import "LoginVC.h"
+#import "InputMerchantCodeView.h"
 #import "InputPhoneNumberView.h"
 #import "InputCodeView.h"
+#import "SaasRequest.h"
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
 #import "BossBasicDefine.h"
@@ -32,6 +34,11 @@
 @property (nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 
 /**
+ 输入商户号View
+ */
+@property (nonatomic, strong) InputMerchantCodeView *inputMerchantCodeView;
+
+/**
  输入手机号View
  */
 @property (nonatomic, strong) InputPhoneNumberView *inputPhoneNumberView;
@@ -40,6 +47,8 @@
  输入验证码View
  */
 @property (nonatomic, strong) InputCodeView *inputCodeView;
+
+@property (nonatomic, assign) OperatingView currentOperatingView;
 
 @end
 
@@ -53,9 +62,43 @@
     self.navigationItem.leftBarButtonItem = nil;
     [self.view addSubview:self.BGView];
     
-    [self.inputPhoneNumberView isBecomeFirstResponder];
+    if(kCache.currentSaasModel){
+        [self.inputPhoneNumberView isBecomeFirstResponder];
+        [self showOperatingView:PhoneNumberView];
+    }else{
+        [self.inputMerchantCodeView isBecomeFirstResponder];
+        [self showOperatingView:MerchantCodeView];
+    }
 }
 
+- (void)showOperatingView:(OperatingView)operatingView
+{
+    _currentOperatingView = operatingView;
+    switch (operatingView) {
+        case MerchantCodeView:
+            kLocalConfig = YES;
+            self.inputMerchantCodeView.merchantCode = kCache.currentSaasModel.merchant_info.merchant_code;
+            [self showView:self.inputMerchantCodeView showBack:kCache.showBackMerchantCode commplete:nil];
+            self.inputPhoneNumberView.hidden = YES;
+            self.inputCodeView.hidden = YES;
+            break;
+        case PhoneNumberView:
+            kLocalConfig = NO;
+            self.inputPhoneNumberView.saasModel = kCache.currentSaasModel;
+            self.inputPhoneNumberView.phoneNumber = kCache.lastLoginPhone;
+            [self showView:self.inputPhoneNumberView showBack:YES commplete:nil];
+            self.inputMerchantCodeView.hidden = YES;
+            self.inputCodeView.hidden = YES;
+            break;
+        case CodeView:
+            [self showView:self.inputCodeView showBack:YES commplete:nil];
+            self.inputMerchantCodeView.hidden = YES;
+            self.inputPhoneNumberView.hidden = YES;
+            break;
+        default:
+            break;
+    }
+}
 
 /**
  点击放回按钮
@@ -65,10 +108,26 @@
 - (void)backBarButtonItemAction:(UIBarButtonItem *)sender
 {
     DLog(@"返回按钮被点击");
-    self.inputCodeView.showVoiceCode = NO;
-    [self showView:self.inputPhoneNumberView dismissView:self.inputCodeView showBack:NO commplete:^(BOOL finish) {
-        DLog(@"333333");
-    }];
+    switch (self.currentOperatingView) {
+        case MerchantCodeView:
+            NSLog(@"--------");
+            //[self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                kLocalConfig = NO;
+                kCache.showBackMerchantCode = NO;
+            }];
+            break;
+        case PhoneNumberView:
+            [self showOperatingView:MerchantCodeView];
+            // kCache.currentSaasModel = nil;
+            break;
+        case CodeView:
+            self.inputCodeView.showVoiceCode = NO;
+            [self showOperatingView:PhoneNumberView];
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -76,44 +135,39 @@
  登陆模块View切换显示
 
  @param showView 待显示View
- @param dismissView 当前View
  @param show 是否返回按钮
  @param commplete View切换完成回调
  */
-- (void)showView:(UIView *)showView dismissView:(UIView *)dismissView showBack:(BOOL)show commplete:(void(^)(BOOL finish))commplete
+- (void)showView:(UIView *)showView showBack:(BOOL)show commplete:(void(^)(BOOL finish))commplete
 {
-    if (!showView || !dismissView) {
+    if (!showView) {
         return;
     }
-    
     // 是否显示左侧返回按钮
-    if (show) {
-        self.navigationItem.leftBarButtonItem = self.backBarButtonItem;
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
-    }
-    
+    self.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
+
     // 登陆模块View切换键盘一直显示
     if ([showView respondsToSelector:@selector(isBecomeFirstResponder)]) {
         [showView performSelector:@selector(isBecomeFirstResponder) withObject:nil afterDelay:0];
     }
     
+    showView.hidden = NO;
     // View切换动画
-    dismissView.alpha = 1;
-    [UIView animateWithDuration:0.25f animations:^{
-        dismissView.alpha = 0;
-    } completion:^(BOOL finished) {
-        dismissView.hidden = YES;
-        showView.hidden = NO;
-        showView.alpha = 0;
-        [UIView animateWithDuration:0.25 animations:^{
-            showView.alpha = 1;
-        } completion:^(BOOL finished) {
-            if (commplete) {
-                commplete(finished);
-            }
-        }];
-    }];
+//    dismissView.alpha = 1;
+//    [UIView animateWithDuration:0.25f animations:^{
+//        dismissView.alpha = 0;
+//    } completion:^(BOOL finished) {
+//        dismissView.hidden = YES;
+//        showView.hidden = NO;
+//        showView.alpha = 0;
+//        [UIView animateWithDuration:0.25 animations:^{
+//            showView.alpha = 1;
+//        } completion:^(BOOL finished) {
+//            if (commplete) {
+//                commplete(finished);
+//            }
+//        }];
+//    }];
     
 }
 
@@ -156,6 +210,7 @@
         _BGView = [[UIView alloc] initWithFrame:self.view.bounds];
         _BGView.backgroundColor = [UIColor whiteColor];
         [_BGView addSubview:self.appLogoImageView];
+        [_BGView addSubview:self.inputMerchantCodeView];
         [_BGView addSubview:self.inputPhoneNumberView];
         [_BGView addSubview:self.inputCodeView];
     }
@@ -182,6 +237,33 @@
     return _appLogoImageView;
 }
 
+- (InputMerchantCodeView *) inputMerchantCodeView
+{
+    if(!_inputMerchantCodeView){
+        CGFloat y = IS_ON_IPHONE ? CGRectGetMaxY(self.appLogoImageView.frame) : 0;
+        _inputMerchantCodeView = [[InputMerchantCodeView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputMerchantCodeViewHeight)];
+        
+        // _inputMerchantCodeView.alpha = 0;
+        _inputMerchantCodeView.hidden = YES;
+        
+        WS(weakSelf);
+        [_inputMerchantCodeView setNextStepBlock:^(NSString * _Nonnull merchantCode) {
+            [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
+            [SaasRequest getSaasResult:merchantCode success:^(SaasModel * _Nonnull saasModel) {
+                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+                kCache.currentSaasModel = saasModel;
+                weakSelf.inputPhoneNumberView.saasModel = saasModel;
+                [weakSelf showOperatingView:PhoneNumberView];
+            } fail:^{
+                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+            }];
+            
+        }];
+    }
+    
+    return _inputMerchantCodeView;
+}
+
 
 /**
  初始化 输入手机号View
@@ -194,6 +276,9 @@
     if (!_inputPhoneNumberView) {
         CGFloat y = IS_ON_IPHONE ? CGRectGetMaxY(self.appLogoImageView.frame) : 0;
         _inputPhoneNumberView = [[InputPhoneNumberView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputPhoneNumberViewHeight)];
+        // _inputPhoneNumberView.alpha = 0;
+        _inputPhoneNumberView.hidden = YES;
+        
         WS(weakSelf);
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
@@ -203,12 +288,12 @@
                     if (kIsAlertPassword) {
                         [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
                     }
-                    [weakSelf showView:weakSelf.inputCodeView dismissView:weakSelf.inputPhoneNumberView showBack:YES commplete:^(BOOL finish) {
-                        weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
-                        if (!kIsAlertPassword) {
-                            [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
-                        }
-                    }];
+                    
+                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
+                    if (!kIsAlertPassword) {
+                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+                    }
+                    [weakSelf showOperatingView:CodeView];
                     weakSelf.inputCodeView.phoneNumber = textFieldText;
                 }
             } fail:^{
@@ -220,15 +305,13 @@
     return _inputPhoneNumberView;
 }
 
-
-#pragma mark -- lazy
 - (InputCodeView *)inputCodeView
 {
     if (!_inputCodeView) {
         // 区分手机和Ipad
         CGFloat y = IS_ON_IPHONE ? CGRectGetMaxY(self.appLogoImageView.frame) : 0;
         _inputCodeView = [[InputCodeView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputCodeViewHeight)];
-        _inputCodeView.alpha = 0;
+        // _inputCodeView.alpha = 0;
         _inputCodeView.hidden = YES;
         _inputCodeView.delegate = self;
         
@@ -258,7 +341,7 @@
                 // 显示加载对话框
                 [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                 // 登陆请求
-                [NNBAuthRequest authRequestLoginWithPhoneNumber:phoneNumber authCode:code success:^(NNBAccount *accountInfo) {
+                [NNBAuthRequest authRequestLoginWithPhoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
                     // 登陆失败
                     if (!accountInfo) {
                         // 隐藏加载对话框

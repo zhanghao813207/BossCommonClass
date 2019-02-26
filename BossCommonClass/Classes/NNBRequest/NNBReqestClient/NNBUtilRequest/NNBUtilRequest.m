@@ -9,6 +9,7 @@
 #import "NNBUtilRequest.h"
 #import "NNBBasicRequest.h"
 #import "BossBasicDefine.h"
+#import "BossCache.h"
 @implementation NNBUtilRequest
 
 /**
@@ -38,8 +39,10 @@
         begainSendBlock();
     }
     
+    NSLog(@"\n%@", kUrl);
+    NSLog(@"\n%@", kUrlApiVersion(@"/1.0"));
     // 执行发送验证码请求
-    [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
+    [self requestSmsCode:kUrl parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
@@ -73,7 +76,7 @@
     }
     DLog(@"request params:\n%@",paraDic);
     // 执行发送验证码请求
-    [self requestSmsCode:[self urlReuest] parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
+    [self requestSmsCode:kUrl parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
@@ -101,7 +104,7 @@
                                @"file_name":path,
                                };
     
-    [NNBBasicRequest postJsonWithUrl:[self urlReuest] parameters:paramDic CMD:@"tool.tool.get_qiniu_token" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"tool.tool.get_qiniu_token" success:^(id responseObject) {
         if (successBlock) {
             successBlock(responseObject[@"path"], responseObject[@"token"]);
         }
@@ -123,32 +126,8 @@
  @param fail 请求失败回调
  */
 + (void)requestSmsCode:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail{
-//#ifdef kBossKnight
-//    [NNBBasicRequest getLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-//#else
-//    [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-//#endif
+    
     [NNBBasicRequest postLoginJsonWithUrl:url parameters:parameters CMD:cmd success:success fail:fail];
-}
-
-/**
- 获取请求url,区分Boss骑士和Boss之家
-
- @return 请求url
- */
-+ (NSString *)urlReuest
-{
-//    NSString *url;
-//
-//#ifdef kBossKnight
-//    url = [NSString stringWithFormat:@"%@auth/send_verify_code",BossBasicURL];
-//#elif defined kBossManager
-//    url = BossBasicURLV2;
-//#else
-//    url = BossBasicURLV2;
-//#endif
-//    return url;
-    return BossBasicURLV2;
 }
 
 /**
@@ -158,16 +137,6 @@
  */
 + (NSString *)cmdRequest
 {
-//    NSString *cmd;
-//
-//#ifdef kBossKnight
-//    cmd = nil;
-//#elif defined kBossManager
-//    cmd = @"auth.auth.send_verify_code";
-//#else
-//    cmd = @"auth.auth.send_verify_code";
-//#endif
-//    return cmd;
     return @"auth.auth.send_verify_code";
 }
 

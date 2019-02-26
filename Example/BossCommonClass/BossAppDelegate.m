@@ -8,6 +8,8 @@
 
 #import "BossAppDelegate.h"
 #import "BossBasicDefine.h"
+#import "BossManagerAccount.h"
+#import "SaasModel.h"
 @implementation BossAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,7 +29,35 @@
 //        DLog(@"kCurrentBossAccount.account_id = %@",kCurrentBossAccount.account_id);
 //        DLog(@"还在有效期");
 //    }];
-    [BossAccount userIsLogin:^(BOOL isLogin) {
+    
+    BaseAccount *baseAccount;
+    BossManagerAccount *bossManagerAccount = [[BossManagerAccount alloc] init];
+    
+    TokenModel *tokenModel = [[TokenModel alloc] init];
+    tokenModel.account_id = @"123";
+    tokenModel.access_token = @"access_token";
+    tokenModel.refresh_token = @"refresh_token";
+    tokenModel.expired_at = @"expired_at";
+    bossManagerAccount.tokenModel = tokenModel;
+    
+    BossManagerAccountModel *bossManagerAccountModel = [[BossManagerAccountModel alloc] init];
+    bossManagerAccountModel._id = @"456";
+    
+    bossManagerAccount.accountModel = bossManagerAccountModel;
+    
+    baseAccount = bossManagerAccount;
+    
+    if([baseAccount isMemberOfClass:[BossManagerAccount class]]){
+        BossManagerAccount *accountNew = (BossManagerAccount *) baseAccount;
+        DLog(@"\n%@", accountNew.accountModel._id);
+    }
+    
+//    SaasModel *saasModel = [[SaasModel alloc] init];
+//    saasModel.access_key = @"access_key";
+//    kCache.currentSaasModel = saasModel;
+//    NSLog(@"access_key : %@", kCache.currentSaasModel.access_key);
+    
+    [BossManagerAccount userIsLogin:^(BOOL isLogin) {
         if (!isLogin) {
             // 未登录
             DLog(@"未登录");
@@ -38,7 +68,6 @@
             DLog(@"过期")
             return;
         }
-        DLog(@"kCurrentBossAccount.account_id = %@",kCurrentBossAccount.account_id);
         DLog(@"还在有效期");
     }];
     return YES;

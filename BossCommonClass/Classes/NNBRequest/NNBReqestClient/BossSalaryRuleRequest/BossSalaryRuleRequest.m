@@ -32,7 +32,7 @@
                                @"state":@(100),
                                @"tags":@[@"1",@"2",@"3",@"4"],
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"salary.salary_var.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"salary.salary_var.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -60,7 +60,7 @@
     NSDictionary *paramDic = @{
                                @"_id":versionId,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"salary.salary_plan_version.get" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"salary.salary_plan_version.get" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -92,7 +92,7 @@
                                @"collection_cate":@(collection_cate),
                                @"state":@(100),
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"salary.salary_rule.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"salary.salary_rule.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -172,7 +172,7 @@
                                @"_id":taskId,
                                @"type":@(type),
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"salary.salary_compute_task.dataset_find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"salary.salary_compute_task.dataset_find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }

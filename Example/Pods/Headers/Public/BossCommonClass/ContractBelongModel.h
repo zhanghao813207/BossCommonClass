@@ -1,1 +1,1 @@
-../../../../../BossCommonClass/Classes/SingletonClass/NNBAccount/Model/ContractBelongModel.h
+../../../../../BossCommonClass/Classes/SingletonClass/Account/BossKnight/Model/ContractBelongModel.h

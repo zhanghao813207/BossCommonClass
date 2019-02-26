@@ -18,7 +18,7 @@
 #import "BossPayrollRequest.h"
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
-//#import "BossSalaryRuleRequest.h"
+#import "BossManagerAccount.h"
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -74,7 +74,7 @@
 //    }];
     
 //
-    [BossAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
+    [BossManagerAccount userIsLoginSuccess:^(BOOL isSuccess, BOOL isFirstLogin) {
         
     } withController:self];
     
@@ -186,25 +186,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-/**
- 发送验证码
-
- @param voiceCodeFlag 是否语音验证码标记
- */
-- (void)sendSmsWithChangePhone:(BOOL)voiceCodeFlag{
-    NSString *mobile = @"13488629011";
-    
-    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:mobile smsType:NNBSendSMSTypeChangePhoneNumber begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
-        if (ok) {
-            DLog(@"发送验证码成功");
-        }
-    } fail:^{
-        DLog(@"发送验证码失败");
-    }];
-}
-
 
 /**
  查询审批单列表
