@@ -76,12 +76,16 @@
     _currentOperatingView = operatingView;
     switch (operatingView) {
         case MerchantCodeView:
+            kLocalConfig = YES;
             self.inputMerchantCodeView.merchantCode = kCache.currentSaasModel.merchant_info.merchant_code;
-            [self showView:self.inputMerchantCodeView showBack:NO commplete:nil];
+            [self showView:self.inputMerchantCodeView showBack:kCache.showBackMerchantCode commplete:nil];
             self.inputPhoneNumberView.hidden = YES;
             self.inputCodeView.hidden = YES;
             break;
         case PhoneNumberView:
+            kLocalConfig = NO;
+            self.inputPhoneNumberView.saasModel = kCache.currentSaasModel;
+            self.inputPhoneNumberView.phoneNumber = kCache.lastLoginPhone;
             [self showView:self.inputPhoneNumberView showBack:YES commplete:nil];
             self.inputMerchantCodeView.hidden = YES;
             self.inputCodeView.hidden = YES;
@@ -105,9 +109,17 @@
 {
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
+        case MerchantCodeView:
+            NSLog(@"--------");
+            //[self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                kLocalConfig = NO;
+                kCache.showBackMerchantCode = NO;
+            }];
+            break;
         case PhoneNumberView:
             [self showOperatingView:MerchantCodeView];
-            kCache.currentSaasModel = nil;
+            // kCache.currentSaasModel = nil;
             break;
         case CodeView:
             self.inputCodeView.showVoiceCode = NO;

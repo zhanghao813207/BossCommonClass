@@ -40,4 +40,7 @@ UIKIT_EXTERN NSString *const ACCOUNT_KEY;
 // 多帐号信息
 UIKIT_EXTERN NSString *const ACCOUNT_LIST_KEY;
 
+//最后一次登录手机号
+UIKIT_EXTERN NSString *const LAST_LOGIN_PHONE_KEY;
+
 @end

@@ -190,7 +190,8 @@
         
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self clearAccountInfo];
+        kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
+        kCurrentBossKnightAccount = nil;
         if (!confirmBlock) {
             return;
         }

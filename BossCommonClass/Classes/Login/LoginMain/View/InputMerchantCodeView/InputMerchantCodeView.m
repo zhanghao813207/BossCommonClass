@@ -9,7 +9,7 @@
 #import "BossBasicDefine.h"
 #import "Masonry.h"
 
-CGFloat const kInputMerchantCodeViewHeight = 263;
+CGFloat const kInputMerchantCodeViewHeight = 240;
 
 @interface InputMerchantCodeView ()<UITextFieldDelegate>
 
@@ -134,7 +134,6 @@ CGFloat const kInputMerchantCodeViewHeight = 263;
         _merchantCodeTextField.delegate = self;
         _merchantCodeTextField.keyboardType = UIKeyboardTypeDefault;
         _merchantCodeTextField.tintColor = kAppMainColor;
-        [_merchantCodeTextField becomeFirstResponder];
     }
     return _merchantCodeTextField;
 }

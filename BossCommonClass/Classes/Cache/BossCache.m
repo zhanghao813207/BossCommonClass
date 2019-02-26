@@ -22,6 +22,8 @@ static BossCache *defaultCache = nil;
 
 @synthesize saasAccountList = _saasAccountList;
 
+@synthesize lastLoginPhone = _lastLoginPhone;
+
 + (__kindof BossCache *)defaultCache
 {
     static dispatch_once_t onceToken;
@@ -114,10 +116,23 @@ static BossCache *defaultCache = nil;
     return _saasAccountList;
 }
 
-- (BOOL)localConfig
+- (void)setLastLoginPhone:(NSString *)lastLoginPhone
 {
-    return self.currentSaasModel == nil;
+    _lastLoginPhone = lastLoginPhone;
+    [kUserDefault setObject:lastLoginPhone forKey:LAST_LOGIN_PHONE_KEY];
+    [kUserDefault synchronize];
 }
+
+- (NSString *)lastLoginPhone
+{
+    _lastLoginPhone = [kUserDefault stringForKey:LAST_LOGIN_PHONE_KEY];
+    return _lastLoginPhone;
+}
+
+//- (BOOL)localConfig
+//{
+//    return self.currentSaasModel == nil;
+//}
 
 - (NSString *)url
 {

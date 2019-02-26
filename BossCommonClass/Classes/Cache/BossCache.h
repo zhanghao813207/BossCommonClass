@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  - ACCESS_KEY
  - SECRET_KEY
  */
-@property (nonatomic, readonly) BOOL localConfig;
+@property (nonatomic, assign) BOOL localConfig;
 
 @property (nonatomic, readonly) NSString *url;
 
@@ -43,6 +43,18 @@ NS_ASSUME_NONNULL_BEGIN
  - NO:未登录
  */
 @property (nonatomic, assign, readonly) BOOL checkLogin;
+
+/**
+ 登录页的输入商户号是否显示左侧按钮
+ - YES:显示
+ - NO:不显示
+ */
+@property (nonatomic, assign) BOOL showBackMerchantCode;
+
+/**
+ 最后一次登录手机号
+ */
+@property (nonatomic, strong) NSString *lastLoginPhone;
 
 - (void)addAccount:(NSDictionary *)accountDic;
 

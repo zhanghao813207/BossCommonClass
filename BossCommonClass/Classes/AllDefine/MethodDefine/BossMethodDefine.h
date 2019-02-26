@@ -17,7 +17,7 @@
 #define kCurrentBossManagerAccount kCache.currentManagerAccount
 
 // 是否启用本地配置
-#define kLocalConfig ([kCache localConfig])
+#define kLocalConfig kCache.localConfig
 
 #define kUrlApiVersion(api_version) kLocalConfig ? BossBasicURLV2 : [NSString stringWithFormat:@"%@%@", kCache.url, api_version]
 

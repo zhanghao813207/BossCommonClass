@@ -126,6 +126,7 @@
         
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        kCache.lastLoginPhone = kCurrentBossManagerAccount.accountModel.phone;
         kCurrentBossManagerAccount = nil;
         if (!confirmBlock) {
             return;

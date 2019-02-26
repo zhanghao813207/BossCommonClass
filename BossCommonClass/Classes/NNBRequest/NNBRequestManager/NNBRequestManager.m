@@ -153,7 +153,7 @@ static NNBRequestManager *sharedManager = nil;
     
     accountDic = [kCurrentBossKnightAccount decodeToDic];
     
-    [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
+    // [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
     [kUserDefault synchronize];
     return YES;
 #elif defined kBossManager

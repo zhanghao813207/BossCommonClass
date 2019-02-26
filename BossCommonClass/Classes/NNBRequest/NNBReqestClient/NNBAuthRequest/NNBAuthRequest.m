@@ -15,6 +15,8 @@
 #import "BossManagerAccount.h"
 #import "BossCache.h"
 #import "SaasModel.h"
+#import "BossKnightAccountModel.h"
+#import "NSDate+Helper.h"
 
 @implementation NNBAuthRequest
 
@@ -42,34 +44,46 @@
          NSLog(@"postLoginJsonWithUrl->response\n%@", responseObject);
         
 #ifdef kBossKnight
-        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
-            kCurrentBossKnightAccount.isNeedUpdate = NO;
-            if (successBlock) {
-                successBlock(kCurrentBossKnightAccount);
-            }
-        } else {
-
+        kCurrentBossKnightAccount.isNeedUpdate = NO;
+        
+        TokenModel *token = [[TokenModel alloc] init];
+        [token setValuesForKeysWithDictionary:responseObject];
+        token.account_id = [responseObject objectForKey:@"_id"];
+        
+        NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:token.expired_at];
+        NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        token.expired_at = [NSString stringWithFormat:@"%.0f", [date timeIntervalSince1970]];
+        
+        BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
+        [accountModel setValuesForKeysWithDictionary:responseObject];
+        
+        BossKnightAccount *knightAccount = [[BossKnightAccount alloc]init];
+        knightAccount.tokenModel = token;
+        knightAccount.accountModel = accountModel;
+        
+        kCurrentBossKnightAccount = knightAccount;
+        
+        NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->kCurrentBossKnightAccount\n%@", [kCurrentBossKnightAccount decodeToDic]);
+        
+        if (successBlock) {
+            successBlock(knightAccount);
         }
+        
 #elif defined kBossManager
         kCurrentBossManagerAccount.isNeedUpdate = NO;
         
         TokenModel *token = [[TokenModel alloc] init];
         [token setValuesForKeysWithDictionary:responseObject];
         
-        
-//        NSDictionary *dic = @{
-//                              @"account_id":responseObject[@"account_id"],
-//                              @"access_token":responseObject[@"access_token"],
-//                              @"refresh_token":responseObject[@"refresh_token"],
-//                              @"expired_at":responseObject[@"expired_at"],
-//                              };
-//        [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
-//        [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
-        
         BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
         managerAccount.tokenModel = token;
         
+        BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
+
+        
+        
         kCurrentBossManagerAccount = managerAccount;
+        kCache.lastLoginPhone = @"";
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
             

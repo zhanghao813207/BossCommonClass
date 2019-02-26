@@ -18,7 +18,7 @@ UIKIT_EXTERN CGFloat const kInputPhoneNumberViewHeight;
  */
 @property (nonatomic, strong) SaasModel *saasModel;
 
-@property (nonatomic, strong, readonly) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *phoneNumber;
 
 /**
  点击了下一步的回调，回调中两个参数第一个为手机号码  第二个为输入框中内容（带空格的手机号）

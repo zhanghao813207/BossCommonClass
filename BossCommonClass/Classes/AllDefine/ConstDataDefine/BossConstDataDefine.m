@@ -73,4 +73,7 @@ NSString *const ACCOUNT_KEY = @"account_key";
 // 多帐号信息
 NSString *const ACCOUNT_LIST_KEY = @"account_list_key";
 
+// 最后一次登录手机号
+NSString *const LAST_LOGIN_PHONE_KEY = @"last_login_phone_key";
+
 @end

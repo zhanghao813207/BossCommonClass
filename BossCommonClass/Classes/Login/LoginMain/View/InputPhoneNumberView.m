@@ -142,6 +142,17 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     }
 }
 
+- (void)setPhoneNumber:(NSString *)phoneNumber
+{
+    if(phoneNumber.length == 11){
+        NSMutableString *string = [phoneNumber mutableCopy];
+        [string insertString:@" " atIndex:3];
+        [string insertString:@" " atIndex:8];
+        self.phoneTextField.text = string;
+        self.nextStepButton.clickEnable = YES;
+    }
+}
+
 #pragma mark --lazy
 
 - (UILabel *)merchantCodeLabel
