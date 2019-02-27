@@ -102,10 +102,6 @@ static BossCache *defaultCache = nil;
 - (NSMutableArray<NSDictionary *> *)saasAccountList
 {
     
-//    if(!_saasAccountList){
-//
-//    }
-    
     NSMutableArray *saasDicList = [kUserDefault mutableArrayValueForKey:ACCOUNT_LIST_KEY];
     if(!saasDicList){
         _saasAccountList = [NSMutableArray array];
@@ -129,31 +125,10 @@ static BossCache *defaultCache = nil;
     return _lastLoginPhone;
 }
 
-//- (BOOL)localConfig
-//{
-//    return self.currentSaasModel == nil;
-//}
-
 - (NSString *)url
 {
     if(self.currentSaasModel){
         return self.currentSaasModel.url;
-    }
-    return @"";
-}
-
-- (NSString *)accessKey
-{
-    if(self.currentSaasModel ){
-        return self.currentSaasModel.access_key;
-    }
-    return @"";
-}
-
-- (NSString *)secretKey
-{
-    if(self.currentSaasModel ){
-        return self.currentSaasModel.secret_key;
     }
     return @"";
 }

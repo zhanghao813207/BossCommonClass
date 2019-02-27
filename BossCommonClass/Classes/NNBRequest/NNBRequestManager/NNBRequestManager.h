@@ -7,6 +7,7 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
+#import "SaasModel.h"
 
 UIKIT_EXTERN float const kNetworkTimeoutInterval;
 
@@ -19,35 +20,17 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
  */
 + (__kindof NNBRequestManager *)shareNNBRequestManager;
 
+@property (nonatomic, strong) SaasModel *saasModel;
+
+@property (nonatomic, readonly) NSString *url;
+
+- (NSString *)getUrlByApiVersion:(NSString *)apiVersion;
+
 /**
  添加token
 
  @param cmd 请求的服务
  */
 - (void)addTokenWithCMD:(NSString *)cmd;
-
-/**
- 保存token
- 
- @param token app的接入token
- @param refresh_token 刷新的token
- @param expired_at 过期时间
- */
-- (void)saveToken:(NSString *)token
-    refrech_token:(NSString *)refresh_token
-       expired_at:(NSString *)expired_at;
-
-/**
- 清除token
- */
-- (void)cleanToken;
-
-/**
- 将后台返回的用户信息保存
-
- @param dic 后台返回的信息
- @return 是否保存成功
- */
-+ (BOOL)saveAccountInfoWithAccountDic:(NSDictionary *)dic;
 
 @end

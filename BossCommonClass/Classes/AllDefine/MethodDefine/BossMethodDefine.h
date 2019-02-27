@@ -19,13 +19,10 @@
 // 是否启用本地配置
 #define kLocalConfig kCache.localConfig
 
-#define kUrlApiVersion(api_version) kLocalConfig ? BossBasicURLV2 : [NSString stringWithFormat:@"%@%@", kCache.url, api_version]
+#define kUrlApiVersion(apiVersion) ([[NNBRequestManager shareNNBRequestManager] getUrlByApiVersion:apiVersion])
 
-#define kUrl kUrlApiVersion(@"/2.0")
+#define kUrl [NNBRequestManager shareNNBRequestManager].url
 
-#define kAccessKey kLocalConfig ? ACCESS_KEY : kCache.accessKey
-
-#define kSeretKey kLocalConfig ? SECRET_KEY : kCache.secretKey
 /**
  字体
  app 统一使用PingFangSC字体

@@ -14,6 +14,7 @@
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
 #import "BossBasicDefine.h"
+#import "NNBRequestManager.h"
 
 @interface LoginVC ()<InputCodeViewDelegate>
 
@@ -50,6 +51,8 @@
 
 @property (nonatomic, assign) OperatingView currentOperatingView;
 
+@property (nonatomic, strong) SaasModel *saasModel;
+
 @end
 
 @implementation LoginVC
@@ -62,6 +65,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     [self.view addSubview:self.BGView];
     
+    self.saasModel = kCache.currentSaasModel;
     if(kCache.currentSaasModel){
         [self.inputPhoneNumberView isBecomeFirstResponder];
         [self showOperatingView:PhoneNumberView];
@@ -77,15 +81,26 @@
     switch (operatingView) {
         case MerchantCodeView:
             kLocalConfig = YES;
-            self.inputMerchantCodeView.merchantCode = kCache.currentSaasModel.merchant_info.merchant_code;
+            NNBRequestManager.shareNNBRequestManager.saasModel = nil;
+            self.inputMerchantCodeView.merchantCode = self.saasModel.merchant_info.merchant_code;
             [self showView:self.inputMerchantCodeView showBack:kCache.showBackMerchantCode commplete:nil];
             self.inputPhoneNumberView.hidden = YES;
             self.inputCodeView.hidden = YES;
             break;
         case PhoneNumberView:
             kLocalConfig = NO;
-            self.inputPhoneNumberView.saasModel = kCache.currentSaasModel;
-            self.inputPhoneNumberView.phoneNumber = kCache.lastLoginPhone;
+            NNBRequestManager.shareNNBRequestManager.saasModel = self.saasModel;
+            self.inputPhoneNumberView.saasModel = self.saasModel;
+            if(self.saasModel && kCache.currentSaasModel){
+                if([self.saasModel._id isEqualToString:kCache.currentSaasModel._id]){
+                    
+                    self.inputPhoneNumberView.phoneNumber = kCurrentBossManagerAccount ? kCurrentBossManagerAccount.accountModel.phone : kCache.lastLoginPhone;
+                }else{
+                    self.inputPhoneNumberView.phoneNumber = @"";
+                }
+            }else{
+                self.inputPhoneNumberView.phoneNumber = @"";
+            }
             [self showView:self.inputPhoneNumberView showBack:YES commplete:nil];
             self.inputMerchantCodeView.hidden = YES;
             self.inputCodeView.hidden = YES;
@@ -110,8 +125,7 @@
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
         case MerchantCodeView:
-            NSLog(@"--------");
-            //[self.navigationController popViewControllerAnimated:YES];
+            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 kLocalConfig = NO;
                 kCache.showBackMerchantCode = NO;
@@ -119,7 +133,6 @@
             break;
         case PhoneNumberView:
             [self showOperatingView:MerchantCodeView];
-            // kCache.currentSaasModel = nil;
             break;
         case CodeView:
             self.inputCodeView.showVoiceCode = NO;
@@ -251,8 +264,7 @@
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [SaasRequest getSaasResult:merchantCode success:^(SaasModel * _Nonnull saasModel) {
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-                kCache.currentSaasModel = saasModel;
-                weakSelf.inputPhoneNumberView.saasModel = saasModel;
+                weakSelf.saasModel = saasModel;
                 [weakSelf showOperatingView:PhoneNumberView];
             } fail:^{
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
@@ -342,15 +354,8 @@
                 [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                 // 登陆请求
                 [NNBAuthRequest authRequestLoginWithPhoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
-                    // 登陆失败
-                    if (!accountInfo) {
-                        // 隐藏加载对话框
-                        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
-                            [weakSelf backBarButtonItemAction:nil];
-                        }];
-                        return;
-                    }
                     
+                    kCache.currentSaasModel = weakSelf.saasModel;
                     // 登陆成功
                     // 隐藏对话框
                     [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{

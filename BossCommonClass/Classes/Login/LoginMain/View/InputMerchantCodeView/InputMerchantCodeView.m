@@ -86,7 +86,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
 - (void)setMerchantCode:(NSString *)merchantCode
 {
     _merchantCode = merchantCode;
-    self.nextStepButton.clickEnable = YES;
+    self.nextStepButton.clickEnable = ![JYCSimpleToolClass stringIsEmpty:merchantCode];
     self.merchantCodeTextField.text = merchantCode;
 }
 

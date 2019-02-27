@@ -7,6 +7,7 @@
 
 #import "SaasRequest.h"
 #import "NNBBasicRequest.h"
+#import "NNBRequestManager.h"
 
 @implementation SaasRequest
 

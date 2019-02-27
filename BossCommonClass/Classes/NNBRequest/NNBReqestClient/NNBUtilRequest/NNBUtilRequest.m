@@ -10,6 +10,7 @@
 #import "NNBBasicRequest.h"
 #import "BossBasicDefine.h"
 #import "BossCache.h"
+#import "NNBRequestManager.h"
 @implementation NNBUtilRequest
 
 /**

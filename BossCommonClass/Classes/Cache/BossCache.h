@@ -25,10 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSString *url;
 
-@property (nonatomic, readonly) NSString *accessKey;
-
-@property (nonatomic, readonly) NSString *secretKey;
-
 @property (nonatomic, strong, nullable) SaasModel *currentSaasModel;
 
 @property (nonatomic, strong, nullable) BossManagerAccount *currentManagerAccount;

@@ -9,6 +9,7 @@
 #import "BossKnightAccount.h"
 #import "NNBBasicRequest.h"
 #import "SaasModel.h"
+#import "NNBRequestManager.h"
 
 @implementation BossKnightMaterialRequest
 

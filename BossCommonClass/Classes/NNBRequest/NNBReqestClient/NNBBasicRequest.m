@@ -173,8 +173,14 @@
                 [showView showStatus:errorMsg];
             }
             if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
-                [BossKnightAccount clearAccountInfo];
-                [BossManagerAccount clearAccountInfo];
+#ifdef kBossKnight
+                kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
+                kCurrentBossKnightAccount = nil;
+#elif defined kBossManager
+                kCache.lastLoginPhone = kCurrentBossManagerAccount.accountModel.phone;
+                kCurrentBossManagerAccount = nil;
+#else
+#endif
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
             }
         });

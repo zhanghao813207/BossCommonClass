@@ -9,6 +9,7 @@
 #import "NNBBasicRequest.h"
 #import "BossManagerAccount.h"
 #import "SaasModel.h"
+#import "NNBRequestManager.h"
 
 @implementation BossMessageRequest
 
