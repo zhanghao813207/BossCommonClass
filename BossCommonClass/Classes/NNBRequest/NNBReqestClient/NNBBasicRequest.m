@@ -174,13 +174,20 @@
             }
             if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
 #ifdef kBossKnight
+                if(!kCurrentBossKnightAccount){
+                    return;
+                }
                 kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
                 kCurrentBossKnightAccount = nil;
 #elif defined kBossManager
+                if(!kCurrentBossManagerAccount){
+                    return;
+                }
                 kCache.lastLoginPhone = kCurrentBossManagerAccount.accountModel.phone;
                 kCurrentBossManagerAccount = nil;
 #else
 #endif
+                NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
             }
         });
