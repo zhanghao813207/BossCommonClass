@@ -24,6 +24,4 @@ typedef NS_ENUM(NSInteger, OperatingView) {
  */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
 
-- (void)showOperatingView:(OperatingView)operatingView;
-
 @end
