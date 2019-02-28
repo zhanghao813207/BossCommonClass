@@ -125,6 +125,34 @@ static BossCache *defaultCache = nil;
     return _lastLoginPhone;
 }
 
+- (NSMutableArray<NSString *> *)getlogoutPhoneList
+{
+    return [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+}
+
+- (void)addPhone:(NSString *)phone
+{
+    NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+    if(!logoutPhoneList){
+        logoutPhoneList = [NSMutableArray mutableCopy];
+        [logoutPhoneList addObject:phone];
+        return;
+    }
+    [logoutPhoneList addObject:phone];
+    NSSet *logoutPhoneSet = [NSSet setWithArray:logoutPhoneList];
+    [kUserDefault setObject:[logoutPhoneSet allObjects] forKey:LOGOUT_PHONE_LIST_KEY];
+}
+
+- (void)removePhone:(NSString *)phone
+{
+    NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+    if(!logoutPhoneList){
+        return;
+    }
+    [logoutPhoneList removeObject:phone];
+    [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
+}
+
 - (NSString *)url
 {
     if(self.currentSaasModel){

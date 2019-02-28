@@ -84,6 +84,7 @@
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
         
             kCache.lastLoginPhone = @"";
+            [kCache removePhone:accountModel.phone];
             managerAccount.accountModel = accountModel;
             kCurrentBossManagerAccount = managerAccount;
             

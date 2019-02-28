@@ -56,6 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAccount:(NSUInteger)saasIndex accountIndex:(NSUInteger)accountIndex;
 
+- (NSMutableArray<NSString *> *)getlogoutPhoneList;
+
+- (void)addPhone:(NSString *)phone;
+
+- (void)removePhone:(NSString *)phone;
+
 @end
 
 NS_ASSUME_NONNULL_END
