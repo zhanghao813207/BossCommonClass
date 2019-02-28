@@ -55,7 +55,7 @@
     if ([viewController isKindOfClass:[UIViewController class]]) {
         
         NSMutableArray *saasDicList = kCache.saasAccountList;
-        if(saasDicList.count == 1 && [[saasDicList[0] objectForKey:@"accountList"] count] == 1){
+        if(saasDicList.count == 0 || (saasDicList.count == 1 && [[saasDicList[0] objectForKey:@"accountList"] count] == 1)){
             LoginVC *loginVC = [[LoginVC alloc] init];
             [loginVC setLoginSuccessBlock:^(BOOL isLogin) {
                 if (!success) {
