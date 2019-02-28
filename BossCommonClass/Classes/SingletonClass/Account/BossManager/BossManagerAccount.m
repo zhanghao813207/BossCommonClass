@@ -41,6 +41,41 @@
     
 }
 
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success saasAccountBlock:(void(^)(void))saasAccountBlock withController:(UIViewController *)viewController{
+    
+    // 当前用户已经登录
+    if (kCurrentBossManagerAccount) {
+        if (success) {
+            success(YES,NO);
+        }
+        return;
+    }
+    
+    // 用户需要登录
+    if ([viewController isKindOfClass:[UIViewController class]]) {
+        
+        NSMutableArray *saasDicList = kCache.saasAccountList;
+        if(saasDicList.count == 1 && [[saasDicList[0] objectForKey:@"accountList"] count] == 1){
+            LoginVC *loginVC = [[LoginVC alloc] init];
+            [loginVC setLoginSuccessBlock:^(BOOL isLogin) {
+                if (!success) {
+                    return;
+                }
+                kCurrentBossManagerAccount.isFirstLogin = NO;
+                success(isLogin,YES);
+            }];
+            BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
+            [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossManagerAccount.isFirstLogin completion:nil];
+            [viewController.tabBarController setSelectedIndex:0];
+            return;
+        }
+        
+        if(saasAccountBlock){
+            saasAccountBlock();
+        }
+    }
+}
+
 /**
  判断用户是否登录
  

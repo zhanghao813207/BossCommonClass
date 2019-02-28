@@ -53,6 +53,8 @@
 
 @property (nonatomic, strong) SaasModel *saasModel;
 
+@property (nonatomic, readonly) NSString *defaultPhoneNumber;
+
 @end
 
 @implementation LoginVC
@@ -68,7 +70,7 @@
     self.saasModel = kCache.currentSaasModel;
     if(kCache.currentSaasModel){
         [self.inputPhoneNumberView isBecomeFirstResponder];
-        [self showInputPhoneNumberView:kCache.currentSaasModel phoneNumber:kCache.lastLoginPhone];
+        [self showInputPhoneNumberView:kCache.currentSaasModel phoneNumber:self.defaultPhoneNumber];
     }else{
         [self.inputMerchantCodeView isBecomeFirstResponder];
         [self showInputMerchantCodeView:@""];
@@ -262,7 +264,7 @@
                 NSString *phoneNumber = @"";
                 if(kCache.currentSaasModel){
                     if ([saasModel._id isEqualToString:kCache.currentSaasModel._id]) {
-                        phoneNumber = kCache.lastLoginPhone;
+                        phoneNumber = weakSelf.defaultPhoneNumber;
                     }
                 }
                 [weakSelf showInputPhoneNumberView:saasModel phoneNumber:phoneNumber];
@@ -393,6 +395,11 @@
         [_backBarButtonItem setTintColor:kHexRGBA(0x000000, 0.8)];
     }
     return _backBarButtonItem;
+}
+
+- (NSString *)defaultPhoneNumber
+{
+    return self.addAccount ? @"" : kCache.lastLoginPhone;
 }
 
 @end
