@@ -183,7 +183,9 @@
                 if(!kCurrentBossManagerAccount){
                     return;
                 }
-                kCache.lastLoginPhone = kCurrentBossManagerAccount.accountModel.phone;
+                NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                kCache.lastLoginPhone = phone;
+                [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
 #endif
