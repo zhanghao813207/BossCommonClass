@@ -151,6 +151,7 @@
  */
 + (void)userIsLogin:(void(^)(BOOL isLogin))loginBlock Expired:(void (^)(BOOL isExpired))expeiredBlock
 {
+    [NNBRequestManager shareNNBRequestManager].saasModel = kCache.currentSaasModel;
     if (kCurrentBossKnightAccount) {
         // 未过期的情况 用户上次登录过 且 不需要重新登录
         if (!kCurrentBossKnightAccount.tokenModel.checkExpired) {

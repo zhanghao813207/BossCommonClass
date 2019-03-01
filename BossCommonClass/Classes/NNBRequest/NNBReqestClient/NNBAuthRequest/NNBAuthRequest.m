@@ -63,6 +63,8 @@
         
         kCurrentBossKnightAccount = knightAccount;
         
+        kCache.currentSaasModel = [NNBRequestManager shareNNBRequestManager].saasModel;
+        
         NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->kCurrentBossKnightAccount\n%@", [kCurrentBossKnightAccount decodeToDic]);
         
         if (successBlock) {
@@ -77,18 +79,16 @@
         
         BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
         managerAccount.tokenModel = token;
-        
-        BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
-
-        
-        
         kCurrentBossManagerAccount = managerAccount;
-        kCache.lastLoginPhone = @"";
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
-            
+        
+            kCache.lastLoginPhone = @"";
+            [kCache removePhone:accountModel.phone];
             managerAccount.accountModel = accountModel;
             kCurrentBossManagerAccount = managerAccount;
+            
+            kCache.currentSaasModel = [NNBRequestManager shareNNBRequestManager].saasModel;
             
             [kCache addAccount:[kCurrentBossManagerAccount decodeToDic]];
             

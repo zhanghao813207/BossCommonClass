@@ -25,10 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSString *url;
 
-@property (nonatomic, readonly) NSString *accessKey;
-
-@property (nonatomic, readonly) NSString *secretKey;
-
 @property (nonatomic, strong, nullable) SaasModel *currentSaasModel;
 
 @property (nonatomic, strong, nullable) BossManagerAccount *currentManagerAccount;
@@ -59,6 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addAccount:(NSDictionary *)accountDic;
 
 - (void)removeAccount:(NSUInteger)saasIndex accountIndex:(NSUInteger)accountIndex;
+
+- (NSMutableArray<NSString *> *)getlogoutPhoneList;
+
+- (void)addPhone:(NSString *)phone;
+
+- (void)removePhone:(NSString *)phone;
 
 @end
 

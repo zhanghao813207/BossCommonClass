@@ -10,6 +10,7 @@
 #import "NSDate+Helper.h"
 #import "BossManagerAccount.h"
 #import "SaasModel.h"
+#import "NNBRequestManager.h"
 
 @implementation BossOaExamineRequest
 

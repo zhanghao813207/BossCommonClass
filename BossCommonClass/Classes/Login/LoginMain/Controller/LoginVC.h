@@ -19,11 +19,11 @@ typedef NS_ENUM(NSInteger, OperatingView) {
     CodeView,           // 输入验证码View
 };
 
+@property (nonatomic, assign) BOOL addAccount;
+
 /**
  登陆成功回调
  */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
-
-- (void)showOperatingView:(OperatingView)operatingView;
 
 @end

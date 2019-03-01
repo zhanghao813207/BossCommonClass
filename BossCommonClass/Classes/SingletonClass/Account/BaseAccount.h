@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withController:(UIViewController *)viewController;
 
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success saasAccountBlock:(void(^)(void))saasAccountBlock withController:(UIViewController *)viewController;
+
 /**
  判断登录信息是否过期
  

@@ -102,10 +102,6 @@ static BossCache *defaultCache = nil;
 - (NSMutableArray<NSDictionary *> *)saasAccountList
 {
     
-//    if(!_saasAccountList){
-//
-//    }
-    
     NSMutableArray *saasDicList = [kUserDefault mutableArrayValueForKey:ACCOUNT_LIST_KEY];
     if(!saasDicList){
         _saasAccountList = [NSMutableArray array];
@@ -129,31 +125,38 @@ static BossCache *defaultCache = nil;
     return _lastLoginPhone;
 }
 
-//- (BOOL)localConfig
-//{
-//    return self.currentSaasModel == nil;
-//}
+- (NSMutableArray<NSString *> *)getlogoutPhoneList
+{
+    return [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+}
+
+- (void)addPhone:(NSString *)phone
+{
+    NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+    if(!logoutPhoneList){
+        logoutPhoneList = [NSMutableArray mutableCopy];
+        [logoutPhoneList addObject:phone];
+        return;
+    }
+    [logoutPhoneList addObject:phone];
+    NSSet *logoutPhoneSet = [NSSet setWithArray:logoutPhoneList];
+    [kUserDefault setObject:[logoutPhoneSet allObjects] forKey:LOGOUT_PHONE_LIST_KEY];
+}
+
+- (void)removePhone:(NSString *)phone
+{
+    NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
+    if(!logoutPhoneList){
+        return;
+    }
+    [logoutPhoneList removeObject:phone];
+    [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
+}
 
 - (NSString *)url
 {
     if(self.currentSaasModel){
         return self.currentSaasModel.url;
-    }
-    return @"";
-}
-
-- (NSString *)accessKey
-{
-    if(self.currentSaasModel ){
-        return self.currentSaasModel.access_key;
-    }
-    return @"";
-}
-
-- (NSString *)secretKey
-{
-    if(self.currentSaasModel ){
-        return self.currentSaasModel.secret_key;
     }
     return @"";
 }

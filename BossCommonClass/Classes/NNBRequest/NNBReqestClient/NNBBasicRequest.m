@@ -173,8 +173,23 @@
                 [showView showStatus:errorMsg];
             }
             if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
-                [BossKnightAccount clearAccountInfo];
-                [BossManagerAccount clearAccountInfo];
+#ifdef kBossKnight
+                if(!kCurrentBossKnightAccount){
+                    return;
+                }
+                kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
+                kCurrentBossKnightAccount = nil;
+#elif defined kBossManager
+                if(!kCurrentBossManagerAccount){
+                    return;
+                }
+                NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                kCache.lastLoginPhone = phone;
+                [kCache addPhone:phone];
+                kCurrentBossManagerAccount = nil;
+#else
+#endif
+                NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
             }
         });
@@ -207,11 +222,10 @@
 {
     NSString *ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
     DLog(@"ErrorResponse = %@",ErrorResponse);
-    NSError *err = nil;
     
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[ErrorResponse dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&err];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[ErrorResponse dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     
-    if (!err && dic[@"err_code"]){
+    if (!error && dic[@"err_code"]){
         if (success) {
             success(dic);
             return;

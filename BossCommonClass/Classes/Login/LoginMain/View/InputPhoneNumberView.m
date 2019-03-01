@@ -150,6 +150,8 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         [string insertString:@" " atIndex:8];
         self.phoneTextField.text = string;
         self.nextStepButton.clickEnable = YES;
+    }else{
+        self.phoneTextField.text = @"";
     }
 }
 
