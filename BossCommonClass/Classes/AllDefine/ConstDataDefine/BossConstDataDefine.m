@@ -20,18 +20,28 @@
 NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com//1.0/";
 NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
 
+NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
+NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
+
+// 明杰
+// NSString *const BossBasicURL = @"http://192.168.1.138:8081/1.0/";
+// NSString *const BossBasicURLV2 = @"http://192.168.1.138:8081/2.0/";
+
+// NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
+// NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
+
 #else
 /*-------------*********移动正式环境公共接口********-------*/
 // release
-NSString *const BossBasicURL = @"https://boss-api.aoaosong.com/1.0/";
-NSString *const BossBasicURLV2 = @"https://boss-api.aoaosong.com/2.0/";
+NSString *const BossBasicURL = @"https://saas-api.aoaosong.com/1.0/";
+NSString *const BossBasicURLV2 = @"https://saas-api.aoaosong.com/2.0/";
+
+NSString *const ACCESS_KEY = @"5c779ed4887d1f45fc349753";
+NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
 
 #endif
 
 #pragma mark -- ACCESS_KEY 和 SECRET_KEY
-
-NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
 
 #pragma mark -- APPCODE 和 APP_ID
 
