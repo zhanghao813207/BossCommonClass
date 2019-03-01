@@ -29,6 +29,21 @@ UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时�
 
 /********* userdefaultKey ************/
 
-UIKIT_EXTERN NSString *const AccountInfoKey; // 存放登录的用户信息
+#pragma mark -- kUserDefault Key
+
+// 存放商户信息
+UIKIT_EXTERN NSString *const SAAS_KEY;
+
+// 存放员工/骑士信息
+UIKIT_EXTERN NSString *const ACCOUNT_KEY;
+
+// 多帐号信息
+UIKIT_EXTERN NSString *const ACCOUNT_LIST_KEY;
+
+//最后一次登录手机号
+UIKIT_EXTERN NSString *const LAST_LOGIN_PHONE_KEY;
+
+// 退出登录列表
+UIKIT_EXTERN NSString *const LOGOUT_PHONE_LIST_KEY;
 
 @end

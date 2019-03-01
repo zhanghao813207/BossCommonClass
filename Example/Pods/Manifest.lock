@@ -25,8 +25,10 @@ PODS:
     - AFNetworking (~> 3.1.0)
     - BasicCommonClass (~> 0.4.4)
     - BGFMDB (~> 1.51)
+    - Masonry
     - Qiniu (~> 7.1)
   - HappyDNS (0.3.14)
+  - Masonry (1.1.0)
   - Qiniu (7.2.5):
     - HappyDNS (~> 0.3)
 
@@ -40,6 +42,7 @@ SPEC REPOS:
     - AFNetworking
     - BGFMDB
     - HappyDNS
+    - Masonry
     - Qiniu
 
 EXTERNAL SOURCES:
@@ -50,8 +53,9 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BasicCommonClass: 486331ba498d456ccd92cb3e450a2b1fa0bfdbd3
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: 8cabfc1c7865e3bdac6f9672e14d328a780209ed
+  BossCommonClass: a13d2ee70745d4799d74fa790443244a4ce824e9
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48
 
 PODFILE CHECKSUM: 76117d01723b3b3310fe45987992e4780d226a1d

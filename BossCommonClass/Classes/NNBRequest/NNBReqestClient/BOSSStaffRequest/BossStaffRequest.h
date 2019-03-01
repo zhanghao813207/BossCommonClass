@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NNBAccount.h"
+#import "BossKnightAccount.h"
 #import "StaffTagModel.h"
 
 @interface BossStaffRequest : NSObject
@@ -14,11 +14,10 @@
 /**
  获取员工详情
 
- @param staffId 员工ID
  @param successBlock 成功返回员工的信息
  @param failBlock 响应失败
  */
-+ (void)staffRequestGetStaffInfoWithId:(NSString *)staffId success:(void(^)(NNBAccount *staffInfoModel))successBlock fail:(void(^)(id error))failBlock;
++ (void)staffRequestGetStaffInfoWithId:(void(^)(void))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  手持端编辑员工
@@ -27,7 +26,7 @@
  @param successBlock 是否更新成功
  @param failBlock 服务器响应失败
  */
-+ (void)staffRequestUpdateStaffInfoWithStaffInfo:(NNBAccount *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock;
++ (void)staffRequestUpdateStaffInfoWithStaffInfo:(BossKnightAccountModel *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock;
 
 
 /**

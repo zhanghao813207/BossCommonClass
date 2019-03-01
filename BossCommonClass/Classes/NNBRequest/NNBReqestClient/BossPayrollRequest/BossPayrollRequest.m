@@ -35,7 +35,7 @@
                                @"work_type":work_types,
                                @"state":state,
                                };
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll_statement.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"payroll.payroll_statement.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -76,7 +76,7 @@
     if (bizDistrictId) {
         [paramDic setObject:bizDistrictId forKey:@"salary_statement_id"];
     }
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"payroll.payroll.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"payroll.payroll.find" success:^(id responseObject) {
         if (!successBlock) {
             return;
         }
@@ -101,7 +101,7 @@
  */
 + (void)payrollGetBizDistrictByCityList:(NSArray *)cityList success:(void(^)(NSArray <BizDistrictModel *>*bizDistrictList))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@platform/get_biz_district",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@platform/get_biz_district",kUrlApiVersion(@"/1.0")];
     NSDictionary *paramDic = @{
                                @"city_list":cityList,
                                };

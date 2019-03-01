@@ -6,7 +6,10 @@
 //
 
 #import "BossMaterialFlowRequest.h"
+#import "BossKnightAccount.h"
+#import "SaasModel.h"
 #import "NNBBasicRequest.h"
+#import "NNBRequestManager.h"
 @implementation BossMaterialFlowRequest
 
 /**
@@ -19,10 +22,10 @@
  */
 + (void)materialFlowRequestRefundWithOrderId:(NSString *)orderId materialItemId:(NSString *)materialId success:(void (^)(BOOL ok))successBlock fail:(void(^)(void))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@material_flow/material_refund",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@material_flow/material_refund",kUrlApiVersion(@"/1.0")];
     
     NSDictionary *paramDic = @{
-                               @"account_id":kCurrentAccount._id,
+                               @"account_id":kCurrentBossKnightAccount.accountModel._id,
                                @"order_id":orderId,
                                @"material_item_id":materialId,
                                };
@@ -49,10 +52,10 @@
  */
 + (void)materialFlowRequestConfirmdWithOrderId:(NSString *)orderId flowState:(FlowStates)flowState success:(void (^)(BOOL ok))successBlock fail:(void(^)(void))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@material_flow/material_flow_audit",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@material_flow/material_flow_audit",kUrlApiVersion(@"/1.0")];
     
     NSDictionary *paramDic = @{
-                               @"account_id":kCurrentAccount._id,
+                               @"account_id":kCurrentBossKnightAccount.accountModel._id,
                                @"order_id":orderId,
                                @"flow_state":@(flowState)
                                };

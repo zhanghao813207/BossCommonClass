@@ -8,6 +8,9 @@
 #import "BossOaExamineRequest.h"
 #import "NNBBasicRequest.h"
 #import "NSDate+Helper.h"
+#import "BossManagerAccount.h"
+#import "SaasModel.h"
+#import "NNBRequestManager.h"
 
 @implementation BossOaExamineRequest
 
@@ -42,63 +45,63 @@
                                           @"submit_at":@(-1),
                                           }
                                   } forKey:@"_meta"];
-            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"current_pending_accounts"];
+            [paramDic setObject:@[kCurrentBossManagerAccount.accountModel._id] forKey:@"current_pending_accounts"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_ALL:
         {
             stateArray = @[@(OA_EXAMINE_STATE_DONE),@(OA_EXAMINE_STATE_SHUTDOWN),@(OA_EXAMINE_STATE_UNDERWAY)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:kCurrentBossManagerAccount.accountModel._id forKey:@"apply_account_id"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_PRESENT:
         {
             stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:kCurrentBossManagerAccount.accountModel._id forKey:@"apply_account_id"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_SUCCEED:
         {
             stateArray = @[@(OA_EXAMINE_STATE_DONE)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:kCurrentBossManagerAccount.accountModel._id forKey:@"apply_account_id"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PUT_EXAMINE_FAIL:
         {
             stateArray = @[@(OA_EXAMINE_STATE_SHUTDOWN)];
-            [paramDic setObject:kCurrentBossAccount.account_id forKey:@"apply_account_id"];
+            [paramDic setObject:kCurrentBossManagerAccount.accountModel._id forKey:@"apply_account_id"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_ALL:
         {
             stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY),@(OA_EXAMINE_STATE_DONE),@(OA_EXAMINE_STATE_SHUTDOWN)];
-            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossManagerAccount.accountModel._id] forKey:@"flow_accounts"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_PRESENT:
         {
             stateArray = @[@(OA_EXAMINE_STATE_UNDERWAY)];
-            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossManagerAccount.accountModel._id] forKey:@"flow_accounts"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_SUCCEED:
         {
             stateArray = @[@(OA_EXAMINE_STATE_DONE)];
-            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossManagerAccount.accountModel._id] forKey:@"flow_accounts"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
         case MOBILE_PASS_EXAMINE_FAIL:
         {
             stateArray = @[@(OA_EXAMINE_STATE_SHUTDOWN)];
-            [paramDic setObject:@[kCurrentBossAccount.account_id] forKey:@"flow_accounts"];
+            [paramDic setObject:@[kCurrentBossManagerAccount.accountModel._id] forKey:@"flow_accounts"];
             [paramDic setObject:stateArray forKey:@"state"];
         }
             break;
@@ -106,7 +109,7 @@
             break;
     }
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.find" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -139,7 +142,7 @@
                                @"id":examineId,
                                };
     if (showError) {
-        [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
+        [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             if (!successBlock) {
                 return;
@@ -154,7 +157,7 @@
             }
         }];
     } else {
-        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             if (!successBlock) {
                 return;
@@ -183,7 +186,7 @@
                                @"id":orderId,
                                };
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.cost_order.get" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.cost_order.get" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -223,7 +226,7 @@
         [paramDic setObject:nextNodeAccountId forKey:@"next_node_account_id"];
     }
     
-    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -265,7 +268,7 @@
         [paramDic setObject:note forKey:@"note"];
     }
     
-    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.reject" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -303,7 +306,7 @@
         [paramDic setObject:fileList forKey:@"file_list"];
     }
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.create_flow_extra" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.create_flow_extra" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -328,7 +331,7 @@
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"id":flowExtraId,
                                                                                     }];
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.delete_flow_extra" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.delete_flow_extra" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -353,7 +356,7 @@
     NSDictionary *paramDic = @{
                                @"order_id":examineId,
                                };
-    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.urge" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.urge" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -387,7 +390,7 @@
         [paramDic setObject:note forKey:@"note"];
     }
     
-    [NNBBasicRequest postJsonNoneWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.mark_paid" success:^(id responseObject) {
+    [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.mark_paid" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -415,7 +418,7 @@
                                @"order_record_id":recordId,
                                };
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:paramDic CMD:@"oa.application_order.get_urge_detail" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.get_urge_detail" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
             return;
@@ -489,7 +492,7 @@
                                    @"book_month":bookMonth,
                                    @"cost_center_type":@(type)
                                    };
-        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             [self getListWithResponseObject:responseObject applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
         } fail:^(id error) {
@@ -545,7 +548,7 @@
         NSMutableDictionary *paramDic = [BossOaExamineRequest getSubmitAmountRequestParams:accountingId submitAt:submitAt allocationModel:allocationModel];
         
         // 发送网络请求
-        [NNBBasicRequest postJsonNativeWithUrl:BossBasicURLV2 parameters:paramDic cmd:@"oa.cost_order.get_amount_with_submit" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.get_amount_with_submit" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             [BossOaExamineRequest handleGetSubmitAmountResponse:responseObject applyOrderModel:applyOrder key:key submitAt:submitAt listDic:listDic list:list success:successBlock];
         } fail:^(id error) {

@@ -11,13 +11,18 @@
 #import "NSDate+Helper.h"
 #import "BossBasicDefine.h"
 #import "JYCSimpleToolClass.h"
+#import "BossManagerAccount.h"
+#import "BossKnightAccount.h"
+
 float const kNetworkTimeoutInterval = 60.0f;
 
 @interface NNBRequestManager ()
 
-@property (nonatomic, copy) NSString *APP_ACCESS_TOKEN;
-@property (nonatomic, copy) NSString *refresh_token;
-@property (nonatomic, copy) NSString *expired_at;
+@property (nonatomic, readonly) NSString *accessKey;
+
+@property (nonatomic, readonly) NSString *secretKey;
+
+@property (nonatomic, readonly) NSString *accessToken;
 
 @end
 
@@ -30,26 +35,10 @@ static NNBRequestManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedManager = [NNBRequestManager manager];
-        [sharedManager createAllTokens];
         [sharedManager configureManager];
     });
-    
-    return sharedManager;
-}
 
-- (void)createAllTokens
-{
-    NSDictionary *APP_TOKEN = [kUserDefault objectForKey:@"APP_TOKEN"];
-    NSString *expired_atString = APP_TOKEN[@"expired_at"];
-    if (![self accountTockenIsExpiredWithExpired_at:expired_atString]){
-        self.APP_ACCESS_TOKEN = APP_TOKEN[@"access_token"];
-        self.refresh_token = APP_TOKEN[@"refresh_token"];
-        self.expired_at = APP_TOKEN[@"expired_at"];
-    }else {
-        self.APP_ACCESS_TOKEN = @"";
-        self.refresh_token = @"";
-        self.expired_at = @"";
-    }
+    return sharedManager;
 }
 
 - (void)configureManager
@@ -65,8 +54,6 @@ static NNBRequestManager *sharedManager = nil;
     sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
 //    [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[[AFHTTPRequestSerializer serializer],[AFJSONResponseSerializer serializer]]];
     sharedManager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    [sharedManager.requestSerializer setValue:ACCESS_KEY forHTTPHeaderField:@"X-APP-KEY"];
     
     [sharedManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
@@ -75,24 +62,6 @@ static NNBRequestManager *sharedManager = nil;
     [sharedManager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     [sharedManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
     
-}
-
-/**
- 判断accountTocken是否过期
-
- @param expired_atString 过期时间的时间戳
- @return 是否过期
- */
-- (BOOL)accountTockenIsExpiredWithExpired_at:(NSString *)expired_atString
-{
-    if (!expired_atString) {
-        return YES;
-    }
-    NSDate *currentDate = [NSDate date];
-    NSTimeInterval timeInterval =  currentDate.timeIntervalSince1970;
-    NSTimeInterval expired_at = [expired_atString doubleValue];
-    NSLog(@"timeInterval = %f expired_at = %f", timeInterval, expired_at);
-    return timeInterval >= expired_at ? YES : NO;
 }
 
 - (void)addTokenWithCMD:(NSString *)cmd
@@ -110,15 +79,17 @@ static NNBRequestManager *sharedManager = nil;
         [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"boss.%@",cmd] forHTTPHeaderField:@"X-CMD"];
     }
     
+    [sharedManager.requestSerializer setValue:sharedManager.accessKey forHTTPHeaderField:@"X-APP-KEY"];
+    
     // “X-AUTH”:  未登录或已登陆但是发送验证码接口
     // "X-TOKEN": 已登录但不是发送验证码接口
-    if (self.APP_ACCESS_TOKEN.length == 0 || [@"auth.auth.send_verify_code" isEqualToString:cmd]) {
+    if(!sharedManager.saasModel || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
         // header中添加X-AUTH
-        [sharedManager.requestSerializer setValue:[NNBRequestManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
+        [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
         [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
-    }else {
+    }else{
         // // header中添加X-TOKEN
-        NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",self.APP_ACCESS_TOKEN,[NNBRequestManager headTokenStr:date]];
+        NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",sharedManager.accessToken,[sharedManager headTokenStr:date]];
         [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
         [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
     }
@@ -126,71 +97,49 @@ static NNBRequestManager *sharedManager = nil;
 }
 
 // AUTH请求方式 hMD5加密
-+ (NSString *)headAuthStr:(int)date{
-    NSString *str = [JYCSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%d",[JYCSimpleToolClass getUUID],date]];
+- (NSString *)headAuthStr:(int)date{
+    
+    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey data:[NSString stringWithFormat:@"%@:%d",[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 
 // TOKEN请求方式 hMD5加密
-+ (NSString *)headTokenStr:(int)date {
-    NSString *str = [JYCSimpleToolClass HmacMD5:SECRET_KEY data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.APP_ACCESS_TOKEN,[JYCSimpleToolClass getUUID],date]];
+- (NSString *)headTokenStr:(int)date {
+    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.accessToken,[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 
-// 保存token信息
-- (void)saveToken:(NSString *)token
-    refrech_token:(NSString *)refresh_token
-       expired_at:(NSString *)expired_at {
-    
-    self.APP_ACCESS_TOKEN = token;
-    self.refresh_token = refresh_token;
-    self.expired_at = expired_at;
-    
-    [kUserDefault setObject:@{@"access_token":token,@"refresh_token":refresh_token,@"expired_at":expired_at} forKey:@"APP_TOKEN"];
-    [kUserDefault synchronize];
-}
-
-// 清除token信息
-- (void)cleanToken {
-    self.APP_ACCESS_TOKEN = @"";
-    self.refresh_token = @"";
-    self.expired_at = @"";
-    [[NSUserDefaults standardUserDefaults] setObject:@{} forKey:@"APP_TOKEN"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (BOOL)saveAccountInfoWithAccountDic:(NSDictionary *)dic
+- (NSString *)url
 {
-    if (!dic) {
-        return NO;
-    }
-    
-    DLog(@"account data:\n%@", dic);
-    
-#ifdef kBossKnight
-    [kCurrentAccount setValuesForKeysWithDictionary:dic];
-    
-    NSDictionary *localAccountInfoDic = [kCurrentAccount decodeToDic];
-    
-    [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
-    [kUserDefault synchronize];
-    
-    [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentAccount.access_token refrech_token:kCurrentAccount.refresh_token expired_at:kCurrentAccount.expired_at];
-    return YES;
-#elif defined kBossManager
-    [kCurrentBossAccount setValuesForKeysWithDictionary:dic];
-    
-    NSDictionary *localAccountInfoDic = [kCurrentBossAccount decodeToDic];
-    
-    [kUserDefault setObject:localAccountInfoDic forKey:AccountInfoKey];
-    [kUserDefault synchronize];
-    
-    [[NNBRequestManager shareNNBRequestManager] saveToken:kCurrentBossAccount.access_token refrech_token:kCurrentBossAccount.refresh_token expired_at:kCurrentBossAccount.expired_at];
-    return YES;
-#else
-    return YES;
-#endif
+    return [sharedManager getUrlByApiVersion:@"/2.0"];
+}
 
+- (NSString *)getUrlByApiVersion:(NSString *)apiVersion
+{
+    return sharedManager.saasModel ? [NSString stringWithFormat:@"%@%@", sharedManager.saasModel.merchant_info.api_gateway, apiVersion] : BossBasicURLV2;
+}
+
+- (NSString *)accessKey
+{
+    return sharedManager.saasModel ? sharedManager.saasModel.access_key : ACCESS_KEY;
+}
+
+- (NSString *)secretKey
+{
+    return sharedManager.saasModel ? sharedManager.saasModel.secret_key : SECRET_KEY;
+}
+
+- (NSString *)accessToken
+{
+
+#ifdef kBossKnight
+    return kCurrentBossKnightAccount.tokenModel.access_token;
+#elif defined kBossManager
+    return kCurrentBossManagerAccount.tokenModel.access_token;
+#else
+    return @"";
+#endif
+    
 }
 
 @end

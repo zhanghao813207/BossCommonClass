@@ -9,6 +9,7 @@
 #import "PayrollStatementModel.h"
 #import "PayrollStatementDetailModel.h"
 #import "BossBasicDefine.h"
+#import "BizDistrictModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
