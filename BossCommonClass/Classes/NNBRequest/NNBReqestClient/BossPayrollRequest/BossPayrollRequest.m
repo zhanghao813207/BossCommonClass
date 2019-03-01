@@ -101,7 +101,7 @@
  */
 + (void)payrollGetBizDistrictByCityList:(NSArray *)cityList success:(void(^)(NSArray <BizDistrictModel *>*bizDistrictList))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@platform/get_biz_district",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@platform/get_biz_district",kUrlApiVersion(@"/1.0")];
     NSDictionary *paramDic = @{
                                @"city_list":cityList,
                                };

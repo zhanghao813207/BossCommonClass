@@ -56,7 +56,7 @@
  */
 + (void)knightMaterialRequestGetOrderDetailWithOrderId:(NSString *)orderId success:(void(^)(OrderModel *orderModel))successBlock fail:(void(^)(void))failBlock;
 {
-    NSString *url = [NSString stringWithFormat:@"%@knight_material/gain_knight_material_flow_order",BossBasicURL];
+    NSString *url = [NSString stringWithFormat:@"%@knight_material/gain_knight_material_flow_order",kUrlApiVersion(@"/1.0")];
     
     NSDictionary *paramDic = @{
                                @"account_id":kCurrentBossKnightAccount.accountModel._id,
