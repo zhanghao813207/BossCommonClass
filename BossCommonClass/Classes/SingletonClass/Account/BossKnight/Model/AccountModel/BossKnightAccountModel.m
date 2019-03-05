@@ -244,8 +244,9 @@
 
 - (BOOL)checkSigned
 {
-    // 已签约-正常 & 已签约-待换签 & 已签约-待续签
-    return self.state == StaffStateSigned || self.state == StaffStateWaitingRenewal || self.state == StaffStateRenewaled;
+    // 已签约-正常
+    // return self.state == StaffStateSigned || self.state == StaffStateWaitingRenewal || self.state == StaffStateRenewaled;
+    return self.state == StaffStateSigned;
 }
 
 - (BOOL)checkElectronicContract
