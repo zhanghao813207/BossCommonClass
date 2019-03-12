@@ -43,10 +43,13 @@ static NNBRequestManager *sharedManager = nil;
 
 - (void)configureManager
 {
-    NSString *certFilePath = [[NSBundle mainBundle] pathForResource:@"aoaosong" ofType:@"cer"];
-    NSData *certData = [NSData dataWithContentsOfFile:certFilePath];
-    NSSet *certSet = [NSSet setWithObject:certData];
-    AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
+    // 临时取消证书校验 下一个版本开启
+    // NSString *certFilePath = [[NSBundle mainBundle] pathForResource:@"aoaosong" ofType:@"cer"];
+    // NSData *certData = [NSData dataWithContentsOfFile:certFilePath];
+    // NSSet *certSet = [NSSet setWithObject:certData];
+//    AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certSet];
+    AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    
     policy.allowInvalidCertificates = YES;
     policy.validatesDomainName = NO;
     sharedManager.securityPolicy = policy;
