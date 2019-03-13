@@ -77,6 +77,12 @@
         case StaffStateRenewaled:
             _staffStateString = @"已签约-待续签";
             break;
+        case StaffStateDeparture:
+            _staffStateString = @"解约中";
+            break;
+        case StaffStateDepartureApproval:
+            _staffStateString = @"解约审核中";
+            break;
         case StaffStateTerminated:
             _staffStateString = @"已解约";
             break;
@@ -249,9 +255,24 @@
     return self.state == StaffStateSigned;
 }
 
+- (BOOL)checkStaffDeparture
+{
+    return self.state == StaffStateDeparture;
+}
+
+- (BOOL)checkDepartureSigned
+{
+    return self.departure_state == DepartureStateSigned;
+}
+
 - (BOOL)checkElectronicContract
 {
     return self.sign_type == StaffSignTypeElectronic;
+}
+
+- (BOOL)checkJobTransferRemarkFill
+{
+    return ![JYCSimpleToolClass stringIsEmpty:self.job_transfer_remark];
 }
 
 /**
@@ -314,7 +335,9 @@
                           @"bank_branch":self.bank_branch ? : @"",
                           @"bank_card_front":self.bank_card_front ? : @"",
                           @"bank_card_front_url":self.bank_card_front_url ? : @"",
-                          @"operator_id":self.operator_id ? : @""
+                          @"operator_id":self.operator_id ? : @"",
+                          @"job_transfer_remark":self.job_transfer_remark ? : @"",
+                          @"departure_state":@(self.departure_state)
                           };
     return dic;
 }

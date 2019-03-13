@@ -289,6 +289,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) NSUInteger bank_info_type;
 
+/**
+ 工作交接备注
+ */
+@property (nonatomic, strong) NSString *job_transfer_remark;
+
+/**
+ 解约协议签字状态 1：未签字 ，100：已签字
+ */
+@property (nonatomic, assign) DepartureStates departure_state;
+
+
 #pragma mark -- 枚举对应的字符串
 
 /**
@@ -415,9 +426,25 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL checkSigned;
 
 /**
+ 检查是否解约中
+ - 站长提交解约后变为解约中
+ */
+@property (nonatomic, assign, readonly) BOOL checkStaffDeparture;
+
+/**
+ 检查解约是否签字
+ */
+@property (nonatomic, assign, readonly) BOOL checkDepartureSigned;
+
+/**
  检查是否电子签约
  */
 @property (nonatomic, assign, readonly) BOOL checkElectronicContract;
+
+/**
+ 检查工作交接备注是否填写
+ */
+@property (nonatomic, assign, readonly) BOOL checkJobTransferRemarkFill;
 
 /**
  检查合同是否上传
