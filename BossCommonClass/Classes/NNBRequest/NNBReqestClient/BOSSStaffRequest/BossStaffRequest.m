@@ -147,11 +147,13 @@
     }
         
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.app_update" success:^(id responseObject) {
+        
+        kCurrentBossKnightAccount.isNeedUpdate = YES;
+        
         if (!successBlock) {
             return;
         }
         BOOL ok = [responseObject[@"ok"] boolValue];
-        kCurrentBossKnightAccount.isNeedUpdate = YES;
         successBlock(ok);
     } fail:^(id error) {
         NSLog(@"error: %@", error);
