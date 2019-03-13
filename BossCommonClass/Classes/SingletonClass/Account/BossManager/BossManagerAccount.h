@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) BossManagerAccountModel *accountModel;
 
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success saasAccountBlock:(void(^)(void))saasAccountBlock withController:(UIViewController *)viewController;
+
 @end

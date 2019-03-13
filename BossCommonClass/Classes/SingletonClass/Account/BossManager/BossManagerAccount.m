@@ -177,12 +177,6 @@
     [viewController.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 
-+ (void)clearAccountInfo
-{
-    // [kUserDefault removeObjectForKey:AccountInfoKey];
-    [kUserDefault synchronize];
-}
-
 /**
  模型转字典
  
