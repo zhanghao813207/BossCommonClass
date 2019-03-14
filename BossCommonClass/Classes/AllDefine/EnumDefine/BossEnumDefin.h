@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, GenderIDs) {
 
 typedef NS_ENUM(NSInteger, StaffStates) {
     StaffStatePendingSign            =  1,    // 待签约
+    StaffStateWaitApproval           =  50,   // 签约待审核
     StaffStateSigned                 =  100,  // 已签约-正常
     StaffStateWaitingRenewal         =  101,  // 已签约-待换签
     StaffStateRenewaled              =  102,  // 已签约-待续签
