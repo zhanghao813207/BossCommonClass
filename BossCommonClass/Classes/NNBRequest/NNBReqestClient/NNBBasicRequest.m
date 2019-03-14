@@ -225,7 +225,7 @@
     
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[ErrorResponse dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     
-    if (!error && dic[@"err_code"]){
+    if (error){
         if (success) {
             success(dic);
             return;
