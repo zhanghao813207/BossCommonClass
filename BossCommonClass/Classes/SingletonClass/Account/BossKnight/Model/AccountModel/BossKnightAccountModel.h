@@ -185,6 +185,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *health_certificate_back_url;
 
 /**
+ 健康证开始日期
+ 格式：yyyymmdd
+ */
+@property (nonatomic, strong) NSString *health_certificate_start;
+
+/**
+ 健康证结束日期
+ 格式：yyyymmdd
+ */
+@property (nonatomic, strong) NSString *health_certificate_end;
+
+/**
  平台名称列表
  */
 @property (nonatomic, strong) NSArray *platform_names;
@@ -260,9 +272,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *bank_location;
 
 /**
- 开户行支行
+ 开户行
  */
 @property (nonatomic, strong) NSString *bank_branch;
+
+/**
+ 支行名称
+ */
+@property (nonatomic, strong) NSString *bank_branch_name;
 
 /**
  银行卡正面照(照片)

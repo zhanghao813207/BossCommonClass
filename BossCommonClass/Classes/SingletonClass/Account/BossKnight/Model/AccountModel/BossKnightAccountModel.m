@@ -54,6 +54,16 @@
         return;
     }
     
+    if ([key isEqualToString:@"health_certificate_start"]) {
+        self.health_certificate_start = [NSString stringWithFormat:@"%@", value];
+        return;
+    }
+    
+    if ([key isEqualToString:@"health_certificate_end"]) {
+        self.health_certificate_end = [NSString stringWithFormat:@"%@", value];
+        return;
+    }
+    
     [super setValue:value forKey:key];
 }
 
@@ -67,6 +77,9 @@
     switch (self.state) {
         case StaffStatePendingSign:
             _staffStateString = @"待签约";
+            break;
+        case StaffStateWaitApproval:
+            _staffStateString = @"签约待审核";
             break;
         case StaffStateSigned:
             _staffStateString = @"已签约-正常";
@@ -218,7 +231,7 @@
 - (BOOL)bankCardInfoIsPerfect
 {
     // 银行卡号 & 开户行支行 & 银行卡正面照(照片) & 银行卡省市
-    if ([JYCSimpleToolClass stringIsEmpty:self.bank_card_id] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch] || [JYCSimpleToolClass stringIsEmpty:self.bank_card_front] || self.bank_location.count == 0) {
+    if ([JYCSimpleToolClass stringIsEmpty:self.bank_card_id] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch] || [JYCSimpleToolClass stringIsEmpty:self.bank_card_front] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch_name]) {
         return NO;
     }
     return YES;
@@ -323,6 +336,8 @@
                           @"health_certificate_url":self.health_certificate_url ? : @"",
                           @"health_certificate_back":self.health_certificate_back ? : @"",
                           @"health_certificate_back_url":self.health_certificate_back_url ? : @"",
+                          @"health_certificate_start":self.health_certificate_start ? : @"",
+                          @"health_certificate_end":self.health_certificate_end ? : @"",
                           @"platform_names":self.platform_names ? : @[],
                           @"biz_district_names":self.biz_district_names ? : @[],
                           @"supplier_names":self.supplier_names ? : @[],
@@ -339,6 +354,7 @@
                           @"cardholder_name":self.cardholder_name ? : @"",
                           @"bank_location":self.bank_location ? : @[],
                           @"bank_branch":self.bank_branch ? : @"",
+                          @"bank_branch_name":self.bank_branch_name ? : @"",
                           @"bank_card_front":self.bank_card_front ? : @"",
                           @"bank_card_front_url":self.bank_card_front_url ? : @"",
                           @"operator_id":self.operator_id ? : @"",

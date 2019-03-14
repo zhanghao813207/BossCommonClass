@@ -124,6 +124,9 @@
     if (staffInfo.bank_branch) {
         [paramDic setValue:staffInfo.bank_branch forKey:@"bank_branch"];
     }
+    if (staffInfo.bank_branch_name) {
+        [paramDic setValue:staffInfo.bank_branch_name forKey:@"bank_branch_name"];
+    }
     if (staffInfo.bank_card_front) {
         [paramDic setValue:staffInfo.bank_card_front forKey:@"bank_card_front"];
     }
