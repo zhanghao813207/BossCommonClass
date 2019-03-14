@@ -451,6 +451,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly) BOOL checkContractUploaded;
 
+/**
+ 检查用户信息是否可以重新提交
+ 
+ 重新提交的条件
+ - 待签约
+ - 待换签
+ - 解约中-未签字
+ */
+@property (nonatomic, assign, readonly) BOOL checkUserInfoReSubmit;
+
 
 /**
  模型转字典

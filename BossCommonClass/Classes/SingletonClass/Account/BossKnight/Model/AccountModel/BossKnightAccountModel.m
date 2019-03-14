@@ -275,6 +275,12 @@
     return ![JYCSimpleToolClass stringIsEmpty:self.job_transfer_remark];
 }
 
+- (BOOL)checkUserInfoReSubmit
+{
+    // 待签约 | 待换签 | 解约中-未签字
+    return self.state == StaffStatePendingSign | self.state == StaffStateWaitingRenewal | (self.state == StaffStateDeparture && self.departure_state == DepartureStateNotSign);
+}
+
 /**
  模型转字典
  
