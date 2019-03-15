@@ -48,6 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showBackMerchantCode;
 
 /**
+ 标记app启动后，是否第一次显示健康证到期提醒框
+ */
+@property (nonatomic, assign) BOOL isFirstHealCertificate;
+
+/**
  最后一次登录手机号
  */
 @property (nonatomic, strong) NSString *lastLoginPhone;

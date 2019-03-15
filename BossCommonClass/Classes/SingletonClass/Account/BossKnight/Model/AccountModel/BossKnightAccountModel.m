@@ -231,9 +231,12 @@
 - (BOOL)bankCardInfoIsPerfect
 {
     // 银行卡号 & 开户行支行 & 银行卡正面照(照片) & 银行卡省市
-    if ([JYCSimpleToolClass stringIsEmpty:self.bank_card_id] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch] || [JYCSimpleToolClass stringIsEmpty:self.bank_card_front] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch_name]) {
+    if ([JYCSimpleToolClass stringIsEmpty:self.bank_card_id] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch] || [JYCSimpleToolClass stringIsEmpty:self.bank_card_front] || self.bank_location.count == 0) {
         return NO;
     }
+    //    if ([JYCSimpleToolClass stringIsEmpty:self.bank_card_id] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch] || [JYCSimpleToolClass stringIsEmpty:self.bank_card_front] || [JYCSimpleToolClass stringIsEmpty:self.bank_branch_name]) {
+    //        return NO;
+    //    }
     return YES;
 }
 
@@ -259,6 +262,21 @@
     BOOL checkElectronicUploaded = ![JYCSimpleToolClass stringIsEmpty:self.contract_asset_url];
     BOOL checkPaperUploaded = self.contract_photo_list_url && self.contract_photo_list_url.count > 0;
     return checkElectronicUploaded || checkPaperUploaded;
+}
+
+- (BOOL)checkHealthCertificateDateSubmitted
+{
+    return ![JYCSimpleToolClass stringIsEmpty:self.health_certificate_start] && ![JYCSimpleToolClass stringIsEmpty:self.health_certificate_end];
+}
+
+- (BOOL)checkHealthCertificateExpiring
+{
+    return self.checkHealthCertificateDateSubmitted && self.health_certificate_days <= 30 && self.health_certificate_days >= 0;
+}
+
+- (BOOL)checkHealthCertificateExpired
+{
+    return self.checkHealthCertificateDateSubmitted  && self.health_certificate_days < 0;
 }
 
 - (BOOL)checkSigned
@@ -292,6 +310,32 @@
 {
     // 待签约 | 待换签 | 解约中-未签字
     return self.state == StaffStatePendingSign | self.state == StaffStateWaitingRenewal | (self.state == StaffStateDeparture && self.departure_state == DepartureStateNotSign);
+}
+
+- (NSString *)getHealthCertificateStartDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    dateFormatter.dateFormat = @"yyyyMMdd";
+    NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@", self.health_certificate_start]];
+    
+    dateFormatter.dateFormat = @"yyyy.M.dd";
+    NSString *outDateStr = [dateFormatter stringFromDate:date];
+    
+    return outDateStr;
+}
+
+- (NSString *)getHealthCertificateEndDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    dateFormatter.dateFormat = @"yyyyMMdd";
+    NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@", self.health_certificate_end]];
+    
+    dateFormatter.dateFormat = @"yyyy.M.dd";
+    NSString *outDateStr = [dateFormatter stringFromDate:date];
+    
+    return outDateStr;
 }
 
 /**
@@ -338,6 +382,7 @@
                           @"health_certificate_back_url":self.health_certificate_back_url ? : @"",
                           @"health_certificate_start":self.health_certificate_start ? : @"",
                           @"health_certificate_end":self.health_certificate_end ? : @"",
+                          @"health_certificate_days":@(self.health_certificate_days),
                           @"platform_names":self.platform_names ? : @[],
                           @"biz_district_names":self.biz_district_names ? : @[],
                           @"supplier_names":self.supplier_names ? : @[],

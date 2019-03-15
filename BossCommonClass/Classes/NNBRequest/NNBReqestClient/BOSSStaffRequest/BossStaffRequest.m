@@ -103,6 +103,12 @@
     if (staffInfo.health_certificate_back) {
         [paramDic setValue:staffInfo.health_certificate_back forKey:@"health_certificate_back"];
     }
+    if (staffInfo.health_certificate_start) {
+        [paramDic setValue:staffInfo.health_certificate_start forKey:@"health_certificate_start"];
+    }
+    if (staffInfo.health_certificate_end) {
+        [paramDic setValue:staffInfo.health_certificate_end forKey:@"health_certificate_end"];
+    }
     
     if (staffInfo.bank_info_type) {
         [paramDic setValue:@(staffInfo.bank_info_type) forKey:@"bank_info_type"];

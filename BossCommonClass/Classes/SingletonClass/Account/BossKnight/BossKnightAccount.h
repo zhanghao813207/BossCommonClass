@@ -28,6 +28,15 @@
 + (void)userInfoIsPerfect:(void(^)(BOOL isPerfect))perfectBlock toPerfect:(void(^)(void))toPerfectBlock withController:(UIViewController *)viewController;
 
 /**
+ 判断健康证是否即将到期/已过期
+
+ @param unexpiredBlock              未过期/未到即将过期
+ @param toHealthCertificateBlock    去更新
+ @param viewController              上下文
+ */
++ (void)checkHealthCertificateExpiredRemind:(void(^)(void))unexpiredBlock toHealthCertificateBlock:(void(^)(void))toHealthCertificateBlock withController:(UIViewController *)viewController;
+
+/**
  判断是否需电子签约
  
  @param onterContractBlock      其他签约回调
