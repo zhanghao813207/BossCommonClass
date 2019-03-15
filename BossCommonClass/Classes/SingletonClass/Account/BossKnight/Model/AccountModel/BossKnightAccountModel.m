@@ -251,7 +251,7 @@
 - (BOOL)healthCertificateInfoIsPerfect
 {
     // 健康证(正面照片) & 健康证(背面照片)
-    if ([JYCSimpleToolClass stringIsEmpty:self.health_certificate] || [JYCSimpleToolClass stringIsEmpty:self.health_certificate_back]) {
+    if ([JYCSimpleToolClass stringIsEmpty:self.health_certificate] || [JYCSimpleToolClass stringIsEmpty:self.health_certificate_back] || !self.checkHealthCertificateDateSubmitted) {
         return NO;
     }
     return YES;
