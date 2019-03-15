@@ -108,7 +108,7 @@
     }
 }
 
-+ (void)checkHealthCertificateExpiredRemind:(void(^)(void))unexpiredBlock toHealthCertificateBlock:(void(^)(void))toHealthCertificateBlock withController:(UIViewController *)viewController
++ (void)checkHealthCertificateExpiredRemind:(void(^)(void))unexpiredBlock toHealthCertificateBlock:(void(^)(void))toHealthCertificateBlock cancelBlock:(void(^)(void))cancelBlock withController:(UIViewController *)viewController
 {
     // 判断健康证即将到期|已到期
     if(kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpired || kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpiring){
@@ -116,7 +116,9 @@
         NSString *message =kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpired ? @"骑士您好，您的健康证已到期，请及时更新健康证信息" : [NSString stringWithFormat:@"骑士您好，您的健康证将在%@过期，请提前办理，及时更新健康证信息", kCurrentBossKnightAccount.accountModel.getHealthCertificateEndDate];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            kCache.isFirstHealCertificate = NO;
+            if(cancelBlock){
+                cancelBlock();
+            }
         }];
         UIAlertAction *setUpAction = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if(toHealthCertificateBlock){
