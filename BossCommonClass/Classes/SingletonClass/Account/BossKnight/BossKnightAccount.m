@@ -108,6 +108,34 @@
     }
 }
 
++ (void)checkHealthCertificateExpiredRemind:(void(^)(void))unexpiredBlock toHealthCertificateBlock:(void(^)(void))toHealthCertificateBlock cancelBlock:(void(^)(void))cancelBlock withController:(UIViewController *)viewController
+{
+    // 判断健康证即将到期|已到期
+    if(kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpired || kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpiring){
+        
+        NSString *message =kCurrentBossKnightAccount.accountModel.checkHealthCertificateExpired ? @"骑士您好，您的健康证已到期，请及时更新健康证信息" : [NSString stringWithFormat:@"骑士您好，您的健康证将在%@过期，请提前办理，及时更新健康证信息", kCurrentBossKnightAccount.accountModel.getHealthCertificateEndDate];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            if(cancelBlock){
+                cancelBlock();
+            }
+        }];
+        UIAlertAction *setUpAction = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if(toHealthCertificateBlock){
+                toHealthCertificateBlock();
+            }
+        }];
+        [alert addAction:cancelAction];
+        [alert addAction:setUpAction];
+        [viewController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    if(unexpiredBlock){
+        unexpiredBlock();
+    }
+}
+
 /**
  判断是否需电子签约
  
@@ -119,12 +147,14 @@
 {
     // 电子签约
     if(kCurrentBossKnightAccount.accountModel.checkElectronicContract){
-        // 弹出签约对话框
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您有合同未签约，请立即签约" preferredStyle:UIAlertControllerStyleAlert];
+        // 弹出签约/解约对话框
+        NSString *message = kCurrentBossKnightAccount.accountModel.checkStaffDeparture ? @"您有解约协议未签署\n请立刻前往签署" : @"您有合同未签约，请立即签约";
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }];
-        UIAlertAction *setUpAction = [UIAlertAction actionWithTitle:@"立即签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *setUpTitle = kCurrentBossKnightAccount.accountModel.checkStaffDeparture ? @"立即解约" : @"立即签约";
+        UIAlertAction *setUpAction = [UIAlertAction actionWithTitle:setUpTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if(electronicContractBlock){
                 electronicContractBlock();
             }
@@ -202,12 +232,6 @@
     [alertController addAction:cancelAction];
     [alertController addAction:photoAction];
     [viewController.navigationController presentViewController:alertController animated:YES completion:nil];
-}
-
-+ (void)clearAccountInfo
-{
-    // [kUserDefault removeObjectForKey:AccountInfoKey];
-    [kUserDefault synchronize];
 }
 
 - (NSArray *)encodeArrayToArray:(NSArray *)array

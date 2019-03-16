@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withController:(UIViewController *)viewController;
 
-+ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success saasAccountBlock:(void(^)(void))saasAccountBlock withController:(UIViewController *)viewController;
-
 /**
  判断登录信息是否过期
  
@@ -37,11 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param viewController 弹出的登录
  */
 + (void)userIsLoginOutConfirm:(void(^)(BOOL isLoginOut))confirmBlock withController:(UIViewController *)viewController;
-
-/**
- 清除登录数据
- */
-+ (void)clearAccountInfo;
 
 /**
  模型转字典

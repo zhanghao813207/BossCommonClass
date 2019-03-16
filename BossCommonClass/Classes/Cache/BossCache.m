@@ -62,9 +62,8 @@ static BossCache *defaultCache = nil;
         if(accountDic){
             BossKnightAccount *accountModel = [[BossKnightAccount alloc] init];
             [accountModel setValuesForKeysWithDictionary:accountDic];
-            return accountModel;
+            _currentKnightAccount = accountModel;
         }
-        return nil;
     }
     return _currentKnightAccount;
 }
@@ -84,9 +83,8 @@ static BossCache *defaultCache = nil;
         if(accountDic){
             BossManagerAccount *accountModel = [[BossManagerAccount alloc] init];
             [accountModel setValuesForKeysWithDictionary:accountDic];
-            return accountModel;
+            _currentManagerAccount = accountModel;
         }
-        return nil;
     }
     return _currentManagerAccount;
 }

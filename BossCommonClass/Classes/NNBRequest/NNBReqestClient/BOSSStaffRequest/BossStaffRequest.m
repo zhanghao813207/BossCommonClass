@@ -103,6 +103,12 @@
     if (staffInfo.health_certificate_back) {
         [paramDic setValue:staffInfo.health_certificate_back forKey:@"health_certificate_back"];
     }
+    if (staffInfo.health_certificate_start) {
+        [paramDic setValue:staffInfo.health_certificate_start forKey:@"health_certificate_start"];
+    }
+    if (staffInfo.health_certificate_end) {
+        [paramDic setValue:staffInfo.health_certificate_end forKey:@"health_certificate_end"];
+    }
     
     if (staffInfo.bank_info_type) {
         [paramDic setValue:@(staffInfo.bank_info_type) forKey:@"bank_info_type"];
@@ -123,6 +129,9 @@
     }
     if (staffInfo.bank_branch) {
         [paramDic setValue:staffInfo.bank_branch forKey:@"bank_branch"];
+    }
+    if (staffInfo.bank_branch_name) {
+        [paramDic setValue:staffInfo.bank_branch_name forKey:@"bank_branch_name"];
     }
     if (staffInfo.bank_card_front) {
         [paramDic setValue:staffInfo.bank_card_front forKey:@"bank_card_front"];
@@ -147,11 +156,13 @@
     }
         
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.app_update" success:^(id responseObject) {
+        
+        kCurrentBossKnightAccount.isNeedUpdate = YES;
+        
         if (!successBlock) {
             return;
         }
         BOOL ok = [responseObject[@"ok"] boolValue];
-        kCurrentBossKnightAccount.isNeedUpdate = YES;
         successBlock(ok);
     } fail:^(id error) {
         NSLog(@"error: %@", error);
