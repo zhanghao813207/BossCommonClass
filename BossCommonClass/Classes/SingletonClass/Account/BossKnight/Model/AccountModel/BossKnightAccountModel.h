@@ -185,6 +185,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *health_certificate_back_url;
 
 /**
+ 健康证开始日期
+ 格式：yyyymmdd
+ */
+@property (nonatomic, strong) NSString *health_certificate_start;
+
+/**
+ 健康证结束日期
+ 格式：yyyymmdd
+ */
+@property (nonatomic, strong) NSString *health_certificate_end;
+
+/**
+ 健康证剩余天数
+ */
+@property (nonatomic, assign) NSInteger health_certificate_days;
+
+/**
  平台名称列表
  */
 @property (nonatomic, strong) NSArray *platform_names;
@@ -260,9 +277,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *bank_location;
 
 /**
- 开户行支行
+ 开户行
  */
 @property (nonatomic, strong) NSString *bank_branch;
+
+/**
+ 支行名称
+ */
+@property (nonatomic, strong) NSString *bank_branch_name;
 
 /**
  银行卡正面照(照片)
@@ -421,6 +443,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL healthCertificateInfoIsPerfect;
 
 /**
+ 健康证有效期是否已提交
+ */
+@property (nonatomic, assign, readonly) BOOL checkHealthCertificateDateSubmitted;
+
+/**
+ 健康证即将到期
+ 小于等于30天
+ */
+@property (nonatomic, assign, readonly) BOOL checkHealthCertificateExpiring;
+
+/**
+ 健康证已到期
+ */
+@property (nonatomic, assign, readonly) BOOL checkHealthCertificateExpired;
+
+/**
  检查是否签约
  */
 @property (nonatomic, assign, readonly) BOOL checkSigned;
@@ -468,6 +506,10 @@ NS_ASSUME_NONNULL_BEGIN
  @return 字典
  */
 - (NSDictionary *)decodeToDic;
+
+- (NSString *)getHealthCertificateStartDate;
+
+- (NSString *)getHealthCertificateEndDate;
 
 @end
 
