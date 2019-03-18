@@ -130,6 +130,9 @@ static BossCache *defaultCache = nil;
 
 - (void)addPhone:(NSString *)phone
 {
+    if([JYCSimpleToolClass stringIsEmpty:phone]){
+        return;
+    }
     NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
     if(!logoutPhoneList){
         logoutPhoneList = [NSMutableArray mutableCopy];
