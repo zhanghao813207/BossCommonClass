@@ -19,6 +19,8 @@
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
 #import "BossManagerAccount.h"
+#import "MyRecommendationVC.h"
+#import "RecommendedVC.h"
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -27,6 +29,10 @@
 @end
 
 @implementation ViewController
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.navigationController pushViewController:[RecommendedVC new] animated:YES];
+}
 
 - (void)viewDidLoad
 {
