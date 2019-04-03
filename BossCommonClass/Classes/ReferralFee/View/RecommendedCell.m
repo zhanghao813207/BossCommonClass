@@ -101,9 +101,14 @@
 }
 - (UIButton *)selectButton {
     if (_selectButton == nil) {
+        
+        
+        UIImage *normalImage = [UIImage imageNamed:@"nomarl" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        UIImage *selectImage = [UIImage imageNamed:@"select" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        
         _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_selectButton setBackgroundImage:[UIImage imageNamed:@"nomarl"] forState:UIControlStateNormal];
-        [_selectButton setBackgroundImage:[UIImage imageNamed:@"select"] forState:UIControlStateSelected];
+        [_selectButton setBackgroundImage:normalImage forState:UIControlStateNormal];
+        [_selectButton setBackgroundImage:selectImage forState:UIControlStateSelected];
         [self.contentView addSubview:_selectButton];
         [_selectButton addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
         [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {

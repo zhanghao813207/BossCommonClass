@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)InputMessageModel *model;
 
 /**
+ 是否已入职
+ */
+@property(nonatomic, assign)BOOL isEntry;
+
+/**
  判断是推荐输入还是查看详情
  */
 @property(nonatomic, assign)BOOL isDetail;

@@ -11,6 +11,7 @@
 #import "RecommendedCell.h"
 #import "SelectTabbarView.h"
 #import "ReferralFeeRequest.h"
+#import "UIView+GetVC.h"
 
 
 @interface RecommendedView ()<UITableViewDelegate,UITableViewDataSource,RecommendedCellDelegate,SelectTabbarViewDelegate>
@@ -56,7 +57,9 @@ static NSString *identifier = @"cell";
     if (self.delegate && [self.delegate respondsToSelector:@selector(deleteAll:)]) {
         [self.delegate deleteAll:self.dataArr];
     }**/
-    
+    if (view.isAll) {
+        self.selecArr = self.dataArr;
+    }
     NSMutableArray *tempArr = [NSMutableArray array];
     for (RecommendedModel *model in self.selecArr) {
         [tempArr addObject:model._id];
@@ -80,7 +83,7 @@ static NSString *identifier = @"cell";
     [self.tableview reloadData];
     **/
     
-    
+    NSLog(@"%d",view.isAll);
     NSMutableArray *idsArr = [NSMutableArray array];
     for (RecommendedModel *model in self.selecArr) {
         model.isSelected = true;
@@ -118,12 +121,26 @@ static NSString *identifier = @"cell";
     RecommendedModel *model = self.dataArr[indexPath.row];
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSArray *arr = @[model._id];
-        [ReferralFeeRequest deleteRecommend:arr success:^{
-            [self.dataArr removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-        } fail:^{
+        
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"删除后信息将从你的列表当中清除,是否继续删除?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }];
+        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [ReferralFeeRequest deleteRecommend:arr success:^{
+                [self.dataArr removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            } fail:^{
+                
+            }];
+        }];
+        [alertVC addAction:no];
+        [alertVC addAction:yes];
+        [self.viewController presentViewController:alertVC animated:true completion:^{
+            
+        }];
+        
         
         
     }];

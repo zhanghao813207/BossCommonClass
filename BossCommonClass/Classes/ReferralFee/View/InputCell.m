@@ -26,6 +26,7 @@
         [self textField];
         [self arrowButton];
         [self detailLabel];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -36,6 +37,10 @@
 //    }
 //    return true;
 //}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
+}
 - (void)setDetailStr:(NSString *)detailStr {
     _detailStr = detailStr;
     self.textField.text = detailStr;
@@ -131,8 +136,9 @@
 }
 - (UIButton *)arrowButton {
     if (_arrowButton == nil) {
+        UIImage *arrowImage = [UIImage imageNamed:@"ic_arrow_right" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         _arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_arrowButton setImage:[UIImage imageNamed:@"ic_arrow_right"] forState:UIControlStateNormal];
+        [_arrowButton setImage:arrowImage forState:UIControlStateNormal];
         [_arrowButton addTarget:self action:@selector(arrowAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_arrowButton];
         [_arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {

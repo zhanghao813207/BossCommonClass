@@ -94,6 +94,9 @@
 }
 
 - (void)deleteAction {
+    if ([self.deleteButton.currentTitle containsString:@"全部删除"]) {
+        self.isAll = true;
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(deleteModel:)]) {
         [self.delegate deleteModel:self];
     }

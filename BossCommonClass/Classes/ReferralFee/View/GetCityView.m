@@ -52,7 +52,9 @@ typedef NS_ENUM(NSInteger,AddressType) {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"cities" ofType:@"json"];
+//        NSString *cityPath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"];
+        
+        NSString *path = [QH_Bundle pathForResource:@"cities" ofType:@"json"];
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         //    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];

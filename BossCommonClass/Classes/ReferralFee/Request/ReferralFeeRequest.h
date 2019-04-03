@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 //1:已保存 10:已推荐 100:已入职 state
 + (void)recommendList:(NSInteger)state success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock;
 //internal_recommend.internal_recommend_staff.get
-+ (void)recommendDetail:(NSString *)idStr success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock;
++ (void)recommendDetail:(NSString *)idStr isEntry:(BOOL)entry success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock;
 //internal_recommend.internal_recommend_staff.delete   删除员工
 + (void)deleteRecommend:(NSArray *)idcardArr success:(void(^)(void))successBlock fail:(void(^)(void))failBlock;
 ////批量提交 internal_recommend.internal_recommend_staff.batch_submit

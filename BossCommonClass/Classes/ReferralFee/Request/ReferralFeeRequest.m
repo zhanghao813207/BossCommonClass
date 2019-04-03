@@ -92,16 +92,20 @@
     }];
 }
 //internal_recommend.internal_recommend_staff.get
-+ (void)recommendDetail:(NSString *)idStr success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock {
++ (void)recommendDetail:(NSString *)idStr isEntry:(BOOL)entry success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock {
     [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_id":idStr} CMD:@"internal_recommend.internal_recommend_staff.get" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         RecommendDetailModel *model = (RecommendDetailModel *)[RecommendDetailModel mj_objectWithKeyValues:dic];
-        detailmodel(model);
+        
         NSLog(@"%@",model.name);
         
-        NSArray *titleArr = @[@[@"职位"],@[@"姓名",@"年龄",@"详细地址",@"联系电话",@"目前工作状态",@"工作经验",@"身份证号码"]];
-        
+        NSArray *titleArr = [NSArray array];
+        if (entry) {
+            titleArr = @[@[@"职位"],@[@"姓名",@"年龄",@"详细地址",@"所属商圈",@"联系电话",@"目前工作状态",@"工作经验",@"身份证号码"]];
+        }else {
+            titleArr = @[@[@"职位"],@[@"姓名",@"年龄",@"详细地址",@"联系电话",@"目前工作状态",@"工作经验",@"身份证号码"]];
+        }
         NSMutableArray *tempArrM = [NSMutableArray array];
         NSArray *arr1 = @[@"骑士"];
         if (model.address.length < 1) {
@@ -119,7 +123,13 @@
         if (model.identity_card_id.length < 1) {
             model.identity_card_id = @"未填写";
         }
-        NSArray *arr2 = @[model.name,model.ageStr,model.detailed_address,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
+        NSArray *arr2 = [NSArray array];
+       
+        if (entry) {
+            arr2 =@[model.name,model.ageStr,model.detailed_address,model.biz_district_name,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
+        }else {
+           arr2 = @[model.name,model.ageStr,model.detailed_address,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
+        }
         [tempArrM addObject:arr1];
         [tempArrM addObject:arr2];
 //        InputMessageModel
@@ -138,6 +148,7 @@
             [arrM addObject:arM];
         }
         successBlock(arrM);
+        detailmodel(model);
     } fail:^(id error) {
         
     }];

@@ -55,6 +55,7 @@
     vc.isDetail = true;
     vc.listModel = model;
     vc.index = 2;
+    vc.isEntry = true;
     [self.navigationController pushViewController:vc animated:true];
 }
 - (RecommendedView *)recommendView {

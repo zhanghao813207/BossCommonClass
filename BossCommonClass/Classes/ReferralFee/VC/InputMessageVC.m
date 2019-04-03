@@ -51,13 +51,15 @@ static NSString *idt = @"cell";
     if (self.isDetail) {
         [self getRecommendDetail];
     }
+  
 }
 
 - (void)getRecommendDetail {
   
-    [ReferralFeeRequest recommendDetail:self.listModel._id success:^(NSArray * _Nonnull list) {
+    [ReferralFeeRequest recommendDetail:self.listModel._id isEntry: self.isEntry success:^(NSArray * _Nonnull list) {
         self.dataArr = list;
         self.listArr = list;
+       
         [self.tableview reloadData];
     } detailModel:^(RecommendDetailModel * _Nonnull model) {
         self.model.app_type = model.app_type;
@@ -88,6 +90,7 @@ static NSString *idt = @"cell";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
     if (self.isDetail) {
         self.dataArr = self.listArr;
+       
     }else {
 
         self.dataArr = [InputMessageModel getModelArr];
@@ -169,8 +172,8 @@ static NSString *idt = @"cell";
 
 - (void)keyboardHiden:(NSNotification *)aNotification  {
     [UIView animateWithDuration:0.1 animations:^{
-        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(-10);
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.footerView.mas_top).offset( -10);
         }];
         [self.view layoutIfNeeded];
     }];
@@ -181,8 +184,11 @@ static NSString *idt = @"cell";
     CGRect keyboardRect = [aValue CGRectValue];
     NSInteger height = keyboardRect.size.height;
     [UIView animateWithDuration:0.1 animations:^{
-        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(-(height + 10));
+//        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.view).offset(-(height + 10));
+//        }];
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.footerView.mas_top).offset(-(height + 10));
         }];
         [self.view layoutIfNeeded];
     }];
