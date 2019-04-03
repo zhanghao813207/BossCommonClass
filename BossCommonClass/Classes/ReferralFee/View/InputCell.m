@@ -24,9 +24,10 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self textField];
+        
         [self arrowButton];
         [self detailLabel];
+        [self textField];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -47,6 +48,7 @@
     self.textField.text = detailStr;
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(inputContent:type:)]) {
         [self.delegate inputContent:textField.text type:self.model];
     }
@@ -92,17 +94,22 @@
             self.textField.text = model.text;
         }
         self.textField.textAlignment = NSTextAlignmentLeft;
-        self.textField.text = model.text;
+        
+        if ([model.text containsString:@"未填写"]) {
+            self.textField.text = @"";
+        }else {
+            self.textField.text = model.text;
+        }
         self.titleLabel.text = @"";
 //        [self.textField mas_updateConstraints:^(MASConstraintMaker *make) {
 //            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
 //        }];
         
-        [_textField mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(self.contentView);
-            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
-            make.left.equalTo(self.contentView).offset(8);
-        }];
+//        [_textField mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.bottom.equalTo(self.contentView);
+//            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
+//            make.left.equalTo(self.contentView).offset(16);
+//        }];
     }
  
     self.textField.userInteractionEnabled = model.isSkip;
@@ -114,7 +121,7 @@
         [_titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         [self.contentView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(8);
+            make.left.equalTo(self.contentView).offset(16);
             make.centerY.equalTo(self.contentView);
         }];
     }
@@ -129,8 +136,9 @@
         [self.contentView addSubview:_textField];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.contentView);
-            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
-            make.left.equalTo(self.contentView).offset(8);
+//            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
+            make.right.equalTo(self.contentView).offset(-16);
+            make.left.equalTo(self.contentView).offset(16);
         }];
     }
     return _textField;
@@ -139,13 +147,16 @@
     if (_arrowButton == nil) {
         UIImage *arrowImage = [UIImage imageNamed:@"ic_arrow_right" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         _arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _arrowButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [_arrowButton setImage:arrowImage forState:UIControlStateNormal];
         [_arrowButton addTarget:self action:@selector(arrowAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_arrowButton];
         [_arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).offset(-4);
+            make.right.equalTo(self.contentView).offset(-16);
+            make.left.equalTo(self.contentView);
             make.centerY.equalTo(self.contentView);
-            make.size.mas_equalTo(CGSizeMake(40, 40));
+//            make.size.mas_equalTo(CGSizeMake(40, 40));
+            make.height.equalTo(@40);
         }];
     }
     return _arrowButton;

@@ -52,7 +52,12 @@
     self.model.area = [arearModel.code integerValue];
     InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
     InputMessageModel *model = cell.model;
-    model.text = [NSString stringWithFormat:@"%@%@%@",provinceModel.value,cityModel.value,cityModel.value];
+    if (!cityModel.value && !cityModel.value) {
+        model.text = [NSString stringWithFormat:@"%@",provinceModel.value];
+    }else {
+        model.text = [NSString stringWithFormat:@"%@%@%@",provinceModel.value,cityModel.value,cityModel.value];
+    }
+    
     model.isInput = true;
     cell.model = model;
 }
@@ -91,7 +96,7 @@
         model.isInput = true;
         cell.model = model;
 //        目前工作状态(100 在职 -100 离职)
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"工作状态" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"在职" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self.model.working_state = 100;
             model.text = @"在职";
@@ -118,7 +123,7 @@
     InputMessageModel *model = cell.model;
     model.isInput = true;
     cell.model = model;
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"有无工作经验" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"有" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.model.work_experience = 50;
         model.text = @"有";
@@ -164,9 +169,16 @@
    
     if ([typeStr containsString:@"保存"]) {
         [ReferralFeeRequest recommendSubmit:false WithParam:self.model success:^(InputMessageModel * _Nonnull inputModel) {
-            if (self.delegate) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(InputMessageVCTypeStr:)]) {
                 [self.delegate InputMessageVCTypeStr:@"保存"];
+               
+                
             }
+            if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage)]) {
+                 [self.delegate hintMessage];
+            }
+//            [self.view showSuccessStaus:@"保存成功"];
+
             [self.navigationController popViewControllerAnimated:true];
         } fail:^(NSString * message) {
             [self.view showStatus:message];
@@ -186,8 +198,13 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [ReferralFeeRequest recommendSubmit:true WithParam:self.model success:^(InputMessageModel * _Nonnull inputModel) {
-                if (self.delegate) {
-                    [self.delegate InputMessageVCTypeStr:@"保存"];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(InputMessageVCTypeStr:)]) {
+                    [self.delegate InputMessageVCTypeStr:@"提交"];
+                    
+//                    [self.view showSuccessStaus:@"提交成功"];
+                }
+                if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage)]) {
+                    [self.delegate hintMessage];
                 }
                 [self.navigationController popViewControllerAnimated:true];
             } fail:^(NSString * message) {

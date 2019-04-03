@@ -41,7 +41,7 @@
 }
 
 - (void)getData {
-    [ReferralFeeRequest recommendList:100 success:^(NSArray * _Nonnull listModel) {
+    [ReferralFeeRequest recommendList:100 isRefresh:false success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{

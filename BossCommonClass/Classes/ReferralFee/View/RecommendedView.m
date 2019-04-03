@@ -12,6 +12,7 @@
 #import "SelectTabbarView.h"
 #import "ReferralFeeRequest.h"
 #import "UIView+GetVC.h"
+#import "MJRefresh.h"
 
 
 @interface RecommendedView ()<UITableViewDelegate,UITableViewDataSource,RecommendedCellDelegate,SelectTabbarViewDelegate>
@@ -85,6 +86,9 @@ static NSString *identifier = @"cell";
     
     NSLog(@"%d",view.isAll);
     NSMutableArray *idsArr = [NSMutableArray array];
+    if (view.isAll) {
+        self.selecArr = self.dataArr;
+    }
     for (RecommendedModel *model in self.selecArr) {
         model.isSelected = true;
         [idsArr addObject:model._id];
@@ -95,6 +99,13 @@ static NSString *identifier = @"cell";
     [self.tableview reloadData];
 }
 
+- (void)setIsFinish:(BOOL)isFinish {
+    _isFinish = isFinish;
+    if (self.isFinish) {
+        self.selectView.isFinish = isFinish;
+    }
+}
+
 ///// RecommendedCellDelegate
 - (void)didSelect:(RecommendedModel *)model cell:(RecommendedCell *)cell {
     if (model.isSelected) {
@@ -102,6 +113,7 @@ static NSString *identifier = @"cell";
     }else {
         [self.selecArr removeObject:model];
     }
+    self.selectView.seletcArr = self.selecArr;
     if (self.selecArr.count == self.dataArr.count) {
         self.selectView.isAll = true;
     }else {
@@ -140,9 +152,6 @@ static NSString *identifier = @"cell";
         [self.viewController presentViewController:alertVC animated:true completion:^{
             
         }];
-        
-        
-        
     }];
     if (self.isEditing) {
         return @[];
@@ -177,6 +186,7 @@ static NSString *identifier = @"cell";
         _tableview.dataSource = self;
         _tableview.tableFooterView = [[UIView alloc] init];
         _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
         [_tableview registerClass:[RecommendedCell class] forCellReuseIdentifier:identifier];
         [self addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,9 +196,17 @@ static NSString *identifier = @"cell";
     }
     return _tableview;
 }
-
+- (void)refreshLatestData {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(refresh)]) {
+        [self.delegate refresh];
+        [self.tableview.mj_header endRefreshing];
+    }
+}
 - (void)setDataArr:(NSMutableArray *)dataArr {
     _dataArr = dataArr;
+    if (self.isEditing) {
+        self.selectView.modelArr = dataArr;
+    }
     [self.tableview reloadData];
 }
 @end

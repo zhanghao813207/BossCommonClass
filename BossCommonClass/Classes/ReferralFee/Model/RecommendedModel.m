@@ -24,7 +24,7 @@
 }
 
 - (UIColor *)hintColor {
-    if (self.is_complete) {
+    if (!self.is_complete) {
         return kHexRGB(0xFF9F00);
     }
     return kHexRGB(0x00BD9A);

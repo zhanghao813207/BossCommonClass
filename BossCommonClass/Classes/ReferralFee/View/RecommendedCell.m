@@ -102,11 +102,8 @@
 }
 - (UIButton *)selectButton {
     if (_selectButton == nil) {
-        
-        
         UIImage *normalImage = [UIImage imageNamed:@"nomarl" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         UIImage *selectImage = [UIImage imageNamed:@"select" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
-        
         _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_selectButton setBackgroundImage:normalImage forState:UIControlStateNormal];
         [_selectButton setBackgroundImage:selectImage forState:UIControlStateSelected];
@@ -115,7 +112,7 @@
         [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
             make.centerY.equalTo(self.containerView);
-//            make.size.mas_equalTo(CGSizeMake(10, 10));
+            make.size.mas_equalTo(CGSizeMake(20, 20));
         }];
     }
     return _selectButton;

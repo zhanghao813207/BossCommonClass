@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
 #import "BossMethodDefine.h"
+#import "UIView+ShowView.h"
 
 typedef NS_ENUM(NSInteger,AddressType) {
     AddressTypeProvince,
@@ -221,7 +222,37 @@ typedef NS_ENUM(NSInteger,AddressType) {
     [self removeFromSuperview];
 }
 - (void)confirmAction {
+    NSLog(@"%@",self.cityModel.code);
+    if (!self.cityModel.code ) {
+//        self.cityModel.code = @"0";
+//        self.cityModel.value = @"";
+        
+        if ([self.provinceModel.label containsString:@"香港"] || [self.provinceModel.label containsString:@"澳门"]) {
+            self.cityModel.code = @"0";
+//            self.cityModel.label = @"";
+//            self.cityModel.value = @"";
+        }else {
+           [self showSuccessStaus:@"请选择市"];
+            return;
+        }
+        
+    }
+    if (!self.arearModel.code) {
+//        self.arearModel.code = @"0";
+//        self.arearModel.value = @"";
+        if ([self.provinceModel.label containsString:@"香港"] || [self.provinceModel.label containsString:@"澳门"]) {
+            self.arearModel.code = @"0";
+//            self.arearModel.label = @"";
+//            self.arearModel.value = @"";
+        }else {
+            [self showSuccessStaus:@"请选择区"];
+            return;
+        }
+        
+    }
     if (self.delegate) {
+        NSLog(@"%@",self.cityModel.value);
+        NSLog(@"%@",self.cityModel.label);
         [self.delegate provice:self.provinceModel city:self.cityModel area:self.arearModel];
     }
     if (self.type == AddressTypeCity) {
@@ -238,8 +269,11 @@ typedef NS_ENUM(NSInteger,AddressType) {
 - (UIButton *)confirmButton {
     if (_confirmButton == nil) {
         _confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _confirmButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        _confirmButton.enabled = false;
+        [_confirmButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_confirmButton setTitle:@"确定" forState:UIControlStateNormal];
-        [_confirmButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
+//        [_confirmButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
         [_confirmButton addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
         [self.heaerView addSubview:_confirmButton];
         [_confirmButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,6 +311,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableview.tableFooterView = [UIView new];
         _tableview.delegate = self;
         _tableview.dataSource = self;
         [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -292,6 +327,8 @@ typedef NS_ENUM(NSInteger,AddressType) {
     return self.datArr.count;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.confirmButton.enabled = true;
+    [self.confirmButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
     if (self.isProvince) {
         ProvinceModel *provinceModel = self.datArr[indexPath.row];
         self.datArr = provinceModel.children;

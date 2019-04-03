@@ -35,6 +35,9 @@
         [button setTitle:@"取消" forState:UIControlStateNormal];
         [button setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+        
     }
 }
 - (void)cancel {
@@ -50,7 +53,7 @@
 }
 
 - (void)getData {
-    [ReferralFeeRequest recommendList:1 success:^(NSArray * _Nonnull listModel) {
+    [ReferralFeeRequest recommendList:1 isRefresh:false success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
@@ -58,10 +61,24 @@
     }];
 }
 
-
+/**
+ 下拉刷新
+ */
+- (void)refresh {
+    [ReferralFeeRequest recommendList:1 isRefresh:true success:^(NSArray * _Nonnull listModel) {
+        [self.dataArrM addObjectsFromArray:listModel];
+//        self.dataArrM = listModel.mutableCopy;
+        self.recommendView.dataArr = self.dataArrM;
+    } fail:^{
+        
+    }];
+}
 
 ////RecommendedViewDelegate
 - (void)didSelectModel:(RecommendedModel *)model {
+    if (self.isEditing) {
+        return;
+    }
     InputMessageVC *vc = [[InputMessageVC alloc] init];
     vc.isDetail = true;
     vc.listModel = model;
@@ -88,6 +105,7 @@
         NSLog(@"%@",failArr);
     }];
 }
+
 - (void)deleteAll:(NSArray *)modelArr {
     NSMutableArray *ids = [NSMutableArray array];
     for (RecommendedModel *model in modelArr) {
@@ -102,6 +120,8 @@
         
     }];
 }
+
+
 - (RecommendedView *)recommendView {
     if (_recommendView == nil) {
         _recommendView = [[RecommendedView alloc] init];

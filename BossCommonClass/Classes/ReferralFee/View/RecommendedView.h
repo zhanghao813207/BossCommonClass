@@ -15,11 +15,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)submitAll:(NSArray *)modelArr;
 
 - (void)deleteAll:(NSArray *)modelArr;
+
+/**
+ 下拉刷新
+ */
+- (void)refresh;
 @end
 @interface RecommendedView : UIView
 @property(nonatomic, strong)NSMutableArray *dataArr;
 @property(nonatomic, assign)BOOL isEditing;
 @property(nonatomic, weak)id<RecommendedViewDelegate>delegate;
+
+
+/**
+ 是否从已推荐跳入
+ */
+@property(nonatomic, assign)BOOL isFinish;
 
 @end
 

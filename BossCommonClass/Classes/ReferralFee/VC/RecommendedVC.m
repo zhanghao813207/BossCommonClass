@@ -11,8 +11,9 @@
 #import "Masonry.h"
 #import "MyRecommendationVC.h"
 #import "JYCMethodDefine.h"
+#import "UIView+ShowView.h"
 
-@interface RecommendedVC ()
+@interface RecommendedVC ()<InputMessageVCDelegate>
 @property(nonatomic, strong)UIButton *button;
 @end
 
@@ -24,6 +25,8 @@
     self.title = @"推荐员工";
     [self button];
     [self setRightItem];
+
+   
 }
 
 
@@ -54,7 +57,7 @@
         [_button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_button];
         [_button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(-20);
+            make.bottom.equalTo(self.view).offset(-16);
             make.left.equalTo(self.view).offset(20);
             make.right.equalTo(self.view).offset(-20);
             make.height.equalTo(@44);
@@ -65,7 +68,14 @@
 - (void)buttonAction {
     InputMessageVC *vc = [[InputMessageVC alloc] init];
     vc.isDetail = false;
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:true];
+}
+//InputMessageVCDelegate
+- (void)hintMessage {
+    [self.view showAnimationSuccessStaus:@"保存成功" completion:^(BOOL finish) {
+        
+    }];
 }
 @end
 

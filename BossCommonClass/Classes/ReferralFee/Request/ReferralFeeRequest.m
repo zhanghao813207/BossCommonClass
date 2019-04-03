@@ -81,10 +81,29 @@
 }
 //internal_recommend.internal_recommend_staff.find
 //1:已保存 10:已推荐 100:已入职 state
-+ (void)recommendList:(NSInteger)state success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"state":@(state)} CMD:@"internal_recommend.internal_recommend_staff.find" success:^(id responseObject) {
+NSInteger page = 1;
++ (void)recommendList:(NSInteger)state isRefresh:(BOOL)isF success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
+//    if (isF) {
+//        page ++;
+//    }
+    NSDictionary *dic = @{@"state":@(state),
+                          @"_meta": @{
+                              @"page":@(page),
+                              @"limit":@(10)
+                          }
+                          };
+   
+    NSLog(@"%@",dic);
+    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:dic CMD:@"internal_recommend.internal_recommend_staff.find" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
-        NSLog(@"%@",dic[@"data"]);
+        NSLog(@"%@",dic);
+//        if (isF) {
+//            if ([dic[@"has_more"] integerValue] != 0) {
+//
+//            }else {
+//                return ;
+//            }
+//        }
         NSArray *modelArr = [RecommendedModel  mj_objectArrayWithKeyValuesArray:dic[@"data"]];
         successBlock(modelArr);
     } fail:^(id error) {
@@ -167,6 +186,7 @@
 + (void)submitArrs:(NSArray *)idcardArr success:(void(^)(NSArray *sucessarr))successBlock fail:(void(^)(NSArray *failArr))failBlock {
     NSLog(@"adf");
     [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
         successBlock(responseObject[@"error_ids"]);
     } fail:^(id error) {
         NSLog(@"%@",error);

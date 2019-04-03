@@ -9,6 +9,7 @@
 #import "SelectTabbarView.h"
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
+#import "RecommendedModel.h"
 @interface SelectTabbarView ()
 
 /**
@@ -32,14 +33,47 @@
     }
     return self;
 }
-- (void)setIsAll:(BOOL)isAll {
-    _isAll = isAll;
-    if (isAll) {
+- (void)setModelArr:(NSArray *)modelArr {
+    _modelArr = modelArr;
+    for (RecommendedModel *model in modelArr) {
+        if (!model.is_complete) {
+//            [self.selectButton setTitle:@"提交" forState:UIControlStateNormal];
+//            [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+            self.selectButton.enabled = false;
+            [self.selectButton setTitleColor:kHexRGB(0xC4C6C7) forState:UIControlStateNormal];
+        }
+    }
+}
+- (void)setSeletcArr:(NSArray *)seletcArr {
+    _seletcArr = seletcArr;
+    for (RecommendedModel *model in seletcArr) {
+        NSLog(@"%d",model.is_complete);
+        if (model.is_complete) {
+            self.selectButton.enabled = true;
+            [self.selectButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
+        }else {
+            self.selectButton.enabled = false;
+            [self.selectButton setTitleColor:kHexRGB(0xC4C6C7) forState:UIControlStateNormal];
+        }
+    }
+    if (self.seletcArr.count == 0) {
         [self.selectButton setTitle:@"全部提交" forState:UIControlStateNormal];
         [self.deleteButton setTitle:@"全部删除" forState:UIControlStateNormal];
     }else {
         [self.selectButton setTitle:@"提交" forState:UIControlStateNormal];
         [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    }
+    NSLog(@"%@",self.seletcArr);
+//    NSLog(@"%@",self.modelArr);
+}
+- (void)setIsAll:(BOOL)isAll {
+    _isAll = isAll;
+    if (isAll) {
+//        [self.selectButton setTitle:@"全部提交" forState:UIControlStateNormal];
+//        [self.deleteButton setTitle:@"全部删除" forState:UIControlStateNormal];
+    }else {
+//        [self.selectButton setTitle:@"提交" forState:UIControlStateNormal];
+//        [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
     }
 }
 - (UIButton *)deleteButton {
@@ -51,8 +85,8 @@
         _deleteButton.titleLabel.font = [UIFont systemFontOfSize:17];
         [self addSubview:_deleteButton];
         [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-16);
-            make.height.mas_equalTo(44);
+            make.width.equalTo(self.deleteButton);
+            make.left.top.equalTo(self).offset(16);
             make.centerY.equalTo(self);
         }];
     }
@@ -67,8 +101,8 @@
         _selectButton.titleLabel.font = [UIFont systemFontOfSize:17];
         [self addSubview:_selectButton];
         [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.deleteButton);
-            make.left.top.equalTo(self).offset(16);
+            make.right.equalTo(self).offset(-16);
+            make.height.mas_equalTo(44);
             make.centerY.equalTo(self);
         }];
     }
@@ -88,8 +122,17 @@
     return _lineView;
 }
 - (void)select {
+    if ([self.selectButton.currentTitle containsString:@"全部提交"]) {
+        self.isAll = true;
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectModel:)]) {
         [self.delegate selectModel:self];
+    }
+}
+- (void)setIsFinish:(BOOL)isFinish {
+    _isFinish = isFinish;
+    if (self.isFinish) {
+        self.selectButton.hidden = true;
     }
 }
 

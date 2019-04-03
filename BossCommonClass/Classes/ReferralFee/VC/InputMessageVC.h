@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)InputMessageVCTypeStr:(NSString *)typeStr;
 
+- (void)hintMessage;
+
 @end
 
 @interface InputMessageVC : UIViewController

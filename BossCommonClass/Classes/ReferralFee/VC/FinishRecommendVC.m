@@ -11,6 +11,8 @@
 #import "RecommendedModel.h"
 #import "InputMessageVC.h"
 #import "ReferralFeeRequest.h"
+#import "JYCMethodDefine.h"
+
 
 @interface FinishRecommendVC ()<RecommendedViewDelegate>
 
@@ -26,21 +28,26 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor purpleColor];
     [self recommendView];
-    //    NSMutableArray *tempArr = [NSMutableArray array];
-    //    for (NSInteger i = 0; i < 60; i ++) {
-    //        RecommendedModel *model = [[RecommendedModel alloc] init];
-    //        model.isEditing = self.isEditing;
-    //        model.isSelected = false;
-    //        model.testStr = [NSString stringWithFormat:@"%ld",(long)i];
-    //        [tempArr addObject:model];
-    //    }
-    //    self.recommendView.dataArr = tempArr;
     self.dataArrM = [NSMutableArray array];
     [self getData];
+    self.title = @"已推荐";
+    if (self.isEditing) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:@"取消" forState:UIControlStateNormal];
+        [button setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    }
 }
-
+- (void)cancel {
+    [self.navigationController popViewControllerAnimated:true];
+}
+- (void)update {
+    [self getData];
+}
 - (void)getData {
-    [ReferralFeeRequest recommendList:10 success:^(NSArray * _Nonnull listModel) {
+    [ReferralFeeRequest recommendList:10 isRefresh:false success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
@@ -50,17 +57,51 @@
 ////RecommendedViewDelegate
 - (void)didSelectModel:(RecommendedModel *)model {
 
+    if (self.isEditing) {
+        return;
+    }
     InputMessageVC *vc = [[InputMessageVC alloc] init];
     vc.isDetail = true;
     vc.listModel = model;
     vc.index = 1;
     [self.navigationController pushViewController:vc animated:true];
 }
+
+- (void)deleteAll:(nonnull NSArray *)modelArr {
+    NSMutableArray *tempArr = [NSMutableArray array];
+    for (RecommendedModel *model in modelArr) {
+        [tempArr addObject:model._id];
+    }
+    [ReferralFeeRequest deleteRecommend:tempArr success:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(deleteModel)]) {
+            [self.delegate deleteModel];
+        }
+        [self.navigationController popViewControllerAnimated:true];
+    } fail:^{
+        
+    }];
+}
+
+
+- (void)refresh {
+    
+}
+
+
+- (void)submitAll:(nonnull NSArray *)modelArr {
+//    [ReferralFeeRequest submitArrs:modelArr success:^(NSArray * _Nonnull sucessarr) {
+//        [self.navigationController popViewControllerAnimated:true];
+//    } fail:^(NSArray * _Nonnull failArr) {
+//
+//    }];
+}
+
 - (RecommendedView *)recommendView {
     if (_recommendView == nil) {
         _recommendView = [[RecommendedView alloc] init];
         _recommendView.isEditing = self.isEditing;
         _recommendView.delegate = self;
+        _recommendView.isFinish = self.isFinish;
         _recommendView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_recommendView];
         [_recommendView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,5 +115,6 @@
     }
     return _recommendView;
 }
+
 
 @end
