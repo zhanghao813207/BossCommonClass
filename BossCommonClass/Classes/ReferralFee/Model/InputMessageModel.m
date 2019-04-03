@@ -22,6 +22,11 @@
             model.placeholder = place;
             model.type = type.integerValue;
             model.isSkip = [tempModel getSkip:type.integerValue];
+            if ([place isEqualToString:@"骑士"]) {
+                model.text = @"骑士";
+            }else {
+//                model.text = nil;
+            }
             [arM addObject:model];
         }
         [arrM addObject:arM];
@@ -31,25 +36,25 @@
 - (NSString *)placeholderWithType:(InputType)type {
     switch (type) {
         case InputTypeRole:
-            return @"角色";
+            return @"骑士";
             break;
         case InputTypeName:
             return @"姓名";
             break;
         case InputTypeAge:
-            return @"年龄";
+            return @"年龄(建议填写年龄为18-60)";
             break;
         case InputTypeAddress:
             return @"所在区域";
             break;
         case InputTypeDetailAddress:
-            return @"详细地址";
+            return @"详细地址:乡镇,街道,门牌号,小区,楼号等";
             break;
         case InputTypePhone:
-            return @"联系方式";
+            return @"联系电话";
             break;
         case InputTypeWorkState:
-            return @"工作状态";
+            return @"目前工作状态";
             break;
         case InputTypeWorkingExperience:
             return @"有无工作经验";

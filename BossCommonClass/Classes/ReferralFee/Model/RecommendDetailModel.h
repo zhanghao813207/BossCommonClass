@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  年龄
  */
 @property(nonatomic, assign)NSInteger age;
+@property(nonatomic, copy)NSString *ageStr;
 
 /**
  推荐app类型(10:boss骑士 20:boss之家)
@@ -121,7 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  目前工作状态(100 在职 -100 离职)
  */
-@property(nonatomic, copy)NSString *working_state;
+@property(nonatomic, assign)NSInteger working_state;
+@property(nonatomic, copy)NSString *working_stateStr;
 @end
 
 NS_ASSUME_NONNULL_END

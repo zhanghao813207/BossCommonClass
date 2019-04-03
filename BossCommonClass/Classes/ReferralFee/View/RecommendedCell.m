@@ -9,7 +9,7 @@
 #import "RecommendedCell.h"
 #import "Masonry.h"
 #import "UIView+Corner.h"
-
+#import "JYCMethodDefine.h"
 
 @interface RecommendedCell ()
 
@@ -91,22 +91,25 @@
     if (model.isEditing) {
         self.selectButton.selected = model.isSelected;
     }
-    
     self.nameLabel.text = model.name;
+    self.phoneLabel.text = model.phone;
     self.addressLabel.text = model.address;
     self.roleLabel.text = model.positionStr;
     self.timeLabel.text = [model.updated_at substringToIndex:19];
+    self.hintLabel.text = model.hintStr;
+    self.hintLabel.textColor = model.hintColor;
 }
 - (UIButton *)selectButton {
     if (_selectButton == nil) {
         _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_selectButton setImage:[UIImage imageNamed:@"normal"] forState:UIControlStateNormal];
-        [_selectButton setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
+        [_selectButton setBackgroundImage:[UIImage imageNamed:@"nomarl"] forState:UIControlStateNormal];
+        [_selectButton setBackgroundImage:[UIImage imageNamed:@"select"] forState:UIControlStateSelected];
         [self.contentView addSubview:_selectButton];
         [_selectButton addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
         [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
             make.centerY.equalTo(self.containerView);
+//            make.size.mas_equalTo(CGSizeMake(10, 10));
         }];
     }
     return _selectButton;
@@ -121,11 +124,13 @@
     if (_nameLabel == nil) {
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.font = [UIFont systemFontOfSize:17];
+        _nameLabel.textColor = kHexRGBA(0x000000, 0.6);
         _nameLabel.text = @"姓名";
         [self.containerView addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.containerView).offset(10);
             make.top.equalTo(self.containerView).offset(3);
+            make.height.equalTo(@24);
         }];
     }
     return _nameLabel;
@@ -135,11 +140,15 @@
     if (_addressLabel == nil) {
         _addressLabel = [[UILabel alloc] init];
         _addressLabel.font = [UIFont systemFontOfSize:12];
+        _addressLabel.alpha = 0.4;
         _addressLabel.text = @"地址";
+        _addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.containerView addSubview:_addressLabel];
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel);
             make.top.equalTo(self.nameLabel.mas_bottom).offset(2);
+            make.height.equalTo(@17);
+            make.width.lessThanOrEqualTo(@180);
         }];
     }
     return _addressLabel;
@@ -148,7 +157,7 @@
     if (_phoneLabel == nil) {
         _phoneLabel = [[UILabel alloc] init];
         _phoneLabel.font = [UIFont systemFontOfSize:17];
-        _phoneLabel.text = @"15811008899";
+        _phoneLabel.textColor = kHexRGBA(0x000000, 0.6);
         [self.containerView addSubview:_phoneLabel];
         [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_right).offset(4);
@@ -160,13 +169,13 @@
 - (UILabel *)hintLabel {
     if (_hintLabel == nil) {
         _hintLabel = [[UILabel alloc] init];
-        _hintLabel.text = @"提示信息";
         _hintLabel.font = [UIFont systemFontOfSize:12];
         [self.containerView addSubview:_hintLabel];
         [_hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel);
             make.top.equalTo(self.addressLabel.mas_bottom).offset(2);
             make.bottom.equalTo(self.containerView).offset(-5);
+            make.height.equalTo(@17);
         }];
     }
     return _hintLabel;
@@ -181,6 +190,7 @@
             make.top.equalTo(self.contentView).offset(10);
             make.right.equalTo(self.contentView).offset(-16);
             make.bottom.equalTo(self.contentView);
+            make.height.equalTo(@70);
         }];
      
         
@@ -190,8 +200,8 @@
 - (UILabel *)roleLabel {
     if (_roleLabel == nil) {
         _roleLabel = [[UILabel alloc] init];
-        _roleLabel.text = @"骑士";
         _roleLabel.font = [UIFont systemFontOfSize:14];
+        _roleLabel.textColor = kHexRGBA(0x000000, 0.6);
         [self.containerView addSubview:_roleLabel];
         [_roleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.nameLabel);
@@ -203,8 +213,8 @@
 - (UILabel *)timeLabel {
     if (_timeLabel == nil) {
         _timeLabel = [[UILabel alloc] init];
-        _timeLabel.text = @"时间";
         _timeLabel.font = [UIFont systemFontOfSize:10];
+        _timeLabel.alpha = 0.4;
         [self.containerView addSubview:_timeLabel];
         [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.addressLabel);

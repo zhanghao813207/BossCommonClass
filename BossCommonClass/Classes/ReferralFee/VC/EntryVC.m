@@ -53,7 +53,8 @@
 - (void)didSelectModel:(RecommendedModel *)model {
     InputMessageVC *vc = [[InputMessageVC alloc] init];
     vc.isDetail = true;
-    
+    vc.listModel = model;
+    vc.index = 2;
     [self.navigationController pushViewController:vc animated:true];
 }
 - (RecommendedView *)recommendView {

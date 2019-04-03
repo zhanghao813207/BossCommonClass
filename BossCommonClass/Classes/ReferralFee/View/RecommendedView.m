@@ -48,25 +48,50 @@ static NSString *identifier = @"cell";
 }
 //SelectTabbarViewDelegate
 - (void)deleteModel:(SelectTabbarView *)view {
-    NSLog(@"%@",self.selecArr);
+    /**
+    NSMutableArray *tempArr = [NSMutableArray array];
+    for (RecommendedModel *model in self.dataArr) {
+        [tempArr addObject:model._id];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deleteAll:)]) {
+        [self.delegate deleteAll:self.dataArr];
+    }**/
+    
     NSMutableArray *tempArr = [NSMutableArray array];
     for (RecommendedModel *model in self.selecArr) {
         [tempArr addObject:model._id];
     }
-    [ReferralFeeRequest deleteRecommend:tempArr success:^{
-        [self.dataArr removeObjectsInArray:self.selecArr];
-        [self.tableview reloadData];
-    } fail:^{
-        
-    }];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deleteAll:)]) {
+        [self.delegate deleteAll:self.selecArr];
+    }
+    [self.tableview reloadData];
+
 }
 - (void)selectModel:(SelectTabbarView *)view {
+  /**  NSMutableArray *idsArr = [NSMutableArray array];
     for (RecommendedModel *model in self.dataArr) {
         model.isSelected = true;
+        [idsArr addObject:model._id];
         [self.selecArr addObject:model];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(submitAll:)]) {
+        [self.delegate submitAll:idsArr];
+    }
+    [self.tableview reloadData];
+    **/
+    
+    
+    NSMutableArray *idsArr = [NSMutableArray array];
+    for (RecommendedModel *model in self.selecArr) {
+        model.isSelected = true;
+        [idsArr addObject:model._id];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(submitAll:)]) {
+        [self.delegate submitAll:idsArr];
     }
     [self.tableview reloadData];
 }
+
 ///// RecommendedCellDelegate
 - (void)didSelect:(RecommendedModel *)model cell:(RecommendedCell *)cell {
     if (model.isSelected) {
@@ -74,7 +99,11 @@ static NSString *identifier = @"cell";
     }else {
         [self.selecArr removeObject:model];
     }
-    
+    if (self.selecArr.count == self.dataArr.count) {
+        self.selectView.isAll = true;
+    }else {
+        self.selectView.isAll = false;
+    }
     [self.tableview reloadData];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

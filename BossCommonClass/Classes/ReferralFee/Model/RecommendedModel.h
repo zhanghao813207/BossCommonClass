@@ -42,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy)NSString *updated_atStr;
 
+@property(nonatomic, copy)NSString *hintStr;
+@property(nonatomic, strong)UIColor *hintColor;
+
 @end
 
 NS_ASSUME_NONNULL_END

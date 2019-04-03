@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FooterView : UIView
 @property(nonatomic,weak)id<FooterViewDelegate>delegate;
+@property(nonatomic, assign)BOOL isEnable;
 @end
 
 NS_ASSUME_NONNULL_END

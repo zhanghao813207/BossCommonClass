@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface SelectTabbarView : UIView
 @property(nonatomic, weak)id<SelectTabbarViewDelegate>delegate;
+
+/**
+ 是否全部选中
+ */
+@property(nonatomic, assign)BOOL isAll;
 @end
 
 NS_ASSUME_NONNULL_END

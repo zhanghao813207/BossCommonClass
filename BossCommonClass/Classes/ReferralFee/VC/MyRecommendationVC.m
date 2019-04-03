@@ -11,7 +11,8 @@
 #import "WaitRecommendVC.h"
 #import "FinishRecommendVC.h"
 #import "EntryVC.h"
-
+#import "JYCMethodDefine.h"
+#import "EditRecommendVC.h"
 
 typedef NS_ENUM(NSInteger, SubVCType) {
     SubVCTypeWait,
@@ -19,10 +20,10 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     SubVCTypeEntry
 };
 
-@interface MyRecommendationVC ()<SGPageTitleViewDelegate, SGPageContentCollectionViewDelegate>
+@interface MyRecommendationVC ()<SGPageTitleViewDelegate, SGPageContentCollectionViewDelegate,WaitRecommendVCDelgate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentCollectionView *pageContentCollectionView;
-
+@property(nonatomic, strong)WaitRecommendVC *waitVc;
 /**
  记录当前所在的控制器
  */
@@ -43,16 +44,23 @@ typedef NS_ENUM(NSInteger, SubVCType) {
 - (void)setRightItem {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"编辑" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [button setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
     [button addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
-
+- (void)waitRecommendVCfailIds:(NSArray *)ids {
+    NSLog(@"%@",ids);
+    [self.waitVc updateWithIds:ids];
+}
+- (void)deletAll:(NSArray *)ids {
+    [self.waitVc updateWithIds:ids];
+}
 - (void)rightAction {
     switch (self.VCType) {
         case SubVCTypeWait: {
             WaitRecommendVC *vc = [[WaitRecommendVC alloc] init];
             vc.isEditing = true;
+            vc.delegate = self;
             [self.navigationController pushViewController:vc animated:true];
         }
             break;
@@ -90,19 +98,22 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+//    #007AFF
     
+    [self.pageTitleView resetIndicatorColor:kHexRGB(0x007AFF)];
+    [self.pageTitleView resetTitleColor:kHexRGB(0x007AFF) titleSelectedColor:kHexRGB(0x007AFF)];
     self.pageTitleView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_pageTitleView];
     
-    WaitRecommendVC *oneVC = [[WaitRecommendVC alloc] init];
-    oneVC.isEditing = false;
+    self.waitVc = [[WaitRecommendVC alloc] init];
+    self.waitVc .isEditing = false;
     FinishRecommendVC *twoVC = [[FinishRecommendVC alloc] init];
     twoVC.isEditing = false;
     EntryVC *threeVC = [[EntryVC alloc] init];
     threeVC.isEditing = false;
     
  
-    NSArray *childArr = @[oneVC, twoVC, threeVC];
+    NSArray *childArr = @[self.waitVc, twoVC, threeVC];
     /// pageContentCollectionView
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
     self.pageContentCollectionView = [[SGPageContentCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), self.view.frame.size.width, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
@@ -114,6 +125,11 @@ typedef NS_ENUM(NSInteger, SubVCType) {
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     self.VCType = selectedIndex;
+    if (selectedIndex == 0) {
+        [self setRightItem];
+    }else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    }
     [self.pageContentCollectionView setPageContentCollectionViewCurrentIndex:selectedIndex];
 }
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {

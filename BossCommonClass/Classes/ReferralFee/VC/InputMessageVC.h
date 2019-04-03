@@ -13,6 +13,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol InputMessageVCDelegate <NSObject>
+
+- (void)InputMessageVCTypeStr:(NSString *)typeStr;
+
+@end
+
 @interface InputMessageVC : UIViewController
 @property(nonatomic,strong)InputMessageModel *model;
 
@@ -23,7 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cityView;
 
 @property(nonatomic, strong)RecommendedModel *listModel;
+@property(nonatomic, strong)UITableView *tableview;
+@property(nonatomic, strong)FooterView *footerView;
 
+/**
+ 0待推荐  1 已推荐  2已入职
+ */
+@property(nonatomic, assign)NSInteger index;
+@property(nonatomic, weak)id<InputMessageVCDelegate>delegate;
 @end
 
 NS_ASSUME_NONNULL_END

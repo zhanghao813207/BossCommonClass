@@ -34,9 +34,9 @@ these are common classes,they are used by boss system.
 
   s.source_files = 'BossCommonClass/Classes/**/*'
   s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
-  # s.resource_bundles = {
-  #   'BossCommonClass' => ['BossCommonClass/Assets/*.png']
-  # }
+  #s.resource_bundles = {
+     #'BossCommonClass' => ['BossCommonClass/Classes/**/*.{Xcassets}']
+       #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

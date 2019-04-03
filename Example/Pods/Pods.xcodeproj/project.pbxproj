@@ -282,6 +282,8 @@
 		82D266B898871765B3554E108ED3AE06 /* SalaryDataModel.h in Headers */ = {isa = PBXBuildFile; fileRef = AD1A3E49AB3A6DAFA4A25FAEEFA4E294 /* SalaryDataModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		82F72C95183B448F6C13C66311877B2C /* QNEtag.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F0CB6C4682D3BCB8436FE74417F5AD /* QNEtag.m */; };
 		83A9A78B55FF4F9DCE87563253776397 /* QNAssessment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7250C33A64BBADD3CD59E6A1108BD225 /* QNAssessment.m */; };
+		84071DEF22544EF000F7964E /* GetCityView.h in Headers */ = {isa = PBXBuildFile; fileRef = 84071DED22544EF000F7964E /* GetCityView.h */; };
+		84071DF022544EF000F7964E /* GetCityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84071DEE22544EF000F7964E /* GetCityView.m */; };
 		841E16F1062B38D59DC3761E423EDBAB /* NNBUtilRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FED791F6C04619FECF0792E66D679EB /* NNBUtilRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		845F3976224B4B2300618C45 /* FooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 845F3974224B4B2300618C45 /* FooterView.h */; };
 		845F3977224B4B2300618C45 /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F3975224B4B2300618C45 /* FooterView.m */; };
@@ -919,6 +921,8 @@
 		8278D22452DDE92CFBC49E94EF48F55D /* QNFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNFile.m; path = QiniuSDK/Common/QNFile.m; sourceTree = "<group>"; };
 		829C63B6ADC2B5B648CA867FE3B2FB89 /* QNResumeUpload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNResumeUpload.h; path = QiniuSDK/Storage/QNResumeUpload.h; sourceTree = "<group>"; };
 		835230EDAFDF4B637E134E58F3329639 /* BorderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BorderView.m; sourceTree = "<group>"; };
+		84071DED22544EF000F7964E /* GetCityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityView.h; sourceTree = "<group>"; };
+		84071DEE22544EF000F7964E /* GetCityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityView.m; sourceTree = "<group>"; };
 		845F3974224B4B2300618C45 /* FooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooterView.h; sourceTree = "<group>"; };
 		845F3975224B4B2300618C45 /* FooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FooterView.m; sourceTree = "<group>"; };
 		845F3978224B617300618C45 /* InputMessageVC+InputContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InputMessageVC+InputContent.h"; sourceTree = "<group>"; };
@@ -1402,6 +1406,8 @@
 		16BC5A3B0DE47678E656CE4A765884EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84071DED22544EF000F7964E /* GetCityView.h */,
+				84071DEE22544EF000F7964E /* GetCityView.m */,
 				07CC72B5B9A2E8157FFB71ACEB44B3FF /* InputCell.h */,
 				8F035D5B46BFFDBBBDC332BF702B2FE4 /* InputCell.m */,
 				6267A87684F8F7D2229894CFD7E181AF /* RecommendedCell.h */,
@@ -2797,6 +2803,7 @@
 				7D48BFDDFC9A6941C9E542A21308125C /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				D0339877EDC5C00FFB4E2A26066745F3 /* UIButton+AFNetworking.h in Headers */,
 				25B8C4A89FB61A6D640D3E75DE49A27C /* UIImage+AFNetworking.h in Headers */,
+				84071DEF22544EF000F7964E /* GetCityView.h in Headers */,
 				01A525893B1DABA221DF44438A6DDF1A /* UIImageView+AFNetworking.h in Headers */,
 				74880F67B2639D2BE5275DAF844CB632 /* UIKit+AFNetworking.h in Headers */,
 				EB2B9FDFAB851E06FEC59363C65C3703 /* UIProgressView+AFNetworking.h in Headers */,
@@ -3266,6 +3273,7 @@
 				72F460D6EA5A321801C46E289BA3AE75 /* AFNetworkReachabilityManager.m in Sources */,
 				0295EAE3ECDB419BBAABFC9E71756ABD /* AFSecurityPolicy.m in Sources */,
 				D994775F3E2573621746F8EC55CC9AED /* AFURLRequestSerialization.m in Sources */,
+				84071DF022544EF000F7964E /* GetCityView.m in Sources */,
 				486437B7ECA5A6D206BCEC636368E6FF /* AFURLResponseSerialization.m in Sources */,
 				5E0000CAF15111E1E39099B137D69F43 /* AFURLSessionManager.m in Sources */,
 				4500C60CC7C5F9524302FB15456C8694 /* UIActivityIndicatorView+AFNetworking.m in Sources */,

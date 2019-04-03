@@ -8,6 +8,8 @@
 
 #import "FooterView.h"
 #import "Masonry.h"
+#import "JYCMethodDefine.h"
+
 
 @interface FooterView()
 
@@ -36,8 +38,9 @@
     if (_saveButton == nil) {
         _saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_saveButton setTitle:@"保存" forState:UIControlStateNormal];
-        _saveButton.backgroundColor = [UIColor redColor];
+        _saveButton.backgroundColor = kHexRGB(0xADADBD);
         [_saveButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        _saveButton.titleLabel.font = [UIFont systemFontOfSize:16];
         _saveButton.layer.cornerRadius = 3;
         _saveButton.layer.masksToBounds = true;
         [self addSubview:_saveButton];
@@ -62,7 +65,8 @@
         [_commitButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         _commitButton.layer.cornerRadius = 3;
         _commitButton.layer.masksToBounds = true;
-        _commitButton.backgroundColor = [UIColor purpleColor];
+        _commitButton.backgroundColor = kHexRGB(0x1173E4);
+        _commitButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_commitButton];
         [_commitButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-20);
@@ -70,5 +74,9 @@
         }];
     }
     return _commitButton;
+}
+- (void)setIsEnable:(BOOL)isEnable {
+    _isEnable = isEnable;
+    self.commitButton.enabled = isEnable;
 }
 @end

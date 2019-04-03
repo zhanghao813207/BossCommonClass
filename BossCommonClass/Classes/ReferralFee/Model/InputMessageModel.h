@@ -32,6 +32,11 @@ typedef NS_ENUM(NSInteger,InputType) {
 @property(nonatomic, assign)BOOL isDetail;
 
 /**
+ 是否是输入的回调
+ */
+@property(nonatomic, assign)BOOL isInput;
+
+/**
  详情页 cell标题头
  */
 @property(nonatomic, copy)NSString *title;
@@ -45,6 +50,7 @@ typedef NS_ENUM(NSInteger,InputType) {
 
 //////以下是传给服务器的字段
 //internal_recommend_staff_id | ObjectId | N        | 新增页不传，编辑页传                   |
+@property(nonatomic, copy)NSString *_id;
 /**
  供应商id
  */
@@ -54,7 +60,7 @@ typedef NS_ENUM(NSInteger,InputType) {
  年龄
  */
 @property(nonatomic, assign)NSInteger age;
-
+@property(nonatomic, copy)NSString *ageStr;
 /**
  联系电话
  */

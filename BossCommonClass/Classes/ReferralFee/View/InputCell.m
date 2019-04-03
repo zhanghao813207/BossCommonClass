@@ -8,11 +8,14 @@
 
 #import "InputCell.h"
 #import "Masonry.h"
+#import "JYCMethodDefine.h"
 
 @interface InputCell()<UITextFieldDelegate>
 @property(nonatomic, strong)UITextField *textField;
 @property(nonatomic, strong)UIButton *arrowButton;
 @property(nonatomic, strong)UILabel *titleLabel;
+
+@property(nonatomic, strong)UILabel *detailLabel;
 @end
 
 @implementation InputCell
@@ -22,6 +25,7 @@
     if (self) {
         [self textField];
         [self arrowButton];
+        [self detailLabel];
     }
     return self;
 }
@@ -41,24 +45,67 @@
         [self.delegate inputContent:textField.text type:self.model];
     }
 }
+- (UILabel *)detailLabel {
+    if (_detailLabel == nil) {
+        _detailLabel = [[UILabel alloc] init];
+        _detailLabel.numberOfLines = 0;
+        _detailLabel.hidden = true;
+        _detailLabel.font = [UIFont systemFontOfSize:16];
+        _detailLabel.textColor = kHexRGBA(0x000000, 0.8);
+        [self.contentView addSubview:_detailLabel];
+        [_detailLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.titleLabel.mas_right).offset(4);
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(-4);
+        }];
+    }
+    return _detailLabel;
+}
 - (void)setModel:(InputMessageModel *)model {
     _model = model;
+   
     self.textField.placeholder = model.placeholder;
     self.arrowButton.hidden = model.isSkip;
-    self.textField.userInteractionEnabled = model.isSkip;
+    
     if (model.isDetail) {
         self.textField.textAlignment = NSTextAlignmentRight;
         self.textField.text = [NSString stringWithFormat:@"%@",model.text];
         self.titleLabel.text = model.title;
+        self.detailLabel.hidden = false;
+        self.detailLabel.text = model.text;
+//        [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
+//             make.right.equalTo(self.arrowButton.mas_left).offset(32);
+//            make.top.bottom.equalTo(self.contentView);
+//            make.left.greaterThanOrEqualTo(self.titleLabel.mas_right).offset(5);
+//        }];
+        self.textField.hidden = true;
     }else {
+        self.detailLabel.hidden = true;
+        self.textField.hidden = false;
+        if (model.isInput) {
+            self.textField.text = model.text;
+        }
         self.textField.textAlignment = NSTextAlignmentLeft;
+        self.textField.text = model.text;
         self.titleLabel.text = @"";
+//        [self.textField mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
+//        }];
+        
+        [_textField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contentView);
+            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
+            make.left.equalTo(self.contentView).offset(8);
+        }];
     }
+ 
+    self.textField.userInteractionEnabled = model.isSkip;
 }
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = [UIColor lightGrayColor];
+        [_titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         [self.contentView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(8);

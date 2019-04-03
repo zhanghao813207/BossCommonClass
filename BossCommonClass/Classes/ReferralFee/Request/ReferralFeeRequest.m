@@ -13,23 +13,59 @@
 #import "MJExtension.h"
 #import "RecommendDetailModel.h"
 #import "InputMessageModel.h"
+#import "MJExtension.h"
 
 @implementation ReferralFeeRequest
 ////提交 yes 是提交  no 是保存
-+ (void)recommendSubmit:(BOOL)isSubmit  WithParam:(InputMessageModel *)inputModel ll:(void(^)(InputMessageModel *inputModel))successBlock fail:(void(^)(void))failBlock {
-    NSMutableDictionary *paramDic = @{@"name":inputModel.name,
-                               @"age":@(inputModel.age),
-                               @"phone":inputModel.phone,
-                               @"province":@(inputModel.province),
-                               @"city":@(inputModel.city),
-                               @"area":@(inputModel.area),
-                               @"detailed_address":inputModel.detailed_address,
-                               @"position_id":@(inputModel.position_id),
-                               @"working_state":@(inputModel.working_state),
-                               @"work_experience":@(inputModel.work_experience),
-                               @"identity_card_id":inputModel.identity_card_id,
-                               @"app_type":@(inputModel.app_type)
-                               }.mutableCopy;
++ (void)recommendSubmit:(BOOL)isSubmit  WithParam:(InputMessageModel *)inputModel success:(void(^)(InputMessageModel *inputModel))successBlock fail:(void(^)(NSString *))failBlock {
+    if (kBossKnight) {
+        
+        inputModel.app_type = 10;
+    }else {
+        
+        inputModel.app_type = 20;
+    }
+    
+    NSLog(@"%@",inputModel._id);
+  
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
+    if (![inputModel._id isKindOfClass:[NSNull class]] && inputModel._id.length > 0) {
+        paramDic[@"internal_recommend_staff_id"] = inputModel._id;
+    }
+    if (inputModel.name != nil) {
+        paramDic[@"name"] = inputModel.name;
+    }
+    if (@(inputModel.age) != nil) {
+        paramDic[@"age"] = @(inputModel.age);
+    }
+    if (inputModel.phone != nil) {
+        paramDic[@"phone"] = inputModel.phone;
+    }
+    if (@(inputModel.province) != nil) {
+        paramDic[@"province"] = @(inputModel.province);
+    }
+    if (@(inputModel.city) != nil) {
+        paramDic[@"city"] = @(inputModel.city);
+    }
+    if (@(inputModel.area) != nil) {
+        paramDic[@"area"] = @(inputModel.area);
+    }
+    if (inputModel.detailed_address != nil) {
+        paramDic[@"detailed_address"] = inputModel.detailed_address;
+    }
+    if (inputModel.position_id) {
+        paramDic[@"position_id"] = @(inputModel.position_id);
+    }
+    if (inputModel.working_state) {
+        paramDic[@"working_state"] = @(inputModel.working_state);
+    }
+    if (inputModel.work_experience) {
+        paramDic[@"work_experience"] = @(inputModel.work_experience);
+    }
+    if (inputModel.identity_card_id) {
+        paramDic[@"identity_card_id"] = inputModel.identity_card_id;
+    }
+    paramDic[@"app_type"] = @(inputModel.app_type);
     NSString *subStr = @"";
     if (isSubmit) {
         subStr = @"internal_recommend.internal_recommend_staff.submit";
@@ -37,9 +73,10 @@
         subStr = @"internal_recommend.internal_recommend_staff.save";
     }
     [NNBBasicRequest postJsonNoneWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:paramDic CMD:subStr success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        successBlock([InputMessageModel mj_objectWithKeyValues:responseObject]);
     } fail:^(id error) {
-        NSLog(@"%@",error);
+        NSDictionary *dic = error;
+        failBlock(dic[@"zh_message"]);
     }];
 }
 //internal_recommend.internal_recommend_staff.find
@@ -55,11 +92,12 @@
     }];
 }
 //internal_recommend.internal_recommend_staff.get
-+ (void)recommendDetail:(NSString *)idStr success:(void(^)(NSArray *list))successBlock fail:(void(^)(void))failBlock {
++ (void)recommendDetail:(NSString *)idStr success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock {
     [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_id":idStr} CMD:@"internal_recommend.internal_recommend_staff.get" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         RecommendDetailModel *model = (RecommendDetailModel *)[RecommendDetailModel mj_objectWithKeyValues:dic];
+        detailmodel(model);
         NSLog(@"%@",model.name);
         
         NSArray *titleArr = @[@[@"职位"],@[@"姓名",@"年龄",@"详细地址",@"联系电话",@"目前工作状态",@"工作经验",@"身份证号码"]];
@@ -67,21 +105,21 @@
         NSMutableArray *tempArrM = [NSMutableArray array];
         NSArray *arr1 = @[@"骑士"];
         if (model.address.length < 1) {
-            model.address = @"无";
+            model.address = @"未填写";
         }
         if (model.detailed_address.length < 1) {
-            model.detailed_address = @"无";
+            model.detailed_address = @"未填写";
         }
         if (model.phone.length < 1) {
-            model.phone = @"无";
+            model.phone = @"未填写";
         }
         if (model.work_experienceStr.length < 1) {
-            model.work_experienceStr = @"无";
+            model.work_experienceStr = @"未填写";
         }
         if (model.identity_card_id.length < 1) {
-            model.identity_card_id = @"无";
+            model.identity_card_id = @"未填写";
         }
-        NSArray *arr2 = @[model.name,@(model.age),model.address,model.detailed_address,model.phone,@"工作状态",model.work_experienceStr,model.identity_card_id];
+        NSArray *arr2 = @[model.name,model.ageStr,model.detailed_address,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
         [tempArrM addObject:arr1];
         [tempArrM addObject:arr2];
 //        InputMessageModel
@@ -108,8 +146,17 @@
 + (void)deleteRecommend:(NSArray *)idcardArr success:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
     NSLog(@"%@",idcardArr);
     [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.delete" success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject[@"zh_message"]);
         successBlock();
+    } fail:^(id error) {
+        NSLog(@"%@",error[@"zh_message"]);
+    }];
+}
+////批量提交 internal_recommend.internal_recommend_staff.batch_submit
++ (void)submitArrs:(NSArray *)idcardArr success:(void(^)(NSArray *sucessarr))successBlock fail:(void(^)(NSArray *failArr))failBlock {
+    NSLog(@"adf");
+    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
+        successBlock(responseObject[@"error_ids"]);
     } fail:^(id error) {
         NSLog(@"%@",error);
     }];

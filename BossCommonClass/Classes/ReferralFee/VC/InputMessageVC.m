@@ -17,8 +17,8 @@
 
 @interface InputMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)NSArray *dataArr;
-@property(nonatomic, strong)UITableView *tableview;
-@property(nonatomic, strong)FooterView *footerView;
+
+
 
 @property(nonatomic,strong)NSArray *listArr;
 @end
@@ -37,13 +37,16 @@ static NSString *idt = @"cell";
     [self tableview];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHiden:) name:UIKeyboardWillHideNotification object:nil];
-//    self.tableview.backgroundColor = UIColor.orangeColor;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"编辑" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     button.hidden = self.isDetail ? false : true;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    if (self.index == 0) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+    }
     self.title = self.isDetail ? @"推荐信息":@"我要推荐";
     if (self.isDetail) {
         [self getRecommendDetail];
@@ -51,10 +54,26 @@ static NSString *idt = @"cell";
 }
 
 - (void)getRecommendDetail {
+  
     [ReferralFeeRequest recommendDetail:self.listModel._id success:^(NSArray * _Nonnull list) {
         self.dataArr = list;
         self.listArr = list;
         [self.tableview reloadData];
+    } detailModel:^(RecommendDetailModel * _Nonnull model) {
+        self.model.app_type = model.app_type;
+        self.model.position_id = model.position_id;
+        self.model.name = model.name;
+        self.model.age = model.age;
+        self.model.phone = model.phone;
+        self.model.province = model.province;
+        self.model.city = model.city;
+        self.model.area = model.area;
+        self.model.detailed_address = model.detailed_address;
+        self.model.position_id = model.position_id;
+        self.model.working_state = model.working_state;
+        self.model.work_experience = model.work_experience;
+        self.model.identity_card_id = model.identity_card_id;
+        self.model._id = model._id;
     } fail:^{
         
     }];
@@ -66,10 +85,76 @@ static NSString *idt = @"cell";
 }
 - (void)rightAction {
     self.isDetail = !self.isDetail;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
     if (self.isDetail) {
         self.dataArr = self.listArr;
     }else {
+
         self.dataArr = [InputMessageModel getModelArr];
+        for (NSArray *arr in self.dataArr) {
+            for (InputMessageModel *model in arr) {
+                switch (model.type) {
+                    case InputTypeRole:
+                        model.text = @"骑士";
+                        break;
+                    case InputTypeName:
+                        model.text = self.model.name;
+//                        model.text = @"姓名";
+                        break;
+                    case InputTypeAge:{
+                        if (self.model.age == 0) {
+                            model.text = @"未填写";
+                        }else {
+                            model.text = [NSString stringWithFormat:@"%ld",self.model.age];
+                        }
+                        
+                    }
+                        
+//                        model.text = @"年龄";
+                        break;
+                    case InputTypeAddress:
+                        model.text = self.model.detailed_address;
+//                        model.text = @"地址";
+                        break;
+                    case InputTypeDetailAddress:
+                        model.text = self.model.detailed_address;
+                        break;
+                    case InputTypePhone:
+                        model.text = self.model.phone;
+                        break;
+                    case InputTypeWorkState: {
+                        if (self.model.working_state == 100) {
+                            model.text = @"在职";
+                        }else if (self.model.working_state == -100) {
+                            model.text = @"离职";
+                        }else {
+                            model.text = @"未填写";
+                        }
+                       
+                    }
+                        
+                        break;
+                    case InputTypeWorkingExperience: {
+                        if (self.model.work_experience == 50) {
+                            model.text = @"有";
+                        }else if (self.model.work_experience == -50) {
+                            model.text = @"无";
+                        }else {
+                            model.text = @"未填写";
+                        }
+                    }
+                        
+                        
+                        break;
+                    case InputTypeIdNumber:
+                        model.text = self.model.identity_card_id;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        NSLog(@"%@",self.listArr);
     }
     [self.tableview reloadData];
 }

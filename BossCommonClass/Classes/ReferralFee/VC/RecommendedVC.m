@@ -9,6 +9,7 @@
 #import "InputMessageVC.h"
 #import "Masonry.h"
 #import "MyRecommendationVC.h"
+#import "JYCMethodDefine.h"
 
 @interface RecommendedVC ()
 @property(nonatomic, strong)UIButton *button;
@@ -30,8 +31,7 @@
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setTitle:@"我的推荐" forState:UIControlStateNormal];
-//    [rightButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [rightButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
 }
@@ -48,7 +48,8 @@
         [_button setTitle:@"我要推荐" forState:UIControlStateNormal];
         _button.layer.cornerRadius = 3;
         _button.layer.masksToBounds = true;
-        _button.backgroundColor = [UIColor blueColor];
+        _button.backgroundColor = kHexRGB(0x1173E4);
+        _button.titleLabel.font = [UIFont systemFontOfSize:16];
         [_button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_button];
         [_button mas_makeConstraints:^(MASConstraintMaker *make) {

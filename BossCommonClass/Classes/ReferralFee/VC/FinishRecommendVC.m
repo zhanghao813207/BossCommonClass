@@ -49,15 +49,12 @@
 }
 ////RecommendedViewDelegate
 - (void)didSelectModel:(RecommendedModel *)model {
-    [ReferralFeeRequest recommendDetail:model._id success:^(NSArray * _Nonnull list) {
-        NSLog(@"%@",list);
-    } fail:^{
-        
-    }];
-//    InputMessageVC *vc = [[InputMessageVC alloc] init];
-//    vc.isDetail = true;
-//
-//    [self.navigationController pushViewController:vc animated:true];
+
+    InputMessageVC *vc = [[InputMessageVC alloc] init];
+    vc.isDetail = true;
+    vc.listModel = model;
+    vc.index = 1;
+    [self.navigationController pushViewController:vc animated:true];
 }
 - (RecommendedView *)recommendView {
     if (_recommendView == nil) {
