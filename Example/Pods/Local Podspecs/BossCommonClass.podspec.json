@@ -24,7 +24,7 @@
   },
   "resource_bundles": {
     "BossCommonClass": [
-      "BossCommonClass/Classes/**/*.{Xcassets}"
+      "BossCommonClass/Assets/*"
     ]
   },
   "dependencies": {
@@ -45,6 +45,9 @@
     ],
     "SGPagingView": [
       "~> 1.6.0"
+    ],
+    "MJExtension": [
+
     ]
   }
 }
