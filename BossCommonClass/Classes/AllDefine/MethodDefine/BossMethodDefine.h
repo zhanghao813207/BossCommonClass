@@ -57,5 +57,9 @@
 // 线的颜色
 #define kLineColor (kHexRGBA(0x000000,0.1))
 
+// BossCommonClass.bundle
+#define bundlePath  [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"]
+#define QH_Bundle [NSBundle bundleWithPath:bundlePath]
+
 
 #endif /* BossMethodDefine_h */
