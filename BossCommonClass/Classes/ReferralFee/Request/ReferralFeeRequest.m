@@ -18,13 +18,19 @@
 @implementation ReferralFeeRequest
 ////提交 yes 是提交  no 是保存
 + (void)recommendSubmit:(BOOL)isSubmit  WithParam:(InputMessageModel *)inputModel success:(void(^)(InputMessageModel *inputModel))successBlock fail:(void(^)(NSString *))failBlock {
-    if (kBossKnight) {
-        
-        inputModel.app_type = 10;
-    }else {
-        
-        inputModel.app_type = 20;
-    }
+    
+#ifdef kBossKnight
+    
+    inputModel.app_type = 10;
+    
+#elif defined kBossManager
+    
+    inputModel.app_type = 20;
+    
+#else
+    
+    inputModel.app_type = 10;
+#endif
     
     NSLog(@"%@",inputModel._id);
   

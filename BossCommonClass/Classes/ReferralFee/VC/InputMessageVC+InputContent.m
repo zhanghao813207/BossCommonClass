@@ -34,11 +34,24 @@
     }else if (type.type == InputTypeIdNumber) {
         self.model.identity_card_id = content;
     }else if (type.type == InputTypeApp_type) {
-        if (kBossKnight) {
-           self.model.app_type = 10;
-        }else {
-            self.model.app_type = 20;
-        }
+//        if (kBossKnight) {
+//
+//        }else {
+//            self.model.app_type = 20;
+//        }
+        
+#ifdef kBossKnight
+        
+        self.model.app_type = 10;
+        
+#elif defined kBossManager
+        
+        self.model.app_type = 20;
+        
+#else
+        
+        self.model.app_type = 10;
+#endif
         
     }else if (type.type == InputTypePhone) {
         self.model.phone = content;
