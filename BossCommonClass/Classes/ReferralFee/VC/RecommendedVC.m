@@ -7,6 +7,7 @@
 
 #import "RecommendedVC.h"
 #import "InputMessageVC.h"
+#import "BossBasicDefine.h"
 #import "Masonry.h"
 #import "MyRecommendationVC.h"
 
