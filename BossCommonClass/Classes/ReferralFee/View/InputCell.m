@@ -9,6 +9,7 @@
 #import "InputCell.h"
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
+#import "BossMethodDefine.h"
 
 @interface InputCell()<UITextFieldDelegate>
 @property(nonatomic, strong)UITextField *textField;

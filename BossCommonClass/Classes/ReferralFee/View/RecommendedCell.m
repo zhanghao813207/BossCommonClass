@@ -9,6 +9,7 @@
 #import "RecommendedCell.h"
 #import "Masonry.h"
 #import "UIView+Corner.h"
+#import "BossMethodDefine.h"
 #import "JYCMethodDefine.h"
 
 @interface RecommendedCell ()

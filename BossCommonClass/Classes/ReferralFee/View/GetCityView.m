@@ -10,6 +10,8 @@
 #import "MJExtension.h"
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
+#import "BossMethodDefine.h"
+
 typedef NS_ENUM(NSInteger,AddressType) {
     AddressTypeProvince,
     AddressTypeCity,
