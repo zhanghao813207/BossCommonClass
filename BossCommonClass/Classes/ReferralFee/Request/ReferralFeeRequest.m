@@ -44,7 +44,7 @@
     if (@(inputModel.age) != nil) {
         paramDic[@"age"] = @(inputModel.age);
     }
-    if (inputModel.phone != nil) {
+    if (inputModel.phone != nil && ![inputModel.phone containsString:@"未填写"]) {
         paramDic[@"phone"] = inputModel.phone;
     }
     if (@(inputModel.province) != nil) {
@@ -171,6 +171,8 @@
                 }
             }
         }
+//        [addStr stringByAppendingString:model.detailed_address];
+        addStr = [NSString stringWithFormat:@"%@",model.detailed_address];
         NSLog(@"%@",addStr);
         if (entry) {
             arr2 =@[model.name,model.ageStr,addStr,model.biz_district_name,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
