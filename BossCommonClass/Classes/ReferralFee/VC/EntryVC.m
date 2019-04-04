@@ -18,7 +18,8 @@
 @property(nonatomic, strong)RecommendedView *recommendView;
 
 @property(nonatomic, strong)NSMutableArray *dataArrM;
-
+@property(nonatomic, assign)NSInteger requestPage;
+@property(nonatomic, assign)NSInteger currentPage;
 @end
 
 @implementation EntryVC
@@ -26,39 +27,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.requestPage = 0;
+    self.currentPage = 1;
     [self recommendView];
-    //    NSMutableArray *tempArr = [NSMutableArray array];
-    //    for (NSInteger i = 0; i < 60; i ++) {
-    //        RecommendedModel *model = [[RecommendedModel alloc] init];
-    //        model.isEditing = self.isEditing;
-    //        model.isSelected = false;
-    //        model.testStr = [NSString stringWithFormat:@"%ld",(long)i];
-    //        [tempArr addObject:model];
-    //    }
-    //    self.recommendView.dataArr = tempArr;
     self.dataArrM = [NSMutableArray array];
     [self getData];
 }
 /**
  下拉刷新
  */
-NSInteger finishpage = 1;
 - (void)refresh {
-    finishpage ++;
-    [ReferralFeeRequest recommendList:1 currentPage:finishpage success:^(NSArray * _Nonnull listModel) {
-        //        [self.dataArrM addObjectsFromArray:listModel];
-        for (RecommendedModel *model in listModel) {
-            [self.dataArrM insertObject:model atIndex:0];
-        }
+    [self getData];
 
-        //        self.dataArrM = listModel.mutableCopy;
+}
+
+
+- (void)getMore {
+    self.requestPage = self.currentPage + 1;
+    [ReferralFeeRequest recommendList:100 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
+        self.currentPage = self.requestPage;
+        //        [self.dataArrM addObjectsFromArray:listModel];
+        [self.dataArrM addObjectsFromArray:listModel];
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
-
+        
     }];
 }
 - (void)getData {
     [ReferralFeeRequest recommendList:100 currentPage:1 success:^(NSArray * _Nonnull listModel) {
+        self.currentPage = 1;
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{

@@ -188,6 +188,7 @@ static NSString *identifier = @"cell";
         _tableview.tableFooterView = [[UIView alloc] init];
         _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         [_tableview registerClass:[RecommendedCell class] forCellReuseIdentifier:identifier];
         [self addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -196,6 +197,12 @@ static NSString *identifier = @"cell";
         }];
     }
     return _tableview;
+}
+- (void)refreshMoreData {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(getMore)]) {
+        [self.delegate getMore];
+        [self.tableview.mj_footer endRefreshing];
+    }
 }
 - (void)refreshLatestData {
     if (self.delegate && [self.delegate respondsToSelector:@selector(refresh)]) {

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  下拉刷新
  */
 - (void)refresh;
+- (void)getMore;
 @end
 @interface RecommendedView : UIView
 @property(nonatomic, strong)NSMutableArray *dataArr;

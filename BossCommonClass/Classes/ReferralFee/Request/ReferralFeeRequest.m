@@ -78,14 +78,9 @@
     }else {
         subStr = @"internal_recommend.internal_recommend_staff.save";
     }
-    [NNBBasicRequest postJsonNoneWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:paramDic CMD:subStr success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:paramDic CMD:subStr success:^(id responseObject) {
         successBlock([InputMessageModel mj_objectWithKeyValues:responseObject]);
     } fail:^(id error) {
-        if (error) {
-//            NSDictionary *dic = error;
-//            failBlock(dic[@"zh_message"]);
-            failBlock(@"操作失败");
-        }
         
     }];
 }

@@ -191,6 +191,11 @@
     [self.view endEditing:YES];
     self.model.position_id = 1010;
    
+    if (self.model.identity_card_id.length != 18) {
+        [self.view showStatus:@"请输入正确的身份证号"];
+        return;
+    }
+    
     if ([typeStr containsString:@"保存"]) {
         [ReferralFeeRequest recommendSubmit:false WithParam:self.model success:^(InputMessageModel * _Nonnull inputModel) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(InputMessageVCTypeStr:)]) {
