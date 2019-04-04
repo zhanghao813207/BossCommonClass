@@ -77,10 +77,10 @@
     self.model.area = [arearModel.code integerValue];
     InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
     InputMessageModel *model = cell.model;
-    if (!cityModel.value && !cityModel.value) {
+    if (!cityModel.value && !arearModel.value) {
         model.text = [NSString stringWithFormat:@"%@",provinceModel.value];
     }else {
-        model.text = [NSString stringWithFormat:@"%@%@%@",provinceModel.value,cityModel.value,cityModel.value];
+        model.text = [NSString stringWithFormat:@"%@%@%@",provinceModel.value,cityModel.value,arearModel.value];
     }
     
     model.isInput = true;

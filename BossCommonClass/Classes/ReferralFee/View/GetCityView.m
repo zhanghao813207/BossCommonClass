@@ -254,6 +254,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         }
         
     }
+    NSLog(@"%@",self.arearModel.value);
     if (self.delegate) {
         NSLog(@"%@",self.cityModel.value);
         NSLog(@"%@",self.cityModel.label);
