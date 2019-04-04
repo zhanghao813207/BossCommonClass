@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "InputMessageVC+InputContent.h"
 #import "ReferralFeeRequest.h"
+#import "BossMethodDefine.h"
 
 
 
@@ -117,8 +118,36 @@ static NSString *idt = @"cell";
                         
 //                        model.text = @"年龄";
                         break;
-                    case InputTypeAddress:
-                        model.text = self.model.detailed_address;
+                    case InputTypeAddress: {
+
+                        NSString *path = [QH_Bundle pathForResource:@"cities" ofType:@"json"];
+                        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+                        NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                        NSString *addStr = @"";
+                        for (NSDictionary *dic in arr) {
+                            if ([dic[@"code"] integerValue] == self.model.province) {
+                                addStr = dic[@"value"];
+                                NSArray *cities = dic[@"children"];
+                                for (NSDictionary *cityDic in cities) {
+                                    if ([cityDic[@"code"] integerValue] == self.model.city) {
+                                        
+                                        addStr = [addStr stringByAppendingString:cityDic[@"value"]];
+                                        NSArray *areas = cityDic[@"children"];
+                                        
+                                        for (NSDictionary *areaDic in areas) {
+                                            NSLog(@"%@",areaDic[@"code"]);
+                                            if ([areaDic[@"code"] integerValue] == self.model.area) {
+                                                NSLog(@"%@",areaDic[@"value"]);
+                                                addStr = [addStr stringByAppendingString:areaDic[@"value"]];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        model.text = addStr;
+                    }
+                        
 //                        model.text = @"地址";
                         break;
                     case InputTypeDetailAddress:
@@ -175,7 +204,7 @@ static NSString *idt = @"cell";
 - (void)keyboardHiden:(NSNotification *)aNotification  {
     [UIView animateWithDuration:0.1 animations:^{
         [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footerView.mas_top).offset( -10);
+            make.bottom.equalTo(self.view).offset( -60);
         }];
         [self.view layoutIfNeeded];
     }];
@@ -190,7 +219,7 @@ static NSString *idt = @"cell";
 //            make.bottom.equalTo(self.view).offset(-(height + 10));
 //        }];
         [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footerView.mas_top).offset(-(height  - 58));
+            make.bottom.equalTo(self.view).offset(-(height  - 58 + 60));
         }];
         [self.view layoutIfNeeded];
     }];
@@ -207,7 +236,6 @@ static NSString *idt = @"cell";
     InputCell *cell = [tableView dequeueReusableCellWithIdentifier:idt forIndexPath:indexPath];
     cell.model = self.dataArr[indexPath.section][indexPath.row];
     cell.delegate = self;
-  
     return cell;
 }
 
@@ -225,7 +253,7 @@ static NSString *idt = @"cell";
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.footerView.mas_top).offset(-10);
+            make.bottom.equalTo(self.view).offset(-60);
         }];
     }
     return _tableview;

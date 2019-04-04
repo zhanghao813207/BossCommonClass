@@ -49,6 +49,7 @@
             make.height.equalTo(self);
             make.right.equalTo(self.commitButton.mas_left).offset(-5);
             make.width.equalTo(self.commitButton);
+            make.bottom.equalTo(self);
         }];
     }
     return _saveButton;
@@ -71,6 +72,7 @@
         [_commitButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-20);
             make.height.equalTo(self.saveButton);
+            make.bottom.equalTo(self);
         }];
     }
     return _commitButton;

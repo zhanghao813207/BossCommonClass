@@ -127,8 +127,6 @@ NSInteger page = 1;
         
     }];
 }
-
-
 - (RecommendedView *)recommendView {
     if (_recommendView == nil) {
         _recommendView = [[RecommendedView alloc] init];

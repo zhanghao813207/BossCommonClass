@@ -37,7 +37,7 @@
     imageView.layer.shadowOpacity = 1;
     
     imageView.layer.shadowColor = [UIColor colorWithRed:235 / 255.0 green:237 / 255.0 blue:239 / 255.0 alpha:1].CGColor;
-    imageView.layer.shadowOffset = CGSizeMake(5, 5);
+    imageView.layer.shadowOffset = CGSizeMake(3, 3);
     [imageView setImage:image];
     [self insertSubview:imageView atIndex:0];
 }

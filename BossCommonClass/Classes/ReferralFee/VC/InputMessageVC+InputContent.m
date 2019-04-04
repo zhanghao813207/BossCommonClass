@@ -82,7 +82,6 @@
     }else {
         model.text = [NSString stringWithFormat:@"%@%@%@",provinceModel.value,cityModel.value,arearModel.value];
     }
-    
     model.isInput = true;
     cell.model = model;
 }

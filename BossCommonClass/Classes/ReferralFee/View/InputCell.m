@@ -101,17 +101,17 @@
             self.textField.text = model.text;
         }
         self.titleLabel.text = @"";
-//        [self.textField mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
-//        }];
-        
-//        [_textField mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.equalTo(self.contentView);
-//            make.right.equalTo(self.arrowButton.mas_left).offset(-4);
-//            make.left.equalTo(self.contentView).offset(16);
-//        }];
+        if (model.type == InputTypePhone) {
+            self.textField.keyboardType = UIKeyboardTypePhonePad;
+        }else {
+            self.textField.keyboardType = UIKeyboardTypeDefault;
+        }
+        if ( [model.placeholder containsString:@"骑士"]) {
+            self.arrowButton.hidden = true;
+        }else {
+            self.arrowButton.hidden = model.isSkip;
+        }
     }
- 
     self.textField.userInteractionEnabled = model.isSkip;
 }
 - (UILabel *)titleLabel {

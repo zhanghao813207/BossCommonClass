@@ -55,9 +55,18 @@
         }else {
             self.selectButton.enabled = false;
             [self.selectButton setTitleColor:kHexRGB(0xC4C6C7) forState:UIControlStateNormal];
+            break;
         }
     }
     if (self.seletcArr.count == 0) {
+        for (RecommendedModel *model in self.modelArr) {
+            if (!model.is_complete) {
+                //            [self.selectButton setTitle:@"提交" forState:UIControlStateNormal];
+                //            [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.selectButton.enabled = false;
+                [self.selectButton setTitleColor:kHexRGB(0xC4C6C7) forState:UIControlStateNormal];
+            }
+        }
         [self.selectButton setTitle:@"全部提交" forState:UIControlStateNormal];
         [self.deleteButton setTitle:@"全部删除" forState:UIControlStateNormal];
     }else {
