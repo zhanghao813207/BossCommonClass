@@ -20,6 +20,9 @@
 
 @property(nonatomic, strong)NSMutableArray *dataArrM;
 
+
+@property(nonatomic, assign)NSInteger requestPage;
+@property(nonatomic, assign)NSInteger currentPage;
 @end
 
 @implementation FinishRecommendVC
@@ -29,6 +32,8 @@
     self.view.backgroundColor = [UIColor purpleColor];
     [self recommendView];
     self.dataArrM = [NSMutableArray array];
+    self.requestPage = 0;
+    self.currentPage = 1;
     [self getData];
     self.title = @"已推荐";
     if (self.isEditing) {
@@ -45,14 +50,6 @@
 }
 - (void)update {
     [self getData];
-}
-- (void)getData {
-    [ReferralFeeRequest recommendList:10 currentPage:1 success:^(NSArray * _Nonnull listModel) {
-        self.dataArrM = listModel.mutableCopy;
-        self.recommendView.dataArr = self.dataArrM;
-    } fail:^{
-        
-    }];
 }
 ////RecommendedViewDelegate
 - (void)didSelectModel:(RecommendedModel *)model {
@@ -82,14 +79,25 @@
     }];
 }
 
-NSInteger cpage = 1;
 - (void)refresh {
-    cpage ++;
-    [ReferralFeeRequest recommendList:10 currentPage:cpage success:^(NSArray * _Nonnull listModel) {
-//        self.dataArrM = listModel.mutableCopy;
-        for (RecommendedModel *model in listModel) {
-            [self.dataArrM insertObject:model atIndex:0];
-        }
+    [self getData];
+}
+
+- (void)getData {
+    [ReferralFeeRequest recommendList:10 currentPage:1 success:^(NSArray * _Nonnull listModel) {
+        self.dataArrM = listModel.mutableCopy;
+        self.recommendView.dataArr = self.dataArrM;
+        self.currentPage = 1;
+    } fail:^{
+        
+    }];
+}
+
+- (void)getMore {
+    self.requestPage = self.currentPage + 1;
+    [ReferralFeeRequest recommendList:10 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
+        self.currentPage = self.requestPage;
+        [self.dataArrM addObjectsFromArray:listModel];
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
         

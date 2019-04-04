@@ -18,6 +18,10 @@
 @property(nonatomic, strong)RecommendedView *recommendView;
 
 @property(nonatomic, strong)NSMutableArray *dataArrM;
+
+@property(nonatomic, assign)NSInteger requestPage;
+
+@property(nonatomic, assign)NSInteger currentPage;
 @end
 
 @implementation WaitRecommendVC
@@ -26,6 +30,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"待推荐";
+    self.requestPage = 0;
+    self.currentPage = 1;
     [self recommendView];
     self.dataArrM = [NSMutableArray array];
     [self getData];
@@ -52,32 +58,33 @@
     self.recommendView.isEditing = self.isEditing;
 }
 
-- (void)getData {
-
-    [ReferralFeeRequest recommendList:1 currentPage:1 success:^(NSArray * _Nonnull listModel) {
-        self.dataArrM = listModel.mutableCopy;
-        self.recommendView.dataArr = self.dataArrM;
-    } fail:^{
-
-    }];
-}
-
 /**
  下拉刷新
  */
-NSInteger page = 1;
-- (void)refresh {
-    page ++;
-    [ReferralFeeRequest recommendList:1 currentPage:page success:^(NSArray * _Nonnull listModel) {
-//        [self.dataArrM addObjectsFromArray:listModel];
-        for (RecommendedModel *model in listModel) {
-            [self.dataArrM insertObject:model atIndex:0];
-        }
 
-//        self.dataArrM = listModel.mutableCopy;
+- (void)refresh {
+    [self getData];
+}
+
+- (void)getData {
+    [ReferralFeeRequest recommendList:1 currentPage:1 success:^(NSArray * _Nonnull listModel) {
+        self.currentPage = 1;
+        self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
+        
+    }];
+}
 
+- (void)getMore {
+    self.requestPage = self.currentPage + 1;
+    [ReferralFeeRequest recommendList:1 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
+        self.currentPage = self.requestPage;
+        //        [self.dataArrM addObjectsFromArray:listModel];
+        [self.dataArrM addObjectsFromArray:listModel];
+        self.recommendView.dataArr = self.dataArrM;
+    } fail:^{
+        
     }];
 }
 
