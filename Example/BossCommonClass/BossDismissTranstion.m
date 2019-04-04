@@ -7,6 +7,7 @@
 //
 
 #import "BossDismissTranstion.h"
+#import "SGPagingView.h"
 
 @interface BossDismissTranstion()
 

@@ -21,16 +21,20 @@ PODS:
   - BGFMDB/BG (1.51):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (1.51)
-  - BossCommonClass (2.0.1):
+  - BossCommonClass (2.1.1):
     - AFNetworking (~> 3.1.0)
     - BasicCommonClass (~> 0.4.4)
     - BGFMDB (~> 1.51)
     - Masonry
+    - MJExtension
     - Qiniu (~> 7.1)
+    - SGPagingView (~> 1.6.0)
   - HappyDNS (0.3.14)
   - Masonry (1.1.0)
+  - MJExtension (3.0.15.1)
   - Qiniu (7.2.5):
     - HappyDNS (~> 0.3)
+  - SGPagingView (1.6.0)
 
 DEPENDENCIES:
   - BossCommonClass (from `../`)
@@ -43,7 +47,9 @@ SPEC REPOS:
     - BGFMDB
     - HappyDNS
     - Masonry
+    - MJExtension
     - Qiniu
+    - SGPagingView
 
 EXTERNAL SOURCES:
   BossCommonClass:
@@ -53,11 +59,13 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BasicCommonClass: 486331ba498d456ccd92cb3e450a2b1fa0bfdbd3
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: 56c4a243dc0df48155e6fee6012f33b76f00e204
+  BossCommonClass: 3dbb7306880fd5e3bc4938a7da236265801158ae
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48
+  SGPagingView: 4b4f443b365bc70979f890da63d93bc22103be32
 
 PODFILE CHECKSUM: 76117d01723b3b3310fe45987992e4780d226a1d
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
