@@ -219,7 +219,7 @@ static NSString *idt = @"cell";
 //            make.bottom.equalTo(self.view).offset(-(height + 10));
 //        }];
         [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(-(height  - 58));
+            make.bottom.equalTo(self.view).offset(-(height  - 58 + 60));
         }];
         [self.view layoutIfNeeded];
     }];
