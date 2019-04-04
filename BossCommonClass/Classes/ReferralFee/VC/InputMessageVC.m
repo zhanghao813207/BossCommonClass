@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "InputMessageVC+InputContent.h"
 #import "ReferralFeeRequest.h"
+#import "BossMethodDefine.h"
 
 
 
@@ -117,8 +118,36 @@ static NSString *idt = @"cell";
                         
 //                        model.text = @"年龄";
                         break;
-                    case InputTypeAddress:
-                        model.text = self.model.detailed_address;
+                    case InputTypeAddress: {
+
+                        NSString *path = [QH_Bundle pathForResource:@"cities" ofType:@"json"];
+                        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+                        NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                        NSString *addStr = @"";
+                        for (NSDictionary *dic in arr) {
+                            if ([dic[@"code"] integerValue] == self.model.province) {
+                                addStr = dic[@"value"];
+                                NSArray *cities = dic[@"children"];
+                                for (NSDictionary *cityDic in cities) {
+                                    if ([cityDic[@"code"] integerValue] == self.model.city) {
+                                        
+                                        addStr = [addStr stringByAppendingString:cityDic[@"value"]];
+                                        NSArray *areas = cityDic[@"children"];
+                                        
+                                        for (NSDictionary *areaDic in areas) {
+                                            NSLog(@"%@",areaDic[@"code"]);
+                                            if ([areaDic[@"code"] integerValue] == self.model.area) {
+                                                NSLog(@"%@",areaDic[@"value"]);
+                                                addStr = [addStr stringByAppendingString:areaDic[@"value"]];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        model.text = addStr;
+                    }
+                        
 //                        model.text = @"地址";
                         break;
                     case InputTypeDetailAddress:

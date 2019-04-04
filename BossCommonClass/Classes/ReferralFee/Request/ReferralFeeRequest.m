@@ -149,12 +149,33 @@
         NSString *path = [QH_Bundle pathForResource:@"cities" ofType:@"json"];
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    
-        NSLog(@"%@",arr);
+        NSString *addStr = @"";
+        for (NSDictionary *dic in arr) {
+            if ([dic[@"code"] integerValue] == model.province) {
+                addStr = dic[@"value"];
+                NSArray *cities = dic[@"children"];
+                for (NSDictionary *cityDic in cities) {
+                    if ([cityDic[@"code"] integerValue] == model.city) {
+                        NSLog(@"%@",cityDic[@"value"]);
+                        addStr = [addStr stringByAppendingString:cityDic[@"value"]];
+                        NSArray *areas = cityDic[@"children"];
+                        NSLog(@"%@",areas);
+                        for (NSDictionary *areaDic in areas) {
+                            NSLog(@"%@",areaDic[@"code"]);
+                            if ([areaDic[@"code"] integerValue] == model.area) {
+                                NSLog(@"%@",areaDic[@"value"]);
+                                addStr = [addStr stringByAppendingString:areaDic[@"value"]];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        NSLog(@"%@",addStr);
         if (entry) {
-            arr2 =@[model.name,model.ageStr,model.detailed_address,model.biz_district_name,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
+            arr2 =@[model.name,model.ageStr,addStr,model.biz_district_name,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
         }else {
-           arr2 = @[model.name,model.ageStr,model.detailed_address,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
+           arr2 = @[model.name,model.ageStr,addStr,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
         }
         [tempArrM addObject:arr1];
         [tempArrM addObject:arr2];
