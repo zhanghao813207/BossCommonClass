@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         [self lineView];
 //        [self indexView];
     }
+    self.index = -1;
     return self;
 }
 - (UIView *)contentView {
