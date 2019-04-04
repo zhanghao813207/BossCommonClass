@@ -277,6 +277,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *bank_location;
 
 /**
+ 银行卡省市
+ */
+@property (nonatomic, strong) NSString *bank_location_Str;
+
+/**
  开户行
  */
 @property (nonatomic, strong) NSString *bank_branch;
