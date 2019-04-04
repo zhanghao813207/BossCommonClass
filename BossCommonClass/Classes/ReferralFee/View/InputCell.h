@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)InputMessageModel *model;
 @property(nonatomic,weak)id<InputCellDelegate>delegate;
 @property(nonatomic,copy)NSString *detailStr;
+@property(nonatomic, copy)NSString *inputStr;
 @end
 
 NS_ASSUME_NONNULL_END

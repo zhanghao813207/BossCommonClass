@@ -39,9 +39,26 @@
     self.dataArrM = [NSMutableArray array];
     [self getData];
 }
+/**
+ 下拉刷新
+ */
+NSInteger finishpage = 1;
+- (void)refresh {
+    finishpage ++;
+    [ReferralFeeRequest recommendList:1 currentPage:finishpage success:^(NSArray * _Nonnull listModel) {
+        //        [self.dataArrM addObjectsFromArray:listModel];
+        for (RecommendedModel *model in listModel) {
+            [self.dataArrM insertObject:model atIndex:0];
+        }
 
+        //        self.dataArrM = listModel.mutableCopy;
+        self.recommendView.dataArr = self.dataArrM;
+    } fail:^{
+
+    }];
+}
 - (void)getData {
-    [ReferralFeeRequest recommendList:100 isRefresh:false success:^(NSArray * _Nonnull listModel) {
+    [ReferralFeeRequest recommendList:100 currentPage:1 success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{

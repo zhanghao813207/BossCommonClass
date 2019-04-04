@@ -18,21 +18,31 @@
 @implementation InputMessageVC (InputContent)
 - (void)inputContent:(NSString *)content type:(InputMessageModel *)type {
     if (type.type == InputTypeRole) {
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.model.text = @"骑士";
         self.model.position_id = [content integerValue];
     }else if (type.type == InputTypeName) {
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        cell.model.text = content;
         self.model.name = content;
     }else if (type.type == InputTypeAge) {
         self.model.age = [content integerValue];
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+        cell.model.text = content;
     }else if (type.type == InputTypeAddress) {
 //        self.model.ad = content;
     }else if (type.type == InputTypeDetailAddress) {
         self.model.detailed_address = content;
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1]];
+        cell.model.text = content;
     }else if (type.type == InputTypeWorkState) {
         self.model.working_state = [content integerValue];
     }else if (type.type == InputTypeWorkingExperience) {
         self.model.work_experience = [content integerValue];
     }else if (type.type == InputTypeIdNumber) {
         self.model.identity_card_id = content;
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:7 inSection:1]];
+        cell.model.text = content;
     }else if (type.type == InputTypeApp_type) {
 //        if (kBossKnight) {
 //
@@ -55,6 +65,8 @@
         
     }else if (type.type == InputTypePhone) {
         self.model.phone = content;
+        InputCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:1]];
+        cell.model.text = content;
     }
    
 }
@@ -187,8 +199,8 @@
                
                 
             }
-            if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage)]) {
-                 [self.delegate hintMessage];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage:)]) {
+                 [self.delegate hintMessage:@"保存成功"];
             }
 //            [self.view showSuccessStaus:@"保存成功"];
 
@@ -216,8 +228,8 @@
                     
 //                    [self.view showSuccessStaus:@"提交成功"];
                 }
-                if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage)]) {
-                    [self.delegate hintMessage];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(hintMessage:)]) {
+                    [self.delegate hintMessage:@"提交成功"];
                 }
                 [self.navigationController popViewControllerAnimated:true];
             } fail:^(NSString * message) {

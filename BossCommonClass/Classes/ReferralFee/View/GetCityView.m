@@ -47,6 +47,9 @@ typedef NS_ENUM(NSInteger,AddressType) {
 @property(nonatomic, strong)UIView *lineView;
 
 @property(nonatomic, strong)UIView *indexView;
+
+@property(nonatomic, assign)NSInteger index;
+
 @end
 
 @implementation GetCityView
@@ -357,6 +360,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         self.arearButton.hidden = false;
         [self.arearButton setTitle:arearModel.value forState:UIControlStateNormal];
     }
+    self.index = indexPath.row;
     [tableView reloadData];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -371,6 +375,16 @@ typedef NS_ENUM(NSInteger,AddressType) {
         QH_ArearModel *model = self.datArr[indexPath.row];
         cell.textLabel.text = model.value;
     }
+    UIImage *markImage = [UIImage imageNamed:@"checkmark" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+    
+    UIImageView *imgView = [[UIImageView alloc] init];
+    imgView.image = markImage;
+    imgView.frame = CGRectMake(0, 0, 15, 15);
+    cell.accessoryView = imgView;
+    if (self.index == indexPath.row) {
+        [cell setSelected:true];
+    }
+    cell.accessoryView.hidden = !cell.selected;
     return cell;
 }
 @end

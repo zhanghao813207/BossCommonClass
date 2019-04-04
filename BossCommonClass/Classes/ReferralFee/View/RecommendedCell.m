@@ -92,6 +92,15 @@
     if (model.isEditing) {
         self.selectButton.selected = model.isSelected;
     }
+    self.hintLabel.hidden = !model.isWait;
+    if (!model.isWait) {
+        [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+           make.top.equalTo(self.containerView).offset(21);
+        }];
+        [self.addressLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.nameLabel.mas_bottom).offset(10);
+        }];
+    }
     self.nameLabel.text = model.name;
     self.phoneLabel.text = model.phone;
     self.addressLabel.text = model.address;
@@ -187,7 +196,8 @@
 - (UIView *)containerView {
     if (_containerView == nil) {
         _containerView = [[UIView alloc] init];
-        _containerView.backgroundColor = [UIColor clearColor];
+        UIImage *bgImage = [UIImage imageNamed:@"background" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _containerView.backgroundColor = [UIColor colorWithPatternImage:bgImage];
         [self.contentView addSubview:_containerView];
         [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(10);

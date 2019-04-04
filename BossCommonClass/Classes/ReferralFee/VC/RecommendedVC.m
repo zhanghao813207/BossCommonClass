@@ -72,8 +72,8 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 //InputMessageVCDelegate
-- (void)hintMessage {
-    [self.view showAnimationSuccessStaus:@"保存成功" completion:^(BOOL finish) {
+- (void)hintMessage:(NSString *)hintStr {
+    [self.view showAnimationSuccessStaus:hintStr completion:^(BOOL finish) {
         
     }];
 }

@@ -87,11 +87,8 @@
 }
 //internal_recommend.internal_recommend_staff.find
 //1:已保存 10:已推荐 100:已入职 state
-NSInteger page = 1;
-+ (void)recommendList:(NSInteger)state isRefresh:(BOOL)isF success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
-//    if (isF) {
-//        page ++;
-//    }
++ (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
+   
     NSDictionary *dic = @{@"state":@(state),
                           @"_meta": @{
                               @"page":@(page),

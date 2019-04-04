@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
 #import "RecommendedModel.h"
+#import "UIView+GetVC.h"
 @interface SelectTabbarView ()
 
 /**
@@ -137,12 +138,26 @@
 }
 
 - (void)deleteAction {
-    if ([self.deleteButton.currentTitle containsString:@"全部删除"]) {
-        self.isAll = true;
-    }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deleteModel:)]) {
-        [self.delegate deleteModel:self];
-    }
+    
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:@"删除后信息将从你的列表中清楚,是否继续删除" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([self.deleteButton.currentTitle containsString:@"全部删除"]) {
+            self.isAll = true;
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(deleteModel:)]) {
+            [self.delegate deleteModel:self];
+        }
+    }];
+    [alertVc addAction:noAction];
+    [alertVc addAction:yesAction];
+    [self.viewController presentViewController:alertVc animated:true completion:^{
+        
+    }];
+    
+   
 }
 
 @end

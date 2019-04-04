@@ -163,6 +163,7 @@ static NSString *identifier = @"cell";
     cell.delegate = self;
     RecommendedModel *model = self.dataArr[indexPath.row];
     model.isEditing = self.isEditing;
+    model.isWait = self.isWait;
     cell.model = model;
     return cell;
 }

@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property(nonatomic, copy) NSString *testStr;
 
+@property(nonatomic, assign)BOOL isWait;
 
 ////以下为后台返回的字段
 @property(nonatomic, copy)NSString *_id;

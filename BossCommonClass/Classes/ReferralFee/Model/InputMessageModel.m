@@ -25,7 +25,7 @@
             if ([place isEqualToString:@"骑士"]) {
                 model.text = @"骑士";
             }else {
-//                model.text = nil;
+                model.text = @"";
             }
             [arM addObject:model];
         }

@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger,InputType) {
 @property(nonatomic, copy)NSString *text;
 
 
+
+
 /**
  是详情还是输入
  */

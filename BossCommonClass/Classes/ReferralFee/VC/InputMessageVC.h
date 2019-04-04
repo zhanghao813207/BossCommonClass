@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)InputMessageVCTypeStr:(NSString *)typeStr;
 
-- (void)hintMessage;
+- (void)hintMessage:(NSString *)hintStr;
 
 @end
 
@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
  是否已入职
  */
 @property(nonatomic, assign)BOOL isEntry;
+@property(nonatomic, strong)NSArray *dataArr;
+
+@property(nonatomic, strong)NSMutableArray *fieldArr;
+
 
 /**
  判断是推荐输入还是查看详情

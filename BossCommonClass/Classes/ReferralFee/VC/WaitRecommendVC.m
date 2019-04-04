@@ -53,24 +53,31 @@
 }
 
 - (void)getData {
-    [ReferralFeeRequest recommendList:1 isRefresh:false success:^(NSArray * _Nonnull listModel) {
+
+    [ReferralFeeRequest recommendList:1 currentPage:1 success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
-        
+
     }];
 }
 
 /**
  下拉刷新
  */
+NSInteger page = 1;
 - (void)refresh {
-    [ReferralFeeRequest recommendList:1 isRefresh:true success:^(NSArray * _Nonnull listModel) {
-        [self.dataArrM addObjectsFromArray:listModel];
+    page ++;
+    [ReferralFeeRequest recommendList:1 currentPage:page success:^(NSArray * _Nonnull listModel) {
+//        [self.dataArrM addObjectsFromArray:listModel];
+        for (RecommendedModel *model in listModel) {
+            [self.dataArrM insertObject:model atIndex:0];
+        }
+
 //        self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
-        
+
     }];
 }
 
@@ -126,6 +133,7 @@
     if (_recommendView == nil) {
         _recommendView = [[RecommendedView alloc] init];
         _recommendView.isEditing = self.isEditing;
+        _recommendView.isWait = true;
         _recommendView.delegate = self;
         _recommendView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_recommendView];

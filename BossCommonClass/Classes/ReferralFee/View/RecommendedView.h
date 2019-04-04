@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)BOOL isEditing;
 @property(nonatomic, weak)id<RecommendedViewDelegate>delegate;
 
+/**
+ 是不是待推荐
+ */
+@property(nonatomic, assign)BOOL isWait;
 
 /**
  是否从已推荐跳入

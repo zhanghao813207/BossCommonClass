@@ -47,7 +47,7 @@
     [self getData];
 }
 - (void)getData {
-    [ReferralFeeRequest recommendList:10 isRefresh:false success:^(NSArray * _Nonnull listModel) {
+    [ReferralFeeRequest recommendList:10 currentPage:1 success:^(NSArray * _Nonnull listModel) {
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
     } fail:^{
@@ -82,9 +82,18 @@
     }];
 }
 
-
+NSInteger cpage = 1;
 - (void)refresh {
-    
+    cpage ++;
+    [ReferralFeeRequest recommendList:10 currentPage:cpage success:^(NSArray * _Nonnull listModel) {
+//        self.dataArrM = listModel.mutableCopy;
+        for (RecommendedModel *model in listModel) {
+            [self.dataArrM insertObject:model atIndex:0];
+        }
+        self.recommendView.dataArr = self.dataArrM;
+    } fail:^{
+        
+    }];
 }
 
 

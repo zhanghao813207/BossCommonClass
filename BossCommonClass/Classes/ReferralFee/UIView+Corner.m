@@ -8,6 +8,7 @@
 
 #import "UIView+Corner.h"
 #import "UIImage+Corner.h"
+#import "BossMethodDefine.h"
 
 @implementation UIView (Corner)
 - (void)QH_AddCorner:(CGFloat)radius borwidth:(CGFloat)width backgroundColor:(UIColor *)color borderColor:(UIColor *)color {
@@ -33,9 +34,10 @@
     UIGraphicsEndImageContext();
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-//    imageView.layer.shadowOpacity = 1;
-//    imageView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-//    imageView.layer.shadowOffset = CGSizeMake(5, 5);
+    imageView.layer.shadowOpacity = 1;
+    
+    imageView.layer.shadowColor = [UIColor colorWithRed:235 / 255.0 green:237 / 255.0 blue:239 / 255.0 alpha:1].CGColor;
+    imageView.layer.shadowOffset = CGSizeMake(5, 5);
     [imageView setImage:image];
     [self insertSubview:imageView atIndex:0];
 }

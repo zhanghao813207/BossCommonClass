@@ -16,13 +16,13 @@
 
 
 @interface InputMessageVC ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic, strong)NSArray *dataArr;
+
 
 
 
 @property(nonatomic,strong)NSArray *listArr;
 
-@property(nonatomic, strong)UIScrollView *scrollView;
+
 
 @end
 
@@ -31,7 +31,6 @@ static NSString *idt = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self scrollView];
 //        self.dataArr = @[@[@"骑士"],@[@"姓名",@"年龄",@"所在区域",@"详细地址",@"联系方式",@"工作状态",@"经验",@"身份证"]];
     
     self.dataArr = [InputMessageModel getModelArr];
@@ -175,7 +174,7 @@ static NSString *idt = @"cell";
 
 - (void)keyboardHiden:(NSNotification *)aNotification  {
     [UIView animateWithDuration:0.1 animations:^{
-        [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.footerView.mas_top).offset( -10);
         }];
         [self.view layoutIfNeeded];
@@ -190,8 +189,8 @@ static NSString *idt = @"cell";
 //        [self.footerView mas_updateConstraints:^(MASConstraintMaker *make) {
 //            make.bottom.equalTo(self.view).offset(-(height + 10));
 //        }];
-        [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footerView.mas_top).offset(-(height + 10));
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.footerView.mas_top).offset(-(height  - 58));
         }];
         [self.view layoutIfNeeded];
     }];
@@ -208,24 +207,14 @@ static NSString *idt = @"cell";
     InputCell *cell = [tableView dequeueReusableCellWithIdentifier:idt forIndexPath:indexPath];
     cell.model = self.dataArr[indexPath.section][indexPath.row];
     cell.delegate = self;
+  
     return cell;
 }
-- (UIScrollView *)scrollView {
-    if (_scrollView == nil) {
-        _scrollView = [[UIScrollView alloc] init];
-        _scrollView.backgroundColor = [UIColor redColor];
-        [self.view addSubview:_scrollView];
-        [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.footerView.mas_top).offset(-10);
-        }];
-    }
-    return _scrollView;
-}
+
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableview.scrollEnabled = false;
+//        _tableview.scrollEnabled = false;
         _tableview.tableFooterView = [[UIView alloc] init];
         _tableview.delegate = self;
         _tableview.dataSource = self;
