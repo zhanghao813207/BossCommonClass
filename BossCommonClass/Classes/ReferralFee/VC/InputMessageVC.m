@@ -204,7 +204,7 @@ static NSString *idt = @"cell";
 - (void)keyboardHiden:(NSNotification *)aNotification  {
     [UIView animateWithDuration:0.1 animations:^{
         [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footerView.mas_top).offset( -10);
+            make.bottom.equalTo(self.view).offset( -60);
         }];
         [self.view layoutIfNeeded];
     }];
@@ -219,7 +219,7 @@ static NSString *idt = @"cell";
 //            make.bottom.equalTo(self.view).offset(-(height + 10));
 //        }];
         [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footerView.mas_top).offset(-(height  - 58));
+            make.bottom.equalTo(self.view).offset(-(height  - 58));
         }];
         [self.view layoutIfNeeded];
     }];
@@ -236,7 +236,6 @@ static NSString *idt = @"cell";
     InputCell *cell = [tableView dequeueReusableCellWithIdentifier:idt forIndexPath:indexPath];
     cell.model = self.dataArr[indexPath.section][indexPath.row];
     cell.delegate = self;
-  
     return cell;
 }
 
@@ -254,7 +253,7 @@ static NSString *idt = @"cell";
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.footerView.mas_top).offset(-10);
+            make.bottom.equalTo(self.view).offset(-60);
         }];
     }
     return _tableview;

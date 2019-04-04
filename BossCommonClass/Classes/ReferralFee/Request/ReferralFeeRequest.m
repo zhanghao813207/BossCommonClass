@@ -81,8 +81,12 @@
     [NNBBasicRequest postJsonNoneWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:paramDic CMD:subStr success:^(id responseObject) {
         successBlock([InputMessageModel mj_objectWithKeyValues:responseObject]);
     } fail:^(id error) {
-        NSDictionary *dic = error;
-        failBlock(dic[@"zh_message"]);
+        if (error) {
+//            NSDictionary *dic = error;
+//            failBlock(dic[@"zh_message"]);
+            failBlock(@"操作失败");
+        }
+        
     }];
 }
 //internal_recommend.internal_recommend_staff.find
