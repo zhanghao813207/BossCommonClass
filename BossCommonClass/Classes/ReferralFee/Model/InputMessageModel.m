@@ -70,7 +70,7 @@
 - (BOOL)getSkip:(InputType)type {
     switch (type) {
         case InputTypeRole:
-            return true;
+            return false;
             break;
         case InputTypeName:
             return true;

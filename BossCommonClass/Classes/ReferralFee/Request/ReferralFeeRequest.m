@@ -146,7 +146,11 @@
             model.identity_card_id = @"未填写";
         }
         NSArray *arr2 = [NSArray array];
-       
+        NSString *path = [QH_Bundle pathForResource:@"cities" ofType:@"json"];
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    
+        NSLog(@"%@",arr);
         if (entry) {
             arr2 =@[model.name,model.ageStr,model.detailed_address,model.biz_district_name,model.phone,model.working_stateStr,model.work_experienceStr,model.identity_card_id];
         }else {
