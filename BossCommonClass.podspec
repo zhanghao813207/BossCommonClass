@@ -34,10 +34,10 @@ these are common classes,they are used by boss system.
 
   s.source_files = 'BossCommonClass/Classes/**/*'
   s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
-  # s.resource_bundles = {
-  #   'BossCommonClass' => ['BossCommonClass/Assets/*.png']
-  # }
-
+   s.resource_bundles = {
+     'BossCommonClass' => ['BossCommonClass/Assets/*'],
+   }
+   
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'BasicCommonClass', '~> 0.4.4'
@@ -45,5 +45,6 @@ these are common classes,they are used by boss system.
   s.dependency 'Qiniu', '~> 7.1'
   s.dependency 'BGFMDB', '~> 1.51'
   s.dependency 'Masonry'
-
+  s.dependency 'SGPagingView', '~> 1.6.0'
+  s.dependency 'MJExtension'
 end
