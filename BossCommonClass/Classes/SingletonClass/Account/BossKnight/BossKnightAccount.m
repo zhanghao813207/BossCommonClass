@@ -222,6 +222,7 @@
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
+        kCache.isFirstHealCertificate = YES;
         kCurrentBossKnightAccount = nil;
         if (!confirmBlock) {
             return;
