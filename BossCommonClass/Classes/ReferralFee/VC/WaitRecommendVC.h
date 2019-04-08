@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)BOOL isEditing;
 @property(nonatomic, weak)id<WaitRecommendVCDelgate>delegate;
 - (void)updateWithIds:(NSArray *)ids;
+- (void)refresh;
+
 @end
 
 NS_ASSUME_NONNULL_END

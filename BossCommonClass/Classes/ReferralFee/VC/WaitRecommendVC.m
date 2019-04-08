@@ -22,6 +22,10 @@
 @property(nonatomic, assign)NSInteger requestPage;
 
 @property(nonatomic, assign)NSInteger currentPage;
+/**
+ 判断能不能上拉
+ */
+@property(nonatomic, assign)BOOL hasMore;
 @end
 
 @implementation WaitRecommendVC
@@ -63,6 +67,7 @@
  */
 
 - (void)refresh {
+    [self.recommendView headerFresh];
     [self getData];
 }
 
@@ -71,18 +76,30 @@
         self.currentPage = 1;
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
+    } meta:^(id  _Nonnull meta) {
+        NSLog(@"%@",meta);
+        BOOL hasMore = [meta[@"has_more"] boolValue];
+        self.hasMore = hasMore;
+        
     } fail:^{
         
     }];
 }
 
 - (void)getMore {
+    if (self.hasMore == false) {
+        [self.recommendView noDataView];
+        return;
+    }
     self.requestPage = self.currentPage + 1;
     [ReferralFeeRequest recommendList:1 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
         self.currentPage = self.requestPage;
         //        [self.dataArrM addObjectsFromArray:listModel];
         [self.dataArrM addObjectsFromArray:listModel];
         self.recommendView.dataArr = self.dataArrM;
+        
+    } meta:^(id  _Nonnull meta) {
+        
     } fail:^{
         
     }];

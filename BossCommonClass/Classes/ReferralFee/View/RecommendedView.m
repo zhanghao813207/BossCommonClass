@@ -24,6 +24,7 @@
  */
 @property(nonatomic, strong)NSMutableArray *selecArr;
 @property(nonatomic, strong)SelectTabbarView *selectView;
+@property(nonatomic, strong)UILabel *nodataLabel;
 @end
 
 @implementation RecommendedView
@@ -38,6 +39,12 @@ static NSString *identifier = @"cell";
     }
     return self;
 }
+- (void)headerFresh {
+    [self.tableview.mj_header beginRefreshingWithCompletionBlock:^{
+        [self.tableview.mj_header endRefreshing];
+    }];
+}
+
 - (void)setIsEditing:(BOOL)isEditing {
     _isEditing = isEditing;
     NSLog(@"%d",isEditing);
@@ -215,6 +222,34 @@ static NSString *identifier = @"cell";
     if (self.isEditing) {
         self.selectView.modelArr = dataArr;
     }
+    if (dataArr.count > 0) {
+        self.nodataLabel.hidden = true;
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self).offset(0);
+        }];
+    }
     [self.tableview reloadData];
+}
+- (void)noDataView {
+    _tableview.mj_footer = nil;
+    self.nodataLabel.hidden = false;
+    [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(-20);
+    }];
+}
+- (UILabel *)nodataLabel {
+    if (_nodataLabel == nil) {
+        _nodataLabel = [[UILabel alloc] init];
+        _nodataLabel.backgroundColor = [UIColor whiteColor];
+        _nodataLabel.hidden = true;
+        _nodataLabel.textAlignment = NSTextAlignmentCenter;
+        _nodataLabel.text = @"没有更多数据";
+        [self addSubview:_nodataLabel];
+        [_nodataLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self);
+            make.bottom.equalTo(self).offset(-40);
+        }];
+    }
+    return _nodataLabel;
 }
 @end

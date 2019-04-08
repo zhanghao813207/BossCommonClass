@@ -86,7 +86,7 @@
 }
 //internal_recommend.internal_recommend_staff.find
 //1:已保存 10:已推荐 100:已入职 state
-+ (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
++ (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock  meta:(void(^)(id meta))metaBlock fail:(void(^)(void))failBlock {
    
     NSDictionary *dic = @{@"state":@(state),
                           @"_meta": @{
@@ -106,6 +106,7 @@
 //                return ;
 //            }
 //        }
+        metaBlock(dic[@"_meta"]);
         NSArray *modelArr = [RecommendedModel  mj_objectArrayWithKeyValuesArray:dic[@"data"]];
         successBlock(modelArr);
     } fail:^(id error) {
