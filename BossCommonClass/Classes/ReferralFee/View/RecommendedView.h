@@ -36,12 +36,19 @@ NS_ASSUME_NONNULL_BEGIN
  是否从已推荐跳入
  */
 @property(nonatomic, assign)BOOL isFinish;
+
+/**
+ 是否有上拉
+ */
+@property(nonatomic, assign)BOOL isHasmore;
+
 - (void)headerFresh;
 
 /**
  上拉没有更多数据
  */
-- (void)noDataView;
+- (void)noDataViewCount:(NSInteger)count;
+
 @end
 
 NS_ASSUME_NONNULL_END
