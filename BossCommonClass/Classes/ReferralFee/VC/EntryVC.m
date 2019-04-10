@@ -48,10 +48,7 @@
 
 
 - (void)getMore {
-    if (self.hasMore == false) {
-        [self.recommendView noDataView];
-        return;
-    }
+
     self.requestPage = self.currentPage + 1;
    
     [ReferralFeeRequest recommendList:100 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
@@ -60,7 +57,7 @@
         [self.dataArrM addObjectsFromArray:listModel];
         self.recommendView.dataArr = self.dataArrM;
     } meta:^(id  _Nonnull meta) {
-        
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];
@@ -72,8 +69,9 @@
         self.recommendView.dataArr = self.dataArrM;
         
     } meta:^(id  _Nonnull meta) {
-        BOOL hasMore = [meta[@"has_more"] boolValue];
-        self.hasMore = hasMore;
+        NSInteger count = [meta[@"result_count"] integerValue];
+        [self.recommendView noDataViewCount:count];
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];
