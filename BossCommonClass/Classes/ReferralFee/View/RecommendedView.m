@@ -13,6 +13,7 @@
 #import "ReferralFeeRequest.h"
 #import "UIView+GetVC.h"
 #import "MJRefresh.h"
+#import "NotDateEmptyView.h"
 
 
 @interface RecommendedView ()<UITableViewDelegate,UITableViewDataSource,RecommendedCellDelegate,SelectTabbarViewDelegate>
@@ -24,7 +25,7 @@
  */
 @property(nonatomic, strong)NSMutableArray *selecArr;
 @property(nonatomic, strong)SelectTabbarView *selectView;
-@property(nonatomic, strong)UILabel *nodataLabel;
+@property (nonatomic, strong) NotDateEmptyView *emptyView;
 @end
 
 @implementation RecommendedView
@@ -222,34 +223,30 @@ static NSString *identifier = @"cell";
     if (self.isEditing) {
         self.selectView.modelArr = dataArr;
     }
-    if (dataArr.count > 0) {
-        self.nodataLabel.hidden = true;
-        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self).offset(0);
-        }];
-    }
     [self.tableview reloadData];
 }
-- (void)noDataView {
-    _tableview.mj_footer = nil;
-    self.nodataLabel.hidden = false;
-    [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-20);
-    }];
-}
-- (UILabel *)nodataLabel {
-    if (_nodataLabel == nil) {
-        _nodataLabel = [[UILabel alloc] init];
-        _nodataLabel.backgroundColor = [UIColor whiteColor];
-        _nodataLabel.hidden = true;
-        _nodataLabel.textAlignment = NSTextAlignmentCenter;
-        _nodataLabel.text = @"没有更多数据";
-        [self addSubview:_nodataLabel];
-        [_nodataLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self);
-            make.bottom.equalTo(self).offset(-40);
-        }];
+- (void)noDataViewCount:(NSInteger)count {
+    if (count == 0) {
+        self.tableview.mj_footer = nil;
+        self.tableview.tableFooterView = self.emptyView;
     }
-    return _nodataLabel;
+    
+}
+- (void)setIsHasmore:(BOOL)isHasmore {
+    _isHasmore = isHasmore;
+    if (isHasmore) {
+        self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
+    }else {
+        self.tableview.mj_footer = nil;
+    }
+}
+- (NotDateEmptyView *)emptyView
+{
+    if (!_emptyView) {
+        CGRect rect = self.bounds;
+        //        rect.size.height -= 40;
+        _emptyView = [[NotDateEmptyView alloc] initWithFrame:rect theImageViewOrigin:150 theImageAddTitleSpace:0 imageName:nil imageSize:CGSizeZero title:@"暂无信息" isType:NotDateEmptyViewTypeIsUpImageDownTitle];
+    }
+    return _emptyView;
 }
 @end
