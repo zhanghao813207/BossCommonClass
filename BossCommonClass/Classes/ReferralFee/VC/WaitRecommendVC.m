@@ -78,19 +78,16 @@
         self.recommendView.dataArr = self.dataArrM;
     } meta:^(id  _Nonnull meta) {
         NSLog(@"%@",meta);
-        BOOL hasMore = [meta[@"has_more"] boolValue];
-        self.hasMore = hasMore;
-        
+        NSInteger count = [meta[@"result_count"] integerValue];
+        [self.recommendView noDataViewCount:count];
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];
 }
 
 - (void)getMore {
-    if (self.hasMore == false) {
-        [self.recommendView noDataView];
-        return;
-    }
+  
     self.requestPage = self.currentPage + 1;
     [ReferralFeeRequest recommendList:1 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
         self.currentPage = self.requestPage;
@@ -99,7 +96,7 @@
         self.recommendView.dataArr = self.dataArrM;
         
     } meta:^(id  _Nonnull meta) {
-        
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];
