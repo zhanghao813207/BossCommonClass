@@ -337,12 +337,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BossCommonClass_Example/Pods-BossCommonClass_Example-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/BossCommonClass/BossCommonClass.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BossCommonClass.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
