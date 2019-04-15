@@ -47,4 +47,5 @@ these are common classes,they are used by boss system.
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.0'
   s.dependency 'MJExtension'
+  s.dependency 'MJRefresh'
 end

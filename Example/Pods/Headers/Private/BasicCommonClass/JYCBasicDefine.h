@@ -1,1 +1,0 @@
-../../../BasicCommonClass/BasicCommonClass/Classes/AllDefine/JYCBasicDefine.h
