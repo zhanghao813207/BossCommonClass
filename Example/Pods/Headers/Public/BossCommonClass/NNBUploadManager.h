@@ -1,1 +1,0 @@
-../../../../../BossCommonClass/Classes/SingletonClass/NNBUploadManager/NNBUploadManager.h
