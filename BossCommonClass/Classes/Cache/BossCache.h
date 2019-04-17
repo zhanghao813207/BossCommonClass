@@ -23,7 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL localConfig;
 
+@property (nonatomic, strong, nullable) NSDictionary *netConfig;
+
 @property (nonatomic, readonly) NSString *url;
+
+@property (nonatomic, readonly) NSString *accessKey;
+
+@property (nonatomic, readonly) NSString *secretKey;
+
+@property (nonatomic, readonly) NSString *accessToken;
 
 @property (nonatomic, strong, nullable) SaasModel *currentSaasModel;
 
@@ -56,6 +64,10 @@ NS_ASSUME_NONNULL_BEGIN
  最后一次登录手机号
  */
 @property (nonatomic, strong) NSString *lastLoginPhone;
+
+- (void)initNetConfig:(nullable SaasModel *)saasModel;
+
+- (NSString *)getUrlByApiVersion:(NSString *)apiVersion;
 
 - (void)addAccount:(NSDictionary *)accountDic;
 

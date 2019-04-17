@@ -50,9 +50,10 @@ static BossCache *defaultCache = nil;
 - (void)setCurrentSaasModel:(SaasModel *)currentSaasModel
 {
     _currentSaasModel = currentSaasModel;
-    
-    [kUserDefault setObject:[_currentSaasModel decodeToDic] forKey:SAAS_KEY];
-    [kUserDefault synchronize];
+    if(_currentSaasModel){
+        [kUserDefault setObject:[_currentSaasModel decodeToDic] forKey:SAAS_KEY];
+        [kUserDefault synchronize];
+    }
 }
 
 - (BossKnightAccount *)currentKnightAccount
@@ -154,12 +155,44 @@ static BossCache *defaultCache = nil;
     [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
+- (void)initNetConfig:(nullable SaasModel *)saasModel
+{
+    _netConfig = saasModel ? @{
+                               @"url":saasModel.url,
+                               @"accessKey":saasModel.access_key,
+                               @"secretKey":saasModel.secret_key
+                               } : nil;
+}
+
 - (NSString *)url
 {
-    if(self.currentSaasModel){
-        return self.currentSaasModel.url;
-    }
+    return [defaultCache getUrlByApiVersion:@"/2.0"];
+}
+
+- (NSString *)getUrlByApiVersion:(NSString *)apiVersion
+{
+    return _netConfig ? [NSString stringWithFormat:@"%@%@", [_netConfig objectForKey:@"url"], apiVersion] : BossBasicURLV2;
+}
+
+- (NSString *)accessKey
+{
+    return _netConfig ? [_netConfig objectForKey:@"accessKey"] : ACCESS_KEY;
+}
+
+- (NSString *)secretKey
+{
+    return _netConfig ? [_netConfig objectForKey:@"secretKey"] : SECRET_KEY;
+}
+
+- (NSString *)accessToken
+{
+#ifdef kBossKnight
+    return self.currentKnightAccount.tokenModel.access_token;
+#elif defined kBossManager
+    return self.currentManagerAccount.tokenModel.access_token;
+#else
     return @"";
+#endif
 }
 
 - (BOOL)checkLogin

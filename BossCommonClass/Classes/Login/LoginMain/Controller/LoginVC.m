@@ -81,7 +81,8 @@
 {
     _currentOperatingView = MerchantCodeView;
     kLocalConfig = YES;
-    NNBRequestManager.shareNNBRequestManager.saasModel = nil;
+    // NNBRequestManager.shareNNBRequestManager.saasModel = nil;
+    [kCache initNetConfig:nil];
     self.inputMerchantCodeView.merchantCode = merchantCode;
     [self showView:self.inputMerchantCodeView showBack:kCache.showBackMerchantCode commplete:nil];
     self.inputPhoneNumberView.hidden = YES;
@@ -92,7 +93,8 @@
 {
     _currentOperatingView = PhoneNumberView;
     kLocalConfig = NO;
-    NNBRequestManager.shareNNBRequestManager.saasModel = saasModel;
+    // NNBRequestManager.shareNNBRequestManager.saasModel = saasModel;
+    [kCache initNetConfig:saasModel];
     self.inputPhoneNumberView.saasModel = saasModel;
     
     self.inputPhoneNumberView.phoneNumber = phoneNumber;
@@ -121,7 +123,8 @@
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
         case MerchantCodeView:
-            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
+//            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
+            [kCache initNetConfig:kCache.currentSaasModel];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 kLocalConfig = NO;
                 kCache.showBackMerchantCode = NO;
@@ -355,9 +358,8 @@
                 // 显示加载对话框
                 [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                 // 登陆请求
-                [NNBAuthRequest authRequestLoginWithPhoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
+                [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
                     
-                    kCache.currentSaasModel = weakSelf.saasModel;
                     // 登陆成功
                     // 隐藏对话框
                     [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
