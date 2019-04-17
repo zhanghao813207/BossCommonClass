@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EntryVC : UIViewController
 @property(nonatomic, assign)BOOL isEditing;
+- (void)update;
 @end
 
 NS_ASSUME_NONNULL_END

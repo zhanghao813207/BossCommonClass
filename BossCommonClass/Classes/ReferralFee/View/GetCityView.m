@@ -47,7 +47,9 @@ typedef NS_ENUM(NSInteger,AddressType) {
 @property(nonatomic, strong)UIView *lineView;
 
 @property(nonatomic, strong)UIView *indexView;
-
+@property(nonatomic, assign)NSInteger proIndex;
+@property(nonatomic, assign)NSInteger cityIndex;
+@property(nonatomic, assign)NSInteger arearIndex;
 @property(nonatomic, assign)NSInteger index;
 
 @end
@@ -171,6 +173,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         self.isProvince = true;
         self.isCity = false;
         self.isArear = false;
+        self.index = self.proIndex;
     }else if (button.tag == 20) {//市
         self.provinceButton.hidden = false;
         self.cityButton.hidden = false;
@@ -179,6 +182,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         self.isProvince = false;
         self.isCity = true;
         self.isArear = false;
+        self.index = self.cityIndex;
     }else {//区
         self.provinceButton.hidden = false;
         self.cityButton.hidden = false;
@@ -186,6 +190,7 @@ typedef NS_ENUM(NSInteger,AddressType) {
         self.isProvince = false;
         self.isCity = false;
         self.isArear = true;
+        self.index = self.arearIndex;
     }
     [self.tableview reloadData];
 }
@@ -344,10 +349,13 @@ typedef NS_ENUM(NSInteger,AddressType) {
         self.type = AddressTypeCity;
         self.cityButton.hidden = true;
         self.arearButton.hidden = true;
+        self.proIndex = indexPath.row;
+        self.index = -1;
         [self.provinceButton setTitle:provinceModel.value forState:UIControlStateNormal];
     }else if(self.isCity) {
         QH_CityModel *cityModel = self.datArr[indexPath.row];
         self.datArr = cityModel.children;
+        self.cityIndex = indexPath.row;
         self.isCity = false;
         self.cityModel = cityModel;
         self.type = AddressTypeArear;
@@ -355,14 +363,17 @@ typedef NS_ENUM(NSInteger,AddressType) {
         [self.cityButton setTitle:cityModel.value forState:UIControlStateNormal];
 //        self.provinceButton.hidden = true;
         self.arearButton.hidden = true;
+        self.index = -1;
     }else {
         QH_ArearModel *arearModel = self.datArr[indexPath.row];
         self.isArear = true;
         self.arearModel = arearModel;
         self.arearButton.hidden = false;
+        self.arearIndex = indexPath.row;
+        self.index = indexPath.row;
         [self.arearButton setTitle:arearModel.value forState:UIControlStateNormal];
     }
-    self.index = indexPath.row;
+//    self.index = indexPath.row;
     [tableView reloadData];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -13,6 +13,7 @@
 #import "ReferralFeeRequest.h"
 #import "UIView+GetVC.h"
 #import "MJRefresh.h"
+#import "NotDateEmptyView.h"
 
 
 @interface RecommendedView ()<UITableViewDelegate,UITableViewDataSource,RecommendedCellDelegate,SelectTabbarViewDelegate>
@@ -24,6 +25,7 @@
  */
 @property(nonatomic, strong)NSMutableArray *selecArr;
 @property(nonatomic, strong)SelectTabbarView *selectView;
+@property (nonatomic, strong) NotDateEmptyView *emptyView;
 @end
 
 @implementation RecommendedView
@@ -38,6 +40,12 @@ static NSString *identifier = @"cell";
     }
     return self;
 }
+- (void)headerFresh {
+    [self.tableview.mj_header beginRefreshingWithCompletionBlock:^{
+        [self.tableview.mj_header endRefreshing];
+    }];
+}
+
 - (void)setIsEditing:(BOOL)isEditing {
     _isEditing = isEditing;
     NSLog(@"%d",isEditing);
@@ -216,5 +224,29 @@ static NSString *identifier = @"cell";
         self.selectView.modelArr = dataArr;
     }
     [self.tableview reloadData];
+}
+- (void)noDataViewCount:(NSInteger)count {
+    if (count == 0) {
+        self.tableview.mj_footer = nil;
+        self.tableview.tableFooterView = self.emptyView;
+    }
+    
+}
+- (void)setIsHasmore:(BOOL)isHasmore {
+    _isHasmore = isHasmore;
+    if (isHasmore) {
+        self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
+    }else {
+        self.tableview.mj_footer = nil;
+    }
+}
+- (NotDateEmptyView *)emptyView
+{
+    if (!_emptyView) {
+        CGRect rect = self.bounds;
+        //        rect.size.height -= 40;
+        _emptyView = [[NotDateEmptyView alloc] initWithFrame:rect theImageViewOrigin:150 theImageAddTitleSpace:0 imageName:nil imageSize:CGSizeZero title:@"暂无信息" isType:NotDateEmptyViewTypeIsUpImageDownTitle];
+    }
+    return _emptyView;
 }
 @end

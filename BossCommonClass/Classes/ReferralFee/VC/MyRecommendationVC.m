@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
 @property (nonatomic, strong) SGPageContentCollectionView *pageContentCollectionView;
 @property(nonatomic, strong)WaitRecommendVC *waitVc;
 @property(nonatomic, strong)FinishRecommendVC *finishVC;
+@property(nonatomic, strong)EntryVC *entryVC;
 /**
  记录当前所在的控制器
  */
@@ -92,11 +93,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     self.VCType = SubVCTypeWait;
 //    CGFloat statusHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     CGFloat pageTitleViewY = 0;
-//    if (statusHeight == 20.0) {
-//        pageTitleViewY = 64;
-//    } else {
-//        pageTitleViewY = 88;
-//    }
+
     
     NSArray *titleArr = @[@"待推荐", @"已推荐", @"已入职"];
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
@@ -116,11 +113,11 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     self.waitVc .isEditing = false;
     self.finishVC = [[FinishRecommendVC alloc] init];
     self.finishVC.isEditing = false;
-    EntryVC *threeVC = [[EntryVC alloc] init];
-    threeVC.isEditing = false;
+    self.entryVC = [[EntryVC alloc] init];
+    self.entryVC.isEditing = false;
     
  
-    NSArray *childArr = @[self.waitVc, self.finishVC, threeVC];
+    NSArray *childArr = @[self.waitVc, self.finishVC, self.entryVC];
     /// pageContentCollectionView
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
     self.pageContentCollectionView = [[SGPageContentCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), self.view.frame.size.width, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
@@ -131,12 +128,21 @@ typedef NS_ENUM(NSInteger, SubVCType) {
 }
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
+    
     self.VCType = selectedIndex;
-    if (selectedIndex == 0 || selectedIndex == 1) {
+    if (selectedIndex == 0) {
         [self setRightItem];
+        [self.waitVc refresh];
+    }else if (selectedIndex == 1) {
+        [self setRightItem];
+        [self.finishVC update];
     }else {
+        [self.entryVC update];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
     }
+    
+    
+    
     [self.pageContentCollectionView setPageContentCollectionViewCurrentIndex:selectedIndex];
 }
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
