@@ -81,11 +81,12 @@ typedef NS_ENUM(NSUInteger, FlowStates) {
 };
 
 typedef NS_ENUM(NSUInteger, RecruitmentChannelId) {
-    RecruitmentChannelIdThird        = 5001, // 第三方
-    RecruitmentChannelIdPersonal     = 5002, // 个人推荐
-    RecruitmentChannelIdOther        = 5003, // 其他
-    RecruitmentChannelIdTransfer     = 5004, // 转签
-    RecruitmentChannelIdInternal     = 5005, // 内部推荐
+    RecruitmentChannelIdThird                      = 5001, // 第三方
+    RecruitmentChannelIdPersonal                   = 5002, // 个人推荐
+    RecruitmentChannelIdOther                      = 5003, // 其他
+    RecruitmentChannelIdTransfer                   = 5004, // 转签
+    RecruitmentChannelIdInternal                   = 5005, // 内部推荐
+    RecruitmentChannelIdThirdPromotionPlatform     = 5006  // 三方推广平台
 };
 
 typedef NS_ENUM(NSUInteger, PaymentTypes) {
