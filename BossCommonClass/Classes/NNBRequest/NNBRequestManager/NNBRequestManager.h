@@ -7,7 +7,6 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import "SaasModel.h"
 
 UIKIT_EXTERN float const kNetworkTimeoutInterval;
 
