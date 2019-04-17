@@ -19,9 +19,9 @@
 // 是否启用本地配置
 #define kLocalConfig kCache.localConfig
 
-#define kUrlApiVersion(apiVersion) ([[NNBRequestManager shareNNBRequestManager] getUrlByApiVersion:apiVersion])
+#define kUrlApiVersion(apiVersion) ([kCache getUrlByApiVersion:apiVersion])
 
-#define kUrl [NNBRequestManager shareNNBRequestManager].url
+#define kUrl kCache.url
 
 /**
  字体

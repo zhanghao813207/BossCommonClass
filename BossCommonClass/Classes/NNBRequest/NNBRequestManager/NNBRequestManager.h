@@ -20,12 +20,6 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
  */
 + (__kindof NNBRequestManager *)shareNNBRequestManager;
 
-@property (nonatomic, strong) SaasModel *saasModel;
-
-@property (nonatomic, readonly) NSString *url;
-
-- (NSString *)getUrlByApiVersion:(NSString *)apiVersion;
-
 /**
  添加token
 
