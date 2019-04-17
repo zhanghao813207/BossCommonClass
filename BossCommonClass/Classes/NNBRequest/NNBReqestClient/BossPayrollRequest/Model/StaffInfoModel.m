@@ -122,6 +122,9 @@
         case StaffStateTerminated:
             _stateString = @"已解约";
             break;
+        default:
+            _stateString = @"未知";
+            break;
     }
     return _stateString;
 }

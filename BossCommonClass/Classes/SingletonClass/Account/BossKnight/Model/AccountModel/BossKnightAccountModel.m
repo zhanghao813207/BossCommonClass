@@ -99,6 +99,8 @@
         case StaffStateTerminated:
             _staffStateString = @"已解约";
             break;
+        default:
+            _staffStateString = @"未知";
     }
     return _staffStateString;
 }
@@ -116,7 +118,7 @@
             _genderString = @"女";
             break;
         default:
-            _genderString = @"";
+            _genderString = @"未知";
             break;
     }
     return _genderString;
@@ -131,6 +133,8 @@
         case StaffIndividualTypeB:
             _individualTypeStr = @"乙类";
             break;
+        default:
+            _individualTypeStr = @"未知";
     }
     return _individualTypeStr;
 }
@@ -153,6 +157,11 @@
         case RecruitmentChannelIdInternal:
             _recruitmentChannelStr = @"内部推荐";
             break;
+        case RecruitmentChannelIdThirdPromotionPlatform:
+            _recruitmentChannelStr = @"三方推广平台";
+            break;
+        default:
+            _recruitmentChannelStr = @"未知";
     }
     return _recruitmentChannelStr;
 }
