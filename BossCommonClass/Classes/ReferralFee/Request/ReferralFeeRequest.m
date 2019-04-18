@@ -14,6 +14,7 @@
 #import "RecommendDetailModel.h"
 #import "InputMessageModel.h"
 #import "MJExtension.h"
+#import "BossBasicDefine.h"
 
 @implementation ReferralFeeRequest
 ////提交 yes 是提交  no 是保存
