@@ -320,8 +320,8 @@
 
 - (BOOL)checkUserInfoReSubmit
 {
-    // 待签约 | 待换签 | 解约中-未签字
-    return self.state == StaffStatePendingSign | self.state == StaffStateWaitingRenewal | (self.state == StaffStateDeparture && self.departure_state == DepartureStateNotSign);
+    // 待签约 | 待换签 | 待续签 | 待补签 | 解约中-未签字
+    return self.state == StaffStatePendingSign | self.state == StaffStateWaitingRenewal | self.state == StaffStateRenewaled | self.state == StaffStateRepairSign | (self.state == StaffStateDeparture && self.departure_state == DepartureStateNotSign);
 }
 
 - (NSString *)getHealthCertificateStartDate
