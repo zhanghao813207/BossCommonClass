@@ -90,6 +90,9 @@
         case StaffStateRenewaled:
             _staffStateString = @"已签约-待续签";
             break;
+        case StaffStateRepairSign:
+            _staffStateString = @"已签约-待补签";
+            break;
         case StaffStateDeparture:
             _staffStateString = @"解约中";
             break;
