@@ -10,7 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnouncementTextView : UITextView
-
+@property(nonatomic, copy) NSString *placeholder;
+@property(nonatomic, strong) UIColor *placeholderColor;
 @end
 
 NS_ASSUME_NONNULL_END

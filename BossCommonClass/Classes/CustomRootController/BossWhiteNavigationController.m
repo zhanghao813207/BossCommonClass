@@ -55,6 +55,9 @@
 //push的时候将手势禁用
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    if (self.viewControllers.count > 0) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
     [super pushViewController:viewController animated:animated];
     if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1)
     {

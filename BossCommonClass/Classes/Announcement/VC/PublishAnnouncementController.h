@@ -9,8 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PublishAnnouncementController : UIViewController
+@protocol PublishAnnouncementControllerDelegate <NSObject>
 
+- (void)publishSuccess;
+
+@end
+
+@interface PublishAnnouncementController : UIViewController
+@property(nonatomic, weak)id<PublishAnnouncementControllerDelegate>delegate;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,3 +1,5 @@
+
+
 //
 //  PublishAnnouncementController.m
 //  AFNetworking
@@ -6,26 +8,46 @@
 //
 
 #import "PublishAnnouncementController.h"
-
-@interface PublishAnnouncementController ()
-
+#import "PublishAnnouncementView.h"
+#import "JYCMethodDefine.h"
+@interface PublishAnnouncementController ()<PublishAnnouncementViewDelegate>
+@property(nonatomic, strong)PublishAnnouncementView *publishView;
 @end
 
 @implementation PublishAnnouncementController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = kHexRGBA(0x000000, 0.5);
+    self.navigationController.navigationBarHidden = true;
+    [self publishView];
+    NSLog(@"%@",self.navigationController);
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//PublishAnnouncementViewDelegate
+- (void)publishSuccess {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(publishSuccess)]) {
+        [self.delegate publishSuccess];
+    }
+    [self.navigationController popViewControllerAnimated:false];
 }
-*/
-
+/**
+ 创建发布公告界面
+ */
+- (PublishAnnouncementView *)publishView {
+    if (_publishView == nil) {
+        _publishView = [[PublishAnnouncementView alloc] initWithFrame:self.view.bounds];
+        _publishView.delegate = self;
+        [self.view addSubview:_publishView];
+        __weak typeof(self)weakself = self;
+        _publishView.dismissBlock = ^(PublishAnnouncementView * _Nonnull view) {
+            [weakself dismissViewControllerAnimated:true completion:^{
+                
+            }];
+        };
+    }
+    return _publishView;
+}
+- (void)dealloc {
+    
+}
 @end

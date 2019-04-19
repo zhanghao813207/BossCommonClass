@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddImageView : UIView
-
+- (void)addImage:(UIImage *)image;
 @end
 
 NS_ASSUME_NONNULL_END

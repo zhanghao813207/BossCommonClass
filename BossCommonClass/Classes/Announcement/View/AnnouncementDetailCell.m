@@ -11,7 +11,7 @@
 #import "UIImageView+WebCache.h"
 
 @interface AnnouncementDetailCell()
-@property(nonatomic, strong)UIImageView *imgView;
+
 @end
 
 @implementation AnnouncementDetailCell
@@ -28,6 +28,9 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
+        _imgView.userInteractionEnabled = true;
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+        [_imgView addGestureRecognizer:tapGesture];
         [self.contentView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
@@ -38,6 +41,11 @@
         }];
     }
     return _imgView;
+}
+- (void)tapAction {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(imgClick:)]) {
+        [self.delegate imgClick:self.testImgStr];
+    }
 }
 - (void)setTestImgStr:(NSArray *)testImgStr {
     _testImgStr = testImgStr;

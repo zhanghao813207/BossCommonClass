@@ -26,6 +26,8 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/ALAsset.h>
 #import <Photos/Photos.h>
+#import "Masonry.h"
+#import "BossMethodDefine.h"
 
 @interface KNPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     UICollectionViewFlowLayout *_layout;
@@ -50,6 +52,8 @@
 @property (nonatomic, assign) CGPoint   startLocation;
 @property (nonatomic, assign) CGRect    startFrame;
 
+@property(nonatomic, strong)UIButton *deleteButton;
+
 @end
 
 @implementation KNPhotoBrowser
@@ -60,10 +64,43 @@
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         self.modalPresentationStyle = UIModalPresentationCustom;
         _statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+        [self deleteButton];
     }
     return self;
 }
-
+- (UIButton *)deleteButton {
+    if (_deleteButton == nil) {
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _deleteButton.backgroundColor = [UIColor blackColor];
+        UIImage *image = [UIImage imageNamed:@"remove" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        [_deleteButton setImage:image forState:UIControlStateNormal];
+        [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_deleteButton];
+        [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(-60);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
+        }];
+    }
+    return _deleteButton;
+}
+- (void)deleteAction { // Delete image
+    
+    // relative index
+    if([self.delegate respondsToSelector:@selector(photoBrowserRightOperationDeleteImageSuccessWithRelativeIndex:)]){
+        [self.delegate photoBrowserRightOperationDeleteImageSuccessWithRelativeIndex:self.currentIndex];
+    }
+    
+    // absolute index
+    KNPhotoItems *items = self.itemsArr[self.currentIndex];
+    NSInteger index = [self->_tempArr indexOfObject:items];
+    if([self.delegate respondsToSelector:@selector(photoBrowserRightOperationDeleteImageSuccessWithAbsoluteIndex:)]){
+        [self.delegate photoBrowserRightOperationDeleteImageSuccessWithAbsoluteIndex:index];
+    }
+    
+    // going to delete image
+    [self deleteImageDidClick];
+}
 - (BOOL)shouldAutorotate{
     return true;
 }
@@ -95,7 +132,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = false;
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self prefetchImage];
     [self initCollectionView];
@@ -225,6 +262,8 @@
 /* init right top Btn */
 - (void)initOperationView{
     UIButton *operationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ////暂时用不到先隐藏
+//    operationBtn.hidden = true;
     [operationBtn.layer setCornerRadius:3];
     [operationBtn.layer setMasksToBounds:YES];
     [operationBtn setBackgroundColor:[UIColor blackColor]];
@@ -743,17 +782,17 @@
                                         [[KNToast shareToast] initWithText:PhotoSaveImageFailureReason];
                                         return ;
                                     }else{
-                                        [[mgr imageCache] queryImageForKey:items.url options:SDWebImageRetryFailed context:nil completion:^(UIImage * _Nullable image, NSData * _Nullable data, SDImageCacheType cacheType) {
-                                            if([image images] != nil){
-                                                [weakSelf savePhotoToLocation:data];
-                                            }else{
-                                                if(image){
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        UIImageWriteToSavedPhotosAlbum(image, weakSelf, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-                                                    });
-                                                }
-                                            }
-                                        }];
+//                                        [[mgr imageCache] queryImageForKey:items.url options:SDWebImageRetryFailed context:nil completion:^(UIImage * _Nullable image, NSData * _Nullable data, SDImageCacheType cacheType) {
+//                                            if([image images] != nil){
+//                                                [weakSelf savePhotoToLocation:data];
+//                                            }else{
+//                                                if(image){
+//                                                    dispatch_async(dispatch_get_main_queue(), ^{
+//                                                        UIImageWriteToSavedPhotosAlbum(image, weakSelf, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+//                                                    });
+//                                                }
+//                                            }
+//                                        }];
                                     }
                                 }];
                             }else{ // locate image or sourceimage

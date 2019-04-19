@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TestBrowserView : UIView
-
+- (void)show:(CGRect)originFrame;
 @end
 
 NS_ASSUME_NONNULL_END

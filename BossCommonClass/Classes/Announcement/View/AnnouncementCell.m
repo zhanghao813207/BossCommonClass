@@ -14,16 +14,59 @@
 #import "JYCMethodDefine.h"
 
 @interface AnnouncementCell()
+
+
+/**
+ 大背景
+ */
+@property(nonatomic, strong)UIView *bgView;
+/**
+ 头像
+ */
 @property(nonatomic, strong)UIImageView *headerImgView;
 @property(nonatomic, strong)UIView *containerView;
 @property(nonatomic, strong)UILabel *hintLabel;
+
+/**
+ 内容的标题
+ */
 @property(nonatomic, strong)UILabel *titleLabel;
+
+/**
+ 内容
+ */
 @property(nonatomic, strong)UILabel *contentLabel;
+
+/**
+ 灰色的线
+ */
 @property(nonatomic, strong)UIView *lineView;
+
+/**
+ 查看详情
+ */
 @property(nonatomic, strong)UILabel *clickLabel;
+
+/**
+ 内容里面的图片
+ */
 @property(nonatomic, strong)UIImageView *imgView;
+
+/**
+ 进度背景
+ */
 @property(nonatomic, strong)UIView *progressBgView;
+
+/**
+ 进度
+ */
 @property(nonatomic, strong)UIView *progressView;
+
+/**
+ 时间
+ */
+@property(nonatomic, strong)UILabel *timeLable;
+@property(nonatomic, strong)UILabel *nameLable;
 @end
 
 @implementation AnnouncementCell
@@ -32,6 +75,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self bgView];
         [self headerImgView];
         [self containerView];
         [self imgView];
@@ -40,9 +84,27 @@
         [self clickLabel];
         [self progressBgView];
         [self progressView];
+        [self timeLable];
+        [self nameLable];
         self.contentView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:247 / 255.0 blue:249 / 255.0 alpha:1];
     }
     return self;
+}
+- (UIView *)bgView {
+    if (_bgView == nil) {
+        _bgView = [[UIView alloc] init];
+        _bgView.layer.cornerRadius = 20;
+        _bgView.layer.masksToBounds = true;
+        _bgView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:237 / 255.0 blue:239 / 255.0 alpha:0.2];
+        [self.contentView addSubview:_bgView];
+        [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(36);
+            make.right.equalTo(self.contentView).offset(-36);
+            make.top.equalTo(self.contentView).offset(10);
+            make.bottom.equalTo(self.contentView).offset(0);
+        }];
+    }
+    return _bgView;
 }
 - (UIImageView *)imgView {
     if (_imgView == nil) {
@@ -50,6 +112,7 @@
         [self.containerView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.containerView);
+//            make.height.equalTo(@150);
         }];
     }
     return _imgView;
@@ -112,7 +175,9 @@
 - (UIImageView *)headerImgView {
     if (_headerImgView == nil) {
         _headerImgView = [[UIImageView alloc] init];
-        _headerImgView.backgroundColor = [UIColor redColor];
+        _headerImgView.backgroundColor = [UIColor blackColor];
+        _headerImgView.layer.cornerRadius = 20;
+        _headerImgView.layer.masksToBounds = true;
         [self.contentView addSubview:_headerImgView];
         [_headerImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
@@ -121,6 +186,32 @@
         }];
     }
     return _headerImgView;
+}
+- (UILabel *)timeLable {
+    if (_timeLable == nil) {
+        _timeLable = [[UILabel alloc] init];
+        _timeLable.textColor = kHexRGBA(0x343339, 0.42);
+        _timeLable.font = [UIFont systemFontOfSize:12];
+//        _timeLable.alpha = 0.42;
+        _timeLable.text = @"时间";
+        [self.contentView addSubview:_timeLable];
+        
+    }
+    return _timeLable;
+}
+- (UILabel *)nameLable {
+    if (_nameLable == nil) {
+        _nameLable = [[UILabel alloc] init];
+        _nameLable.textColor = kHexRGBA(0x0B0817, 0.6);
+        _nameLable.font = [UIFont systemFontOfSize:12];
+        _nameLable.text = @"姓名";
+        [self.contentView addSubview:_nameLable];
+//        [_nameLable mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.containerView.mas_top).offset(-4);
+//            make.left.equalTo(self.contentView).offset(64);
+//        }];
+    }
+    return _nameLable;
 }
 - (UIView *)progressBgView {
     if (_progressBgView == nil) {
@@ -139,7 +230,7 @@
 - (UIView *)progressView {
     if (_progressView == nil) {
         _progressView = [[UIView alloc] init];
-        _progressView.backgroundColor = [UIColor greenColor];
+        _progressView.backgroundColor = kHexRGB(0x00BD9A);
         [self.containerView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
@@ -152,7 +243,7 @@
     if (_containerView == nil) {
         _containerView = [[UIView alloc] init];
         _containerView.backgroundColor = [UIColor whiteColor];
-        _containerView.layer.cornerRadius = 5;
+        _containerView.layer.cornerRadius = 12;
         _containerView.layer.masksToBounds = true;
         [self.contentView addSubview:_containerView];
         [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,13 +277,35 @@
         [self.headerImgView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset([UIScreen mainScreen].bounds.size.width - 56);
         }];
+      
         self.progressBgView.hidden = false;
-//        self.hintLabel.attributedText;
+        NSString *str1 = @"14";
+        NSString *str2 = @"15";
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@",str1,str2]];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
+        self.hintLabel.attributedText = attrStr;
+        [self.nameLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.containerView.mas_top).offset(-4);
+            make.right.equalTo(self.contentView).offset(-64);
+        }];
+        [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(64);
+            make.bottom.equalTo(self.nameLable);
+        }];
+//        self.hintLabel.text = @"123123";
     }else {
         self.progressBgView.hidden = true;
         self.hintLabel.text = @"已读/未读";
         [self.headerImgView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
+        }];
+        [self.nameLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.containerView.mas_top).offset(-4);
+            make.left.equalTo(self.contentView).offset(64);
+        }];
+        [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-64);
+            make.bottom.equalTo(self.nameLable);
         }];
     }
     self.progressView.hidden = self.progressBgView.hidden;

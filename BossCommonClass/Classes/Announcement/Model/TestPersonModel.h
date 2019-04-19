@@ -10,7 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TestPersonModel : NSObject
-
+@property(nonatomic, assign)BOOL isSelect;
+@property(nonatomic, copy)NSString *name;
 @end
 
 NS_ASSUME_NONNULL_END

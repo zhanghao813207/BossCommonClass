@@ -9,8 +9,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CameraView : UIView
+typedef NS_ENUM(NSInteger, PictureType) {
+    PictureTypeCamera = 99,///相机
+    PictureTypePhoto///相册
+};
 
+@protocol CameraViewDelegate <NSObject>
+
+- (void)pictureSelect:(PictureType)type;
+
+@end
+
+@interface CameraView : UIView
+@property(nonatomic, weak)id<CameraViewDelegate>delegate;
 @end
 
 NS_ASSUME_NONNULL_END

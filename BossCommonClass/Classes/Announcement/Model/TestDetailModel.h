@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TestDetailModel : NSObject
-
+@property(nonatomic, assign)BOOL isMe;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,5 +8,17 @@
 #import "UIAlertController+Extension.h"
 
 @implementation UIAlertController (Extension)
++ (instancetype)alertControllerWithTitle:(nullable NSString *)title message:(nullable NSString *)message  Titles:(NSArray *)titles leftClick:(ClickBlcok)left rightClick:(ClickBlcok)right; {
+    UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *leftAction = [UIAlertAction actionWithTitle:titles.firstObject style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        left(action);
+    }];
 
+    UIAlertAction *rightAction = [UIAlertAction actionWithTitle:titles.lastObject style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        right(action);
+    }];
+    [alerVC addAction:leftAction];
+    [alerVC addAction:rightAction];
+    return alerVC;
+}
 @end
