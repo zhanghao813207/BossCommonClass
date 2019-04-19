@@ -163,18 +163,12 @@
     btn.backgroundColor = [UIColor redColor];
     [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"];
-    NSLog(@"------ %@",bundlePath);
-    
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    
     UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 50, 50)];
-    UIImage *image = [UIImage imageNamed:@"icon_new_1" inBundle:bundle  compatibleWithTraitCollection:nil];
+    UIImage *image = [UIImage imageNamed:@"icon_new_1" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
     iv.image = image;
     [self.view addSubview:iv];
     [self.view addSubview:btn];
 }
-
 
 - (void)btnAction:(UIButton *)sender
 {
