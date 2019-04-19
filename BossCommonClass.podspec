@@ -48,4 +48,5 @@ these are common classes,they are used by boss system.
   s.dependency 'SGPagingView', '~> 1.6.0'
   s.dependency 'MJExtension'
   s.dependency 'MJRefresh'
+  s.dependency 'SDWebImage', '~> 4.1.0'
 end
