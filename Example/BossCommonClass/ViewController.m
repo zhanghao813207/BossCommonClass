@@ -158,21 +158,21 @@
 //
 //    [self performSelector:@selector(changeRect:) withObject:view afterDelay:10];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn.frame = CGRectMake(0, 200, 200, 50);
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"];
-    NSLog(@"------ %@",bundlePath);
-    
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    
-    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 50, 50)];
-    UIImage *image = [UIImage imageNamed:@"icon_new_1" inBundle:bundle  compatibleWithTraitCollection:nil];
-    iv.image = image;
-    [self.view addSubview:iv];
-    [self.view addSubview:btn];
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//    btn.frame = CGRectMake(0, 200, 200, 50);
+//    btn.backgroundColor = [UIColor redColor];
+//    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+////    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"];
+//    NSLog(@"------ %@",bundlePath);
+//    
+//    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+//    
+//    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 50, 50)];
+//    UIImage *image = [UIImage imageNamed:@"icon_new_1" inBundle:bundle  compatibleWithTraitCollection:nil];
+//    iv.image = image;
+//    [self.view addSubview:iv];
+//    [self.view addSubview:btn];
 }
 
 

@@ -8,6 +8,7 @@
 #import "BossKnightAccountModel.h"
 #import "JYCSimpleToolClass.h"
 
+
 @interface BossKnightAccountModel()
 
 @property (nonatomic, strong) NSString *postionIDString;
@@ -61,6 +62,20 @@
     
     if ([key isEqualToString:@"health_certificate_end"]) {
         self.health_certificate_end = [NSString stringWithFormat:@"%@", value];
+        return;
+    }
+    
+    if ([key isEqualToString:@"wallet"]) {
+        NSDictionary *dic = value;
+        BalanceMoneyModel *model = [[BalanceMoneyModel alloc] initWithDictionary: dic];
+        self.WalletModel = model;
+        return;
+
+    }
+    if ([key isEqualToString:@"wechat_account"]) {
+        NSDictionary *dic = value;
+        WeChatModel *model = [[WeChatModel alloc] initWithDictionary: dic];
+        self.WeChatModel = model;
         return;
     }
     
@@ -247,7 +262,6 @@
     }
     return YES;
 }
-
 - (BOOL)healthCertificateInfoIsPerfect
 {
     // 健康证(正面照片) & 健康证(背面照片)
@@ -404,7 +418,9 @@
                           @"bank_card_front_url":self.bank_card_front_url ? : @"",
                           @"operator_id":self.operator_id ? : @"",
                           @"job_transfer_remark":self.job_transfer_remark ? : @"",
-                          @"departure_state":@(self.departure_state)
+                          @"departure_state":@(self.departure_state),
+                          @"wallet":[self.WalletModel toDictionary] ? : @{},
+                          @"wechat_account":[self.WeChatModel toDictionary] ? : @{}
                           };
     return dic;
 }
