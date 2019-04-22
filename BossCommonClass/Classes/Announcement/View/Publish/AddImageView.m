@@ -12,7 +12,7 @@
 #import "KNPhotoBrowser.h"
 @interface AddImageView()<UICollectionViewDelegate,UICollectionViewDataSource,AddimgViewCellDelegate,KNPhotoBrowserDelegate>
 @property(nonatomic, strong)UICollectionView *collectionview;
-@property(nonatomic, strong)NSMutableArray *testArrM;
+@property(nonatomic, strong)NSMutableArray *imageArr;
 @property(nonatomic, strong)NSMutableArray *itemsArr;
 @end
 
@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.testArrM = [NSMutableArray array];
+        self.imageArr = [NSMutableArray array];
     }
     return self;
 }
@@ -35,9 +35,9 @@
 }
 - (void)addImage:(UIImage *)image {
     [self.itemsArr removeAllObjects];
-    [self.testArrM insertObject:image atIndex:0];
-    for (NSInteger i = 0; i < self.testArrM.count; i++) {
-        UIImage *image = self.testArrM[i];
+    [self.imageArr insertObject:image atIndex:0];
+    for (NSInteger i = 0; i < self.imageArr.count; i++) {
+        UIImage *image = self.imageArr[i];
         KNPhotoItems *items = [[KNPhotoItems alloc] init];
         items.sourceImage = image;
         [self.itemsArr addObject:items];
@@ -52,16 +52,19 @@
  @param image 要删除的图片
  */
 - (void)deleteImage:(UIImage *)image {
-    [self.itemsArr removeObjectAtIndex:[self.testArrM indexOfObject:image]];
-    [self.testArrM removeObject:image];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didselectDeleteImage:)]) {
+        [self.delegate didselectDeleteImage:image];
+    }
+    [self.itemsArr removeObjectAtIndex:[self.imageArr indexOfObject:image]];
+    [self.imageArr removeObject:image];
     [self.collectionview reloadData];
 }
 //KNPhotoBrowserDelegate
-- (void)photoBrowserRightOperationDeleteImageSuccessWithAbsoluteIndex:(NSInteger)index {
+-(void)photoBrowserRightOperationDeleteImageSuccessWithAbsoluteIndex:(NSInteger)index {
     
 }
 - (void)photoBrowserRightOperationDeleteImageSuccessWithRelativeIndex:(NSInteger)index {
-    [self.testArrM removeObjectAtIndex:index];
+    [self.imageArr removeObjectAtIndex:index];
     [self.collectionview reloadData];
 }
 /**
@@ -71,6 +74,7 @@
  */
 - (void)clickImg:(UIImage *)image {
     KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+    photoBrower.isShowDeleteButton = false;
     photoBrower.itemsArr = [self.itemsArr copy];
     photoBrower.delegate = self;
     photoBrower.isNeedPageControl = true;
@@ -79,16 +83,16 @@
 //    photoBrower.isNeedPictureLongPress = true;
     photoBrower.isNeedPrefetch = true;
     photoBrower.isNeedPictureLongPress = false;
-    photoBrower.currentIndex = [self.testArrM indexOfObject:image];
+    photoBrower.currentIndex = [self.imageArr indexOfObject:image];
 
     [photoBrower present];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.testArrM.count;
+    return self.imageArr.count;
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AddimgViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.image = self.testArrM[indexPath.item];
+    cell.image = self.imageArr[indexPath.item];
     cell.delegate = self;
 
         KNPhotoItems *items = self.itemsArr[indexPath.row];

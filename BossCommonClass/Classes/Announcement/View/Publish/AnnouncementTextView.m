@@ -52,7 +52,7 @@
     
     // 画文字
     rect.origin.x = 4;
-    rect.origin.y = 8;
+    rect.origin.y = 6;
     rect.size.width -= 2 * rect.origin.x;
     [self.placeholder drawInRect:rect withAttributes:attrs];
 }

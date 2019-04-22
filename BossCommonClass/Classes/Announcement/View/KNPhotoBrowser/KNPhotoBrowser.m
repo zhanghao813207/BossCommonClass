@@ -68,9 +68,14 @@
     }
     return self;
 }
+- (void)setIsShowDeleteButton:(BOOL)isShowDeleteButton {
+    _isShowDeleteButton = isShowDeleteButton;
+    self.deleteButton.hidden = isShowDeleteButton;
+}
 - (UIButton *)deleteButton {
     if (_deleteButton == nil) {
         _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _deleteButton.hidden = true;
 //        _deleteButton.backgroundColor = [UIColor blackColor];
         UIImage *image = [UIImage imageNamed:@"remove" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         [_deleteButton setImage:image forState:UIControlStateNormal];

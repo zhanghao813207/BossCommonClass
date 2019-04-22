@@ -35,7 +35,7 @@
  个人页面返回被选中的数据
  */
 @property(nonatomic, strong)NSArray *personSelectArr;
-
+@property(nonatomic, strong)NSMutableDictionary *selectDic;
 /**
  最终选择的总人数
  */
@@ -62,6 +62,8 @@
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.finishButton.enabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+    self.finishButton.layer.cornerRadius = 4;
+    self.finishButton.layer.masksToBounds = true;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
@@ -71,6 +73,12 @@
     [self allSelectButton];
     [self lineView];
 }
+- (NSMutableDictionary *)selectDic {
+    if (_selectDic == nil) {
+        _selectDic = [NSMutableDictionary dictionary];
+    }
+    return _selectDic;
+}
 - (NSMutableSet *)allPersonSetM {
     if (_allPersonSetM == nil) {
         _allPersonSetM = [NSMutableSet set];
@@ -78,8 +86,16 @@
     return _allPersonSetM;
 }
 - (void)finishAction {
+    NSMutableArray *tempArr = [NSMutableArray array];
     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
-        [self.delegate select:self.selectArrM];
+        NSArray *keys = self.selectDic.allKeys;
+        NSArray *values = self.selectDic.allValues;
+        for (NSInteger i = 0; i < keys.count; i ++) {
+            for (TestPersonModel *model in self.selectDic[keys[i]]) {
+                [tempArr addObject:model.name];
+            }
+        }
+        [self.delegate select:tempArr];
     }
     [self.navigationController popViewControllerAnimated:true];
 }
@@ -100,16 +116,17 @@
 //PersonAddressBookVCDelegate
 - (void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select {
     self.personSelectArr = modelArr;
-    NSMutableSet *tempSet = [NSMutableSet set];
-    for (TestPersonModel *tempModel in modelArr) {
-        [tempSet addObject:tempModel.name];
-    }
-    [self.allPersonSetM minusSet:tempSet];
-    for (NSString *str in self.allPersonSetM) {
-        [self.allPersonSetM removeObject:str];
-    }
-    [self.allPersonSetM unionSet:tempSet];
-    NSLog(@"%@",self.allPersonSetM);
+    [self.selectDic setValue:modelArr forKey:[NSNumber numberWithInteger:self.selectIndex]];
+//    NSMutableSet *tempSet = [NSMutableSet set];
+//    for (TestPersonModel *tempModel in modelArr) {
+//        [tempSet addObject:tempModel.name];
+//    }
+//    [self.allPersonSetM minusSet:tempSet];
+//    for (NSString *str in self.allPersonSetM) {
+//        [self.allPersonSetM removeObject:str];
+//    }
+//    [self.allPersonSetM unionSet:tempSet];
+//    NSLog(@"%@",self.allPersonSetM);
     TestGroupModel *model = self.arrM[self.selectIndex];
     if (select) {
         model.state = SelectStateAll;
@@ -140,9 +157,12 @@
     PersonAddressBookVC *vc = [[PersonAddressBookVC alloc] init];
     if (model.state == SelectStateAll) {
         vc.isAll = true;
+    }else {
+//        vc.personSelectArr = self.personSelectArr;
+        vc.personSelectArr = self.selectDic[[NSNumber numberWithInteger:indexPath.row]];
     }
     vc.delegate = self;
-    vc.personSelectArr = self.personSelectArr;
+    
     self.selectIndex = indexPath.row;
     [self.navigationController pushViewController:vc animated:true];
 }

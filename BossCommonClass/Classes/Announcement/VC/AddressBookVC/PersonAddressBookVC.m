@@ -46,6 +46,8 @@
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.finishButton.enabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+    self.finishButton.layer.cornerRadius = 4;
+    self.finishButton.layer.masksToBounds = true;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];

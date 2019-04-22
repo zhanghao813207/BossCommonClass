@@ -129,6 +129,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL  isNeedPanGesture;
 
 /**
+ 是否显示删除按钮
+ */
+@property (nonatomic, assign)BOOL isShowDeleteButton;
+
+/**
  photoBrowser show
  */
 - (void)present;

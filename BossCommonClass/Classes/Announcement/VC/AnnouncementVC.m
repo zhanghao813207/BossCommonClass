@@ -17,6 +17,7 @@
 #import "BossMethodDefine.h"
 #import "BossManagerAccount.h"
 #import "UITableView+EmptyData.h"
+#import "AnnouncementRequest.h"
 @interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property(nonatomic, strong)NSMutableArray *testArrM;
@@ -112,6 +113,11 @@
  获取最新的数据
  */
 - (void)refreshLatestData {
+    [AnnouncementRequest announcementListLastId:@"test" success:^{
+        
+    } fail:^(NSString * message) {
+        
+    }];
     [self.tableview reloadData];
     [self.tableview.mj_footer endRefreshing];
 }

@@ -63,7 +63,6 @@
     photoBrower.isNeedPictureLongPress = true;
     photoBrower.isNeedPrefetch = true;
     photoBrower.isNeedPictureLongPress = false;
-    NSLog(@"%ld",[self.imgArr indexOfObject:model]);
     photoBrower.currentIndex = [self.imgArr indexOfObject:model];
     [photoBrower present];
  

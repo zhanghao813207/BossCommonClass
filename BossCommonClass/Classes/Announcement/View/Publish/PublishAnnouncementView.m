@@ -18,8 +18,11 @@
 #import "UIView+MJExtension.h"
 #import "CameraView.h"
 #import "PublishModel.h"
+#import "JYCSimpleToolClass.h"
+#import "AnnouncementRequest.h"
+#import "UIView+ShowView.h"
 
-@interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate>
+@interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
 /**
  标题(取消 新建公告 发布)
@@ -73,6 +76,11 @@
  图片
  */
 @property(nonatomic, strong)AddImageView *addView;
+
+/**
+ 保存选中的图片
+ */
+@property(nonatomic, strong)NSMutableArray *imageArrM;
 @property(nonatomic, assign)CGFloat keyboardHeight;
 
 /**
@@ -132,6 +140,13 @@
     return _model;
 }
 
+- (NSMutableArray *)imageArrM {
+    if (_imageArrM == nil) {
+        _imageArrM = [NSMutableArray array];
+    }
+    return _imageArrM;
+}
+
 /**
  添加子视图
  */
@@ -156,11 +171,31 @@
  点击发布按钮
  */
 - (void)publishAction {
-    NSLog(@"%@",self.model.title);
-    self.model.content = self.textView.text;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(publishSuccess)]) {
-        [self.delegate publishSuccess];
+    NSLog(@"点击发布按钮");
+    [self showLoadingView:@"正在发布"];
+    NSMutableArray *tempDataArr = [NSMutableArray array];
+    for (UIImage *image in self.imageArrM) {
+        NSData *data = [JYCSimpleToolClass dataByImage:image];
+        [tempDataArr addObject:data];
     }
+    NSLog(@"%@",self.model.title);
+    NSLog(@"%@",self.model.members);
+    self.model.media_ids = tempDataArr;
+    self.model.content = self.textView.text;
+    [AnnouncementRequest publishAnnouncemenWithModel:self.model success:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(publishSuccess)]) {
+            [self.delegate publishSuccess];
+        }
+        [self dismissLoadingViewWithCompletion:^(BOOL finish) {
+            
+        }];
+    } fail:^(NSString * message) {
+        [self dismissLoadingViewWithCompletion:^(BOOL finish) {
+            
+        }];
+    }];
+    
+    
 }
 
 /**
@@ -221,6 +256,7 @@
         //                pickImage = info[@"UIImagePickerControllerEditedImage"];
         
         pickImage = info[@"UIImagePickerControllerOriginalImage"];
+        [self.imageArrM addObject:pickImage];
         [self.addView addImage:pickImage];
     }];
   
@@ -240,9 +276,14 @@
     }
     return _cameraView;
 }
+//AddImageViewDelegate 删除的图片
+- (void)didselectDeleteImage:(UIImage *)image {
+    [self.imageArrM removeObject:image];
+}
 - (AddImageView *)addView {
     if (_addView == nil) {
         _addView = [[AddImageView alloc] init];
+        _addView.delegate = self;
         _addView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_addView];
         [_addView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -267,7 +308,7 @@
             make.left.equalTo(self.contentView).offset(16);
             make.right.equalTo(self.contentView).offset(-16);
 //            make.width.equalTo(@30);
-            make.height.mas_equalTo(30);
+            make.height.mas_equalTo(150);
             make.top.equalTo(self.twoLineView.mas_bottom).offset(16);
             make.bottom.equalTo(self.contentView);
         }];
@@ -337,7 +378,13 @@
  */
 - (void)select {
     AddressBookVC *vc = [[AddressBookVC alloc] init];
+    vc.delegate = self;
     [self.viewController.navigationController pushViewController:vc animated:true];
+}
+//AddressBookVCDelegate
+- (void)select:(NSArray *)modelArr {
+    NSLog(@"%@",modelArr);
+    self.model.members = modelArr;
 }
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {

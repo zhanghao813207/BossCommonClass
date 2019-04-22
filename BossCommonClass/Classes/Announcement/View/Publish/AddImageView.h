@@ -9,8 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol AddImageViewDelegate <NSObject>
+
+- (void)didselectDeleteImage:(UIImage *)image;
+
+@end
+
 @interface AddImageView : UIView
 - (void)addImage:(UIImage *)image;
+@property(nonatomic, weak)id<AddImageViewDelegate>delegate;
 @end
 
 NS_ASSUME_NONNULL_END
