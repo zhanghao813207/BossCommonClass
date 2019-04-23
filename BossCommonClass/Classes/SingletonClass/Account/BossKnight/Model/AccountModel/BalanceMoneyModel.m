@@ -38,34 +38,34 @@ NSString *const kBalanceMoneyModelUpdatedAt = @"updated_at";
 		self.idField = dictionary[kBalanceMoneyModelIdField];
 	}	
 	if(![dictionary[kBalanceMoneyModelBalanceMoney] isKindOfClass:[NSNull class]]){
-		self.balanceMoney =[NSString stringWithFormat:@"%@", dictionary[kBalanceMoneyModelBalanceMoney]];
+        if ([dictionary[kBalanceMoneyModelBalanceMoney] floatValue] == 0) {
+            self.balanceMoney = @"0.00";
+        } else {
+            self.balanceMoney =[NSString stringWithFormat:@"%@", dictionary[kBalanceMoneyModelBalanceMoney]];
+        }
+		
 	}	
 	if(![dictionary[kBalanceMoneyModelCreatedAt] isKindOfClass:[NSNull class]]){
 		self.createdAt = dictionary[kBalanceMoneyModelCreatedAt];
 	}	
 	if(![dictionary[kBalanceMoneyModelFreeMoney] isKindOfClass:[NSNull class]]){
-        if ([dictionary[kBalanceMoneyModelFreeMoney] integerValue] == 0) {
+        if ([dictionary[kBalanceMoneyModelFreeMoney] floatValue] == 0) {
             self.freeMoney = 0.00;
         } else {
-            self.freeMoney = [dictionary[kBalanceMoneyModelFreeMoney] integerValue];
+            self.freeMoney = [dictionary[kBalanceMoneyModelFreeMoney] floatValue] / 100;
         }
 	}
 
 	if(![dictionary[kBalanceMoneyModelFrozenMoney] isKindOfClass:[NSNull class]]){
-        if ([dictionary[kBalanceMoneyModelFrozenMoney] integerValue] == 0) {
+        if ([dictionary[kBalanceMoneyModelFrozenMoney] floatValue] == 0) {
             self.frozenMoney = 0.00;
         } else {
-            self.frozenMoney = [dictionary[kBalanceMoneyModelFrozenMoney] integerValue];
+            self.frozenMoney = [dictionary[kBalanceMoneyModelFrozenMoney] floatValue] / 100;
         }
 	}
 
 	if(![dictionary[kBalanceMoneyModelOwnerType] isKindOfClass:[NSNull class]]){
-        if ([dictionary[kBalanceMoneyModelOwnerType] integerValue] == 0) {
-            self.ownerType = 0.00;
-        } else {
-            self.ownerType = [dictionary[kBalanceMoneyModelOwnerType] integerValue];
-        }
-		
+        self.ownerType = [dictionary[kBalanceMoneyModelOwnerType] integerValue];
 	}
 
 	if(![dictionary[kBalanceMoneyModelUpdatedAt] isKindOfClass:[NSNull class]]){
