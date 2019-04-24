@@ -38,10 +38,11 @@ NSString *const kBalanceMoneyModelUpdatedAt = @"updated_at";
 		self.idField = dictionary[kBalanceMoneyModelIdField];
 	}	
 	if(![dictionary[kBalanceMoneyModelBalanceMoney] isKindOfClass:[NSNull class]]){
+        
         if ([dictionary[kBalanceMoneyModelBalanceMoney] floatValue] == 0) {
             self.balanceMoney = @"0.00";
         } else {
-            self.balanceMoney =[NSString stringWithFormat:@"%@", dictionary[kBalanceMoneyModelBalanceMoney]];
+            self.balanceMoney =[NSString stringWithFormat:@"%.2f", [dictionary[kBalanceMoneyModelBalanceMoney] floatValue] / 100];
         }
 		
 	}	
