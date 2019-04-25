@@ -11,8 +11,6 @@
 #import "NSDate+Helper.h"
 #import "BossBasicDefine.h"
 #import "JYCSimpleToolClass.h"
-#import "BossManagerAccount.h"
-#import "BossKnightAccount.h"
 
 float const kNetworkTimeoutInterval = 60.0f;
 
@@ -86,7 +84,7 @@ static NNBRequestManager *sharedManager = nil;
     
     // “X-AUTH”:  未登录或已登陆但是发送验证码接口
     // "X-TOKEN": 已登录但不是发送验证码接口
-    if(!sharedManager.saasModel || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
+    if(!kCache.netConfig || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
         // header中添加X-AUTH
         [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
         [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
@@ -112,37 +110,19 @@ static NNBRequestManager *sharedManager = nil;
     return str;
 }
 
-- (NSString *)url
-{
-    return [sharedManager getUrlByApiVersion:@"/2.0"];
-}
-
-- (NSString *)getUrlByApiVersion:(NSString *)apiVersion
-{
-    return sharedManager.saasModel ? [NSString stringWithFormat:@"%@%@", sharedManager.saasModel.merchant_info.api_gateway, apiVersion] : BossBasicURLV2;
-}
-
 - (NSString *)accessKey
 {
-    return sharedManager.saasModel ? sharedManager.saasModel.access_key : ACCESS_KEY;
+    return kCache.accessKey;
 }
 
 - (NSString *)secretKey
 {
-    return sharedManager.saasModel ? sharedManager.saasModel.secret_key : SECRET_KEY;
+    return kCache.secretKey;
 }
 
 - (NSString *)accessToken
 {
-
-#ifdef kBossKnight
-    return kCurrentBossKnightAccount.tokenModel.access_token;
-#elif defined kBossManager
-    return kCurrentBossManagerAccount.tokenModel.access_token;
-#else
-    return @"";
-#endif
-    
+    return kCache.accessToken;
 }
 
 @end

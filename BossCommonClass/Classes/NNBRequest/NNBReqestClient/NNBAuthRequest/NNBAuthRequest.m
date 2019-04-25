@@ -20,16 +20,9 @@
 
 @implementation NNBAuthRequest
 
-/**
- 登录接口
- 
- @param phoneNumber 手机号
- @param authCode 验证码
- @param successBlock 成功的回调（返回当前登录用户的信息，是单例类 也可以用[NNBAccount defaultAccount]获取）
- */
-+ (void)authRequestLoginWithPhoneNumber:(NSString *)phoneNumber authCode:(NSString *)authCode success:(void (^)(id accountInfo))successBlock fail:(void(^)(id error))fail
++ (void)authRequestLoginWithPhoneNumber:(SaasModel *)saasModel phoneNumber:(NSString *)phoneNumber authCode:(NSString *)authCode success:(void (^)(id accountInfo))successBlock fail:(void(^)(id error))fail
 {
-    if (!phoneNumber || !authCode) {
+    if (!saasModel || !phoneNumber || !authCode) {
         return;
     }
 
@@ -63,7 +56,7 @@
         
         kCurrentBossKnightAccount = knightAccount;
         
-        kCache.currentSaasModel = [NNBRequestManager shareNNBRequestManager].saasModel;
+        kCache.currentSaasModel = saasModel;
         
         NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->kCurrentBossKnightAccount\n%@", [kCurrentBossKnightAccount decodeToDic]);
         
@@ -82,13 +75,13 @@
         kCurrentBossManagerAccount = managerAccount;
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
-        
+            
             kCache.lastLoginPhone = @"";
             [kCache removePhone:accountModel.phone];
             managerAccount.accountModel = accountModel;
             kCurrentBossManagerAccount = managerAccount;
             
-            kCache.currentSaasModel = [NNBRequestManager shareNNBRequestManager].saasModel;
+            kCache.currentSaasModel = saasModel;
             
             [kCache addAccount:[kCurrentBossManagerAccount decodeToDic]];
             
@@ -105,14 +98,6 @@
             }
         }];
 #else
-//        if ([NNBRequestManager saveAccountInfoWithAccountDic:responseObject]) {
-//            kCurrentAccount.isNeedUpdate = NO;
-//            if (successBlock) {
-//                successBlock(kCurrentBossKnightAccount);
-//            }
-//        } else {
-//
-//        }
 #endif
     } fail:^(id error) {
         if (fail) {

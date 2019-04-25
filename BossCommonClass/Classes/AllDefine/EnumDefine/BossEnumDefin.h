@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, StaffStates) {
     StaffStateSigned                 =  100,  // 已签约-正常
     StaffStateWaitingRenewal         =  101,  // 已签约-待换签
     StaffStateRenewaled              =  102,  // 已签约-待续签
+    StaffStateRepairSign             =  103,  // 已签约-待补签
     StaffStateDeparture              = -50,   // 解约中
     StaffStateDepartureApproval      = -51,   // 解约审核中
     StaffStateTerminated             =  -100, // 已解约

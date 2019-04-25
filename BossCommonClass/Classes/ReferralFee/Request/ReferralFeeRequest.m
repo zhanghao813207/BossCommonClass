@@ -14,6 +14,7 @@
 #import "RecommendDetailModel.h"
 #import "InputMessageModel.h"
 #import "MJExtension.h"
+#import "BossBasicDefine.h"
 
 @implementation ReferralFeeRequest
 ////提交 yes 是提交  no 是保存
@@ -78,7 +79,7 @@
     }else {
         subStr = @"internal_recommend.internal_recommend_staff.save";
     }
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:paramDic CMD:subStr success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:subStr success:^(id responseObject) {
         successBlock([InputMessageModel mj_objectWithKeyValues:responseObject]);
     } fail:^(id error) {
         
@@ -86,7 +87,7 @@
 }
 //internal_recommend.internal_recommend_staff.find
 //1:已保存 10:已推荐 100:已入职 state
-+ (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock fail:(void(^)(void))failBlock {
++ (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock  meta:(void(^)(id meta))metaBlock fail:(void(^)(void))failBlock {
    
     NSDictionary *dic = @{@"state":@(state),
                           @"_meta": @{
@@ -96,7 +97,7 @@
                           };
    
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:dic CMD:@"internal_recommend.internal_recommend_staff.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"internal_recommend.internal_recommend_staff.find" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
         NSLog(@"%@",dic);
 //        if (isF) {
@@ -106,6 +107,7 @@
 //                return ;
 //            }
 //        }
+        metaBlock(dic[@"_meta"]);
         NSArray *modelArr = [RecommendedModel  mj_objectArrayWithKeyValuesArray:dic[@"data"]];
         successBlock(modelArr);
     } fail:^(id error) {
@@ -114,7 +116,7 @@
 }
 //internal_recommend.internal_recommend_staff.get
 + (void)recommendDetail:(NSString *)idStr isEntry:(BOOL)entry success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock {
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_id":idStr} CMD:@"internal_recommend.internal_recommend_staff.get" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_id":idStr} CMD:@"internal_recommend.internal_recommend_staff.get" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         RecommendDetailModel *model = (RecommendDetailModel *)[RecommendDetailModel mj_objectWithKeyValues:dic];
@@ -204,7 +206,7 @@
 //internal_recommend.internal_recommend_staff.delete   删除员工
 + (void)deleteRecommend:(NSArray *)idcardArr success:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
     NSLog(@"%@",idcardArr);
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.delete" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.delete" success:^(id responseObject) {
         NSLog(@"%@",responseObject[@"zh_message"]);
         successBlock();
     } fail:^(id error) {
@@ -214,7 +216,7 @@
 ////批量提交 internal_recommend.internal_recommend_staff.batch_submit
 + (void)submitArrs:(NSArray *)idcardArr success:(void(^)(NSArray *sucessarr))successBlock fail:(void(^)(NSArray *failArr))failBlock {
     NSLog(@"adf");
-    [NNBBasicRequest postJsonWithUrl:NNBRequestManager.shareNNBRequestManager.url parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         successBlock(responseObject[@"error_ids"]);
     } fail:^(id error) {

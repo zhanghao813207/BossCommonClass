@@ -23,6 +23,10 @@
 
 @property(nonatomic, assign)NSInteger requestPage;
 @property(nonatomic, assign)NSInteger currentPage;
+/**
+ 判断能不能上拉
+ */
+@property(nonatomic, assign)BOOL hasMore;
 @end
 
 @implementation FinishRecommendVC
@@ -48,7 +52,9 @@
 - (void)cancel {
     [self.navigationController popViewControllerAnimated:true];
 }
+
 - (void)update {
+    [self.recommendView headerFresh];
     [self getData];
 }
 ////RecommendedViewDelegate
@@ -88,17 +94,24 @@
         self.dataArrM = listModel.mutableCopy;
         self.recommendView.dataArr = self.dataArrM;
         self.currentPage = 1;
+    } meta:^(id  _Nonnull meta) {
+        NSInteger count = [meta[@"result_count"] integerValue];
+        [self.recommendView noDataViewCount:count];
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];
 }
 
 - (void)getMore {
+
     self.requestPage = self.currentPage + 1;
     [ReferralFeeRequest recommendList:10 currentPage:self.requestPage success:^(NSArray * _Nonnull listModel) {
         self.currentPage = self.requestPage;
         [self.dataArrM addObjectsFromArray:listModel];
         self.recommendView.dataArr = self.dataArrM;
+    } meta:^(id  _Nonnull meta) {
+        self.recommendView.isHasmore = [meta[@"has_more"] boolValue];
     } fail:^{
         
     }];

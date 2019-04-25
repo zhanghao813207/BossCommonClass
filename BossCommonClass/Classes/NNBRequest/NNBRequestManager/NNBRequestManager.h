@@ -7,7 +7,6 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import "SaasModel.h"
 
 UIKIT_EXTERN float const kNetworkTimeoutInterval;
 
@@ -19,12 +18,6 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
  @return 单例对象
  */
 + (__kindof NNBRequestManager *)shareNNBRequestManager;
-
-@property (nonatomic, strong) SaasModel *saasModel;
-
-@property (nonatomic, readonly) NSString *url;
-
-- (NSString *)getUrlByApiVersion:(NSString *)apiVersion;
 
 /**
  添加token

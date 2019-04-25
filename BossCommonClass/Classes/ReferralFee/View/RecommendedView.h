@@ -37,6 +37,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, assign)BOOL isFinish;
 
+/**
+ 是否有上拉
+ */
+@property(nonatomic, assign)BOOL isHasmore;
+
+- (void)headerFresh;
+
+/**
+ 上拉没有更多数据
+ */
+- (void)noDataViewCount:(NSInteger)count;
+
 @end
 
 NS_ASSUME_NONNULL_END
