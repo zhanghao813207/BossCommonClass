@@ -88,8 +88,7 @@
 
     self.username = @"aoao-boss";
     self.password = @"12345";
-    self.cliendId = @"aoao-boss";
-    self.isSSL = false;
+    self.cliendId = @"ZGD";
     
     [self.mySessionManager connectTo:AddressOfMQTTServer
                                 port:1883
@@ -102,7 +101,7 @@
                                 will:NO
                            willTopic:nil
                              willMsg:nil
-                             willQos:MQTTQosLevelAtLeastOnce
+                             willQos:2
                       willRetainFlag:NO
                         withClientId:self.cliendId
                       securityPolicy:[self customSecurityPolicy]
@@ -207,12 +206,20 @@
     
     NSLog(@"发送命令 topic = %@  dict = %@",topic,dict);
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
-    [self.mySessionManager sendData:data topic:topic qos:MQTTQosLevelAtLeastOnce retain:NO];
+    [self.mySessionManager sendData:data topic:topic qos:2 retain:NO];
 }
-
+- (void)sendDataToTopic:(NSString *)topic str:(NSString *)str {
+    
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    [self.mySessionManager sendData:data topic:topic qos:2 retain:NO];
+}
+- (void)sendDataToTopic:(NSString *)topic data:(NSData *)data {
+    [self.mySessionManager sendData:data topic:topic qos:2 retain:NO];
+}
 #pragma mark - 懒加载
 - (MQTTSessionManager *)mySessionManager {
     if (!_mySessionManager) {
+        
         _mySessionManager = [[MQTTSessionManager alloc]init];
         _mySessionManager.delegate = self;
     }

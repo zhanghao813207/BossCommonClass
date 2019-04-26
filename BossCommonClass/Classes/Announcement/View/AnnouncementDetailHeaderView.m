@@ -29,8 +29,6 @@
 
 
 
-///////test
-@property(nonatomic, assign)BOOL isMe;
 @end
 
 @implementation AnnouncementDetailHeaderView
@@ -40,13 +38,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.isMe = true;
     }
     return self;
 }
-- (void)setIsMe:(BOOL)isMe {
-    _isMe = isMe;
-    if (isMe) {
+- (void)setModel:(AnnouncementDetail *)model {
+    _model = model;
+    self.nameLabel.text = model.sender_info.nick_name;
+    self.timeLabel.text = model.time;
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:model.content attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 16],NSForegroundColorAttributeName: [UIColor colorWithRed:52/255.0 green:51/255.0 blue:57/255.0 alpha:1.0]}];
+    self.contentLabel.attributedText = string;
+    
+    if (model.sender_info.isMe) {
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(16);
@@ -101,7 +103,6 @@
             make.bottom.equalTo(self).offset(-16);
         }];
     }
-//    [self contentLabel];
 }
 - (UIView *)containerView {
     if (_containerView == nil) {
@@ -133,7 +134,7 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor orangeColor];
+        _imgView.backgroundColor = [UIColor blackColor];
         _imgView.layer.cornerRadius = 20;
         _imgView.layer.masksToBounds = true;
     }
@@ -155,9 +156,7 @@
         _contentLabel.numberOfLines = 0;
         _contentLabel.backgroundColor = [UIColor whiteColor];
         _contentLabel.font = [UIFont systemFontOfSize:16];
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"从 2015 年 4 月起，Ant Design 在蚂蚁金服中后台产品线迅速推广，对接多条业务线，覆盖系统 800 个以上。定位于中台业务的 Ant Design 兼顾专业和非专业的设计人员，具有学习成本低、上手速度快、实现效果好具有学习成本低、上手速度快、实现效果好等特点等特点，并且提供从界面设计到前端开发的全链路生态，可提升设计和开发的效率。"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 16],NSForegroundColorAttributeName: [UIColor colorWithRed:52/255.0 green:51/255.0 blue:57/255.0 alpha:1.0]}];
-        
-        _contentLabel.attributedText = string;
+       
         _contentLabel.textAlignment = NSTextAlignmentJustified;
         [self addSubview:_contentLabel];
     }

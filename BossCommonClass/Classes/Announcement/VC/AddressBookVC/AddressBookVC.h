@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ContactsGroup.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol AddressBookVCDelegate <NSObject>
 
@@ -14,13 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
  
 
  @param modelArr 选中的数组
- @param select 是否全选
  */
 - (void)select:(NSArray *)modelArr;
 
 @end
 @interface AddressBookVC : UIViewController
 @property(nonatomic, weak)id<AddressBookVCDelegate>delegate;
+@property(nonatomic, strong)NSArray *teamArr;
+@property(nonatomic, assign)BOOL isShowSelectBar;
 @end
 
 NS_ASSUME_NONNULL_END

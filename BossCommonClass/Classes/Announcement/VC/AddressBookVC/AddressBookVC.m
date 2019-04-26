@@ -7,12 +7,13 @@
 //
 
 #import "AddressBookVC.h"
-#import "TestGroupModel.h"
 #import "Masonry.h"
 #import "AddressBookCell.h"
 #import "PersonAddressBookVC.h"
 #import "JYCMethodDefine.h"
-#import "TestPersonModel.h"
+#import "ContactsPerson.h"
+#import "AnnouncementRequest.h"
+#import "MJRefresh.h"
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 
@@ -36,14 +37,22 @@
  */
 @property(nonatomic, strong)NSArray *personSelectArr;
 @property(nonatomic, strong)NSMutableDictionary *selectDic;
-/**
- 最终选择的总人数
- */
-@property(nonatomic, strong)NSMutableSet *allPersonSetM;
-////以下为测试
-@property(nonatomic, strong)NSMutableArray<TestGroupModel *> *arrM;
-@property(nonatomic, strong)NSMutableArray<TestGroupModel *> *selectArrM;
+
+
+@property(nonatomic, strong)NSMutableArray<ContactsGroup *> *arrM;
+
+
 @property(nonatomic, strong)UIButton *finishButton;
+
+/**
+ 当前页
+ */
+@property(nonatomic, assign)NSInteger currentPage;
+
+/**
+ 被选择的team数组
+ */
+@property(nonatomic, strong)NSMutableArray<ContactsGroup *> *selectArrM;
 @end
 
 @implementation AddressBookVC
@@ -51,14 +60,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.currentPage = 1;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
-    for (NSInteger i = 0; i < 100; i ++) {
-        TestGroupModel *model = [[TestGroupModel alloc] init];
-        model.state = SelectStateNo;
-        model.name = [NSString stringWithFormat:@"%ld",i];
-        [self.arrM addObject:model];
-    }
+    
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.finishButton.enabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
@@ -72,6 +77,40 @@
     [self selecBar];
     [self allSelectButton];
     [self lineView];
+    [self.tableview.mj_header beginRefreshing];
+    self.selecBar.hidden = !self.isShowSelectBar;
+}
+
+/**
+ 获取数据
+ */
+- (void)refreshLatestData {
+    [self.selectArrM removeAllObjects];
+    [AnnouncementRequest announcementContactsPage:self.currentPage GroupSuccess:^(NSArray * _Nonnull dataArr) {
+        self.arrM = [dataArr mutableCopy];
+        for (ContactsGroup *model in self.arrM) {
+            for (ContactsGroup *selectModel in self.teamArr) {
+                if ([model._id isEqualToString:selectModel._id]) {
+                    [self.selectArrM addObject:model];
+                    model.state = SelectStateAll;
+                }
+            }
+        }
+        [self.tableview reloadData];
+        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+            self.tableview.mj_header = nil;
+        }];
+    } fail:^(NSString * message) {
+        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+            self.tableview.mj_header = nil;
+        }];
+    }];
+    
+    ////test
+//    [self.tableview.mj_header endRefreshing];
+}
+- (void)refreshMoreData {
+   
 }
 - (NSMutableDictionary *)selectDic {
     if (_selectDic == nil) {
@@ -79,23 +118,22 @@
     }
     return _selectDic;
 }
-- (NSMutableSet *)allPersonSetM {
-    if (_allPersonSetM == nil) {
-        _allPersonSetM = [NSMutableSet set];
-    }
-    return _allPersonSetM;
-}
+
 - (void)finishAction {
     NSMutableArray *tempArr = [NSMutableArray array];
+    
+/*这是选择的人数  先注释掉
     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
         NSArray *keys = self.selectDic.allKeys;
-        NSArray *values = self.selectDic.allValues;
         for (NSInteger i = 0; i < keys.count; i ++) {
-            for (TestPersonModel *model in self.selectDic[keys[i]]) {
-                [tempArr addObject:model.name];
+            for (ContactsPerson *model in self.selectDic[keys[i]]) {
+                [tempArr addObject:model.nick_name];
             }
         }
         [self.delegate select:tempArr];
+//    }*/
+    if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
+        [self.delegate select:self.selectArrM];
     }
     [self.navigationController popViewControllerAnimated:true];
 }
@@ -104,8 +142,13 @@
     self.navigationController.navigationBarHidden = false;
 }
 //AddressBookCellDelegate
-- (void)didSelectCell:(AddressBookCell *)cell model:(TestGroupModel *)model {
-    [self.selectArrM addObject:model];
+- (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model {
+    if (model.state == SelectStateAll) {
+       [self.selectArrM addObject:model];
+    }else if (model.state == SelectStateNo) {
+        [self.selectArrM removeObject:model];
+    }
+    NSLog(@"%@",self.selectArrM);
     if (self.selectArrM.count > 0) {
         self.finishButton.enabled = true;
     }else {
@@ -117,17 +160,8 @@
 - (void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select {
     self.personSelectArr = modelArr;
     [self.selectDic setValue:modelArr forKey:[NSNumber numberWithInteger:self.selectIndex]];
-//    NSMutableSet *tempSet = [NSMutableSet set];
-//    for (TestPersonModel *tempModel in modelArr) {
-//        [tempSet addObject:tempModel.name];
-//    }
-//    [self.allPersonSetM minusSet:tempSet];
-//    for (NSString *str in self.allPersonSetM) {
-//        [self.allPersonSetM removeObject:str];
-//    }
-//    [self.allPersonSetM unionSet:tempSet];
-//    NSLog(@"%@",self.allPersonSetM);
-    TestGroupModel *model = self.arrM[self.selectIndex];
+
+    ContactsGroup *model = self.arrM[self.selectIndex];
     if (select) {
         model.state = SelectStateAll;
     }else {
@@ -153,8 +187,9 @@
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TestGroupModel *model = self.arrM[indexPath.row];
+    ContactsGroup *model = self.arrM[indexPath.row];
     PersonAddressBookVC *vc = [[PersonAddressBookVC alloc] init];
+    vc.group = model;
     if (model.state == SelectStateAll) {
         vc.isAll = true;
     }else {
@@ -191,7 +226,7 @@
     return _allSelectButton;
 }
 - (void)allSelect {
-    for (TestGroupModel *model in self.arrM) {
+    for (ContactsGroup *model in self.arrM) {
         model.state = SelectStateAll;
     }
     [self.tableview reloadData];
@@ -203,6 +238,9 @@
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
+        
+        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+//        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
@@ -210,7 +248,12 @@
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.view);
-            make.bottom.equalTo(self.selecBar.mas_top);
+            if (self.isShowSelectBar) {
+               make.bottom.equalTo(self.selecBar.mas_top);
+            }else {
+                make.bottom.equalTo(self.view);
+            }
+            
         }];
     }
     return _tableview;

@@ -8,36 +8,31 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef NS_ENUM(NSInteger,SelectState) {
+    SelectStateNo,//一个没选
+    SelectStateAll,//全选
+    SelectStateSubAll//部分选
+};
 @interface ContactsGroup : NSObject
 @property(nonatomic, copy)NSString *_id;
-@property(nonatomic, copy)NSString *account_id;
 
 /**
- 是否消息置顶(true 是 false 否)
+ 头像
  */
-@property(nonatomic, assign)BOOL is_pin;
+@property(nonatomic, copy)NSString *head_img_url;
+
 
 /**
- 昵称
+ 姓名
  */
-@property(nonatomic, copy)NSString *nick_name;
+@property(nonatomic, copy)NSString *name;
 
-/**
- 是否免打扰(true 是 false 否)
- */
-@property(nonatomic, assign)NSString *no_disturb;
-
-/**
- 关联群组id（群组id/用户id/团队id）
- */
 @property(nonatomic, copy)NSString *target_id;
 
 /**
- // 关联类型 (10:群组, 20:点对点, 30:team),
+ 自己定义
  */
-@property(nonatomic, assign)NSInteger target_type;
-@property(nonatomic, strong)NSDictionary *target_info;
+@property(nonatomic, assign)SelectState state;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -29,15 +29,22 @@
         [self numberLabel];
         [self label];
         [self lineView];
-        self.progressView.progress = 0.8;
-        //////test
-        NSString *str1 = @"14";
-        NSString *str2 = @"15";
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@",str1,str2]];
-        [str addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
-        self.numberLabel.attributedText = str;
+        
+        
+       
     }
     return self;
+}
+- (void)setModel:(AnnouncementDetail *)model {
+    _model = model;
+    NSInteger read = model.message_counter_info.read_counter;
+    NSInteger total = model.message_counter_info.total_counter;
+    NSString *str1 = [NSString stringWithFormat:@"%ld",read];
+    NSString *str2 = [NSString stringWithFormat:@"%ld",total];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@",str1,str2]];
+    [str addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
+    self.numberLabel.attributedText = str;
+    self.progressView.progress =  (CGFloat)read / (CGFloat)total;
 }
 - (UIView *)lineView {
     if (_lineView == nil) {
@@ -54,7 +61,7 @@
 - (UILabel *)label {
     if (_label == nil) {
         _label = [[UILabel alloc] init];
-        _label.text = @"打算发到付阿斯顿发大沙发斯蒂芬阿萨德法师打发斯蒂芬阿斯顿发到付";
+        _label.text = @"联系人";
         _label.font = [UIFont systemFontOfSize:16];
         [self addSubview:_label];
         [_label mas_makeConstraints:^(MASConstraintMaker *make) {

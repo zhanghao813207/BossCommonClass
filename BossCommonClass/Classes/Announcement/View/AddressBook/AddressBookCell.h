@@ -6,16 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TestGroupModel.h"
+#import "ContactsGroup.h"
 NS_ASSUME_NONNULL_BEGIN
 @class AddressBookCell;
 @protocol AddressBookCellDelegate <NSObject>
 
-- (void)didSelectCell:(AddressBookCell *)cell model:(TestGroupModel *)model;
+- (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model;
 
 @end
 @interface AddressBookCell : UITableViewCell
-@property(nonatomic, strong)TestGroupModel *model;
+@property(nonatomic, strong)ContactsGroup *model;
 @property(nonatomic, weak)id<AddressBookCellDelegate>delegate;
 @end
 

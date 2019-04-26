@@ -21,6 +21,8 @@
 #import "JYCSimpleToolClass.h"
 #import "AnnouncementRequest.h"
 #import "UIView+ShowView.h"
+#import "NNBUtilRequest.h"
+#import "NNBUploadManager.h"
 
 @interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
@@ -92,6 +94,11 @@
  要发布内容
  */
 @property(nonatomic, strong)PublishModel *model;
+
+/**
+ 临时存放附件数组
+ */
+@property(nonatomic, strong)NSMutableArray *tempArr;
 @end
 
 @implementation PublishAnnouncementView
@@ -129,10 +136,37 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHiden:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change) name:UITextViewTextDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fieldChange) name:UITextFieldTextDidChangeNotification object:nil];
+        [self.model addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [self.model addObserver:self forKeyPath:@"members" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [self.model addObserver:self forKeyPath:@"content" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+       
     }
     return self;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+ {
+     if (self.model.title && self.model.content && self.model.members) {
+         self.publishButton.enabled = true;
+         [self.publishButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
+     }else {
+         self.publishButton.enabled = false;
+         [self.publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
+     }
+}
+
+/**
+ 标题输入框改变
+ */
+////标题的最大长度
+static int textLength = 30;
+- (void)fieldChange {
+    self.model.title = self.titleField.text;
+    if (self.titleField.text.length > textLength) {
+        self.titleField.text = [self.titleField.text substringToIndex:textLength];
+    }
+}
 - (PublishModel *)model {
     if (_model == nil) {
         _model = [[PublishModel alloc] init];
@@ -172,16 +206,74 @@
  */
 - (void)publishAction {
     NSLog(@"点击发布按钮");
-    [self showLoadingView:@"正在发布"];
-    NSMutableArray *tempDataArr = [NSMutableArray array];
-    for (UIImage *image in self.imageArrM) {
-        NSData *data = [JYCSimpleToolClass dataByImage:image];
-        [tempDataArr addObject:data];
-    }
-    NSLog(@"%@",self.model.title);
-    NSLog(@"%@",self.model.members);
-    self.model.media_ids = tempDataArr;
-    self.model.content = self.textView.text;
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"是否确认发布?" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
+        
+    } rightClick:^(UIAlertAction * _Nonnull action) {
+        [self showLoadingView:@"正在发布"];
+        self.tempArr = [NSMutableArray array];
+        NSMutableArray *tempDataArr = [NSMutableArray array];
+        
+        self.model.media_ids = tempDataArr;
+        self.model.content = self.textView.text;
+        
+        if (self.imageArrM.count > 0) {
+            
+            for (NSInteger i = 0;i < self.imageArrM.count; i ++) {
+                [kUserDefault setValue:@"uploadImage" forKey:@"uploadImage"];
+                UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.8];
+                NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
+                [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
+                    NSLog(@"fdfdfd%@",qiniu_token);
+                    if (qiniu_token) {
+                        [self uploadQiniu:data path:path token:qiniu_token];
+                    }
+                } fail:^(id error) {
+                    
+                }];
+                [tempDataArr addObject:data];
+            }
+        }else {
+            [self publish];
+        }
+    }];
+    
+    [self.viewController presentViewController:alertVC animated:true completion:^{
+        
+    }];
+}
+
+/**
+ 上传到七牛
+
+ */
+- (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token {
+    
+    [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
+    } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSLog(@"%@",key);
+        [kUserDefault removeObjectForKey:@"uploadImage"];
+        [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
+            NSLog(@"%@",response);
+            [self.tempArr addObject:response[@"record"][@"_id"]];
+            if (self.tempArr.count == self.imageArrM.count) {
+                self.model.media_ids = self.tempArr;
+                [self publish];
+            }
+        } fail:^(NSString * _Nonnull message) {
+            
+        }];
+        
+    } fail:^(id error) {
+        
+    }];
+}
+
+
+
+/**
+ 发布公告
+ */
+- (void)publish {
     [AnnouncementRequest publishAnnouncemenWithModel:self.model success:^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(publishSuccess)]) {
             [self.delegate publishSuccess];
@@ -195,18 +287,18 @@
         }];
     }];
     
-    
 }
 
 /**
  输入内容改变
  */
 - (void)change {
-
+    NSLog(@"%@",self.textView.text);
+    self.model.content = self.textView.text;
 }
 - (void)keyboardHiden:(NSNotification *)aNotification  {
     NSLog(@"键盘消失");
-    self.textView.placeholder = @"正文";
+    self.textView.placeholder = @"请输入正文";
     [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-121);
     }];
@@ -215,7 +307,7 @@
     }];
 }
 - (void)keyboardShow:(NSNotification *)aNotification {
-    self.textView.placeholder = @"正文";
+    self.textView.placeholder = @"请输入正文";
     NSDictionary *userInfo = [aNotification userInfo];
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
@@ -238,6 +330,11 @@
 }
 //CameraViewDelegate
 - (void)pictureSelect:(PictureType)type {
+    if (self.imageArrM.count > 4) {
+        [self showStatus:@"最多5张照片"];
+        return;
+    }
+    NSLog(@"%d",self.imageArrM.count);
     UIImagePickerController *pic = [[UIImagePickerController alloc] init];
     pic.delegate = self;
     if (type == PictureTypePhoto) {//相机
@@ -299,7 +396,7 @@
     if (_textView == nil) {
         _textView = [[AnnouncementTextView alloc] init];
         _textView.backgroundColor = [UIColor whiteColor];
-        _textView.placeholder = @"正文";
+        _textView.placeholder = @"请输入正文";
         _textView.font = [UIFont systemFontOfSize:16];
         _textView.layoutManager.allowsNonContiguousLayout = false;
 //        [_textView becomeFirstResponder];
@@ -346,7 +443,7 @@
 - (UILabel *)selectLabel {
     if (_selectLabel == nil) {
         _selectLabel = [[UILabel alloc] init];
-        _selectLabel.text = @"请选择 >";
+        _selectLabel.text = @"请选择接收人 >";
         _selectLabel.font = [UIFont systemFontOfSize:16];
         _selectLabel.textColor = kHexRGBA(0x000000, 0.2);
         [self.containerView addSubview:_selectLabel];
@@ -379,12 +476,14 @@
 - (void)select {
     AddressBookVC *vc = [[AddressBookVC alloc] init];
     vc.delegate = self;
+    vc.teamArr = self.model.members;
+    vc.isShowSelectBar = true;
     [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate
 - (void)select:(NSArray *)modelArr {
-    NSLog(@"%@",modelArr);
     self.model.members = modelArr;
+    self.selectLabel.text = @"已选择";
 }
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
@@ -410,7 +509,7 @@
 - (UITextField *)titleField {
     if (_titleField == nil) {
         _titleField = [[UITextField alloc] init];
-        _titleField.placeholder = @"公告标题";
+        _titleField.placeholder = @"请输入标题";
         _titleField.delegate = self;
         [self.contentView addSubview:_titleField];
         [_titleField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -493,8 +592,9 @@
 - (UIButton *)publishButton {
     if (_publishButton == nil) {
         _publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _publishButton.enabled = false;
         [_publishButton setTitle:@"发布" forState:UIControlStateNormal];
-        [_publishButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
+        [_publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
         _publishButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_publishButton addTarget:self action:@selector(publishAction) forControlEvents:UIControlEventTouchUpInside];
         [self.headerView addSubview:_publishButton];

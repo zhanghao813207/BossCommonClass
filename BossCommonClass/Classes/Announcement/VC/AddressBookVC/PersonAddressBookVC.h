@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContactsGroup.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol PersonAddressBookVCDelegate <NSObject>
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)BOOL isAll;
 ///上一个界面带回来的数据
 @property(nonatomic, strong)NSArray *personSelectArr;
+@property(nonatomic, strong)ContactsGroup *group;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,8 @@
 #import "AnnouncementDetailCell.h"
 #import "Masonry.h"
 #import "KNPhotoBrowser.h"
+#import "AnnouncementRequest.h"
+#import "Media_info.h"
 
 @interface AnnouncementDetailVC ()<UITableViewDelegate,UITableViewDataSource,AnnouncementDetailCellDelegate>
 
@@ -28,7 +30,7 @@
 /**
  以上为测试数据
  */
-@property(nonatomic, assign)BOOL testIsMe;
+
 @property(nonatomic, strong)NSMutableArray *itemsArr;
 @property(nonatomic, strong)NSArray *imgArr;
 @end
@@ -39,19 +41,24 @@
     [super viewDidLoad];
     self.title = @"活动详情";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.imgArr = [NSArray arrayWithObjects:@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg",@"http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d833c895d143ad4bab65039c80025aafa40f0626.jpg", nil];
-    for (NSInteger i = 0; i < self.imgArr.count; i++) {
-        NSString *imgUrl = self.imgArr[i];
-        NSLog(@"%@",imgUrl);
-        KNPhotoItems *items = [[KNPhotoItems alloc] init];
-        items.sourceImage = [UIImage imageNamed:imgUrl];
-        //        TestCell *cell = [self.tableview visibleCells][i];
-        //        items.sourceView = cell.imgButton;
-        [self.itemsArr addObject:items];
-    }
-    [self.tableview reloadData];
-    self.testIsMe = true;
+    
+
+    
+    [self footerView];
     [self tableview];
+    [AnnouncementRequest announcementDetail:self.idStr success:^(AnnouncementDetail * _Nonnull detailModel) {
+        self.headerView.model = detailModel;
+        self.footerView.model = detailModel;
+        self.imgArr = detailModel.media_info_list;
+        for (Media_info *model in self.imgArr) {
+            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+            items.sourceImage = [UIImage imageNamed:model.url];
+            [self.itemsArr addObject:items];
+        }
+        [self.tableview reloadData];
+    } fail:^(NSString * message) {
+        
+    }];
 }
 
 - (void)imgClick:(NSString *)model {
@@ -68,13 +75,13 @@
  
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return nil;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{//Grouped风格下底部留白
-    return 0.0001;
-}
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    return nil;
+//}
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{//Grouped风格下底部留白
+//    return 0.0001;
+//}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return self.headerView;
 }
@@ -83,7 +90,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnouncementDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.testImgStr = self.imgArr[indexPath.row];
+    cell.model = self.imgArr[indexPath.row];
     cell.delegate = self;
     KNPhotoItems *items = self.itemsArr[indexPath.row];
     items.sourceView = cell.imgView;
@@ -98,6 +105,7 @@
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableview.backgroundColor = [UIColor whiteColor];
         [_tableview registerClass:[AnnouncementDetailCell class] forCellReuseIdentifier:@"cell"];
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -105,13 +113,13 @@
         _tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
         _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_tableview];
-        if (self.testIsMe) {
-            [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (self.isMe) {
+            [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.equalTo(self.view);
                 make.bottom.equalTo(self.footerView.mas_top);
             }];
         }else {
-            [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.bottom.top.equalTo(self.view);
             }];
         }
@@ -130,7 +138,7 @@
         [self.view addSubview:_footerView];
         [_footerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.height.mas_equalTo(129);
+            make.height.mas_equalTo(109);
         }];
     }
     return _footerView;

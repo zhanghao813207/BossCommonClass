@@ -9,6 +9,7 @@
 #import "AnnouncementDetailCell.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+#import "BossMethodDefine.h"
 
 @interface AnnouncementDetailCell()
 
@@ -29,6 +30,8 @@
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
         _imgView.userInteractionEnabled = true;
+        _imgView.contentMode = UIViewContentModeScaleAspectFill;
+        _imgView.clipsToBounds = true;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [_imgView addGestureRecognizer:tapGesture];
         [self.contentView addSubview:_imgView];
@@ -44,12 +47,14 @@
 }
 - (void)tapAction {
     if (self.delegate && [self.delegate respondsToSelector:@selector(imgClick:)]) {
-        [self.delegate imgClick:self.testImgStr];
+        [self.delegate imgClick:self.model];
     }
 }
-- (void)setTestImgStr:(NSArray *)testImgStr {
-    _testImgStr = testImgStr;
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:testImgStr]];
-}
 
+- (void)setModel:(Media_info *)model {
+    _model = model;
+    UIImage *placeImage = [UIImage imageNamed:@"placehold_Image" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+    NSLog(@"%@",model.url);
+    [self.imgView sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:placeImage];
+}
 @end

@@ -6,18 +6,28 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Sender_info.h"
+#import "Message_summary_info.h"
+#import "Message_counter_info.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnoucementList : NSObject
-@property(nonatomic, copy)NSString *_id;
-@property(nonatomic, assign)NSInteger message_type;
-@property(nonatomic, assign)NSInteger extra_type_id;
-@property(nonatomic, copy)NSString *title;
-@property(nonatomic, copy)NSString *content;
-@property(nonatomic, copy)NSString *group_id;
-@property(nonatomic, assign)NSInteger state;
-@property(nonatomic, copy)NSString *sender;
+
+/**
+ 是否回复收到
+ */
+@property(nonatomic, assign)BOOL is_copy;
+
+/**
+ 是否已读
+ */
+@property(nonatomic, assign)BOOL is_read;
+@property(nonatomic, strong)NSArray *media_info_list;
+@property(nonatomic, strong)Message_counter_info *message_counter_info;
+@property(nonatomic, strong)Message_summary_info *message_summary_info;
+@property(nonatomic, strong)Sender_info *sender_info;
+
 @end
+
 
 NS_ASSUME_NONNULL_END

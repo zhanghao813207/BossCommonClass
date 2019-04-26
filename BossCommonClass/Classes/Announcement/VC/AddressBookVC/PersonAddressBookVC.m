@@ -7,10 +7,12 @@
 //
 
 #import "PersonAddressBookVC.h"
-#import "TestPersonModel.h"
+#import "ContactsPerson.h"
 #import "PersonAddressBookCell.h"
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
+#import "AnnouncementRequest.h"
+#import "UIView+ShowView.h"
 
 @interface PersonAddressBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableview;
@@ -20,9 +22,9 @@
 @property(nonatomic, strong)UIButton *finishButton;
 @property(nonatomic, assign)BOOL isSelecAll;
 ////以下为测试
-@property(nonatomic, strong)NSMutableArray<TestPersonModel *> *arrM;
+@property(nonatomic, strong)NSMutableArray<ContactsPerson *> *arrM;
 @property(nonatomic, strong)NSArray *allDataArr;
-@property(nonatomic, strong)NSMutableArray<TestPersonModel *> *selectArrM;
+@property(nonatomic, strong)NSMutableArray<ContactsPerson *> *selectArrM;
 @end
 
 @implementation PersonAddressBookVC
@@ -33,52 +35,67 @@
     self.navigationController.navigationBarHidden = false;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
-    for (NSInteger i = 0; i < 100; i ++) {
-        TestPersonModel *model = [[TestPersonModel alloc] init];
-        model.isSelect = false;
-        model.name = [NSString stringWithFormat:@"%ld",i];
-        [self.arrM addObject:model];
-    }
+  
+    [self addSubviews];
+    ////先隐藏掉
+//    [self setSelectModel];
+    [self getData];
+}
+- (void)addSubviews {
     [self tableview];
     [self selecBar];
-    [self lineView];
-    [self allSelectButton];
-    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.finishButton.enabled = false;
-    self.finishButton.frame = CGRectMake(0, 0, 60, 35);
-    self.finishButton.layer.cornerRadius = 4;
-    self.finishButton.layer.masksToBounds = true;
-    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
-    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
-    [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
+//    [self lineView];
+//    [self allSelectButton];
+//    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.finishButton.enabled = false;
+//    self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+//    self.finishButton.layer.cornerRadius = 4;
+//    self.finishButton.layer.masksToBounds = true;
+//    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+//    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+//    [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
+}
+- (void)getData {
+    [AnnouncementRequest announcementContactsMembersId:self.group.target_id Success:^(NSArray * _Nonnull dataArr) {
+        self.arrM = [dataArr mutableCopy];
+        [self setSelectModel];
+        [self.tableview reloadData];
+    } fail:^(NSString * _Nonnull message) {
+        
+    }];
+}
+/**
+ 处理上一个界面带回来的数据
+ */
+- (void)setSelectModel {
     [self.selectArrM removeAllObjects];
     if (self.isAll) {
-        for (TestPersonModel *model in self.arrM) {
+        for (ContactsPerson *model in self.arrM) {
             model.isSelect = true;
             [self.selectArrM addObject:model];
         }
         self.isSelecAll = true;
         [self.tableview reloadData];
     }else {
-        for (TestPersonModel *model in self.personSelectArr) {
-            for (TestPersonModel *tempModel in self.arrM) {
-                if ([model.name isEqualToString:tempModel.name]) {
+        for (ContactsPerson *model in self.personSelectArr) {
+            for (ContactsPerson *tempModel in self.arrM) {
+                if ([model.nick_name isEqualToString:tempModel.nick_name]) {
                     tempModel.isSelect = true;
                     [self.selectArrM addObject:tempModel];
                 }
             }
             
         }
-        if (self.selectArrM.count == self.arrM.count) {
+        if (self.selectArrM.count == self.arrM.count && self.arrM.count != 0) {
             self.isSelecAll = true;
         }
         [self.tableview reloadData];
     }
     
-    
 }
 - (void)finishAction {
+   
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectPerson:isAll:)]) {
         [self.delegate selectPerson:self.selectArrM isAll:self.isSelecAll];
         [self.navigationController popViewControllerAnimated:true];
@@ -88,28 +105,29 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TestPersonModel *model = self.arrM[indexPath.row];
-    model.isSelect = !model.isSelect;
-    if (model.isSelect) {
-        [self.selectArrM addObject:model];
-    }else {
-        [self.selectArrM removeObject:model];
-    }
-    NSLog(@"%ld",self.selectArrM.count);
-    if (self.selectArrM.count > 0) {
-        self.finishButton.enabled = true;
-    }else {
-        self.finishButton.enabled = false;
-    }
-    if (self.selectArrM.count == self.arrM.count) {
-        self.isSelecAll = true;
-    }else {
-        self.isSelecAll = false;
-    }
-    NSLog(@"%@",self.selectArrM);
-    [tableView reloadData];
-}
+/////先隐藏掉
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    ContactsPerson *model = self.arrM[indexPath.row];
+//    model.isSelect = !model.isSelect;
+//    if (model.isSelect) {
+//        [self.selectArrM addObject:model];
+//    }else {
+//        [self.selectArrM removeObject:model];
+//    }
+//    NSLog(@"%ld",self.selectArrM.count);
+//    if (self.selectArrM.count > 0) {
+//        self.finishButton.enabled = true;
+//    }else {
+//        self.finishButton.enabled = false;
+//    }
+//    if (self.selectArrM.count == self.arrM.count) {
+//        self.isSelecAll = true;
+//    }else {
+//        self.isSelecAll = false;
+//    }
+//    NSLog(@"%@",self.selectArrM);
+//    [tableView reloadData];
+//}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.arrM.count;
 }
@@ -124,14 +142,15 @@
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
+//        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[PersonAddressBookCell class] forCellReuseIdentifier:@"cell"];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.view);
-            make.bottom.equalTo(self.selecBar.mas_top);
+//            make.bottom.equalTo(self.selecBar.mas_top);
+            make.bottom.equalTo(self.view);
         }];
     }
     return _tableview;
@@ -164,7 +183,7 @@
     return _allSelectButton;
 }
 - (void)allSelect {
-    for (TestPersonModel *model in self.arrM) {
+    for (ContactsPerson *model in self.arrM) {
         model.isSelect = true;
     }
     [self.selectArrM  removeAllObjects];

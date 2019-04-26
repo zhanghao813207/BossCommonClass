@@ -1,29 +1,17 @@
 
 //
-//  AnnouncementDetail.m
+//  Message_summary_info.m
 //  AFNetworking
 //
-//  Created by admin on 2019/4/22.
+//  Created by admin on 2019/4/24.
 //
 
-#import "AnnouncementDetail.h"
-#import "MJExtension.h"
-#import "Media_info.h"
+#import "Message_summary_info.h"
 #import "JYCSimpleToolClass.h"
 #import "NSDate+Helper.h"
 #import "NSDate+Extension.h"
 
-@implementation AnnouncementDetail
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [AnnouncementDetail mj_setupObjectClassInArray:^NSDictionary *{
-            return @{@"media_info_list":@"Media_info"};
-        }];
-    }
-    return self;
-}
+@implementation Message_summary_info
 - (NSString *)time {
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.created_at];
     NSDate *normalDate = [NSDate dateFromString:normalTime];
@@ -44,20 +32,18 @@
     // 计算两个日期之间的差值
     NSDateComponents *cmps = [calendar components:unit fromDate:createDate toDate:now options:0];
     
-    if ([normalDate isThisYear]) { // 今年d
+    if ([normalDate isThisYear]) { // 今年
         if ([createDate isYesterday]) { // 昨天
             fmt.dateFormat = @"昨天 HH:mm";
             return [fmt stringFromDate:createDate];
         } else if ([createDate isToday]) { // 今天
-//            if (cmps.hour >= 1) {
-//                return [NSString stringWithFormat:@"%d小时前", (int)cmps.hour];
-//            } else if (cmps.minute >= 1) {
-//                return [NSString stringWithFormat:@"%d分钟前", (int)cmps.minute];
-//            } else {
-//                return @"刚刚";
-//            }
-            fmt.dateFormat = @"HH:mm";
-            return [fmt stringFromDate:createDate];
+            if (cmps.hour >= 1) {
+                return [NSString stringWithFormat:@"%d小时前", (int)cmps.hour];
+            } else if (cmps.minute >= 1) {
+                return [NSString stringWithFormat:@"%d分钟前", (int)cmps.minute];
+            } else {
+                return @"刚刚";
+            }
         } else { // 今年的其他日子
             fmt.dateFormat = @"MM-dd HH:mm";
             return [fmt stringFromDate:createDate];
@@ -66,6 +52,6 @@
         fmt.dateFormat = @"yyyy-MM-dd HH:mm";
         return [fmt stringFromDate:createDate];
     }
-    
+
 }
 @end

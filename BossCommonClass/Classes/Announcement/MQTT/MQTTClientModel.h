@@ -54,5 +54,6 @@ typedef void (^SubscribeTopicHandler)(NSString *topic, BOOL success);
  发布消息
  */
 - (void)sendDataToTopic:(NSString *)topic dict:(NSDictionary *)dict;
-
+- (void)sendDataToTopic:(NSString *)topic str:(NSString *)str;
+- (void)sendDataToTopic:(NSString *)topic data:(NSData *)data;
 @end

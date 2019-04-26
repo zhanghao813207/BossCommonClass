@@ -8,6 +8,7 @@
 
 #import "UITableView+EmptyData.h"
 #import "Masonry.h"
+#import "BossMethodDefine.h"
 
 @implementation UITableView (EmptyData)
 - (void) tableViewDisplayWitMsg:(NSString *)message imageName:(NSString *)imgName ifNecessaryForRowCount:(NSUInteger)rowCount {
@@ -15,7 +16,9 @@
         UIView *noDataView = [[UIView alloc] init];
         self.backgroundView = noDataView;
         UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.backgroundColor = [UIColor orangeColor];
+        imgView.backgroundColor = [UIColor whiteColor];
+//
+        
         [noDataView addSubview:imgView];
         [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(noDataView);
@@ -23,6 +26,8 @@
             ////测试
             make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
+        UIImage *image = [UIImage imageNamed:@"notice_NoDataIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        imgView.image = image;
         UILabel *messageLabel = [[UILabel alloc] init];
         messageLabel.text = message;
         [noDataView addSubview:messageLabel];

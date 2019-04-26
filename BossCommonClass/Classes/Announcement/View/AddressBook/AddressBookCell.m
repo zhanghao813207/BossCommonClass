@@ -33,7 +33,7 @@
     }
     return self;
 }
-- (void)setModel:(TestGroupModel *)model {
+- (void)setModel:(ContactsGroup *)model {
     _model = model;
     UIImage *image;
     if (model.state == SelectStateNo) {
@@ -72,7 +72,7 @@
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(40, 40));
             make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.selectButton.mas_right).offset(16);
+            make.left.equalTo(self.selectButton.mas_right).offset(10);
         }];
     }
     return _imgView;
@@ -91,12 +91,12 @@
 - (UIButton *)selectButton {
     if (_selectButton == nil) {
         _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        
         [_selectButton addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_selectButton];
         [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(16);
+            make.left.equalTo(self.contentView).offset(10);
             make.centerY.equalTo(self.contentView);
+            make.size.mas_equalTo(CGSizeMake(40, 40));
         }];
     }
     return _selectButton;

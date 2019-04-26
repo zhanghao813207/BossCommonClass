@@ -8,10 +8,12 @@
 //
 
 #import "AnnouncementCell.h"
-#import "TestModel.h"
+#import "AnnoucementList.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "JYCMethodDefine.h"
+#import "BossMethodDefine.h"
+#import "Media_info.h"
 
 @interface AnnouncementCell()
 
@@ -79,6 +81,7 @@
         [self headerImgView];
         [self containerView];
         [self imgView];
+        [self titleLabel];
         [self hintLabel];
         [self lineView];
         [self clickLabel];
@@ -109,10 +112,13 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
+        _imgView.backgroundColor = [UIColor whiteColor];
+        _imgView.contentMode = UIViewContentModeScaleAspectFill;
+        _imgView.clipsToBounds = true;
         [self.containerView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.containerView);
-//            make.height.equalTo(@150);
+            make.height.mas_equalTo(0);
         }];
     }
     return _imgView;
@@ -157,6 +163,7 @@
             make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
             make.right.equalTo(self.containerView).offset(-16);
         }];
+        
     }
     return _contentLabel;
 }
@@ -164,10 +171,12 @@
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.font = [UIFont boldSystemFontOfSize:17];
+//        _titleLabel.backgroundColor = [UIColor redColor];
+        
         [self.containerView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.containerView).offset(16);
-            make.top.equalTo(self.imgView.mas_bottom).offset(20);
+            make.top.equalTo(self.imgView.mas_bottom).offset(120);
         }];
     }
     return _titleLabel;
@@ -234,7 +243,6 @@
         [self.containerView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
-            make.width.equalTo(self.progressBgView).multipliedBy(0.8);
         }];
     }
     return _progressView;
@@ -269,18 +277,21 @@
     }
     return _hintLabel;
 }
-- (void)setModel:(TestModel *)model {
+- (void)setModel:(AnnoucementList *)model {
     _model = model;
-    self.titleLabel.text = model.title;
-    self.contentLabel.text = model.text;
-    if (model.isMe) {
+    NSLog(@"%@",model.sender_info._id);
+    self.titleLabel.text = model.message_summary_info.title;
+    self.contentLabel.text = model.message_summary_info.content;
+    self.timeLable.text = model.message_summary_info.time;
+    
+    if (model.sender_info.isMe) {
+        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
         [self.headerImgView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset([UIScreen mainScreen].bounds.size.width - 56);
         }];
-      
         self.progressBgView.hidden = false;
-        NSString *str1 = @"14";
-        NSString *str2 = @"15";
+        NSString *str1 = [NSString stringWithFormat:@"%ld",model.message_counter_info.read_counter];
+        NSString *str2 = [NSString stringWithFormat:@"%ld",model.message_counter_info.total_counter];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@",str1,str2]];
         [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
         self.hintLabel.attributedText = attrStr;
@@ -292,10 +303,15 @@
             make.left.equalTo(self.contentView).offset(64);
             make.bottom.equalTo(self.nameLable);
         }];
+        [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+             make.width.equalTo(self.progressBgView).multipliedBy(model.message_counter_info.read_counter / model.message_counter_info.total_counter);
+        }];
 //        self.hintLabel.text = @"123123";
     }else {
+        self.nameLable.text = model.sender_info.nick_name;
         self.progressBgView.hidden = true;
-        self.hintLabel.text = @"已读/未读";
+        self.hintLabel.text = model.is_read ? @"已读":@"未读";
+        
         [self.headerImgView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
         }];
@@ -309,7 +325,30 @@
         }];
     }
     self.progressView.hidden = self.progressBgView.hidden;
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
+    NSLog(@"%@",model.media_info_list);
+    if (model.media_info_list.count > 0) {
+        Media_info *info = model.media_info_list.firstObject;
+        UIImage *placeImage = [UIImage imageNamed:@"placehold_Image" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+       [self.imgView sd_setImageWithURL:[NSURL URLWithString:info.url] placeholderImage:placeImage];
+        [self.imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(@150);
+        }];
+    }else {
+        [self.imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+    
+    [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imgView.mas_bottom).offset(19);
+    }];
 }
-
+- (NSString *)reversalString:(NSString *)originString{
+    NSString *resultStr = @"";
+    for (NSInteger i = originString.length -1; i >= 0; i--) {
+        NSString *indexStr = [originString substringWithRange:NSMakeRange(i, 1)];
+        resultStr = [resultStr stringByAppendingString:indexStr];
+    }
+    return resultStr;
+}
 @end

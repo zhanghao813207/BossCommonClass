@@ -6,11 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TestDetailModel.h"
+#import "AnnouncementDetail.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnouncementDetailHeaderView : UIView
-@property(nonatomic, strong)TestDetailModel *model;
+@property(nonatomic, strong)AnnouncementDetail *model;
 @end
 
 NS_ASSUME_NONNULL_END

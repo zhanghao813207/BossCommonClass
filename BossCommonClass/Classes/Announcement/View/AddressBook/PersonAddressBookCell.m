@@ -29,10 +29,10 @@
     }
     return self;
 }
-- (void)setModel:(TestPersonModel *)model {
+- (void)setModel:(ContactsPerson *)model {
     _model = model;
     self.selectButton.selected = model.isSelect;
-    self.nameLabel.text = model.name;
+    self.nameLabel.text = model.nick_name;
 }
 - (UIImageView *)imgView {
     if (_imgView == nil) {
@@ -44,7 +44,7 @@
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(40, 40));
             make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.selectButton.mas_right).offset(16);
+            make.right.equalTo(self.selectButton.mas_right).offset(16);
         }];
     }
     return _imgView;
@@ -63,6 +63,7 @@
 - (UIButton *)selectButton {
     if (_selectButton == nil) {
         _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _selectButton.hidden = true;
         _selectButton.userInteractionEnabled = false;
         UIImage *normalImage = [UIImage imageNamed:@"nomarl" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         UIImage *selectImage = [UIImage imageNamed:@"select" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];

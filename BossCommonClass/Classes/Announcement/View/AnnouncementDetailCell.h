@@ -6,15 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Media_info.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol AnnouncementDetailCellDelegate <NSObject>
 
-- (void)imgClick:(NSString *)model;
+- (void)imgClick:(Media_info *)model;
 
 @end
 @interface AnnouncementDetailCell : UITableViewCell
-@property(nonatomic, copy)NSArray *testImgStr;
+@property(nonatomic, strong)Media_info *model;
 @property(nonatomic, strong)UIImageView *imgView;
 @property(nonatomic, weak)id<AnnouncementDetailCellDelegate>delegate;
 @end

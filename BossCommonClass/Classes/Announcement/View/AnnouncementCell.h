@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class TestModel;
+@class AnnoucementList;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnouncementCell : UITableViewCell
-@property(nonatomic, strong)TestModel *model;
+@property(nonatomic, strong)AnnoucementList *model;
 @end
 
 NS_ASSUME_NONNULL_END
