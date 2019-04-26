@@ -152,6 +152,9 @@ static BossCache *defaultCache = nil;
         return;
     }
     [logoutPhoneList removeObject:phone];
+    if (logoutPhoneList.count == 0) {
+        return;
+    }
     [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
