@@ -11,7 +11,7 @@
 
 @interface BossWhiteNavigationController ()<UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem *customCommentLeftBarButtonItem;
+//@property (nonatomic, strong) UIBarButtonItem *customCommentLeftBarButtonItem;
 
 @end
 
@@ -53,17 +53,17 @@
 }
 
 //push的时候将手势禁用
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [super pushViewController:viewController animated:animated];
-    if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1)
-    {
-        viewController.navigationItem.leftBarButtonItem = self.customCommentLeftBarButtonItem;
-    }
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]){
-        self.interactivePopGestureRecognizer.enabled = NO;
-    }
-}
+//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    [super pushViewController:viewController animated:animated];
+//    if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1)
+//    {
+//        viewController.navigationItem.leftBarButtonItem = self.customCommentLeftBarButtonItem;
+//    }
+//    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]){
+//        self.interactivePopGestureRecognizer.enabled = NO;
+//    }
+//}
 
 #pragma mark UINavigationControllerDelegate
 
@@ -82,19 +82,19 @@
         self.interactivePopGestureRecognizer.enabled = YES;
 }
 
-- (UIBarButtonItem *)customCommentLeftBarButtonItem
-{
-    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
-#ifdef kBossKnight
-    [buttonItem_back setTintColor:kAppMainColor];
-#elif defined kBossManager
-    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
-#else
-    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
-#endif
-    _customCommentLeftBarButtonItem = buttonItem_back;
-    return _customCommentLeftBarButtonItem;
-}
+//- (UIBarButtonItem *)customCommentLeftBarButtonItem
+//{
+//    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
+//#ifdef kBossKnight
+//    [buttonItem_back setTintColor:kAppMainColor];
+//#elif defined kBossManager
+//    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
+//#else
+//    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
+//#endif
+//    _customCommentLeftBarButtonItem = buttonItem_back;
+//    return _customCommentLeftBarButtonItem;
+//}
 
 - (void)popToLastViewController:(UIBarButtonItem *)sender
 {
