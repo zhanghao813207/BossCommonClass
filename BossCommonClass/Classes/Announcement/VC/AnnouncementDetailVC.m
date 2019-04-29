@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"活动详情";
+//    self.title = @"活动详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
 
@@ -47,6 +47,7 @@
     [self footerView];
     [self tableview];
     [AnnouncementRequest announcementDetail:self.idStr success:^(AnnouncementDetail * _Nonnull detailModel) {
+        self.title = detailModel.title;
         self.headerView.model = detailModel;
         self.footerView.model = detailModel;
         self.imgArr = detailModel.media_info_list;
@@ -59,6 +60,13 @@
     } fail:^(NSString * message) {
         
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.block) {
+        self.block(self.headerView.model.message_counter_info.read_counter);
+    }
 }
 
 - (void)imgClick:(NSString *)model {

@@ -33,6 +33,11 @@ typedef NS_ENUM(NSInteger,SelectState) {
  自己定义
  */
 @property(nonatomic, assign)SelectState state;
+
+/**
+ 选择按钮是否显示
+ */
+@property(nonatomic, assign)BOOL isShow;
 @end
 
 NS_ASSUME_NONNULL_END

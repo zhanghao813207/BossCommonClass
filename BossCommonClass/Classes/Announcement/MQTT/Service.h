@@ -17,7 +17,10 @@
 
 
 
-static NSString *const AddressOfMQTTServer      = @"192.168.10.62";  // MQTT服务器地址
+//static NSString *const AddressOfMQTTServer      = @"  https://boss-api-dev.aoaosong.com:8009";  // MQTT服务器地址
+//static NSString *const AddressOfMQTTServer      = @"tcp://192.168.10.133";  // MQTT服务器地址
+//static NSString *const AddressOfMQTTServer      = @"192.168.10.62";  // MQTT服务器地址
+static NSString *const AddressOfMQTTServer      = @"123.124.17.55";  // MQTT服务器地址
 static UInt16   const PortOfMQTTServer          = 000000;  // MQTT服务器端口
 static UInt16   const PortOfMQTTServerWithSSL          = 000;  // MQTT服务器端口
 

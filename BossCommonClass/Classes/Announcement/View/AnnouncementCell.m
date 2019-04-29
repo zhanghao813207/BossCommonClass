@@ -21,7 +21,7 @@
 /**
  大背景
  */
-@property(nonatomic, strong)UIView *bgView;
+@property(nonatomic, strong)UIImageView *bgView;
 /**
  头像
  */
@@ -93,12 +93,13 @@
     }
     return self;
 }
-- (UIView *)bgView {
+- (UIImageView *)bgView {
     if (_bgView == nil) {
-        _bgView = [[UIView alloc] init];
+        UIImage *image = [UIImage imageNamed:@"bg" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _bgView = [[UIImageView alloc] initWithImage:image];
         _bgView.layer.cornerRadius = 20;
         _bgView.layer.masksToBounds = true;
-        _bgView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:237 / 255.0 blue:239 / 255.0 alpha:0.2];
+//        _bgView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:237 / 255.0 blue:239 / 255.0 alpha:0.2];
         [self.contentView addSubview:_bgView];
         [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(36);
@@ -127,6 +128,7 @@
     if (_clickLabel == nil) {
         _clickLabel = [[UILabel alloc] init];
         _clickLabel.text = @"查看详情 >";
+        [_clickLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         _clickLabel.font = [UIFont systemFontOfSize:12];
         _clickLabel.textColor = kHexRGBA(0x343339, 0.6);
         [self.containerView addSubview:_clickLabel];
@@ -157,10 +159,11 @@
         _contentLabel.font = [UIFont systemFontOfSize:14];
         _contentLabel.alpha = 0.9;
         _contentLabel.textColor = kHexRGBA(0x343339, 0.9);
+        [_contentLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.containerView addSubview:_contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.titleLabel).offset(-3);
-            make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
+            make.left.equalTo(self.titleLabel).offset(0);
+            make.top.equalTo(self.titleLabel.mas_bottom).offset(8);
             make.right.equalTo(self.containerView).offset(-16);
         }];
         
@@ -170,13 +173,16 @@
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
+//        _titleLabel.backgroundColor = [UIColor redColor];
+        _titleLabel.numberOfLines = 0;
         _titleLabel.font = [UIFont boldSystemFontOfSize:17];
 //        _titleLabel.backgroundColor = [UIColor redColor];
-        
+        [_titleLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.containerView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.containerView).offset(16);
-            make.top.equalTo(self.imgView.mas_bottom).offset(120);
+            make.right.equalTo(self.containerView).offset(-16);
+            make.top.equalTo(self.imgView.mas_bottom).offset(0);
         }];
     }
     return _titleLabel;
@@ -184,7 +190,10 @@
 - (UIImageView *)headerImgView {
     if (_headerImgView == nil) {
         _headerImgView = [[UIImageView alloc] init];
-        _headerImgView.backgroundColor = [UIColor blackColor];
+//        _headerImgView.backgroundColor = [UIColor blackColor];
+        _headerImgView.backgroundColor = [UIColor whiteColor];
+        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _headerImgView.image = image;
         _headerImgView.layer.cornerRadius = 20;
         _headerImgView.layer.masksToBounds = true;
         [self.contentView addSubview:_headerImgView];
@@ -204,7 +213,6 @@
 //        _timeLable.alpha = 0.42;
         _timeLable.text = @"时间";
         [self.contentView addSubview:_timeLable];
-        
     }
     return _timeLable;
 }
@@ -268,9 +276,10 @@
 //        _hintLabel.text = @"已读/未读";
         _hintLabel.font = [UIFont systemFontOfSize:10];
         _hintLabel.textColor = kHexRGBA(0x000000, 0.2);
+        [_hintLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
         [self.contentView addSubview:_hintLabel];
         [_hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.containerView);
+            make.left.equalTo(self.containerView).offset(16);
             make.top.equalTo(self.containerView.mas_bottom).offset(2);
             make.bottom.equalTo(self.contentView).offset(-6);
         }];
@@ -285,12 +294,14 @@
     self.timeLable.text = model.message_summary_info.time;
     
     if (model.sender_info.isMe) {
-        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
+//        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
+        self.nameLable.text = model.sender_info.nick_name;
         [self.headerImgView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset([UIScreen mainScreen].bounds.size.width - 56);
         }];
         self.progressBgView.hidden = false;
         NSString *str1 = [NSString stringWithFormat:@"%ld",model.message_counter_info.read_counter];
+        
         NSString *str2 = [NSString stringWithFormat:@"%ld",model.message_counter_info.total_counter];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@",str1,str2]];
         [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
@@ -304,7 +315,7 @@
             make.bottom.equalTo(self.nameLable);
         }];
         [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.width.equalTo(self.progressBgView).multipliedBy(model.message_counter_info.read_counter / model.message_counter_info.total_counter);
+             make.width.equalTo(self.progressBgView).multipliedBy((CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter);
         }];
 //        self.hintLabel.text = @"123123";
     }else {
@@ -340,7 +351,7 @@
     }
     
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imgView.mas_bottom).offset(19);
+        make.top.equalTo(self.imgView.mas_bottom).offset(10);
     }];
 }
 - (NSString *)reversalString:(NSString *)originString{

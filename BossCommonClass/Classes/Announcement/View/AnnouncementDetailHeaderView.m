@@ -9,6 +9,7 @@
 #import "AnnouncementDetailHeaderView.h"
 #import "Masonry.h"
 #import "JYCMethodDefine.h"
+#import "BossMethodDefine.h"
 
 @interface AnnouncementDetailHeaderView()
 
@@ -45,14 +46,19 @@
     _model = model;
     self.nameLabel.text = model.sender_info.nick_name;
     self.timeLabel.text = model.time;
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:model.content attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 16],NSForegroundColorAttributeName: [UIColor colorWithRed:52/255.0 green:51/255.0 blue:57/255.0 alpha:1.0]}];
-    self.contentLabel.attributedText = string;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentJustified;
+    paragraphStyle.lineSpacing = 6;
     
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:model.content attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 16],NSForegroundColorAttributeName: [UIColor colorWithRed:52/255.0 green:51/255.0 blue:57/255.0 alpha:1.0],NSParagraphStyleAttributeName:paragraphStyle,NSKernAttributeName:@(2)}];
+    self.contentLabel.attributedText = string;
+    self.titleLabel.text = model.title;
     if (model.sender_info.isMe) {
         
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(16);
             make.top.equalTo(self).offset(16);
+            make.right.equalTo(self).offset(-16);
         }];
         [self addSubview:self.timeLabel];
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,9 +140,10 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor blackColor];
-        _imgView.layer.cornerRadius = 20;
-        _imgView.layer.masksToBounds = true;
+        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _imgView.image = image;
+//        _imgView.layer.cornerRadius = 20;
+//        _imgView.layer.masksToBounds = true;
     }
     return _imgView;
 }
@@ -145,7 +152,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.numberOfLines = 0;
         _titleLabel.font = [UIFont boldSystemFontOfSize:24];
-        _titleLabel.text = @"活动上线通知";
+//        _titleLabel.text = @"活动上线通知";
         [self addSubview:_titleLabel];
     }
     return _titleLabel;

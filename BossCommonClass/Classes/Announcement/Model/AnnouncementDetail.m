@@ -11,6 +11,7 @@
 #import "Media_info.h"
 #import "JYCSimpleToolClass.h"
 #import "NSDate+Helper.h"
+#import "NSString+Time.h"
 #import "NSDate+Extension.h"
 
 @implementation AnnouncementDetail
@@ -19,7 +20,7 @@
     self = [super init];
     if (self) {
         [AnnouncementDetail mj_setupObjectClassInArray:^NSDictionary *{
-            return @{@"media_info_list":@"Media_info"};
+            return @{@"media_info_list":@"Media_info",@"member_info_list":@"Sender_info"};
         }];
     }
     return self;
@@ -28,6 +29,7 @@
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.created_at];
     NSDate *normalDate = [NSDate dateFromString:normalTime];
     NSString *tempDate = [NSDate stringFromDate:normalDate withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [tempDate getTimeStr:@""];
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     // 如果是真机调试，转换这种欧美时间，需要设置locale
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];

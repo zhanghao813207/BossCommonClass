@@ -17,6 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AddressBookCell : UITableViewCell
 @property(nonatomic, strong)ContactsGroup *model;
 @property(nonatomic, weak)id<AddressBookCellDelegate>delegate;
+
+/**
+ 选择按钮是否显示
+ */
+@property(nonatomic, assign)BOOL isSelctHidden;
 @end
 
 NS_ASSUME_NONNULL_END

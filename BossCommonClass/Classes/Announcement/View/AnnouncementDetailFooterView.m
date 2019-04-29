@@ -45,6 +45,15 @@
     [str addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x00BD9A) range:NSMakeRange(0, str1.length)];
     self.numberLabel.attributedText = str;
     self.progressView.progress =  (CGFloat)read / (CGFloat)total;
+    NSLog(@"%@",model.member_info_list);
+    if (model.sender_info.isMe) {
+        NSString *tempStr = @"";
+        for (Sender_info *info in model.member_info_list) {
+            tempStr = [NSString stringWithFormat:@"%@ %@",tempStr,info.nick_name];
+        }
+//        self.label.text = model.sender_info.nick_name;
+        self.label.text = tempStr;
+    }
 }
 - (UIView *)lineView {
     if (_lineView == nil) {

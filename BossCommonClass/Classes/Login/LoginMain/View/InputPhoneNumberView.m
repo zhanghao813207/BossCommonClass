@@ -56,6 +56,9 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 
 - (void)nextStepButtonAction:(UIButton *)sender
 {
+    [kUserDefault removeObjectForKey:@"newToken"];
+    [kUserDefault removeObjectForKey:@"uploadImage"];
+    DLog(@"%@",APPCODE);
     DLog(@"下一步");
     NSString *phone = [self.phoneTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (phone.length < 11) {

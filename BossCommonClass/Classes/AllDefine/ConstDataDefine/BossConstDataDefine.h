@@ -17,6 +17,14 @@ UIKIT_EXTERN NSString *const ACCESS_KEY;
 
 UIKIT_EXTERN NSString *const SECRET_KEY;
 
+UIKIT_EXTERN NSString *const MessageBasicURL;
+
+UIKIT_EXTERN NSString *const MessageBasicURLV2;
+
+UIKIT_EXTERN NSString *const MessageACCESS_KEY;
+
+UIKIT_EXTERN NSString *const MessageSECRET_KEY;
+
 UIKIT_EXTERN NSString *const APPCODE;
 
 UIKIT_EXTERN BOOL const kIsAlertPassword;

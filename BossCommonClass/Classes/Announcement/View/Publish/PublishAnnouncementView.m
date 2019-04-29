@@ -24,6 +24,7 @@
 #import "NNBUtilRequest.h"
 #import "NNBUploadManager.h"
 
+
 @interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
 /**
@@ -56,7 +57,8 @@
  标题
  */
 @property(nonatomic, strong)UILabel *titleLabel;
-@property(nonatomic, strong)UITextField *titleField;
+//@property(nonatomic, strong)UITextField *titleField;
+@property(nonatomic, strong)AnnouncementTextView *titleTextView;
 @property(nonatomic, strong)UIView *lineView;
 
 @property(nonatomic, strong)UIView *containerView;
@@ -107,6 +109,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
 //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 //        [self addGestureRecognizer:tapGesture];
         self.backgroundColor = kHexRGBA(0x000000, 0.5);
@@ -162,10 +165,10 @@
 ////标题的最大长度
 static int textLength = 30;
 - (void)fieldChange {
-    self.model.title = self.titleField.text;
-    if (self.titleField.text.length > textLength) {
-        self.titleField.text = [self.titleField.text substringToIndex:textLength];
-    }
+//    self.model.title = self.titleField.text;
+//    if (self.titleField.text.length > textLength) {
+//        self.titleField.text = [self.titleField.text substringToIndex:textLength];
+//    }
 }
 - (PublishModel *)model {
     if (_model == nil) {
@@ -190,7 +193,8 @@ static int textLength = 30;
     [self headlineLabel];
     [self contentView];
     [self titleLabel];
-    [self titleField];
+//    [self titleField];
+    [self titleTextView];
     [self lineView];
     [self containerView];
     [self receptLabel];
@@ -199,6 +203,9 @@ static int textLength = 30;
     [self textView];
     [self addView];
     [self cameraView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.titleField becomeFirstResponder];
+    });
 }
 
 /**
@@ -206,10 +213,14 @@ static int textLength = 30;
  */
 - (void)publishAction {
     NSLog(@"点击发布按钮");
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"是否确认发布?" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"是否确认发布?" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
         
     } rightClick:^(UIAlertAction * _Nonnull action) {
-        [self showLoadingView:@"正在发布"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showLoadingView:@"正在发布"];
+        });
+//        [self showLoadingView:@"正在发布"];
+        
         self.tempArr = [NSMutableArray array];
         NSMutableArray *tempDataArr = [NSMutableArray array];
         
@@ -220,7 +231,7 @@ static int textLength = 30;
             
             for (NSInteger i = 0;i < self.imageArrM.count; i ++) {
                 [kUserDefault setValue:@"uploadImage" forKey:@"uploadImage"];
-                UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.8];
+                UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.3];
                 NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
                 [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
                     NSLog(@"fdfdfd%@",qiniu_token);
@@ -294,6 +305,10 @@ static int textLength = 30;
  */
 - (void)change {
     NSLog(@"%@",self.textView.text);
+     self.model.title = self.titleTextView.text;
+    if (self.titleTextView.text.length > textLength) {
+       self.titleTextView.text = [self.titleTextView.text substringToIndex:textLength];
+    }
     self.model.content = self.textView.text;
 }
 - (void)keyboardHiden:(NSNotification *)aNotification  {
@@ -303,7 +318,7 @@ static int textLength = 30;
         make.bottom.equalTo(self).offset(-121);
     }];
     [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.bottom.equalTo(self).offset(-20);
+         make.bottom.equalTo(self).offset(0);
     }];
 }
 - (void)keyboardShow:(NSNotification *)aNotification {
@@ -331,7 +346,7 @@ static int textLength = 30;
 //CameraViewDelegate
 - (void)pictureSelect:(PictureType)type {
     if (self.imageArrM.count > 4) {
-        [self showStatus:@"最多5张照片"];
+        [self showStatus:@"最多可上传5张图片"];
         return;
     }
     NSLog(@"%d",self.imageArrM.count);
@@ -367,8 +382,8 @@ static int textLength = 30;
         [_cameraView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);
-            make.bottom.equalTo(self).offset(-20);
-            make.height.equalTo(@44);
+            make.bottom.equalTo(self).offset(0);
+            make.height.equalTo(@64);
         }];
     }
     return _cameraView;
@@ -395,7 +410,7 @@ static int textLength = 30;
 - (AnnouncementTextView *)textView {
     if (_textView == nil) {
         _textView = [[AnnouncementTextView alloc] init];
-        _textView.backgroundColor = [UIColor whiteColor];
+//        _textView.backgroundColor = [UIColor redColor];
         _textView.placeholder = @"请输入正文";
         _textView.font = [UIFont systemFontOfSize:16];
         _textView.layoutManager.allowsNonContiguousLayout = false;
@@ -483,7 +498,7 @@ static int textLength = 30;
 //AddressBookVCDelegate
 - (void)select:(NSArray *)modelArr {
     self.model.members = modelArr;
-    self.selectLabel.text = @"已选择";
+    self.selectLabel.text = @"已选择 >";
 }
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
@@ -506,21 +521,41 @@ static int textLength = 30;
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.model.title = textField.text;
 }
-- (UITextField *)titleField {
-    if (_titleField == nil) {
-        _titleField = [[UITextField alloc] init];
-        _titleField.placeholder = @"请输入标题";
-        _titleField.delegate = self;
-        [self.contentView addSubview:_titleField];
-        [_titleField mas_makeConstraints:^(MASConstraintMaker *make) {
+- (AnnouncementTextView *)titleTextView {
+    if (_titleTextView == nil) {
+        _titleTextView = [[AnnouncementTextView alloc] init];
+        _titleTextView.placeholder = @"请输入标题";
+//        _titleTextView.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:_titleTextView];
+        _titleTextView.font = [UIFont boldSystemFontOfSize:17];
+        [self.contentView addSubview:_titleTextView];
+        [_titleTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel.mas_right).offset(4);
             make.centerY.equalTo(self.titleLabel);
             make.right.equalTo(self.contentView);
-            make.height.mas_equalTo(52);
+            make.height.mas_equalTo(40);
+//            make.height.equalTo(self.titleLabel);
         }];
     }
-    return _titleField;
+    return _titleTextView;
 }
+//- (UITextField *)titleField {
+//    if (_titleField == nil) {
+//        _titleField = [[UITextField alloc] init];
+//        _titleField.placeholder = @"请输入标题";
+//        _titleField.backgroundColor = [UIColor redColor];
+//        _titleField.delegate = self;
+//        _titleField.font = [UIFont boldSystemFontOfSize:17];
+//        [self.contentView addSubview:_titleField];
+//        [_titleField mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.titleLabel.mas_right).offset(4);
+//            make.centerY.equalTo(self.titleLabel);
+//            make.right.equalTo(self.contentView);
+//            make.height.mas_equalTo(52);
+//        }];
+//    }
+//    return _titleField;
+//}
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
@@ -573,8 +608,8 @@ static int textLength = 30;
 }
 - (void)cancelAction {
     NSLog(@"点击取消按钮");
-    if (@available(iOS 8.0, *)) {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"退出将放弃编辑内容,是否确认退出" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"退出将放弃编辑内容,是否确认退出" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
             
         } rightClick:^(UIAlertAction * _Nonnull action) {
             [self.viewController.navigationController popViewControllerAnimated:false];
@@ -583,9 +618,7 @@ static int textLength = 30;
         [self.viewController presentViewController:alertVC animated:true completion:^{
             
         }];
-    } else {
-        // Fallback on earlier versions
-    }
+    
 
 }
 

@@ -19,6 +19,7 @@
 #import "AnnoucementList.h"
 #import "AnnouncementDetail.h"
 #import "ContactsGroup.h"
+#import "JYCSimpleToolClass.h"
 
 
 @interface AnnouncementRequest ()
@@ -45,6 +46,7 @@
         NSLog(@"%@",responseObject);
         successBlock();
     } fail:^(id error) {
+        NSLog(@"%@",error);
         failBlock(@"");
     }];
 }
@@ -73,6 +75,7 @@
         AnnounceListHeader *header = [AnnounceListHeader mj_objectWithKeyValues:responseObject[@"_meta"]];
         successBlock(tempArr,header);
     } fail:^(id error) {
+        NSLog(@"%@",error);
         failBlock(@"");
     }];
 }
@@ -85,7 +88,7 @@
 + (void)announcementDetail:(NSString *)notice_id success:(void(^)(AnnouncementDetail *detailModel))successBlock fail:(void(^)(NSString *))failBlock {
     NSDictionary *dic = @{@"notice_id":notice_id};
     [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
        AnnouncementDetail *model = [AnnouncementDetail mj_objectWithKeyValues:responseObject];
         successBlock(model);
     } fail:^(id error) {
@@ -192,9 +195,9 @@
         [kUserDefault setValue:responseObject[@"access_token"] forKey:@"newToken"];
         [kUserDefault setValue:responseObject[@"account_id"] forKey:@"account_id"];
         NSLog(@"%@",responseObject);
-        [[MQTTClientModel sharedInstance] bindWithUserName:@"AAAA" password:@"123456" cliendId:@"test" isSSL:false];
+        
+        [[MQTTClientModel sharedInstance] bindWithUserName:@"im_server" password:@"im_server-123" cliendId:[NSString stringWithFormat:@"im_server%@%@",[JYCSimpleToolClass getUUID],responseObject[@"account_id"]] isSSL:false];
         [AnnouncementRequest registerSession];
-//        [testANN test];
 //        [MQTTClientModel sharedInstance].delegate = self;
         [[MQTTClientModel sharedInstance] subscribeTopic:responseObject[@"account_id"]];
         block(responseObject);

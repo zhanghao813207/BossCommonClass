@@ -16,7 +16,10 @@
         UIView *noDataView = [[UIView alloc] init];
         self.backgroundView = noDataView;
         UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.backgroundColor = [UIColor whiteColor];
+        UIImage *image = [UIImage imageNamed:@"ic_arrow_right" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        //        UIImage *image = [UIImage imageNamed:@"camera"];
+        imgView.image = image;
+//        imgView.backgroundColor = [UIColor whiteColor];
 //
         
         [noDataView addSubview:imgView];
@@ -24,10 +27,9 @@
             make.centerX.equalTo(noDataView);
             make.top.equalTo(noDataView).offset(150);
             ////测试
-            make.size.mas_equalTo(CGSizeMake(50, 50));
+//            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
-        UIImage *image = [UIImage imageNamed:@"notice_NoDataIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
-        imgView.image = image;
+      
         UILabel *messageLabel = [[UILabel alloc] init];
         messageLabel.text = message;
         [noDataView addSubview:messageLabel];

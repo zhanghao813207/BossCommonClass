@@ -37,9 +37,11 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.layer.cornerRadius = 20;
-        _imgView.layer.masksToBounds = true;
-        _imgView.backgroundColor = [UIColor blackColor];
+        _imgView.backgroundColor = [UIColor whiteColor];
+//        _imgView.layer.cornerRadius = 20;
+//        _imgView.layer.masksToBounds = true;
+        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _imgView.image = image;
         [self.contentView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(40, 40));

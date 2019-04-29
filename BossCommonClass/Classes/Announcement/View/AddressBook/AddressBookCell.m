@@ -43,10 +43,20 @@
     }else if (model.state == SelectStateSubAll) {
         image = [UIImage imageNamed:@"subSelect" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
     }
-    
     [_selectButton setImage:image forState:UIControlStateNormal];
-    
     self.nameLabel.text = model.name;
+}
+
+- (void)setIsSelctHidden:(BOOL)isSelctHidden {
+    _isSelctHidden = isSelctHidden;
+    self.selectButton.hidden = isSelctHidden;
+    [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (isSelctHidden) {
+            make.left.equalTo(self.contentView).offset(10);
+        }else {
+            make.left.equalTo(self.selectButton.mas_right).offset(10);
+        }
+    }];
 }
 //- (UILabel *)arrowLabel {
 //    if (_arrowLabel == nil) {
@@ -65,14 +75,16 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.layer.cornerRadius = 20;
-        _imgView.layer.masksToBounds = true;
-        _imgView.backgroundColor = [UIColor blackColor];
+        _imgView.backgroundColor = [UIColor whiteColor];
+//        _imgView.layer.cornerRadius = 20;
+//        _imgView.layer.masksToBounds = true;
+        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        _imgView.image = image;
         [self.contentView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(40, 40));
             make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.selectButton.mas_right).offset(10);
+//            make.left.equalTo(self.selectButton.mas_right).offset(10);
         }];
     }
     return _imgView;

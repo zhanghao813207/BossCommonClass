@@ -81,18 +81,20 @@
 #pragma mark - 绑定
 - (void)bindWithUserName:(NSString *)username password:(NSString *)password cliendId:(NSString *)cliendId isSSL:(BOOL)isSSL{
     
-//    self.username = username;
-//    self.password = password;
-//    self.cliendId = cliendId;
-//    self.isSSL = isSSL;
-
-    self.username = @"aoao-boss";
-    self.password = @"12345";
-    self.cliendId = @"ZGD";
     
+    self.username = username;
+    self.password = password;
+    self.cliendId = cliendId;
+//    self.cliendId = @"XXXtestclientID";
+    self.isSSL = isSSL;
+    NSLog(@"%@",self.username);
+    NSLog(@"%@",self.password);
+    NSLog(@"%@",self.cliendId);
+    NSLog(@"%@",AddressOfMQTTServer);
+    NSLog(@"%d",self.isSSL);
     [self.mySessionManager connectTo:AddressOfMQTTServer
                                 port:1883
-                                 tls:self.isSSL
+                                 tls:NO
                            keepalive:60
                                clean:YES
                                 auth:YES
@@ -101,13 +103,15 @@
                                 will:NO
                            willTopic:nil
                              willMsg:nil
-                             willQos:2
+                             willQos:MQTTQosLevelAtMostOnce
                       willRetainFlag:NO
                         withClientId:self.cliendId
-                      securityPolicy:[self customSecurityPolicy]
+                      securityPolicy:nil
                         certificates:nil
                        protocolLevel:4
-                      connectHandler:nil];
+                      connectHandler:^(NSError *error) {
+                          NSLog(@"%@",error);
+                      }];
     
     
     self.isDiscontent = NO;

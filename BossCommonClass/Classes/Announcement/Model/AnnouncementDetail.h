@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, strong)Sender_info *sender_info;
 @property(nonatomic, strong)Message_counter_info *message_counter_info;
+@property(nonatomic, copy)NSString *title;
 @end
 
 NS_ASSUME_NONNULL_END

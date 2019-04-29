@@ -49,4 +49,9 @@ these are common classes,they are used by boss system.
   s.dependency 'MJExtension'
   s.dependency 'MJRefresh'
   s.dependency 'SDWebImage', '~> 4.1.0'
+  s.dependency 'MQTTClient', '~> 0.15.2'
+  s.dependency 'UMCCommon', '~> 2.0.1'
+  s.dependency 'UMCSecurityPlugins', '~> 1.0.6'
+  s.dependency 'UMCPush', '~> 3.2.4'
+  s.dependency 'UMCCommonLog', '~> 1.0.0'
 end

@@ -151,6 +151,8 @@ CGFloat const kInputCodeViewHeight = 242;
         [_codeView setInputCodeEndBlock:^(NSString *code) {
             NSString *phoneNumber = [weakSelf.phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
             if (weakSelf.inputCodeEndBlock) {
+                [kUserDefault removeObjectForKey:@"newToken"];
+                [kUserDefault removeObjectForKey:@"uploadImage"];
                 weakSelf.inputCodeEndBlock(phoneNumber, code);
             }
         }];

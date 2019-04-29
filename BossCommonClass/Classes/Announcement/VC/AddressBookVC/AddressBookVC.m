@@ -14,6 +14,7 @@
 #import "ContactsPerson.h"
 #import "AnnouncementRequest.h"
 #import "MJRefresh.h"
+#import "UIView+ShowView.h"
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 
@@ -65,10 +66,11 @@
     self.selectArrM = [NSMutableArray array];
     
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.finishButton.enabled = false;
+    self.finishButton.userInteractionEnabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
+    self.finishButton.hidden = !self.isShowSelectBar;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
@@ -77,15 +79,18 @@
     [self selecBar];
     [self allSelectButton];
     [self lineView];
-    [self.tableview.mj_header beginRefreshing];
+    
     self.selecBar.hidden = !self.isShowSelectBar;
+    self.title = @"通讯录";
 }
+
 
 /**
  获取数据
  */
 - (void)refreshLatestData {
     [self.selectArrM removeAllObjects];
+    [self.view showStatus:@"正在请求数据..."];
     [AnnouncementRequest announcementContactsPage:self.currentPage GroupSuccess:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         for (ContactsGroup *model in self.arrM) {
@@ -93,16 +98,23 @@
                 if ([model._id isEqualToString:selectModel._id]) {
                     [self.selectArrM addObject:model];
                     model.state = SelectStateAll;
+                    model.isShow = !self.isShowSelectBar;
                 }
             }
         }
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
+//            self.tableview.mj_header = nil;
+            [self.view dismissBossLoadingViewWithCompletion:^(BOOL finish) {
+                
+            }];
         }];
     } fail:^(NSString * message) {
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
+//            self.tableview.mj_header = nil;
+            [self.view dismissBossLoadingViewWithCompletion:^(BOOL finish) {
+                
+            }];
         }];
     }];
     
@@ -132,6 +144,7 @@
         }
         [self.delegate select:tempArr];
 //    }*/
+    NSLog(@"%@",self.selectArrM);
     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
         [self.delegate select:self.selectArrM];
     }
@@ -140,6 +153,22 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
+    [self.arrM removeAllObjects];
+    
+    [self getNewToken];
+}
+- (void)getNewToken {
+//    [kUserDefault removeObjectForKey:@"newToken"];
+//    [kUserDefault removeObjectForKey:@"uploadImage"];
+    if ([kUserDefault objectForKey:@"newToken"]) {
+        [self.tableview.mj_header beginRefreshing];
+    }else {
+        [AnnouncementRequest getNewtokenSuccess:^(id response) {
+            NSLog(@"%@",response);
+            [self.tableview.mj_header beginRefreshing];
+        }];
+    }
+    
 }
 //AddressBookCellDelegate
 - (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model {
@@ -150,9 +179,9 @@
     }
     NSLog(@"%@",self.selectArrM);
     if (self.selectArrM.count > 0) {
-        self.finishButton.enabled = true;
+        self.finishButton.userInteractionEnabled = true;
     }else {
-        self.finishButton.enabled = false;
+        self.finishButton.userInteractionEnabled = false;
     }
     [self.tableview reloadData];
 }
@@ -207,6 +236,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.model = self.arrM[indexPath.row];
+    cell.isSelctHidden = !self.isShowSelectBar;
     cell.delegate = self;
     return cell;
 }
@@ -216,7 +246,7 @@
         [_allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
         _allSelectButton.titleLabel.textColor = kHexRGB(0x0A86F9);
         [_allSelectButton setTitleColor:kHexRGB(0x0A86F9) forState:UIControlStateNormal];
-        [_allSelectButton addTarget:self action:@selector(allSelect) forControlEvents:UIControlEventTouchUpInside];
+        [_allSelectButton addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
         [self.selecBar addSubview:_allSelectButton];
         [_allSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.selecBar).offset(16);
@@ -225,9 +255,16 @@
     }
     return _allSelectButton;
 }
-- (void)allSelect {
-    for (ContactsGroup *model in self.arrM) {
-        model.state = SelectStateAll;
+- (void)allSelect:(UIButton *)button {
+    button.selected = !button.isSelected;
+    if (button.selected) {
+        for (ContactsGroup *model in self.arrM) {
+            model.state = SelectStateAll;
+        }
+    }else {
+        for (ContactsGroup *model in self.arrM) {
+            model.state = SelectStateNo;
+        }
     }
     [self.tableview reloadData];
 }
@@ -238,10 +275,14 @@
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        
+        _tableview.separatorColor = kHexRGB(0xE5E5EE);
         _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
 //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
-        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
+        if (self.isShowSelectBar) {
+            _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
+        }else {
+            _tableview.separatorInset = UIEdgeInsetsMake(0, 16, 0, 0);
+        }
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
         [self.view addSubview:_tableview];
@@ -286,6 +327,7 @@
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = true;
 }
+
 
 
 @end

@@ -26,6 +26,8 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import "QLifeAES256.h"
 #import "MQTTClientModel.h"
+#define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
 @interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate,MQTTClientModelDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property(nonatomic, strong)NSMutableArray *dataArrM;
@@ -69,9 +71,12 @@
 ////        [self countDownWithTopic:response[@"account_id"]];
 ////        [self.tableview.mj_header beginRefreshing];
 //    }];
-    [MQTTClientModel sharedInstance].delegate = self;
-    [self countDownWithTopic:[kUserDefault objectForKey:@"account_id"]];
-    [self.tableview.mj_header beginRefreshing];
+    if ([kUserDefault objectForKey:@"newToken"]) {
+        [MQTTClientModel sharedInstance].delegate = self;
+        [self countDownWithTopic:[kUserDefault objectForKey:@"account_id"]];
+        [self.tableview.mj_header beginRefreshing];
+    }
+    
 
 }
 
@@ -151,7 +156,12 @@
         [_publishButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(20);
             make.right.equalTo(self.view).offset(-20);
-            make.bottom.equalTo(self.view).offset(-34);
+            if (iPhoneX) {
+               make.bottom.equalTo(self.view).offset(-30);
+            }else {
+               make.bottom.equalTo(self.view).offset(-10);
+            }
+            
             make.height.mas_equalTo(46);
         }];
     }
@@ -183,7 +193,7 @@
         [self.tableview reloadData];
         [self.tableview.mj_footer endRefreshing];
         self.tableview.mj_footer = nil;
-        if (self.currentPage == 1) {
+        if (self.currentPage == 1 && dataArr.count > 0) {
             NSIndexPath *indesPath = [NSIndexPath indexPathForRow:self.dataArrM.count - 1 inSection:0];
             [self.tableview scrollToRowAtIndexPath:indesPath atScrollPosition:UITableViewScrollPositionBottom animated:false];
         }
@@ -242,6 +252,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnoucementList *list = self.dataArrM[indexPath.row];
     AnnouncementDetailVC *vc = [[AnnouncementDetailVC alloc] init];
+    vc.block = ^(NSInteger count) {
+        if (list.sender_info.isMe) {//是我发的才刷新
+            list.message_counter_info.read_counter = count;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    };
     vc.idStr = list.message_summary_info._id;
     vc.isMe = list.sender_info.isMe;
     list.is_read = true;

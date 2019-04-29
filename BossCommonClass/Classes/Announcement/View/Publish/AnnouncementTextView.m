@@ -51,8 +51,8 @@
     attrs[NSForegroundColorAttributeName] = self.placeholderColor;
     
     // 画文字
-    rect.origin.x = 4;
-    rect.origin.y = 6;
+    rect.origin.x = 1;
+    rect.origin.y = 10;
     rect.size.width -= 2 * rect.origin.x;
     [self.placeholder drawInRect:rect withAttributes:attrs];
 }
