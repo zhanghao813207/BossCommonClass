@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Media_info.h"
+
 NS_ASSUME_NONNULL_BEGIN
 @protocol AnnouncementDetailCellDelegate <NSObject>
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)Media_info *model;
 @property(nonatomic, strong)UIImageView *imgView;
 @property(nonatomic, weak)id<AnnouncementDetailCellDelegate>delegate;
+
 @end
 
 NS_ASSUME_NONNULL_END

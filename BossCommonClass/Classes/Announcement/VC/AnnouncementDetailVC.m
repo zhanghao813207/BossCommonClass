@@ -97,7 +97,7 @@
     return self.imgArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AnnouncementDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    AnnouncementDetailCell *cell = [[AnnouncementDetailCell alloc] init];
     cell.model = self.imgArr[indexPath.row];
     cell.delegate = self;
     KNPhotoItems *items = self.itemsArr[indexPath.row];

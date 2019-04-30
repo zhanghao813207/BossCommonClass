@@ -57,4 +57,5 @@
     NSLog(@"%@",model.url);
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:placeImage];
 }
+
 @end

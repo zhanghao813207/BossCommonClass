@@ -366,11 +366,11 @@ static int textLength = 30;
 }
 //CameraViewDelegate
 - (void)pictureSelect:(PictureType)type {
+    [self endEditing:true];
     if (self.imageArrM.count > 4) {
         [self showStatus:@"最多可上传5张图片"];
         return;
     }
-    NSLog(@"%d",self.imageArrM.count);
     UIImagePickerController *pic = [[UIImagePickerController alloc] init];
     pic.delegate = self;
     if (type == PictureTypePhoto) {//相机

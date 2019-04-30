@@ -15,6 +15,7 @@
 #import "AnnouncementRequest.h"
 #import "MJRefresh.h"
 #import "UIView+ShowView.h"
+#import "JYCMethodDefine.h"
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 
@@ -66,7 +67,7 @@
     self.selectArrM = [NSMutableArray array];
     
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.finishButton.userInteractionEnabled = false;
+//    self.finishButton.userInteractionEnabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
@@ -143,15 +144,20 @@
         [self.delegate select:tempArr];
 //    }*/
     NSLog(@"%@",self.selectArrM);
-    if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
-        [self.delegate select:self.selectArrM];
+    if (self.selectArrM.count > 0) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
+            [self.delegate select:self.selectArrM];
+        }
+        [self.navigationController popViewControllerAnimated:true];
+    }else {
+        [self.view showStatus:@"请选择联系人"];
     }
-    [self.navigationController popViewControllerAnimated:true];
+   
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-    [self.arrM removeAllObjects];
+//    [self.arrM removeAllObjects];
     
     [self getNewToken];
 }
@@ -177,9 +183,9 @@
     }
     NSLog(@"%@",self.selectArrM);
     if (self.selectArrM.count > 0) {
-        self.finishButton.userInteractionEnabled = true;
+//        self.finishButton.userInteractionEnabled = true;
     }else {
-        self.finishButton.userInteractionEnabled = false;
+//        self.finishButton.userInteractionEnabled = false;
     }
     [self.tableview reloadData];
 }
@@ -187,13 +193,13 @@
 - (void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select {
     self.personSelectArr = modelArr;
     [self.selectDic setValue:modelArr forKey:[NSNumber numberWithInteger:self.selectIndex]];
-
     ContactsGroup *model = self.arrM[self.selectIndex];
     if (select) {
         model.state = SelectStateAll;
     }else {
         model.state = SelectStateSubAll;
     }
+    
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -251,16 +257,22 @@
         [self.selecBar addSubview:_allSelectButton];
         [_allSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.selecBar).offset(16);
-            make.top.equalTo(self.selecBar).offset(10);
+            make.centerY.equalTo(self.selecBar);
         }];
     }
     return _allSelectButton;
 }
 - (void)allSelect:(UIButton *)button {
+    if (self.selectArrM.count == self.arrM.count) {
+        button.selected = true;
+    }
     button.selected = !button.isSelected;
+   
+    [self.selectArrM removeAllObjects];
     if (button.selected) {
         for (ContactsGroup *model in self.arrM) {
             model.state = SelectStateAll;
+            [self.selectArrM addObject:model];
         }
     }else {
         for (ContactsGroup *model in self.arrM) {
@@ -306,8 +318,13 @@
         _selecBar.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_selecBar];
         [_selecBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
-            make.height.mas_equalTo(78);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(45);
+            if (kIsiPhoneX) {
+                make.bottom.mas_equalTo(-33);
+            }else {
+                make.bottom.equalTo(self.view);
+            }
         }];
     }
     return _selecBar;
