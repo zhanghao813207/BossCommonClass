@@ -52,7 +52,7 @@
             tempStr = [NSString stringWithFormat:@"%@ %@",tempStr,info.nick_name];
         }
 //        self.label.text = model.sender_info.nick_name;
-        self.label.text = tempStr;
+        self.label.text = [NSString stringWithFormat:@"接收人:%@等%ld人",tempStr,total];
     }
 }
 - (UIView *)lineView {
@@ -72,6 +72,7 @@
         _label = [[UILabel alloc] init];
         _label.text = @"联系人";
         _label.font = [UIFont systemFontOfSize:16];
+        _label.lineBreakMode = NSLineBreakByTruncatingMiddle;
         [self addSubview:_label];
         [_label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(16);

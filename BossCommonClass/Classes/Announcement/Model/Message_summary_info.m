@@ -13,6 +13,25 @@
 #import "NSString+Time.h"
 
 @implementation Message_summary_info
+- (NSString *)home_time {
+    NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.created_at];
+
+    
+    NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *mainString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:YES showFullYear:NO showChineYear:YES];
+    
+    NSString *mainTitleString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:NO showFullYear:YES showChineYear:YES];
+    
+    NSString *lastString = [JYCSimpleToolClass segementOneDayByDate:date segement:YES];
+    
+//    self.wchat_created_at = [NSString stringWithFormat:@"%@",mainString];
+//    
+//    self.wchat_title_created_at = [NSString stringWithFormat:@"%@ %@",mainTitleString, lastString];
+    
+    
+    return mainString;
+}
 - (NSString *)time {
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.created_at];
     NSDate *normalDate = [NSDate dateFromString:normalTime];

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)NSInteger message_type;
 @property(nonatomic, copy)NSString *title;
 @property(nonatomic, copy)NSString *time;
+@property(nonatomic, copy)NSString *home_time;
 @end
 
 NS_ASSUME_NONNULL_END

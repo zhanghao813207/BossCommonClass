@@ -100,7 +100,7 @@
                                 auth:YES
                                 user:self.username
                                 pass:self.password
-                                will:NO
+                                will:NO/////will为no 下面的will一定为默认
                            willTopic:nil
                              willMsg:nil
                              willQos:MQTTQosLevelAtMostOnce

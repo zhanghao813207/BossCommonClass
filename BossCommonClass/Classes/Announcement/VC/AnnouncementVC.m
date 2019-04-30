@@ -214,7 +214,7 @@
         return;
     }
     if (!self.hasMore) {
-        [self.view showStatus:@"没有更多数据"];
+//        [self.view showStatus:@"没有更多数据"];
         [self.tableview.mj_header endRefreshing];
         return;
     }
@@ -261,8 +261,9 @@
     vc.idStr = list.message_summary_info._id;
     vc.isMe = list.sender_info.isMe;
     list.is_read = true;
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
     [self.navigationController pushViewController:vc animated:true];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [tableView tableViewDisplayWitMsg:@"无数据" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];

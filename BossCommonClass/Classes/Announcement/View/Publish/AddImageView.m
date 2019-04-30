@@ -12,7 +12,15 @@
 #import "KNPhotoBrowser.h"
 @interface AddImageView()<UICollectionViewDelegate,UICollectionViewDataSource,AddimgViewCellDelegate,KNPhotoBrowserDelegate>
 @property(nonatomic, strong)UICollectionView *collectionview;
+
+/**
+ 数据源
+ */
 @property(nonatomic, strong)NSMutableArray *imageArr;
+
+/**
+ 浏览大图需要的数据源
+ */
 @property(nonatomic, strong)NSMutableArray *itemsArr;
 @end
 
@@ -64,6 +72,9 @@
     
 }
 - (void)photoBrowserRightOperationDeleteImageSuccessWithRelativeIndex:(NSInteger)index {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didselectDeleteImage:)]) {
+        [self.delegate didselectDeleteImage:self.imageArr[index]];
+    }
     [self.imageArr removeObjectAtIndex:index];
     [self.collectionview reloadData];
 }

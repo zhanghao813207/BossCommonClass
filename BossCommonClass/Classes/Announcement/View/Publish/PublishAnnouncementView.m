@@ -101,6 +101,11 @@
  临时存放附件数组
  */
 @property(nonatomic, strong)NSMutableArray *tempArr;
+
+/**
+ 背景
+ */
+@property(nonatomic, strong)UIView *bgView;
 @end
 
 @implementation PublishAnnouncementView
@@ -150,11 +155,11 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
  {
-     if (self.model.title && self.model.content && self.model.members) {
-         self.publishButton.enabled = true;
+     if (self.model.title.length > 0 && self.model.content.length > 0 && self.model.members.count > 0) {
+         self.publishButton.userInteractionEnabled = true;
          [self.publishButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
      }else {
-         self.publishButton.enabled = false;
+         self.publishButton.userInteractionEnabled = false;
          [self.publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
      }
 }
@@ -188,6 +193,8 @@ static int textLength = 30;
  添加子视图
  */
 - (void)addSubvies {
+    
+    [self headerView];
     [self cancelButton];
     [self publishButton];
     [self headlineLabel];
@@ -203,16 +210,30 @@ static int textLength = 30;
     [self textView];
     [self addView];
     [self cameraView];
+    [self bgView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self.titleField becomeFirstResponder];
     });
 }
-
+- (UIView *)bgView {
+    if (_bgView == nil) {
+        _bgView = [[UIView alloc] init];
+        _bgView.backgroundColor = [UIColor whiteColor];
+        [self insertSubview:_bgView belowSubview:self.headerView];
+        [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(60);
+            make.left.right.equalTo(self);
+            make.bottom.equalTo(self);
+        }];
+    }
+    return _bgView;
+}
 /**
  点击发布按钮
  */
 - (void)publishAction {
     NSLog(@"点击发布按钮");
+    [self endEditing:true];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"是否确认发布?" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
         
     } rightClick:^(UIAlertAction * _Nonnull action) {
@@ -315,7 +336,7 @@ static int textLength = 30;
     NSLog(@"键盘消失");
     self.textView.placeholder = @"请输入正文";
     [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-121);
+        make.bottom.equalTo(self).offset(-64);
     }];
     [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
          make.bottom.equalTo(self).offset(0);
@@ -328,7 +349,7 @@ static int textLength = 30;
     CGRect keyboardRect = [aValue CGRectValue];
     self.keyboardHeight = keyboardRect.size.height;
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-self.keyboardHeight);
+        make.bottom.equalTo(self).offset(-(self.keyboardHeight + 64));
     }];
     [UIView animateWithDuration:1 animations:^{
         [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -511,7 +532,8 @@ static int textLength = 30;
         [self.contentView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
-            make.top.equalTo(self.contentView).offset(16);
+            make.top.equalTo(self.titleTextView).offset(10);
+//            make.centerY.equalTo(self.titleTextView);
             make.height.equalTo(@20);
         }];
     }
@@ -531,7 +553,8 @@ static int textLength = 30;
         [self.contentView addSubview:_titleTextView];
         [_titleTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel.mas_right).offset(4);
-            make.centerY.equalTo(self.titleLabel);
+//            make.centerY.equalTo(self.titleLabel);
+            make.top.equalTo(self.contentView);
             make.right.equalTo(self.contentView);
             make.height.mas_equalTo(40);
 //            make.height.equalTo(self.titleLabel);
@@ -563,7 +586,7 @@ static int textLength = 30;
         [self.contentView addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
-            make.top.equalTo(self.titleLabel.mas_bottom).offset(16);
+            make.top.equalTo(self.titleTextView.mas_bottom).offset(0);
             make.right.equalTo(self.contentView);
             make.height.mas_equalTo(1 / UIScreen.mainScreen.scale);
         }];
@@ -625,7 +648,7 @@ static int textLength = 30;
 - (UIButton *)publishButton {
     if (_publishButton == nil) {
         _publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _publishButton.enabled = false;
+        _publishButton.userInteractionEnabled = false;
         [_publishButton setTitle:@"发布" forState:UIControlStateNormal];
         [_publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
         _publishButton.titleLabel.font = [UIFont systemFontOfSize:16];

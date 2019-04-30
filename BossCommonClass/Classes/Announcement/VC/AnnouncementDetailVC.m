@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.title = @"活动详情";
+    self.title = @"公告详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
 
@@ -47,7 +47,7 @@
     [self footerView];
     [self tableview];
     [AnnouncementRequest announcementDetail:self.idStr success:^(AnnouncementDetail * _Nonnull detailModel) {
-        self.title = detailModel.title;
+//        self.title = detailModel.title;
         self.headerView.model = detailModel;
         self.footerView.model = detailModel;
         self.imgArr = detailModel.media_info_list;

@@ -69,7 +69,7 @@
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self).offset(-16);
             make.top.equalTo(self.timeLabel.mas_bottom).offset(16);
-            make.bottom.equalTo(self).offset(-16);
+            make.bottom.equalTo(self).offset(0);
         }];
     }else {
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,13 +100,13 @@
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self).offset(-16);
-            make.top.equalTo(self.containerView.mas_bottom).offset(20);
+            make.top.equalTo(self.containerView.mas_bottom).offset(16);
         }];
         [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self).offset(-16);
-            make.top.equalTo(self.titleLabel.mas_bottom).offset(16);
-            make.bottom.equalTo(self).offset(-16);
+            make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
+            make.bottom.equalTo(self).offset(0);
         }];
     }
 }
@@ -161,7 +161,7 @@
     if (_contentLabel == nil) {
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 0;
-        _contentLabel.backgroundColor = [UIColor whiteColor];
+//        _contentLabel.backgroundColor = [UIColor orangeColor];
         _contentLabel.font = [UIFont systemFontOfSize:16];
        
         _contentLabel.textAlignment = NSTextAlignmentJustified;

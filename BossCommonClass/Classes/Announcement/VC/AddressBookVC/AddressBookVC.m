@@ -82,6 +82,7 @@
     
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
+//    [self refreshLatestData];
 }
 
 
@@ -90,8 +91,9 @@
  */
 - (void)refreshLatestData {
     [self.selectArrM removeAllObjects];
-    [self.view showStatus:@"正在请求数据..."];
+//    [self.view showStatus:@"正在请求数据..."];
     [AnnouncementRequest announcementContactsPage:self.currentPage GroupSuccess:^(NSArray * _Nonnull dataArr) {
+        
         self.arrM = [dataArr mutableCopy];
         for (ContactsGroup *model in self.arrM) {
             for (ContactsGroup *selectModel in self.teamArr) {
@@ -102,19 +104,15 @@
                 }
             }
         }
+        
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-//            self.tableview.mj_header = nil;
-            [self.view dismissBossLoadingViewWithCompletion:^(BOOL finish) {
-                
-            }];
+            self.tableview.mj_header = nil;
         }];
     } fail:^(NSString * message) {
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-//            self.tableview.mj_header = nil;
-            [self.view dismissBossLoadingViewWithCompletion:^(BOOL finish) {
-                
-            }];
+            self.tableview.mj_header = nil;
+            
         }];
     }];
     
@@ -235,7 +233,10 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.model = self.arrM[indexPath.row];
+    if (self.arrM.count > 0) {
+        cell.model = self.arrM[indexPath.row];
+    }
+    
     cell.isSelctHidden = !self.isShowSelectBar;
     cell.delegate = self;
     return cell;
@@ -325,7 +326,10 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBarHidden = true;
+    if (self.isShowSelectBar) {
+        self.navigationController.navigationBarHidden = true;
+    }
+    
 }
 
 
