@@ -22,6 +22,11 @@ float const kNetworkTimeoutInterval = 60.0f;
 
 @property (nonatomic, readonly) NSString *accessToken;
 
+/**
+ 保存当前的请求地址 用来切换相应的token和url
+ */
+@property (nonatomic, copy)NSString *cmd;
+
 @end
 
 @implementation NNBRequestManager
@@ -67,14 +72,14 @@ static NNBRequestManager *sharedManager = nil;
 
 - (void)addTokenWithCMD:(NSString *)cmd
 {
+    self.cmd = cmd;
     // 获取系统当前时间戳
     int date = (int)[[NSDate date] timeIntervalSince1970];
     // header中添加X-MSG_ID
     [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[JYCSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
-    
+    NSLog(@"%@",cmd);
     // 校验cmd是否为nil
     if (cmd) {
-        
         // cmd添加前缀boss.
         // header中添加X-CMD
         [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"boss.%@",cmd] forHTTPHeaderField:@"X-CMD"];
@@ -112,16 +117,29 @@ static NNBRequestManager *sharedManager = nil;
 
 - (NSString *)accessKey
 {
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"]  && [self.cmd containsString:@"ums"]) {
+        return MessageACCESS_KEY;
+    }
     return kCache.accessKey;
 }
 
 - (NSString *)secretKey
 {
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"] && [self.cmd containsString:@"ums"]) {
+        return MessageSECRET_KEY;
+    }
     return kCache.secretKey;
 }
 
 - (NSString *)accessToken
 {
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"] && [self.cmd containsString:@"ums"] ) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"];
+    }
+
     return kCache.accessToken;
 }
 

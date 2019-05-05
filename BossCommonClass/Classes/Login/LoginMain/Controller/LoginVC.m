@@ -300,6 +300,8 @@
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
+                [kUserDefault removeObjectForKey:@"newToken"];
+                [kUserDefault removeObjectForKey:@"uploadImage"];
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                 if (ok) {
                     if (kIsAlertPassword) {

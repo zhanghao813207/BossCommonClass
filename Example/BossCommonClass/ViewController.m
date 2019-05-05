@@ -21,6 +21,7 @@
 #import "BossManagerAccount.h"
 #import "MyRecommendationVC.h"
 #import "RecommendedVC.h"
+#import "AnnouncementVC.h"
 
 @interface ViewController ()<UIViewControllerTransitioningDelegate>
 
@@ -31,7 +32,7 @@
 @implementation ViewController
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.navigationController pushViewController:[RecommendedVC new] animated:YES];
+    [self.navigationController pushViewController:[AnnouncementVC new] animated:YES];
 }
 
 - (void)viewDidLoad
