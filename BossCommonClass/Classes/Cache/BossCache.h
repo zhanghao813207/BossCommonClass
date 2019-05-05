@@ -9,6 +9,7 @@
 @class SaasModel;
 @class BossManagerAccount;
 @class BossKnightAccount;
+@class BossOwnerAccount;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) BossManagerAccount *currentManagerAccount;
 
 @property (nonatomic, strong, nullable) BossKnightAccount *currentKnightAccount;
+
+@property (nonatomic, strong, nullable) BossOwnerAccount *currentBossOwnerAccount;
 
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *saasAccountList;
 

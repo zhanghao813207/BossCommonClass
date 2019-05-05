@@ -17,18 +17,32 @@
 /** 测试环境总域名 URL*/
 
 // dev
-NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com//1.0/";
-NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
-
-NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
+//NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
+//NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
+//
+//NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
+//NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
 
 // 明杰
 // NSString *const BossBasicURL = @"http://192.168.10.77:8081/1.0/";
 // NSString *const BossBasicURLV2 = @"http://192.168.10.77:8081/2.0/";
-//
+// NSString *const BossBasicPrefix = @"Boss";
 // NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
 // NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
+
+// dev
+NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
+NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+NSString *const BossBasicPrefix = @"qlife";
+NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+
+
+//NSString *const BossBasicURL = @"http://192.168.10.74:8082/1.0/";
+//NSString *const BossBasicURLV2 = @"http://192.168.10.74:8082/2.0/";
+//NSString *const BossBasicPrefix = @"qlife";
+//NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe90e";
+//NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe90f";
 
 #else
 /*-------------*********移动正式环境公共接口********-------*/
@@ -58,6 +72,13 @@ NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
     NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe900";
 
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
+
+#elif defined kBossOwner
+
+NSString *const APPCODE = @"qlife-ios";
+NSString *const APP_ID = @"5cc81743ce6d2a09ef56d69e";
+
+NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
 
 #else
 

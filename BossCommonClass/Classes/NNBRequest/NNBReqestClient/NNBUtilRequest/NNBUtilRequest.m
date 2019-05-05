@@ -25,6 +25,7 @@
 {
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
+        return;
     }
     
     NSMutableDictionary *paraDic = @{
@@ -42,8 +43,11 @@
     
     NSLog(@"\n%@", kUrl);
     NSLog(@"\n%@", kUrlApiVersion(@"/1.0"));
+    NSLog(@"\n%@", [self cmdRequest]);
+    
     // 执行发送验证码请求
     [self requestSmsCode:kUrl parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
+        NSLog(@"%@", responseObject);
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"]);
         }
@@ -76,6 +80,8 @@
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
     }
     DLog(@"request params:\n%@",paraDic);
+    DLog(@"request CMD:\n%@",[self cmdRequest]);
+    
     // 执行发送验证码请求
     [self requestSmsCode:kUrl parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         if (successBlock) {
