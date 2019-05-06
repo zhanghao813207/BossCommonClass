@@ -15,6 +15,7 @@
 #import "BossMethodDefine.h"
 #import "Media_info.h"
 
+
 @interface AnnouncementCell()
 
 
@@ -90,6 +91,16 @@
         [self timeLable];
         [self nameLable];
         self.contentView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:247 / 255.0 blue:249 / 255.0 alpha:1];
+#ifdef kBossKnight
+        [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-16);
+        }];
+#elif defined kBossManager
+        
+#else
+        
+#endif
+
     }
     return self;
 }

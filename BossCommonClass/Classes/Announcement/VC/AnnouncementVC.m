@@ -76,7 +76,13 @@
         [self countDownWithTopic:[kUserDefault objectForKey:@"account_id"]];
         [self.tableview.mj_header beginRefreshing];
     }
-    
+#ifdef kBossKnight
+    self.publishButton.hidden = true;
+#elif defined kBossManager
+    self.publishButton.hidden = false;
+#else
+    self.publishButton.hidden = true;
+#endif
 
 }
 
