@@ -211,7 +211,9 @@
  */
 + (void)registerSession {
     NSString * deviceToken = [kUserDefault objectForKey:@"deviceToken"];
-    NSLog(@"%@",deviceToken);
+    if (!deviceToken) {
+        return;
+    }
     NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"device_token":deviceToken};
     NSLog(@"%@",dic);
     [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
