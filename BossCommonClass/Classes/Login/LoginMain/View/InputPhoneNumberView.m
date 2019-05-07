@@ -192,19 +192,20 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 
 - (UIButton *)agreementLabel{
     if (!_agreementLabel) {
-        NSString *str = @"已阅读并同意软件许可及服务协议和隐私政策";
+//       #ifdef kBossKnight
+//        NSString *str = @"";
         //创建NSMutableAttributedString
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:str];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:AGREEMENTTITLE];
 //        UITapGestureRecognizer *tapRecognizerWeibo =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doIt:)];
 //        _agreementLabel.userInteractionEnabled = YES;
 //        [_agreementLabel addGestureRecognizer: tapRecognizerWeibo];
         //设置字体和设置字体的范围
-        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, 20)];
+        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, 23)];
         //添加文字颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(0, 6)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(6, 9)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(15, 1)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(16, 4)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(0, 9)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(14, 9)];
+//        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(15, 1)];
+//        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(16, 4)];
         //添加文字背景颜色
         _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, kScreenWidth, 13)];
         //设置label的富文本
