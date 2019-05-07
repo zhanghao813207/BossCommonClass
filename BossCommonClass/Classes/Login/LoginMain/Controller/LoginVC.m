@@ -15,6 +15,7 @@
 #import "NNBAuthRequest.h"
 #import "BossBasicDefine.h"
 #import "NNBRequestManager.h"
+#import "AgreementVc.h"
 
 @interface LoginVC ()<InputCodeViewDelegate>
 
@@ -297,6 +298,10 @@
         _inputPhoneNumberView.hidden = YES;
         
         WS(weakSelf);
+        [_inputPhoneNumberView setAgreementBlock:^{
+            AgreementVc *vc = [[AgreementVc alloc] init];
+            [weakSelf.navigationController pushViewController:vc animated:true];
+        }];
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
