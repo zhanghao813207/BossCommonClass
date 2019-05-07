@@ -27,6 +27,10 @@ UIKIT_EXTERN NSString *const MessageSECRET_KEY;
 
 UIKIT_EXTERN NSString *const APPCODE;
 
+UIKIT_EXTERN NSString *const AGREEMENTURL;
+
+UIKIT_EXTERN NSString *const AGREEMENTTITLE;
+
 UIKIT_EXTERN BOOL const kIsAlertPassword;
 
 UIKIT_EXTERN NSString *const SOBOT_KEY;  // 智齿客服的企业编号

@@ -75,20 +75,25 @@ NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
 
     NSString *const APPCODE = @"aoao_boss_app_ios";
     NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
-
+    NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
+    NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 
+//boss老板：
+//boss之家:
+//boss骑士：
 #elif defined kBossManager
 
     NSString *const APPCODE = @"aoao_boss_manager_ios";
     NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe900";
-
+    NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss之家用户协议与隐私政策";
+    NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-home.html";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
 
 #else
 
     NSString *const APPCODE = @"aoao_boss_app_ios";
-
+    NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-boss.html";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 #endif
 
