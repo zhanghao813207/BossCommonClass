@@ -32,6 +32,10 @@ PODS:
     - Qiniu (~> 7.1)
     - SDWebImage (~> 4.1.0)
     - SGPagingView (~> 1.6.0)
+    - UMCCommon (~> 2.0.1)
+    - UMCCommonLog (~> 1.0.0)
+    - UMCPush (~> 3.2.4)
+    - UMCSecurityPlugins (~> 1.0.6)
   - HappyDNS (0.3.14)
   - Masonry (1.1.0)
   - MJExtension (3.0.15.1)
@@ -50,6 +54,11 @@ PODS:
     - SDWebImage/Core (= 4.1.2)
   - SDWebImage/Core (4.1.2)
   - SGPagingView (1.6.0)
+  - UMCCommon (2.0.1)
+  - UMCCommonLog (1.0.0)
+  - UMCPush (3.2.4):
+    - UMCCommon
+  - UMCSecurityPlugins (1.0.6)
 
 DEPENDENCIES:
   - BossCommonClass (from `../`)
@@ -68,6 +77,10 @@ SPEC REPOS:
     - Qiniu
     - SDWebImage
     - SGPagingView
+    - UMCCommon
+    - UMCCommonLog
+    - UMCPush
+    - UMCSecurityPlugins
 
 EXTERNAL SOURCES:
   BossCommonClass:
@@ -77,7 +90,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BasicCommonClass: 486331ba498d456ccd92cb3e450a2b1fa0bfdbd3
   BGFMDB: a396ad1f7917adbc19bc7070fb9ee30e0e39df80
-  BossCommonClass: 28b51ad4e23866600ac838dd02b82e4d5253eaa9
+  BossCommonClass: 22ec81a7543f07e265319588d0fc4f38c8d0761a
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
@@ -86,6 +99,10 @@ SPEC CHECKSUMS:
   Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48
   SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   SGPagingView: 4b4f443b365bc70979f890da63d93bc22103be32
+  UMCCommon: 0263a057a2e1ae1da4c8308541e56904a493ce13
+  UMCCommonLog: 05a2d5de21858e3d870551562cff405c1366d244
+  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
 
 PODFILE CHECKSUM: 76117d01723b3b3310fe45987992e4780d226a1d
 
