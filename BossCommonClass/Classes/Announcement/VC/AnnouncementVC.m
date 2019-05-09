@@ -78,6 +78,9 @@
     }
 #ifdef kBossKnight
     self.publishButton.hidden = true;
+    [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.publishButton.mas_top).offset(46);
+    }];
 #elif defined kBossManager
     self.publishButton.hidden = false;
 #else
@@ -225,12 +228,18 @@
         return;
     }
     self.currentPage ++;
+    
     [AnnouncementRequest announcementListLastId:@"" page:self.currentPage  success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
         self.hasMore = header.has_more;
         for (AnnoucementList *list in dataArr) {
             [self.dataArrM insertObject:list atIndex:0];
         }
         [self.tableview reloadData];
+        if (self.dataArrM.count > 10) {
+            NSIndexPath *indesPath = [NSIndexPath indexPathForRow: 9 inSection:0];
+            [self.tableview scrollToRowAtIndexPath:indesPath atScrollPosition:UITableViewScrollPositionBottom animated:false];
+        }
+        
     } fail:^(NSString * message) {
         
     }];

@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger,SelectState) {
  选择按钮是否显示
  */
 @property(nonatomic, assign)BOOL isShow;
+@property(nonatomic, strong)NSArray *children;
 @end
 
 NS_ASSUME_NONNULL_END

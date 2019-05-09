@@ -20,6 +20,7 @@
 #import "AnnouncementDetail.h"
 #import "ContactsGroup.h"
 #import "JYCSimpleToolClass.h"
+#import "ContactsChild.h"
 
 
 @interface AnnouncementRequest ()
@@ -58,6 +59,7 @@
 + (void)announcementListLastId:(NSString *)last_message_id page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:@(currentPage) forKey:@"page"];
+    
 //    if (last_message_id) {
 //        dic[@"last_message_id"] = last_message_id;
 //    }
@@ -105,7 +107,23 @@
 
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.address_book.find" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
-        NSArray *dataArr = [ContactsGroup mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *dataArr = [NSMutableArray array];
+        dataArr = [ContactsGroup mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *tempArr = [NSMutableArray array];
+        for (ContactsGroup *group in dataArr) {
+            if (group.children.count > 0) {
+                for (ContactsChild *child in group.children) {
+                    ContactsGroup *group = [[ContactsGroup alloc] init];
+                    group.target_id = child.target_id;
+                    group.name = child.name;
+                    group.head_img_url = child.head_img_url;
+                    [tempArr addObject:group];
+                }
+            }
+        }
+        for (ContactsGroup *group in tempArr.reverseObjectEnumerator) {
+            [dataArr insertObject:group atIndex:1];
+        }
         successBlock(dataArr);
     } fail:^(id error) {
         NSLog(@"%@",error);

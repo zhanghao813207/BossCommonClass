@@ -168,6 +168,7 @@
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 2;
         _contentLabel.font = [UIFont systemFontOfSize:14];
+//        _contentLabel.backgroundColor = [UIColor redColor];
         _contentLabel.alpha = 0.9;
         _contentLabel.textColor = kHexRGBA(0x343339, 0.9);
         [_contentLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
@@ -184,7 +185,6 @@
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-//        _titleLabel.backgroundColor = [UIColor redColor];
         _titleLabel.numberOfLines = 0;
         _titleLabel.font = [UIFont boldSystemFontOfSize:17];
 //        _titleLabel.backgroundColor = [UIColor redColor];
@@ -259,7 +259,7 @@
     if (_progressView == nil) {
         _progressView = [[UIView alloc] init];
         _progressView.backgroundColor = kHexRGB(0x00BD9A);
-        [self.containerView addSubview:_progressView];
+        [self.progressBgView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
         }];
