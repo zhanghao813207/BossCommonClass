@@ -95,6 +95,7 @@
         [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-16);
         }];
+      
 #elif defined kBossManager
         
 #else
@@ -262,6 +263,7 @@
         [self.progressBgView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
+            make.width.equalTo(self.progressBgView).multipliedBy(0);
         }];
     }
     return _progressView;
@@ -325,8 +327,10 @@
             make.left.equalTo(self.contentView).offset(64);
             make.bottom.equalTo(self.nameLable);
         }];
-        [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.width.equalTo(self.progressBgView).multipliedBy((CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter);
+        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            model.message_counter_info.read_counter = 1;
+//            model.message_counter_info.total_counter = 2;
+            make.width.equalTo(self.progressBgView).multipliedBy((CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter);
         }];
 //        self.hintLabel.text = @"123123";
     }else {
@@ -341,10 +345,24 @@
             make.bottom.equalTo(self.containerView.mas_top).offset(-4);
             make.left.equalTo(self.contentView).offset(64);
         }];
+        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
+            NSLog(@"%f",(CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter); make.width.equalTo(self.progressBgView).multipliedBy(0);
+        }];
+        
+#ifdef kBossKnight
+        [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-16);
+            make.bottom.equalTo(self.nameLable);
+        }];
+        
+#elif defined kBossManager
         [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-64);
             make.bottom.equalTo(self.nameLable);
         }];
+#else
+        
+#endif
     }
     self.progressView.hidden = self.progressBgView.hidden;
     NSLog(@"%@",model.media_info_list);

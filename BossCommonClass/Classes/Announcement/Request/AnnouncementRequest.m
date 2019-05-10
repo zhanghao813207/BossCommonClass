@@ -59,6 +59,7 @@
 + (void)announcementListLastId:(NSString *)last_message_id page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:@(currentPage) forKey:@"page"];
+    [dic setValue:@{@"limit":@(20)} forKey:@"_meta"];
     
 //    if (last_message_id) {
 //        dic[@"last_message_id"] = last_message_id;

@@ -16,10 +16,10 @@
         UIView *noDataView = [[UIView alloc] init];
         self.backgroundView = noDataView;
         UIImageView *imgView = [[UIImageView alloc] init];
-        UIImage *image = [UIImage imageNamed:@"ic_arrow_right" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+        UIImage *image = [UIImage imageNamed:@"NoDataIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
         //        UIImage *image = [UIImage imageNamed:@"camera"];
         imgView.image = image;
-//        imgView.backgroundColor = [UIColor whiteColor];
+//        imgView.backgroundColor = [UIColor redColor];
 //
         
         [noDataView addSubview:imgView];

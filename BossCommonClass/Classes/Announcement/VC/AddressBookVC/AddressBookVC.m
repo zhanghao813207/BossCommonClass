@@ -98,7 +98,7 @@
         self.arrM = [dataArr mutableCopy];
         for (ContactsGroup *model in self.arrM) {
             for (ContactsGroup *selectModel in self.teamArr) {
-                if ([model._id isEqualToString:selectModel._id]) {
+                if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
                     [self.selectArrM addObject:model];
                     model.state = SelectStateAll;
                     model.isShow = !self.isShowSelectBar;

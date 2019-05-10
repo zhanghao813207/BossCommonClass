@@ -239,12 +239,13 @@
             NSIndexPath *indesPath = [NSIndexPath indexPathForRow: 9 inSection:0];
             [self.tableview scrollToRowAtIndexPath:indesPath atScrollPosition:UITableViewScrollPositionBottom animated:false];
         }
-        
+        [self.tableview reloadData];
+        [self.tableview.mj_header endRefreshing];
     } fail:^(NSString * message) {
-        
+        [self.tableview.mj_header endRefreshing];
     }];
-    [self.tableview reloadData];
-    [self.tableview.mj_header endRefreshing];
+//    [self.tableview reloadData];
+//    [self.tableview.mj_header endRefreshing];
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
@@ -281,7 +282,7 @@
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [tableView tableViewDisplayWitMsg:@"无数据" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
+    [tableView tableViewDisplayWitMsg:@"暂无消息" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
     return self.dataArrM.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
