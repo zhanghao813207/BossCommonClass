@@ -8,7 +8,6 @@
 
 #import "AnnouncementVC.h"
 #import "JYCMethodDefine.h"
-#import "TestModel.h"
 #import "Masonry.h"
 #import "AnnouncementCell.h"
 #import "MJRefresh.h"
@@ -45,7 +44,15 @@
  当前页
  */
 @property(nonatomic, assign)NSInteger currentPage;
+
+/**
+ 是否有更多的数据
+ */
 @property(nonatomic, assign)BOOL hasMore;
+
+/**
+ 定时器
+ */
 @property (nonatomic, strong) dispatch_source_t timer;
 @property(nonatomic, copy)NSString *key;
 @end
@@ -201,6 +208,7 @@
         
         [self.tableview reloadData];
         [self.tableview.mj_footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
         self.tableview.mj_footer = nil;
         if (self.currentPage == 1 && dataArr.count > 0) {
             NSIndexPath *indesPath = [NSIndexPath indexPathForRow:self.dataArrM.count - 1 inSection:0];
@@ -219,7 +227,7 @@
     if (self.isFirst) {
         [self refreshLatestData];
         self.isFirst = false;
-        [self.tableview.mj_header endRefreshing];
+//        [self.tableview.mj_header endRefreshing];
         return;
     }
     if (!self.hasMore) {

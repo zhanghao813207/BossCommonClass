@@ -38,6 +38,10 @@
  个人页面返回被选中的数据
  */
 @property(nonatomic, strong)NSArray *personSelectArr;
+
+/**
+ 这个是当前还能选个人的时候写的属性  用来保存每一组选择的哪几个人
+ */
 @property(nonatomic, strong)NSMutableDictionary *selectDic;
 
 
@@ -108,12 +112,16 @@
         
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
+            if (self.isShowSelectBar) {
+                self.tableview.mj_header = nil;
+            }
         }];
     } fail:^(NSString * message) {
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
             
+            if (self.isShowSelectBar) {
+                self.tableview.mj_header = nil;
+            }
         }];
     }];
     

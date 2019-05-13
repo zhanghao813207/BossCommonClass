@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnouncementCell : UITableViewCell
+
+/**
+ 数据
+ */
 @property(nonatomic, strong)AnnoucementList *model;
 @end
 

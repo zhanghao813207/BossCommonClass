@@ -27,7 +27,15 @@
  头像
  */
 @property(nonatomic, strong)UIImageView *headerImgView;
+
+/**
+ 以下视图的父视图
+ */
 @property(nonatomic, strong)UIView *containerView;
+
+/**
+ 提示
+ */
 @property(nonatomic, strong)UILabel *hintLabel;
 
 /**
@@ -263,7 +271,6 @@
         [self.progressBgView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
-            make.width.equalTo(self.progressBgView).multipliedBy(0);
         }];
     }
     return _progressView;
@@ -305,7 +312,7 @@
     self.titleLabel.text = model.message_summary_info.title;
     self.contentLabel.text = model.message_summary_info.content;
     self.timeLable.text = model.message_summary_info.time;
-    
+  
     if (model.sender_info.isMe) {
 //        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
         self.nameLable.text = model.sender_info.nick_name;
@@ -327,10 +334,10 @@
             make.left.equalTo(self.contentView).offset(64);
             make.bottom.equalTo(self.nameLable);
         }];
-        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            model.message_counter_info.read_counter = 1;
-//            model.message_counter_info.total_counter = 2;
-            make.width.equalTo(self.progressBgView).multipliedBy((CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter);
+        NSLog(@"model.progress === %f",model.progress);
+        [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.progressBgView);
+            make.width.equalTo(self.progressBgView).multipliedBy(model.progress);
         }];
 //        self.hintLabel.text = @"123123";
     }else {
@@ -345,8 +352,9 @@
             make.bottom.equalTo(self.containerView.mas_top).offset(-4);
             make.left.equalTo(self.contentView).offset(64);
         }];
-        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-            NSLog(@"%f",(CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter); make.width.equalTo(self.progressBgView).multipliedBy(0);
+        [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.progressBgView);
+            make.width.equalTo(self.progressBgView).multipliedBy(0);
         }];
         
 #ifdef kBossKnight
