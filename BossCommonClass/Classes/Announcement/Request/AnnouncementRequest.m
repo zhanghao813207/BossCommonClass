@@ -215,6 +215,8 @@
         [kUserDefault setValue:responseObject[@"account_id"] forKey:@"account_id"];
         NSLog(@"%@",responseObject);
         
+        kCache.checkStartUMS = YES;
+        
         [[MQTTClientModel sharedInstance] bindWithUserName:@"im_server" password:@"im_server-123" cliendId:[NSString stringWithFormat:@"im_server%@%@",[JYCSimpleToolClass getUUID],responseObject[@"account_id"]] isSSL:false];
         [AnnouncementRequest registerSession];
 //        [MQTTClientModel sharedInstance].delegate = self;

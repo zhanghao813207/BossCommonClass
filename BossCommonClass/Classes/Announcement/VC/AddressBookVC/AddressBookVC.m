@@ -87,7 +87,6 @@
     
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
-//    [self refreshLatestData];
 }
 
 
@@ -165,18 +164,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-//    [self.arrM removeAllObjects];
     
     [self getNewToken];
 }
 - (void)getNewToken {
-//    [kUserDefault removeObjectForKey:@"newToken"];
-//    [kUserDefault removeObjectForKey:@"uploadImage"];
+    [kUserDefault removeObjectForKey:@"newToken"];
+    [kUserDefault removeObjectForKey:@"uploadImage"];
     if ([kUserDefault objectForKey:@"newToken"]) {
         [self.tableview.mj_header beginRefreshing];
     }else {
         [AnnouncementRequest getNewtokenSuccess:^(id response) {
             NSLog(@"%@",response);
+            self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+            
             [self.tableview.mj_header beginRefreshing];
         }];
     }
@@ -297,7 +297,6 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = kHexRGB(0xE5E5EE);
-        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
 //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);

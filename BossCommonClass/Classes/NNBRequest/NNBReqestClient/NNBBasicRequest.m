@@ -13,6 +13,7 @@
 #import "BossBasicDefine.h"
 #import "BossKnightAccount.h"
 #import "BossManagerAccount.h"
+#import "MQTTClientModel.h"
 @class ViewController;
 
 @implementation NNBBasicRequest
@@ -48,6 +49,14 @@
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
         [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
     } fail:^(id error) {
+        // 校验是否获取消息推送请求token的接口
+        if(cmd && [cmd isEqualToString:@"auth.token.get_ums_access_token"]){
+            kCache.checkStartUMS = NO;
+            if(fail){
+                fail(error);
+            }
+            return;
+        }
         [self handleFailWithError:error dealType:ResultDealTypesQHErrorView success:success fail:fail];
     }];
 }
@@ -148,6 +157,15 @@
 {
     NSDictionary *dic = (NSDictionary *)responseObject;
     if (dic[@"err_code"]) {
+        NSInteger errCode = [dic[@"err_code"] integerValue];
+        // 400403:商户不使用消息系统
+        if(errCode == 400403){
+            kCache.checkStartUMS = NO;
+            if (fail) {
+                fail(dic);
+            }
+            return;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             UIView *showView;
             UIViewController *vc = [JYCSimpleToolClass getCurrentVC];
@@ -165,14 +183,14 @@
             if (dic[@"zh_message"]) {
                 errorMsg = dic[@"zh_message"];
             } else {
-               errorMsg = [self zh_msgWithErrorCode:[dic[@"err_code"] integerValue]];
+               errorMsg = [self zh_msgWithErrorCode:errCode];
             }
             if (dealType == ResultDealTypesQHErrorView) {
                 [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
             } else if (dealType == ResultDealTypesNNBStatusView){
                 [showView showStatus:errorMsg];
             }
-            if ([dic[@"err_code"] integerValue] == 415001 || [dic[@"err_code"] integerValue] == 415002) {
+            if (errCode == 415001 || errCode == 415002) {
 #ifdef kBossKnight
                 if(!kCurrentBossKnightAccount){
                     return;
@@ -191,6 +209,8 @@
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
+                // 断开MQTT链接
+                [[MQTTClientModel sharedInstance] disconnect];
             }
         });
         if (fail) {
@@ -220,20 +240,24 @@
 
 + (void)handleErrorCodeWithError:(NSError *)error success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
-    NSString *ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
-    DLog(@"ErrorResponse = %@",ErrorResponse);
-    
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[ErrorResponse dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
-    
-    if (error && dic[@"err_code"]){
-        if (success) {
-            success(dic);
+    NSData *errorData = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+    // 校验请求信息是否为空
+    if(errorData){
+        // 输出错误信息
+        DLog(@"ErrorResponse = %@",[[NSString alloc] initWithData:errorData encoding:NSUTF8StringEncoding]);
+        // NSData转字典
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:errorData options:NSJSONReadingMutableContainers error:&error];
+        // 判断是否业务错误，业务错误回调请求成功block
+        if (dic[@"err_code"]){
+            if (success) {
+                success(dic);
+            }
             return;
         }
-    } else {
-        if (fail) {
-            fail(error);
-        }
+    }
+    
+    if (fail) {
+        fail(error);
     }
 }
 

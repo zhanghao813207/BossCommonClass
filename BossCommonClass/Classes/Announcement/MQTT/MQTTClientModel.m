@@ -8,6 +8,9 @@
 
 #import "MQTTClientModel.h"
 #import "WifiManager.h"
+#import "BossMethodDefine.h"
+#import "BossCache.h"
+
 @interface MQTTClientModel () <MQTTSessionManagerDelegate,WifiManagerDelegate>
 
 @property (nonatomic,strong) MQTTCFSocketTransport *myTransport;
@@ -49,6 +52,11 @@
 
 
 - (void)reConnect {
+    
+    // 是否启动UMS
+    if(!kCache.checkStartUMS){
+        return;
+    }
     
     if (self.mySessionManager && self.mySessionManager.port) {
         self.mySessionManager.delegate = self;
