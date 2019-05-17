@@ -11,13 +11,22 @@
 #import "JYCMethodDefine.h"
 #import "RecommendedModel.h"
 #import "UIView+GetVC.h"
+
 @interface SelectTabbarView ()
 
 /**
- 删除按钮
+ 删除/全部删除按钮
  */
 @property(nonatomic, strong)UIButton *deleteButton;
+
+/**
+ 提交/全部提交按钮
+ */
 @property(nonatomic, strong)UIButton *selectButton;
+
+/**
+ 顶部分割线
+ */
 @property(nonatomic, strong)UIView *lineView;
 @end
 
@@ -34,6 +43,7 @@
     }
     return self;
 }
+
 - (void)setModelArr:(NSArray *)modelArr {
     _modelArr = modelArr;
     for (RecommendedModel *model in modelArr) {
@@ -45,6 +55,7 @@
         }
     }
 }
+
 - (void)setSeletcArr:(NSArray *)seletcArr {
     _seletcArr = seletcArr;
     for (RecommendedModel *model in seletcArr) {
@@ -76,6 +87,7 @@
     NSLog(@"%@",self.seletcArr);
 //    NSLog(@"%@",self.modelArr);
 }
+
 - (void)setIsAll:(BOOL)isAll {
     _isAll = isAll;
     if (isAll) {
@@ -86,63 +98,22 @@
 //        [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
     }
 }
-- (UIButton *)deleteButton {
-    if (_deleteButton == nil) {
-        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_deleteButton setTitle:@"全部删除" forState:UIControlStateNormal];
-        [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
-        [_deleteButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
-        _deleteButton.titleLabel.font = [UIFont systemFontOfSize:17];
-        [self addSubview:_deleteButton];
-        [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.deleteButton);
-            make.left.top.equalTo(self).offset(16);
-            make.centerY.equalTo(self);
-        }];
+
+- (void)setIsFinish:(BOOL)isFinish {
+    _isFinish = isFinish;
+    if (self.isFinish) {
+        self.selectButton.hidden = true;
     }
-    return _deleteButton;
 }
-- (UIButton *)selectButton {
-    if (_selectButton == nil) {
-        _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_selectButton setTitle:@"全部提交" forState:UIControlStateNormal];
-        [_selectButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
-        [_selectButton addTarget:self action:@selector(select) forControlEvents:UIControlEventTouchUpInside];
-        _selectButton.titleLabel.font = [UIFont systemFontOfSize:17];
-        [self addSubview:_selectButton];
-        [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-16);
-            make.height.mas_equalTo(44);
-            make.centerY.equalTo(self);
-        }];
-    }
-    return _selectButton;
-}
-- (UIView *)lineView {
-    if (_lineView == nil) {
-        _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
-        [self addSubview:_lineView];
-        [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-            make.left.right.equalTo(self);
-            make.height.equalTo(@(1 / UIScreen.mainScreen.scale));
-        }];
-    }
-    return _lineView;
-}
-- (void)select {
+
+#pragma mark - click
+
+- (void)selectAction {
     if ([self.selectButton.currentTitle containsString:@"全部提交"]) {
         self.isAll = true;
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectModel:)]) {
         [self.delegate selectModel:self];
-    }
-}
-- (void)setIsFinish:(BOOL)isFinish {
-    _isFinish = isFinish;
-    if (self.isFinish) {
-        self.selectButton.hidden = true;
     }
 }
 
@@ -166,7 +137,58 @@
         
     }];
     
-   
+    
+}
+
+
+#pragma mark - lazy
+
+- (UIButton *)deleteButton {
+    if (_deleteButton == nil) {
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteButton setTitle:@"全部删除" forState:UIControlStateNormal];
+        [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        [_deleteButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
+        _deleteButton.titleLabel.font = [UIFont systemFontOfSize:17];
+        [self addSubview:_deleteButton];
+        [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.deleteButton);
+            make.left.top.equalTo(self).offset(16);
+            make.centerY.equalTo(self);
+        }];
+    }
+    return _deleteButton;
+}
+
+- (UIButton *)selectButton {
+    if (_selectButton == nil) {
+        _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_selectButton setTitle:@"全部提交" forState:UIControlStateNormal];
+        [_selectButton setTitleColor:kHexRGB(0x1173E4) forState:UIControlStateNormal];
+        [_selectButton addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
+        _selectButton.titleLabel.font = [UIFont systemFontOfSize:17];
+        [self addSubview:_selectButton];
+        [_selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-16);
+            make.height.mas_equalTo(44);
+            make.centerY.equalTo(self);
+        }];
+    }
+    return _selectButton;
+}
+
+- (UIView *)lineView {
+    if (_lineView == nil) {
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:_lineView];
+        [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.left.right.equalTo(self);
+            make.height.equalTo(@(1 / UIScreen.mainScreen.scale));
+        }];
+    }
+    return _lineView;
 }
 
 @end

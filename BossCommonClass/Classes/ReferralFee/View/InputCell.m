@@ -12,11 +12,27 @@
 #import "BossMethodDefine.h"
 
 @interface InputCell()<UITextFieldDelegate>
-@property(nonatomic, strong)UITextField *textField;
-@property(nonatomic, strong)UIButton *arrowButton;
+
+/**
+ 标题
+ */
 @property(nonatomic, strong)UILabel *titleLabel;
 
+/**
+ 内容
+ */
 @property(nonatomic, strong)UILabel *detailLabel;
+
+/**
+ 输入框 - 编辑状态
+ */
+@property(nonatomic, strong)UITextField *textField;
+
+/**
+ 右箭头
+ */
+@property(nonatomic, strong)UIButton *arrowButton;
+
 @end
 
 @implementation InputCell
@@ -43,31 +59,12 @@
     [self endEditing:YES];
     return YES;
 }
-- (void)setDetailStr:(NSString *)detailStr {
-    _detailStr = detailStr;
-    self.textField.text = detailStr;
-}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(inputContent:type:)]) {
         [self.delegate inputContent:textField.text type:self.model];
     }
-}
-- (UILabel *)detailLabel {
-    if (_detailLabel == nil) {
-        _detailLabel = [[UILabel alloc] init];
-        _detailLabel.numberOfLines = 0;
-        _detailLabel.hidden = true;
-        _detailLabel.font = [UIFont systemFontOfSize:16];
-        _detailLabel.textColor = kHexRGBA(0x000000, 0.8);
-        [self.contentView addSubview:_detailLabel];
-        [_detailLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.titleLabel.mas_right).offset(4);
-            make.centerY.equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(-4);
-        }];
-    }
-    return _detailLabel;
 }
 - (void)setModel:(InputMessageModel *)model {
     _model = model;
@@ -114,6 +111,24 @@
     }
     self.textField.userInteractionEnabled = model.isSkip;
 }
+
+- (UILabel *)detailLabel {
+    if (_detailLabel == nil) {
+        _detailLabel = [[UILabel alloc] init];
+        _detailLabel.numberOfLines = 0;
+        _detailLabel.hidden = true;
+        _detailLabel.font = [UIFont systemFontOfSize:16];
+        _detailLabel.textColor = kHexRGBA(0x000000, 0.8);
+        [self.contentView addSubview:_detailLabel];
+        [_detailLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.titleLabel.mas_right).offset(4);
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(-4);
+        }];
+    }
+    return _detailLabel;
+}
+
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
