@@ -27,10 +27,6 @@
 @property(nonatomic, strong)AnnouncementDetailFooterView *footerView;
 @property(nonatomic, strong)UITableView *tableview;
 
-/**
- 以上为测试数据
- */
-
 @property(nonatomic, strong)NSMutableArray *itemsArr;
 @property(nonatomic, strong)NSArray *imgArr;
 @end

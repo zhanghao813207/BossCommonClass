@@ -15,7 +15,7 @@
 #ifndef Service_Protocol
 #define Service_Protocol
 
-
+#warning 需定义配置文件
 
 //static NSString *const AddressOfMQTTServer      = @"  https://boss-api-dev.aoaosong.com:8009";  // MQTT服务器地址
 //static NSString *const AddressOfMQTTServer      = @"tcp://192.168.10.133";  // MQTT服务器地址

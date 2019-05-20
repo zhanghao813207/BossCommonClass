@@ -25,8 +25,10 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import "QLifeAES256.h"
 #import "MQTTClientModel.h"
+
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
+
 @interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate,MQTTClientModelDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property(nonatomic, strong)NSMutableArray *dataArrM;
@@ -130,6 +132,7 @@
     });
     dispatch_resume(self.timer);
 }
+
 - (void)back {
 //    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"newToken"];
     [kUserDefault removeObjectForKey:@"uploadImage"];

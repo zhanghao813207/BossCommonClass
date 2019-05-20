@@ -144,6 +144,12 @@
     switch (newState) {
         case MQTTSessionManagerStateConnected:
             NSLog(@"eventCode -- 连接成功");
+#warning 建立连接之后，订阅消息和发布消息
+            // 启动定时发布心跳包
+            // [self countDownWithTopic:response[@"account_id"]];
+            
+            // 订阅消息
+            // [[MQTTClientModel sharedInstance] subscribeTopic:responseObject[@"account_id"]];
             break;
         case MQTTSessionManagerStateConnecting:
             NSLog(@"eventCode -- 连接中");
@@ -151,9 +157,13 @@
             break;
         case MQTTSessionManagerStateClosed:
             NSLog(@"eventCode -- 连接被关闭");
+#warning 取消定时发送心跳包
+            // 取消定时发送心跳包
             break;
         case MQTTSessionManagerStateError:
             NSLog(@"eventCode -- 连接错误");
+#warning 取消定时发送心跳包
+            // 取消定时发送心跳包
             break;
         case MQTTSessionManagerStateClosing:
             NSLog(@"eventCode -- 关闭中");

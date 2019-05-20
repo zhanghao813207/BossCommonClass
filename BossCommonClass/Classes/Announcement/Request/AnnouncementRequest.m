@@ -211,6 +211,7 @@
     NSDictionary *dic = @{@"app_code":APPCODE};
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
         NSLog(@"%@",responseObject[@"access_token"]);
+#waring newToken需调整 ums_access_token
         [kUserDefault setValue:responseObject[@"access_token"] forKey:@"newToken"];
         [kUserDefault setValue:responseObject[@"account_id"] forKey:@"account_id"];
         NSLog(@"%@",responseObject);
