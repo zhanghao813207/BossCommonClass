@@ -32,6 +32,19 @@ CGFloat const kInputCodeViewHeight = 242;
 
 @implementation InputCodeView
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self addSubview:self.sendPhoneNumberLabel];
+        [self addSubview:self.inputCodeNoticeLabel];
+        [self addSubview:self.codeView];
+        [self addSubview:self.countDownView];
+        [self addSubview:self.voiceCodeButton];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

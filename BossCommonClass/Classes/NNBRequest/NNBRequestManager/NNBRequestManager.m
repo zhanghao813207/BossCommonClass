@@ -69,7 +69,7 @@ static NNBRequestManager *sharedManager = nil;
     [sharedManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
     
 }
-
+// TODO:
 - (void)addTokenWithCMD:(NSString *)cmd
 {
     self.cmd = cmd;
@@ -82,24 +82,40 @@ static NNBRequestManager *sharedManager = nil;
     if (cmd) {
         // cmd添加前缀boss.
         // header中添加X-CMD
-        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"boss.%@",cmd] forHTTPHeaderField:@"X-CMD"];
+        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@.%@",BossBasicPrefix,cmd] forHTTPHeaderField:@"X-CMD"];
     }
     
     [sharedManager.requestSerializer setValue:sharedManager.accessKey forHTTPHeaderField:@"X-APP-KEY"];
     
     // “X-AUTH”:  未登录或已登陆但是发送验证码接口
     // "X-TOKEN": 已登录但不是发送验证码接口
-    if(!kCache.netConfig || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
-        // header中添加X-AUTH
-        [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
-        [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
-    }else{
-        // // header中添加X-TOKEN
-        NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",sharedManager.accessToken,[sharedManager headTokenStr:date]];
-        [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
-        [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
+    if ([BossBasicPrefix isEqualToString:@"qlife"]) {
+        // 获取验证码 登录 都使用 X-AUTH;
+        if ([@"auth.auth.send_verify_code" isEqualToString:cmd] || [@"auth.auth.login" isEqualToString:cmd]) {
+            // header中添加X-AUTH
+            [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
+            [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
+        } else {
+            NSLog(@"X-token%@", sharedManager.accessToken);
+            NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",sharedManager.accessToken,[sharedManager headTokenStr:date]];
+            [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
+            [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
+        }
+    } else {
+        if(!kCache.netConfig || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
+            // header中添加X-AUTH
+            [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
+            [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
+        }else{
+            // // header中添加X-TOKEN
+            NSLog(@"X-token%@", sharedManager.accessToken);
+            NSString *X_TOKEN = [NSString stringWithFormat:@"%@,%@",sharedManager.accessToken,[sharedManager headTokenStr:date]];
+            [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
+            [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
+        }
+        DLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
     }
-    DLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
+    
 }
 
 // AUTH请求方式 hMD5加密
@@ -135,11 +151,9 @@ static NNBRequestManager *sharedManager = nil;
 
 - (NSString *)accessToken
 {
-
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"] && [self.cmd containsString:@"ums"] ) {
         return [[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"];
     }
-
     return kCache.accessToken;
 }
 

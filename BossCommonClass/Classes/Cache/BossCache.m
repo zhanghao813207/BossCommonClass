@@ -9,6 +9,7 @@
 #import "SaasModel.h"
 #import "BossManagerAccount.h"
 #import "BossKnightAccount.h"
+#import "BossOwnerAccount.h"
 
 @implementation BossCache
 
@@ -19,6 +20,8 @@ static BossCache *defaultCache = nil;
 @synthesize currentManagerAccount = _currentManagerAccount;
 
 @synthesize currentKnightAccount = _currentKnightAccount;
+
+@synthesize currentBossOwnerAccount = _currentBossOwnerAccount;
 
 @synthesize saasAccountList = _saasAccountList;
 
@@ -90,6 +93,26 @@ static BossCache *defaultCache = nil;
     return _currentManagerAccount;
 }
 
+- (BossOwnerAccount *)currentBossOwnerAccount
+{
+    if(!_currentBossOwnerAccount){
+        NSDictionary *accountDic = [kUserDefault objectForKey:ACCOUNT_KEY];
+        if(accountDic){
+            BossOwnerAccount *accountModel = [[BossOwnerAccount alloc] init];
+            [accountModel setValuesForKeysWithDictionary:accountDic];
+            _currentBossOwnerAccount = accountModel;
+        }
+    }
+    return _currentBossOwnerAccount;
+}
+
+- (void)setCurrentBossOwnerAccount:(BossOwnerAccount *)currentBossOwnerAccount{
+    _currentBossOwnerAccount = currentBossOwnerAccount;
+    
+    [kUserDefault setObject:[_currentBossOwnerAccount decodeToDic] forKey:ACCOUNT_KEY];
+    [kUserDefault synchronize];
+}
+
 - (void)setCurrentManagerAccount:(BossManagerAccount *)currentManagerAccount
 {
     _currentManagerAccount = currentManagerAccount;
@@ -152,6 +175,9 @@ static BossCache *defaultCache = nil;
         return;
     }
     [logoutPhoneList removeObject:phone];
+    if (logoutPhoneList.count == 0) {
+        return;
+    }
     [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
@@ -190,8 +216,10 @@ static BossCache *defaultCache = nil;
     return self.currentKnightAccount.tokenModel.access_token;
 #elif defined kBossManager
     return self.currentManagerAccount.tokenModel.access_token;
+#elif defined kBossOwner
+    return self.currentBossOwnerAccount.accountModel.accessToken;
 #else
-    return @"";
+    return self.currentBossOwnerAccount.accountModel.accessToken;
 #endif
 }
 
@@ -201,6 +229,8 @@ static BossCache *defaultCache = nil;
     return self.currentKnightAccount != nil;
 #elif defined kBossManager
     return self.currentManagerAccount != nil;
+#elif defined kBossOwner
+    return self.currentBossOwnerAccount != nil;
 #else
     return NO;
 #endif
