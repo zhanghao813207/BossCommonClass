@@ -21,28 +21,30 @@
  */
 + (void)staffRequestGetStaffInfoWithId:(void(^)(void))successBlock fail:(void(^)(id error))failBlock
 {
-    NSDictionary *paramDic = @{
-                               @"staff_id":kCurrentBossKnightAccount.tokenModel.account_id,
-                               };
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.get" success:^(id responseObject) {
-        BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
-        [accountModel setValuesForKeysWithDictionary:responseObject];
-        
-        BossKnightAccount *knightAccount  = [[BossKnightAccount alloc] init];
-        knightAccount.tokenModel = kCurrentBossKnightAccount.tokenModel;
-        knightAccount.accountModel = accountModel;
-        
-        kCurrentBossKnightAccount = knightAccount;
-        kCurrentBossKnightAccount.isNeedUpdate = NO;
-        if (successBlock) {
-            successBlock();
-        }
-    } fail:^(id error) {
-        if (!failBlock) {
-            return;
-        }
-        failBlock(error);
-    }];
+    if (kCurrentBossKnightAccount.tokenModel.account_id) {
+        NSDictionary *paramDic = @{
+                                   @"staff_id":kCurrentBossKnightAccount.tokenModel.account_id,
+                                   };
+        [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"staff.staff.get" success:^(id responseObject) {
+            BossKnightAccountModel *accountModel = [[BossKnightAccountModel alloc] init];
+            [accountModel setValuesForKeysWithDictionary:responseObject];
+            
+            BossKnightAccount *knightAccount  = [[BossKnightAccount alloc] init];
+            knightAccount.tokenModel = kCurrentBossKnightAccount.tokenModel;
+            knightAccount.accountModel = accountModel;
+            
+            kCurrentBossKnightAccount = knightAccount;
+            kCurrentBossKnightAccount.isNeedUpdate = NO;
+            if (successBlock) {
+                successBlock();
+            }
+        } fail:^(id error) {
+            if (!failBlock) {
+                return;
+            }
+            failBlock(error);
+        }];
+    }
 }
 
 /**

@@ -119,6 +119,8 @@
     cmd = @"auth.auth.app_login";
 #elif defined kBossManager
     cmd = @"auth.auth.login";
+#elif defined kBossOwner
+    cmd = @"auth.auth.send_verify_code";
 #else
     cmd = nil;
 #endif
