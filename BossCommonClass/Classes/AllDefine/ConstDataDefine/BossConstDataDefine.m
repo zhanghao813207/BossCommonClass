@@ -13,65 +13,34 @@
 #pragma mark -- 访问域名
 
 #ifdef DEBUG
-///*-------------*********移动测试环境公共接口********-------*/
-/** 测试环境总域名 URL*/
 
-// dev
-//NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
-//NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
-//
-//NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-//NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
+#ifdef kBossOwner
+    // dev
+    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
+    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+    NSString *const BossBasicPrefix = @"qlife";
+    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
+    NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
+#else
+    //dev
+    NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
+    NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
+    NSString *const BossBasicPrefix = @"boss";
+    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
+    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
 
-NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-
-NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
-NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
-
-
-
-
-//192.168.10.68:8082
-//192.168.10.40
-//NSString *const BossBasicURL = @"http://192.168.10.62:8081/2.0/";
-//NSString *const BossBasicURLV2 = @"http://192.168.10.62:8081/2.0/";
-//
-//NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
-//NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
-
-//NSString *const MessageBasicURL = @"http://192.168.10.62:8082/2.0/";
-//NSString *const MessageBasicURLV2 = @"http://192.168.10.62:8082/2.0/";
-//
-//NSString *const MessageACCESS_KEY = @"5cb983ea57a31a6621e8df28";
-//NSString *const MessageSECRET_KEY = @"5cb983ea57a31a6621e8df29";
-
-
-
-// 明杰
-// NSString *const BossBasicURL = @"http://192.168.10.77:8081/1.0/";
-// NSString *const BossBasicURLV2 = @"http://192.168.10.77:8081/2.0/";
-// NSString *const BossBasicPrefix = @"Boss";
-// NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe91f";
-// NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe920";
-
-// dev
-NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
-NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
-NSString *const BossBasicPrefix = @"qlife";
-NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
-NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
-
-
-//NSString *const BossBasicURL = @"http://192.168.10.74:8082/1.0/";
-//NSString *const BossBasicURLV2 = @"http://192.168.10.74:8082/2.0/";
-//NSString *const BossBasicPrefix = @"qlife";
-//NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe90e";
-//NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe90f";
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
+    NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
+#endif
 
 #else
-/*-------------*********移动正式环境公共接口********-------*/
 // release
 NSString *const BossBasicURL = @"https://saas-api.aoaosong.com/1.0/";
 NSString *const BossBasicURLV2 = @"https://saas-api.aoaosong.com/2.0/";
@@ -93,9 +62,6 @@ NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 
-//boss老板：
-//boss之家:
-//boss骑士：
 #elif defined kBossManager
 
     NSString *const APPCODE = @"aoao_boss_manager_ios";
@@ -106,10 +72,10 @@ NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
 
 #elif defined kBossOwner
 
-NSString *const APPCODE = @"qlife-ios";
-NSString *const APP_ID = @"5cc81743ce6d2a09ef56d69e";
-NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss老板用户协议与隐私政策";
-NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
+    NSString *const APPCODE = @"qlife-ios";
+    NSString *const APP_ID = @"5cc81743ce6d2a09ef56d69e";
+    NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss老板用户协议与隐私政策";
+    NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
 
 #else
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss之家用户协议与隐私政策";
