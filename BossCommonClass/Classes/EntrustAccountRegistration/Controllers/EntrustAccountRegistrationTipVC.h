@@ -6,13 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BossViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  委托个户注册提醒页
  */
-@interface EntrustAccountRegistrationTipVC : UIViewController
+@interface EntrustAccountRegistrationTipVC : BossViewController
+
+@property (nonatomic, strong) NSString *url;
 
 @end
 

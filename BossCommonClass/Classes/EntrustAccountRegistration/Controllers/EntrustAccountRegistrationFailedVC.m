@@ -1,25 +1,25 @@
 //
-//  EntrustAccountRegistrationTipVC.m
-//  AFNetworking
+//  EntrustAccountRegistrationFailedVC.m
+//  BossCommonClass
 //
-//  Created by 张浩 on 2019/5/20.
+//  Created by 张浩 on 2019/5/23.
 //
 
-#import "EntrustAccountRegistrationTipVC.h"
+#import "EntrustAccountRegistrationFailedVC.h"
 #import "UIViewController+StoryBoard.h"
-#import <XFHProject/XFHProject.h>
 
-@interface EntrustAccountRegistrationTipVC ()
+@interface EntrustAccountRegistrationFailedVC ()
 
 @end
 
-@implementation EntrustAccountRegistrationTipVC
+@implementation EntrustAccountRegistrationFailedVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initViews];
 }
+
+
 
 /*
 #pragma mark - Navigation
@@ -32,18 +32,13 @@
 */
 
 - (void)initViews{
-    self.title = @"委托个户注册";
+    
 }
 
 #pragma mark - button click envent
 
 - (IBAction)clickEnterFaceRecognition:(id)sender {
-    
-    // 跳往委托个户注册页
-    DXWebViewController *homeVC = [[DXWebViewController alloc] init];
-    [homeVC loadURLString:self.url];
-    // [homeVC loadURLString:@"http://hatch.bndxqc.com/h5/#/"];
-    [self presentViewController:homeVC animated:YES completion:nil];
+#warning 页面跳转
 }
 
 @end
