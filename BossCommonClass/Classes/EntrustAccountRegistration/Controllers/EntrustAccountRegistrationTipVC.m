@@ -21,16 +21,6 @@
     [self initViews];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)initViews{
     self.title = @"委托个户注册";
 }
@@ -43,7 +33,9 @@
     DXWebViewController *homeVC = [[DXWebViewController alloc] init];
     [homeVC loadURLString:self.url];
     // [homeVC loadURLString:@"http://hatch.bndxqc.com/h5/#/"];
-    [self presentViewController:homeVC animated:YES completion:nil];
+    [self presentViewController:homeVC animated:YES completion:^{
+        [self.navigationController popViewControllerAnimated:false];
+    }];
 }
 
 @end

@@ -286,6 +286,9 @@
                             <constraint firstItem="wCH-qw-Sue" firstAttribute="top" secondItem="dmt-9w-4y4" secondAttribute="bottom" constant="8" id="yWg-t9-pA4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="failedResonLabel" destination="vxS-gb-Lc5" id="VQQ-61-L5t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kdq-L4-Pv2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

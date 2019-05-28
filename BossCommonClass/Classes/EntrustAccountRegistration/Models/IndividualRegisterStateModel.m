@@ -23,7 +23,8 @@ NSString *const kIndividualRegisterStateModelState = @"state";
 {
     self = [super init];
     if(![dictionary[kIndividualRegisterStateModelReason] isKindOfClass:[NSNull class]]){
-        self.reason = dictionary[kIndividualRegisterStateModelReason];
+        self.reason = [NSString stringWithFormat:@"%@",dictionary[kIndividualRegisterStateModelReason]];
+        
     }
     if(![dictionary[kIndividualRegisterStateModelSocialCreditCode] isKindOfClass:[NSNull class]]){
         self.socialCreditCode = dictionary[kIndividualRegisterStateModelSocialCreditCode];
