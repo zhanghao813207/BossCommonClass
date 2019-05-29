@@ -1,6 +1,7 @@
 //
 //  InputMessageVC.h
 //  AFNetworking
+//  我要推荐页 - 输入推荐员工信息
 //
 //  Created by admin on 2019/3/27.
 //
@@ -13,10 +14,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+/**
+ 我的推荐页输入信息完成后的代理
+ */
 @protocol InputMessageVCDelegate <NSObject>
 
+/**
+ 信息保存/提交成功回调
+
+ @param typeStr 提示信息
+ */
 - (void)InputMessageVCTypeStr:(NSString *)typeStr;
 
+/**
+ 信息保存/提交成功回调
+
+ @param hintStr 提示信息
+ */
 - (void)hintMessage:(NSString *)hintStr;
 
 @end

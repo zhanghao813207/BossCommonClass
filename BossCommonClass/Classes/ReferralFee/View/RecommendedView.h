@@ -8,23 +8,49 @@
 #import <UIKit/UIKit.h>
 @class RecommendedModel;
 NS_ASSUME_NONNULL_BEGIN
+
+/**
+ 推荐View操作代理
+ */
 @protocol RecommendedViewDelegate <NSObject>
 
+/**
+ 单条选中回调
+ */
 - (void)didSelectModel:(RecommendedModel *)model;
 
+/**
+ 点击全部提交回调
+ */
 - (void)submitAll:(NSArray *)modelArr;
 
+/**
+ 点击全部删除回调
+ */
 - (void)deleteAll:(NSArray *)modelArr;
 
 /**
  下拉刷新
  */
 - (void)refresh;
+
+/**
+ 上拉加载更多
+ */
 - (void)getMore;
 @end
+
+/**
+ 推荐View
+ */
 @interface RecommendedView : UIView
 @property(nonatomic, strong)NSMutableArray *dataArr;
+
+/**
+ 是否编辑状态
+ */
 @property(nonatomic, assign)BOOL isEditing;
+
 @property(nonatomic, weak)id<RecommendedViewDelegate>delegate;
 
 /**
