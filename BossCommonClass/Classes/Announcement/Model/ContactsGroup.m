@@ -7,7 +7,17 @@
 //
 
 #import "ContactsGroup.h"
+#import "MJExtension.h"
 
 @implementation ContactsGroup
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [ContactsGroup mj_setupObjectClassInArray:^NSDictionary *{
+            return @{@"children":@"ContactsChild"};
+        }];
+    }
+    return self;
+}
 @end

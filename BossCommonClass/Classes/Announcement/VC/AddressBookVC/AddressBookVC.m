@@ -38,6 +38,10 @@
  个人页面返回被选中的数据
  */
 @property(nonatomic, strong)NSArray *personSelectArr;
+
+/**
+ 这个是当前还能选个人的时候写的属性  用来保存每一组选择的哪几个人
+ */
 @property(nonatomic, strong)NSMutableDictionary *selectDic;
 
 
@@ -83,7 +87,6 @@
     
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
-//    [self refreshLatestData];
 }
 
 
@@ -98,7 +101,7 @@
         self.arrM = [dataArr mutableCopy];
         for (ContactsGroup *model in self.arrM) {
             for (ContactsGroup *selectModel in self.teamArr) {
-                if ([model._id isEqualToString:selectModel._id]) {
+                if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
                     [self.selectArrM addObject:model];
                     model.state = SelectStateAll;
                     model.isShow = !self.isShowSelectBar;
@@ -108,12 +111,16 @@
         
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
+            if (self.isShowSelectBar) {
+                self.tableview.mj_header = nil;
+            }
         }];
     } fail:^(NSString * message) {
         [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            self.tableview.mj_header = nil;
             
+            if (self.isShowSelectBar) {
+                self.tableview.mj_header = nil;
+            }
         }];
     }];
     
@@ -157,18 +164,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-//    [self.arrM removeAllObjects];
     
     [self getNewToken];
 }
 - (void)getNewToken {
-//    [kUserDefault removeObjectForKey:@"newToken"];
-//    [kUserDefault removeObjectForKey:@"uploadImage"];
+    [kUserDefault removeObjectForKey:@"newToken"];
+    [kUserDefault removeObjectForKey:@"uploadImage"];
     if ([kUserDefault objectForKey:@"newToken"]) {
         [self.tableview.mj_header beginRefreshing];
     }else {
         [AnnouncementRequest getNewtokenSuccess:^(id response) {
             NSLog(@"%@",response);
+            self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+            
             [self.tableview.mj_header beginRefreshing];
         }];
     }
@@ -289,7 +297,6 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = kHexRGB(0xE5E5EE);
-        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
 //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);

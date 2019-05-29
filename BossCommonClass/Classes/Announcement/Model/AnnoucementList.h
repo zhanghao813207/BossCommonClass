@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)Message_summary_info *message_summary_info;
 @property(nonatomic, strong)Sender_info *sender_info;
 
+
+@property(nonatomic, assign)CGFloat progress;
 @end
 
 

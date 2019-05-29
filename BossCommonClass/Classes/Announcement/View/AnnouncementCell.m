@@ -15,6 +15,7 @@
 #import "BossMethodDefine.h"
 #import "Media_info.h"
 
+
 @interface AnnouncementCell()
 
 
@@ -26,7 +27,15 @@
  头像
  */
 @property(nonatomic, strong)UIImageView *headerImgView;
+
+/**
+ 以下视图的父视图
+ */
 @property(nonatomic, strong)UIView *containerView;
+
+/**
+ 提示
+ */
 @property(nonatomic, strong)UILabel *hintLabel;
 
 /**
@@ -90,6 +99,17 @@
         [self timeLable];
         [self nameLable];
         self.contentView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:247 / 255.0 blue:249 / 255.0 alpha:1];
+#ifdef kBossKnight
+        [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-16);
+        }];
+      
+#elif defined kBossManager
+        
+#else
+        
+#endif
+
     }
     return self;
 }
@@ -157,6 +177,7 @@
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 2;
         _contentLabel.font = [UIFont systemFontOfSize:14];
+//        _contentLabel.backgroundColor = [UIColor redColor];
         _contentLabel.alpha = 0.9;
         _contentLabel.textColor = kHexRGBA(0x343339, 0.9);
         [_contentLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
@@ -173,7 +194,6 @@
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-//        _titleLabel.backgroundColor = [UIColor redColor];
         _titleLabel.numberOfLines = 0;
         _titleLabel.font = [UIFont boldSystemFontOfSize:17];
 //        _titleLabel.backgroundColor = [UIColor redColor];
@@ -248,7 +268,7 @@
     if (_progressView == nil) {
         _progressView = [[UIView alloc] init];
         _progressView.backgroundColor = kHexRGB(0x00BD9A);
-        [self.containerView addSubview:_progressView];
+        [self.progressBgView addSubview:_progressView];
         [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
         }];
@@ -292,7 +312,7 @@
     self.titleLabel.text = model.message_summary_info.title;
     self.contentLabel.text = model.message_summary_info.content;
     self.timeLable.text = model.message_summary_info.time;
-    
+  
     if (model.sender_info.isMe) {
 //        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
         self.nameLable.text = model.sender_info.nick_name;
@@ -314,8 +334,10 @@
             make.left.equalTo(self.contentView).offset(64);
             make.bottom.equalTo(self.nameLable);
         }];
-        [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.width.equalTo(self.progressBgView).multipliedBy((CGFloat)model.message_counter_info.read_counter / (CGFloat)model.message_counter_info.total_counter);
+        NSLog(@"model.progress === %f",model.progress);
+        [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.progressBgView);
+            make.width.equalTo(self.progressBgView).multipliedBy(model.progress);
         }];
 //        self.hintLabel.text = @"123123";
     }else {
@@ -330,10 +352,25 @@
             make.bottom.equalTo(self.containerView.mas_top).offset(-4);
             make.left.equalTo(self.contentView).offset(64);
         }];
+        [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.progressBgView);
+            make.width.equalTo(self.progressBgView).multipliedBy(0);
+        }];
+        
+#ifdef kBossKnight
+        [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-16);
+            make.bottom.equalTo(self.nameLable);
+        }];
+        
+#elif defined kBossManager
         [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(-64);
             make.bottom.equalTo(self.nameLable);
         }];
+#else
+        
+#endif
     }
     self.progressView.hidden = self.progressBgView.hidden;
     NSLog(@"%@",model.media_info_list);

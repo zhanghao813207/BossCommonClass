@@ -8,7 +8,6 @@
 
 #import "AnnouncementVC.h"
 #import "JYCMethodDefine.h"
-#import "TestModel.h"
 #import "Masonry.h"
 #import "AnnouncementCell.h"
 #import "MJRefresh.h"
@@ -26,8 +25,10 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import "QLifeAES256.h"
 #import "MQTTClientModel.h"
+
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
+
 @interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate,MQTTClientModelDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property(nonatomic, strong)NSMutableArray *dataArrM;
@@ -45,7 +46,15 @@
  当前页
  */
 @property(nonatomic, assign)NSInteger currentPage;
+
+/**
+ 是否有更多的数据
+ */
 @property(nonatomic, assign)BOOL hasMore;
+
+/**
+ 定时器
+ */
 @property (nonatomic, strong) dispatch_source_t timer;
 @property(nonatomic, copy)NSString *key;
 @end
@@ -76,7 +85,16 @@
         [self countDownWithTopic:[kUserDefault objectForKey:@"account_id"]];
         [self.tableview.mj_header beginRefreshing];
     }
-    
+#ifdef kBossKnight
+    self.publishButton.hidden = true;
+    [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.publishButton.mas_top).offset(46);
+    }];
+#elif defined kBossManager
+    self.publishButton.hidden = false;
+#else
+    self.publishButton.hidden = true;
+#endif
 
 }
 
@@ -114,6 +132,7 @@
     });
     dispatch_resume(self.timer);
 }
+
 - (void)back {
 //    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"newToken"];
     [kUserDefault removeObjectForKey:@"uploadImage"];
@@ -192,6 +211,7 @@
         
         [self.tableview reloadData];
         [self.tableview.mj_footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
         self.tableview.mj_footer = nil;
         if (self.currentPage == 1 && dataArr.count > 0) {
             NSIndexPath *indesPath = [NSIndexPath indexPathForRow:self.dataArrM.count - 1 inSection:0];
@@ -210,7 +230,7 @@
     if (self.isFirst) {
         [self refreshLatestData];
         self.isFirst = false;
-        [self.tableview.mj_header endRefreshing];
+//        [self.tableview.mj_header endRefreshing];
         return;
     }
     if (!self.hasMore) {
@@ -219,17 +239,24 @@
         return;
     }
     self.currentPage ++;
+    
     [AnnouncementRequest announcementListLastId:@"" page:self.currentPage  success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
         self.hasMore = header.has_more;
         for (AnnoucementList *list in dataArr) {
             [self.dataArrM insertObject:list atIndex:0];
         }
         [self.tableview reloadData];
+        if (self.dataArrM.count > 10) {
+            NSIndexPath *indesPath = [NSIndexPath indexPathForRow: 9 inSection:0];
+            [self.tableview scrollToRowAtIndexPath:indesPath atScrollPosition:UITableViewScrollPositionBottom animated:false];
+        }
+        [self.tableview reloadData];
+        [self.tableview.mj_header endRefreshing];
     } fail:^(NSString * message) {
-        
+        [self.tableview.mj_header endRefreshing];
     }];
-    [self.tableview reloadData];
-    [self.tableview.mj_header endRefreshing];
+//    [self.tableview reloadData];
+//    [self.tableview.mj_header endRefreshing];
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
@@ -266,7 +293,7 @@
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [tableView tableViewDisplayWitMsg:@"无数据" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
+    [tableView tableViewDisplayWitMsg:@"暂无消息" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
     return self.dataArrM.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

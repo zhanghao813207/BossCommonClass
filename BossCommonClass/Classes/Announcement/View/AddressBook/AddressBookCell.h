@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class AddressBookCell;
 @protocol AddressBookCellDelegate <NSObject>
 
+/**
+ 点击代理
+
+ */
 - (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model;
 
 @end

@@ -10,6 +10,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProgressView : UIView
+
+/**
+ 进度比
+ */
 @property(nonatomic, assign)CGFloat progress;
 @end
 

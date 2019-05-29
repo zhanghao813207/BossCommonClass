@@ -30,6 +30,10 @@ PODS:
     - MJRefresh
     - Qiniu (~> 7.1)
     - SGPagingView (~> 1.6.0)
+    - UMCCommon (~> 2.0.1)
+    - UMCCommonLog (~> 1.0.0)
+    - UMCPush (~> 3.2.4)
+    - UMCSecurityPlugins (~> 1.0.6)
   - HappyDNS (0.3.14)
   - Masonry (1.1.0)
   - MJExtension (3.0.15.1)
@@ -37,6 +41,11 @@ PODS:
   - Qiniu (7.2.5):
     - HappyDNS (~> 0.3)
   - SGPagingView (1.6.0)
+  - UMCCommon (2.0.1)
+  - UMCCommonLog (1.0.0)
+  - UMCPush (3.2.4):
+    - UMCCommon
+  - UMCSecurityPlugins (1.0.6)
 
 DEPENDENCIES:
   - BossCommonClass (from `../`)
@@ -53,6 +62,10 @@ SPEC REPOS:
     - MJRefresh
     - Qiniu
     - SGPagingView
+    - UMCCommon
+    - UMCCommonLog
+    - UMCPush
+    - UMCSecurityPlugins
 
 EXTERNAL SOURCES:
   BossCommonClass:
@@ -69,6 +82,10 @@ SPEC CHECKSUMS:
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   Qiniu: 909b408ee489ea54827e9717be90b94bc9dfbc48
   SGPagingView: 4b4f443b365bc70979f890da63d93bc22103be32
+  UMCCommon: 0263a057a2e1ae1da4c8308541e56904a493ce13
+  UMCCommonLog: 05a2d5de21858e3d870551562cff405c1366d244
+  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
 
 PODFILE CHECKSUM: 76117d01723b3b3310fe45987992e4780d226a1d
 

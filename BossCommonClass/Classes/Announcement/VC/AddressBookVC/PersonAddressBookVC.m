@@ -16,12 +16,23 @@
 
 @interface PersonAddressBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableview;
+
+/**
+ 全选的父视图
+ */
 @property(nonatomic, strong)UIView *selecBar;
 @property(nonatomic, strong)UIView *lineView;
+
+/**
+ 全选按钮
+ */
 @property(nonatomic, strong)UIButton *allSelectButton;
+
+/**
+ 完成按钮
+ */
 @property(nonatomic, strong)UIButton *finishButton;
 @property(nonatomic, assign)BOOL isSelecAll;
-////以下为测试
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *arrM;
 @property(nonatomic, strong)NSArray *allDataArr;
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *selectArrM;

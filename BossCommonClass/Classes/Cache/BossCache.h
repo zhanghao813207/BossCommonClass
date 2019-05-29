@@ -68,6 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *lastLoginPhone;
 
+/**
+ 是否开启消息系统
+ */
+@property (nonatomic, assign) BOOL checkStartUMS;
+
 - (void)initNetConfig:(nullable SaasModel *)saasModel;
 
 - (NSString *)getUrlByApiVersion:(NSString *)apiVersion;
