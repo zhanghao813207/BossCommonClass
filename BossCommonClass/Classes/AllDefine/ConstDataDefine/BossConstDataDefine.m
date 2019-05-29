@@ -75,6 +75,7 @@ NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
     NSString *const APPCODE = @"qlife-ios";
     NSString *const APP_ID = @"5cc81743ce6d2a09ef56d69e";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss老板用户协议与隐私政策";
+    NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-boss.html";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?l=zh&ls=1&mt=8";
 
 #else
