@@ -16,6 +16,8 @@ float const kNetworkTimeoutInterval = 60.0f;
 
 @interface NNBRequestManager ()
 
+@property (nonatomic, readonly) NSString *bossPrefix;
+
 @property (nonatomic, readonly) NSString *accessKey;
 
 @property (nonatomic, readonly) NSString *secretKey;
@@ -80,9 +82,9 @@ static NNBRequestManager *sharedManager = nil;
     NSLog(@"%@",cmd);
     // 校验cmd是否为nil
     if (cmd) {
-        // cmd添加前缀boss.
+        // cmd添加前缀
         // header中添加X-CMD
-        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@.%@",BossBasicPrefix,cmd] forHTTPHeaderField:@"X-CMD"];
+        [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@.%@",self.bossPrefix,cmd] forHTTPHeaderField:@"X-CMD"];
     }
     
     [sharedManager.requestSerializer setValue:sharedManager.accessKey forHTTPHeaderField:@"X-APP-KEY"];
@@ -113,7 +115,8 @@ static NNBRequestManager *sharedManager = nil;
             [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
             [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
         }
-        DLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
+        
+        NSLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
     }
     
 }
@@ -131,10 +134,14 @@ static NNBRequestManager *sharedManager = nil;
     return str;
 }
 
+- (NSString *)bossPrefix {
+    return [self.cmd hasPrefix:@"ums."] ? BossUmsPrefix : BossBasicPrefix;
+}
+
 - (NSString *)accessKey
 {
 
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"]  && [self.cmd containsString:@"ums"]) {
+    if ([self.cmd hasPrefix:@"ums."]) {
         return MessageACCESS_KEY;
     }
     return kCache.accessKey;
@@ -143,7 +150,7 @@ static NNBRequestManager *sharedManager = nil;
 - (NSString *)secretKey
 {
 
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"] && [self.cmd containsString:@"ums"]) {
+    if ([self.cmd hasPrefix:@"ums."]) {
         return MessageSECRET_KEY;
     }
     return kCache.secretKey;
@@ -151,8 +158,8 @@ static NNBRequestManager *sharedManager = nil;
 
 - (NSString *)accessToken
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"] && ![kUserDefault objectForKey:@"uploadImage"] && [self.cmd containsString:@"ums"] ) {
-        return [[NSUserDefaults standardUserDefaults] objectForKey:@"newToken"];
+    if ([self.cmd hasPrefix:@"ums."]) {
+        return kCache.umsAccessToken;
     }
     return kCache.accessToken;
 }

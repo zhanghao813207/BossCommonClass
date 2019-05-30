@@ -10,19 +10,25 @@
 #import "WifiManager.h"
 #import "BossMethodDefine.h"
 #import "BossCache.h"
+#import "MQTTDefine.h"
+#import "QLifeAES256.h"
+#import "JYCSimpleToolClass.h"
 
 @interface MQTTClientModel () <MQTTSessionManagerDelegate,WifiManagerDelegate>
 
-@property (nonatomic,strong) MQTTCFSocketTransport *myTransport;
+@property (nonatomic, strong) NSString *accountId;
 
-@property (nonatomic,copy) NSString *username;
-@property (nonatomic,copy) NSString *password;
-@property (nonatomic,copy) NSString *cliendId;
+/**
+ 定时器
+ */
+@property (nonatomic, strong) dispatch_source_t timer;
+
+@property (nonatomic, assign) BOOL isSSL;
+
+@property (nonatomic,strong) MQTTCFSocketTransport *myTransport;
 
 //订阅的topic
 @property (nonatomic,strong) NSMutableDictionary *subedDict;
-
-@property (nonatomic,assign) BOOL isSSL;
 
 @end
 @implementation MQTTClientModel
@@ -36,6 +42,35 @@
         
     });
     return user;
+}
+
+- (void)connect:(NSString *) accountId {
+    self.accountId = accountId;
+    NSString *clientId = [NSString stringWithFormat:@"im_server%@%@",[JYCSimpleToolClass getUUID],accountId];
+    [self.mySessionManager connectTo:mqttServer
+                                port:mqttPort
+                                 tls:NO
+                           keepalive:60
+                               clean:YES
+                                auth:YES
+                                user:mqttUserName
+                                pass:mqttPassword
+                                will:NO/////will为no 下面的will一定为默认
+                           willTopic:nil
+                             willMsg:nil
+                             willQos:MQTTQosLevelAtMostOnce
+                      willRetainFlag:NO
+                        withClientId:clientId
+                      securityPolicy:nil
+                        certificates:nil
+                       protocolLevel:4
+                      connectHandler:^(NSError *error) {
+                          NSLog(@"%@",error);
+                      }];
+    
+    
+    self.isDiscontent = NO;
+    self.mySessionManager.subscriptions = self.subedDict;
 }
 
 - (void)disconnect {
@@ -68,8 +103,7 @@
         
     }
     else {
-        [self bindWithUserName:self.username password:self.password cliendId:self.cliendId isSSL:self.isSSL];
-        
+        [self connect:self.accountId];
     }
     
 }
@@ -87,45 +121,6 @@
 }
 
 #pragma mark - 绑定
-- (void)bindWithUserName:(NSString *)username password:(NSString *)password cliendId:(NSString *)cliendId isSSL:(BOOL)isSSL{
-    
-    
-    self.username = username;
-    self.password = password;
-    self.cliendId = cliendId;
-//    self.cliendId = @"XXXtestclientID";
-    self.isSSL = isSSL;
-    NSLog(@"%@",self.username);
-    NSLog(@"%@",self.password);
-    NSLog(@"%@",self.cliendId);
-    NSLog(@"%@",AddressOfMQTTServer);
-    NSLog(@"%d",self.isSSL);
-    [self.mySessionManager connectTo:AddressOfMQTTServer
-                                port:1883
-                                 tls:NO
-                           keepalive:60
-                               clean:YES
-                                auth:YES
-                                user:self.username
-                                pass:self.password
-                                will:NO/////will为no 下面的will一定为默认
-                           willTopic:nil
-                             willMsg:nil
-                             willQos:MQTTQosLevelAtMostOnce
-                      willRetainFlag:NO
-                        withClientId:self.cliendId
-                      securityPolicy:nil
-                        certificates:nil
-                       protocolLevel:4
-                      connectHandler:^(NSError *error) {
-                          NSLog(@"%@",error);
-                      }];
-    
-    
-    self.isDiscontent = NO;
-    self.mySessionManager.subscriptions = self.subedDict;
-
-}
 
 - (MQTTSSLSecurityPolicy *)customSecurityPolicy
 {
@@ -143,13 +138,16 @@
 - (void)sessionManager:(MQTTSessionManager *)sessionManager didChangeState:(MQTTSessionManagerState)newState {
     switch (newState) {
         case MQTTSessionManagerStateConnected:
+        {
             NSLog(@"eventCode -- 连接成功");
-#warning 建立连接之后，订阅消息和发布消息
             // 启动定时发布心跳包
-            // [self countDownWithTopic:response[@"account_id"]];
+            NSDictionary *dic = @{@"event_name":@"heartbeat",@"payload":@{@"account_id":self.accountId}};
+            NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
+            [self countDownWithTopic:@"ums/" data:data];
             
             // 订阅消息
-            // [[MQTTClientModel sharedInstance] subscribeTopic:responseObject[@"account_id"]];
+            [self subscribeTopic:self.accountId];
+        }
             break;
         case MQTTSessionManagerStateConnecting:
             NSLog(@"eventCode -- 连接中");
@@ -157,12 +155,12 @@
             break;
         case MQTTSessionManagerStateClosed:
             NSLog(@"eventCode -- 连接被关闭");
-#warning 取消定时发送心跳包
+            [self cancelTimer];
             // 取消定时发送心跳包
             break;
         case MQTTSessionManagerStateError:
             NSLog(@"eventCode -- 连接错误");
-#warning 取消定时发送心跳包
+            [self cancelTimer];
             // 取消定时发送心跳包
             break;
         case MQTTSessionManagerStateClosing:
@@ -238,6 +236,36 @@
 - (void)sendDataToTopic:(NSString *)topic data:(NSData *)data {
     [self.mySessionManager sendData:data topic:topic qos:2 retain:NO];
 }
+
+#pragma mark - 定时器
+
+/**
+ 启动定时器
+ 
+ */
+- (void)countDownWithTopic:(NSString *)topic data:(NSData *)data {
+    /** 获取一个全局的线程来运行计时器*/
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    /** 创建一个计时器*/
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    
+    /** 设置计时器, 这里是每10毫秒执行一次*/
+    dispatch_source_set_timer(self.timer, dispatch_walltime(nil, 0), 60000*NSEC_PER_MSEC, 0);
+    /** 设置计时器的里操作事件*/
+    dispatch_source_set_event_handler(self.timer, ^{
+        [self sendDataToTopic:topic data:data];
+        
+    });
+    dispatch_resume(self.timer);
+}
+
+- (void)cancelTimer {
+    if(self.timer){
+        dispatch_cancel(self.timer);
+        self.timer = nil;
+    }
+}
+
 #pragma mark - 懒加载
 - (MQTTSessionManager *)mySessionManager {
     if (!_mySessionManager) {

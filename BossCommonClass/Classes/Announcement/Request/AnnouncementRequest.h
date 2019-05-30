@@ -9,6 +9,8 @@
 #import "PublishModel.h"
 #import "AnnounceListHeader.h"
 #import "AnnouncementDetail.h"
+#import "MessageListDicModel.h"
+#import "AccountNoticeListDicModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -54,16 +56,44 @@ typedef NS_ENUM(NSInteger, Storage_type) {
 @interface AnnouncementRequest : NSObject
 
 /**
+ 获取UMS免认证信息
+
+ @param successBlock 成功回调
+ @param failBlock 失败回调
+ */
++ (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock;
+
+/**
+ 消息列表
+ 
+ @param successBlock 成功回调
+ @param failBlock 失败回调
+ */
++ (void)findMessageList:(void(^)(MessageListDicModel *messageListDicModel))successBlock failBlock:(void(^)(void))failBlock;
+
+/**
+ 查询用户公告未读数和最新一条公告信息列表
+ 
+ @param successBlock 成功回调
+ @param failBlock 失败回调
+ */
++ (void)findAccountNotices:(NSMutableArray *)proxyIdList successBlock:(void(^)(AccountNoticeListDicModel *accountNoticeListDicModel))successBlock failBlock:(void(^)(void))failBlock;
+
+/**
+ 获取用户发布和接受的公告列表
+ 
+ @param proxyId 公告代理人用户id  Y
+ @param lastMessageId 最后一条message_id  N
+ @param currentPage 当前页
+ @param successBlock 成功回调
+ @param failBlock 失败回调
+ */
++ (void)findNoticeList:(NSString *)proxyId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock;
+
+/**
  发布公告
  */
 + (void)publishAnnouncemenWithModel:(PublishModel *)model success:(void(^)(void))successBlock fail:(void(^)(NSString *))failBlock;
-
-/**
- 公告列表
-
- @param last_message_id 最后一条message_id(非必传)
- */
-+ (void)announcementListLastId:(NSString *)last_message_id page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock;
 
 /**
  公告详情
@@ -75,10 +105,21 @@ notice.notice.get
 
 
 /**
- 获取通讯录组
- ums.address_book.find
+ 个人通讯录列表（说明：商户端根据角色控制用户看到端通讯录列表、qlife根据用户加入端团队控制）
+ @param successBlock 成功回调
+ @param failBlock 失败回调
  */
-+ (void)announcementContactsPage:(NSInteger)page GroupSuccess:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock;
++ (void)findAddressBook:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock;
+
+/**
+ 公众号通讯录列表
+ 
+ @param wppId 公众号id
+ @param successBlock 成功回调
+ @param failBlock 失败回调
+ */
++ (void)findWPPAdressBook:(NSString *)wppId successBlock:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock;
+
 /**
  获取某一Team的所有成员列表
  ums.team.members
@@ -93,11 +134,7 @@ notice.notice.get
  @storage_type
  */
 + (void)uploadDomain_type:(Domain_type)dtype Storage_type:(Storage_type)stype file_type:(NSString *)fileType file_key:(NSString *)key Success:(void(^)(id response))successBlock fail:(void(^)(NSString *message))failBlock;
-/**
- 获取新token
 
- */
-+ (void)getNewtokenSuccess:(void(^)(id))block;
 //ums.session.find 注册session
 + (void)registerSession;
 /////公告未读消息

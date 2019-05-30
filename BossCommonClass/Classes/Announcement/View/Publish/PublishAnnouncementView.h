@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 typedef void(^DismissBlock)(PublishAnnouncementView *view);
 @interface PublishAnnouncementView : UIView
+@property (nonatomic, strong) NSString *wppId;
 @property (nonatomic, copy) DismissBlock dismissBlock;
 @property(nonatomic, weak)id<PublishAnnouncementViewDelegate>delegate;
 @end

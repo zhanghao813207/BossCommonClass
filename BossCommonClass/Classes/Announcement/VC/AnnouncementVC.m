@@ -25,6 +25,7 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import "QLifeAES256.h"
 #import "MQTTClientModel.h"
+#import "ProxyAccountInfo.h"
 
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
@@ -52,11 +53,6 @@
  */
 @property(nonatomic, assign)BOOL hasMore;
 
-/**
- 定时器
- */
-@property (nonatomic, strong) dispatch_source_t timer;
-@property(nonatomic, copy)NSString *key;
 @end
 
 @implementation AnnouncementVC
@@ -64,33 +60,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:247 / 255.0 blue:249 / 255.0 alpha:1];
-    self.title = @"BOSS公告";
-    self.key = @"cc6803a649ff7f3f036566d1421c4315";
+    self.title = self.messageModel.name;
     self.currentPage = 1;
     self.isFirst = true;
-//    [self setting];
     [self dataArrM];
     [self tableview];
     
     [self publishButton];
-//    [AnnouncementRequest getNewtokenSuccess:^(id response) {
-//        [AnnouncementRequest registerSession];
-////        [[MQTTClientModel sharedInstance] subscribeTopic:response[@"account_id"]];
-////        [MQTTClientModel sharedInstance].delegate = self;
-////        [self countDownWithTopic:response[@"account_id"]];
-////        [self.tableview.mj_header beginRefreshing];
-//    }];
-    if ([kUserDefault objectForKey:@"newToken"]) {
-        [MQTTClientModel sharedInstance].delegate = self;
-        [self countDownWithTopic:[kUserDefault objectForKey:@"account_id"]];
-        [self.tableview.mj_header beginRefreshing];
-    }
+
+    [self.tableview.mj_header beginRefreshing];
+    
 #ifdef kBossKnight
     self.publishButton.hidden = true;
     [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.publishButton.mas_top).offset(46);
     }];
 #elif defined kBossManager
+    self.publishButton.hidden = false;
+#elif defined kBossOwner
     self.publishButton.hidden = false;
 #else
     self.publishButton.hidden = true;
@@ -104,33 +91,13 @@
     NSLog(@"数据");
     [self refreshLatestData];
 }
+
 -(NSString*)dictionaryToJson:(NSDictionary *)dic
 {
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-}
-
-
-///定时器
-- (void)countDownWithTopic:(NSString *)topic {
-    
-    /** 获取一个全局的线程来运行计时器*/
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    /** 创建一个计时器*/
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    
-    /** 设置计时器, 这里是每10毫秒执行一次*/
-    dispatch_source_set_timer(self.timer, dispatch_walltime(nil, 0), 60000*NSEC_PER_MSEC, 0);
-    /** 设置计时器的里操作事件*/
-    dispatch_source_set_event_handler(self.timer, ^{
-        NSDictionary *dic = @{@"event_name":@"heartbeat",@"payload":@{@"account_id":topic}};
-        NSData *encodedData = [QLifeAES256 dataWithEncodeObj:dic password:self.key];
-        [[MQTTClientModel sharedInstance] sendDataToTopic:@"ums/" data:encodedData];
-       
-    });
-    dispatch_resume(self.timer);
 }
 
 - (void)back {
@@ -143,6 +110,7 @@
 //    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"newToken"];
     [kUserDefault removeObjectForKey:@"uploadImage"];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
@@ -193,9 +161,9 @@
 }
 - (void)publishAction {
     PublishAnnouncementController *vc = [[PublishAnnouncementController alloc] init];
+    vc.wppId = self.messageModel.idField;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:false];
-
 }
 
 /**
@@ -204,7 +172,8 @@
 - (void)refreshLatestData {
     
     self.currentPage  = 1;
-    [AnnouncementRequest announcementListLastId:@"" page:self.currentPage  success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:@"" page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+        
         self.dataArrM = [dataArr mutableCopy];
         self.currentPage = 1;
         self.hasMore = header.has_more;
@@ -213,6 +182,7 @@
         [self.tableview.mj_footer endRefreshing];
         [self.tableview.mj_header endRefreshing];
         self.tableview.mj_footer = nil;
+        
         if (self.currentPage == 1 && dataArr.count > 0) {
             NSIndexPath *indesPath = [NSIndexPath indexPathForRow:self.dataArrM.count - 1 inSection:0];
             [self.tableview scrollToRowAtIndexPath:indesPath atScrollPosition:UITableViewScrollPositionBottom animated:false];
@@ -230,17 +200,16 @@
     if (self.isFirst) {
         [self refreshLatestData];
         self.isFirst = false;
-//        [self.tableview.mj_header endRefreshing];
         return;
     }
     if (!self.hasMore) {
-//        [self.view showStatus:@"没有更多数据"];
         [self.tableview.mj_header endRefreshing];
         return;
     }
     self.currentPage ++;
     
-    [AnnouncementRequest announcementListLastId:@"" page:self.currentPage  success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:@"" page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+        
         self.hasMore = header.has_more;
         for (AnnoucementList *list in dataArr) {
             [self.dataArrM insertObject:list atIndex:0];
@@ -252,11 +221,10 @@
         }
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshing];
+        
     } fail:^(NSString * message) {
-        [self.tableview.mj_header endRefreshing];
+        [self.tableview.mj_footer endRefreshing];
     }];
-//    [self.tableview reloadData];
-//    [self.tableview.mj_header endRefreshing];
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {

@@ -514,6 +514,7 @@ static int textLength = 30;
     vc.delegate = self;
     vc.teamArr = self.model.members;
     vc.isShowSelectBar = true;
+    vc.wppId = self.wppId;
     [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak)id<AddressBookVCDelegate>delegate;
 @property(nonatomic, strong)NSArray *teamArr;
 @property(nonatomic, assign)BOOL isShowSelectBar;
+@property (nonatomic, strong) NSString *wppId;
 
 @end
 

@@ -23,6 +23,9 @@ UIKIT_EXTERN NSString *const MessageBasicURL;
 
 UIKIT_EXTERN NSString *const MessageBasicURLV2;
 
+// CMD前缀
+UIKIT_EXTERN NSString *const BossUmsPrefix;
+
 UIKIT_EXTERN NSString *const MessageACCESS_KEY;
 
 UIKIT_EXTERN NSString *const MessageSECRET_KEY;

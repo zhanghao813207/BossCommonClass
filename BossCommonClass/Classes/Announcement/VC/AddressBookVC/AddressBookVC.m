@@ -89,44 +89,58 @@
     self.title = @"通讯录";
 }
 
-
 /**
  获取数据
  */
 - (void)refreshLatestData {
     [self.selectArrM removeAllObjects];
 //    [self.view showStatus:@"正在请求数据..."];
-    [AnnouncementRequest announcementContactsPage:self.currentPage GroupSuccess:^(NSArray * _Nonnull dataArr) {
-        
-        self.arrM = [dataArr mutableCopy];
-        for (ContactsGroup *model in self.arrM) {
-            for (ContactsGroup *selectModel in self.teamArr) {
-                if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
-                    [self.selectArrM addObject:model];
-                    model.state = SelectStateAll;
-                    model.isShow = !self.isShowSelectBar;
-                }
+    if(self.isShowSelectBar){
+        [AnnouncementRequest findWPPAdressBook:self.wppId successBlock:^(NSArray * _Nonnull dataArr) {
+            [self handleSuccess:dataArr];
+            
+        } fail:^(NSString * message) {
+            [self handleFailed];
+        }];
+    }else{
+        [AnnouncementRequest findAddressBook:^(NSArray * _Nonnull dataArr) {
+            [self handleSuccess:dataArr];
+            
+        } fail:^(NSString * message) {
+            [self handleFailed];
+        }];
+    }
+}
+
+- (void)handleSuccess:(NSArray *)dataArr{
+    self.arrM = [dataArr mutableCopy];
+    for (ContactsGroup *model in self.arrM) {
+        for (ContactsGroup *selectModel in self.teamArr) {
+            if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
+                [self.selectArrM addObject:model];
+                model.state = SelectStateAll;
+                model.isShow = !self.isShowSelectBar;
             }
         }
-        
-        [self.tableview reloadData];
-        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            if (self.isShowSelectBar) {
-                self.tableview.mj_header = nil;
-            }
-        }];
-    } fail:^(NSString * message) {
-        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            
-            if (self.isShowSelectBar) {
-                self.tableview.mj_header = nil;
-            }
-        }];
-    }];
+    }
     
-    ////test
-//    [self.tableview.mj_header endRefreshing];
+    [self.tableview reloadData];
+    [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+        if (self.isShowSelectBar) {
+            self.tableview.mj_header = nil;
+        }
+    }];
 }
+
+- (void)handleFailed {
+    [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+        
+        if (self.isShowSelectBar) {
+            self.tableview.mj_header = nil;
+        }
+    }];
+}
+
 - (void)refreshMoreData {
    
 }
@@ -138,9 +152,9 @@
 }
 
 - (void)finishAction {
-    NSMutableArray *tempArr = [NSMutableArray array];
     
 /*这是选择的人数  先注释掉
+    NSMutableArray *tempArr = [NSMutableArray array];
     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
         NSArray *keys = self.selectDic.allKeys;
         for (NSInteger i = 0; i < keys.count; i ++) {
@@ -165,23 +179,9 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
     
-    [self getNewToken];
+    [self.tableview.mj_header beginRefreshing];
 }
-- (void)getNewToken {
-    [kUserDefault removeObjectForKey:@"newToken"];
-    [kUserDefault removeObjectForKey:@"uploadImage"];
-    if ([kUserDefault objectForKey:@"newToken"]) {
-        [self.tableview.mj_header beginRefreshing];
-    }else {
-        [AnnouncementRequest getNewtokenSuccess:^(id response) {
-            NSLog(@"%@",response);
-            self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
-            
-            [self.tableview.mj_header beginRefreshing];
-        }];
-    }
-    
-}
+
 //AddressBookCellDelegate
 - (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model {
     if (model.state == SelectStateAll) {
@@ -305,6 +305,10 @@
         }
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
+        // 设置下拉刷新 header view 并 设置回调
+        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self refreshLatestData];
+        }];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);

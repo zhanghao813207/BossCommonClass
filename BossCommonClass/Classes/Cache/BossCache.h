@@ -6,10 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UmsAccessTokenModel.h"
 @class SaasModel;
 @class BossManagerAccount;
 @class BossKnightAccount;
 @class BossOwnerAccount;
+// @class UmsAccessTokenModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -72,6 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
  是否开启消息系统
  */
 @property (nonatomic, assign) BOOL checkStartUMS;
+
+@property (nonatomic, strong) UmsAccessTokenModel *umsAccessTokenModel;
+
+@property (nonatomic, strong) NSString *umsAccessToken;
 
 - (void)initNetConfig:(nullable SaasModel *)saasModel;
 
