@@ -79,6 +79,13 @@
         return;
     }
     
+    if([key isEqualToString:@"mobile_open"]) {
+        NSDictionary *dic = value;
+        MobileOpenModel *model = [[MobileOpenModel alloc] initWithDictionary:dic];
+        self.mobileOpen = model;
+        return;
+    }
+    
     [super setValue:value forKey:key];
 }
 
@@ -432,7 +439,8 @@
                           @"job_transfer_remark":self.job_transfer_remark ? : @"",
                           @"departure_state":@(self.departure_state),
                           @"wallet":[self.WalletModel toDictionary] ? : @{},
-                          @"wechat_account":[self.WeChatModel toDictionary] ? : @{}
+                          @"wechat_account":[self.WeChatModel toDictionary] ? : @{},
+                          @"mobile_open":[self.mobileOpen toDictionary] ? : @{}
                           };
     return dic;
 }
