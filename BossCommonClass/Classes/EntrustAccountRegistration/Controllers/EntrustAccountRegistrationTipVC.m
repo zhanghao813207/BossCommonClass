@@ -23,6 +23,7 @@
 
 - (void)initViews{
     self.title = @"委托个户注册";
+    self.view.backgroundColor = UIColor.whiteColor;
 }
 
 #pragma mark - button click envent

@@ -24,6 +24,7 @@
 
 - (void)initViews{
     self.title = @"委托个户注册";
+    self.view.backgroundColor = UIColor.whiteColor;
     self.failedResonLabel.text = self.reason;
 }
 
