@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ContactsGroup.h"
+#import "BossViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol AddressBookVCDelegate <NSObject>
 
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)select:(NSArray *)modelArr;
 
 @end
-@interface AddressBookVC : UIViewController
+@interface AddressBookVC : BossViewController
 @property(nonatomic, weak)id<AddressBookVCDelegate>delegate;
 @property(nonatomic, strong)NSArray *teamArr;
 @property(nonatomic, assign)BOOL isShowSelectBar;

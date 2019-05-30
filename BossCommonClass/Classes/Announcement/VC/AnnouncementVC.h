@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Message.h"
+#import "BossViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AnnouncementVC : UIViewController
+@interface AnnouncementVC : BossViewController
 
 @property (nonatomic, strong) Message *messageModel;
 @end

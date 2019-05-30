@@ -44,6 +44,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBarHidden = false;
+    self.title = self.group.name;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
   
@@ -68,10 +69,10 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
 }
 - (void)getData {
-    [AnnouncementRequest announcementContactsMembersId:self.group.target_id Success:^(NSArray * _Nonnull dataArr) {
+    [AnnouncementRequest announcementContactsMembersId:self.group.vendor_target_id Success:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         [self setSelectModel];
-        [self.tableview reloadData];
+        [self.tableview reloadData];  
     } fail:^(NSString * _Nonnull message) {
         
     }];

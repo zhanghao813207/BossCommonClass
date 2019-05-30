@@ -46,7 +46,7 @@
 
 - (void)connect:(NSString *) accountId {
     self.accountId = accountId;
-    NSString *clientId = [NSString stringWithFormat:@"im_server%@%@",[JYCSimpleToolClass getUUID],accountId];
+    NSString *clientId = [NSString stringWithFormat:@"%@%@%@",mqttClientId,[JYCSimpleToolClass getUUID],accountId];
     [self.mySessionManager connectTo:mqttServer
                                 port:mqttPort
                                  tls:NO

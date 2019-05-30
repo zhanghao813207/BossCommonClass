@@ -61,6 +61,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:247 / 255.0 blue:249 / 255.0 alpha:1];
     self.title = self.messageModel.name;
+    self.packUpKeybordEnable = NO;
     self.currentPage = 1;
     self.isFirst = true;
     [self dataArrM];

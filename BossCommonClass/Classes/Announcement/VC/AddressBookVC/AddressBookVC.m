@@ -66,6 +66,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.packUpKeybordEnable = false;
+    if(!self.isShowSelectBar){
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    self.navigationItem.hidesBackButton = YES;
     self.currentPage = 1;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
@@ -116,7 +121,7 @@
     self.arrM = [dataArr mutableCopy];
     for (ContactsGroup *model in self.arrM) {
         for (ContactsGroup *selectModel in self.teamArr) {
-            if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
+            if ([model._id isEqualToString:selectModel._id] || [model.vendor_target_id isEqualToString:selectModel.vendor_target_id]) {
                 [self.selectArrM addObject:model];
                 model.state = SelectStateAll;
                 model.isShow = !self.isShowSelectBar;

@@ -114,7 +114,7 @@
     dic[@"title"] = model.title;
     NSMutableArray *tempArr = [NSMutableArray array];
     for (ContactsGroup *tempModel in model.members) {
-        [tempArr addObject:tempModel.target_id];
+        [tempArr addObject:tempModel.vendor_target_id];
     }
     dic[@"members"] = tempArr;
     dic[@"content"] = model.content;
@@ -139,8 +139,8 @@
  */
 + (void)announcementDetail:(NSString *)notice_id success:(void(^)(AnnouncementDetail *detailModel))successBlock fail:(void(^)(NSString *))failBlock {
     NSDictionary *dic = @{@"notice_id":notice_id};
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
        AnnouncementDetail *model = [AnnouncementDetail mj_objectWithKeyValues:responseObject];
         successBlock(model);
     } fail:^(id error) {
@@ -163,7 +163,7 @@
             if (group.children.count > 0) {
                 for (ContactsChild *child in group.children) {
                     ContactsGroup *group = [[ContactsGroup alloc] init];
-                    group.target_id = child.target_id;
+                    group.vendor_target_id = child.target_id;
                     group.name = child.name;
                     group.head_img_url = child.head_img_url;
                     [tempArr addObject:group];
@@ -202,7 +202,7 @@
             if (group.children.count > 0) {
                 for (ContactsChild *child in group.children) {
                     ContactsGroup *group = [[ContactsGroup alloc] init];
-                    group.target_id = child.target_id;
+                    group.vendor_target_id = child.target_id;
                     group.name = child.name;
                     group.head_img_url = child.head_img_url;
                     [tempArr addObject:group];
