@@ -87,10 +87,9 @@
 }
 
 - (void)MQTTClientModel_handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
-    NSLog(@"%@",data);
-
-    NSLog(@"数据");
+    NSLog(@"-------MQTTClientModel_handleMessage------- 1");
     [self refreshLatestData];
+    NSLog(@"-------MQTTClientModel_handleMessage------- 2");
 }
 
 -(NSString*)dictionaryToJson:(NSDictionary *)dic

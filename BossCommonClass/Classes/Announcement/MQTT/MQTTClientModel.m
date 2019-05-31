@@ -141,9 +141,7 @@
         {
             NSLog(@"eventCode -- 连接成功");
             // 启动定时发布心跳包
-            NSDictionary *dic = @{@"event_name":@"heartbeat",@"payload":@{@"account_id":self.accountId}};
-            NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
-            [self countDownWithTopic:@"ums/" data:data];
+            [self countDownWithTopic:@"ums/"];
             
             // 订阅消息
             [self subscribeTopic:self.accountId];
@@ -181,7 +179,9 @@
 #pragma mark MQTTSessionManagerDelegate
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     NSLog(@"接收的数据%@",data);
-  
+    NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    id decodeObj = [QLifeAES256 objDecodeWithString:dataStr password:mqttSecretKey];
+    NSLog(@"------handleMessage ----- \n %@",decodeObj);
     if (self.delegate && [self.delegate respondsToSelector:@selector(MQTTClientModel_handleMessage:onTopic:retained:)]) {
         [self.delegate MQTTClientModel_handleMessage:data onTopic:topic retained:retained];
     }
@@ -243,7 +243,7 @@
  启动定时器
  
  */
-- (void)countDownWithTopic:(NSString *)topic data:(NSData *)data {
+- (void)countDownWithTopic:(NSString *)topic {
     /** 获取一个全局的线程来运行计时器*/
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     /** 创建一个计时器*/
@@ -253,8 +253,13 @@
     dispatch_source_set_timer(self.timer, dispatch_walltime(nil, 0), 60000*NSEC_PER_MSEC, 0);
     /** 设置计时器的里操作事件*/
     dispatch_source_set_event_handler(self.timer, ^{
-        [self sendDataToTopic:topic data:data];
-        
+        if(kCache.deviceToken){
+
+            NSDictionary *dic = @{@"event_name":@"heartbeat",@"payload":@{@"account_id":self.accountId}};
+            NSLog(@"MQTTClientModel->countDownWithTopic->heartbeat \n %@",dic);
+            NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
+            [self sendDataToTopic:topic data:data];
+        }
     });
     dispatch_resume(self.timer);
 }

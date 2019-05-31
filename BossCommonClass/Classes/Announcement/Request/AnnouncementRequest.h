@@ -136,7 +136,7 @@ notice.notice.get
 + (void)uploadDomain_type:(Domain_type)dtype Storage_type:(Storage_type)stype file_type:(NSString *)fileType file_key:(NSString *)key Success:(void(^)(id response))successBlock fail:(void(^)(NSString *message))failBlock;
 
 //ums.session.find 注册session
-+ (void)registerSession;
++ (void)registerSession:(void(^)(void))successBlock fail:(void(^)(void))failBlock;
 /////公告未读消息
 //ums.notice.get_unread_count
 + (void)getNoReadCount:(void(^)(NSInteger count))block;

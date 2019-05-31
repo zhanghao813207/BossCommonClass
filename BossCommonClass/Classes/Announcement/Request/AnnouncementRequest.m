@@ -298,17 +298,15 @@
 /**
  ums.session.find
  */
-+ (void)registerSession {
-    NSString * deviceToken = [kUserDefault objectForKey:@"deviceToken"];
-    if (!deviceToken) {
-        return;
-    }
-    NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"device_token":deviceToken};
++ (void)registerSession:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
+    NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"device_token":kCache.deviceToken};
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
-        NSLog(@"fdfdfdfd%@",responseObject);
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->registerSession->response \n %@",responseObject);
+        successBlock();
     } fail:^(id error) {
         NSLog(@"%@",error);
+        failBlock();
     }];
 }
 //ums.notice.get_unread_count
