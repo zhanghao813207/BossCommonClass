@@ -178,13 +178,12 @@
 
 #pragma mark MQTTSessionManagerDelegate
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
-    NSLog(@"接收的数据%@",data);
+
     NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     id decodeObj = [QLifeAES256 objDecodeWithString:dataStr password:mqttSecretKey];
     NSLog(@"------handleMessage ----- \n %@",decodeObj);
-    if (self.delegate && [self.delegate respondsToSelector:@selector(MQTTClientModel_handleMessage:onTopic:retained:)]) {
-        [self.delegate MQTTClientModel_handleMessage:data onTopic:topic retained:retained];
-    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
 }
 
 
@@ -259,6 +258,7 @@
             NSLog(@"MQTTClientModel->countDownWithTopic->heartbeat \n %@",dic);
             NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
             [self sendDataToTopic:topic data:data];
+    
         }
     });
     dispatch_resume(self.timer);

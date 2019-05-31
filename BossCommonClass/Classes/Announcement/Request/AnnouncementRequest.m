@@ -111,6 +111,7 @@
 
 + (void)publishAnnouncemenWithModel:(PublishModel *)model success:(void(^)(void))successBlock fail:(void(^)(NSString *))failBlock {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    dic[@"proxy_id"] = model.proxyId;
     dic[@"title"] = model.title;
     NSMutableArray *tempArr = [NSMutableArray array];
     for (ContactsGroup *tempModel in model.members) {
@@ -123,7 +124,7 @@
         dic[@"media_ids"] = model.media_ids;
     }
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.notice.add" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:dic CMD:@"message.notice.add" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         successBlock();
     } fail:^(id error) {

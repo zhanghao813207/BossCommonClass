@@ -30,7 +30,7 @@
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
 
-@interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate,MQTTClientModelDelegate>
+@interface AnnouncementVC ()<UITableViewDelegate,UITableViewDataSource,PublishAnnouncementControllerDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property(nonatomic, strong)NSMutableArray *dataArrM;
 /**
@@ -86,12 +86,6 @@
 
 }
 
-- (void)MQTTClientModel_handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
-    NSLog(@"-------MQTTClientModel_handleMessage------- 1");
-    [self refreshLatestData];
-    NSLog(@"-------MQTTClientModel_handleMessage------- 2");
-}
-
 -(NSString*)dictionaryToJson:(NSDictionary *)dic
 {
     NSError *parseError = nil;
@@ -105,16 +99,20 @@
     [kUserDefault removeObjectForKey:@"uploadImage"];
     [self.navigationController popViewControllerAnimated:true];
 }
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"newToken"];
-    [kUserDefault removeObjectForKey:@"uploadImage"];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLatestData) name:@"message" object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"newToken"];
+    [kUserDefault removeObjectForKey:@"uploadImage"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 /**
  设置按钮
  */
@@ -162,6 +160,7 @@
 - (void)publishAction {
     PublishAnnouncementController *vc = [[PublishAnnouncementController alloc] init];
     vc.wppId = self.messageModel.idField;
+    vc.proxyId = self.messageModel.accountId;
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:false];
 }

@@ -26,8 +26,8 @@
     NSString *const MessageBasicURL = @"http://192.168.10.62:8082/1.0/";
     NSString *const MessageBasicURLV2 = @"http://192.168.10.62:8082/2.0/";
     NSString *const BossUmsPrefix = @"boss";
-    NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
-    NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
+    NSString *const MessageACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+    NSString *const MessageSECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
     // dev
 //    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
