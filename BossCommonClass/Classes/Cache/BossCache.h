@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL checkStartUMS;
 
-@property (nonatomic, strong) UmsAccessTokenModel *umsAccessTokenModel;
+@property (nonatomic, strong, nullable) UmsAccessTokenModel *umsAccessTokenModel;
 
 @property (nonatomic, strong) NSString *umsAccessToken;
 
