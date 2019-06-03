@@ -10,6 +10,7 @@
 #import "LoginVC.h"
 #import "NNBRequestManager.h"
 #import "SaasModel.h"
+#import "MQTTClientModel.h"
 
 @implementation BossManagerAccount
 
@@ -162,6 +163,8 @@
         
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        kCache.umsAccessTokenModel = nil;
+        [[MQTTClientModel sharedInstance] disconnect];
         NSString *logoutPhone = kCurrentBossManagerAccount.accountModel.phone;
         kCache.lastLoginPhone = logoutPhone;
         [kCache addPhone:logoutPhone];
