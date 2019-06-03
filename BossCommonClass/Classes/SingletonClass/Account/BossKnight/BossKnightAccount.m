@@ -263,4 +263,18 @@
     return dic;
 }
 
+- (BOOL)checkShowWallet {
+    if(self.accountModel){
+        return self.accountModel.mobileOpen && self.accountModel.mobileOpen.wallet;
+    }
+    return false;
+}
+
+- (BOOL)checkShowRegister {
+    if(self.accountModel){
+        return self.accountModel.mobileOpen && self.accountModel.mobileOpen.boduRegister;
+    }
+    return false;
+}
+
 @end
