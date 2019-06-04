@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
    
 }
 
-#pargam mark - private
+#pragma mark - private
 /**
  设置标题栏右侧按钮
  */
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     [self.view addSubview:_pageContentCollectionView];
 }
 
-#pragam mark - right button click
+#pragma mark - right button click
 - (void)rightAction {
     switch (self.VCType) {
         case SubVCTypeWait: {
@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     }
 }
 
-#pragam mark - WaitRecommendVCDelgate
+#pragma mark - WaitRecommendVCDelgate
 - (void)waitRecommendVCfailIds:(NSArray *)ids {
     NSLog(@"%@",ids);
     [self.waitVc updateWithIds:ids];
@@ -134,12 +134,12 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     [self.waitVc updateWithIds:ids];
 }
 
-#pragam mark - FinishRecommendVCDelegate
+#pragma mark - FinishRecommendVCDelegate
 - (void)deleteModel {
     [self.finishVC update];
 }
 
-#pragam mark - SGPageTitleViewDelegate
+#pragma mark - SGPageTitleViewDelegate
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     
     self.VCType = selectedIndex;
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     [self.pageContentCollectionView setPageContentCollectionViewCurrentIndex:selectedIndex];
 }
 
-#pragam mark - SGPageContentCollectionViewDelegate
+#pragma mark - SGPageContentCollectionViewDelegate
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
     if (index == 0) {
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
