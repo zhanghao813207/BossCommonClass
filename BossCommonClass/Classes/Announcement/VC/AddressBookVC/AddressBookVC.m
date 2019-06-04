@@ -245,6 +245,7 @@
     vc.delegate = self;
     
     self.selectIndex = indexPath.row;
+    vc.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:vc animated:true];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
