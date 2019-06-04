@@ -54,4 +54,5 @@ these are common classes,they are used by boss system.
   s.dependency 'UMCSecurityPlugins', '~> 1.0.6'
   s.dependency 'UMCPush', '~> 3.2.4'
   s.dependency 'UMCCommonLog', '~> 1.0.0'
+  s.dependency 'MGJRouter', '~> 0.10.0'
 end
