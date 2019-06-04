@@ -16,6 +16,9 @@
 // 当前Boss之家登录帐号 - BossMangerAccount
 #define kCurrentBossManagerAccount kCache.currentManagerAccount
 
+// 当前Boss老板登录帐号 - BossOwnerAccount
+#define kCurrentBossOwnerAccount kCache.currentBossOwnerAccount
+
 // 是否启用本地配置
 #define kLocalConfig kCache.localConfig
 

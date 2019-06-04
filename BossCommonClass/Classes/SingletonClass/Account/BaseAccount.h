@@ -59,6 +59,31 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isFirstLogin;
 
+/**
+ 检查是否开启个户注册模块
+ */
+@property (nonatomic, assign) BOOL checkShowRegister;
+
+/**
+ 检查是否开启消息模块
+ */
+@property (nonatomic, assign) BOOL checkShowMessage;
+
+/**
+ 检查是否开启薪资贷模块
+ */
+@property (nonatomic, assign) BOOL checkShowSalaryLoan;
+
+/**
+ 检查是否开启在线学习模块
+ */
+@property (nonatomic, assign) BOOL checkShowSchoolStudy;
+
+/**
+ 检查是否开启钱包模块
+ */
+@property (nonatomic, assign) BOOL checkShowWallet;
+
 @end
 
 NS_ASSUME_NONNULL_END

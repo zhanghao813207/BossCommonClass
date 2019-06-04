@@ -14,4 +14,5 @@
  */
 @property (nonatomic, assign) BOOL packUpKeybordEnable;
 
+- (void)popToLastViewController:(UIBarButtonItem *)sender;
 @end

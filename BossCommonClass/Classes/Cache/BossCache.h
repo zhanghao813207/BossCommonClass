@@ -9,6 +9,7 @@
 @class SaasModel;
 @class BossManagerAccount;
 @class BossKnightAccount;
+@class BossOwnerAccount;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) BossKnightAccount *currentKnightAccount;
 
+@property (nonatomic, strong, nullable) BossOwnerAccount *currentBossOwnerAccount;
+
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *saasAccountList;
 
 /**
@@ -64,6 +67,11 @@ NS_ASSUME_NONNULL_BEGIN
  最后一次登录手机号
  */
 @property (nonatomic, strong) NSString *lastLoginPhone;
+
+/**
+ 是否开启消息系统
+ */
+@property (nonatomic, assign) BOOL checkStartUMS;
 
 - (void)initNetConfig:(nullable SaasModel *)saasModel;
 

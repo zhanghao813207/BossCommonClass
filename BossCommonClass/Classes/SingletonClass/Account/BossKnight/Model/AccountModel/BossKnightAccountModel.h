@@ -8,6 +8,9 @@
 #import <Foundation/Foundation.h>
 #import "BossEnumDefin.h"
 #import "ContractBelongModel.h"
+#import "BalanceMoneyModel.h"
+#import "WeChatModel.h"
+#import "MobileOpenModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -112,6 +115,16 @@ NS_ASSUME_NONNULL_BEGIN
  当前有效期内的合同id
  */
 @property (nonatomic, strong) NSString *signed_date_id;
+
+/**
+ 钱包信息
+ */
+@property (nonatomic, strong) BalanceMoneyModel *WalletModel;
+
+/**
+ 微信绑定信息
+ */
+@property (nonatomic, strong) WeChatModel *WeChatModel;
 
 /**
  合同附件ID
@@ -325,6 +338,8 @@ NS_ASSUME_NONNULL_BEGIN
  解约协议签字状态 1：未签字 ，100：已签字
  */
 @property (nonatomic, assign) DepartureStates departure_state;
+
+@property (nonatomic, strong) MobileOpenModel *mobileOpen;
 
 
 #pragma mark -- 枚举对应的字符串

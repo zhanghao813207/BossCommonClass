@@ -218,6 +218,7 @@
     NSLog(@"adf");
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
+#warning 需替换成failBlock
         successBlock(responseObject[@"error_ids"]);
     } fail:^(id error) {
         NSLog(@"%@",error);

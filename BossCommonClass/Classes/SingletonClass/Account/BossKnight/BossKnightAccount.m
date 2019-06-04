@@ -221,6 +221,8 @@
         
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [kUserDefault removeObjectForKey:@"newToken"];
+        [kUserDefault removeObjectForKey:@"uploadImage"];
         kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
         kCache.isFirstHealCertificate = YES;
         kCurrentBossKnightAccount = nil;
@@ -259,6 +261,20 @@
                           @"account":self.accountModel ? [self.accountModel decodeToDic] : @{}
                           };
     return dic;
+}
+
+- (BOOL)checkShowWallet {
+    if(self.accountModel){
+        return self.accountModel.mobileOpen && self.accountModel.mobileOpen.wallet;
+    }
+    return false;
+}
+
+- (BOOL)checkShowRegister {
+    if(self.accountModel){
+        return self.accountModel.mobileOpen && self.accountModel.mobileOpen.boduRegister;
+    }
+    return false;
 }
 
 @end

@@ -1,0 +1,74 @@
+{
+  "name": "BossCommonClass",
+  "version": "7.9",
+  "summary": "a common class of boss system",
+  "description": "these are common classes,they are used by boss system.",
+  "homepage": "https://git.coding.net/J_YC/BossCommonClass.git",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "JiaYuanchao": "yuanchao__2106@163.com"
+  },
+  "source": {
+    "git": "https://git.coding.net/J_YC/BossCommonClass.git",
+    "tag": "7.9"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "BossCommonClass/Classes/**/*",
+  "user_target_xcconfig": {
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
+  "resource_bundles": {
+    "BossCommonClass": [
+      "BossCommonClass/Assets/*"
+    ]
+  },
+  "dependencies": {
+    "BasicCommonClass": [
+      "~> 0.4.4"
+    ],
+    "AFNetworking": [
+      "~> 3.1.0"
+    ],
+    "Qiniu": [
+      "~> 7.1"
+    ],
+    "BGFMDB": [
+      "~> 1.51"
+    ],
+    "Masonry": [
+
+    ],
+    "SGPagingView": [
+      "~> 1.6.0"
+    ],
+    "MJExtension": [
+
+    ],
+    "MJRefresh": [
+
+    ],
+    "SDWebImage": [
+      "~> 4.1.0"
+    ],
+    "MQTTClient": [
+      "~> 0.15.2"
+    ],
+    "UMCCommon": [
+      "~> 2.0.1"
+    ],
+    "UMCSecurityPlugins": [
+      "~> 1.0.6"
+    ],
+    "UMCPush": [
+      "~> 3.2.4"
+    ],
+    "UMCCommonLog": [
+      "~> 1.0.0"
+    ]
+  }
+}

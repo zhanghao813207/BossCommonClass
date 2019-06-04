@@ -8,6 +8,10 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+/**
+ Cell显示类型
+ */
 typedef NS_ENUM(NSInteger,InputType) {
     InputTypeRole = 0,//角色
     InputTypeName,//名字
@@ -20,11 +24,26 @@ typedef NS_ENUM(NSInteger,InputType) {
     InputTypeIdNumber,//身份证号码
     InputTypeApp_type,//推荐app类型(10: boss骑士 20: boss之家)
 };
-@interface InputMessageModel : NSObject
-@property(nonatomic, assign)InputType type;
-@property(nonatomic, copy)NSString *placeholder;
-@property(nonatomic, copy)NSString *text;
 
+/**
+ Cell信息Model
+ */
+@interface InputMessageModel : NSObject
+
+/**
+ Cell显示类型
+ */
+@property(nonatomic, assign)InputType type;
+
+/**
+ Cell显示标题
+ */
+@property(nonatomic, copy)NSString *placeholder;
+
+/**
+ Cell显示内容
+ */
+@property(nonatomic, copy)NSString *text;
 
 
 
@@ -47,6 +66,12 @@ typedef NS_ENUM(NSInteger,InputType) {
  是否要弹出界面(箭头要不要显示)
  */
 @property(nonatomic, assign)BOOL isSkip;
+
+/**
+ 获取我要推荐页默认显示信息
+
+ @return 默认显示信息数组
+ */
 +(NSArray *)getModelArr;
 
 

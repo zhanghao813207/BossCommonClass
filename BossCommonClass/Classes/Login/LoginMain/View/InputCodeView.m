@@ -32,6 +32,19 @@ CGFloat const kInputCodeViewHeight = 242;
 
 @implementation InputCodeView
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self addSubview:self.sendPhoneNumberLabel];
+        [self addSubview:self.inputCodeNoticeLabel];
+        [self addSubview:self.codeView];
+        [self addSubview:self.countDownView];
+        [self addSubview:self.voiceCodeButton];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -151,6 +164,8 @@ CGFloat const kInputCodeViewHeight = 242;
         [_codeView setInputCodeEndBlock:^(NSString *code) {
             NSString *phoneNumber = [weakSelf.phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
             if (weakSelf.inputCodeEndBlock) {
+                [kUserDefault removeObjectForKey:@"newToken"];
+                [kUserDefault removeObjectForKey:@"uploadImage"];
                 weakSelf.inputCodeEndBlock(phoneNumber, code);
             }
         }];

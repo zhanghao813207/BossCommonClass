@@ -14,16 +14,9 @@
 #import "ReferralFeeRequest.h"
 #import "BossMethodDefine.h"
 
-
-
 @interface InputMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 
-
-
-
 @property(nonatomic,strong)NSArray *listArr;
-
-
 
 @end
 
@@ -38,8 +31,11 @@ static NSString *idt = @"cell";
     
     self.model = [[InputMessageModel alloc] init];
     [self tableview];
+    
+#warning 控制底部按钮上移，当键盘弹起时
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHiden:) name:UIKeyboardWillHideNotification object:nil];
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"编辑" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];

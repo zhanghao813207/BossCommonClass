@@ -54,6 +54,16 @@ typedef NS_ENUM(NSInteger, DepartureStates) {
     DepartureStateSigned      = 100  // 已签字
 };
 
+/**
+ 委托个户注册状态
+ */
+typedef NS_ENUM(NSInteger, IndividualRegisterStates) {
+    IndividualRegisterStateInit       = 1,   // 未完善
+    IndividualRegisterStateDoing      = 10,   // 审核进行中
+    IndividualRegisterStateDone       = 100,  // 审核通过
+    IndividualRegisterStateFailed     = -100  // 审核失败
+};
+
 typedef NS_ENUM(NSInteger, StaffPositionType) {
     StaffPositionTypeAccount      =  10 // 个户
 };
