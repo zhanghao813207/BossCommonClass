@@ -238,7 +238,7 @@
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.publishButton.mas_top).offset(-34);
+            make.bottom.equalTo(self.publishButton.mas_top).offset(-10);
         }];
     }
     return _tableview;
