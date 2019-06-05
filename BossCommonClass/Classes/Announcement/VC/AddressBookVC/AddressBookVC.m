@@ -94,6 +94,8 @@
     
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
+    
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
 }
 
 /**
@@ -120,23 +122,29 @@
 }
 
 - (void)handleSuccess:(NSArray *)dataArr{
-    self.arrM = [dataArr mutableCopy];
-    for (ContactsGroup *model in self.arrM) {
-        for (ContactsGroup *selectModel in self.teamArr) {
-            if ([model._id isEqualToString:selectModel._id] || [model.vendor_target_id isEqualToString:selectModel.vendor_target_id]) {
-                [self.selectArrM addObject:model];
-                model.state = SelectStateAll;
-                model.isShow = !self.isShowSelectBar;
+    if (dataArr.count > 0) {
+        self.arrM = [dataArr mutableCopy];
+        for (ContactsGroup *model in self.arrM) {
+            for (ContactsGroup *selectModel in self.teamArr) {
+                if ([model._id isEqualToString:selectModel._id] || [model.vendor_target_id isEqualToString:selectModel.vendor_target_id]) {
+                    [self.selectArrM addObject:model];
+                    model.state = SelectStateAll;
+                    model.isShow = !self.isShowSelectBar;
+                }
             }
         }
+        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
+        [self.tableview reloadData];
+        
+    } else {
+        self.tableview.backgroundColor = UIColor.clearColor;
     }
-    
-    [self.tableview reloadData];
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
         if (self.isShowSelectBar) {
             self.tableview.mj_header = nil;
         }
     }];
+    
 }
 
 - (void)handleFailed {
