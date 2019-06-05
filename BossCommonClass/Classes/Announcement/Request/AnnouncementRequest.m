@@ -124,7 +124,7 @@
         dic[@"media_ids"] = model.media_ids;
     }
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:dic CMD:@"message.notice.add" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.notice.add" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         successBlock();
     } fail:^(id error) {
@@ -153,7 +153,7 @@
     
     NSDictionary *dic = @{};
 
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:dic CMD:@"message.address_book.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find" success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         
@@ -192,7 +192,7 @@
                                   }
                           };
 
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         

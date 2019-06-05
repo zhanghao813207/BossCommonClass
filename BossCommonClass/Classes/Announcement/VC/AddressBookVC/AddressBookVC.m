@@ -65,7 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
     self.packUpKeybordEnable = false;
     if(!self.isShowSelectBar){
         self.navigationItem.leftBarButtonItem = nil;
@@ -82,7 +82,9 @@
     self.finishButton.layer.masksToBounds = true;
     self.finishButton.hidden = !self.isShowSelectBar;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.userInteractionEnabled = false;
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    self.finishButton.alpha = 0.4;
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
     [self tableview];
@@ -203,12 +205,8 @@
         [self.selectArrM removeObject:model];
     }
     NSLog(@"%@",self.selectArrM);
-    if (self.selectArrM.count > 0) {
-//        self.finishButton.userInteractionEnabled = true;
-    }else {
-//        self.finishButton.userInteractionEnabled = false;
-    }
     [self.tableview reloadData];
+    [self updateFinishButton];
 }
 //PersonAddressBookVCDelegate
 - (void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select {
@@ -220,7 +218,6 @@
     }else {
         model.state = SelectStateSubAll;
     }
-    
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -253,6 +250,7 @@
     vc.delegate = self;
     
     self.selectIndex = indexPath.row;
+    vc.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:vc animated:true];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -263,11 +261,24 @@
     if (self.arrM.count > 0) {
         cell.model = self.arrM[indexPath.row];
     }
-    
+    if(indexPath.row == self.arrM.count - 1){
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
+    }
     cell.isSelctHidden = !self.isShowSelectBar;
     cell.delegate = self;
     return cell;
 }
+
+- (void)updateFinishButton {
+    if (self.selectArrM.count > 0) {
+        self.finishButton.userInteractionEnabled = true;
+        self.finishButton.alpha = 1.0;
+    }else {
+        self.finishButton.userInteractionEnabled = false;
+        self.finishButton.alpha = 0.4;
+    }
+}
+
 - (UIButton *)allSelectButton {
     if (_allSelectButton == nil) {
         _allSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -301,6 +312,7 @@
         }
     }
     [self.tableview reloadData];
+    [self updateFinishButton];
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
@@ -310,6 +322,7 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = kHexRGB(0xE5E5EE);
+        _tableview.backgroundColor = [UIColor clearColor];
 //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
