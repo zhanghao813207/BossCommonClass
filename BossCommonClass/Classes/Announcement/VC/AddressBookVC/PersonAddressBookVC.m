@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
     self.navigationController.navigationBarHidden = false;
     self.title = self.group.name;
     self.arrM = [NSMutableArray array];
@@ -146,6 +146,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonAddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.model = self.arrM[indexPath.row];
+    if(indexPath.row == self.arrM.count - 1){
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
+    }
     return cell;
 }
 - (UITableView *)tableview {
@@ -156,6 +159,7 @@
         _tableview.dataSource = self;
 //        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
         _tableview.tableFooterView = [[UIView alloc] init];
+        // _tableview.backgroundColor = [UIColor clearColor];
         [_tableview registerClass:[PersonAddressBookCell class] forCellReuseIdentifier:@"cell"];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {

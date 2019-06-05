@@ -268,6 +268,7 @@
     cell.model = self.dataArrM[indexPath.row];
     return cell;
 }
+
 - (NSMutableArray *)dataArrM {
     if (_dataArrM == nil) {
         _dataArrM = [NSMutableArray array];
