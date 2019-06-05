@@ -7,6 +7,8 @@
 @property (nonatomic, strong) NSString * appId;
 @property (nonatomic, strong) NSString * expiredAt;
 @property (nonatomic, strong) NSString * refreshToken;
+@property (nonatomic, strong) NSString * accessKey;
+@property (nonatomic, strong) NSString * secretKey;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

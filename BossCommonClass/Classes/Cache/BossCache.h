@@ -81,6 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *deviceToken;
 
+@property (nonatomic, strong) NSString *umsAccessKey;
+
+@property (nonatomic, strong) NSString *umsSecretKey;
+
 - (void)initNetConfig:(nullable SaasModel *)saasModel;
 
 - (NSString *)getUrlByApiVersion:(NSString *)apiVersion;

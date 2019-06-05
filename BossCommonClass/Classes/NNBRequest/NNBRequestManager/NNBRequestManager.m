@@ -142,7 +142,7 @@ static NNBRequestManager *sharedManager = nil;
 {
 
     if ([self.cmd hasPrefix:@"ums."]) {
-        return MessageACCESS_KEY;
+        return kCache.umsAccessKey;
     }
     return kCache.accessKey;
 }
@@ -151,7 +151,7 @@ static NNBRequestManager *sharedManager = nil;
 {
 
     if ([self.cmd hasPrefix:@"ums."]) {
-        return MessageSECRET_KEY;
+        return kCache.umsSecretKey;
     }
     return kCache.secretKey;
 }

@@ -28,10 +28,6 @@ UIKIT_EXTERN NSString *const SCHEME;
 // CMD前缀
 UIKIT_EXTERN NSString *const BossUmsPrefix;
 
-UIKIT_EXTERN NSString *const MessageACCESS_KEY;
-
-UIKIT_EXTERN NSString *const MessageSECRET_KEY;
-
 UIKIT_EXTERN NSString *const APPCODE;
 
 UIKIT_EXTERN NSString *const AGREEMENTURL;

@@ -11,13 +11,12 @@ NSString *const kUmsAccessTokenModelAccountId = @"account_id";
 NSString *const kUmsAccessTokenModelAppId = @"app_id";
 NSString *const kUmsAccessTokenModelExpiredAt = @"expired_at";
 NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
+NSString *const kUmsAccessTokenModelAccessKey = @"access_key";
+NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 
 @interface UmsAccessTokenModel ()
 @end
 @implementation UmsAccessTokenModel
-
-
-
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
@@ -40,10 +39,15 @@ NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 	}	
 	if(![dictionary[kUmsAccessTokenModelRefreshToken] isKindOfClass:[NSNull class]]){
 		self.refreshToken = dictionary[kUmsAccessTokenModelRefreshToken];
-	}	
+	}
+    if(![dictionary[kUmsAccessTokenModelAccessKey] isKindOfClass:[NSNull class]]){
+        self.accessKey = dictionary[kUmsAccessTokenModelAccessKey];
+    }
+    if(![dictionary[kUmsAccessTokenModelSecretKey] isKindOfClass:[NSNull class]]){
+        self.secretKey = dictionary[kUmsAccessTokenModelSecretKey];
+    }
 	return self;
 }
-
 
 /**
  * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
@@ -66,6 +70,12 @@ NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 	if(self.refreshToken != nil){
 		dictionary[kUmsAccessTokenModelRefreshToken] = self.refreshToken;
 	}
+    if(self.accessKey != nil){
+        dictionary[kUmsAccessTokenModelAccessKey] = self.accessKey;
+    }
+    if(self.secretKey != nil){
+        dictionary[kUmsAccessTokenModelSecretKey] = self.secretKey;
+    }
 	return dictionary;
 
 }
@@ -93,6 +103,12 @@ NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 	if(self.refreshToken != nil){
 		[aCoder encodeObject:self.refreshToken forKey:kUmsAccessTokenModelRefreshToken];
 	}
+    if(self.accessKey != nil){
+        [aCoder encodeObject:self.accessKey forKey:kUmsAccessTokenModelAccessKey];
+    }
+    if(self.secretKey != nil){
+        [aCoder encodeObject:self.secretKey forKey:kUmsAccessTokenModelSecretKey];
+    }
 
 }
 
@@ -107,6 +123,8 @@ NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 	self.appId = [aDecoder decodeObjectForKey:kUmsAccessTokenModelAppId];
 	self.expiredAt = [aDecoder decodeObjectForKey:kUmsAccessTokenModelExpiredAt];
 	self.refreshToken = [aDecoder decodeObjectForKey:kUmsAccessTokenModelRefreshToken];
+    self.accessKey = [aDecoder decodeObjectForKey:kUmsAccessTokenModelAccessKey];
+    self.secretKey = [aDecoder decodeObjectForKey:kUmsAccessTokenModelSecretKey];
 	return self;
 
 }
@@ -123,6 +141,8 @@ NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 	copy.appId = [self.appId copy];
 	copy.expiredAt = [self.expiredAt copy];
 	copy.refreshToken = [self.refreshToken copy];
+    copy.accessKey = [self.accessKey copy];
+    copy.secretKey = [self.secretKey copy];
 
 	return copy;
 }
