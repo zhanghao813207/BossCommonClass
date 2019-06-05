@@ -214,6 +214,7 @@
                 kCurrentBossOwnerAccount = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
+                kCache.umsAccessTokenModel = nil;
                 [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:2.f];
                 // 断开MQTT链接
                 [[MQTTClientModel sharedInstance] disconnect];
