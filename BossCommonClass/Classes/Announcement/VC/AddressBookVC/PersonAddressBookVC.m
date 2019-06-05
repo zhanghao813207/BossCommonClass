@@ -170,7 +170,7 @@
         _tableview.dataSource = self;
 //        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
         _tableview.tableFooterView = [[UIView alloc] init];
-        // _tableview.backgroundColor = [UIColor clearColor];
+        _tableview.backgroundColor = [UIColor clearColor];
         [_tableview registerClass:[PersonAddressBookCell class] forCellReuseIdentifier:@"cell"];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
