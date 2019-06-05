@@ -108,7 +108,7 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	}	
 	if(![dictionary[kBossOwnerUserModelNickname] isKindOfClass:[NSNull class]]){
 		self.nickname = dictionary[kBossOwnerUserModelNickname];
-	}	
+	}
 	return self;
 }
 
