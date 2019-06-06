@@ -171,7 +171,7 @@
 - (void)refreshLatestData {
     
     self.currentPage  = 1;
-    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:@"" page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:nil page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
         
         self.dataArrM = [dataArr mutableCopy];
         self.currentPage = 1;
@@ -207,7 +207,7 @@
     }
     self.currentPage ++;
     
-    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:@"" page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:nil page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
         
         self.hasMore = header.has_more;
         for (AnnoucementList *list in dataArr) {

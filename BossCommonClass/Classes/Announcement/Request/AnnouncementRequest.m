@@ -86,7 +86,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:proxyId forKey:@"proxy_id"];
     if(lastMessageId){
-        [dic setValue:lastMessageId forKey:@"proxy_id"];
+        [dic setValue:lastMessageId forKey:@"message_id"];
     }
     [dic setValue:@(currentPage) forKey:@"page"];
     [dic setValue:@{@"limit":@(20)} forKey:@"_meta"];
