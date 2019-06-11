@@ -137,6 +137,7 @@
             model.name = recordModel.flow_node_info.name;
             model.is_payment_node = recordModel.flow_node_info.is_payment_node;
             model.account_list = recordModel.flow_node_info.account_list;
+            model.post_list = recordModel.flow_node_info.post_list;
             model.pick_mode = recordModel.flow_node_info.pick_mode;
             model.index_num = recordModel.flow_node_info.index_num;
         }

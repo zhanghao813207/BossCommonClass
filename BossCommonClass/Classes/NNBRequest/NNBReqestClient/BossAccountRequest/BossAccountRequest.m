@@ -21,20 +21,16 @@
  */
 + (void)BossAccountRequestGainAccountWithAccountId:(NSString *)accountId success:(void(^)(BossManagerAccountModel *))successBlock fail:(void(^)(id error))failBlock
 {
-    NSString *url = [NSString stringWithFormat:@"%@/account/gain_account_list", kUrlApiVersion(@"/1.0")];
+    NSString *url = [NSString stringWithFormat:@"%@/account/gain_account_detail", kUrlApiVersion(@"/1.0")];
     NSDictionary *paramDic = @{
-                               @"permission_id":@"7-1",
-                               @"account_id":accountId,
-                               @"account_id_list":@[accountId],
-                               @"page":@"1",
-                               @"limit":@"10",
+                               @"id":accountId
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
         
         NSLog(@"BossAccountRequestGainAccountWithAccountId->response\n%@", responseObject);
         
         BossManagerAccountModel *accountModel = [[BossManagerAccountModel alloc] init];
-        [accountModel setValuesForKeysWithDictionary:((NSArray *)responseObject[@"data"]).firstObject];
+        [accountModel setValuesForKeysWithDictionary:responseObject];
         
         if (successBlock) {
             successBlock(accountModel);

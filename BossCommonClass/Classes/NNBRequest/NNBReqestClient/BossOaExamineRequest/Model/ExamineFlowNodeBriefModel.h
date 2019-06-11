@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AccountModel.h"
+#import "PostModel.h"
 
 @interface ExamineFlowNodeBriefModel : NSObject
 
@@ -23,7 +24,12 @@
 /**
  节点审批人摘要列表
  */
-@property (nonatomic, strong) NSArray <AccountModel *>*account_list;
+@property (nonatomic, strong) NSArray <AccountModel *> *account_list;
+
+/**
+ 节点审批岗位列表
+ */
+@property (nonatomic, strong) NSArray <PostModel *> *post_list;
 
 /**
  是否是支付节点

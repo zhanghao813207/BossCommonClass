@@ -30,10 +30,21 @@
  */
 @property (nonatomic, assign) NSInteger staff_id;
 
+#pragma mark - additional attribute
+
 /**
  职位名称
  */
 @property (nonatomic, strong, readonly) NSString *gidString;
 
+/**
+ 岗位ID
+ */
+@property (nonatomic, strong) NSString *postId;
+
+/**
+ 岗位名称
+ */
+@property (nonatomic, strong) NSString *postName;
 
 @end
