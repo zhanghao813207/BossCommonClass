@@ -12,6 +12,7 @@
 #import "NNBRequestManager.h"
 #import "NSDate+Helper.h"
 #import "SaasModel.h"
+#import "MQTTClientModel.h"
 
 @implementation BossKnightAccount
 
@@ -221,8 +222,6 @@
         
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [kUserDefault removeObjectForKey:@"newToken"];
-        [kUserDefault removeObjectForKey:@"uploadImage"];
         kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
         kCache.isFirstHealCertificate = YES;
         kCurrentBossKnightAccount = nil;

@@ -27,7 +27,11 @@ typedef NS_ENUM(NSInteger,SelectState) {
  */
 @property(nonatomic, copy)NSString *name;
 
-@property(nonatomic, copy)NSString *target_id;
+@property (nonatomic , assign) NSInteger type;
+
+@property(nonatomic, copy) NSString *vendor_id;
+
+@property (nonatomic, copy) NSString *vendor_target_id;
 
 /**
  自己定义

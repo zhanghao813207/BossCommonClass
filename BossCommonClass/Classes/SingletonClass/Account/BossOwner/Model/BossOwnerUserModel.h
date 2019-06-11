@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * gender;
+@property (nonatomic, assign) BOOL isshowJoinTeam;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

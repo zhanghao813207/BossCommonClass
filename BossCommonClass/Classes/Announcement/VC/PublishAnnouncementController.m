@@ -36,6 +36,8 @@
 - (PublishAnnouncementView *)publishView {
     if (_publishView == nil) {
         _publishView = [[PublishAnnouncementView alloc] initWithFrame:self.view.bounds];
+        _publishView.wppId = self.wppId;
+        _publishView.proxyId = self.proxyId;
         _publishView.delegate = self;
         [self.view addSubview:_publishView];
         __weak typeof(self)weakself = self;

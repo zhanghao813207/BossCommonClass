@@ -38,8 +38,6 @@
     self.title = @"公告详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
-
-    
     [self footerView];
     [self tableview];
     [AnnouncementRequest announcementDetail:self.idStr success:^(AnnouncementDetail * _Nonnull detailModel) {

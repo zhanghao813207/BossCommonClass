@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PublishModel : NSObject
 
 /**
+ 公众号代理人id Y
+ */
+@property (nonatomic, strong) NSString *proxyId;
+
+/**
  标题 必传
  */
 @property(nonatomic, copy)NSString *title;

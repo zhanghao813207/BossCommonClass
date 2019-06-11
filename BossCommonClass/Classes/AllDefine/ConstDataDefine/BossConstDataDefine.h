@@ -22,10 +22,11 @@ UIKIT_EXTERN NSString *const SECRET_KEY;
 UIKIT_EXTERN NSString *const MessageBasicURL;
 
 UIKIT_EXTERN NSString *const MessageBasicURLV2;
+// 路由scheme
+UIKIT_EXTERN NSString *const SCHEME;
 
-UIKIT_EXTERN NSString *const MessageACCESS_KEY;
-
-UIKIT_EXTERN NSString *const MessageSECRET_KEY;
+// CMD前缀
+UIKIT_EXTERN NSString *const BossUmsPrefix;
 
 UIKIT_EXTERN NSString *const APPCODE;
 

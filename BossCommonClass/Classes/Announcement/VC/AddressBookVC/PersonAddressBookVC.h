@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ContactsGroup.h"
+#import "BossViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol PersonAddressBookVCDelegate <NSObject>
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select;
 
 @end
-@interface PersonAddressBookVC : UIViewController
+@interface PersonAddressBookVC : BossViewController
 @property(nonatomic, weak)id<PersonAddressBookVCDelegate>delegate;
 
 /**

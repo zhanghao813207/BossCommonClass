@@ -13,22 +13,15 @@
 
 #define MQTTClientModelStance [MQTTClientModel sharedInstance]
 
-@protocol MQTTClientModelDelegate <NSObject>
-@optional
-- (void)MQTTClientModel_handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
-@end
-
 @interface MQTTClientModel : NSObject
 
 @property (nonatomic, assign) BOOL isDiscontent;
-@property (nonatomic, weak) id <MQTTClientModelDelegate> delegate;
 
 @property (nonatomic,strong) MQTTSessionManager *mySessionManager;
 
 + (instancetype)sharedInstance;
 
-
-- (void)bindWithUserName:(NSString *)username password:(NSString *)password cliendId:(NSString *)cliendId isSSL:(BOOL)isSSL;
+- (void)connect:(NSString *) accountId;
 
 - (void)disconnect;
 

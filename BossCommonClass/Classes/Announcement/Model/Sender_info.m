@@ -7,10 +7,13 @@
 //
 
 #import "Sender_info.h"
+#import "BossBasicDefine.h"
+#import "BossCache.h"
+#import "UmsAccessTokenModel.h"
 
 @implementation Sender_info
 - (BOOL)isMe {
-    NSString *ids = [[NSUserDefaults standardUserDefaults] objectForKey:@"account_id"];
+    NSString *ids = kCache.umsAccessTokenModel ? kCache.umsAccessTokenModel.accountId : @"";
     NSLog(@"%@",ids);
     if ([ids isEqualToString:self._id]) {
         return true;

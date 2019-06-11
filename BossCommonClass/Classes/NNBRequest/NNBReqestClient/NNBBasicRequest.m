@@ -14,6 +14,8 @@
 #import "BossKnightAccount.h"
 #import "BossManagerAccount.h"
 #import "MQTTClientModel.h"
+#import "NSString+Router.h"
+
 @class ViewController;
 
 @implementation NNBBasicRequest
@@ -206,9 +208,14 @@
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
+                if(!kCurrentBossOwnerAccount){
+                    return;
+                }
+                kCurrentBossOwnerAccount = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
-                [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:1.f];
+                kCache.umsAccessTokenModel = nil;
+                [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:2.f];
                 // 断开MQTT链接
                 [[MQTTClientModel sharedInstance] disconnect];
             }
@@ -225,16 +232,22 @@
 
 + (void)showLoginVcWithViewController:(UIViewController *)currentVc
 {
-    UIViewController *rootVc = currentVc.navigationController.viewControllers.firstObject;
-    if ([currentVc isKindOfClass:[UINavigationController class]]) {
-        [(UINavigationController *)currentVc popToRootViewControllerAnimated:YES];
-        rootVc = ((UINavigationController *)currentVc).viewControllers.firstObject;
+    NSString *executableFile = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey];
+    NSLog(@"%@", executableFile);
+    if ([executableFile isEqualToString:@"BossOwner"]) {
+        [@"login" openURL];
     } else {
-        [currentVc.navigationController popToRootViewControllerAnimated:YES];
-    }
-    
-    if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowVc")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
-        [rootVc viewWillAppear:YES];
+        UIViewController *rootVc = currentVc.navigationController.viewControllers.firstObject;
+        if ([currentVc isKindOfClass:[UINavigationController class]]) {
+            [(UINavigationController *)currentVc popToRootViewControllerAnimated:YES];
+            rootVc = ((UINavigationController *)currentVc).viewControllers.firstObject;
+        } else {
+            [currentVc.navigationController popToRootViewControllerAnimated:YES];
+        }
+        
+        if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowVc")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
+            [rootVc viewWillAppear:YES];
+        }
     }
 }
 

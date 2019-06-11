@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QLifeAES256 : NSObject
 
-//+ (id )objDecodeWithString:(NSString *)decodeStr password:(NSString *)password;
-//
-//+ (NSString *)stringDecodeWithString:(NSString *)decodeStr password:(NSString *)password;
++ (id )objDecodeWithString:(NSString *)decodeStr password:(NSString *)password;
+
++ (NSString *)stringDecodeWithString:(NSString *)decodeStr password:(NSString *)password;
 
 + (NSData *)dataWithEncodeObj:(id)obj password:(NSString *)password;
 
