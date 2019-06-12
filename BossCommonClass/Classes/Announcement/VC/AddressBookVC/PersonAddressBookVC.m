@@ -42,8 +42,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
     self.navigationController.navigationBarHidden = false;
+    self.title = self.group.name;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
   
@@ -68,10 +69,10 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
 }
 - (void)getData {
-    [AnnouncementRequest announcementContactsMembersId:self.group.target_id Success:^(NSArray * _Nonnull dataArr) {
+    [AnnouncementRequest announcementContactsMembersId:self.group._id Success:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         [self setSelectModel];
-        [self.tableview reloadData];
+        [self.tableview reloadData];  
     } fail:^(NSString * _Nonnull message) {
         
     }];
@@ -147,6 +148,20 @@
     cell.model = self.arrM[indexPath.row];
     return cell;
 }
+
+// 隐藏最后一行分割线
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 0.01f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    UIView *view =[ [UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -155,6 +170,7 @@
         _tableview.dataSource = self;
 //        _tableview.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0);
         _tableview.tableFooterView = [[UIView alloc] init];
+        _tableview.backgroundColor = [UIColor clearColor];
         [_tableview registerClass:[PersonAddressBookCell class] forCellReuseIdentifier:@"cell"];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {

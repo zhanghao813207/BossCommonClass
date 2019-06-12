@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PublishAnnouncementController : UIViewController
 @property(nonatomic, weak)id<PublishAnnouncementControllerDelegate>delegate;
+
+@property (nonatomic, strong) NSString *wppId;
+
+@property (nonatomic, strong) NSString *proxyId;
 @end
 
 NS_ASSUME_NONNULL_END

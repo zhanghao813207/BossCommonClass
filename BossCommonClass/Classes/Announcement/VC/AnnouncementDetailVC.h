@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BossViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^CountBlock)(NSInteger count);
-@interface AnnouncementDetailVC : UIViewController
+@interface AnnouncementDetailVC : BossViewController
 
 /**
  只需要一个id 不传listmodel了

@@ -12,37 +12,33 @@
 @implementation QLifeAES256
 
 
-//+ (id )objDecodeWithString:(NSString *)decodeStr password:(NSString *)password {
-//
-//    NSData *data = [QLifeAES256 dateWithDecodeString:decodeStr password:password];
-//    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//}
++ (id )objDecodeWithString:(NSString *)decodeStr password:(NSString *)password {
 
-//+ (NSData *)dateWithDecodeString:(NSString *)decodeStr password:(NSString *)password {
-//
-//    NSData *decodeData = [decodeStr dataUsingEncoding:NSUTF8StringEncoding];
-//    decodeData = [[NSData alloc] initWithBase64EncodedData:decodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//
-//    NSData *salt = [decodeData subdataWithRange:NSMakeRange(0, 8)];
-//    NSData *key = byteToKey(password, salt);
-//    NSData *iv = [key subdataWithRange:NSMakeRange(32, 16)];
-//    key = [key subdataWithRange:NSMakeRange(0, 32)];
-//
-//    decodeData = [decodeData subdataWithRange:NSMakeRange(8, decodeData.length - 8)];
-//
-//    NSData *data = [QLifeAES256 decode:decodeData iv:iv key:key];
-//    return data;
-//}
+    NSData *data = [QLifeAES256 dateWithDecodeString:decodeStr password:password];
+    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+}
 
-//+ (NSString *)stringDecodeWithString:(NSString *)decodeStr password:(NSString *)password {
-//
-//    NSData *data = [QLifeAES256 dateWithDecodeString:decodeStr password:password];
-//    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//}
++ (NSData *)dateWithDecodeString:(NSString *)decodeStr password:(NSString *)password {
 
+    NSData *decodeData = [decodeStr dataUsingEncoding:NSUTF8StringEncoding];
+    decodeData = [[NSData alloc] initWithBase64EncodedData:decodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
 
+    NSData *salt = [decodeData subdataWithRange:NSMakeRange(0, 8)];
+    NSData *key = QH_byteToKey(password, salt);
+    NSData *iv = [key subdataWithRange:NSMakeRange(32, 16)];
+    key = [key subdataWithRange:NSMakeRange(0, 32)];
 
+    decodeData = [decodeData subdataWithRange:NSMakeRange(8, decodeData.length - 8)];
 
+    NSData *data = [QLifeAES256 decode:decodeData iv:iv key:key];
+    return data;
+}
+
++ (NSString *)stringDecodeWithString:(NSString *)decodeStr password:(NSString *)password {
+
+    NSData *data = [QLifeAES256 dateWithDecodeString:decodeStr password:password];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 
 static NSData *QH_GetHashForHash(NSData *hash, NSData *passwordSalt) {
     unsigned char md[CC_MD5_DIGEST_LENGTH];

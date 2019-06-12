@@ -54,6 +54,7 @@
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         kCurrentBossKnightAccount = nil;
+        kCache.umsAccessTokenModel = nil;
         if (!confirmBlock) {
             return;
         }

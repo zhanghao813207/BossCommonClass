@@ -306,6 +306,7 @@ static int textLength = 30;
  发布公告
  */
 - (void)publish {
+    self.model.proxyId = self.proxyId;
     [AnnouncementRequest publishAnnouncemenWithModel:self.model success:^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(publishSuccess)]) {
             [self.delegate publishSuccess];
@@ -514,6 +515,7 @@ static int textLength = 30;
     vc.delegate = self;
     vc.teamArr = self.model.members;
     vc.isShowSelectBar = true;
+    vc.wppId = self.wppId;
     [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate

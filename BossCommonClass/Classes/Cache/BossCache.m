@@ -223,6 +223,18 @@ static BossCache *defaultCache = nil;
 #endif
 }
 
+- (NSString *)umsAccessToken {
+    return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessToken : @"";
+}
+
+- (NSString *)umsAccessKey {
+    return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessKey : @"";
+}
+
+- (NSString *)umsSecretKey {
+    return self.umsAccessTokenModel ? self.umsAccessTokenModel.secretKey : @"";
+}
+
 - (BOOL)checkLogin
 {
 #ifdef kBossKnight

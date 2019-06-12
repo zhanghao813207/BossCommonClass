@@ -352,6 +352,10 @@
             make.bottom.equalTo(self.containerView.mas_top).offset(-4);
             make.left.equalTo(self.contentView).offset(64);
         }];
+        [self.timeLable mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.containerView.mas_top).offset(-4);
+            make.right.equalTo(self.contentView).offset(-64);
+        }];
         [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.progressBgView);
             make.width.equalTo(self.progressBgView).multipliedBy(0);

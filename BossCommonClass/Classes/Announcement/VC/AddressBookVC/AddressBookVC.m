@@ -16,6 +16,8 @@
 #import "MJRefresh.h"
 #import "UIView+ShowView.h"
 #import "JYCMethodDefine.h"
+#import "BossBasicDefine.h"
+
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 
@@ -65,7 +67,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+    self.packUpKeybordEnable = false;
+    if(!self.isShowSelectBar){
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    self.navigationItem.hidesBackButton = YES;
     self.currentPage = 1;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
@@ -77,7 +84,9 @@
     self.finishButton.layer.masksToBounds = true;
     self.finishButton.hidden = !self.isShowSelectBar;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.userInteractionEnabled = false;
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    self.finishButton.alpha = 0.4;
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
     [self tableview];
@@ -87,46 +96,75 @@
     
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
+    
+    self.view.backgroundColor = kHexRGB(0xF9FBFC);
 }
-
 
 /**
  获取数据
  */
 - (void)refreshLatestData {
+    
+    // 是否启动UMS
+    if(!kCache.checkStartUMS){
+        [self.tableview.mj_header endRefreshing];
+        return;
+    }
+    
     [self.selectArrM removeAllObjects];
 //    [self.view showStatus:@"正在请求数据..."];
-    [AnnouncementRequest announcementContactsPage:self.currentPage GroupSuccess:^(NSArray * _Nonnull dataArr) {
-        
+    if(self.isShowSelectBar){
+        [AnnouncementRequest findWPPAdressBook:self.wppId successBlock:^(NSArray * _Nonnull dataArr) {
+            [self handleSuccess:dataArr];
+            
+        } fail:^(NSString * message) {
+            [self handleFailed];
+        }];
+    }else{
+        [AnnouncementRequest findAddressBook:^(NSArray * _Nonnull dataArr) {
+            [self handleSuccess:dataArr];
+            
+        } fail:^(NSString * message) {
+            [self handleFailed];
+        }];
+    }
+}
+
+- (void)handleSuccess:(NSArray *)dataArr{
+    if (dataArr.count > 0) {
         self.arrM = [dataArr mutableCopy];
         for (ContactsGroup *model in self.arrM) {
             for (ContactsGroup *selectModel in self.teamArr) {
-                if ([model._id isEqualToString:selectModel._id] || [model.target_id isEqualToString:selectModel.target_id]) {
+                if ([model._id isEqualToString:selectModel._id] || [model.vendor_target_id isEqualToString:selectModel.vendor_target_id]) {
                     [self.selectArrM addObject:model];
                     model.state = SelectStateAll;
                     model.isShow = !self.isShowSelectBar;
                 }
             }
         }
-        
+        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
         [self.tableview reloadData];
-        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            if (self.isShowSelectBar) {
-                self.tableview.mj_header = nil;
-            }
-        }];
-    } fail:^(NSString * message) {
-        [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
-            
-            if (self.isShowSelectBar) {
-                self.tableview.mj_header = nil;
-            }
-        }];
+        
+    } else {
+        self.tableview.backgroundColor = UIColor.clearColor;
+    }
+    [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+        if (self.isShowSelectBar) {
+            self.tableview.mj_header = nil;
+        }
     }];
     
-    ////test
-//    [self.tableview.mj_header endRefreshing];
 }
+
+- (void)handleFailed {
+    [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
+        
+        if (self.isShowSelectBar) {
+            self.tableview.mj_header = nil;
+        }
+    }];
+}
+
 - (void)refreshMoreData {
    
 }
@@ -138,9 +176,9 @@
 }
 
 - (void)finishAction {
-    NSMutableArray *tempArr = [NSMutableArray array];
     
 /*这是选择的人数  先注释掉
+    NSMutableArray *tempArr = [NSMutableArray array];
     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
         NSArray *keys = self.selectDic.allKeys;
         for (NSInteger i = 0; i < keys.count; i ++) {
@@ -164,24 +202,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-    
-    [self getNewToken];
+
+    [self.tableview.mj_header beginRefreshing];
 }
-- (void)getNewToken {
-    [kUserDefault removeObjectForKey:@"newToken"];
-    [kUserDefault removeObjectForKey:@"uploadImage"];
-    if ([kUserDefault objectForKey:@"newToken"]) {
-        [self.tableview.mj_header beginRefreshing];
-    }else {
-        [AnnouncementRequest getNewtokenSuccess:^(id response) {
-            NSLog(@"%@",response);
-            self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
-            
-            [self.tableview.mj_header beginRefreshing];
-        }];
-    }
-    
-}
+
 //AddressBookCellDelegate
 - (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model {
     if (model.state == SelectStateAll) {
@@ -190,12 +214,8 @@
         [self.selectArrM removeObject:model];
     }
     NSLog(@"%@",self.selectArrM);
-    if (self.selectArrM.count > 0) {
-//        self.finishButton.userInteractionEnabled = true;
-    }else {
-//        self.finishButton.userInteractionEnabled = false;
-    }
     [self.tableview reloadData];
+    [self updateFinishButton];
 }
 //PersonAddressBookVCDelegate
 - (void)selectPerson:(NSArray *)modelArr isAll:(BOOL)select {
@@ -207,7 +227,6 @@
     }else {
         model.state = SelectStateSubAll;
     }
-    
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -240,6 +259,7 @@
     vc.delegate = self;
     
     self.selectIndex = indexPath.row;
+    vc.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:vc animated:true];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -250,11 +270,24 @@
     if (self.arrM.count > 0) {
         cell.model = self.arrM[indexPath.row];
     }
-    
+    if(indexPath.row == self.arrM.count - 1){
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
+    }
     cell.isSelctHidden = !self.isShowSelectBar;
     cell.delegate = self;
     return cell;
 }
+
+- (void)updateFinishButton {
+    if (self.selectArrM.count > 0) {
+        self.finishButton.userInteractionEnabled = true;
+        self.finishButton.alpha = 1.0;
+    }else {
+        self.finishButton.userInteractionEnabled = false;
+        self.finishButton.alpha = 0.4;
+    }
+}
+
 - (UIButton *)allSelectButton {
     if (_allSelectButton == nil) {
         _allSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -288,6 +321,7 @@
         }
     }
     [self.tableview reloadData];
+    [self updateFinishButton];
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
@@ -297,6 +331,7 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = kHexRGB(0xE5E5EE);
+        _tableview.backgroundColor = [UIColor clearColor];
 //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
@@ -305,6 +340,12 @@
         }
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
+        
+        // 设置下拉刷新 header view 并 设置回调
+        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self refreshLatestData];
+        }];
+        
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);

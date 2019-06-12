@@ -29,44 +29,70 @@
 @end
 
 @implementation AnnouncementRequest
-+ (void)publishAnnouncemenWithModel:(PublishModel *)model success:(void(^)(void))successBlock fail:(void(^)(NSString *))failBlock {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[@"title"] = model.title;
-    NSMutableArray *tempArr = [NSMutableArray array];
-    for (ContactsGroup *tempModel in model.members) {
-        [tempArr addObject:tempModel.target_id];
-    }
-    dic[@"members"] = tempArr;
-    dic[@"content"] = model.content;
-    NSLog(@"%@",model.media_ids);
-    if (model.media_ids.count > 0) {
-        dic[@"media_ids"] = model.media_ids;
-    }
-    NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.notice.add" success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+
++ (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock {
+    
+    NSDictionary *paramDic = @{
+                               @"app_code":APPCODE
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->getUmsAccesstokenInfo->response:\n%@",responseObject);
+        
+        // 缓存UMS Token
+        UmsAccessTokenModel *umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:responseObject];
+        kCache.umsAccessTokenModel = umsAccessTokenModel;
+        
+        kCache.checkStartUMS = YES;
+        
         successBlock();
     } fail:^(id error) {
         NSLog(@"%@",error);
-        failBlock(@"");
     }];
 }
-/**
- 公告列表
- 
- @param last_message_id 最后一条message_id(非必传)
- */
-+ (void)announcementListLastId:(NSString *)last_message_id page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
+
++ (void)findMessageList:(void(^)(MessageListDicModel *messageListDicModel))successBlock failBlock:(void(^)(void))failBlock {
+    NSDictionary *paramDic = @{};
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"message.address_book.find_message_wpp_list" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->findMessageList->response:\n%@",responseObject);
+        
+        MessageListDicModel *model = [[MessageListDicModel alloc] initWithDictionary:responseObject];
+        
+        successBlock(model);
+    } fail:^(id error) {
+        NSLog(@"%@",error);
+    }];
+}
+
++ (void)findAccountNotices:(NSMutableArray *)proxyIdList successBlock:(void(^)(AccountNoticeListDicModel *accountNoticeListDicModel))successBlock failBlock:(void(^)(void))failBlock {
+    NSDictionary *paramDic = @{
+                               @"proxy_ids":proxyIdList
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:paramDic CMD:@"ums.notice.find_account_notices" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->findAccountNotices->response:\n%@",responseObject);
+        
+        AccountNoticeListDicModel *model = [[AccountNoticeListDicModel alloc] initWithDictionary:responseObject];
+        
+        successBlock(model);
+    } fail:^(id error) {
+        NSLog(@"AnnouncementRequest->findAccountNotices->error:\n%@",error);
+    }];
+}
+
++ (void)findNoticeList:(NSString *)proxyId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:proxyId forKey:@"proxy_id"];
+    if(lastMessageId){
+        [dic setValue:lastMessageId forKey:@"message_id"];
+    }
     [dic setValue:@(currentPage) forKey:@"page"];
     [dic setValue:@{@"limit":@(20)} forKey:@"_meta"];
     
-//    if (last_message_id) {
-//        dic[@"last_message_id"] = last_message_id;
-//    }
-//    dic[@"account_id"] = kCurrentBossManagerAccount.tokenModel.account_id;
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.notice.find" success:^(id responseObject) {
-        DLog(@"%@",responseObject);
+        NSLog(@"AnnouncementRequest->findNoticeList->response:\n%@",responseObject);
         NSArray *dataArr = [AnnoucementList mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         NSArray *tempArr;
         if (currentPage > 1) {
@@ -82,6 +108,30 @@
         failBlock(@"");
     }];
 }
+
++ (void)publishAnnouncemenWithModel:(PublishModel *)model success:(void(^)(void))successBlock fail:(void(^)(NSString *))failBlock {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    dic[@"proxy_id"] = model.proxyId;
+    dic[@"title"] = model.title;
+    NSMutableArray *tempArr = [NSMutableArray array];
+    for (ContactsGroup *tempModel in model.members) {
+        [tempArr addObject:tempModel.vendor_target_id];
+    }
+    dic[@"members"] = tempArr;
+    dic[@"content"] = model.content;
+    NSLog(@"%@",model.media_ids);
+    if (model.media_ids.count > 0) {
+        dic[@"media_ids"] = model.media_ids;
+    }
+    NSLog(@"%@",dic);
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.notice.add" success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        successBlock();
+    } fail:^(id error) {
+        NSLog(@"%@",error);
+        failBlock(@"");
+    }];
+}
 /**
  公告详情
  
@@ -90,24 +140,23 @@
  */
 + (void)announcementDetail:(NSString *)notice_id success:(void(^)(AnnouncementDetail *detailModel))successBlock fail:(void(^)(NSString *))failBlock {
     NSDictionary *dic = @{@"notice_id":notice_id};
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
        AnnouncementDetail *model = [AnnouncementDetail mj_objectWithKeyValues:responseObject];
         successBlock(model);
     } fail:^(id error) {
         failBlock(@"");
     }];
 }
-/**
- 获取通讯录组
- ums.address_book.find
- */
-+ (void)announcementContactsPage:(NSInteger)page GroupSuccess:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock {
-//    NSDictionary *dic = @{@"account_id" : kCurrentBossManagerAccount.tokenModel.account_id};
-    NSDictionary *dic = @{@"account_id" : kCurrentBossManagerAccount.tokenModel.account_id,@"target_type" : @(30),@"_meta":@{@"limit":@(0)}};
 
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.address_book.find" success:^(id responseObject) {
++ (void)findAddressBook:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock {
+    
+    NSDictionary *dic = @{};
+
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find" success:^(id responseObject) {
+        
         NSLog(@"%@",responseObject);
+        
         NSMutableArray *dataArr = [NSMutableArray array];
         dataArr = [ContactsGroup mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         NSMutableArray *tempArr = [NSMutableArray array];
@@ -115,13 +164,53 @@
             if (group.children.count > 0) {
                 for (ContactsChild *child in group.children) {
                     ContactsGroup *group = [[ContactsGroup alloc] init];
-                    group.target_id = child.target_id;
+                    group.vendor_target_id = child.target_id;
                     group.name = child.name;
                     group.head_img_url = child.head_img_url;
                     [tempArr addObject:group];
                 }
             }
         }
+        
+        for (ContactsGroup *group in tempArr.reverseObjectEnumerator) {
+            [dataArr insertObject:group atIndex:1];
+        }
+        
+        successBlock(dataArr);
+    } fail:^(id error) {
+        NSLog(@"%@",error);
+        failBlock(@"");
+    }];
+}
+
++ (void)findWPPAdressBook:(NSString *)wppId successBlock:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock {
+
+    NSDictionary *dic = @{
+                          @"wpp_id":wppId,
+                          @"_meta":@{
+                                  @"limit":@(0)
+                                  }
+                          };
+
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+        NSMutableArray *dataArr = [NSMutableArray array];
+        dataArr = [ContactsGroup mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *tempArr = [NSMutableArray array];
+        for (ContactsGroup *group in dataArr) {
+            if (group.children.count > 0) {
+                for (ContactsChild *child in group.children) {
+                    ContactsGroup *group = [[ContactsGroup alloc] init];
+                    group.vendor_target_id = child.target_id;
+                    group.name = child.name;
+                    group.head_img_url = child.head_img_url;
+                    [tempArr addObject:group];
+                }
+            }
+        }
+        
         for (ContactsGroup *group in tempArr.reverseObjectEnumerator) {
             [dataArr insertObject:group atIndex:1];
         }
@@ -130,8 +219,8 @@
         NSLog(@"%@",error);
         failBlock(@"");
     }];
-//    kCurrentBossManagerAccount.tokenModel.account_id
 }
+
 /**
  获取某一Team的所有成员列表
  ums.team.members
@@ -206,42 +295,20 @@
     securityPolicy.validatesDomainName = NO;
     return securityPolicy;
 }
-+ (void)getNewtokenSuccess:(void(^)(id))block {
-    
-    NSDictionary *dic = @{@"app_code":APPCODE};
-    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
-        NSLog(@"%@",responseObject[@"access_token"]);
-#warning newToken需调整 ums_access_token
-        [kUserDefault setValue:responseObject[@"access_token"] forKey:@"newToken"];
-        [kUserDefault setValue:responseObject[@"account_id"] forKey:@"account_id"];
-        NSLog(@"%@",responseObject);
-        
-        kCache.checkStartUMS = YES;
-        
-        [[MQTTClientModel sharedInstance] bindWithUserName:@"im_server" password:@"im_server-123" cliendId:[NSString stringWithFormat:@"im_server%@%@",[JYCSimpleToolClass getUUID],responseObject[@"account_id"]] isSSL:false];
-        [AnnouncementRequest registerSession];
-//        [MQTTClientModel sharedInstance].delegate = self;
-        [[MQTTClientModel sharedInstance] subscribeTopic:responseObject[@"account_id"]];
-        block(responseObject);
-    } fail:^(id error) {
-        NSLog(@"%@",error);
-    }];
-}
+
 
 /**
  ums.session.find
  */
-+ (void)registerSession {
-    NSString * deviceToken = [kUserDefault objectForKey:@"deviceToken"];
-    if (!deviceToken) {
-        return;
-    }
-    NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"device_token":deviceToken};
++ (void)registerSession:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
+    NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"device_token":kCache.deviceToken};
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
-        NSLog(@"fdfdfdfd%@",responseObject);
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->registerSession->response \n %@",responseObject);
+        successBlock();
     } fail:^(id error) {
         NSLog(@"%@",error);
+        failBlock();
     }];
 }
 //ums.notice.get_unread_count
