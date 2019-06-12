@@ -16,6 +16,8 @@
 #import "MJRefresh.h"
 #import "UIView+ShowView.h"
 #import "JYCMethodDefine.h"
+#import "BossBasicDefine.h"
+
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 
@@ -102,6 +104,13 @@
  获取数据
  */
 - (void)refreshLatestData {
+    
+    // 是否启动UMS
+    if(!kCache.checkStartUMS){
+        [self.tableview.mj_header endRefreshing];
+        return;
+    }
+    
     [self.selectArrM removeAllObjects];
 //    [self.view showStatus:@"正在请求数据..."];
     if(self.isShowSelectBar){
@@ -193,7 +202,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-    
+
     [self.tableview.mj_header beginRefreshing];
 }
 
@@ -331,10 +340,12 @@
         }
         _tableview.tableFooterView = [[UIView alloc] init];
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
+        
         // 设置下拉刷新 header view 并 设置回调
         _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [self refreshLatestData];
         }];
+        
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
