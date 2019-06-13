@@ -182,6 +182,9 @@
  */
 @property (nonatomic, strong) NSArray <ExamineFlowRecordModel *>*flow_record_list;
 
+/**
+ 当前审批节点
+ */
 @property (nonatomic, strong) ExamineFlowNodeModel *current_flow_node_info;
 
 /**

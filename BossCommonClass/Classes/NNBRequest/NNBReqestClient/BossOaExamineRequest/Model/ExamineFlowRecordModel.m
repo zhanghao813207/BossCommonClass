@@ -28,6 +28,18 @@
         return;
     }
     
+    if ([key isEqualToString:@"operate_post_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            PostModel *model = [[PostModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            
+            [array addObject:model];
+        }
+        self.operate_post_list = [array copy];
+        return;
+    }
+    
     if ([key isEqualToString:@"reject_to_record_accounts"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
@@ -105,6 +117,5 @@
 {
     
 }
-
 
 @end

@@ -202,17 +202,8 @@
     }];
 }
 
-/**
- 审核同意
- 
- @param examineOrderId 审批单ID
- @param recordId 审批流转记录ID
- @param note 原因
- @param nextNodeAccountId 下一节点的审批人
- @param successBlock 服务器响应返回
- @param failBlock 服务器响应失败
- */
-+ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId
+    nextNodePostId:(NSString *)nextNodePostId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 {
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"order_id":examineOrderId,
@@ -224,6 +215,10 @@
     
     if (![JYCSimpleToolClass stringIsEmpty:nextNodeAccountId]) {
         [paramDic setObject:nextNodeAccountId forKey:@"next_node_account_id"];
+    }
+    
+    if (![JYCSimpleToolClass stringIsEmpty:nextNodePostId]) {
+        [paramDic setObject:nextNodePostId forKey:@"next_node_post_id"];
     }
     
     [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
@@ -239,18 +234,7 @@
     }];
 }
 
-/**
- 审核驳回
- 
- @param examineOrderId 审批单ID
- @param recordId 审批流转记录ID
- @param rejectNodeId 被驳回的节点id
- @param rejectToAccountId 退回指定节点审批人
- @param note 原因
- @param successBlock 服务器响应返回
- @param failBlock 服务器响应失败
- */
-+ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId rejectToPostId:(NSString *)rejectToPostId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 {
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithDictionary:@{
                                @"order_id":examineOrderId,
@@ -262,6 +246,10 @@
     
     if (![JYCSimpleToolClass stringIsEmpty:rejectToAccountId]) {
         [paramDic setObject:rejectToAccountId forKey:@"reject_to_account_id"];
+    }
+    
+    if (![JYCSimpleToolClass stringIsEmpty:rejectToPostId]) {
+        [paramDic setObject:rejectToPostId forKey:@"reject_to_post_id"];
     }
 
     if (![JYCSimpleToolClass stringIsEmpty:note]) {

@@ -28,6 +28,7 @@ NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/"
 NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
 NSString *const BossUmsPrefix = @"boss";
 #else
+// dev
 // 测试环境 Boss之家 骑士
 NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
 NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";

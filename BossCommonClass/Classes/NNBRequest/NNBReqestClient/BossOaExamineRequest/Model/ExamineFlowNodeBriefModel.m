@@ -26,6 +26,17 @@
         return;
     }
     
+    if ([key isEqualToString:@"post_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            PostModel *model = [[PostModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.post_list = [array copy];
+        return;
+    }
+    
     [super setValue:value forKey:key];
 }
 
