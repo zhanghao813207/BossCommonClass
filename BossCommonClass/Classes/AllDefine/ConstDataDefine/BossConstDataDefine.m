@@ -27,18 +27,6 @@
     NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
     NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
 #else
-    // local
-//NSString *const BossBasicURL = @"http://192.168.10.57:8081/1.0/";
-//NSString *const BossBasicURLV2 = @"http://192.168.10.57:8081/2.0/";
-//    NSString *const BossBasicPrefix = @"boss";
-//    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-//    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
-//
-//    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-//    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-//    NSString *const MessageACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
-//    NSString *const MessageSECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
-
     // dev
     NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
     NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
