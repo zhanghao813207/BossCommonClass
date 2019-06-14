@@ -15,7 +15,7 @@
 #ifdef DEBUG
 
 #ifdef kBossOwner
-// dev
+// dev https://boss-api-dev.aoaosong.com:8481
 // 测试环境 Boss老板
 NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
 NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
@@ -29,6 +29,13 @@ NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0
 NSString *const BossUmsPrefix = @"boss";
 #else
 // 测试环境 Boss之家 骑士
+//http://192.168.10.69:8081/
+//NSString *const BossBasicURL = @"http://192.168.10.69:8081/1.0/";
+//NSString *const BossBasicURLV2 = @"http://192.168.10.69:8081/2.0/";
+//NSString *const BossBasicPrefix = @"boss";
+//NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe919";
+//NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe91a";
+
 NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
 NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
 NSString *const BossBasicPrefix = @"boss";

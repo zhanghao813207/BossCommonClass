@@ -238,7 +238,10 @@ NS_ASSUME_NONNULL_BEGIN
  平台ID
  */
 @property (nonatomic, strong) NSString *custom_id;
-
+/**
+ 平台ID Model List
+ */
+@property (nonatomic, strong) NSMutableArray *custom_list;
 /**
  平台身份证
  */
