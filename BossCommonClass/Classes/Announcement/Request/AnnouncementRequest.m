@@ -21,7 +21,7 @@
 #import "ContactsGroup.h"
 #import "JYCSimpleToolClass.h"
 #import "ContactsChild.h"
-
+#import "BaseTeamListModel.h"
 
 @interface AnnouncementRequest ()
 @property (nonatomic,strong) MQTTCFSocketTransport *myTransport;

@@ -29,16 +29,22 @@ NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0
 NSString *const BossUmsPrefix = @"boss";
 #else
 // dev
+// 192.168.10.62
 // 测试环境 Boss之家 骑士
-NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
-NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
+NSString *const BossBasicURL = @"http://192.168.10.62:8081/1.0/";
+NSString *const BossBasicURLV2 = @"http://192.168.10.62:8081/2.0/";
 NSString *const BossBasicPrefix = @"boss";
-NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
+NSString *const ACCESS_KEY = @"5c0a1988ce6d2a984c1fe925";
+NSString *const SECRET_KEY = @"5c0a1988ce6d2a984c1fe926";
+//NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
+//NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
+//NSString *const BossBasicPrefix = @"boss";
+//NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
+//NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
 
 // 消息服务
-NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+NSString *const MessageBasicURL = @"http://192.168.10.62:8082/1.0/";
+NSString *const MessageBasicURLV2 = @"http://192.168.10.62:8082/2.0/";
 NSString *const BossUmsPrefix = @"boss";
 #endif
 

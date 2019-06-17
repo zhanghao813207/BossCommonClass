@@ -23,7 +23,8 @@
 #import "UIView+ShowView.h"
 #import "NNBUtilRequest.h"
 #import "NNBUploadManager.h"
-
+#import "SelectContactVc.h"
+#import "UIViewController+StoryBoard.h"
 
 @interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
@@ -508,13 +509,14 @@ static int textLength = 30;
 }
 
 /**
- 打开通讯录
+ 打开
  */
 - (void)select {
-    AddressBookVC *vc = [[AddressBookVC alloc] init];
-    vc.delegate = self;
-    vc.teamArr = self.model.members;
-    vc.isShowSelectBar = true;
+//    AddressBookVC *vc = [[AddressBookVC alloc] init];
+//    vc.delegate = self;
+//    vc.teamArr = self.model.members;
+//    vc.isShowSelectBar = true;
+    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
     vc.wppId = self.wppId;
     [self.viewController.navigationController pushViewController:vc animated:true];
 }
