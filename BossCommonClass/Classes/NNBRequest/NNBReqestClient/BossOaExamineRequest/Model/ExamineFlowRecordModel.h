@@ -10,6 +10,8 @@
 #import "AccountModel.h"
 #import "ExamineFlowNodeBriefModel.h"
 #import "SupplementOpinionModel.h"
+#import "PostModel.h"
+
 @interface ExamineFlowRecordModel : NSObject
 
 /**
@@ -77,7 +79,12 @@
 /**
  审批人列表
  */
-@property (nonatomic, strong) NSArray <AccountModel *>*operate_account_list;
+@property (nonatomic, strong) NSArray <AccountModel *> *operate_account_list;
+
+/**
+ 审批岗位列表
+ */
+@property (nonatomic, strong) NSArray <PostModel *> *operate_post_list;
 
 @property (nonatomic, strong) AccountModel *account_info;
 
@@ -101,8 +108,5 @@
  补充意见列表 全部
  */
 @property (nonatomic, strong) NSArray <SupplementOpinionModel *>*extra_info_all_list;
-
-
-
 
 @end

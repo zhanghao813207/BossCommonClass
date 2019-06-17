@@ -48,10 +48,11 @@
  @param recordId 审批流转记录ID
  @param note 原因
  @param nextNodeAccountId 下一节点的审批人
+ @param nextNodePostId 下一节点的岗位ID
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestAgreeWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId note:(NSString *)note nextNodeAccountId:(NSString *)nextNodeAccountId nextNodePostId:(NSString *)nextNodePostId success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  添加补充意见
@@ -81,11 +82,12 @@
  @param recordId 审批流转记录ID
  @param rejectNodeId 被驳回的节点id
  @param rejectToAccountId 退回指定节点审批人
+ @param rejectToPostId 驳回指定岗位ID
  @param note 原因
  @param successBlock 服务器响应返回
  @param failBlock 服务器响应失败
  */
-+ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
++ (void)OaExamineRequestRejectWithExamineOrderId:(NSString *)examineOrderId examineRecordId:(NSString *)recordId rejectNodeId:(NSString *)rejectNodeId rejectToAccountId:(NSString *)rejectToAccountId rejectToPostId:(NSString *)rejectToPostId note:(NSString *)note success:(void(^)(BOOL ok))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  催办操作
