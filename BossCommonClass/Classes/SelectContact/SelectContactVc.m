@@ -15,6 +15,7 @@
 #import "BizDistrictTeam.h"
 #import "SupplierVc.h"
 #import "UIViewController+StoryBoard.h"
+#import "BizDistrictTeamPlatformModel.h"
 
 @interface SelectContactVc ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -36,11 +37,16 @@
     [self setUI];
     
 }
+
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
     self.isEdit = false;
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    self.navigationItem
 }
 -(void)getList{
     if (self.wppId) {
@@ -76,42 +82,53 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SelectContactCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    NSArray *platformListArr = self.contentArr[indexPath.row];
-    if (platformListArr.count > 0) {
-        BizDistrictTeam *teamListModel = platformListArr[0];
-        cell.titleLabel.text = teamListModel.businessExtraField.platformName;
-        cell.model = teamListModel;
-        
-        cell.selectBlock = ^(BOOL selectStatus) {
-            teamListModel.isSelect = selectStatus;
-            [tableView reloadData];
-        };
-    }
+    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+    cell.model = teamListModel;
+    cell.titleLabel.text = teamListModel.businessExtraField.platformName;
+    cell.selectBlock = ^() {
+        if (teamListModel.type == 0) {
+            teamListModel.type = 1;
+        } else if (teamListModel.type == 1) {
+            teamListModel.type = 0;
+        } else if (teamListModel.type == 2){
+            teamListModel.type = 1;
+        } else {
+            teamListModel.type = 1;
+        }
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSMutableArray *platformArr = self.contentArr[indexPath.row];
-    NSMutableArray *IDArr = [NSMutableArray array];
-    for (BizDistrictTeam *teamListModel in platformArr){
-        [IDArr addObject:teamListModel.businessExtraField.supplierId];
-    }
-    IDArr = [IDArr valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    NSMutableArray *supplierList = [NSMutableArray array];
-    for(NSString * supplierId in IDArr) {
-        NSMutableArray *supplierArr = [NSMutableArray array];
-        for (BizDistrictTeam *teamListModel in platformArr) {
-            if ([supplierId isEqualToString:teamListModel.businessExtraField.supplierId]){
-                [supplierArr addObject:teamListModel];
-            }
-        }
-        [supplierList addObject:supplierArr];
-    }
-    NSLog(@"%@", supplierList);
+    // 所有子项数组
+    NSMutableArray *allSelectType = [NSMutableArray array];
+    
+    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
     
     SupplierVc * supplier = [SupplierVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    supplier.contentArr = supplierList;
+    for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.PlatformArr){
+        if (teamListModel.type == 1) {
+            PlatformModel.type = 1;
+        }
+        if (teamListModel.type == 0) {
+            PlatformModel.type = 0;
+        }
+    }
+    supplier.contentArr = teamListModel.PlatformArr;
+    supplier.index = indexPath.row;
+    supplier.selectStatus_type = ^(NSInteger index, int type) {
+        BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
+        teamListModel.type = type;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     [self.navigationController pushViewController:supplier animated:true];
-    
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (touch.view != self.customTableView) {
+        return NO;
+    }else {
+        return YES;
+    }
 }
 @end

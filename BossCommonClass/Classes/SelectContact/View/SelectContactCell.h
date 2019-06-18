@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BizDistrictTeam.h"
+#import "BizDistrictTeamPlatformModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /// CellType 定义
@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
     editCell
 } cellType;
 
-typedef void(^selectStatus)(BOOL selectStatus);
+typedef void(^selectStatus)(void);
 
 @interface SelectContactCell : UITableViewCell
 /// 是否选中状态ImageView
@@ -34,7 +34,7 @@ typedef void(^selectStatus)(BOOL selectStatus);
 @property (nonatomic, copy) selectStatus selectBlock;
 
 
-@property (nonatomic, strong) BizDistrictTeam * model;
+@property (nonatomic, strong) BizDistrictTeamPlatformModel * model;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -5,6 +5,7 @@
 
 
 #import "BaseTeamListModel.h"
+#import "BizDistrictTeamPlatformModel.h"
 
 NSString *const kBaseTeamListModelBizDistrictTeam = @"biz_district_team";
 NSString *const kBaseTeamListModelRoleTeam = @"role_team";
@@ -40,13 +41,20 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
         
         for (NSString *platformCode in platformCodeLists) {
             NSMutableArray * platformArr = [NSMutableArray array];
-//            NSMutableArray * supplierIDArr = [NSMutableArray array];
+
             for (BizDistrictTeam *bizDistrictTeam in bizDistrictTeamItems) {
                 if ([platformCode isEqualToString:bizDistrictTeam.businessExtraField.platformCode]){
                     [platformArr addObject:bizDistrictTeam];
                 }
             }
-            [platformList addObject:platformArr];
+            
+            if (platformArr.count > 0) {
+                BizDistrictTeam *bizDistrictTeam = platformArr[0];
+                BizDistrictTeamPlatformModel * PlatFormModel = [[BizDistrictTeamPlatformModel alloc] initWithDictionary:[bizDistrictTeam toDictionary]];
+                PlatFormModel.PlatformArr = platformArr;
+                [platformList addObject: PlatFormModel];
+            }
+            
         }
 
         self.platformList = platformList;

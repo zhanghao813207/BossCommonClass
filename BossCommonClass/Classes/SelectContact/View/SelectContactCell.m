@@ -14,12 +14,20 @@
     // Initialization code
     self.headerImageView.layer.cornerRadius = 20;
 }
-- (void)setModel:(BizDistrictTeam *)model{
-    if (model.isSelect) {
+- (void)setModel:(BizDistrictTeamPlatformModel *)model{
+    NSLog(@"model.type---%ld", (long)model.type);
+    if (model.type == 2) {
+        self.selectStatusImageView.image = [UIImage imageNamed:@"ChecksomeIcon"];
+    } else if (model.type == 1) {
         self.selectStatusImageView.image = [UIImage imageNamed:@"selectIcon"];
+    } else if (model.type == 0){
+        self.selectStatusImageView.image = [UIImage imageNamed:@"nomarlicon"];
     } else {
-        self.selectStatusImageView.image = [UIImage imageNamed:@"nomarl"];
+        self.selectStatusImageView.image = [UIImage imageNamed:@"nomarlicon"];
     }
+
+    
+    
 }
 -(void)setCelltype:(cellType)celltype{
     if (celltype == contentCell){
@@ -35,10 +43,9 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)changeSelectStatus:(id)sender {
-    self.model.isSelect = !self.model.isSelect;
+- (IBAction)changeSelectStatus:(UIButton *)sender {
     if (self.selectBlock) {
-        self.selectBlock(self.model.isSelect);
+        self.selectBlock();
     }
 }
 @end
