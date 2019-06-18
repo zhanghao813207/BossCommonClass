@@ -20,15 +20,19 @@
 #pragma mark --brief
 
 /**
- 单笔流水号
+ 审批单号
  */
 @property (nonatomic, strong) NSString *_id;
 
 /**
- 申请人ID
+ 审批单类型
  */
-@property (nonatomic, strong) NSString *apply_account_id;
+@property (nonatomic, assign) ApplicationOrderType application_order_type;
 
+/**
+ 审批主题列表
+ */
+@property (nonatomic, strong) NSArray *theme_label_list;
 
 /**
  审批流程ID
@@ -208,7 +212,18 @@
 
 @property (nonatomic, strong) NSArray <NSDictionary *>*file_url_list;
 
-#pragma mark -- 计算属性
+#pragma mark - additional attribute
+
+/**
+ 审批类型字符串
+ */
+@property (nonatomic, strong, readonly) NSString *applicationOrderTypeStr;
+
+/**
+ 主题字符串
+ */
+@property (nonatomic, strong, readonly) NSString *themeLabelStr;
+
 /**
  审批单的流转 flow_record_list 计算得来
  */

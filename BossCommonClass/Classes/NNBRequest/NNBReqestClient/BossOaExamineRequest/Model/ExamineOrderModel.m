@@ -128,6 +128,52 @@
     
 }
 
+#pragma mark - setter/getter
+
+- (NSString *)applicationOrderTypeStr {
+    NSString *typeStr = @"未知";
+    switch (self.application_order_type) {
+            case ApplicationOrderTypeCost:
+            typeStr = @"费用申请";
+            break;
+            case ApplicationOrderTypeSalaryRule:
+            typeStr = @"薪资规则";
+            break;
+            case ApplicationOrderTypeSalaryPayment:
+            typeStr = @"薪资发放";
+            break;
+            case ApplicationOrderTypeMaterial:
+            typeStr = @"物资采购";
+            break;
+            case ApplicationOrderTypeHouseContract:
+            typeStr = @"房屋管理";
+            break;
+            case ApplicationOrderTypeLoan:
+            typeStr = @"借款申请";
+            break;
+            case ApplicationOrderTypeRepayment:
+            typeStr = @"还款";
+            break;
+            case ApplicationOrderTypeBusinessTrave:
+            typeStr = @"出差申请";
+            break;
+            case ApplicationOrderTypeTravelExpense:
+            typeStr = @"差旅报销";
+            break;
+        default:
+            break;
+    }
+    
+    return typeStr;
+}
+
+- (NSString *)themeLabelStr {
+    if(self.theme_label_list && self.theme_label_list.count > 0){
+        return [self.theme_label_list componentsJoinedByString:@"、"];
+    }
+    return @"";
+}
+
 - (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
 {
     ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];

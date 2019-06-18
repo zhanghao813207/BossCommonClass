@@ -156,6 +156,23 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
     MOBILE_PASS_EXAMINE_FAIL    = 9,  // 我经手的(已驳回),
 };
 
+#pragma mark - 审批单相关常量
+
+/**
+ 审批单类型
+ */
+typedef NS_ENUM(NSInteger, ApplicationOrderType) {
+    ApplicationOrderTypeCost          = 1, // 费用申请
+    ApplicationOrderTypeSalaryRule    = 2, // 薪资规则
+    ApplicationOrderTypeSalaryPayment = 3, // 薪资发放
+    ApplicationOrderTypeMaterial      = 4, // 物资采购
+    ApplicationOrderTypeHouseContract = 5, // 房屋管理
+    ApplicationOrderTypeLoan          = 6, // 借款申请
+    ApplicationOrderTypeRepayment     = 7, // 还款
+    ApplicationOrderTypeBusinessTrave = 8, // 出差申请
+    ApplicationOrderTypeTravelExpense = 9, // 差旅报销
+};
+
 // 审批单整体状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
     OA_EXAMINE_STATE_INIT     =    1,  // 待提交
