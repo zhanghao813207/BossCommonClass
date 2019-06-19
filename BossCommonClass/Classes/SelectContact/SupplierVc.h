@@ -15,7 +15,7 @@ typedef void(^selectStatus_type2)(NSInteger , int);
 
 @property (nonatomic,strong) NSArray *contentArr;
 // 是否全部选中
-//@property (nonatomic,assign) BOOL isallSelect;
+@property (nonatomic,strong) NSString *platformType;
 @property (nonatomic,assign) NSInteger index;
 
 @property (nonatomic,copy) selectStatus_type2 selectStatus_type;

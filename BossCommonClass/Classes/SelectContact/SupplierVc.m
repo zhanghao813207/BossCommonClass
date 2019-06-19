@@ -15,6 +15,7 @@
 #import "CityVc.h"
 #import "UIViewController+StoryBoard.h"
 #import "BizDistrictTeamPlatformModel.h"
+#import "ContactListVc.h"
 
 @interface SupplierVc ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -129,7 +130,11 @@
     SelectContactCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
     cell.model = teamListModel;
-    cell.titleLabel.text = teamListModel.businessExtraField.supplierName;
+    if (teamListModel.businessExtraField.supplierName) {
+        cell.titleLabel.text = teamListModel.businessExtraField.supplierName;
+    } else {
+        cell.titleLabel.text = teamListModel.name;
+    }
     cell.selectBlock = ^{
         if (teamListModel.type == 0) {
             teamListModel.type = 1;
@@ -154,29 +159,39 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
-    
-    for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.supplierArr){
-        if (teamListModel.type == 1) {
-            PlatformModel.type = 1;
+    if (![self.platformType isEqualToString:@"趣活内部"]){
+        BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+        
+        for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.supplierArr){
+            if (teamListModel.type == 1) {
+                PlatformModel.type = 1;
+            }
+            if (teamListModel.type == 0) {
+                PlatformModel.type = 0;
+            }
         }
-        if (teamListModel.type == 0) {
-            PlatformModel.type = 0;
-        }
+        
+        CityVc * supplier = [CityVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+        supplier.contentArr = teamListModel.supplierArr;
+        
+        supplier.title = teamListModel.businessExtraField.supplierName;
+        supplier.index = indexPath.row;
+        supplier.supplierTitle = self.title;
+        supplier.selectStatus_type = ^(NSInteger index, int type) {
+            BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
+            teamListModel.type = type;
+            self.type = type;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        
+        [self.navigationController pushViewController:supplier animated:true];
+    } else {
+        BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+        ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+        vc.group_id = teamListModel.idField;
+        vc.title = teamListModel.name;
+        [self.navigationController pushViewController:vc animated:true];
     }
     
-    CityVc * supplier = [CityVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    supplier.contentArr = teamListModel.supplierArr;
-    supplier.title = teamListModel.businessExtraField.supplierName;
-    supplier.index = indexPath.row;
-    supplier.supplierTitle = self.title;
-    supplier.selectStatus_type = ^(NSInteger index, int type) {
-        BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
-        teamListModel.type = type;
-        self.type = type;
-        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    };
-    
-    [self.navigationController pushViewController:supplier animated:true];
 }
 @end

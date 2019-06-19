@@ -26,7 +26,7 @@ NSString *const kRoleTeamData = @"data";
 		NSArray * dataDictionaries = dictionary[kRoleTeamData];
 		NSMutableArray * dataItems = [NSMutableArray array];
 		for(NSDictionary * dataDictionary in dataDictionaries){
-			BizDistrictTeam * dataItem = [[BizDistrictTeam alloc] initWithDictionary:dataDictionary];
+			BizDistrictTeamPlatformModel * dataItem = [[BizDistrictTeamPlatformModel alloc] initWithDictionary:dataDictionary];
 			[dataItems addObject:dataItem];
 		}
 		self.data = dataItems;
@@ -43,7 +43,7 @@ NSString *const kRoleTeamData = @"data";
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
 	if(self.data != nil){
 		NSMutableArray * dictionaryElements = [NSMutableArray array];
-		for(BizDistrictTeam * dataElement in self.data){
+		for(BizDistrictTeamPlatformModel * dataElement in self.data){
 			[dictionaryElements addObject:[dataElement toDictionary]];
 		}
 		dictionary[kRoleTeamData] = dictionaryElements;

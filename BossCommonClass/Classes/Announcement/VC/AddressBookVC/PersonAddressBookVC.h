@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///上一个界面带回来的数据
 @property(nonatomic, strong)NSArray *personSelectArr;
 @property(nonatomic, strong)ContactsGroup *group;
+@property(nonatomic, strong)NSString *group_id;
 @end
 
 NS_ASSUME_NONNULL_END

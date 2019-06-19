@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "BizDistrictTeam.h"
+#import "BizDistrictTeamPlatformModel.h"
 
 @interface RoleTeam : NSObject
 

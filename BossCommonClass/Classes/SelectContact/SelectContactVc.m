@@ -34,6 +34,13 @@
 // 是否全选
 // 0 全不选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
+
+// 是否包含内部联系人
+// 0 不 1 是
+@property (nonatomic, assign)int ContentType;
+
+@property (nonatomic, strong)NSArray *roleTeamdata;
+
 @end
 
 @implementation SelectContactVc
@@ -111,7 +118,21 @@
         [NNBBasicRequest postJsonWithUrl:kUrl  parameters: para CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
             NSDictionary *dic = responseObject[@"data"];
             BaseTeamListModel *teamListModel = [[BaseTeamListModel alloc] initWithDictionary:dic];
+            
+            if (teamListModel.roleTeam.data.count > 0) {
+                self.ContentType = 1;
+                NSDictionary *dic = @{
+                                      @"name": @"趣活内部员工",
+                                      @"type": @(0),
+                                      };
+                self.roleTeamdata = teamListModel.roleTeam.data;
+                BizDistrictTeamPlatformModel *teamChildModel =  [[BizDistrictTeamPlatformModel alloc] initWithDictionary:dic];
+                [teamListModel.platformList insertObject:teamChildModel atIndex:0];
+            } else {
+                self.ContentType = 0;
+            }
             self.contentArr = teamListModel.platformList;
+            
             [self.customTableView reloadData];
         } fail:^(id error) {
             NSLog(@"%@",error);
@@ -136,7 +157,12 @@
     
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
     cell.model = teamListModel;
-    cell.titleLabel.text = teamListModel.businessExtraField.platformName;
+    if (self.ContentType == 1){
+       cell.titleLabel.text = teamListModel.name;
+    } else {
+        cell.titleLabel.text = teamListModel.businessExtraField.platformName;
+    }
+    
     
     cell.selectBlock = ^() {
         if (teamListModel.type == 0) {
@@ -167,9 +193,30 @@
             PlatformModel.type = 0;
         }
     }
-    supplier.contentArr = teamListModel.PlatformArr;
+    if (self.ContentType == 1 && indexPath.row == 0){
+        
+        for (BizDistrictTeamPlatformModel *PlatformModel in self.roleTeamdata){
+            if (teamListModel.type == 1) {
+                PlatformModel.type = 1;
+            }
+            if (teamListModel.type == 0) {
+                PlatformModel.type = 0;
+            }
+        }
+        supplier.platformType = @"趣活内部";
+        supplier.contentArr = self.roleTeamdata;
+    } else {
+        supplier.platformType = @"";
+        supplier.contentArr = teamListModel.PlatformArr;
+    }
+    
     supplier.index = indexPath.row;
-    supplier.title = teamListModel.businessExtraField.platformName;
+    if (teamListModel.businessExtraField.platformName) {
+        supplier.title = teamListModel.businessExtraField.platformName;
+    } else {
+        supplier.title = teamListModel.name;
+    }
+    
     supplier.selectStatus_type = ^(NSInteger index, int type) {
         BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
         teamListModel.type = type;
