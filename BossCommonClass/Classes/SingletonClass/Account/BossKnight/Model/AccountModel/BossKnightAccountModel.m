@@ -7,7 +7,7 @@
 
 #import "BossKnightAccountModel.h"
 #import "JYCSimpleToolClass.h"
-
+#import "custom_list_Model.h"
 
 @interface BossKnightAccountModel()
 
@@ -83,6 +83,18 @@
         NSDictionary *dic = value;
         MobileOpenModel *model = [[MobileOpenModel alloc] initWithDictionary:dic];
         self.mobileOpen = model;
+        return;
+    }
+    
+    if([key isEqualToString:@"custom_list"]) {
+        NSArray *list = value;
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
+        for (NSDictionary *dic in list) {
+            custom_list_Model *model = [[custom_list_Model alloc] initWithDictionary:dic];
+//            [ addObject:model];
+            [arr addObject:model.customId];
+        }
+        self.custom_list = arr;
         return;
     }
     
@@ -422,6 +434,8 @@
                           @"city_names":self.city_names ? : @[],
                           @"associated_identity_card_id":self.associated_identity_card_id ? : @"",
                           @"custom_id":self.custom_id ? : @"",
+//                          @"custom_Str_list": self.custom_Str_list ? : @[],
+//                          @"custom_list":self.custom_list ? : @[],
                           @"associated_knight_id_list":self.associated_knight_id_list ? : @[],
                           @"associated_knight_id":self.associated_knight_id ? : @"",
                           @"contract_belong_id":self.contract_belong_id ? : @"",
