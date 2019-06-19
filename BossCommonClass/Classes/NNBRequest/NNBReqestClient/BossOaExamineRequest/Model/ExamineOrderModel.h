@@ -14,6 +14,9 @@
 #import "ExamineFlowNodeModel.h"
 #import "SalaryPlaneModel.h"
 #import "PayrollStatementModel.h"
+#import "LoanRepaymentAttachmentModel.h"
+#import "LoanOrderModel.h"
+#import "RepaymentOrderModel.h"
 
 @interface ExamineOrderModel : NSObject
 
@@ -212,6 +215,23 @@
 
 @property (nonatomic, strong) NSArray <NSDictionary *>*file_url_list;
 
+#pragma mark - 借/还款单 - 相关属性
+
+/**
+ 借款单列表
+ */
+@property (nonatomic, strong) NSArray <LoanOrderModel *> *loan_order_list;
+
+/**
+ 还款单列表
+ */
+@property (nonatomic, strong) NSArray <RepaymentOrderModel *> *repayment_order_list;
+
+/**
+ 借款/还款附件列表
+ */
+@property (nonatomic, strong) NSArray <LoanRepaymentAttachmentModel *> *loan_or_repayment_file_list;
+
 #pragma mark - additional attribute
 
 /**
@@ -223,6 +243,11 @@
  主题字符串
  */
 @property (nonatomic, strong, readonly) NSString *themeLabelStr;
+
+/**
+ 子订单统计
+ */
+@property (nonatomic, assign, readonly) NSInteger orderCount;
 
 /**
  审批单的流转 flow_record_list 计算得来

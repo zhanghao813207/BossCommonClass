@@ -118,7 +118,39 @@
         self.payroll_statement_info = model;
         return;
     }
-
+    
+    if ([key isEqualToString:@"loan_order_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            LoanOrderModel *model = [[LoanOrderModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.loan_order_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"repayment_order_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            RepaymentOrderModel *model = [[RepaymentOrderModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.repayment_order_list = [array copy];
+        return;
+    }
+    
+    if ([key isEqualToString:@"loan_or_repayment_file_list"]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dic in value) {
+            LoanRepaymentAttachmentModel *model = [[LoanRepaymentAttachmentModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [array addObject:model];
+        }
+        self.loan_or_repayment_file_list = [array copy];
+        return;
+    }
     
     [super setValue:value forKey:key];
 }
@@ -172,6 +204,38 @@
         return [self.theme_label_list componentsJoinedByString:@"、"];
     }
     return @"";
+}
+
+- (NSInteger)orderCount {
+    NSInteger orderCount = 0;
+    switch (self.application_order_type) {
+        case ApplicationOrderTypeCost:
+            orderCount = self.cost_order_list.count;
+            break;
+        case ApplicationOrderTypeSalaryRule:
+            orderCount = 1;
+            break;
+        case ApplicationOrderTypeSalaryPayment:
+            orderCount = 1;
+            break;
+        case ApplicationOrderTypeMaterial:
+            break;
+        case ApplicationOrderTypeHouseContract:
+            break;
+        case ApplicationOrderTypeLoan:
+            orderCount = self.loan_order_list.count;
+            break;
+        case ApplicationOrderTypeRepayment:
+            orderCount = self.repayment_order_list.count;
+            break;
+        case ApplicationOrderTypeBusinessTrave:
+            break;
+        case ApplicationOrderTypeTravelExpense:
+            break;
+        default:
+            break;
+    }
+    return orderCount;
 }
 
 - (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
