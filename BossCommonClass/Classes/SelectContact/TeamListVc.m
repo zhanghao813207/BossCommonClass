@@ -27,6 +27,16 @@
 
 @property (nonatomic, strong) NSMutableArray *typeArr;
 
+@property (weak, nonatomic) IBOutlet UIButton *allSelectButton;
+// 城市
+@property (weak, nonatomic) IBOutlet UIButton *cityTitleButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *subTitleButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *SelectContactButton;
+// 是否全选
+// 0 全不选 1 全选 2 部分选
+@property (nonatomic, assign)int type;
 @end
 
 @implementation TeamListVc
@@ -36,61 +46,107 @@
     [self setUI];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
-//    BizDistrictTeamPlatformModel * model = self.contentArr[self.index];
-//    self.contentArr = model.cityArr;
     self.typeArr = [NSMutableArray array];
+    self.type = [self getType];
+    // 平台
+    [self.SelectContactButton setTitle:self.platformTitle forState:UIControlStateNormal];
+    // 团队
+    [self.subTitleButton setTitle:self.supplierTitle forState:UIControlStateNormal];
+    // 城市
+    [self.cityTitleButton setTitle:self.title forState:UIControlStateNormal];
 }
--(void)popToLastViewController:(UIBarButtonItem *)sender{
-    
-    for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
-        [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
-        
+// 返回平台
+- (IBAction)backtoSelectContactVc:(UIButton *)sender {
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
     }
-    if (![self.typeArr containsObject:[NSNumber numberWithInteger:0]]){
-        // 包含 1 or 2 但是 最里层没有2 只有 0 1
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 1);
+    
+    for (UIViewController *vc in self.navigationController.viewControllers){
+        
+        if ([NSStringFromClass([vc class]) isEqualToString:@"SupplierVc"]){
+            [self.navigationController popToViewController:vc animated:true];
+            return;
         }
+    }
+}
+- (IBAction)backtoSupplierVc:(UIButton *)sender {
+    
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
+    }
+    
+    for (UIViewController *vc in self.navigationController.viewControllers){
+        
+        if ([NSStringFromClass([vc class]) isEqualToString:@"SupplierVc"]){
+            [self.navigationController popToViewController:vc animated:true];
+            return;
+        }
+    }
+}
+- (IBAction)backCityVc:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:true];
+}
 
-    } else if (![self.typeArr containsObject:[NSNumber numberWithInteger:1]]) {
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 0);
+- (IBAction)allSelect:(UIButton *)sender {
+    if (self.type == 0 || self.type == 2) {
+        self.type = 1;
+        for (BizDistrictTeamPlatformModel *teamListModel in self.contentArr) {
+            teamListModel.type = 1;
         }
     } else {
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 2);
+        self.type = 0;
+        for (BizDistrictTeamPlatformModel *teamListModel in self.contentArr) {
+            teamListModel.type = 0;
         }
     }
+    [self.customTableView reloadData];
 }
-- (void)willMoveToParentViewController:(UIViewController*)parent{
-    
-
+// 是否全选
+- (void)setType:(int)type{
+    if (type == 1) {
+        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+    } else {
+        [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
+    }
+    _type = type;
 }
-- (void)didMoveToParentViewController:(UIViewController*)parent{
-
+- (int)getType{
     [self.typeArr removeAllObjects];
     
     for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
         [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
     }
-    if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) ){
-        // 包含 1 并且包含 0
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 2);
-        }
+    if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
+        return 2;
         
     }  else if (![self.typeArr containsObject:[NSNumber numberWithInteger:1]]) {
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 0);
-        }
+        return 0;
+        
     } else if (![self.typeArr containsObject:[NSNumber numberWithInteger:0]]){
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 1);
-        }
+        return 1;
     }
+    return 0;
+}
+-(void)popToLastViewController:(UIBarButtonItem *)sender{
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
+    }
+}
+- (void)willMoveToParentViewController:(UIViewController*)parent{
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
+    }
+}
+
+- (void)didMoveToParentViewController:(UIViewController*)parent{
+    
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if (touch.view != self.customTableView) {
@@ -126,6 +182,7 @@
         } else {
             teamListModel.type = 1;
         }
+        self.type = [self getType];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     return cell;

@@ -9,7 +9,7 @@
 #import "BossViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SelectContactVc : UIViewController
+@interface SelectContactVc : BossViewController
 @property (nonatomic, strong)NSString *wppId;
 @end
 

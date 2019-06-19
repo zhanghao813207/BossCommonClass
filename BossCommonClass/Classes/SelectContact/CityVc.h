@@ -15,6 +15,8 @@ typedef void(^selectStatus_type2)(NSInteger , int );
 @property (nonatomic,strong) NSArray *contentArr;
 @property (nonatomic,copy) selectStatus_type2 selectStatus_type;
 @property (nonatomic,assign) NSInteger index;
+@property (nonatomic, strong) NSString *supplierTitle;
+@property (weak, nonatomic) IBOutlet UIButton *supplierTitleButton;
 @property (nonatomic,assign) BOOL isallSelect;
 @end
 

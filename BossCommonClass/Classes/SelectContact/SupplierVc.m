@@ -23,6 +23,13 @@
 @property (nonatomic, strong) NSMutableArray *typeArr;
 // 是否编辑
 @property (nonatomic, assign)BOOL isEdit;
+
+@property (weak, nonatomic) IBOutlet UIButton *subTitleButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *allSelectButton;
+// 是否全选
+// 0 全不选 1 全选 2 部分选
+@property (nonatomic, assign)int type;
 @end
 
 @implementation SupplierVc
@@ -32,10 +39,43 @@
     [self setUI];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
     self.typeArr = [NSMutableArray array];
+    [self.subTitleButton setTitle:self.title forState:UIControlStateNormal];
+    self.type = [self getType];
+}
+// 是否全选
+- (void)setType:(int)type{
+    if (type == 1) {
+        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+    } else {
+        [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
+    }
+    _type = type;
+}
+// 返回
+- (IBAction)backpVc:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:true];
+}
+- (IBAction)allSelect:(UIButton *)sender {
+    if (self.type == 0 || self.type == 2) {
+        self.type = 1;
+        for (BizDistrictTeamPlatformModel *teamListModel in self.contentArr) {
+            teamListModel.type = 1;
+        }
+    } else {
+        self.type = 0;
+        for (BizDistrictTeamPlatformModel *teamListModel in self.contentArr) {
+            teamListModel.type = 0;
+        }
+    }
+    [self.customTableView reloadData];
 }
 
 // 监听编辑状态
@@ -49,55 +89,42 @@
 }
 -(void)popToLastViewController:(UIBarButtonItem *)sender{
     
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
+    }
+    
+}
+// 获取类型
+- (int)getType{
+    
     [self.typeArr removeAllObjects];
     
     for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
         [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
     }
     if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
-        // 包含 1 并且包含 0
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 2);
-        }
+        return 2;
         
     }  else if (![self.typeArr containsObject:[NSNumber numberWithInteger:1]]) {
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 0);
-        }
+        return 0;
+        
     } else if (![self.typeArr containsObject:[NSNumber numberWithInteger:0]]){
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 1);
-        }
+        return 1;
     }
+    return 0;
 }
 - (void)willMoveToParentViewController:(UIViewController*)parent{
     
-    [self.typeArr removeAllObjects];
+    if (self.selectStatus_type) {
+        self.selectStatus_type(self.index, [self getType]);
+    }
     
-    for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
-        [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
-    }
-    if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
-        // 包含 1 并且包含 0
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 2);
-        }
-        
-    }  else if (![self.typeArr containsObject:[NSNumber numberWithInteger:1]]) {
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 0);
-        }
-    } else if (![self.typeArr containsObject:[NSNumber numberWithInteger:0]]){
-        if (self.selectStatus_type) {
-            self.selectStatus_type(self.index, 1);
-        }
-    }
 }
-//- (void)didMoveToParentViewController:(UIViewController*)parent
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.contentArr.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SelectContactCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
@@ -113,6 +140,7 @@
         } else {
             teamListModel.type = 1;
         }
+        self.type = [self getType];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     return cell;
@@ -139,10 +167,13 @@
     
     CityVc * supplier = [CityVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
     supplier.contentArr = teamListModel.supplierArr;
+    supplier.title = teamListModel.businessExtraField.supplierName;
     supplier.index = indexPath.row;
+    supplier.supplierTitle = self.title;
     supplier.selectStatus_type = ^(NSInteger index, int type) {
         BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
         teamListModel.type = type;
+        self.type = type;
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     
