@@ -33,7 +33,7 @@
 @property (nonatomic, assign)BOOL isEdit;
 
 // 是否全选
-// 0 全不选 1 全选 2 部分选
+// 0 取消全选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
 
 // 是否包含内部联系人
@@ -84,7 +84,7 @@
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
-        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+        [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
@@ -143,7 +143,7 @@
                     self.ContentType = 1;
                     NSDictionary *dic = @{
                                           @"business_extra_field":@{
-                                                  @"platform_name": @"趣活内部员工"
+                                                  @"platform_name": teamListModel.roleTeam.name
                                                   },
                                           @"name": @"",
                                           @"type": @(0),
@@ -217,7 +217,7 @@
     supplier.selectStatus_type = ^(NSInteger index, int type) {
         BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
         teamListModel.type = type;
-        self.type = type;
+        self.type = [self getType];
         // 控制全选按钮状态
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };

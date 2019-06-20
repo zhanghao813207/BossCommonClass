@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *allSelectButton;
 
 // 是否全选
-// 0 全不选 1 全选 2 部分选
+// 0 取消全选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
 
 @property (nonatomic, strong)UIButton *finishButton;
@@ -63,6 +63,7 @@
                     supplierModel.type = self.fatherType;
                 }
             }
+            self.type = self.fatherType;
             self.contentArr = F_Model.PlatformArr;
         } else {
             // 趣活内部员工
@@ -110,7 +111,7 @@
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
-        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+        [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
@@ -221,10 +222,10 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (![self.platformType isEqualToString:@"趣活内部"]){
-        BizDistrictTeamPlatformModel *supplierModel = self.allContentArr[self.index];
-        BizDistrictTeamPlatformModel *teamListModel = supplierModel.PlatformArr[indexPath.row];
-        
+    BizDistrictTeamPlatformModel *supplierModel = self.allContentArr[self.index];
+    BizDistrictTeamPlatformModel *teamListModel = supplierModel.PlatformArr[indexPath.row];
+    
+    if (teamListModel.businessExtraField.supplierName){
         CityVc * supplier = [CityVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
 //        supplier.contentArr = teamListModel.supplierArr;
         

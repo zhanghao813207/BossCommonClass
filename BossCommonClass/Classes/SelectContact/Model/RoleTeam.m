@@ -7,6 +7,7 @@
 #import "RoleTeam.h"
 
 NSString *const kRoleTeamData = @"data";
+NSString *const kRootClassName = @"name";
 
 @interface RoleTeam ()
 @end
@@ -31,6 +32,9 @@ NSString *const kRoleTeamData = @"data";
 		}
 		self.data = dataItems;
 	}
+    if(![dictionary[kRootClassName] isKindOfClass:[NSNull class]]){
+        self.name = dictionary[kRootClassName];
+    }
 	return self;
 }
 
@@ -48,6 +52,9 @@ NSString *const kRoleTeamData = @"data";
 		}
 		dictionary[kRoleTeamData] = dictionaryElements;
 	}
+    if(self.name != nil){
+        dictionary[kRootClassName] = self.name;
+    }
 	return dictionary;
 
 }
@@ -63,7 +70,9 @@ NSString *const kRoleTeamData = @"data";
 	if(self.data != nil){
 		[aCoder encodeObject:self.data forKey:kRoleTeamData];
 	}
-
+    if(self.name != nil){
+        [aCoder encodeObject:self.name forKey:kRootClassName];
+    }
 }
 
 /**
@@ -73,6 +82,7 @@ NSString *const kRoleTeamData = @"data";
 {
 	self = [super init];
 	self.data = [aDecoder decodeObjectForKey:kRoleTeamData];
+    self.name = [aDecoder decodeObjectForKey:kRootClassName];
 	return self;
 
 }
@@ -85,7 +95,7 @@ NSString *const kRoleTeamData = @"data";
 	RoleTeam *copy = [RoleTeam new];
 
 	copy.data = [self.data copy];
-
+    copy.name = [self.name copy];
 	return copy;
 }
 @end

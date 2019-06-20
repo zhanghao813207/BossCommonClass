@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong)UIButton *finishButton;
 // 是否全选
-// 0 全不选 1 全选 2 部分选
+// 0 取消全选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
 @end
 
@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
-    self.type = [self getType: self.contentArr];
+    
 }
 
 - (IBAction)backtoSelectContactVc:(UIButton *)sender {
@@ -67,6 +67,7 @@
 - (void)finishAction{
     BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.SupplierIndex];
     BizDistrictTeamPlatformModel *S_Model = F_Model.PlatformArr[self.index];
+    
     S_Model.type = [self getType: self.contentArr];
     F_Model.type = [self getType: F_Model.PlatformArr];
 [[NSNotificationCenter defaultCenter] postNotificationName:@"selectArrNotification" object:self.allContentArr];
@@ -74,7 +75,7 @@
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
-        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+        [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
@@ -151,6 +152,8 @@
         }
 
         self.contentArr = S_Model.supplierArr;
+        
+        self.type = [self getType: self.contentArr];
     }
 }
 // 监听编辑状态

@@ -37,7 +37,7 @@
 
 @property (nonatomic, strong)UIButton *finishButton;
 // 是否全选
-// 0 全不选 1 全选 2 部分选
+// 0 取消全选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
 @end
 
@@ -55,6 +55,7 @@
     BizDistrictTeamPlatformModel *S_Model = F_Model.PlatformArr[self.cityIndex];
     BizDistrictTeamPlatformModel *C_Model = S_Model.supplierArr[self.index];
     self.contentArr = C_Model.cityArr;
+    self.type = [self getType:self.contentArr];
 }
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
@@ -145,7 +146,7 @@
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
-        [self.allSelectButton setTitle:@"全不选" forState:UIControlStateNormal];
+        [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
