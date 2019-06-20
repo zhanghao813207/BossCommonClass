@@ -14,8 +14,8 @@
 #import "BizDistrictTeam.h"
 #import "CityVc.h"
 #import "UIViewController+StoryBoard.h"
-#import "BizDistrictTeamPlatformModel.h"
 #import "ContactListVc.h"
+#import "BossBasicDefine.h"
 
 @interface SupplierVc ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,9 +28,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *subTitleButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *allSelectButton;
+
 // 是否全选
 // 0 全不选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
+
+@property (nonatomic, strong)UIButton *finishButton;
 @end
 
 @implementation SupplierVc
@@ -38,18 +41,71 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
-    
 }
--(void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    // 获取
+    BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.index];
+    
+    if (self.contentArr.count == 0){
+        
+        if (F_Model.businessExtraField.platformName) {
+            
+            [self.subTitleButton setTitle:F_Model.businessExtraField.platformName forState:UIControlStateNormal];
+            
+            self.title = F_Model.businessExtraField.platformName;
+            
+            if (self.fatherType == 1 || self.fatherType == 0) {
+                // 1
+                for (BizDistrictTeamPlatformModel *supplierModel in F_Model.PlatformArr) {
+                    supplierModel.type = self.fatherType;
+                }
+            }
+            self.contentArr = F_Model.PlatformArr;
+        } else {
+            // 趣活内部员工
+            [self.subTitleButton setTitle:F_Model.name forState:UIControlStateNormal];
+            self.title = F_Model.name;
+            if (self.fatherType == 1 || self.fatherType == 0) {
+                // 1
+                for (BizDistrictTeamPlatformModel *supplierModel in self.roleTeamdata) {
+                    supplierModel.type = self.fatherType;
+                }
+            }
+            self.contentArr = self.roleTeamdata;
+        }
+    }
 }
+
+
+- (void)finishAction{
+    BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.index];
+    F_Model.type = [self getType:self.contentArr];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"selectArrNotification" object:self.allContentArr];
+}
+
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
     self.typeArr = [NSMutableArray array];
-    [self.subTitleButton setTitle:self.title forState:UIControlStateNormal];
-    self.type = [self getType];
+    
+    self.type = [self getType: self.contentArr];
+    
+    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    self.finishButton.userInteractionEnabled = false;
+    self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+    self.finishButton.layer.cornerRadius = 4;
+    self.finishButton.layer.masksToBounds = true;
+    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
+    
+    
+//    self.contentArr = supplierModel.PlatformArr;
 }
 // 是否全选
 - (void)setType:(int)type{
@@ -91,16 +147,18 @@
 -(void)popToLastViewController:(UIBarButtonItem *)sender{
     
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType: self.contentArr]);
     }
+    
+    [self.navigationController popViewControllerAnimated:true];
     
 }
 // 获取类型
-- (int)getType{
+- (int)getType:(NSArray *)contentArr{
     
     [self.typeArr removeAllObjects];
     
-    for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
+    for (BizDistrictTeamPlatformModel *teamListModel  in contentArr){
         [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
     }
     if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
@@ -115,19 +173,23 @@
     return 0;
 }
 - (void)willMoveToParentViewController:(UIViewController*)parent{
+    BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.index];
+    F_Model.type = [self getType:self.contentArr];
     
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType:self.contentArr]);
     }
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
     return self.contentArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SelectContactCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+//    BizDistrictTeamPlatformModel *supplierModel = self.allContentArr[self.index];
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
     cell.model = teamListModel;
     if (teamListModel.businessExtraField.supplierName) {
@@ -145,7 +207,7 @@
         } else {
             teamListModel.type = 1;
         }
-        self.type = [self getType];
+        self.type = [self getType: self.contentArr];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     return cell;
@@ -160,23 +222,22 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![self.platformType isEqualToString:@"趣活内部"]){
-        BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
-        
-        for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.supplierArr){
-            if (teamListModel.type == 1) {
-                PlatformModel.type = 1;
-            }
-            if (teamListModel.type == 0) {
-                PlatformModel.type = 0;
-            }
-        }
+        BizDistrictTeamPlatformModel *supplierModel = self.allContentArr[self.index];
+        BizDistrictTeamPlatformModel *teamListModel = supplierModel.PlatformArr[indexPath.row];
         
         CityVc * supplier = [CityVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-        supplier.contentArr = teamListModel.supplierArr;
+//        supplier.contentArr = teamListModel.supplierArr;
         
         supplier.title = teamListModel.businessExtraField.supplierName;
+        // 平台Index
+        supplier.SupplierIndex = self.index;
+        // 团队Index
         supplier.index = indexPath.row;
+        
+        supplier.fatherType = teamListModel.type;
         supplier.supplierTitle = self.title;
+        supplier.allContentArr = self.allContentArr;
+        
         supplier.selectStatus_type = ^(NSInteger index, int type) {
             BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
             teamListModel.type = type;

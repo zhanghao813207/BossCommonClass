@@ -15,8 +15,8 @@
 #import "CityVc.h"
 #import "UIViewController+StoryBoard.h"
 #import "BizDistrictTeamPlatformModel.h"
-
-
+#import "ContactListVc.h"
+#import "BossBasicDefine.h"
 
 @interface TeamListVc ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *subTitleButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *SelectContactButton;
+
+@property (nonatomic, strong)UIButton *finishButton;
 // 是否全选
 // 0 全不选 1 全选 2 部分选
 @property (nonatomic, assign)int type;
@@ -49,23 +51,55 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.SupplierIndex];
+    BizDistrictTeamPlatformModel *S_Model = F_Model.PlatformArr[self.cityIndex];
+    BizDistrictTeamPlatformModel *C_Model = S_Model.supplierArr[self.index];
+    self.contentArr = C_Model.cityArr;
 }
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
     self.typeArr = [NSMutableArray array];
-    self.type = [self getType];
+    self.type = [self getType: self.contentArr];
     // 平台
     [self.SelectContactButton setTitle:self.platformTitle forState:UIControlStateNormal];
     // 团队
     [self.subTitleButton setTitle:self.supplierTitle forState:UIControlStateNormal];
     // 城市
     [self.cityTitleButton setTitle:self.title forState:UIControlStateNormal];
+    
+    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    self.finishButton.userInteractionEnabled = false;
+    self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+    self.finishButton.layer.cornerRadius = 4;
+    self.finishButton.layer.masksToBounds = true;
+    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
+}
+- (void)finishAction{
+    
+    // 设置所有关联状态
+    [self setTypeOfTeamList];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"selectArrNotification" object:self.allContentArr];
+}
+// 设置所有关联状态
+- (void)setTypeOfTeamList{
+    
+    BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.SupplierIndex];
+    BizDistrictTeamPlatformModel *S_Model = F_Model.PlatformArr[self.cityIndex];
+    BizDistrictTeamPlatformModel *C_Model = S_Model.supplierArr[self.index];
+    
+    C_Model.type = [self getType: self.contentArr];
+    S_Model.type = [self getType: S_Model.supplierArr];
+    F_Model.type = [self getType: F_Model.PlatformArr];
 }
 // 返回平台
 - (IBAction)backtoSelectContactVc:(UIButton *)sender {
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType: self.contentArr]);
     }
     
     for (UIViewController *vc in self.navigationController.viewControllers){
@@ -79,7 +113,7 @@
 - (IBAction)backtoSupplierVc:(UIButton *)sender {
     
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType: self.contentArr]);
     }
     
     for (UIViewController *vc in self.navigationController.viewControllers){
@@ -117,10 +151,10 @@
     }
     _type = type;
 }
-- (int)getType{
+- (int)getType:(NSArray *)contentArr{
     [self.typeArr removeAllObjects];
     
-    for (BizDistrictTeamPlatformModel *teamListModel  in self.contentArr){
+    for (BizDistrictTeamPlatformModel *teamListModel  in contentArr){
         [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
     }
     if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
@@ -136,12 +170,13 @@
 }
 -(void)popToLastViewController:(UIBarButtonItem *)sender{
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType:self.contentArr]);
     }
+    [self.navigationController popViewControllerAnimated:true];
 }
 - (void)willMoveToParentViewController:(UIViewController*)parent{
     if (self.selectStatus_type) {
-        self.selectStatus_type(self.index, [self getType]);
+        self.selectStatus_type(self.index, [self getType:self.contentArr]);
     }
 }
 
@@ -182,12 +217,17 @@
         } else {
             teamListModel.type = 1;
         }
-        self.type = [self getType];
+        self.type = [self getType: self.contentArr];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
+    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+    ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    vc.group_id = teamListModel.idField;
+    vc.title = teamListModel.name;
+    [self.navigationController pushViewController:vc animated:true];
 }
 @end

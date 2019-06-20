@@ -25,6 +25,7 @@
 #import "NNBUploadManager.h"
 #import "SelectContactVc.h"
 #import "UIViewController+StoryBoard.h"
+#import "BizDistrictTeamPlatformModel.h"
 
 @interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
@@ -115,7 +116,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti2:) name:@"selectArrNotification" object:nil];
 //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 //        [self addGestureRecognizer:tapGesture];
         self.backgroundColor = kHexRGBA(0x000000, 0.5);
@@ -153,7 +154,78 @@
     }
     return self;
 }
+-(void)noti2:(NSNotification *)noti{
+    
+    //使用object处理消息
+    NSMutableArray * idArr = [NSMutableArray array];
 
+    NSMutableArray *infoArr = [noti object];
+    self.contentArr = infoArr;
+    for (BizDistrictTeamPlatformModel *teamListModel in infoArr){
+        if (teamListModel.type == 1) {
+            for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.PlatformArr){
+                if (PlatformModel.supplierArr) {
+                    for (BizDistrictTeamPlatformModel *supplierModel in PlatformModel.supplierArr){
+                        for (BizDistrictTeamPlatformModel *cityModel in supplierModel.cityArr){
+                            [idArr addObject:cityModel.vendorTargetId];
+                        }
+                    }
+                } else {
+                    // 趣活内部
+                    [idArr addObject:PlatformModel.vendorTargetId];
+                }
+            }
+        } else if (teamListModel.type == 2 ){
+            for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.PlatformArr){
+                if (PlatformModel.type == 1) {
+                    if (PlatformModel.supplierArr){
+                        for (BizDistrictTeamPlatformModel *supplierModel in PlatformModel.supplierArr){
+                            for (BizDistrictTeamPlatformModel *cityModel in supplierModel.cityArr){
+                                [idArr addObject:cityModel.vendorTargetId];
+                            }
+                        }
+                    } else {
+                        // 趣活内部
+                        [idArr addObject:PlatformModel.vendorTargetId];
+                    }
+                    
+                } else if (PlatformModel.type == 2) {
+                    for (BizDistrictTeamPlatformModel *supplierModel in PlatformModel.supplierArr){
+                        if (supplierModel.type == 1) {
+                            for (BizDistrictTeamPlatformModel *cityModel in supplierModel.cityArr){
+                                [idArr addObject:cityModel.vendorTargetId];
+                            }
+                        } else if (supplierModel.type == 2) {
+                            for (BizDistrictTeamPlatformModel *cityModel in supplierModel.cityArr){
+                                if (cityModel.type == 1) {
+                                    [idArr addObject:cityModel.vendorTargetId];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (idArr.count <= 0){
+        if (self.selectContentStatus){
+            self.selectContentStatus(@"未选择联系人");
+        }
+        
+        [self showStatus:@"请选择联系人"];
+    } else {
+        if (self.selectContentStatus){
+            self.selectContentStatus(@"已选择联系人");
+        }
+        for(UIViewController* Controller in self.viewController.navigationController.viewControllers){
+            if ([NSStringFromClass([Controller class]) isEqualToString:NSStringFromClass([self.viewController class])]){
+                [self.viewController.navigationController popToViewController:Controller animated:true];
+            }
+        }
+        self.model.members = idArr;
+        self.selectLabel.text = @"已选择 >";
+    }
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
  {
      if (self.model.title.length > 0 && self.model.content.length > 0 && self.model.members.count > 0) {
@@ -448,6 +520,7 @@ static int textLength = 30;
             make.bottom.equalTo(self.contentView);
         }];
     }
+    //
     return _textView;
 }
 
@@ -517,6 +590,7 @@ static int textLength = 30;
 //    vc.teamArr = self.model.members;
 //    vc.isShowSelectBar = true;
     SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    vc.contentArr = self.contentArr;
     vc.wppId = self.wppId;
     [self.viewController.navigationController pushViewController:vc animated:true];
 }

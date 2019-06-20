@@ -114,8 +114,14 @@
     dic[@"proxy_id"] = model.proxyId;
     dic[@"title"] = model.title;
     NSMutableArray *tempArr = [NSMutableArray array];
-    for (ContactsGroup *tempModel in model.members) {
-        [tempArr addObject:tempModel.vendor_target_id];
+    for (id tempModel in model.members) {
+        if ([NSStringFromClass([tempModel class]) isEqualToString:@"ContactsGroup"]){
+            ContactsGroup *GrouptempModel = tempModel;
+            [tempArr addObject:GrouptempModel.vendor_target_id];
+        } else {
+            [tempArr addObject:[NSString stringWithFormat:@"%@", tempModel]];
+
+        }
     }
     dic[@"members"] = tempArr;
     dic[@"content"] = model.content;

@@ -16,12 +16,13 @@
 #import "SupplierVc.h"
 #import "UIViewController+StoryBoard.h"
 #import "BizDistrictTeamPlatformModel.h"
+#import "BossBasicDefine.h"
 
 @interface SelectContactVc ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
 
-@property (nonatomic,strong) NSArray *contentArr;
+
 
 //@property (nonatomic, assign) BOOL allSelect;
 @property (weak, nonatomic) IBOutlet UIButton *allSelectButton;
@@ -39,7 +40,9 @@
 // 0 不 1 是
 @property (nonatomic, assign)int ContentType;
 
-@property (nonatomic, strong)NSArray *roleTeamdata;
+@property (nonatomic, strong)UIButton *finishButton;
+
+//@property (nonatomic, strong)NSArray *roleTeamdata;
 
 @end
 
@@ -51,13 +54,33 @@
     [self setUI];
     
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
     self.customTableView.rowHeight = UITableViewAutomaticDimension;
     self.isEdit = false;
     self.title = @"选择公告接收人";
+    
+    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    self.finishButton.userInteractionEnabled = false;
+    self.finishButton.frame = CGRectMake(0, 0, 60, 35);
+    self.finishButton.layer.cornerRadius = 4;
+    self.finishButton.layer.masksToBounds = true;
+    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
 }
+
+- (void)finishAction{
+    // 完成 按钮点击 返回到 选择接收人界面 将数组返回
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"selectArrNotification" object:self.contentArr];
+}
+
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
@@ -98,45 +121,49 @@
     }
     [self.customTableView reloadData];
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 -(void)getList{
-    if (self.wppId) {
-        NSDictionary *para = @{
-                               @"wpp_id":self.wppId,
-                               @"_meta":@{
-                                       @"limit":@(0)
-                                       }
-                               };
-        [NNBBasicRequest postJsonWithUrl:kUrl  parameters: para CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
-            NSDictionary *dic = responseObject[@"data"];
-            BaseTeamListModel *teamListModel = [[BaseTeamListModel alloc] initWithDictionary:dic];
-            
-            if (teamListModel.roleTeam.data.count > 0) {
-                self.ContentType = 1;
-                NSDictionary *dic = @{
-                                      @"name": @"趣活内部员工",
-                                      @"type": @(0),
-                                      };
-                self.roleTeamdata = teamListModel.roleTeam.data;
-                BizDistrictTeamPlatformModel *teamChildModel =  [[BizDistrictTeamPlatformModel alloc] initWithDictionary:dic];
-                [teamListModel.platformList insertObject:teamChildModel atIndex:0];
-            } else {
-                self.ContentType = 0;
-            }
-            self.contentArr = teamListModel.platformList;
-            
-            [self.customTableView reloadData];
-        } fail:^(id error) {
-            NSLog(@"%@",error);
-        }];
+    if (self.contentArr.count <= 0){
+        if (self.wppId) {
+            NSDictionary *para = @{
+                                   @"wpp_id":self.wppId,
+                                   @"_meta":@{
+                                           @"limit":@(0)
+                                           }
+                                   };
+            [NNBBasicRequest postJsonWithUrl:kUrl  parameters: para CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
+                NSDictionary *dic = responseObject[@"data"];
+                BaseTeamListModel *teamListModel = [[BaseTeamListModel alloc] initWithDictionary:dic];
+                
+                if (teamListModel.roleTeam.data.count > 0) {
+                    self.ContentType = 1;
+                    NSDictionary *dic = @{
+                                          @"business_extra_field":@{
+                                                  @"platform_name": @"趣活内部员工"
+                                                  },
+                                          @"name": @"",
+                                          @"type": @(0),
+                                          };
+                    BizDistrictTeamPlatformModel *teamChildModel =  [[BizDistrictTeamPlatformModel alloc] initWithDictionary:dic];
+                    teamChildModel.PlatformArr = [NSMutableArray array];
+                    for (BizDistrictTeamPlatformModel *teamChildModel2 in teamListModel.roleTeam.data) {
+                        [teamChildModel.PlatformArr addObject:teamChildModel2];
+                    }
+                    [teamListModel.platformList insertObject:teamChildModel atIndex:0];
+                } else {
+                    self.ContentType = 0;
+                }
+                self.contentArr = teamListModel.platformList;
+                
+                [self.customTableView reloadData];
+            } fail:^(id error) {
+                NSLog(@"%@",error);
+            }];
+        }
     }
 }
 
@@ -156,23 +183,16 @@
     SelectContactCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
-    cell.model = teamListModel;
-    if (self.ContentType == 1){
-       cell.titleLabel.text = teamListModel.name;
-    } else {
-        cell.titleLabel.text = teamListModel.businessExtraField.platformName;
-    }
     
+    cell.model = teamListModel;
+    
+    cell.titleLabel.text = teamListModel.businessExtraField.platformName;
     
     cell.selectBlock = ^() {
-        if (teamListModel.type == 0) {
-            teamListModel.type = 1;
-        } else if (teamListModel.type == 1) {
-            teamListModel.type = 0;
-        } else if (teamListModel.type == 2){
+        if (teamListModel.type == 0 || teamListModel.type == 2) {
             teamListModel.type = 1;
         } else {
-            teamListModel.type = 1;
+            teamListModel.type = 0;
         }
         self.type = [self getType];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -185,37 +205,14 @@
     BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
     
     SupplierVc * supplier = [SupplierVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    for (BizDistrictTeamPlatformModel *PlatformModel in teamListModel.PlatformArr){
-        if (teamListModel.type == 1) {
-            PlatformModel.type = 1;
-        }
-        if (teamListModel.type == 0) {
-            PlatformModel.type = 0;
-        }
-    }
-    if (self.ContentType == 1 && indexPath.row == 0){
-        
-        for (BizDistrictTeamPlatformModel *PlatformModel in self.roleTeamdata){
-            if (teamListModel.type == 1) {
-                PlatformModel.type = 1;
-            }
-            if (teamListModel.type == 0) {
-                PlatformModel.type = 0;
-            }
-        }
-        supplier.platformType = @"趣活内部";
-        supplier.contentArr = self.roleTeamdata;
-    } else {
-        supplier.platformType = @"";
-        supplier.contentArr = teamListModel.PlatformArr;
-    }
-    
+    // 父类类型
+    supplier.fatherType = teamListModel.type;
+    // 所有数组
+    supplier.allContentArr = self.contentArr;
+    // 点击索引
     supplier.index = indexPath.row;
-    if (teamListModel.businessExtraField.platformName) {
-        supplier.title = teamListModel.businessExtraField.platformName;
-    } else {
-        supplier.title = teamListModel.name;
-    }
+    // 内部员工
+//    supplier.roleTeamdata = self.roleTeamdata;
     
     supplier.selectStatus_type = ^(NSInteger index, int type) {
         BizDistrictTeamPlatformModel *teamListModel = self.contentArr[index];
@@ -227,7 +224,7 @@
     [self.navigationController pushViewController:supplier animated:true];
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (touch.view != self.customTableView) {
+    if (touch.view != self.customTableView || touch.view != self.finishButton) {
         return NO;
     }else {
         return YES;
