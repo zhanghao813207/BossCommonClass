@@ -211,6 +211,7 @@
     switch (self.application_order_type) {
         case ApplicationOrderTypeCost:
         case ApplicationOrderTypeHouseContract:
+        case ApplicationOrderTypeMaterial:
         case ApplicationOrderTypeTravelExpense:
             orderCount = self.cost_order_list.count;
             break;
@@ -219,8 +220,6 @@
             break;
         case ApplicationOrderTypeSalaryPayment:
             orderCount = 1;
-            break;
-        case ApplicationOrderTypeMaterial:
             break;
         case ApplicationOrderTypeLoan:
             orderCount = self.loan_order_list.count;
