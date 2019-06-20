@@ -210,6 +210,8 @@
     NSInteger orderCount = 0;
     switch (self.application_order_type) {
         case ApplicationOrderTypeCost:
+        case ApplicationOrderTypeHouseContract:
+        case ApplicationOrderTypeTravelExpense:
             orderCount = self.cost_order_list.count;
             break;
         case ApplicationOrderTypeSalaryRule:
@@ -220,8 +222,6 @@
             break;
         case ApplicationOrderTypeMaterial:
             break;
-        case ApplicationOrderTypeHouseContract:
-            break;
         case ApplicationOrderTypeLoan:
             orderCount = self.loan_order_list.count;
             break;
@@ -229,8 +229,6 @@
             orderCount = self.repayment_order_list.count;
             break;
         case ApplicationOrderTypeBusinessTrave:
-            break;
-        case ApplicationOrderTypeTravelExpense:
             break;
         default:
             break;
