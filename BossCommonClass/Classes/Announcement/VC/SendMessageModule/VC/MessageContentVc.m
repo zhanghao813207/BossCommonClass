@@ -19,23 +19,154 @@
 #import "RealmRecordModel.h"
 #import "BossOwnerAccount.h"
 #import "BossCache.h"
+#import "RealmModule.h"
 
 
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewForBottom;
-@property (nonatomic, strong) NSMutableArray *contentArr;
+
+@property (weak, nonatomic) IBOutlet UIView *selectImageView;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *SelectImageViewHeight;
+@property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *CameraButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *AddImageButton;
+
+@property (nonatomic, strong) NSArray *contentArr;
+
+@property (nonatomic, assign) BOOL isshowImageView;
+
+@property (nonatomic, assign) CGFloat selectImageViewheight;
 @end
 
 @implementation MessageContentVc
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 请求历史聊天记录
+    [self setUI];
+    
+}
+- (void)setIsshowImageView:(BOOL)isshowImageView{
+    _isshowImageView = isshowImageView;
+    if (isshowImageView) {
+        self.selectImageViewheight = 128;
+    } else {
+        self.selectImageViewheight = 0;
+    }
+    
+    [UIView animateWithDuration:1 animations:
+     ^{
+         self.selectImageView.frame = CGRectMake(0, self.selectImageView.frame.origin.y + self.selectImageViewheight, self.selectImageView.frame.size.width, 0);//可以在completion里继续写动画
+     } completion:^(BOOL finished) {
+         
+     }];
+}
+// 选择图片
+- (IBAction)SelectImageFunction:(UIButton *)sender {
+    
+    self.isshowImageView = !self.isshowImageView;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     //键盘通知
     self.contentArr = [[NSMutableArray alloc] init];
-
-    [self.customTableView setContentOffset:CGPointMake(0, self.customTableView.contentSize.height -self.customTableView.bounds.size.height) animated:YES];
+    
+    // 注册键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+    // 注册一对一消息通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessageList:) name:@"receiveMessage" object:nil];
+    
+    
+}
+- (void)setUI{
+    self.CameraButton.layer.cornerRadius = 20;
+    self.selectImageButton.layer.cornerRadius = 20;
+    self.isshowImageView = false;
+}
+- (void)receiveMessageList:(NSNotification *)noti{
+    NSDictionary *msgDic = [noti object];
+    NSDictionary *payload = msgDic[@"payload"];
+    NSString * msgid = payload[@"msg_id"];
+    NSString * sectionid = payload[@"session_id"];
+    [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    // 注销消息通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+// 获取最新的消息
+- (void)getNewMessageOfMsgid: (NSString *)msgid Sectionid:(NSString *)sectionid{
+    
+    if (msgid && sectionid) {
+        [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"_meta": @{@"page": @(0),  @"limit": @(300)},@"session_id": sectionid, @"last_message_id": msgid, @"sort_type": @(20)} CMD:@"ums.message.find_session_message" success:^(id responseObject) {
+            NSArray *msgList = responseObject[@"data"];
+            if (msgList.count > 0) {
+                NSDictionary *dic = msgList[0];
+                RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+                [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:sectionid];
+            }
+            // 是否是当前控制器
+            if ([[self getCurrentVC] isKindOfClass:[self class]]) {
+                [self.customTableView reloadData];
+            }
+            
+        } fail:^(id error) {
+            NSLog(@"%@", error);
+        }];
+    }
+}
+- (void)readedmsgid:(NSString *)msgid Sectionid:(NSString *)sectionid{
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"session_id": sectionid, @"last_message_id": msgid} CMD:@"ums.message.mark_read" success:^(id responseObject) {
+        [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
+        NSLog(@"%@", responseObject);
+    } fail:^(id error) {
+        NSLog(@"%@", error);
+    }];
+}
+// 获取当前显示控制器
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *result = nil;
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    if ([window subviews].count>0) {
+        UIView *frontView = [[window subviews] objectAtIndex:0];
+        id nextResponder = [frontView nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]]){
+            result = nextResponder;
+        }
+        else{
+            result = window.rootViewController;
+        }
+    }
+    else{
+        result = window.rootViewController;
+    }
+    if ([result isKindOfClass:[UITabBarController class]]) {
+        result = [((UITabBarController*)result) selectedViewController];
+    }
+    if ([result isKindOfClass:[UINavigationController class]]) {
+        result = [((UINavigationController*)result) visibleViewController];
+    }
+    
+    return result;
 }
 // 键盘通知
 -(void)keyboardWillChangeFrameNotification:(NSNotification *)note{
@@ -63,21 +194,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@",
-                         kCurrentBossOwnerAccount.accountModel.accountId,self.sectionid];
-    [self.contentArr removeAllObjects];
-    RLMResults<realmMessageModel *> *puppies = [realmMessageModel objectsWithPredicate:pred];
-    if (puppies.count > 0) {
-        realmMessageModel *puppies2 = [puppies firstObject];
-        for (RLMObject *object in puppies2.realmRecordModel) {
-            RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
-            [self.contentArr addObject:model];
-        }
-        return self.contentArr.count;
-    } else {
-        return 0;
-    }
-    
+    self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+    return self.contentArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RealmRecordModel *model = self.contentArr[indexPath.row];
@@ -99,16 +217,8 @@
     }
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSLog(@"点击了发送");
-    if (textField.text) {
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@",
-                             kCurrentBossOwnerAccount.accountModel.accountId,self.sectionid];
-        
-        RLMResults<realmMessageModel *> *puppies = [realmMessageModel objectsWithPredicate:pred];
-        // 根据用户ID 查找
-        realmMessageModel *MessageModel = [puppies firstObject];
+    textField.enablesReturnKeyAutomatically = true;
+    if (textField.text && ![textField.text isEqualToString:@""]) {
         
         [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"session_id": self.sectionid, @"message_mime_kind": @(10), @"content": textField.text} CMD:@"ums.chat.add" success:^(id responseObject) {
             BOOL isok = responseObject[@"ok"];
@@ -116,33 +226,19 @@
                 NSDictionary *dic = responseObject[@"record"];
                 // 子Model
                 RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+                // 保存记录到本地 (同步操作)
+                [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
+                // 消息置空
+                textField.text = @"";
+                // 设为不可点击
                 
-                if (MessageModel) {
-                    // 存到本地
-                    [realm transactionWithBlock:^{
-                        [MessageModel.realmRecordModel addObject:model];
-                    }];
-                } else {
-                    // 第一次缓存
-                    if (self.targetid && kCurrentBossOwnerAccount.accountModel.accountId) {
-                        NSDictionary *basedic = @{
-                                                  @"userid": kCurrentBossOwnerAccount.accountModel.accountId,
-                                                  @"realmRecordModel" : @[model.toDictionary],
-                                                  @"sectionid": self.sectionid
-                                                  };
-                        realmMessageModel *baseModel = [[realmMessageModel alloc] initWithDictionary:basedic];
-                        [realm transactionWithBlock:^{
-                            [realm addObject:baseModel];
-                        }];
-                    }
-                }
+                // 刷新列表
                 [self.customTableView reloadData];
             }
         } fail:^(id error) {
             NSLog(@"%@", error);
         }];
     }
-    
     return YES;
 }
 @end
