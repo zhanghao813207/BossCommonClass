@@ -6,6 +6,7 @@
 
 #import "RealmRecordModel.h"
 #import "realmMessageModel.h"
+#import "mediainfoListModel.h"
 
 @interface RealmRecordModel ()
 @end
@@ -53,10 +54,18 @@
 		self.groupId = dictionary[@"group_id"];
 	}
 
-	if(![dictionary[@"media_info_list"] isKindOfClass:[NSNull class]]){
-		self.mediaInfoList = dictionary[@"media_info_list"];
-	}
-
+//    if(![dictionary[@"media_info_list"] isKindOfClass:[NSNull class]]){
+//        self.mediaInfoList = dictionary[@"media_info_list"];
+//    }
+    if(dictionary[@"media_info_list"] != nil && ![dictionary[@"media_info_list"] isKindOfClass:[NSNull class]]){
+        NSArray * mediainfoListModelDictionaries = dictionary[@"media_info_list"];
+        RLMArray * mediainfoListModelItems = [[RLMArray alloc] initWithObjectClassName:[mediainfoListModel className]];
+        for(NSDictionary * mediainfoListModelDictionary in mediainfoListModelDictionaries){
+            mediainfoListModel * mediainfoListModelItem = [[mediainfoListModel alloc] initWithDictionary:mediainfoListModelDictionary];
+            [mediainfoListModelItems addObject:mediainfoListModelItem];
+        }
+        self.mediaInfoList = (RLMArray<mediainfoListModel> *)mediainfoListModelItems;
+    }
 	if(![dictionary[@"message_mime_kind"] isKindOfClass:[NSNull class]]){
 		self.messageMimeKind = [dictionary[@"message_mime_kind"] integerValue];
 	}

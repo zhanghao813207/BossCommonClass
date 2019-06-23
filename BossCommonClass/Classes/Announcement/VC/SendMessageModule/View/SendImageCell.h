@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SendImageCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *messageContentView;
+@property (weak, nonatomic) IBOutlet UIImageView *sendImageView;
 
 @end
 

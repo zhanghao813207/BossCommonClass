@@ -531,6 +531,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageContentView" destination="c9w-1d-gR2" id="x8n-8O-FEb"/>
+                                            <outlet property="receiveImageView" destination="njm-ih-S6s" id="xgY-qE-OFl"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SendMCell" rowHeight="101" id="Zg8-1I-cGN" customClass="SendMessageCell">
@@ -635,6 +636,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageContentView" destination="1co-dR-4Oh" id="c6o-Ey-Z6D"/>
+                                            <outlet property="sendImageView" destination="dzw-i8-Qau" id="KCy-tt-QMt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -654,8 +656,11 @@
                                             <constraint firstAttribute="width" secondItem="1Vo-Nb-irt" secondAttribute="height" id="p4N-8c-o17"/>
                                         </constraints>
                                         <state key="normal" image="cameraIcon"/>
+                                        <connections>
+                                            <action selector="cameraSelect:" destination="UW5-oj-Jlr" eventType="touchUpInside" id="BnL-F5-b52"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYK-yO-iGx">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYK-yO-iGx">
                                         <rect key="frame" x="10" y="8" width="40" height="40"/>
                                         <color key="backgroundColor" red="0.22352941179999999" green="0.21960784310000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -663,9 +668,12 @@
                                             <constraint firstAttribute="width" constant="40" id="dQI-3z-dn6"/>
                                         </constraints>
                                         <state key="normal" image="AlbumIcon"/>
+                                        <connections>
+                                            <action selector="cameraSelect:" destination="UW5-oj-Jlr" eventType="touchUpInside" id="dPf-FT-e2N"/>
+                                        </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="hYK-yO-iGx" firstAttribute="centerX" secondItem="1Vo-Nb-irt" secondAttribute="centerX" id="GPd-Yk-PTU"/>
                                     <constraint firstItem="1Vo-Nb-irt" firstAttribute="top" secondItem="hYK-yO-iGx" secondAttribute="bottom" constant="20" id="Ju1-U7-wWd"/>

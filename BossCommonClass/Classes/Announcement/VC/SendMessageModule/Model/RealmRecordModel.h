@@ -1,6 +1,8 @@
 #import <Realm/Realm.h>
 RLM_ARRAY_TYPE(realmMessageModel)
 @class realmMessageModel;
+RLM_ARRAY_TYPE(mediainfoListModel)
+@class mediainfoListModel;
 //RLM_ARRAY_TYPE ()
 @interface RealmRecordModel : RLMObject
 
@@ -11,7 +13,7 @@ RLM_ARRAY_TYPE(realmMessageModel)
 @property (nonatomic, strong) NSString * extraData;
 @property (nonatomic, strong) NSString * extraType;
 @property (nonatomic, strong) NSString * groupId;
-@property (nonatomic, strong) RLMArray<RLMString>* mediaInfoList;
+@property (nonatomic, strong) RLMArray<mediainfoListModel>* mediaInfoList;
 @property (nonatomic, assign) NSInteger messageMimeKind;
 @property (nonatomic, assign) NSInteger messageType;
 @property (nonatomic, strong) NSString * proxyId;

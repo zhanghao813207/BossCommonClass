@@ -37,6 +37,7 @@
                 recordModel *recordmodel = [[recordModel alloc] initWithDictionary:dic];
                 vc.sectionid = recordmodel.idField;
                 vc.targetid = self.targetid;
+                vc.title = self.name;
                 [self.navigationController pushViewController:vc animated:true];
             }
         } fail:^(id error) {
