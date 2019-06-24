@@ -6,6 +6,10 @@
 //
 
 #import "RealmModule.h"
+#import "MQTTDefine.h"
+#import "QLifeAES256.h"
+#import "MQTTClientModel.h"
+#import "BossCache.h"
 
 //RealmModule.m
 @implementation RealmModule
@@ -31,7 +35,7 @@ static RealmModule * sharedSingleton = nil;
         realmMessageModel *AllMessageModel = [puppies firstObject];
         // 存到本地
         [realm transactionWithBlock:^{
-            [AllMessageModel.realmRecordModel addObject:messageModel];
+            [AllMessageModel.realmRecordModels addObject:messageModel];
         }];
     } else {
         // 第一次缓存 没有会话
@@ -49,16 +53,20 @@ static RealmModule * sharedSingleton = nil;
             }];
         }
     }
+    NSDictionary *dic = @{@"event_name":@"msg_ack",@"payload":@{@"account_id":[BossCache defaultCache].umsAccessTokenModel.accountId, @"message_ids": @[messageModel.idField]}};
+    NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
+    [[MQTTClientModel sharedInstance] sendDataToTopic:@"ums/" data:data];
+
 }
 // 获取数据
 - (NSArray *)getMessageListSectionID:(NSString *)sectionid{
     NSMutableArray *messageList = [[NSMutableArray alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@",
                          kCurrentBossOwnerAccount.accountModel.accountId,sectionid];
-    RLMResults<realmMessageModel *> *puppies = [realmMessageModel objectsWithPredicate:pred];
-    if (puppies.count > 0) {
-        realmMessageModel *puppies2 = [puppies firstObject];
-        for (RLMObject *object in puppies2.realmRecordModel) {
+    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
+    RLMResults<RealmRecordModel *> *puppies2 = [puppies sortedResultsUsingKeyPath:@"idField" ascending:true];
+    if (puppies2.count > 0) {
+        for (RLMObject *object in puppies2) {
             RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
             [messageList addObject:model];
         }

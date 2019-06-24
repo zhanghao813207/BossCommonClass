@@ -37,7 +37,7 @@
 			RealmRecordModel * realmRecordModelItem = [[RealmRecordModel alloc] initWithDictionary:realmRecordModelDictionary];
 			[realmRecordModelItems addObject:realmRecordModelItem];
 		}
-		self.realmRecordModel = (RLMArray<RealmRecordModel> *)realmRecordModelItems;
+        self.realmRecordModels = (RLMArray<RealmRecordModel> *)realmRecordModelItems;
 	}
 	if(![dictionary[@"userid"] isKindOfClass:[NSNull class]]){
 		self.userid = dictionary[@"userid"];
@@ -56,9 +56,9 @@
 	if(self.sectionid != nil){
 		dictionary[@"sectionid"] = self.sectionid;
 	}
-	if(self.realmRecordModel != nil){
+    if(self.realmRecordModels != nil){
 		NSMutableArray * dictionaryElements = [NSMutableArray array];
-		for(RealmRecordModel * realmRecordModelElement in self.realmRecordModel){
+        for(RealmRecordModel * realmRecordModelElement in self.realmRecordModels){
 			[dictionaryElements addObject:[realmRecordModelElement toDictionary]];
 		}
 		dictionary[@"realmRecordModel"] = dictionaryElements;
@@ -81,8 +81,8 @@
 	if(self.sectionid != nil){
 		[aCoder encodeObject:self.sectionid forKey:@"sectionid"];
 	}
-	if(self.realmRecordModel != nil){
-		[aCoder encodeObject:self.realmRecordModel forKey:@"realmRecordModel"];
+    if(self.realmRecordModels != nil){
+        [aCoder encodeObject:self.realmRecordModels forKey:@"realmRecordModel"];
 	}
 	if(self.userid != nil){
 		[aCoder encodeObject:self.userid forKey:@"userid"];
@@ -97,7 +97,7 @@
 {
 	self = [super init];
 	self.sectionid = [aDecoder decodeObjectForKey:@"sectionid"];
-	self.realmRecordModel = [aDecoder decodeObjectForKey:@"realmRecordModel"];
+    self.realmRecordModels = [aDecoder decodeObjectForKey:@"realmRecordModel"];
 	self.userid = [aDecoder decodeObjectForKey:@"userid"];
 	return self;
 

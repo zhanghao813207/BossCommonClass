@@ -58,7 +58,13 @@
 
     [self setUI];
     
-    
+    self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+    if (self.contentArr.count > 0) {
+        RealmRecordModel *model = [self.contentArr lastObject];
+        [self readedmsgid:model.idField Sectionid:self.sectionid];
+        
+    }
+    [self getNewMessageOfMsgid:nil Sectionid:self.sectionid];
 }
 - (void)setIsshowImageView:(BOOL)isshowImageView{
     _isshowImageView = isshowImageView;
@@ -102,7 +108,9 @@
     NSDictionary *payload = msgDic[@"payload"];
     NSString * msgid = payload[@"msg_id"];
     NSString * sectionid = payload[@"session_id"];
-    [self getContentDetaileMsgid:msgid Sectionid:sectionid];
+    
+    [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
+//    [self getContentDetaileMsgid:msgid Sectionid:sectionid];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     // 注销消息通知
@@ -113,6 +121,8 @@
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"message_id": msgid} CMD:@"ums.message.get" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
         RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+        model.sectionid = sectionid;
+        model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
         [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:sectionid];
         [self scrollViewToBottom:true];
         [self.customTableView reloadData];
@@ -142,17 +152,24 @@
 // 获取最新的消息
 - (void)getNewMessageOfMsgid: (NSString *)msgid Sectionid:(NSString *)sectionid{
     
-    if (msgid && sectionid) {
-        [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"_meta": @{@"page": @(0),  @"limit": @(300)},@"session_id": sectionid, @"last_message_id": msgid, @"sort_type": @(20)} CMD:@"ums.message.find_session_message" success:^(id responseObject) {
+    if (sectionid) {
+        [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"_meta": @{@"page": @(0),  @"limit": @(0)}, @"session_id": sectionid } CMD:@"ums.message.find_session_message" success:^(id responseObject) {
             NSArray *msgList = responseObject[@"data"];
-            if (msgList.count > 0) {
-                NSDictionary *dic = msgList[0];
+            for (NSDictionary *dic in msgList) {
                 RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+                model.sectionid = sectionid;
+                model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
                 [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:sectionid];
             }
             // 是否是当前控制器
             if ([[self getCurrentVC] isKindOfClass:[self class]]) {
                 [self scrollViewToBottom:true];
+                self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+                if (self.contentArr.count > 0) {
+                    RealmRecordModel *model = [self.contentArr lastObject];
+                    [self readedmsgid:model.idField Sectionid:sectionid];
+                }
+                
                 [self.customTableView reloadData];
             }
             
@@ -162,8 +179,8 @@
     }
 }
 - (void)readedmsgid:(NSString *)msgid Sectionid:(NSString *)sectionid{
+    
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"session_id": sectionid, @"last_message_id": msgid} CMD:@"ums.message.mark_read" success:^(id responseObject) {
-        [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
         NSLog(@"%@", responseObject);
     } fail:^(id error) {
         NSLog(@"%@", error);
@@ -292,13 +309,17 @@
     return self.contentArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     RealmRecordModel *model = self.contentArr[indexPath.row];
-    NSLog(@"%@", [BossCache defaultCache].umsAccessToken);
+    
     if (model.messageMimeKind == 10  && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]) {
+        
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
         return cell;
+        
     } else if (model.messageMimeKind == 40 && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]){
+        
         SendImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendICell" forIndexPath:indexPath];
         NSLog(@"%@", model.mediaInfoList);
         if (model.mediaInfoList.count > 0) {
@@ -306,17 +327,22 @@
              [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
         return cell;
+        
     } else if (![model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId] && model.messageMimeKind == 10) {
+        
         ReceiveMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
         return cell;
+        
     } else {
+        
         ReceiveImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveICell" forIndexPath:indexPath];
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
         return cell;
+        
     }
 }
 - (void)addmedia:(NSString *)key{
@@ -347,8 +373,11 @@
             NSDictionary *dic = responseObject[@"record"];
             // 子Model
             RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+            model.sectionid = self.sectionid;
+            model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
             // 保存记录到本地 (同步操作)
             [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
+            
             if (Block) {
                Block(true);
             }

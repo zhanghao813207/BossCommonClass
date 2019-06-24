@@ -5,7 +5,7 @@ RLM_ARRAY_TYPE(RealmRecordModel)
 @interface realmMessageModel : RLMObject
 
 @property (nonatomic, strong) NSString * sectionid;
-@property (nonatomic, strong) RLMArray<RealmRecordModel> * realmRecordModel;
+@property (nonatomic, strong) RLMArray<RealmRecordModel> * realmRecordModels;
 @property (nonatomic, strong) NSString * userid;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;

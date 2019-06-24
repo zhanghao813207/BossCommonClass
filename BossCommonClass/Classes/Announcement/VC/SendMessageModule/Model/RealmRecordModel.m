@@ -13,7 +13,9 @@
 @implementation RealmRecordModel
 
 
-
++ (NSString *)primaryKey {
+    return @"idField";
+}
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values

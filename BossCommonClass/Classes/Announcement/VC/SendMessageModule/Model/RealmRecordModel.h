@@ -21,6 +21,8 @@ RLM_ARRAY_TYPE(mediainfoListModel)
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * updatedAt;
+@property (nonatomic, strong) NSString * sectionid;
+@property (nonatomic, strong) NSString * userid;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

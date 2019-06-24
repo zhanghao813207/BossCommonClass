@@ -16,6 +16,8 @@ NSString *const kMessageSummaryInfoCreatedAt = @"created_at";
 NSString *const kMessageSummaryInfoExtraType = @"extra_type";
 NSString *const kMessageSummaryInfoMessageType = @"message_type";
 NSString *const kMessageSummaryInfoTitle = @"title";
+NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
+
 
 @interface MessageSummaryInfo ()
 @end
@@ -50,7 +52,10 @@ NSString *const kMessageSummaryInfoTitle = @"title";
 
 	if(![dictionary[kMessageSummaryInfoTitle] isKindOfClass:[NSNull class]]){
 		self.title = dictionary[kMessageSummaryInfoTitle];
-	}	
+	}
+    if(![dictionary[kMessageMessagemimekindTitle] isKindOfClass:[NSNull class]]){
+        self.messagemimekind = [dictionary[kMessageMessagemimekindTitle] integerValue];
+    }
 	return self;
 }
 
@@ -75,7 +80,9 @@ NSString *const kMessageSummaryInfoTitle = @"title";
 	if(self.title != nil){
 		dictionary[kMessageSummaryInfoTitle] = self.title;
 	}
-	return dictionary;
+    dictionary[kMessageMessagemimekindTitle] = @(self.messagemimekind);
+
+    return dictionary;
 
 }
 

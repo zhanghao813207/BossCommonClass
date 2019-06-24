@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.messageContentView.layer.masksToBounds = true;
     self.messageContentView.layer.cornerRadius = 17;
 }
 
