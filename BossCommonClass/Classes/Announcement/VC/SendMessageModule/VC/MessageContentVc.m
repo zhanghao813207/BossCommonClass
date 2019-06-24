@@ -153,7 +153,7 @@
 - (void)getNewMessageOfMsgid: (NSString *)msgid Sectionid:(NSString *)sectionid{
     
     if (sectionid) {
-        [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"_meta": @{@"page": @(0),  @"limit": @(0)}, @"session_id": sectionid } CMD:@"ums.message.find_session_message" success:^(id responseObject) {
+        [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"_meta": @{@"page": @(1),  @"limit": @(0)}, @"session_id": sectionid } CMD:@"ums.message.find_session_message" success:^(id responseObject) {
             NSArray *msgList = responseObject[@"data"];
             for (NSDictionary *dic in msgList) {
                 RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
