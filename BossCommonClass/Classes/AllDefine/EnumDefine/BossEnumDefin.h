@@ -156,6 +156,23 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
     MOBILE_PASS_EXAMINE_FAIL    = 9,  // 我经手的(已驳回),
 };
 
+#pragma mark - 审批单相关常量
+
+/**
+ 审批单类型
+ */
+typedef NS_ENUM(NSInteger, ApplicationOrderType) {
+    ApplicationOrderTypeCost          = 1, // 费用申请
+    ApplicationOrderTypeSalaryRule    = 2, // 薪资规则
+    ApplicationOrderTypeSalaryPayment = 3, // 薪资发放
+    ApplicationOrderTypeMaterial      = 4, // 物资采购
+    ApplicationOrderTypeHouseContract = 5, // 房屋管理
+    ApplicationOrderTypeLoan          = 6, // 借款申请
+    ApplicationOrderTypeRepayment     = 7, // 还款
+    ApplicationOrderTypeBusinessTrave = 8, // 出差申请
+    ApplicationOrderTypeTravelExpense = 9, // 差旅报销
+};
+
 // 审批单整体状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
     OA_EXAMINE_STATE_INIT     =    1,  // 待提交
@@ -178,11 +195,61 @@ typedef NS_ENUM(NSInteger, OA_EXAMINE_NODE_STATE) {
     OA_EXAMINE_NODE_STATE_CANCLE     = -101,  // 关闭
 };
 
+/**
+ 打款状态
+ */
 typedef NS_ENUM(NSInteger, PAY_STATE) {
     PAY_STATE_DONE   =  100, // 已打款
     PAY_STATE_ERROR  =   -1, // 异常
     PAY_STATE_NONE   =    0, // 暂无异常
     PAY_STATE_INIT   =    1, // 待处理
+};
+
+#pragma mark - 审批单子订单状态
+
+/**
+ 单据状态
+ */
+typedef NS_ENUM(NSUInteger, OrderState) {
+    OrderStateInit    =    1, // 待提交
+    OrderStateDoing   =   10, // 审批进行中
+    OrderStateDone    =  100, // 完成
+    OrderStateClosed  = -100, // 关闭
+    OrderStateDeleted = -101, // 删除
+};
+
+#pragma mark - 借款单相关常量
+
+/**
+ 借款类型
+ */
+typedef NS_ENUM(NSUInteger, LoanType) {
+    LoanTypeOrdinary = 1,  // 普通借款
+    LoanTypeSpecial  = 10  // 专项借款
+};
+
+/**
+ 还款状态
+ */
+typedef NS_ENUM(NSUInteger, RepaymentState) {
+    RepaymentStateInit   =   1, // 未还款
+    RepaymentStateDoing  =  50, // 还款中
+    RepaymentStateDone   = 100, // 已结清
+};
+
+/**
+ 还款方式
+ */
+typedef NS_ENUM(NSUInteger, RepaymentMethod) {
+    RepaymentMethodCurrency   =   1 // 货币
+};
+
+/**
+ 还款周期
+ */
+typedef NS_ENUM(NSUInteger, RepaymentCycle) {
+    RepaymentCycleOneTime    =  1, // 一次性还清
+    RepaymentCycleInstalment = 10, // 分期还
 };
 
 typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {

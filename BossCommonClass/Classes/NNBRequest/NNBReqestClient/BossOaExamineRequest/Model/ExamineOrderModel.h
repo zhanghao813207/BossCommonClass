@@ -14,21 +14,28 @@
 #import "ExamineFlowNodeModel.h"
 #import "SalaryPlaneModel.h"
 #import "PayrollStatementModel.h"
+#import "LoanRepaymentAttachmentModel.h"
+#import "LoanOrderModel.h"
+#import "RepaymentOrderModel.h"
 
 @interface ExamineOrderModel : NSObject
 
 #pragma mark --brief
 
 /**
- 单笔流水号
+ 审批单号
  */
 @property (nonatomic, strong) NSString *_id;
 
 /**
- 申请人ID
+ 审批单类型
  */
-@property (nonatomic, strong) NSString *apply_account_id;
+@property (nonatomic, assign) ApplicationOrderType application_order_type;
 
+/**
+ 审批主题列表
+ */
+@property (nonatomic, strong) NSArray *theme_label_list;
 
 /**
  审批流程ID
@@ -185,7 +192,7 @@
 /**
  当前审批节点
  */
-@property (nonatomic, strong) ExamineFlowNodeModel *current_flow_node_info;
+@property (nonatomic, strong) ExamineFlowNodeBriefModel *current_flow_node_info;
 
 /**
  消费单列表
@@ -208,7 +215,45 @@
 
 @property (nonatomic, strong) NSArray <NSDictionary *>*file_url_list;
 
-#pragma mark -- 计算属性
+#pragma mark - 借/还款单 - 相关属性
+
+/**
+ 借款单列表
+ */
+@property (nonatomic, strong) NSArray <LoanOrderModel *> *loan_order_list;
+
+/**
+ 还款单列表
+ */
+@property (nonatomic, strong) NSArray <RepaymentOrderModel *> *repayment_order_list;
+
+/**
+ 借款/还款附件列表
+ */
+@property (nonatomic, strong) NSArray <LoanRepaymentAttachmentModel *> *loan_or_repayment_file_list;
+
+#pragma mark - additional attribute
+
+/**
+ 审批类型字符串
+ */
+@property (nonatomic, strong, readonly) NSString *applicationOrderTypeStr;
+
+/**
+ 审批单状态字符串
+ */
+@property (nonatomic, strong, readonly) NSString *applicationOrderStateStr;
+
+/**
+ 主题字符串
+ */
+@property (nonatomic, strong, readonly) NSString *themeLabelStr;
+
+/**
+ 子订单统计
+ */
+@property (nonatomic, assign, readonly) NSInteger orderCount;
+
 /**
  审批单的流转 flow_record_list 计算得来
  */
