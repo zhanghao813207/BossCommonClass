@@ -192,7 +192,7 @@
 /**
  当前审批节点
  */
-@property (nonatomic, strong) ExamineFlowNodeModel *current_flow_node_info;
+@property (nonatomic, strong) ExamineFlowNodeBriefModel *current_flow_node_info;
 
 /**
  消费单列表
@@ -238,6 +238,11 @@
  审批类型字符串
  */
 @property (nonatomic, strong, readonly) NSString *applicationOrderTypeStr;
+
+/**
+ 审批单状态字符串
+ */
+@property (nonatomic, strong, readonly) NSString *applicationOrderStateStr;
 
 /**
  主题字符串

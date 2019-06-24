@@ -99,7 +99,7 @@
     }
 
     if ([key isEqualToString:@"current_flow_node_info"]) {
-        ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
+        ExamineFlowNodeBriefModel *model = [[ExamineFlowNodeBriefModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
         self.current_flow_node_info = model;
         return;
@@ -199,6 +199,25 @@
     return typeStr;
 }
 
+- (NSString *)applicationOrderStateStr {
+    NSString *stateStr= @"待提交";
+    switch (self.state) {
+        case OA_EXAMINE_STATE_UNDERWAY:
+            stateStr = @"进行中";
+            break;
+        case OA_EXAMINE_STATE_DONE:
+            stateStr = @"已完成";
+            break;
+        case OA_EXAMINE_STATE_SHUTDOWN:
+            stateStr = @"已关闭";
+            break;
+        default:
+            break;
+    }
+    
+    return stateStr;
+}
+
 - (NSString *)themeLabelStr {
     if(self.theme_label_list && self.theme_label_list.count > 0){
         return [self.theme_label_list componentsJoinedByString:@"、"];
@@ -233,69 +252,6 @@
             break;
     }
     return orderCount;
-}
-
-- (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
-{
-    ExamineFlowNodeModel *model = [[ExamineFlowNodeModel alloc] init];
-    for (ExamineFlowRecordModel *recordModel in recordList) {
-        if (recordModel.flow_node_info) {
-            model._id = recordModel.flow_node_info._id;
-            model.name = recordModel.flow_node_info.name;
-            model.is_payment_node = recordModel.flow_node_info.is_payment_node;
-            model.account_list = recordModel.flow_node_info.account_list;
-            model.post_list = recordModel.flow_node_info.post_list;
-            model.pick_mode = recordModel.flow_node_info.pick_mode;
-            model.index_num = recordModel.flow_node_info.index_num;
-        }
-        model.state = recordModel.state;
-        
-        switch (recordModel.state) {
-            case OA_EXAMINE_NODE_STATE_INIT:
-                {
-                    if (model.is_payment_node && self.paid_state == PAY_STATE_ERROR) {
-                        recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-                        recordModel.pay_state = PAY_STATE_ERROR;
-                        recordModel.note = self.paid_note;
-                    }
-                }
-                break;
-            case OA_EXAMINE_NODE_STATE_AGREE:
-            {
-                if (model.is_payment_node) {
-                    recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-                    recordModel.pay_state = PAY_STATE_DONE;
-                }
-            }
-            default:
-                break;
-        }
-        
-        
-//        if (model.is_payment_node) {
-//            if (recordModel.state == OA_EXAMINE_NODE_STATE_INIT) {
-//                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-//                if (self.paid_state == PAY_STATE_ERROR) {
-//                    recordModel.pay_state = PAY_STATE_ERROR;
-//                    recordModel.note = self.paid_note;
-//                } else {
-//                    recordModel.pay_state = PAY_STATE_INIT;
-//                }
-//            } else {
-//                recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
-//                recordModel.pay_state = PAY_STATE_DONE;
-//            }
-//        }
-        BOOL isUrge = NO;
-        if ((recordModel.state == OA_EXAMINE_NODE_STATE_INIT) && recordModel.urge_state == YES) {
-            isUrge = YES;
-            model.urge_state = YES;
-            break;
-        }
-        model.urge_state = NO;
-    }
-    model.record_list = recordList;
-    return model;
 }
 
 - (NSArray<ExamineFlowNodeModel *> *)flow_node_list
@@ -337,10 +293,42 @@
 - (ExamineFlowNodeModel *)current_node
 {
     if (!_current_node) {
-        if (!self.current_record_list) {
-            return nil;
+        if(self.current_flow_node_info){
+            _current_node = [self createExamineFlowNodeModel:self.current_flow_node_info];
+            _current_node.record_list = self.current_record_list;
+            
+            ExamineFlowRecordModel *recordModel = self.current_record_list[0];
+            
+            _current_node.index_num = recordModel.index_num;
+            _current_node.state = recordModel.state;
+    
+            switch (recordModel.state) {
+                case OA_EXAMINE_NODE_STATE_INIT:
+                {
+                    if (_current_node.is_payment_node && self.paid_state == PAY_STATE_ERROR) {
+                        recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                        recordModel.pay_state = PAY_STATE_ERROR;
+                        recordModel.note = self.paid_note;
+                    }
+                }
+                    break;
+                case OA_EXAMINE_NODE_STATE_AGREE:
+                {
+                    if (_current_node.is_payment_node) {
+                        recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                        recordModel.pay_state = PAY_STATE_DONE;
+                    }
+                }
+                default:
+                    break;
+            }
+            
+            _current_node.urge_state = recordModel.state == OA_EXAMINE_NODE_STATE_INIT && recordModel.urge_state == YES;
+        }else{
+            if(self.current_record_list){
+                _current_node = [self nodeByRecordList:self.current_record_list];
+            }
         }
-        _current_node = [self nodeByRecordList:self.current_record_list];
     }
     return _current_node;
 }
@@ -358,6 +346,62 @@
     }
     return _file_url_dic;
 
+}
+
+- (ExamineFlowNodeModel *)createExamineFlowNodeModel:(ExamineFlowNodeBriefModel *)flowNodeBriefModel {
+    ExamineFlowNodeModel *flowNodeModel = [[ExamineFlowNodeModel alloc] init];
+    flowNodeModel._id = flowNodeBriefModel._id;
+    flowNodeModel.name = flowNodeBriefModel.name;
+    flowNodeModel.account_list = flowNodeBriefModel.account_list;
+    flowNodeModel.post_list = flowNodeBriefModel.post_list;
+    flowNodeModel.index_num = flowNodeBriefModel.index_num;
+    flowNodeModel.is_payment_node = flowNodeModel.is_payment_node;
+    flowNodeModel.can_update_cost_record = flowNodeBriefModel.can_update_cost_record;
+    return flowNodeModel;
+}
+
+- (ExamineFlowNodeModel *)nodeByRecordList:(NSArray <ExamineFlowRecordModel *>*)recordList
+{
+    ExamineFlowNodeModel *model = nil;
+    if(recordList && recordList.count > 0){
+        ExamineFlowRecordModel *recordModel = recordList[0];
+        if(recordModel.flow_node_info){
+            model = [self createExamineFlowNodeModel:recordModel.flow_node_info];
+        }else{
+            model = [[ExamineFlowNodeModel alloc] init];
+            model._id = recordModel.node_id;
+            model.index_num = recordModel.index_num;
+        }
+
+        model.state = recordModel.state;
+        
+        switch (recordModel.state) {
+            case OA_EXAMINE_NODE_STATE_INIT:
+            {
+                if (model.is_payment_node && self.paid_state == PAY_STATE_ERROR) {
+                    recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                    recordModel.pay_state = PAY_STATE_ERROR;
+                    recordModel.note = self.paid_note;
+                }
+            }
+                break;
+            case OA_EXAMINE_NODE_STATE_AGREE:
+            {
+                if (model.is_payment_node) {
+                    recordModel.state = OA_EXAMINE_NODE_STATE_PAY;
+                    recordModel.pay_state = PAY_STATE_DONE;
+                }
+            }
+            default:
+                break;
+        }
+        
+        model.urge_state = recordModel.state == OA_EXAMINE_NODE_STATE_INIT && recordModel.urge_state == YES;
+        
+        model.record_list = recordList;
+    }
+    
+    return model;
 }
 
 @end
