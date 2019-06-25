@@ -7,6 +7,7 @@ RLM_ARRAY_TYPE(mediainfoListModel)
 @interface RealmRecordModel : RLMObject
 
 @property (nonatomic, strong) realmMessageModel * realmMessageModel;
+@property (nonatomic, assign) BOOL isShowTime;
 @property (nonatomic, strong) NSString * idField;
 @property (nonatomic, strong) NSString * content;
 @property (nonatomic, strong) NSString * createdAt;
@@ -23,6 +24,8 @@ RLM_ARRAY_TYPE(mediainfoListModel)
 @property (nonatomic, strong) NSString * updatedAt;
 @property (nonatomic, strong) NSString * sectionid;
 @property (nonatomic, strong) NSString * userid;
+@property (nonatomic, strong) NSString * showAt_time;
+
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

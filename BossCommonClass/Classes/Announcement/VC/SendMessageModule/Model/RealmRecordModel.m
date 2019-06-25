@@ -7,6 +7,10 @@
 #import "RealmRecordModel.h"
 #import "realmMessageModel.h"
 #import "mediainfoListModel.h"
+#import "JYCSimpleToolClass.h"
+#import "NSDate+Helper.h"
+#import "NSDate+Extension.h"
+#import "NSString+Time.h"
 
 @interface RealmRecordModel ()
 @end
@@ -17,6 +21,15 @@
     return @"idField";
 }
 
+-(NSString *)showAt_time{
+    NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];
+    NSDate *normalDate = [NSDate dateFromString:normalTime];
+    NSString *tempDate = [NSDate stringFromDate:normalDate withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [tempDate getTimeStr:@""];
+}
++ (NSArray *)ignoredProperties {
+    return @[@"isShowTime", @"showAt_time"];
+}
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
  */

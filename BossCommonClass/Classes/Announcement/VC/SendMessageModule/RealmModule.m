@@ -26,7 +26,7 @@ static RealmModule * sharedSingleton = nil;
     RLMRealm *realm = [RLMRealm defaultRealm];
     
     [realm transactionWithBlock:^{
-        [realm addObject:messageModel];
+        [realm addOrUpdateObject:messageModel];
     }];
     
     NSDictionary *dic = @{@"event_name":@"msg_ack",@"payload":@{@"account_id":[BossCache defaultCache].umsAccessTokenModel.accountId, @"message_ids": @[messageModel.idField]}};

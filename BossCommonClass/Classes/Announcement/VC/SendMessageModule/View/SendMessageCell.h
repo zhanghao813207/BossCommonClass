@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SendMessageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *messageContentView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end
 

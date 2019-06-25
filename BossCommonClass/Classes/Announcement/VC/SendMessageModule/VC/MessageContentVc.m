@@ -26,6 +26,7 @@
 #import "AnnouncementRequest.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "mediainfoListModel.h"
+#import "JYCSimpleToolClass.h"
 
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
@@ -308,14 +309,43 @@
     self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
     return self.contentArr.count;
 }
+- (NSTimeInterval)pleaseInsertStarTime:(NSString *)starTime andInsertEndTime:(NSString *)endTime{
+    NSDateFormatter* formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//根据自己的需求定义格式
+    NSDate* startDate = [formater dateFromString:starTime];
+    NSDate* endDate = [formater dateFromString:endTime];
+    NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
+    return time;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     RealmRecordModel *model = self.contentArr[indexPath.row];
+    if (indexPath.row == 0) {
+        model.isShowTime = YES;
+    }
     
+    if (self.contentArr.count > indexPath.row + 1) {
+        RealmRecordModel *Nextmodel = self.contentArr[indexPath.row + 1];
+        NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
+        NSString *startTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:model.createdAt];
+        int a = [self pleaseInsertStarTime:startTime andInsertEndTime:nextTime];
+        if (a > 180) {
+            model.isShowTime = true;
+        }
+    }
     if (model.messageMimeKind == 10  && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]) {
         
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
+        if (model.isShowTime) {
+            [cell.timeLabel setHidden:false];
+            cell.timeLabel.text = model.showAt_time;
+        } else {
+            cell.timeLabel.text = @"";
+            [cell.timeLabel setHidden:true];
+        }
+        
         return cell;
         
     } else if (model.messageMimeKind == 40 && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]){
@@ -326,12 +356,26 @@
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
              [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
+        if (model.isShowTime) {
+            [cell.timeLabel setHidden:false];
+            cell.timeLabel.text = model.showAt_time;
+        } else {
+            cell.timeLabel.text = @"";
+            [cell.timeLabel setHidden:true];
+        }
         return cell;
         
     } else if (![model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId] && model.messageMimeKind == 10) {
         
         ReceiveMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
+        if (model.isShowTime) {
+            [cell.timeLabel setHidden:false];
+            cell.timeLabel.text = model.showAt_time;
+        } else {
+            cell.timeLabel.text = @"";
+            [cell.timeLabel setHidden:true];
+        }
         return cell;
         
     } else {
@@ -340,6 +384,13 @@
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
+        }
+        if (model.isShowTime) {
+            [cell.timeLabel setHidden:false];
+            cell.timeLabel.text = model.showAt_time;
+        } else {
+            cell.timeLabel.text = @"";
+            [cell.timeLabel setHidden:true];
         }
         return cell;
         
