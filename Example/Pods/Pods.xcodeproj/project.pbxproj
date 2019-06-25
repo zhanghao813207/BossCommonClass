@@ -352,6 +352,14 @@
 		60A826D7FF3FEC8463ACBB3D5D201686 /* QuaComputeLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A90914C2945DAD9710E9DFAAC5622 /* QuaComputeLogic.m */; };
 		60B8BCC79A567180D6C096895EE2123D /* MJRefreshBackGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB62F55891B387433E60656FA104E425 /* MJRefreshBackGifFooter.m */; };
 		60DFA6ADEFDE04A07DA6326189F84A03 /* AnnounceListHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = BBFBE90A5E49BF610961D80361E5991F /* AnnounceListHeader.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		61346B4D22B8CEED00D17F95 /* PayeeAccountModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 61346B4522B8CEEC00D17F95 /* PayeeAccountModel.h */; };
+		61346B4E22B8CEED00D17F95 /* LoanOrderModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 61346B4622B8CEEC00D17F95 /* LoanOrderModel.h */; };
+		61346B4F22B8CEED00D17F95 /* ActualLoanModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 61346B4722B8CEEC00D17F95 /* ActualLoanModel.h */; };
+		61346B5022B8CEED00D17F95 /* PayeeAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 61346B4822B8CEEC00D17F95 /* PayeeAccountModel.m */; };
+		61346B5122B8CEED00D17F95 /* ActualLoanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 61346B4922B8CEEC00D17F95 /* ActualLoanModel.m */; };
+		61346B5222B8CEED00D17F95 /* LoanOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 61346B4A22B8CEEC00D17F95 /* LoanOrderModel.m */; };
+		61346B5322B8CEED00D17F95 /* LoanRepaymentAttachmentModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 61346B4B22B8CEEC00D17F95 /* LoanRepaymentAttachmentModel.h */; };
+		61346B5422B8CEED00D17F95 /* LoanRepaymentAttachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 61346B4C22B8CEED00D17F95 /* LoanRepaymentAttachmentModel.m */; };
 		61573DCE4D3FB9D55472D0FFC9554458 /* ForegroundReconnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E2A1CA922BC6B8849520ED0F6B4703 /* ForegroundReconnection.m */; };
 		625C9CEBC5FCF1E12DD42603C6C8092C /* ManageParamModel.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE465CB8557668732CD9516954CCEB1 /* ManageParamModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		62CDA94E69273B189374B946D165613D /* MQTTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 919947F74396DBAF1CAB27A0B884E2B7 /* MQTTLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1407,6 +1415,14 @@
 		609E904A6CFEB7DF876AE851B5BF978C /* MJRefreshAutoNormalFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoNormalFooter.m; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.m; sourceTree = "<group>"; };
 		6117C17870C1B87E78B3050AFF9453DC /* QNHttpDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNHttpDelegate.h; path = QiniuSDK/Http/QNHttpDelegate.h; sourceTree = "<group>"; };
 		6131AF061682A3EA7059CEFC3FD01AF8 /* BGModelInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BGModelInfo.m; path = BGFMDB/libs/BG/BGModelInfo.m; sourceTree = "<group>"; };
+		61346B4522B8CEEC00D17F95 /* PayeeAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayeeAccountModel.h; sourceTree = "<group>"; };
+		61346B4622B8CEEC00D17F95 /* LoanOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanOrderModel.h; sourceTree = "<group>"; };
+		61346B4722B8CEEC00D17F95 /* ActualLoanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualLoanModel.h; sourceTree = "<group>"; };
+		61346B4822B8CEEC00D17F95 /* PayeeAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayeeAccountModel.m; sourceTree = "<group>"; };
+		61346B4922B8CEEC00D17F95 /* ActualLoanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualLoanModel.m; sourceTree = "<group>"; };
+		61346B4A22B8CEEC00D17F95 /* LoanOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanOrderModel.m; sourceTree = "<group>"; };
+		61346B4B22B8CEEC00D17F95 /* LoanRepaymentAttachmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanRepaymentAttachmentModel.h; sourceTree = "<group>"; };
+		61346B4C22B8CEED00D17F95 /* LoanRepaymentAttachmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanRepaymentAttachmentModel.m; sourceTree = "<group>"; };
 		617D23A2FBC42F4B2ADC599BB75B917A /* NNBBottomAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NNBBottomAlertView.h; sourceTree = "<group>"; };
 		61AC48BC902E9F8EA90AE73FF63D1830 /* QHErrorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QHErrorView.m; sourceTree = "<group>"; };
 		61DF377DAFAE79F1ABC735647AF0A953 /* RecommendedVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RecommendedVC.m; sourceTree = "<group>"; };
@@ -2800,6 +2816,19 @@
 			path = AccountModel;
 			sourceTree = "<group>";
 		};
+		61346B4422B8CEEC00D17F95 /* LoanOrder */ = {
+			isa = PBXGroup;
+			children = (
+				61346B4522B8CEEC00D17F95 /* PayeeAccountModel.h */,
+				61346B4622B8CEEC00D17F95 /* LoanOrderModel.h */,
+				61346B4722B8CEEC00D17F95 /* ActualLoanModel.h */,
+				61346B4822B8CEEC00D17F95 /* PayeeAccountModel.m */,
+				61346B4922B8CEEC00D17F95 /* ActualLoanModel.m */,
+				61346B4A22B8CEEC00D17F95 /* LoanOrderModel.m */,
+			);
+			path = LoanOrder;
+			sourceTree = "<group>";
+		};
 		63A99962DFEAE8A7808C2F3770DF9EDB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3094,6 +3123,9 @@
 		8B64B21405256680498A32700AF4787C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				61346B4422B8CEEC00D17F95 /* LoanOrder */,
+				61346B4B22B8CEEC00D17F95 /* LoanRepaymentAttachmentModel.h */,
+				61346B4C22B8CEED00D17F95 /* LoanRepaymentAttachmentModel.m */,
 				F50A862AC1BC41723C1DC35A7F14581E /* AccountModel.h */,
 				2B91FC6EA50F1F8BF743C26C90F1F0BC /* AccountModel.m */,
 				4FD94843B648CC84903646D3B7262DD0 /* CostAccountingModel.h */,
@@ -4348,6 +4380,7 @@
 				60DFA6ADEFDE04A07DA6326189F84A03 /* AnnounceListHeader.h in Headers */,
 				D896A49901C16ED451A898434F09A377 /* AnnouncementCell.h in Headers */,
 				26845F3CC22CE3BC906E04D2DA03FB5B /* AnnouncementDetail.h in Headers */,
+				61346B4E22B8CEED00D17F95 /* LoanOrderModel.h in Headers */,
 				3DFDE1C4A32924E6967927F4C0289851 /* AnnouncementDetailCell.h in Headers */,
 				0C1070BDDB07B77755201139B2E91E7A /* AnnouncementDetailFooterView.h in Headers */,
 				EE4C4BF6A5E6EA931A1CE6D599A0A6E0 /* AnnouncementDetailHeaderView.h in Headers */,
@@ -4479,6 +4512,7 @@
 				95CE33768367EC1507BBD4AAF8ECA77A /* OrderModel.h in Headers */,
 				1DD79D41252C5C063209E31DB017DA71 /* OrderParamsModel.h in Headers */,
 				8BA68211677372709A711F95CC19F61C /* OrderRangeTableModel.h in Headers */,
+				61346B5322B8CEED00D17F95 /* LoanRepaymentAttachmentModel.h in Headers */,
 				F5585E9F5BC27AF7EE83D6F6278B8F56 /* OrderTemplateModel.h in Headers */,
 				F98EAB0FB3FA6F966AC9530B9363FCC3 /* OrderVarModel.h in Headers */,
 				A514556E47113AB80A68658D2CC8A010 /* PayeeInfoModel.h in Headers */,
@@ -4503,6 +4537,7 @@
 				928297A9AE186C6CB4B331AB6BF8FF97 /* QLifeAES256.h in Headers */,
 				B4D79DE16538D0AE4A37F47DAF543DFD /* QuaComputeLogic.h in Headers */,
 				F9EF486D357E2EFBC7DFA76AB5ECFDFB /* QualityMatchFilter.h in Headers */,
+				61346B4D22B8CEED00D17F95 /* PayeeAccountModel.h in Headers */,
 				4B4743FDAA41741EC1F0143DA55ADFDE /* QualityTemplateModel.h in Headers */,
 				258C276C01EF012039E526B6203F8B8A /* RangeParamModel.h in Headers */,
 				AB7453CC7B8CC12D8E4AECFE371A825E /* Reachability.h in Headers */,
@@ -4527,6 +4562,7 @@
 				6F2E6A4EFE7AF3DAA234F6108D7A2A42 /* SupplementOpinionModel.h in Headers */,
 				B9A5B47D0871801882466E3951C29647 /* SupplierModel.h in Headers */,
 				FA0F1EAA91F19E7A6D50617B7CFAF7FD /* TemplateDataBasicModel.h in Headers */,
+				61346B4F22B8CEED00D17F95 /* ActualLoanModel.h in Headers */,
 				1E1B06843D0731F077644DE8A94D192F /* TemplateRuleModel.h in Headers */,
 				42DC98A3B1FDE4EE34AE8B5DF693948A /* TestBrowserView.h in Headers */,
 				595938C4D240349239FDDEC6EBBB0BB5 /* ThirdRequest.h in Headers */,
@@ -5049,6 +5085,7 @@
 				C0432679F400E9E06CD7F33F799BF5E0 /* BossAccountRequest.m in Sources */,
 				B896E84F21D622CD95FBDEADE594A763 /* BossAssistantMessageModel.m in Sources */,
 				8FAC0BC4B8B2A7A057529C4839450C31 /* BossCache.m in Sources */,
+				61346B5022B8CEED00D17F95 /* PayeeAccountModel.m in Sources */,
 				46B738451632F1BC878F0DDFCB0812D3 /* BossCommonClass-dummy.m in Sources */,
 				B2486B456AA2289221C17B38652C3B78 /* BossKnightAccount.m in Sources */,
 				3E0EB5139013B4161D5994E044F2E612 /* BossKnightAccountModel.m in Sources */,
@@ -5138,6 +5175,7 @@
 				845D79E460D6C26CCBC75CF8BD068592 /* NNBBasicRequest.m in Sources */,
 				6ED41A5FCAE2F0B0003DE1FB898427F1 /* NNBBottomAlertView.m in Sources */,
 				D0FA3BBF6FFB6E718143FE931F9A1E20 /* NNBButton.m in Sources */,
+				61346B5222B8CEED00D17F95 /* LoanOrderModel.m in Sources */,
 				22C066F67FB5EEE077DB9DE244273013 /* NNBLoadingView.m in Sources */,
 				3DB00FA89BDA0EB8A245C0E77B4DD157 /* NNBLoadStatusView.m in Sources */,
 				1A25A958888E2F65750B5C65B662DEE7 /* NNBRequestManager.m in Sources */,
@@ -5165,6 +5203,7 @@
 				063381D7C54D52273C3A317EFA7E57D9 /* PermissionModel.m in Sources */,
 				983E5AE17B8D96B1A6B362EBCAC00ECA /* PersonAddressBookCell.m in Sources */,
 				9188F146321FE828111B3D08E90CCEF8 /* PersonAddressBookVC.m in Sources */,
+				61346B5422B8CEED00D17F95 /* LoanRepaymentAttachmentModel.m in Sources */,
 				C37A57D82AB48179E2E282103AC6F663 /* PlatformModel.m in Sources */,
 				F6468E8D9D7B027D669621DBBAE63109 /* PopTool.m in Sources */,
 				27396E0078B532046A351C6222ECBF8A /* ProgressView.m in Sources */,
@@ -5219,6 +5258,7 @@
 				5D2594A92394AA80CF7CAC758C8EA602 /* UIView+GetVC.m in Sources */,
 				B1E33392F1CFDF0179CBE5ECEFAC49D7 /* UIView+PBExtesion.m in Sources */,
 				D852D6455323BADA48BFD154DE112145 /* UIView+ShowView.m in Sources */,
+				61346B5122B8CEED00D17F95 /* ActualLoanModel.m in Sources */,
 				72807E1E400D2858905B3AB660952F2A /* WaitRecommendVC.m in Sources */,
 				850E5A1EABED3D3634DD7A1541E4BC41 /* WeChatModel.m in Sources */,
 				1BCA98A39AB7A09BF53CF1705D1585CA /* WifiManager.m in Sources */,
