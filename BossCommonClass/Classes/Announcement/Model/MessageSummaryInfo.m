@@ -141,7 +141,12 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 
 	return copy;
 }
-
+-(NSString *)showAt_time{
+    NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];
+    NSDate *normalDate = [NSDate dateFromString:normalTime];
+    NSString *tempDate = [NSDate stringFromDate:normalDate withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [tempDate getTimeStr:@""];
+}
 - (NSString *)showAt {
     
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];

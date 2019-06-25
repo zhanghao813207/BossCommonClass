@@ -9,7 +9,7 @@
 @property (nonatomic, assign) NSInteger messageType;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, assign) NSInteger messagemimekind;
-
+@property (nonatomic, strong) NSString *showAt_time;
 @property (nonatomic, strong) NSString *showAt;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
