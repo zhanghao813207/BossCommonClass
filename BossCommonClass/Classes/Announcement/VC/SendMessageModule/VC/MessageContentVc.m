@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *selectImageView;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *SelectImageViewHeight;
 @property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *CameraButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *AddImageButton;
@@ -66,9 +67,14 @@
         
     }
     [self getNewMessageOfMsgid:nil Sectionid:self.sectionid];
+    
+    _isshowImageView = false;
+    
+    [self.AddImageButton setSelected:false];
 }
 - (void)setIsshowImageView:(BOOL)isshowImageView{
     _isshowImageView = isshowImageView;
+    
     if (isshowImageView) {
         self.selectImageViewY = self.selectImageView.frame.origin.y - self.selectImageView.frame.size.height;
     } else {
@@ -82,11 +88,20 @@
      } completion:^(BOOL finished) {
          
      }];
+    
+    
 }
 // 选择图片
 - (IBAction)SelectImageFunction:(UIButton *)sender {
     
+    if (self.isshowImageView) {
+        [sender setSelected:false];
+    } else {
+        [sender setSelected:true];
+    }
     self.isshowImageView = !self.isshowImageView;
+    
+
 }
 
 - (void)viewDidLoad {
@@ -133,16 +148,11 @@
 }
 /// 动画效果滚动到最末尾
 - (void)scrollViewToBottom:(BOOL)animated{
-//    [self.customTableView setContentOffset:CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)];
     
     double delayInSeconds = 0.1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-//        if ([self.contentArr count] > 1){
-//            // 动画之前先滚动到倒数第二个消息
-//            [self.customTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.self.contentArr count] - 2 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-//        }
         //self.chatTableView.hidden = NO;
         if (self.contentArr.count > 0) {
             NSIndexPath* path = [NSIndexPath indexPathForRow:[self.contentArr count] - 1 inSection:0];

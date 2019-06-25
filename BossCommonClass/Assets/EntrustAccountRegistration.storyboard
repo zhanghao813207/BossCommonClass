@@ -339,7 +339,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pF-QX-K3E">
-                                <rect key="frame" x="0.0" y="195" width="414" height="66"/>
+                                <rect key="frame" x="0.0" y="174" width="414" height="66"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dL1-vH-LGx">
                                         <rect key="frame" x="171" y="0.0" width="72" height="66"/>
@@ -383,7 +383,7 @@
                         <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Fb0-hb-L0N" firstAttribute="top" secondItem="8bZ-ep-Xps" secondAttribute="top" id="6yV-GF-tEE"/>
-                            <constraint firstItem="3pF-QX-K3E" firstAttribute="top" secondItem="Fb0-hb-L0N" secondAttribute="bottom" constant="31" id="HJt-oq-g3y"/>
+                            <constraint firstItem="3pF-QX-K3E" firstAttribute="top" secondItem="Fb0-hb-L0N" secondAttribute="bottom" constant="10" id="HJt-oq-g3y"/>
                             <constraint firstItem="8bZ-ep-Xps" firstAttribute="trailing" secondItem="3pF-QX-K3E" secondAttribute="trailing" id="SnY-W8-ZWW"/>
                             <constraint firstItem="Fb0-hb-L0N" firstAttribute="leading" secondItem="8bZ-ep-Xps" secondAttribute="leading" id="u8f-4e-imp"/>
                             <constraint firstItem="3pF-QX-K3E" firstAttribute="leading" secondItem="8bZ-ep-Xps" secondAttribute="leading" id="uQe-0k-DBq"/>
@@ -415,7 +415,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6CK-SA-VNS">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveMCell" rowHeight="153" id="yGw-Px-Qll" customClass="ReceiveMessageCell">
                                         <rect key="frame" x="0.0" y="28" width="414" height="153"/>
@@ -463,6 +463,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hR6-wB-oBF" secondAttribute="bottom" constant="10" id="10e-Hz-yhL"/>
                                                 <constraint firstItem="q5P-7R-UiR" firstAttribute="leading" secondItem="XxB-YS-l6Q" secondAttribute="trailing" constant="3" id="2lv-hJ-IIh"/>
@@ -526,6 +527,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.97614246609999999" green="0.98433345559999996" blue="0.98837000129999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="c9w-1d-gR2" firstAttribute="top" secondItem="QB8-Fu-t29" secondAttribute="top" id="HVW-Bh-T5X"/>
                                                 <constraint firstItem="QB8-Fu-t29" firstAttribute="leading" secondItem="FXW-wN-Jn9" secondAttribute="leading" constant="16" id="MPB-g0-Sv5"/>
@@ -585,6 +587,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="8u1-uM-Tei" firstAttribute="leading" secondItem="xjN-HM-jFm" secondAttribute="leading" id="0Gd-jf-TqR"/>
                                                 <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xjN-HM-jFm" secondAttribute="leading" constant="65" id="3Lb-2d-E58"/>
@@ -645,6 +648,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="wml-3S-1zv" secondAttribute="trailing" id="CZi-Vi-oFd"/>
                                                 <constraint firstItem="wml-3S-1zv" firstAttribute="leading" secondItem="aOm-46-lmG" secondAttribute="leading" id="Cmc-zY-I4n"/>
@@ -714,7 +718,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncS-iZ-bbV">
                                         <rect key="frame" x="16" y="5" width="343" height="39"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="send"/>
                                         <connections>
                                             <outlet property="delegate" destination="UW5-oj-Jlr" id="g8T-LY-euT"/>
@@ -727,6 +731,7 @@
                                             <constraint firstAttribute="width" secondItem="pUZ-Na-eoc" secondAttribute="height" multiplier="29:30" id="cjU-VZ-SYT"/>
                                         </constraints>
                                         <state key="normal" image="choseImageIcon"/>
+                                        <state key="selected" image="closeImageIcon"/>
                                         <connections>
                                             <action selector="SelectImageFunction:" destination="UW5-oj-Jlr" eventType="touchUpInside" id="mLj-jr-COy"/>
                                         </connections>
@@ -784,6 +789,7 @@
         <image name="AlbumIcon" width="20" height="20"/>
         <image name="cameraIcon" width="20" height="16"/>
         <image name="choseImageIcon" width="28" height="30"/>
+        <image name="closeImageIcon" width="28" height="30"/>
         <image name="correctIcon" width="18" height="18"/>
         <image name="errorIcon" width="14" height="14"/>
         <image name="faceIcon" width="144" height="144"/>
