@@ -17,8 +17,16 @@
     self.messageContentView.layer.cornerRadius = 17;
     self.receiveInfoView.layer.cornerRadius = 20;
     self.receiveInfoView.layer.masksToBounds = true;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.receiveImageView addGestureRecognizer:tapGesture];
+    
 }
-
+- (void)tapAction{
+    if (self.imageclick){
+        self.imageclick();
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

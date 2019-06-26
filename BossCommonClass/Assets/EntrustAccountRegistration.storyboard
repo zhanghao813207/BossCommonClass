@@ -516,7 +516,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9w-1d-gR2">
                                                     <rect key="frame" x="65" y="39.333333333333343" width="215" height="140"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="njm-ih-S6s">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="njm-ih-S6s">
                                                             <rect key="frame" x="0.0" y="0.0" width="215" height="140"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="215" id="PV5-id-kXF"/>
@@ -685,7 +685,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1co-dR-4Oh">
                                                     <rect key="frame" x="134" y="39.333333333333343" width="215" height="140"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-i8-Qau">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-i8-Qau">
                                                             <rect key="frame" x="0.0" y="0.0" width="215" height="140"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="dzw-i8-Qau" secondAttribute="height" multiplier="155:101" id="B7L-KE-6dF"/>

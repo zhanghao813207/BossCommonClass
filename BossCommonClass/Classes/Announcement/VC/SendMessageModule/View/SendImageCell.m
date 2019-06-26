@@ -19,9 +19,14 @@
     self.sendInfoView.layer.cornerRadius = 20;
     self.sendInfoView.layer.masksToBounds = true;
     
-    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.sendImageView addGestureRecognizer:tapGesture];
 }
-
+- (void)tapAction{
+    if (self.imageclick){
+        self.imageclick();
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

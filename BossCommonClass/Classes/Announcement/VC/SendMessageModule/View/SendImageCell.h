@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+typedef void(^imageclick)(void);
 
 @interface SendImageCell : UITableViewCell
 
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *sendInfoNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sendInfoHeaderImageView;
 @property (weak, nonatomic) IBOutlet UIView *sendInfoView;
+
+@property (nonatomic, copy) imageclick imageclick;
 @end
 
 NS_ASSUME_NONNULL_END

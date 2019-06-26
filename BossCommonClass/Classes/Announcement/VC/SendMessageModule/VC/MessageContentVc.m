@@ -398,6 +398,39 @@
             [cell.timeLabel setHidden:true];
         }
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
+        cell.imageclick = ^{
+            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            if (selectmodel.messageMimeKind == 40) {
+                
+                NSMutableArray *imageArr = [NSMutableArray array];
+                NSMutableArray *imageModelArr = [NSMutableArray array];
+                for (RealmRecordModel *model in self.contentArr) {
+                    if (model.messageMimeKind == 40) {
+                        KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                        if (model.mediaInfoList.count > 0) {
+                            mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                            items.url = rmodel.url;
+                            [imageArr addObject:items];
+                        }
+                        [imageModelArr addObject:model];
+                    }
+                }
+                if ([imageModelArr containsObject:selectmodel]) {
+                    NSInteger index = [imageModelArr indexOfObject:selectmodel];
+                    NSLog(@"-1---%ld---",index);
+                    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+                    photoBrower.itemsArr = [imageArr copy];
+                    photoBrower.isNeedPageControl = true;
+                    photoBrower.isNeedPageNumView = true;
+                    photoBrower.isNeedRightTopBtn = true;
+                    photoBrower.isNeedPictureLongPress = true;
+                    photoBrower.isNeedPrefetch = true;
+                    photoBrower.isNeedPictureLongPress = false;
+                    photoBrower.currentIndex = index;
+                    [photoBrower present];
+                }
+            }
+        };
         return cell;
         
     } else if (![model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId] && model.messageMimeKind == 10) {
@@ -429,6 +462,39 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        cell.imageclick = ^{
+            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            if (selectmodel.messageMimeKind == 40) {
+                
+                NSMutableArray *imageArr = [NSMutableArray array];
+                NSMutableArray *imageModelArr = [NSMutableArray array];
+                for (RealmRecordModel *model in self.contentArr) {
+                    if (model.messageMimeKind == 40) {
+                        KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                        if (model.mediaInfoList.count > 0) {
+                            mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                            items.url = rmodel.url;
+                            [imageArr addObject:items];
+                        }
+                        [imageModelArr addObject:model];
+                    }
+                }
+                if ([imageModelArr containsObject:selectmodel]) {
+                    NSInteger index = [imageModelArr indexOfObject:selectmodel];
+                    NSLog(@"-1---%ld---",index);
+                    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+                    photoBrower.itemsArr = [imageArr copy];
+                    photoBrower.isNeedPageControl = true;
+                    photoBrower.isNeedPageNumView = true;
+                    photoBrower.isNeedRightTopBtn = true;
+                    photoBrower.isNeedPictureLongPress = true;
+                    photoBrower.isNeedPrefetch = true;
+                    photoBrower.isNeedPictureLongPress = false;
+                    photoBrower.currentIndex = index;
+                    [photoBrower present];
+                }
+            }
+        };
         cell.receiveInfoNameLabel.text = [self.title substringFromIndex:self.title.length - 1];
         return cell;
         
@@ -437,46 +503,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-    if (selectmodel.messageMimeKind == 40) {
-        
-        NSMutableArray *imageArr = [NSMutableArray array];
-        NSMutableArray *imageModelArr = [NSMutableArray array];
-        for (RealmRecordModel *model in self.contentArr) {
-            if (model.messageMimeKind == 40) {
-                KNPhotoItems *items = [[KNPhotoItems alloc] init];
-                if (model.mediaInfoList.count > 0) {
-                    mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-                    items.url = rmodel.url;
-                    [imageArr addObject:items];
-                }
-                [imageModelArr addObject:model];
-            }
-        }
-        if ([imageModelArr containsObject:selectmodel]) {
-            NSInteger index = [imageModelArr indexOfObject:selectmodel];
-            NSLog(@"-1---%ld---",index);
-            KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
-            photoBrower.itemsArr = [imageArr copy];
-            photoBrower.isNeedPageControl = true;
-            photoBrower.isNeedPageNumView = true;
-            photoBrower.isNeedRightTopBtn = true;
-            photoBrower.isNeedPictureLongPress = true;
-            photoBrower.isNeedPrefetch = true;
-            photoBrower.isNeedPictureLongPress = false;
-            photoBrower.currentIndex = index;
-            [photoBrower present];
-        }
-    }
+    
 }
 // 解决手势冲突
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (touch.view != self.customTableView) {
-        return NO;
-    }else {
-        return YES;
-    }
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    if (touch.view != self.customTableView) {
+//        return NO;
+//    }else {
+//        return YES;
+//    }
+//}
 - (void)addmedia:(NSString *)key{
     
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {

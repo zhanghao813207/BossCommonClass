@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+typedef void(^imageclick)(void);
 
 @interface ReceiveImageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *receiveImageView;
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *receiveInfoView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *messageContentView;
+
+@property (nonatomic, copy) imageclick imageclick;
 //@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @end
 
