@@ -78,11 +78,26 @@
  */
 @property (nonatomic, strong) NSString *workingPlan;
 
-@property (nonatomic, strong) NSObject *actualStartAt;
-
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;
+
+#pragma mark - 差旅报销 - 相关属性
+
+/**
+ 出差实际开始时间
+ */
+@property (nonatomic, strong) NSString *actualStartAt;
+
+/**
+ 出差实际结束时间
+ */
+@property (nonatomic, strong) NSString *actualDoneAt;
+
+/**
+ 实际出差时间
+ */
+@property (nonatomic, assign) NSInteger actualApplyDays;
 
 #pragma mark - Additional attribute
 
@@ -99,5 +114,9 @@
 @property (nonatomic, strong, readonly) NSString *noteStr;
 
 @property (nonatomic, strong, readonly) NSString *workingPlanStr;
+
+@property (nonatomic, strong, readonly) NSString *actualStartAtStr;
+
+@property (nonatomic, strong, readonly) NSString *actualDoneAtStr;
 
 @end

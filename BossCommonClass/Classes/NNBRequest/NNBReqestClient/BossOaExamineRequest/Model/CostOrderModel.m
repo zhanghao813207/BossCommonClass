@@ -73,6 +73,18 @@
         self.submit_at_int = [date stringWithFormat:@"yyyyMM"];
         return;
     }
+    
+    if ([key isEqualToString:@"biz_extra_travel_apply_order_info"]) {
+        BusinessTravelOrderModel *model = [[BusinessTravelOrderModel alloc] init];
+        self.biz_extra_travel_apply_order_info = [model initWithDictionary:value];
+        return;
+    }
+    
+    if ([key isEqualToString:@"biz_extra_data"]) {
+        BizExtraData *model = [[BizExtraData alloc] init];
+        self.biz_extra_data = [model initWithDictionary:value];
+        return;
+    }
 
     [super setValue:value forKey:key];
 }

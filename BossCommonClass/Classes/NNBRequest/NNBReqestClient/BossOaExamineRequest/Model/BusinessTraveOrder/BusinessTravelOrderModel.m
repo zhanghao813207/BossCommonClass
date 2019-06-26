@@ -9,7 +9,6 @@
 #import "NSDate+Helper.h"
 
 NSString *const kBusinessTravelOrderModelIdField = @"_id";
-NSString *const kBusinessTravelOrderModelActualStartAt = @"actual_start_at";
 NSString *const kBusinessTravelOrderModelApplyUserName = @"apply_user_name";
 NSString *const kBusinessTravelOrderModelApplyUserPhone = @"apply_user_phone";
 NSString *const kBusinessTravelOrderModelBizState = @"biz_state";
@@ -23,6 +22,9 @@ NSString *const kBusinessTravelOrderModelNote = @"note";
 NSString *const kBusinessTravelOrderModelTogetherUserNames = @"together_user_names";
 NSString *const kBusinessTravelOrderModelTransportKind = @"transport_kind";
 NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
+NSString *const kBusinessTravelOrderModelActualApplyDays = @"actual_apply_days";
+NSString *const kBusinessTravelOrderModelActualDoneAt = @"actual_done_at";
+NSString *const kBusinessTravelOrderModelActualStartAt = @"actual_start_at";
 
 @interface BusinessTravelOrderModel ()
 @end
@@ -37,10 +39,7 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	self = [super init];
 	if(![dictionary[kBusinessTravelOrderModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kBusinessTravelOrderModelIdField];
-	}	
-	if(![dictionary[kBusinessTravelOrderModelActualStartAt] isKindOfClass:[NSNull class]]){
-		self.actualStartAt = dictionary[kBusinessTravelOrderModelActualStartAt];
-	}	
+	}
 	if(![dictionary[kBusinessTravelOrderModelApplyUserName] isKindOfClass:[NSNull class]]){
 		self.applyUserName = dictionary[kBusinessTravelOrderModelApplyUserName];
 	}	
@@ -84,7 +83,16 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	}	
 	if(![dictionary[kBusinessTravelOrderModelWorkingPlan] isKindOfClass:[NSNull class]]){
 		self.workingPlan = dictionary[kBusinessTravelOrderModelWorkingPlan];
-	}	
+	}
+    if(![dictionary[kBusinessTravelOrderModelActualStartAt] isKindOfClass:[NSNull class]]){
+        self.actualStartAt = dictionary[kBusinessTravelOrderModelActualStartAt];
+    }
+    if(![dictionary[kBusinessTravelOrderModelActualDoneAt] isKindOfClass:[NSNull class]]){
+        self.actualDoneAt = dictionary[kBusinessTravelOrderModelActualDoneAt];
+    }
+    if(![dictionary[kBusinessTravelOrderModelActualApplyDays] isKindOfClass:[NSNull class]]){
+        self.actualApplyDays = [dictionary[kBusinessTravelOrderModelActualApplyDays] integerValue];
+    }
 	return self;
 }
 
@@ -97,9 +105,6 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
 	if(self.idField != nil){
 		dictionary[kBusinessTravelOrderModelIdField] = self.idField;
-	}
-	if(self.actualStartAt != nil){
-		dictionary[kBusinessTravelOrderModelActualStartAt] = self.actualStartAt;
 	}
 	if(self.applyUserName != nil){
 		dictionary[kBusinessTravelOrderModelApplyUserName] = self.applyUserName;
@@ -134,6 +139,13 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	if(self.workingPlan != nil){
 		dictionary[kBusinessTravelOrderModelWorkingPlan] = self.workingPlan;
 	}
+    if(self.actualStartAt != nil){
+        dictionary[kBusinessTravelOrderModelActualStartAt] = self.actualStartAt;
+    }
+    if(self.actualDoneAt != nil){
+        dictionary[kBusinessTravelOrderModelActualDoneAt] = self.actualDoneAt;
+    }
+    dictionary[kBusinessTravelOrderModelActualApplyDays] = @(self.actualApplyDays);
 	return dictionary;
 
 }
@@ -149,22 +161,22 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	if(self.idField != nil){
 		[aCoder encodeObject:self.idField forKey:kBusinessTravelOrderModelIdField];
 	}
-	if(self.actualStartAt != nil){
-		[aCoder encodeObject:self.actualStartAt forKey:kBusinessTravelOrderModelActualStartAt];
-	}
 	if(self.applyUserName != nil){
 		[aCoder encodeObject:self.applyUserName forKey:kBusinessTravelOrderModelApplyUserName];
 	}
 	if(self.applyUserPhone != nil){
 		[aCoder encodeObject:self.applyUserPhone forKey:kBusinessTravelOrderModelApplyUserPhone];
 	}
-	[aCoder encodeObject:@(self.bizState) forKey:kBusinessTravelOrderModelBizState];	[aCoder encodeObject:@(self.bizType) forKey:kBusinessTravelOrderModelBizType];	if(self.departure != nil){
+	[aCoder encodeObject:@(self.bizState) forKey:kBusinessTravelOrderModelBizState];
+    [aCoder encodeObject:@(self.bizType) forKey:kBusinessTravelOrderModelBizType];
+    if(self.departure != nil){
 		[aCoder encodeObject:self.departure forKey:kBusinessTravelOrderModelDeparture];
 	}
 	if(self.destination != nil){
 		[aCoder encodeObject:self.destination forKey:kBusinessTravelOrderModelDestination];
 	}
-	[aCoder encodeObject:@(self.expectApplyDays) forKey:kBusinessTravelOrderModelExpectApplyDays];	if(self.expectDoneAt != nil){
+	[aCoder encodeObject:@(self.expectApplyDays) forKey:kBusinessTravelOrderModelExpectApplyDays];
+    if(self.expectDoneAt != nil){
 		[aCoder encodeObject:self.expectDoneAt forKey:kBusinessTravelOrderModelExpectDoneAt];
 	}
 	if(self.expectStartAt != nil){
@@ -182,7 +194,13 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	if(self.workingPlan != nil){
 		[aCoder encodeObject:self.workingPlan forKey:kBusinessTravelOrderModelWorkingPlan];
 	}
-
+    if(self.actualStartAt != nil){
+        [aCoder encodeObject:self.actualStartAt forKey:kBusinessTravelOrderModelActualStartAt];
+    }
+    if(self.actualDoneAt != nil){
+        [aCoder encodeObject:self.actualDoneAt forKey:kBusinessTravelOrderModelActualDoneAt];
+    }
+    [aCoder encodeObject:@(self.actualApplyDays) forKey:kBusinessTravelOrderModelActualApplyDays];
 }
 
 /**
@@ -192,7 +210,6 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 {
 	self = [super init];
 	self.idField = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelIdField];
-	self.actualStartAt = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelActualStartAt];
 	self.applyUserName = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelApplyUserName];
 	self.applyUserPhone = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelApplyUserPhone];
 	self.bizState = [[aDecoder decodeObjectForKey:kBusinessTravelOrderModelBizState] integerValue];
@@ -206,6 +223,9 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	self.togetherUserNames = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelTogetherUserNames];
 	self.transportKind = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelTransportKind];
 	self.workingPlan = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelWorkingPlan];
+    self.actualStartAt = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelActualStartAt];
+    self.actualDoneAt = [aDecoder decodeObjectForKey:kBusinessTravelOrderModelActualDoneAt];
+    self.actualApplyDays = [[aDecoder decodeObjectForKey:kBusinessTravelOrderModelActualApplyDays] integerValue];
 	return self;
 
 }
@@ -218,7 +238,6 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	BusinessTravelOrderModel *copy = [BusinessTravelOrderModel new];
 
 	copy.idField = [self.idField copy];
-	copy.actualStartAt = [self.actualStartAt copy];
 	copy.applyUserName = [self.applyUserName copy];
 	copy.applyUserPhone = [self.applyUserPhone copy];
 	copy.bizState = self.bizState;
@@ -232,6 +251,9 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
 	copy.togetherUserNames = [self.togetherUserNames copy];
 	copy.transportKind = [self.transportKind copy];
 	copy.workingPlan = [self.workingPlan copy];
+    copy.actualStartAt = [self.actualStartAt copy];
+    copy.actualDoneAt = [self.actualDoneAt copy];
+    copy.actualApplyDays = self.actualApplyDays;
 
 	return copy;
 }
@@ -306,6 +328,14 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
     return self.workingPlan;
 }
 
+- (NSString *)actualStartAtStr {
+    return [self getTimeStrToMinute:[JYCSimpleToolClass fastChangeToNormalTimeWithString:self.actualStartAt]];
+}
+
+- (NSString *)actualDoneAtStr {
+    return [self getTimeStrToMinute:[JYCSimpleToolClass fastChangeToNormalTimeWithString:self.actualDoneAt]];
+}
+
 #pragma mark - private
 
 - (NSString *) getTimeStrToMinute:(NSString *)timeStr {
@@ -314,7 +344,7 @@ NSString *const kBusinessTravelOrderModelWorkingPlan = @"working_plan";
     }
     NSDate *date = [NSDate dateFromString:timeStr withFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    return [date stringWithFormat:@"yyyy:MM:dd HH:mm"];
+    return [date stringWithFormat:@"yyyy.MM.dd HH:mm"];
 }
 
 - (NSString *) getTravelApplyMethodStr:(TravelApplyMethod)travelApplyMethod {
