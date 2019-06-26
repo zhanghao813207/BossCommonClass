@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *teamName;
 @property (nonatomic, strong)NSString *targetid;
+@property (weak, nonatomic) IBOutlet UILabel *headerNameLabel;
+@property (weak, nonatomic) IBOutlet UIView *headerLabelView;
 
 @end
 

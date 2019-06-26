@@ -26,6 +26,9 @@
     [super viewDidLoad];
     self.nameLabel.text = self.name;
     self.teamLabel.text = self.teamName;
+    
+    self.headerNameLabel.text = [self.name substringFromIndex:self.name.length - 1];
+    self.headerLabelView.layer.cornerRadius = 67 / 2;
 }
 - (IBAction)beginSendMessage:(UITapGestureRecognizer *)sender {
     if (self.targetid){

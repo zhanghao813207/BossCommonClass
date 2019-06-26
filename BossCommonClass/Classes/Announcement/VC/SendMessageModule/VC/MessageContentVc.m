@@ -550,10 +550,13 @@
                Block(true);
             }
         }
+        // 通讯录
     } fail:^(id error) {
+        [self.view endEditing:true];
         if (Block) {
             Block(false);
         }
+//        [self.view showAnimationErrorStaus:@"发送失败" completion:nil];
     }];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
