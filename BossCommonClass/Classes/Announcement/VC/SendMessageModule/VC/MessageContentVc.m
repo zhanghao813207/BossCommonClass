@@ -388,7 +388,7 @@
         NSLog(@"%@", model.mediaInfoList);
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-             [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
+            [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
         }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
@@ -453,7 +453,8 @@
         ReceiveImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReceiveICell" forIndexPath:indexPath];
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-            [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
+            [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
+//            [cell. sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
