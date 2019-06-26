@@ -14,6 +14,10 @@
     [super awakeFromNib];
     // Initialization code
     self.messageContentView.layer.cornerRadius = 17;
+//    self.headerImageView.layer.cornerRadius = 20;
+    self.sendInfoView.layer.cornerRadius = 20;
+    self.sendInfoView.layer.masksToBounds = true;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

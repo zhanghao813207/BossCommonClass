@@ -42,10 +42,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *AddImageButton;
 
 @property (nonatomic, strong) NSArray *contentArr;
+// 底部
+@property (weak, nonatomic) IBOutlet UIView *bottomLineView;
 
 @property (nonatomic, assign) BOOL isshowImageView;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldContent;
+@property (weak, nonatomic) IBOutlet UIView *textFIeldView;
 @property (nonatomic, assign) CGFloat selectImageViewY;
 @end
 
@@ -56,6 +60,10 @@
     
     // 注册键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShowNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidHideNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     // 注册一对一消息通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessageList:) name:@"receiveMessage" object:nil];
@@ -78,9 +86,9 @@
     _isshowImageView = isshowImageView;
     
     if (isshowImageView) {
-        self.selectImageViewY = self.selectImageView.frame.origin.y - self.selectImageView.frame.size.height;
+        self.selectImageViewY = self.textFIeldView.frame.origin.y - self.selectImageView.frame.size.height;
     } else {
-        self.selectImageViewY = self.selectImageView.frame.origin.y + self.selectImageView.frame.size.height;
+        self.selectImageViewY = self.textFIeldView.frame.origin.y + self.selectImageView.frame.size.height;
     }
     
     [UIView animateWithDuration:.5f animations:
@@ -243,14 +251,27 @@
     return result;
 }
 // 键盘通知
+//-(void)keyboardDidShowNotification:(NSNotification *)note{
+//    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y - 34);
+//}
+-(void)keyboardDidHideNotification:(NSNotification *)note{
+    
+//    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+//    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
+}
 -(void)keyboardWillChangeFrameNotification:(NSNotification *)note{
     //获取键盘的饿frame
-    CGRect frmae = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //让TextFiled的底部约束间距为屏幕高度减去键盘顶部的y值即可
     //注意 这里不要使其等于键盘的高度，因为高度时死的，会导致键盘下去后，TextField并未下去的结果。
-    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frmae.origin.y);
-    
+    if (self.viewForBottom.constant <= -([UIScreen mainScreen].bounds.size.height - frame.origin.y - self.bottomLineView.frame.size.height)) {
+        self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
+    } else {
+        self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y - self.bottomLineView.frame.size.height);
+    }
     //获取键盘的动画时间，使TextField与键盘的形态一致
     CGFloat interval = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //设置Text的动画
@@ -261,7 +282,8 @@
         [self.view layoutIfNeeded];
         
     }];
-    
+    self.isshowImageView = false;
+    [self.AddImageButton setSelected:false];
     [self scrollViewToBottom:true];
     
 }
@@ -286,12 +308,12 @@
     }];
     [sender removeImageFromPhotoOrCamera];
 }
+// 上传图片
 - (void)getQiniuTockenforImage:(UIImage *)Image {
     WS(weakSelf);
     [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
         NSLog(@"%@, %@", path, qiniu_token);
         if (qiniu_token) {
-            [weakSelf.view showLoadingView:@"上传中"];
             UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:1];
             NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
             [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
@@ -300,12 +322,9 @@
                 DLog(@"%@", info);
                 DLog(@"%@", key);
                 DLog(@"%@",resp);
-                [weakSelf.view dismissLoadingViewWithCompletion:nil];
-                
-                [self addmedia:key];
+                [weakSelf addmedia:key];
 
             } fail:^(id error) {
-                [weakSelf.view dismissLoadingViewWithCompletion:nil];
             }];
         } else {
             // 提示网络故障
@@ -339,7 +358,7 @@
     if (indexPath.row == 0) {
         model.isShowTime = YES;
     }
-    
+    // 聊天图片处理
     if (self.contentArr.count > indexPath.row + 1) {
         RealmRecordModel *Nextmodel = self.contentArr[indexPath.row + 1];
         NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
@@ -360,7 +379,7 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
-        
+        cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         return cell;
         
     } else if (model.messageMimeKind == 40 && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]){
@@ -378,6 +397,7 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         return cell;
         
     } else if (![model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId] && model.messageMimeKind == 10) {
@@ -391,6 +411,8 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        cell.receiveInfoNameLabel.text = [self.title substringFromIndex:self.title.length - 1];
+        
         return cell;
         
     } else {
@@ -407,48 +429,54 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        cell.receiveInfoNameLabel.text = [self.title substringFromIndex:self.title.length - 1];
         return cell;
         
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSMutableArray *imageArr = [NSMutableArray array];
-   
-    for (RealmRecordModel *model in self.contentArr) {
-        if (model.messageMimeKind == 40) {
-            KNPhotoItems *items = [[KNPhotoItems alloc] init];
-            if (model.mediaInfoList.count > 0) {
-                mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-                items.url = rmodel.url;
-                [imageArr addObject:items];
+    
+    RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+    if (selectmodel.messageMimeKind == 40) {
+        
+        NSMutableArray *imageArr = [NSMutableArray array];
+        NSMutableArray *imageModelArr = [NSMutableArray array];
+        for (RealmRecordModel *model in self.contentArr) {
+            if (model.messageMimeKind == 40) {
+                KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                if (model.mediaInfoList.count > 0) {
+                    mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                    items.url = rmodel.url;
+                    [imageArr addObject:items];
+                }
+                [imageModelArr addObject:model];
             }
         }
+        if ([imageModelArr containsObject:selectmodel]) {
+            NSInteger index = [imageModelArr indexOfObject:selectmodel];
+            NSLog(@"-1---%ld---",index);
+            KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+            photoBrower.itemsArr = [imageArr copy];
+            photoBrower.isNeedPageControl = true;
+            photoBrower.isNeedPageNumView = true;
+            photoBrower.isNeedRightTopBtn = true;
+            photoBrower.isNeedPictureLongPress = true;
+            photoBrower.isNeedPrefetch = true;
+            photoBrower.isNeedPictureLongPress = false;
+            photoBrower.currentIndex = index;
+            [photoBrower present];
+        }
     }
-    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
-    photoBrower.itemsArr = [imageArr copy];
-    photoBrower.isNeedPageControl = true;
-    photoBrower.isNeedPageNumView = true;
-    photoBrower.isNeedRightTopBtn = true;
-    photoBrower.isNeedPictureLongPress = true;
-    photoBrower.isNeedPrefetch = true;
-    photoBrower.isNeedPictureLongPress = false;
-    [photoBrower present];
-    
-    
 }
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-//{
-//    // 输出点击的view的类名
-//    NSLog(@"%@", NSStringFromClass([ class]));
-//    
-//    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-//    if (touch.view) isEqualToString:@"UITableViewCellContentView"]) {
-//        return NO;
-//    }
-//    return  YES;
-//}
-
+// 解决手势冲突
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (touch.view != self.customTableView) {
+        return NO;
+    }else {
+        return YES;
+    }
+}
 - (void)addmedia:(NSString *)key{
     
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {

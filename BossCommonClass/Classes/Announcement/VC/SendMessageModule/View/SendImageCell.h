@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *sendImageView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *sendInfoNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *sendInfoHeaderImageView;
+@property (weak, nonatomic) IBOutlet UIView *sendInfoView;
 @end
 
 NS_ASSUME_NONNULL_END
