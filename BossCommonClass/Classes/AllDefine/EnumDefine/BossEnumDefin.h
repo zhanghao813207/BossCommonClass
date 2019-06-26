@@ -252,6 +252,32 @@ typedef NS_ENUM(NSUInteger, RepaymentCycle) {
     RepaymentCycleInstalment = 10, // 分期还
 };
 
+#pragma mark -出差申请单相关常量
+
+/**
+ 出差类别
+ */
+typedef NS_ENUM(NSUInteger, TravelApplyType) {
+    TravelApplyTypeOneway     = 10,  // 单程
+    TravelApplyTypeRoundtrip  = 20  // 往返
+};
+
+/**
+ 出差方式
+ */
+typedef NS_ENUM(NSUInteger, TravelApplyMethod) {
+    TravelApplyMethodTrain                = 101,  // 火车-普通列车
+    TravelApplyMethodMotorTrainFirst      = 201,  // 火车-动车-一等座
+    TravelApplyMethodMotorTrainSecond     = 202,  // 火车-动车-二等座
+    TravelApplyMethodHignSpeedRailFirst   = 203,  // 火车-高铁-一等座
+    TravelApplyMethodHignSpeedRailSecond  = 204,  // 火车-高铁-二等座
+    TravelApplyMethodAircraftFirst        = 301,  // 飞机-头等舱
+    TravelApplyMethodAircraftEconomy      = 302,  // 飞机-经济舱
+    TravelApplyMethodBus                  = 401,  // 客车
+    TravelApplyMethodSelfDriving          = 501   // 自驾
+};
+
+
 typedef NS_ENUM(NSUInteger, BOSS_MODULE_TYPE) {
     BOSS_MODULE_TYPE_OA  = 1, // 费用模块
 };

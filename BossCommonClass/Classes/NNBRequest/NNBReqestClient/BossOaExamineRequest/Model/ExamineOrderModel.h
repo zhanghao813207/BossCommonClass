@@ -17,6 +17,7 @@
 #import "LoanRepaymentAttachmentModel.h"
 #import "LoanOrderModel.h"
 #import "RepaymentOrderModel.h"
+#import "BusinessTravelOrderModel.h"
 
 @interface ExamineOrderModel : NSObject
 
@@ -232,7 +233,24 @@
  */
 @property (nonatomic, strong) NSArray <LoanRepaymentAttachmentModel *> *loan_or_repayment_file_list;
 
+#pragma mark - 出差申请 - 相关属性
+
+/**
+ 出差申请单ID
+ */
+@property (nonatomic, strong) NSString *business_travel_order_id;
+
+/**
+ 出差申请单
+ */
+@property (nonatomic, strong) BusinessTravelOrderModel *business_travel_order_info;
+
 #pragma mark - additional attribute
+
+/**
+ 申请单总金额字符串
+ */
+@property (nonatomic, strong, readonly) NSString *totalMoneyStr;
 
 /**
  审批类型字符串
