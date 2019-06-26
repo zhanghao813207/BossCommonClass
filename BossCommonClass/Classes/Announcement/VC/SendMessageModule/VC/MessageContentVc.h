@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BossViewController.h"
 NS_ASSUME_NONNULL_BEGIN
-
-@interface MessageContentVc : BossViewController
+// BossViewController
+@interface MessageContentVc : UIViewController
 @property (nonatomic, strong)NSString *sectionid;
 @property (nonatomic, strong)NSString *targetid;
 

@@ -27,6 +27,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "mediainfoListModel.h"
 #import "JYCSimpleToolClass.h"
+#import "KNPhotoBrowser.h"
 
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
@@ -44,6 +45,7 @@
 
 @property (nonatomic, assign) BOOL isshowImageView;
 
+@property (weak, nonatomic) IBOutlet UITextField *textFieldContent;
 @property (nonatomic, assign) CGFloat selectImageViewY;
 @end
 
@@ -116,6 +118,8 @@
     if (self.isshowImageView) {
         self.isshowImageView = false;
     }
+    self.textFieldContent.enablesReturnKeyAutomatically = YES;
+    self.textFieldContent.layer.cornerRadius = 7;
     
 }
 // 接收消息通知
@@ -319,6 +323,7 @@
     self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
     return self.contentArr.count;
 }
+
 - (NSTimeInterval)pleaseInsertStarTime:(NSString *)starTime andInsertEndTime:(NSString *)endTime{
     NSDateFormatter* formater = [[NSDateFormatter alloc] init];
     [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//根据自己的需求定义格式
@@ -406,6 +411,44 @@
         
     }
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSMutableArray *imageArr = [NSMutableArray array];
+   
+    for (RealmRecordModel *model in self.contentArr) {
+        if (model.messageMimeKind == 40) {
+            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+            if (model.mediaInfoList.count > 0) {
+                mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                items.url = rmodel.url;
+                [imageArr addObject:items];
+            }
+        }
+    }
+    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+    photoBrower.itemsArr = [imageArr copy];
+    photoBrower.isNeedPageControl = true;
+    photoBrower.isNeedPageNumView = true;
+    photoBrower.isNeedRightTopBtn = true;
+    photoBrower.isNeedPictureLongPress = true;
+    photoBrower.isNeedPrefetch = true;
+    photoBrower.isNeedPictureLongPress = false;
+    [photoBrower present];
+    
+    
+}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    // 输出点击的view的类名
+//    NSLog(@"%@", NSStringFromClass([ class]));
+//    
+//    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if (touch.view) isEqualToString:@"UITableViewCellContentView"]) {
+//        return NO;
+//    }
+//    return  YES;
+//}
+
 - (void)addmedia:(NSString *)key{
     
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
