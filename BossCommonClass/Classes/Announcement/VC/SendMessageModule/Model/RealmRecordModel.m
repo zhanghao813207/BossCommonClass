@@ -17,9 +17,9 @@
 @implementation RealmRecordModel
 
 
-+ (NSString *)primaryKey {
-    return @"idField";
-}
+//+ (NSString *)primaryKey {
+//    return @"idField";
+//}
 
 -(NSString *)showAt_time{
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];

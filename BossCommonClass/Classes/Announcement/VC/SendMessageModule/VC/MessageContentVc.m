@@ -28,8 +28,9 @@
 #import "mediainfoListModel.h"
 #import "JYCSimpleToolClass.h"
 #import "KNPhotoBrowser.h"
+#import "JYCPickImage.h"
 
-@interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource>
+@interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewForBottom;
 
@@ -129,6 +130,8 @@
     self.textFieldContent.enablesReturnKeyAutomatically = YES;
     self.textFieldContent.layer.cornerRadius = 7;
     
+    self.textFieldContent.delegate = self;
+    
 }
 // 接收消息通知
 - (void)receiveMessageList:(NSNotification *)noti{
@@ -138,7 +141,7 @@
     NSString * sectionid = payload[@"session_id"];
     
     [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
-//    [self getContentDetaileMsgid:msgid Sectionid:sectionid];
+//
 }
 - (void)viewWillDisappear:(BOOL)animated {
     // 注销消息通知
@@ -297,16 +300,62 @@
     
     // 0是相机 1是相册
     if (sender.tag == 0) {
-        [sender fromCamera];
-        
+        [self fromCamera];
     } else {
-        [sender fromPhotos];
+        [self fromPhotos];
     }
-    [sender pickImageFromPhotoOrCameraWithImageBlock:^(UIImage *imageResult) {
-        NSLog(@"%@", imageResult);
-        [self getQiniuTockenforImage:imageResult];
-    }];
-    [sender removeImageFromPhotoOrCamera];
+//    [self.view pickImageFromPhotoOrCameraWithImageBlock:^(UIImage *imageResult) {
+//        NSLog(@"%@", imageResult);
+//        [self getQiniuTockenforImage:imageResult];
+//    }];
+//    [self.view removeImageFromPhotoOrCamera];
+}
+-(void)fromCamera
+{
+    //这里先判断是否有相机，如果没有弹窗警告
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        imagePicker.allowsEditing = true;
+        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+        
+    }else{
+        NSLog(@"设备不可用");
+    }
+}
+-(void)fromPhotos
+{
+    //初始化UIImagePickerController 指定代理
+    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+    //选择类型相机，相册还是什么
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    /*enum {
+     UIImagePickerControllerSourceTypePhotoLibrary,
+     UIImagePickerControllerSourceTypeCamera,
+     UIImagePickerControllerSourceTypeSavedPhotosAlbum
+     };
+     typedef NSUInteger UIImagePickerControllerSourceType;
+     */
+    //指定代理 因此我们要实现 UIImagePickerControllerDelegate,UINavigationControllerDelegate 协议
+    imagePicker.delegate = self;
+    //允许编辑
+    imagePicker.allowsEditing = true;
+    //显示相册
+    [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image  = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
+    [self getQiniuTockenforImage:image];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 // 上传图片
 - (void)getQiniuTockenforImage:(UIImage *)Image {
@@ -314,7 +363,7 @@
     [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
         NSLog(@"%@, %@", path, qiniu_token);
         if (qiniu_token) {
-            UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:1];
+            UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:0.5];
             NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
             [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
                 DLog(@"key = %@,percent = %f", key, percent);
@@ -560,8 +609,20 @@
 //        [self.view showAnimationErrorStaus:@"发送失败" completion:nil];
     }];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string   // return NO to not change text
+{
+    _isshowImageView = false;
+    [self.AddImageButton setSelected:false];
+    return YES;
+    
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     textField.enablesReturnKeyAutomatically = true;
+    _isshowImageView = false;
+    [self.AddImageButton setSelected:false];
     if (textField.text && ![textField.text isEqualToString:@""]) {
         [self SendMessage:textField.text imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
             // 刷新列表

@@ -826,7 +826,7 @@
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncS-iZ-bbV">
-                                        <rect key="frame" x="16" y="5" width="343" height="39"/>
+                                        <rect key="frame" x="16" y="5" width="353" height="39"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -836,9 +836,9 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUZ-Na-eoc">
-                                        <rect key="frame" x="372" y="9.6666666666666288" width="29" height="30"/>
+                                        <rect key="frame" x="369" y="1.3333333333333712" width="45" height="46.333333333333336"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="29" id="Yhr-yh-A64"/>
+                                            <constraint firstAttribute="width" constant="45" id="Yhr-yh-A64"/>
                                             <constraint firstAttribute="width" secondItem="pUZ-Na-eoc" secondAttribute="height" multiplier="29:30" id="cjU-VZ-SYT"/>
                                         </constraints>
                                         <state key="normal" image="choseImageIcon"/>
@@ -851,9 +851,9 @@
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.94901960784313721" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="ncS-iZ-bbV" firstAttribute="centerY" secondItem="GdV-jW-s8d" secondAttribute="centerY" id="A2G-w0-ttR"/>
-                                    <constraint firstItem="pUZ-Na-eoc" firstAttribute="leading" secondItem="ncS-iZ-bbV" secondAttribute="trailing" constant="13" id="Xym-rI-AuK"/>
+                                    <constraint firstItem="pUZ-Na-eoc" firstAttribute="leading" secondItem="ncS-iZ-bbV" secondAttribute="trailing" id="Xym-rI-AuK"/>
                                     <constraint firstItem="ncS-iZ-bbV" firstAttribute="top" secondItem="GdV-jW-s8d" secondAttribute="top" constant="5" id="gyP-E6-Dss"/>
-                                    <constraint firstAttribute="trailing" secondItem="pUZ-Na-eoc" secondAttribute="trailing" constant="13" id="hqv-c3-DxX"/>
+                                    <constraint firstAttribute="trailing" secondItem="pUZ-Na-eoc" secondAttribute="trailing" id="hqv-c3-DxX"/>
                                     <constraint firstItem="ncS-iZ-bbV" firstAttribute="leading" secondItem="GdV-jW-s8d" secondAttribute="leading" constant="16" id="iWb-em-Wy5"/>
                                     <constraint firstAttribute="height" constant="49" id="mGd-CS-fLO"/>
                                     <constraint firstItem="pUZ-Na-eoc" firstAttribute="centerY" secondItem="GdV-jW-s8d" secondAttribute="centerY" id="w58-DP-wOK"/>

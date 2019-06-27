@@ -23,10 +23,17 @@ static RealmModule * sharedSingleton = nil;
 }
 - (void)saveMessagetoRealm:(RealmRecordModel *)messageModel Sectionid:(NSString *)sectionid{
     
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND idField = %@",
+                         kCurrentBossOwnerAccount.accountModel.accountId,messageModel.idField];
+    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
+    
     RLMRealm *realm = [RLMRealm defaultRealm];
     
+    if (puppies.count > 0) {
+        return;
+    }
     [realm transactionWithBlock:^{
-        [realm addOrUpdateObject:messageModel];
+        [realm addObject:messageModel];
     }];
     
     NSDictionary *dic = @{@"event_name":@"msg_ack",@"payload":@{@"account_id":[BossCache defaultCache].umsAccessTokenModel.accountId, @"message_ids": @[messageModel.idField]}};
