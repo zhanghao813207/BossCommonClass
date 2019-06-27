@@ -344,7 +344,7 @@ NSString *const kBusinessTravelOrderModelActualStartAt = @"actual_start_at";
     }
     NSDate *date = [NSDate dateFromString:timeStr withFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    return [date stringWithFormat:@"yyyy.MM.dd HH:mm"];
+    return [NSString stringWithFormat:@"%@:00",[date stringWithFormat:@"yyyy.MM.dd HH"]];
 }
 
 - (NSString *) getTravelApplyMethodStr:(TravelApplyMethod)travelApplyMethod {
