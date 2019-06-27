@@ -17,7 +17,7 @@
 #import "NNBRequestManager.h"
 #import "AgreementVc.h"
 
-@interface LoginVC ()<InputCodeViewDelegate>
+@interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
  登陆页背景View
@@ -79,7 +79,7 @@
         [self showInputMerchantCodeView:@""];
     }
     
-    
+  
 }
 
 
@@ -88,9 +88,16 @@
     [super viewWillAppear:animated];
     
 #ifdef kBossKnight
-    //登录页面弹出方式不一样，需要隐藏导航栏
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+ 
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
+    
+    //添加手势方法防止直接跳转回来的VC 可以滑动到主VC引起问题
+    id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
+    [self.view addGestureRecognizer:pan];
+    
 #elif defined kBossManager
     
 #else
@@ -98,6 +105,47 @@
 #endif
     
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+#ifdef kBossKnight
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+#elif defined kBossManager
+    
+#else
+    
+#endif
+    
+   
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+#ifdef kBossKnight
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+#elif defined kBossManager
+    
+#else
+    
+#endif
+    
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
+}
+
 
 - (void)showInputMerchantCodeView:(NSString *)merchantCode
 {
