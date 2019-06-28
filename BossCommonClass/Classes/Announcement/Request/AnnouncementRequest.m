@@ -244,7 +244,7 @@
  @storage_type
  */
 + (void)uploadDomain_type:(Domain_type)dtype Storage_type:(Storage_type)stype file_type:(NSString *)fileType file_key:(NSString *)key Success:(void(^)(id response))successBlock fail:(void(^)(NSString *message))failBlock {
-    NSDictionary *dic = @{@"domain_type": @(Domain_typeNotice),@"file_key":key,@"storage_type":@(Storage_typeQIniu),@"file_type":fileType};
+    NSDictionary *dic = @{@"domain_type": @(dtype),@"file_key":key,@"storage_type":@(stype),@"file_type":fileType};
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.media.add" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         successBlock(responseObject);

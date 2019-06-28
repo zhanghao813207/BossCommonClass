@@ -10,10 +10,11 @@
 #import "PersonAddressBookCell.h"
 #import "BossMethodDefine.h"
 #import "Masonry.h"
+#import "BossBasicDefine.h"
 
 @interface PersonAddressBookCell ()
 @property(nonatomic, strong)UIButton *selectButton;
-@property(nonatomic, strong)UIImageView *imgView;
+@property(nonatomic, strong)UILabel *imgView;
 @property(nonatomic, strong)UILabel *nameLabel;
 @end
 
@@ -33,15 +34,21 @@
     _model = model;
     self.selectButton.selected = model.isSelect;
     self.nameLabel.text = model.nick_name;
+    self.imgView.text = [model.nick_name substringFromIndex:model.nick_name.length - 1];
 }
-- (UIImageView *)imgView {
+- (UILabel *)imgView {
     if (_imgView == nil) {
-        _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor whiteColor];
+        _imgView = [[UILabel alloc] init];
+        _imgView.backgroundColor = kHexRGB(0x89A1DE);
+        _imgView.textColor = UIColor.whiteColor;
+        _imgView.layer.masksToBounds = YES;
+        _imgView.layer.cornerRadius = 20;
+        _imgView.textAlignment = NSTextAlignmentCenter;
+        _imgView.font = BossRegularFont(17.f);
 //        _imgView.layer.cornerRadius = 20;
 //        _imgView.layer.masksToBounds = true;
-        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
-        _imgView.image = image;
+//        UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
+//        _imgView.image = image;
         [self.contentView addSubview:_imgView];
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(40, 40));

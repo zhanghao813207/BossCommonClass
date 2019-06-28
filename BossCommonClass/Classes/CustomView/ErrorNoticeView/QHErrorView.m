@@ -25,6 +25,7 @@
     if (self) {
         _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 44, frame.size.width, 44)];
         _msgLabel.numberOfLines = 0;
+        _msgLabel.layer.cornerRadius = 4;
         if (type==QHErrorViewType_error) {
             _msgLabel.backgroundColor = kHexRGB(0xC5000D);
             _msgLabel.textColor = [UIColor whiteColor];

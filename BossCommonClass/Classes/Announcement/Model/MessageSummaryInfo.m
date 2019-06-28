@@ -16,6 +16,8 @@ NSString *const kMessageSummaryInfoCreatedAt = @"created_at";
 NSString *const kMessageSummaryInfoExtraType = @"extra_type";
 NSString *const kMessageSummaryInfoMessageType = @"message_type";
 NSString *const kMessageSummaryInfoTitle = @"title";
+NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
+
 
 @interface MessageSummaryInfo ()
 @end
@@ -50,7 +52,10 @@ NSString *const kMessageSummaryInfoTitle = @"title";
 
 	if(![dictionary[kMessageSummaryInfoTitle] isKindOfClass:[NSNull class]]){
 		self.title = dictionary[kMessageSummaryInfoTitle];
-	}	
+	}
+    if(![dictionary[kMessageMessagemimekindTitle] isKindOfClass:[NSNull class]]){
+        self.messagemimekind = [dictionary[kMessageMessagemimekindTitle] integerValue];
+    }
 	return self;
 }
 
@@ -75,7 +80,9 @@ NSString *const kMessageSummaryInfoTitle = @"title";
 	if(self.title != nil){
 		dictionary[kMessageSummaryInfoTitle] = self.title;
 	}
-	return dictionary;
+    dictionary[kMessageMessagemimekindTitle] = @(self.messagemimekind);
+
+    return dictionary;
 
 }
 
@@ -134,7 +141,12 @@ NSString *const kMessageSummaryInfoTitle = @"title";
 
 	return copy;
 }
-
+-(NSString *)showAt_time{
+    NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];
+    NSDate *normalDate = [NSDate dateFromString:normalTime];
+    NSString *tempDate = [NSDate stringFromDate:normalDate withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [tempDate getTimeStr:@""];
+}
 - (NSString *)showAt {
     
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.createdAt];
