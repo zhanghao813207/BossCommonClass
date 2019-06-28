@@ -16,9 +16,25 @@ NS_ASSUME_NONNULL_BEGIN
  判断用户是否登录
  
  @param success 成功登录
- @param viewController 弹出登录的控制器（一般为当前控制器）
+ @param viewController 从下往上弹出登录的控制器（一般为当前控制器）
  */
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withController:(UIViewController *)viewController;
+
+
+/**
+ 判断用户是否登录
+ 
+ @param success 成功登录
+ @param viewController 直接显示登录的控制器（一般为当前控制器）
+ */
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withMainController:(UIViewController *)viewController;
+/**
+ 判断用户是否登录
+ 
+ @param success 成功登录
+ @param viewController 直接显示登录的控制器（一般为当前控制器）
+ */
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withMainController:(UIViewController *)viewController;
 
 /**
  判断登录信息是否过期
