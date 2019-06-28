@@ -59,7 +59,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
         make.left.mas_equalTo(self).with.offset(20);
-        make.top.mas_equalTo(self.merchantCodeTextField.mas_bottom).with.offset(10);
+    make.top.mas_equalTo(self.merchantCodeTextField.mas_bottom).with.offset(10);
         make.right.mas_equalTo(self).with.offset(-20);
     }];
     

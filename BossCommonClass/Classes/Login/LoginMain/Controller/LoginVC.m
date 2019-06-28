@@ -5,7 +5,7 @@
 //  Created by 贾远潮 on 2017/12/20.
 //  Copyright © 2017年 贾远潮. All rights reserved.
 //
-
+#import "BossWhiteNavigationController.h"
 #import "LoginVC.h"
 #import "InputMerchantCodeView.h"
 #import "InputPhoneNumberView.h"
@@ -17,7 +17,7 @@
 #import "NNBRequestManager.h"
 #import "AgreementVc.h"
 
-@interface LoginVC ()<InputCodeViewDelegate>
+@interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
  登陆页背景View
@@ -68,6 +68,8 @@
     self.navigationItem.leftBarButtonItem = nil;
     [self.view addSubview:self.BGView];
     
+    
+    
     self.saasModel = kCache.currentSaasModel;
     if(kCache.currentSaasModel){
         [self.inputPhoneNumberView isBecomeFirstResponder];
@@ -76,7 +78,74 @@
         [self.inputMerchantCodeView isBecomeFirstResponder];
         [self showInputMerchantCodeView:@""];
     }
+    
+  
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+#ifdef kBossKnight
+    
+ 
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
+    
+    //添加手势方法防止直接跳转回来的VC 可以滑动到主VC引起问题
+    id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
+    [self.view addGestureRecognizer:pan];
+    
+#elif defined kBossManager
+    
+#else
+    
+#endif
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+#ifdef kBossKnight
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+#elif defined kBossManager
+    
+#else
+    
+#endif
+    
+   
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+#ifdef kBossKnight
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+#elif defined kBossManager
+    
+#else
+    
+#endif
+    
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
+}
+
 
 - (void)showInputMerchantCodeView:(NSString *)merchantCode
 {
@@ -116,7 +185,7 @@
 
 /**
  点击放回按钮
-
+ 
  @param sender sender
  */
 - (void)backBarButtonItemAction:(UIBarButtonItem *)sender
@@ -124,7 +193,7 @@
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
         case MerchantCodeView:
-//            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
+            //            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
             [kCache initNetConfig:kCache.currentSaasModel];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 kLocalConfig = NO;
@@ -146,7 +215,7 @@
 
 /**
  登陆模块View切换显示
-
+ 
  @param showView 待显示View
  @param show 是否返回按钮
  @param commplete View切换完成回调
@@ -158,7 +227,7 @@
     }
     // 是否显示左侧返回按钮
     self.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
-
+    
     // 登陆模块View切换键盘一直显示
     if ([showView respondsToSelector:@selector(isBecomeFirstResponder)]) {
         [showView performSelector:@selector(isBecomeFirstResponder) withObject:nil afterDelay:0];
@@ -166,21 +235,21 @@
     
     showView.hidden = NO;
     // View切换动画
-//    dismissView.alpha = 1;
-//    [UIView animateWithDuration:0.25f animations:^{
-//        dismissView.alpha = 0;
-//    } completion:^(BOOL finished) {
-//        dismissView.hidden = YES;
-//        showView.hidden = NO;
-//        showView.alpha = 0;
-//        [UIView animateWithDuration:0.25 animations:^{
-//            showView.alpha = 1;
-//        } completion:^(BOOL finished) {
-//            if (commplete) {
-//                commplete(finished);
-//            }
-//        }];
-//    }];
+    //    dismissView.alpha = 1;
+    //    [UIView animateWithDuration:0.25f animations:^{
+    //        dismissView.alpha = 0;
+    //    } completion:^(BOOL finished) {
+    //        dismissView.hidden = YES;
+    //        showView.hidden = NO;
+    //        showView.alpha = 0;
+    //        [UIView animateWithDuration:0.25 animations:^{
+    //            showView.alpha = 1;
+    //        } completion:^(BOOL finished) {
+    //            if (commplete) {
+    //                commplete(finished);
+    //            }
+    //        }];
+    //    }];
     
 }
 
@@ -188,7 +257,7 @@
 
 /**
  开始倒计时
-
+ 
  @param inputCodeView 输入验证码View
  */
 - (void)inputCodeViewWillStartCount:(InputCodeView *)inputCodeView
@@ -214,7 +283,7 @@
 /**
  初始化BGView
  懒加载
-
+ 
  @return 登陆页背景View
  */
 -(UIView *)BGView
@@ -234,7 +303,7 @@
 /**
  显示appIcon
  懒加载
-
+ 
  @return appIcon ImageView
  */
 - (UIImageView *)appLogoImageView
@@ -286,7 +355,7 @@
 /**
  初始化 输入手机号View
  懒加载
-
+ 
  @return 输入手机号View
  */
 - (InputPhoneNumberView *)inputPhoneNumberView
@@ -365,14 +434,27 @@
                 // 登陆请求
                 [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
                     
+                    [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+                    
+#ifdef kBossKnight
+                    //BOSS骑士 特殊登录需求 直接显示VC
+                    [weakSelf removeNavigationLoginVC];
+                    if (weakSelf.loginSuccessBlock) {
+                        weakSelf.loginSuccessBlock(YES);
+                    }
+#elif defined kBossManager
+                    
+#else
+                    
+#endif
                     // 登陆成功
                     // 隐藏对话框
                     [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
-                        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                         if (weakSelf.loginSuccessBlock) {
                             weakSelf.loginSuccessBlock(YES);
                         }
                     }];
+                    
                 } fail:^(id error) { // 网络请求失败
                     [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
                         [weakSelf.inputCodeView isBecomeFirstResponder];
@@ -389,10 +471,23 @@
     return _inputCodeView;
 }
 
+- (void)removeNavigationLoginVC{
+    
+    NSMutableArray<UIViewController *> *tmpArr = [NSMutableArray array];
+    for (UIViewController *vc in self.parentViewController.navigationController.viewControllers) {
+        [tmpArr addObject:vc];
+    }
+    for (UIViewController *vc in self.parentViewController.navigationController.viewControllers) {
+        if ([vc isKindOfClass:[BossWhiteNavigationController class]]) {
+            [tmpArr removeObject:vc];
+        }
+    }
+    self.parentViewController.navigationController.viewControllers = tmpArr;
+}
 
 /**
  初始化导航条返回按钮
-
+ 
  @return 返回按钮
  */
 - (UIBarButtonItem *)backBarButtonItem
