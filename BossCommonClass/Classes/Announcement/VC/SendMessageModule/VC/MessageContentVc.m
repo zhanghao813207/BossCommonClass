@@ -29,6 +29,7 @@
 #import "JYCSimpleToolClass.h"
 #import "KNPhotoBrowser.h"
 #import "JYCPickImage.h"
+#import "PhotoManager.h"
 
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
@@ -83,6 +84,8 @@
     
     [self.AddImageButton setSelected:false];
 }
+
+
 - (void)setIsshowImageView:(BOOL)isshowImageView{
     _isshowImageView = isshowImageView;
     
@@ -131,6 +134,12 @@
     self.textFieldContent.layer.cornerRadius = 7;
     
     self.textFieldContent.delegate = self;
+    
+    self.textFieldContent.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    
+    //设置显示模式为永远显示(默认不显示 必须设置 否则没有效果)
+    
+    self.textFieldContent.leftViewMode = UITextFieldViewModeAlways;
     
 }
 // 接收消息通知
@@ -300,62 +309,13 @@
     
     // 0是相机 1是相册
     if (sender.tag == 0) {
-        [self fromCamera];
+        [[PhotoManager sharedInstance] showCamera];
     } else {
-        [self fromPhotos];
+        [[PhotoManager sharedInstance] showPhotoLibary];
     }
-//    [self.view pickImageFromPhotoOrCameraWithImageBlock:^(UIImage *imageResult) {
-//        NSLog(@"%@", imageResult);
-//        [self getQiniuTockenforImage:imageResult];
-//    }];
-//    [self.view removeImageFromPhotoOrCamera];
-}
--(void)fromCamera
-{
-    //这里先判断是否有相机，如果没有弹窗警告
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-        UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-        imagePicker.allowsEditing = true;
-        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
-        
-    }else{
-        NSLog(@"设备不可用");
-    }
-}
--(void)fromPhotos
-{
-    //初始化UIImagePickerController 指定代理
-    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
-    //选择类型相机，相册还是什么
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    /*enum {
-     UIImagePickerControllerSourceTypePhotoLibrary,
-     UIImagePickerControllerSourceTypeCamera,
-     UIImagePickerControllerSourceTypeSavedPhotosAlbum
-     };
-     typedef NSUInteger UIImagePickerControllerSourceType;
-     */
-    //指定代理 因此我们要实现 UIImagePickerControllerDelegate,UINavigationControllerDelegate 协议
-    imagePicker.delegate = self;
-    //允许编辑
-    imagePicker.allowsEditing = true;
-    //显示相册
-    [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
-    
-}
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image  = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
-    [self getQiniuTockenforImage:image];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [PhotoManager sharedInstance].chooseImageBlock = ^(UIImage * _Nonnull image) {
+        [self getQiniuTockenforImage:image];
+    };
 }
 // 上传图片
 - (void)getQiniuTockenforImage:(UIImage *)Image {
