@@ -11,6 +11,9 @@
 #import "AccountModel.h"
 #import "OaHouseContractModel.h"
 #import "CostAllocationModel.h"
+#import "BizExtraData.h"
+#import "BusinessTravelOrderModel.h"
+
 @interface CostOrderModel : NSObject
 
 /**
@@ -129,6 +132,26 @@
  OA 成本费用记录分摊清单
  */
 @property (nonatomic, strong) NSArray <CostAllocationModel *>*cost_allocation_list;
+
+#pragma mark - 差旅报销 - 相关属性
+
+/**
+ 出差申请单ID
+ */
+@property (nonatomic, strong) NSString *biz_extra_travel_apply_order_id;
+
+/**
+ 出差申请单
+ */
+@property (nonatomic, strong) BusinessTravelOrderModel *biz_extra_travel_apply_order_info;
+
+/**
+ 差旅费用明细
+ */
+@property (nonatomic, strong) BizExtraData *biz_extra_data;
+
+
+#pragma mark - Additional attribute
 
 /**
  费用分摊方式 字符串
