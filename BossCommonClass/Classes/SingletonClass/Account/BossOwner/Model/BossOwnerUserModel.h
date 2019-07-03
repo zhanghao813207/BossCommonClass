@@ -1,4 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "BalanceMoneyModel.h"
+#import "WeChatModel.h"
 
 @interface BossOwnerUserModel : NSObject
 
@@ -24,6 +26,13 @@
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * gender;
 @property (nonatomic, assign) BOOL isshowJoinTeam;
+
+
+//微信绑定信息
+@property (nonatomic, strong) WeChatModel *WeChatModel;
+
+//钱包信息
+@property (nonatomic, strong) BalanceMoneyModel *WalletModel;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

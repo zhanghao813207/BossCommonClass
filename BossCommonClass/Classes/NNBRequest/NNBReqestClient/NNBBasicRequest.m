@@ -283,7 +283,6 @@
         } else {
             showView = [JYCSimpleToolClass getCurrentVC].view;
         }
-        
         [showView dismissLoadingViewWithCompletion:nil];
         if (dealType == ResultDealTypesQHErrorView) {
             [[[QHErrorView alloc] initWithTitle:@"网络异常，请检查网络设置"] showInView:showView];
