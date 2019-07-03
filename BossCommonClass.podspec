@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '7.21'
+  s.version          = '7.22'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -30,7 +30,7 @@ these are common classes,they are used by boss system.
   # s.source           = { :git => '~/soft/develop/ios/BossCommonClass-master'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'BossCommonClass/Classes/**/*'
   s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
@@ -56,4 +56,5 @@ these are common classes,they are used by boss system.
   s.dependency 'UMCCommonLog', '~> 1.0.0'
   s.dependency 'XFHProject', '~> 0.0.2'
   s.dependency 'MGJRouter', '~> 0.10.0'
+  s.dependency 'Realm'
 end

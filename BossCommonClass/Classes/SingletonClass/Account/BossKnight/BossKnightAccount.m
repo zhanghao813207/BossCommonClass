@@ -42,6 +42,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     
+    
 }
 
 /**
@@ -69,8 +70,51 @@
             kCurrentBossKnightAccount.isFirstLogin = NO;
             success(isLogin,YES);
         }];
+        
+    
+        //定义一个导航栏给 登录的视图控制器
         BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
-        [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossKnightAccount.isFirstLogin completion:nil];
+       [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossKnightAccount.isFirstLogin completion:nil];
+ 
+        
+    }
+}
+
+
+/**
+ 判断用户是否登录
+ 
+ @param success 成功登录
+ @param viewController 直接显示登录的控制器（一般为当前控制器）
+ */
++ (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success withMainController:(UIViewController *)viewController
+{
+    // 当前用户已经登录
+    if (kCurrentBossKnightAccount) {
+        if (success) {
+            success(YES,NO);
+        }
+        return;
+    }
+    // 用户需要登录
+    if ([viewController isKindOfClass:[UIViewController class]]) {
+        LoginVC *loginVC = [[LoginVC alloc] init];
+        [loginVC setLoginSuccessBlock:^(BOOL isLogin) {
+            if (!success) {
+                return;
+            }
+            kCurrentBossKnightAccount.isFirstLogin = NO;
+            success(isLogin,YES);
+        }];
+        
+        
+        //定义一个导航栏给 登录的视图控制器
+        BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
+      
+        //将我的页面的VC导航栏 添加 子控制器 为  登录页面的导航栏
+        [viewController.navigationController addChildViewController:loginNC];
+        
+        
     }
 }
 
@@ -165,7 +209,7 @@
         [viewController presentViewController:alert animated:YES completion:nil];
         return;
     }
-
+    
     // 纸质签约
     if (onterContractBlock) {
         onterContractBlock();

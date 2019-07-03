@@ -152,6 +152,14 @@
         return;
     }
     
+    if ([key isEqualToString:@"business_travel_order_info"]) {
+        BusinessTravelOrderModel *model = [[BusinessTravelOrderModel alloc] init];
+        self.business_travel_order_info = [model initWithDictionary:value];
+        return;
+    }
+    
+    
+    
     [super setValue:value forKey:key];
 }
 
@@ -161,6 +169,13 @@
 }
 
 #pragma mark - setter/getter
+
+- (NSString *)totalMoneyStr {
+    if(self.application_order_type == ApplicationOrderTypeBusinessTrave){
+        return @"";
+    }
+    return [NSString stringWithFormat:@"￥%.2f",self.total_money / 100.0];
+}
 
 - (NSString *)applicationOrderTypeStr {
     NSString *typeStr = @"未知";
@@ -247,6 +262,7 @@
             orderCount = self.repayment_order_list.count;
             break;
         case ApplicationOrderTypeBusinessTrave:
+            orderCount = 1;
             break;
         default:
             break;

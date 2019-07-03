@@ -181,9 +181,12 @@
 
     NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     id decodeObj = [QLifeAES256 objDecodeWithString:dataStr password:mqttSecretKey];
-    NSLog(@"------handleMessage ----- \n %@",decodeObj);
     
+    // TODO:
     [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"receiveMessage" object:decodeObj];
+    
 }
 
 

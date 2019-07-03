@@ -13,6 +13,8 @@
 #import "JYCMethodDefine.h"
 #import "AnnouncementRequest.h"
 #import "UIView+ShowView.h"
+#import "SendMessageStartVc.h"
+#import "UIViewController+StoryBoard.h"
 
 @interface PersonAddressBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableview;
@@ -72,7 +74,7 @@
     [AnnouncementRequest announcementContactsMembersId:self.group._id Success:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         [self setSelectModel];
-        [self.tableview reloadData];  
+        [self.tableview reloadData];
     } fail:^(NSString * _Nonnull message) {
         
     }];
@@ -117,6 +119,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
 }
+
 /////先隐藏掉
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    ContactsPerson *model = self.arrM[indexPath.row];
@@ -161,7 +164,14 @@
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    SendMessageStartVc * vc = [SendMessageStartVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    ContactsPerson *model = self.arrM[indexPath.row];
+    vc.name = model.nick_name;
+    vc.teamName = self.title;
+    vc.targetid = model._id;
+    [self.navigationController pushViewController:vc animated:true];
+}
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -235,6 +245,15 @@
     [super viewWillDisappear:animated];
 //    self.navigationController.navigationBarHidden = true;
 }
-
+#pragma mark tapGestureRecgnizerdelegate 解决手势冲突
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UITableView class]]){
+        return NO;
+    }
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
+}
 
 @end

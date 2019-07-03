@@ -108,6 +108,7 @@
             }
             kCurrentBossManagerAccount.isFirstLogin = NO;
             success(isLogin,YES);
+            
         }];
         BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
         [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossManagerAccount.isFirstLogin completion:nil];
