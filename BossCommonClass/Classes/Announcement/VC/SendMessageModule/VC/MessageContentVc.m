@@ -577,35 +577,43 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [cell.timeLabel setHidden:true];
         }
         cell.imageclick = ^{
-            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-            if (selectmodel.messageMimeKind == 40) {
-                
-                NSMutableArray *imageArr = [NSMutableArray array];
-                NSMutableArray *imageModelArr = [NSMutableArray array];
-                for (RealmRecordModel *model in self.contentArr) {
-                    if (model.messageMimeKind == 40) {
-                        KNPhotoItems *items = [[KNPhotoItems alloc] init];
-                        if (model.mediaInfoList.count > 0) {
-                            mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-                            items.url = rmodel.url;
-                            [imageArr addObject:items];
+            if (self.contentArr.count > 0) {
+                RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+                if (selectmodel.messageMimeKind == 40) {
+                    
+                    NSMutableArray *imageArr = [NSMutableArray array];
+                    NSMutableArray *imageModelArr = [NSMutableArray array];
+                    for (RealmRecordModel *model in self.contentArr) {
+                        if (model.messageMimeKind == 40) {
+                            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                            if (model.mediaInfoList.count > 0) {
+                                mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                                items.url = rmodel.url;
+                                [imageArr addObject:items];
+                            } else {
+                                NSData *decodedImageData = [[NSData alloc]
+                                                            initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+                                items.sourceImage = decodedImage;
+                                [imageArr addObject:items];
+                            }
+                            [imageModelArr addObject:model];
                         }
-                        [imageModelArr addObject:model];
                     }
-                }
-                if ([imageModelArr containsObject:selectmodel]) {
-                    NSInteger index = [imageModelArr indexOfObject:selectmodel];
-                    NSLog(@"-1---%ld---",index);
-                    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
-                    photoBrower.itemsArr = [imageArr copy];
-                    photoBrower.isNeedPageControl = true;
-                    photoBrower.isNeedPageNumView = true;
-                    photoBrower.isNeedRightTopBtn = true;
-                    photoBrower.isNeedPictureLongPress = true;
-                    photoBrower.isNeedPrefetch = true;
-                    photoBrower.isNeedPictureLongPress = false;
-                    photoBrower.currentIndex = index;
-                    [photoBrower present];
+                    if ([imageModelArr containsObject:selectmodel]) {
+                        NSInteger index = [imageModelArr indexOfObject:selectmodel];
+                        NSLog(@"-1---%ld---",index);
+                        KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+                        photoBrower.itemsArr = [imageArr copy];
+                        photoBrower.isNeedPageControl = true;
+                        photoBrower.isNeedPageNumView = true;
+                        photoBrower.isNeedRightTopBtn = true;
+                        photoBrower.isNeedPictureLongPress = true;
+                        photoBrower.isNeedPrefetch = true;
+                        photoBrower.isNeedPictureLongPress = false;
+                        photoBrower.currentIndex = index;
+                        [photoBrower present];
+                    }
                 }
             }
         };
