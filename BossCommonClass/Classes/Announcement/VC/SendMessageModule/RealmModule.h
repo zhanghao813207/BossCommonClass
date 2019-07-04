@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)getMessageListSectionID:(NSString *)sectionid;
 /// 删除
 - (void)deleteMessagetoRealm:(RealmRecordModel *)messageModel;
+/// 更新
+- (void)updateMessagetoRealm:(RealmRecordModel *)messageModel;
+/// 获取最后一个消息对象
+- (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid;
 @end
 
 NS_ASSUME_NONNULL_END

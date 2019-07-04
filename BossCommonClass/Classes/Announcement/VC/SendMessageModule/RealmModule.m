@@ -23,10 +23,38 @@ static RealmModule * sharedSingleton = nil;
 }
 - (void)deleteMessagetoRealm: (RealmRecordModel *)messageModel{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    // 保存
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@ AND idField = %@",
+                         kCurrentBossOwnerAccount.accountModel.accountId,messageModel.sectionid,messageModel.idField];
+    
+    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
+    if (puppies.count > 0) {
+        RLMObject *object = puppies.firstObject;
+        // 删除
+        [realm transactionWithBlock:^{
+            [realm deleteObject:object];
+        }];
+    }
+    
+}
+- (void)updateMessagetoRealm:(RealmRecordModel *)messageModel{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    //
     [realm transactionWithBlock:^{
-        [realm addObject:messageModel];
+        [realm addOrUpdateObject:messageModel];
     }];
+}
+- (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid{
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@",
+                         kCurrentBossOwnerAccount.accountModel.accountId,sectionid];
+    
+    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
+    RLMResults<RealmRecordModel *> *puppies2 = [puppies sortedResultsUsingKeyPath:@"idField" ascending:true];
+    if (puppies2.count > 0) {
+        RLMObject *object = puppies2.lastObject;
+        RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
+        return model;
+    }
+    return nil;
 }
 - (void)saveMessagetoRealm:(RealmRecordModel *)messageModel Sectionid:(NSString *)sectionid{
     

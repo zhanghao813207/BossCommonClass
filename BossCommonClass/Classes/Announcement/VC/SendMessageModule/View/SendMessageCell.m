@@ -20,6 +20,11 @@
     
 }
 
+- (IBAction)resetSendMessage:(UIButton *)sender {
+    if (self.resetSendmessageBlock) {
+        self.resetSendmessageBlock();
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

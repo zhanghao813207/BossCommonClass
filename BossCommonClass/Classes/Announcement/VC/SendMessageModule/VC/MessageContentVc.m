@@ -32,8 +32,11 @@
 #import "PhotoManager.h"
 #import "BossCache.h"
 
+typedef void(^uploadImage)(BOOL isSuccess);
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+// 表哥
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
+//
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewForBottom;
 
 @property (weak, nonatomic) IBOutlet UIView *selectImageView;
@@ -54,6 +57,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldContent;
 @property (weak, nonatomic) IBOutlet UIView *textFIeldView;
 @property (nonatomic, assign) CGFloat selectImageViewY;
+/// 是否上传成功
+@property (nonatomic, copy)uploadImage uploadImage;
 @end
 
 @implementation MessageContentVc
@@ -315,8 +320,47 @@
         [[PhotoManager sharedInstance] showPhotoLibary];
     }
     [PhotoManager sharedInstance].chooseImageBlock = ^(UIImage * _Nonnull image) {
-        [self getQiniuTockenforImage:image];
+        [self sendImageMessage:image];
     };
+    
+}
+- (void)sendImageMessage:(UIImage *)image{
+    WS(weakSelf);
+    // 刷新列表
+    // 保存
+    NSDictionary *dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(40)};
+    RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+    model.sectionid = weakSelf.sectionid;
+    // 获取最后一条消息
+    RealmRecordModel *lastModel = [[RealmModule sharedInstance] getLastRealmRecordModelFormRealm:self.sectionid];
+    if (lastModel) {
+        model.idField = [NSString stringWithFormat:@"%@1",lastModel.idField];
+    } else {
+        model.idField = @"0";
+    };
+    // 图片转 base64 编码
+    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    model.encodedImageStr = encodedImageStr;
+    model.iserror = true;
+    model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
+    model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
+    // 保存记录到本地 (同步操作)
+    [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:weakSelf.sectionid];
+    // 上传成功 删除本地消息
+    weakSelf.uploadImage = ^(BOOL isSuccess) {
+        if (isSuccess){
+            [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+        }
+        // 主线程执行
+        dispatch_after(0, dispatch_get_main_queue(), ^(void){
+            [weakSelf scrollViewToBottom:true];
+            [weakSelf.customTableView reloadData];
+        });
+    };
+    [self scrollViewToBottom:true];
+    [self.customTableView reloadData];
+    [self getQiniuTockenforImage:image];
 }
 // 上传图片
 - (void)getQiniuTockenforImage:(UIImage *)Image {
@@ -363,7 +407,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    WS(weakself);
     RealmRecordModel *model = self.contentArr[indexPath.row];
     if (indexPath.row == 0) {
         model.isShowTime = YES;
@@ -378,6 +422,7 @@
             model.isShowTime = true;
         }
     }
+    // 发送消息Cell
     if (model.messageMimeKind == 10  && [model.senderId isEqualToString:[BossCache defaultCache].umsAccessTokenModel.accountId]) {
         
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
@@ -389,6 +434,20 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        // 重发消息
+        cell.resetSendmessageBlock = ^{
+            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            [self SendMessage:selectmodel.content imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
+                
+                // 刷新列表
+                if (isSuccess) {
+                    // 成功 删除
+                    [[RealmModule sharedInstance] deleteMessagetoRealm:selectmodel];
+                }
+                [self.customTableView reloadData];
+                [self scrollViewToBottom:true];
+            }];
+        };
         if (model.iserror){
             cell.contentView.backgroundColor = UIColor.redColor;
         } else {
@@ -404,6 +463,12 @@
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
+        } else {
+            if (model.encodedImageStr) {
+                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+                cell.sendImageView.image = decodedImage;
+            }
         }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
@@ -412,39 +477,78 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
-        cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
-        cell.imageclick = ^{
+        // 显示图标 点击重新发送消息
+        if (model.iserror){
+            cell.contentView.backgroundColor = UIColor.redColor;
+        } else {
+            cell.contentView.backgroundColor = UIColor.whiteColor;
+        }
+        // 重发消息
+        cell.resetSendmessageBlock = ^{
             RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-            if (selectmodel.messageMimeKind == 40) {
-                
-                NSMutableArray *imageArr = [NSMutableArray array];
-                NSMutableArray *imageModelArr = [NSMutableArray array];
-                for (RealmRecordModel *model in self.contentArr) {
-                    if (model.messageMimeKind == 40) {
-                        KNPhotoItems *items = [[KNPhotoItems alloc] init];
-                        if (model.mediaInfoList.count > 0) {
-                            mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
-                            items.url = rmodel.url;
-                            [imageArr addObject:items];
+            NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:selectmodel.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+            [self getQiniuTockenforImage:decodedImage];
+            
+            self.uploadImage = ^(BOOL isSuccess) {
+                if (isSuccess){
+                    [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+                }
+                // 主线程执行
+                dispatch_after(0, dispatch_get_main_queue(), ^(void){
+                    [weakself scrollViewToBottom:true];
+                    [weakself.customTableView reloadData];
+                });
+            };
+        };
+        if (model.iserror){
+            cell.contentView.backgroundColor = UIColor.redColor;
+        } else {
+            cell.contentView.backgroundColor = UIColor.whiteColor;
+        }
+        cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
+        // 图片点击回调
+        cell.imageclick = ^{
+            if (self.contentArr.count > 0) {
+                RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+                if (selectmodel.messageMimeKind == 40) {
+                    
+                    NSMutableArray *imageArr = [NSMutableArray array];
+                    NSMutableArray *imageModelArr = [NSMutableArray array];
+                    for (RealmRecordModel *model in self.contentArr) {
+                        if (model.messageMimeKind == 40) {
+                            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                            if (model.mediaInfoList.count > 0) {
+                                mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
+                                items.url = rmodel.url;
+                                [imageArr addObject:items];
+                            } else {
+                                NSData *decodedImageData = [[NSData alloc]
+                                                            initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+                                items.sourceImage = decodedImage;
+                                [imageArr addObject:items];
+                            }
+                            [imageModelArr addObject:model];
                         }
-                        [imageModelArr addObject:model];
+                    }
+                    if ([imageModelArr containsObject:selectmodel]) {
+                        NSInteger index = [imageModelArr indexOfObject:selectmodel];
+                        NSLog(@"-1---%ld---",index);
+                        KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
+                        photoBrower.itemsArr = [imageArr copy];
+                        photoBrower.isNeedPageControl = true;
+                        photoBrower.isNeedPageNumView = true;
+                        photoBrower.isNeedRightTopBtn = true;
+                        photoBrower.isNeedPictureLongPress = true;
+                        photoBrower.isNeedPrefetch = true;
+                        photoBrower.isNeedPictureLongPress = false;
+                        photoBrower.currentIndex = index;
+                        [photoBrower present];
                     }
                 }
-                if ([imageModelArr containsObject:selectmodel]) {
-                    NSInteger index = [imageModelArr indexOfObject:selectmodel];
-                    NSLog(@"-1---%ld---",index);
-                    KNPhotoBrowser *photoBrower = [[KNPhotoBrowser alloc] init];
-                    photoBrower.itemsArr = [imageArr copy];
-                    photoBrower.isNeedPageControl = true;
-                    photoBrower.isNeedPageNumView = true;
-                    photoBrower.isNeedRightTopBtn = true;
-                    photoBrower.isNeedPictureLongPress = true;
-                    photoBrower.isNeedPrefetch = true;
-                    photoBrower.isNeedPictureLongPress = false;
-                    photoBrower.currentIndex = index;
-                    [photoBrower present];
-                }
             }
+            
         };
         return cell;
         
@@ -532,27 +636,18 @@
 - (void)addmedia:(NSString *)key{
     
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
-        NSArray * imageKeyArr = @[response[@"record"][@"_id"]];
-        // 刷新列表
-        // 保存
-        NSDictionary *dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(40), @"media_ids": imageKeyArr};;
-        RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
-        model.sectionid = self.sectionid;
-        model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
-        model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
-        // 保存记录到本地 (同步操作)
-        [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
+        NSDictionary *result = response[@"record"];
+        NSString *idstr = result[@"_id"];
+        // 发送消息
+        if (idstr) {
+            NSArray * imageKeyArr = @[idstr];
+            [self SendMessage:nil imageList: imageKeyArr type:40 SendStatusBlock:^(BOOL isSuccess) {
+                if (self.uploadImage) {
+                    self.uploadImage(isSuccess);
+                }
+            }];
+        }
         
-        [self SendMessage:nil imageList: imageKeyArr type:40 SendStatusBlock:^(BOOL isSuccess) {
-
-            if (isSuccess){
-                [[RealmModule sharedInstance] deleteMessagetoRealm:model];
-            } else {
-                // 失败 标红
-            }
-            [self scrollViewToBottom:true];
-            [self.customTableView reloadData];
-        }];
         
     } fail:^(NSString * _Nonnull message) {
         
@@ -606,24 +701,27 @@
     if (textField.text && ![textField.text isEqualToString:@""]) {
         // 保存
         NSDictionary *dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(10), @"content": textField.text};
+        // 本地消息
         RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
         model.sectionid = self.sectionid;
         model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
-        model.idField = @"100000000000000000";
+        RealmRecordModel *lastModel = [[RealmModule sharedInstance] getLastRealmRecordModelFormRealm:self.sectionid];
+        if (lastModel) {
+            model.idField = [NSString stringWithFormat:@"%@1",lastModel.idField];
+        } else {
+            model.idField = @"0";
+        }
+        model.iserror = true;
         model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
-//        [self.customTableView reloadData];
+        // 保存记录到本地 (同步操作)
+        [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
         
         [self SendMessage:textField.text imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
             
             // 刷新列表
             if (isSuccess) {
                 // 成功 删除
-//                [[RealmModule sharedInstance] deleteMessagetoRealm:model];
-            } else {
-                // 失败 不删除 标记为发送成功
-                model.iserror = true;
-                // 保存记录到本地 (同步操作)
-                [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
+                [[RealmModule sharedInstance] deleteMessagetoRealm:model];
             }
             textField.text = @"";
             [self.customTableView reloadData];

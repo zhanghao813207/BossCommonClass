@@ -26,6 +26,8 @@ RLM_ARRAY_TYPE(mediainfoListModel)
 @property (nonatomic, strong) NSString * userid;
 @property (nonatomic, strong) NSString * showAt_time;
 @property (nonatomic, assign) BOOL iserror;
+@property (nonatomic, strong) NSString * encodedImageStr;
+
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
