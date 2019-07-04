@@ -30,6 +30,7 @@
 #import "KNPhotoBrowser.h"
 #import "JYCPickImage.h"
 #import "PhotoManager.h"
+#import "BossCache.h"
 
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
@@ -388,6 +389,11 @@
             cell.timeLabel.text = @"";
             [cell.timeLabel setHidden:true];
         }
+        if (model.iserror){
+            cell.contentView.backgroundColor = UIColor.redColor;
+        } else {
+            cell.contentView.backgroundColor = UIColor.whiteColor;
+        }
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         return cell;
         
@@ -527,9 +533,23 @@
     
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
         NSArray * imageKeyArr = @[response[@"record"][@"_id"]];
+        // 刷新列表
+        // 保存
+        NSDictionary *dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(40), @"media_ids": imageKeyArr};;
+        RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+        model.sectionid = self.sectionid;
+        model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
+        model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
+        // 保存记录到本地 (同步操作)
+        [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
         
         [self SendMessage:nil imageList: imageKeyArr type:40 SendStatusBlock:^(BOOL isSuccess) {
-            // 刷新列表
+
+            if (isSuccess){
+                [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+            } else {
+                // 失败 标红
+            }
             [self scrollViewToBottom:true];
             [self.customTableView reloadData];
         }];
@@ -545,6 +565,7 @@
     } else {
         dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(type), @"media_ids": imageListarray};
     }
+
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.chat.add" success:^(id responseObject) {
         BOOL isok = responseObject[@"ok"];
         if (isok){
@@ -566,7 +587,6 @@
         if (Block) {
             Block(false);
         }
-//        [self.view showAnimationErrorStaus:@"发送失败" completion:nil];
     }];
 }
 
@@ -584,11 +604,30 @@
     _isshowImageView = false;
     [self.AddImageButton setSelected:false];
     if (textField.text && ![textField.text isEqualToString:@""]) {
+        // 保存
+        NSDictionary *dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(10), @"content": textField.text};
+        RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
+        model.sectionid = self.sectionid;
+        model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
+        model.idField = @"100000000000000000";
+        model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
+//        [self.customTableView reloadData];
+        
         [self SendMessage:textField.text imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
+            
             // 刷新列表
+            if (isSuccess) {
+                // 成功 删除
+//                [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+            } else {
+                // 失败 不删除 标记为发送成功
+                model.iserror = true;
+                // 保存记录到本地 (同步操作)
+                [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
+            }
             textField.text = @"";
-            [self scrollViewToBottom:true];
             [self.customTableView reloadData];
+            [self scrollViewToBottom:true];
         }];
     }
     return YES;

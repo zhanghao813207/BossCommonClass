@@ -189,7 +189,6 @@ static PhotoManager * sharedSingleton = nil;
 // 操作完成
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    // do something ...
     UIImage *image  = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
     
     if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
