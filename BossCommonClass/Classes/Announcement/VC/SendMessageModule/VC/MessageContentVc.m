@@ -449,9 +449,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
             }];
         };
         if (model.iserror){
-            cell.contentView.backgroundColor = UIColor.redColor;
+            [cell.resetSendMessageButton setHidden:false];
         } else {
-            cell.contentView.backgroundColor = UIColor.whiteColor;
+            [cell.resetSendMessageButton setHidden:true];
         }
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         return cell;
@@ -479,9 +479,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
         // 显示图标 点击重新发送消息
         if (model.iserror){
-            cell.contentView.backgroundColor = UIColor.redColor;
+            [cell.resetSendMessageButton setHidden:false];
         } else {
-            cell.contentView.backgroundColor = UIColor.whiteColor;
+            [cell.resetSendMessageButton setHidden:true];
         }
         // 重发消息
         cell.resetSendmessageBlock = ^{
@@ -501,11 +501,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
                 });
             };
         };
-        if (model.iserror){
-            cell.contentView.backgroundColor = UIColor.redColor;
-        } else {
-            cell.contentView.backgroundColor = UIColor.whiteColor;
-        }
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         // 图片点击回调
         cell.imageclick = ^{
@@ -548,7 +543,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     }
                 }
             }
-            
         };
         return cell;
         

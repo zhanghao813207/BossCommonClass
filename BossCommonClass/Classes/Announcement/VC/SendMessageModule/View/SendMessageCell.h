@@ -20,6 +20,7 @@ typedef void(^resetSendmessageBlock)(void);
 @property (weak, nonatomic) IBOutlet UILabel *sendInfoNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sendInfoHeaderImageView;
 @property (weak, nonatomic) IBOutlet UIView *sendInfoView;
+@property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
 
 @property (nonatomic, copy) resetSendmessageBlock resetSendmessageBlock;
 @end

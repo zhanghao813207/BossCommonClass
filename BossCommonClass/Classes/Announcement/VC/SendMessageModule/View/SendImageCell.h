@@ -27,6 +27,7 @@ typedef void(^resetSendmessageBlock)(void);
 @property (nonatomic, copy) imageclick imageclick;
 
 @property (nonatomic, copy) resetSendmessageBlock resetSendmessageBlock;
+@property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
 
 
 @end

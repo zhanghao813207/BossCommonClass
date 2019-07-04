@@ -1431,12 +1431,12 @@
                                                         <constraint firstItem="tC9-Wb-CqG" firstAttribute="centerY" secondItem="BfS-2v-ASZ" secondAttribute="centerY" id="w6D-jj-LgB"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LxA-MV-P2Q">
-                                                    <rect key="frame" x="219" y="38.333333333333329" width="54" height="40.333333333333329"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LxA-MV-P2Q">
+                                                    <rect key="frame" x="209.33333333333334" y="38.333333333333329" width="54.000000000000028" height="40.333333333333329"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="54" id="qbr-yD-PQf"/>
                                                     </constraints>
-                                                    <state key="normal" title="重发"/>
+                                                    <state key="normal" image="errorImageIcon"/>
                                                     <connections>
                                                         <action selector="resetSendMessage:" destination="Zg8-1I-cGN" eventType="touchUpInside" id="2jG-lr-kMd"/>
                                                     </connections>
@@ -1454,7 +1454,7 @@
                                                 <constraint firstItem="LxA-MV-P2Q" firstAttribute="bottom" secondItem="lrB-QJ-VCk" secondAttribute="bottom" id="ari-lx-8BN"/>
                                                 <constraint firstItem="8u1-uM-Tei" firstAttribute="top" secondItem="xjN-HM-jFm" secondAttribute="top" constant="10" id="fDX-yI-0bO"/>
                                                 <constraint firstItem="tNC-WJ-Gb4" firstAttribute="top" secondItem="lrB-QJ-VCk" secondAttribute="top" id="h9p-jE-Spa"/>
-                                                <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" secondItem="LxA-MV-P2Q" secondAttribute="trailing" constant="0.33333333333331439" id="jBr-hX-vUd"/>
+                                                <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" secondItem="LxA-MV-P2Q" secondAttribute="trailing" constant="10" id="jBr-hX-vUd"/>
                                                 <constraint firstItem="lrB-QJ-VCk" firstAttribute="top" secondItem="8u1-uM-Tei" secondAttribute="bottom" constant="10" id="oJu-8Z-MUw"/>
                                                 <constraint firstAttribute="trailing" secondItem="8u1-uM-Tei" secondAttribute="trailing" id="wKm-T3-sYL"/>
                                                 <constraint firstAttribute="trailing" secondItem="tNC-WJ-Gb4" secondAttribute="trailing" constant="16" id="zD1-cl-9Pb"/>
@@ -1463,6 +1463,7 @@
                                         <connections>
                                             <outlet property="contentLabel" destination="l5C-mh-UPQ" id="LN5-Y9-o3c"/>
                                             <outlet property="messageContentView" destination="lrB-QJ-VCk" id="g5G-lq-Gk5"/>
+                                            <outlet property="resetSendMessageButton" destination="LxA-MV-P2Q" id="feE-V0-pmt"/>
                                             <outlet property="sendInfoHeaderImageView" destination="BfS-2v-ASZ" id="R4e-5G-Yh9"/>
                                             <outlet property="sendInfoNameLabel" destination="tC9-Wb-CqG" id="T26-i1-34h"/>
                                             <outlet property="sendInfoView" destination="tNC-WJ-Gb4" id="lcU-ql-X4I"/>
@@ -1528,12 +1529,12 @@
                                                         <constraint firstAttribute="bottom" secondItem="Asu-8d-R7m" secondAttribute="bottom" id="ztf-9R-ahU"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WrF-Ef-abk">
-                                                    <rect key="frame" x="55" y="94" width="79" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WrF-Ef-abk">
+                                                    <rect key="frame" x="45" y="98.333333333333329" width="79" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="79" id="cJr-8M-g8z"/>
                                                     </constraints>
-                                                    <state key="normal" title="重发"/>
+                                                    <state key="normal" image="errorImageIcon"/>
                                                     <connections>
                                                         <action selector="resetSendMessage:" destination="ayx-34-LJI" eventType="touchUpInside" id="snU-yO-YKb"/>
                                                     </connections>
@@ -1546,7 +1547,7 @@
                                                 <constraint firstItem="wml-3S-1zv" firstAttribute="leading" secondItem="aOm-46-lmG" secondAttribute="leading" id="Cmc-zY-I4n"/>
                                                 <constraint firstAttribute="trailing" secondItem="GwR-NH-QtK" secondAttribute="trailing" constant="16" id="PkM-pQ-6Bz"/>
                                                 <constraint firstItem="Asu-8d-R7m" firstAttribute="leading" secondItem="dzw-i8-Qau" secondAttribute="trailing" constant="8" id="WVZ-G3-KLw"/>
-                                                <constraint firstItem="1co-dR-4Oh" firstAttribute="leading" secondItem="WrF-Ef-abk" secondAttribute="trailing" id="dJL-Cu-F4K"/>
+                                                <constraint firstItem="1co-dR-4Oh" firstAttribute="leading" secondItem="WrF-Ef-abk" secondAttribute="trailing" constant="10" id="dJL-Cu-F4K"/>
                                                 <constraint firstItem="1co-dR-4Oh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aOm-46-lmG" secondAttribute="leading" constant="65" id="dqC-Xs-kfX"/>
                                                 <constraint firstItem="WrF-Ef-abk" firstAttribute="centerY" secondItem="dzw-i8-Qau" secondAttribute="centerY" id="p4K-hG-9rE"/>
                                                 <constraint firstItem="wml-3S-1zv" firstAttribute="top" secondItem="aOm-46-lmG" secondAttribute="top" constant="11" id="uXO-vT-Kuu"/>
@@ -1556,6 +1557,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageContentView" destination="1co-dR-4Oh" id="c6o-Ey-Z6D"/>
+                                            <outlet property="resetSendMessageButton" destination="WrF-Ef-abk" id="niN-t4-zYS"/>
                                             <outlet property="sendImageView" destination="dzw-i8-Qau" id="KCy-tt-QMt"/>
                                             <outlet property="sendInfoHeaderImageView" destination="Asu-8d-R7m" id="y9n-TZ-Nlz"/>
                                             <outlet property="sendInfoNameLabel" destination="wag-s8-F6c" id="Fs1-eZ-WOH"/>
@@ -1771,6 +1773,7 @@
         <image name="closeImageIcon" width="28" height="30"/>
         <image name="correctIcon" width="18" height="18"/>
         <image name="errorIcon" width="14" height="14"/>
+        <image name="errorImageIcon" width="20" height="20"/>
         <image name="faceIcon" width="144" height="144"/>
         <image name="messageIcon-blue" width="22" height="17"/>
         <image name="messageIcon-gray" width="22" height="17"/>
