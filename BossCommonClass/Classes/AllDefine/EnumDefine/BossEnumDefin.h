@@ -156,6 +156,16 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
     MOBILE_PASS_EXAMINE_FAIL    = 9,  // 我经手的(已驳回),
 };
 
+/**
+ 员工平台映射状态
+ */
+typedef NS_ENUM(NSUInteger, StaffCustomState) {
+    StaffCustomStatePending     =    1,  // 映射草稿（等待使用中）
+    StaffCustomStateEnabled     =  100,  // 映射生效（生效中）
+    StaffCustomStateDisabled    = -100,  // 映射失效（已终止）
+    StaffCustomStateDelete      = -101,  // 映射解除
+};
+
 #pragma mark - 审批单相关常量
 
 /**

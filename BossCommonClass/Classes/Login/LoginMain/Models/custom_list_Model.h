@@ -7,6 +7,10 @@
 @property (nonatomic, strong) NSString * endTime;
 @property (nonatomic, strong) NSString * staffId;
 @property (nonatomic, strong) NSString * startTime;
+
+/**
+ 平台状态
+ */
 @property (nonatomic, assign) NSInteger state;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
