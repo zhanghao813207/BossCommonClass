@@ -92,7 +92,9 @@
         for (NSDictionary *dic in list) {
             custom_list_Model *model = [[custom_list_Model alloc] initWithDictionary:dic];
 //            [ addObject:model];
-            [arr addObject:model.customId];
+            if(model.state != StaffCustomStateDelete){
+                [arr addObject:model.customId];
+            }
         }
         self.custom_list = arr;
         return;
