@@ -338,11 +338,11 @@ typedef void(^uploadImage)(BOOL isSuccess);
     } else {
         model.idField = @"0";
     };
+    model.sendstate = 100;
     // 图片转 base64 编码
     NSData *data = UIImageJPEGRepresentation(image, 1.0f);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     model.encodedImageStr = encodedImageStr;
-    model.iserror = true;
     model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
     model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
     // 保存记录到本地 (同步操作)
@@ -351,6 +351,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
     weakSelf.uploadImage = ^(BOOL isSuccess) {
         if (isSuccess){
             [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+        } else {
+            [[RealmModule sharedInstance] updateMessagetoRealmErrorStatus:model errorStatus:true];
         }
         // 主线程执行
         dispatch_after(0, dispatch_get_main_queue(), ^(void){
@@ -379,14 +381,25 @@ typedef void(^uploadImage)(BOOL isSuccess);
                 [weakSelf addmedia:key];
 
             } fail:^(id error) {
+                if (weakSelf.uploadImage) {
+                    weakSelf.uploadImage(false);
+                }
             }];
         } else {
             // 提示网络故障
-            [self.view dismissLoadingViewWithCompletion:^(BOOL finish) {
-                [self.view showAnimationErrorStaus:@"当前网络状态不佳，请重试" completion:nil];
+            [weakSelf.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+                [weakSelf.view showAnimationErrorStaus:@"当前网络状态不佳，请重试" completion:nil];
             }];
+            
+            if (weakSelf.uploadImage) {
+                weakSelf.uploadImage(false);
+            }
         }
-    } fail:nil];
+    } fail:^(id error) {
+        if (weakSelf.uploadImage) {
+            weakSelf.uploadImage(false);
+        }
+    }];
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
@@ -404,6 +417,19 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSDate* endDate = [formater dateFromString:endTime];
     NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
     return time;
+}
+-(void)startAnimation:(UIImageView *)imageView angle:(int)angle
+{
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.01];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
+    imageView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
+    [UIView commitAnimations];
+}
+- (void)endAnimation{
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -427,6 +453,22 @@ typedef void(^uploadImage)(BOOL isSuccess);
         
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
+        if (model.sendstate == 100) {
+            [cell.sendmessageLoadingImageView setHidden:false];
+            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
+            animation.fromValue = @(0.f);
+            animation.removedOnCompletion = false;
+            animation.toValue = @(M_PI *2);
+            animation.duration  = 1.f;
+            animation.autoreverses = NO;
+            animation.fillMode =kCAFillModeForwards;
+            animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
+            [cell.sendmessageLoadingImageView.layer addAnimation:animation forKey:@"moveanimation"];
+
+        }else {
+            [cell.sendmessageLoadingImageView setHidden:true];
+        }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
             cell.timeLabel.text = model.showAt_time;
@@ -463,6 +505,12 @@ typedef void(^uploadImage)(BOOL isSuccess);
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
+//            [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:nil options:SDWebImageProgressiveLoad context:nil progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+//                // 进度
+//            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//                // 完成
+//                // 更改进度
+//            }];
         } else {
             if (model.encodedImageStr) {
                 NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
@@ -470,6 +518,23 @@ typedef void(^uploadImage)(BOOL isSuccess);
                 cell.sendImageView.image = decodedImage;
             }
         }
+        if (model.sendstate == 100) {
+            [cell.sendmessageLoadingImageView setHidden:false];
+            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
+            animation.fromValue = @(0.f);
+            animation.removedOnCompletion = false;
+            animation.toValue = @(M_PI *2);
+            animation.duration  = 1.f;
+            animation.autoreverses = NO;
+            animation.fillMode =kCAFillModeForwards;
+            animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
+            [cell.sendmessageLoadingImageView.layer addAnimation:animation forKey:@"moveanimation"];
+            
+        } else {
+            [cell.sendmessageLoadingImageView setHidden:true];
+        }
+
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
             cell.timeLabel.text = model.showAt_time;
@@ -484,13 +549,15 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [cell.resetSendMessageButton setHidden:true];
         }
         // 重发消息
+        WS(waekself)
         cell.resetSendmessageBlock = ^{
             RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            selectmodel.sendstate = 100;
             NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:selectmodel.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
             UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-            [self getQiniuTockenforImage:decodedImage];
+            [waekself getQiniuTockenforImage:decodedImage];
             
-            self.uploadImage = ^(BOOL isSuccess) {
+            waekself.uploadImage = ^(BOOL isSuccess) {
                 if (isSuccess){
                     [[RealmModule sharedInstance] deleteMessagetoRealm:model];
                 }
@@ -500,12 +567,18 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     [weakself.customTableView reloadData];
                 });
             };
+            
+            dispatch_after(0, dispatch_get_main_queue(), ^(void){
+//                [weakself scrollViewToBottom:true];
+                [weakself.customTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });
         };
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         // 图片点击回调
+        
         cell.imageclick = ^{
-            if (self.contentArr.count > 0) {
-                RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            if (waekself.contentArr.count > 0) {
+                RealmRecordModel *selectmodel = waekself.contentArr[indexPath.row];
                 if (selectmodel.messageMimeKind == 40) {
                     
                     NSMutableArray *imageArr = [NSMutableArray array];
@@ -577,13 +650,13 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [cell.timeLabel setHidden:true];
         }
         cell.imageclick = ^{
-            if (self.contentArr.count > 0) {
-                RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+            if (weakself.contentArr.count > 0) {
+                RealmRecordModel *selectmodel = weakself.contentArr[indexPath.row];
                 if (selectmodel.messageMimeKind == 40) {
                     
                     NSMutableArray *imageArr = [NSMutableArray array];
                     NSMutableArray *imageModelArr = [NSMutableArray array];
-                    for (RealmRecordModel *model in self.contentArr) {
+                    for (RealmRecordModel *model in weakself.contentArr) {
                         if (model.messageMimeKind == 40) {
                             KNPhotoItems *items = [[KNPhotoItems alloc] init];
                             if (model.mediaInfoList.count > 0) {
@@ -636,26 +709,27 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //    }
 //}
 - (void)addmedia:(NSString *)key{
-    
+    WS(weakself)
     [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
         NSDictionary *result = response[@"record"];
         NSString *idstr = result[@"_id"];
         // 发送消息
         if (idstr) {
             NSArray * imageKeyArr = @[idstr];
-            [self SendMessage:nil imageList: imageKeyArr type:40 SendStatusBlock:^(BOOL isSuccess) {
-                if (self.uploadImage) {
-                    self.uploadImage(isSuccess);
+            [weakself SendMessage:nil imageList: imageKeyArr type:40 SendStatusBlock:^(BOOL isSuccess) {
+                if (weakself.uploadImage) {
+                    weakself.uploadImage(isSuccess);
                 }
             }];
         }
-        
-        
     } fail:^(NSString * _Nonnull message) {
-        
+        if (weakself.uploadImage) {
+            weakself.uploadImage(false);
+        }
     }];
 }
 - (void)SendMessage:(NSString *)content imageList:(NSArray *)imageListarray type:(int) type SendStatusBlock:(void (^)(BOOL isSuccess))Block{
+    WS(weakself)
     NSDictionary *dic;
     if (type == 10) {
         dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(type), @"content": content};
@@ -670,6 +744,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
             // 子Model
             RealmRecordModel *model = [[RealmRecordModel alloc] initWithDictionary:dic];
             model.sectionid = self.sectionid;
+            model.sendstate = 200;
             model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
             // 保存记录到本地 (同步操作)
             [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
@@ -680,7 +755,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
         // 通讯录
     } fail:^(id error) {
-        [self.view endEditing:true];
+        [weakself.view endEditing:true];
         if (Block) {
             Block(false);
         }
@@ -713,7 +788,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         } else {
             model.idField = @"0";
         }
-        model.iserror = true;
+        model.sendstate = 100;
         model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
         // 保存记录到本地 (同步操作)
         [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
@@ -724,6 +799,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
             if (isSuccess) {
                 // 成功 删除
                 [[RealmModule sharedInstance] deleteMessagetoRealm:model];
+            } else {
+                /// 失败 更新错误状态
+                [[RealmModule sharedInstance] updateMessagetoRealmErrorStatus:model errorStatus:true];
             }
             textField.text = @"";
             [self.customTableView reloadData];

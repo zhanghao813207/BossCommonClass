@@ -27,8 +27,10 @@ typedef void(^resetSendmessageBlock)(void);
 @property (nonatomic, copy) imageclick imageclick;
 
 @property (nonatomic, copy) resetSendmessageBlock resetSendmessageBlock;
-@property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
+/// 加载动画
+@property (weak, nonatomic) IBOutlet UIImageView *sendmessageLoadingImageView;
 
 @end
 

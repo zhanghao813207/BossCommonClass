@@ -1441,6 +1441,13 @@
                                                         <action selector="resetSendMessage:" destination="Zg8-1I-cGN" eventType="touchUpInside" id="2jG-lr-kMd"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendmessageloadingIcon" translatesAutoresizingMaskIntoConstraints="NO" id="VOo-AK-Z7e">
+                                                    <rect key="frame" x="237.33333333333334" y="45.666666666666664" width="26.000000000000028" height="25.999999999999993"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="VOo-AK-Z7e" secondAttribute="height" multiplier="1:1" id="AOP-DL-shl"/>
+                                                        <constraint firstAttribute="width" constant="26" id="MbY-tJ-3Uv"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -1448,6 +1455,7 @@
                                                 <constraint firstItem="BfS-2v-ASZ" firstAttribute="leading" secondItem="lrB-QJ-VCk" secondAttribute="trailing" constant="8.0000000000000568" id="2rz-N4-7tC"/>
                                                 <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xjN-HM-jFm" secondAttribute="leading" constant="65" id="3Lb-2d-E58"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lrB-QJ-VCk" secondAttribute="bottom" constant="10" id="4zR-Rq-Dmm"/>
+                                                <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" secondItem="VOo-AK-Z7e" secondAttribute="trailing" constant="10" id="5fN-Bs-VHb"/>
                                                 <constraint firstItem="LxA-MV-P2Q" firstAttribute="top" secondItem="lrB-QJ-VCk" secondAttribute="top" id="Big-y3-xu8"/>
                                                 <constraint firstItem="sKA-WL-5z5" firstAttribute="trailing" secondItem="lrB-QJ-VCk" secondAttribute="trailing" constant="6" id="FJH-fx-lTL"/>
                                                 <constraint firstItem="sKA-WL-5z5" firstAttribute="bottom" secondItem="lrB-QJ-VCk" secondAttribute="bottom" id="R9y-Mf-ZTc"/>
@@ -1457,6 +1465,7 @@
                                                 <constraint firstItem="lrB-QJ-VCk" firstAttribute="leading" secondItem="LxA-MV-P2Q" secondAttribute="trailing" constant="10" id="jBr-hX-vUd"/>
                                                 <constraint firstItem="lrB-QJ-VCk" firstAttribute="top" secondItem="8u1-uM-Tei" secondAttribute="bottom" constant="10" id="oJu-8Z-MUw"/>
                                                 <constraint firstAttribute="trailing" secondItem="8u1-uM-Tei" secondAttribute="trailing" id="wKm-T3-sYL"/>
+                                                <constraint firstItem="VOo-AK-Z7e" firstAttribute="centerY" secondItem="lrB-QJ-VCk" secondAttribute="centerY" id="xZS-7W-Lgo"/>
                                                 <constraint firstAttribute="trailing" secondItem="tNC-WJ-Gb4" secondAttribute="trailing" constant="16" id="zD1-cl-9Pb"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1467,6 +1476,7 @@
                                             <outlet property="sendInfoHeaderImageView" destination="BfS-2v-ASZ" id="R4e-5G-Yh9"/>
                                             <outlet property="sendInfoNameLabel" destination="tC9-Wb-CqG" id="T26-i1-34h"/>
                                             <outlet property="sendInfoView" destination="tNC-WJ-Gb4" id="lcU-ql-X4I"/>
+                                            <outlet property="sendmessageLoadingImageView" destination="VOo-AK-Z7e" id="YeC-Ta-kSt"/>
                                             <outlet property="timeLabel" destination="8u1-uM-Tei" id="mBW-OG-Zx6"/>
                                         </connections>
                                     </tableViewCell>
@@ -1539,12 +1549,21 @@
                                                         <action selector="resetSendMessage:" destination="ayx-34-LJI" eventType="touchUpInside" id="snU-yO-YKb"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendmessageloadingIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ods-oR-bmF">
+                                                    <rect key="frame" x="98" y="96.333333333333329" width="26" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="ods-oR-bmF" secondAttribute="height" id="QIj-d0-fCP"/>
+                                                        <constraint firstAttribute="width" constant="26.000000000000028" id="hn2-Xj-klC"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.97647058823529409" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
+                                                <constraint firstItem="1co-dR-4Oh" firstAttribute="leading" secondItem="ods-oR-bmF" secondAttribute="trailing" constant="10" id="1lH-AU-Jjl"/>
                                                 <constraint firstItem="GwR-NH-QtK" firstAttribute="top" secondItem="dzw-i8-Qau" secondAttribute="top" id="AlL-B2-w5a"/>
                                                 <constraint firstAttribute="trailing" secondItem="wml-3S-1zv" secondAttribute="trailing" id="CZi-Vi-oFd"/>
                                                 <constraint firstItem="wml-3S-1zv" firstAttribute="leading" secondItem="aOm-46-lmG" secondAttribute="leading" id="Cmc-zY-I4n"/>
+                                                <constraint firstItem="ods-oR-bmF" firstAttribute="centerY" secondItem="dzw-i8-Qau" secondAttribute="centerY" id="DuB-Rg-IHk"/>
                                                 <constraint firstAttribute="trailing" secondItem="GwR-NH-QtK" secondAttribute="trailing" constant="16" id="PkM-pQ-6Bz"/>
                                                 <constraint firstItem="Asu-8d-R7m" firstAttribute="leading" secondItem="dzw-i8-Qau" secondAttribute="trailing" constant="8" id="WVZ-G3-KLw"/>
                                                 <constraint firstItem="1co-dR-4Oh" firstAttribute="leading" secondItem="WrF-Ef-abk" secondAttribute="trailing" constant="10" id="dJL-Cu-F4K"/>
@@ -1562,6 +1581,7 @@
                                             <outlet property="sendInfoHeaderImageView" destination="Asu-8d-R7m" id="y9n-TZ-Nlz"/>
                                             <outlet property="sendInfoNameLabel" destination="wag-s8-F6c" id="Fs1-eZ-WOH"/>
                                             <outlet property="sendInfoView" destination="GwR-NH-QtK" id="YMU-yS-Pxg"/>
+                                            <outlet property="sendmessageLoadingImageView" destination="ods-oR-bmF" id="8lz-v7-rlN"/>
                                             <outlet property="timeLabel" destination="wml-3S-1zv" id="Fhd-b0-jkH"/>
                                         </connections>
                                     </tableViewCell>
@@ -1781,6 +1801,7 @@
         <image name="nomarl" width="22" height="22"/>
         <image name="nomarlicon" width="22" height="22"/>
         <image name="rightIcon" width="9" height="14"/>
+        <image name="sendmessageloadingIcon" width="21" height="22"/>
         <image name="signatureIcon" width="275" height="144"/>
         <image name="successIcon" width="49" height="48"/>
         <image name="test" width="415" height="203"/>

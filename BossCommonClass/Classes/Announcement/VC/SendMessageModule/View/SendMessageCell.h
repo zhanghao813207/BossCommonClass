@@ -23,6 +23,10 @@ typedef void(^resetSendmessageBlock)(void);
 @property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
 
 @property (nonatomic, copy) resetSendmessageBlock resetSendmessageBlock;
+
+@property (weak, nonatomic) IBOutlet UIImageView *sendmessageLoadingImageView;
+@property (nonatomic, strong)CABasicAnimation *animation;
+ 
 @end
 
 NS_ASSUME_NONNULL_END

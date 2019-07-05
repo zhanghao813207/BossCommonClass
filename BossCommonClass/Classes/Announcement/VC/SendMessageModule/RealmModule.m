@@ -21,6 +21,7 @@ static RealmModule * sharedSingleton = nil;
     }
     return sharedSingleton;
 }
+// 删除
 - (void)deleteMessagetoRealm: (RealmRecordModel *)messageModel{
     RLMRealm *realm = [RLMRealm defaultRealm];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@ AND idField = %@",
@@ -36,11 +37,12 @@ static RealmModule * sharedSingleton = nil;
     }
     
 }
-- (void)updateMessagetoRealm:(RealmRecordModel *)messageModel{
+// 修改 更新 错误状态
+- (void)updateMessagetoRealmErrorStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    //
     [realm transactionWithBlock:^{
-        [realm addOrUpdateObject:messageModel];
+        messageModel.sendstate = 0;
+        messageModel.iserror = iserror;
     }];
 }
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid{

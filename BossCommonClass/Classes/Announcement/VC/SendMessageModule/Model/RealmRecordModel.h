@@ -25,9 +25,12 @@ RLM_ARRAY_TYPE(mediainfoListModel)
 @property (nonatomic, strong) NSString * sectionid;
 @property (nonatomic, strong) NSString * userid;
 @property (nonatomic, strong) NSString * showAt_time;
+// 是否失败
 @property (nonatomic, assign) BOOL iserror;
+// 图片转base64
 @property (nonatomic, strong) NSString * encodedImageStr;
-
+// 发送状态 200成功 100发送中 0失败
+@property (nonatomic, assign) NSInteger sendstate;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
