@@ -27,8 +27,8 @@ NSString *const kBossOwnerUserModelNational = @"national";
 NSString *const kBossOwnerUserModelNickname = @"nickname";
 NSString *const kBossOwnerUserModelphone = @"phone";
 
-NSString *const kBossOwnerUserWechatModel = @"WeChatModel";
-NSString *const kBossOwnerUserWalletModel = @"WalletModel";
+NSString *const kBossOwnerUserWechatModel = @"wechat_account";
+NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 
 @interface BossOwnerUserModel ()
 @end
@@ -113,10 +113,10 @@ NSString *const kBossOwnerUserWalletModel = @"WalletModel";
 	}
     
     if(![dictionary[kBossOwnerUserWalletModel] isKindOfClass:[NSNull class]]){
-        self.WalletModel = dictionary[kBossOwnerUserWalletModel];
+        self.WalletModel = [[BalanceMoneyModel alloc]initWithDictionary:dictionary[kBossOwnerUserWalletModel]] ;
     }
     if(![dictionary[kBossOwnerUserWechatModel] isKindOfClass:[NSNull class]]){
-        self.WeChatModel = dictionary[kBossOwnerUserWechatModel];
+        self.WeChatModel = [[WeChatModel alloc]initWithDictionary:dictionary[kBossOwnerUserWechatModel]];
     }
 	return self;
 }
@@ -183,10 +183,10 @@ NSString *const kBossOwnerUserWalletModel = @"WalletModel";
 		dictionary[kBossOwnerUserModelNickname] = self.nickname;
 	}
     if(self.WeChatModel != nil){
-        dictionary[kBossOwnerUserWechatModel] = self.WeChatModel;
+        dictionary[kBossOwnerUserWechatModel] = [self.WeChatModel toDictionary];
     }
     if(self.WalletModel != nil){
-        dictionary[kBossOwnerUserWalletModel] = self.WalletModel;
+        dictionary[kBossOwnerUserWalletModel] = [self.WalletModel toDictionary];
     }
 	return dictionary;
 
