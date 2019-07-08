@@ -14,6 +14,10 @@
 
 @implementation ChooseImageVc
 
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:true];

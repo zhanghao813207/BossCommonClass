@@ -62,6 +62,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
 @end
 
 @implementation MessageContentVc
+- (BOOL)prefersStatusBarHidden{
+    return NO;
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // 请求历史聊天记录
@@ -339,9 +342,18 @@ typedef void(^uploadImage)(BOOL isSuccess);
         model.idField = @"0";
     };
     model.sendstate = 100;
+    //获取当前时间
+    NSDate *currentDate = [[NSDate alloc] init];
+    //用于格式化NSDate对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设置格式：zzz表示时区
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    //NSDate转NSString
+    NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
     // 图片转 base64 编码
-    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
-    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *encodedImageStr = [self saveImageToDocument:image imageName:currentDateString];
+//    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+//    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     model.encodedImageStr = encodedImageStr;
     model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
     model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
@@ -404,6 +416,21 @@ typedef void(^uploadImage)(BOOL isSuccess);
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+/// 保存图片到本地
+- (NSString *)saveImageToDocument:(UIImage *)image imageName:(NSString *)imageName{
+    NSString *path_document = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagelastPath = [NSString stringWithFormat:@"/Documents/%@.png",imageName];
+    NSString *imagePath = [path_document stringByAppendingString: imagelastPath];
+    //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取)
+    [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+    return imagePath;
+}
+/// 获取图片
+- (UIImage *)getImageToDocument:(NSString *)imagePath{
+    UIImage *getimage2 = [UIImage imageWithContentsOfFile:imagePath];
+    return getimage2;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
@@ -418,20 +445,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
     return time;
 }
--(void)startAnimation:(UIImageView *)imageView angle:(int)angle
-{
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.01];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
-    imageView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
-    [UIView commitAnimations];
-}
-- (void)endAnimation{
-    
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WS(weakself);
     RealmRecordModel *model = self.contentArr[indexPath.row];
@@ -480,7 +493,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
         cell.resetSendmessageBlock = ^{
             RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
             [self SendMessage:selectmodel.content imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
-                
                 // 刷新列表
                 if (isSuccess) {
                     // 成功 删除
@@ -513,9 +525,10 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //            }];
         } else {
             if (model.encodedImageStr) {
-                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-                cell.sendImageView.image = decodedImage;
+                UIImage *image = [self getImageToDocument:model.encodedImageStr];
+//                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+                cell.sendImageView.image = image;
             }
         }
         if (model.sendstate == 100) {
@@ -552,9 +565,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
         WS(waekself)
         cell.resetSendmessageBlock = ^{
             RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-            selectmodel.sendstate = 100;
-            NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:selectmodel.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+            [[RealmModule sharedInstance] updateMessagetoRealmSendStatus:model errorStatus:false];
+            UIImage *image = [self getImageToDocument:selectmodel.encodedImageStr];
+            UIImage *decodedImage = image;
             [waekself getQiniuTockenforImage:decodedImage];
             
             waekself.uploadImage = ^(BOOL isSuccess) {
@@ -567,10 +580,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     [weakself.customTableView reloadData];
                 });
             };
-            
             dispatch_after(0, dispatch_get_main_queue(), ^(void){
-//                [weakself scrollViewToBottom:true];
-                [weakself.customTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [weakself.customTableView reloadData];
             });
         };
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
@@ -591,10 +602,14 @@ typedef void(^uploadImage)(BOOL isSuccess);
                                 items.url = rmodel.url;
                                 [imageArr addObject:items];
                             } else {
-                                NSData *decodedImageData = [[NSData alloc]
-                                                            initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-                                items.sourceImage = decodedImage;
+                                UIImage *image;
+                                if ([model.encodedImageStr containsString:@"Documents"]) {
+                                    image = [self getImageToDocument:model.encodedImageStr];
+                                } else {
+                                    NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                                    image = [UIImage imageWithData:decodedImageData];
+                                }
+                                items.sourceImage = image;
                                 [imageArr addObject:items];
                             }
                             [imageModelArr addObject:model];
@@ -664,10 +679,14 @@ typedef void(^uploadImage)(BOOL isSuccess);
                                 items.url = rmodel.url;
                                 [imageArr addObject:items];
                             } else {
-                                NSData *decodedImageData = [[NSData alloc]
-                                                            initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-                                items.sourceImage = decodedImage;
+                                UIImage *image;
+                                if ([model.encodedImageStr containsString:@"Documents"]) {
+                                    image = [self getImageToDocument:model.encodedImageStr];
+                                } else {
+                                    NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                                    image = [UIImage imageWithData:decodedImageData];
+                                }
+                                items.sourceImage = image;
                                 [imageArr addObject:items];
                             }
                             [imageModelArr addObject:model];

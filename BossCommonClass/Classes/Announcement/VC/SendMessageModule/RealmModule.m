@@ -45,6 +45,22 @@ static RealmModule * sharedSingleton = nil;
         messageModel.iserror = iserror;
     }];
 }
+// 修改消息发送状态
+- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@ AND idField = %@",
+                         kCurrentBossOwnerAccount.accountModel.accountId,messageModel.sectionid,messageModel.idField];
+    
+    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
+    if (puppies.count > 0) {
+        RLMObject *object = puppies.firstObject;
+        RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
+        [realm transactionWithBlock:^{
+            model.sendstate = 100;
+            model.iserror = iserror;
+        }];
+    }
+}
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid{
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@",
                          kCurrentBossOwnerAccount.accountModel.accountId,sectionid];

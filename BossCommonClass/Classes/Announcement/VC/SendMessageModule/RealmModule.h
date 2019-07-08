@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid;
 /// 更新错误状态
 - (void)updateMessagetoRealmErrorStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror;
+- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror;
 @end
 
 NS_ASSUME_NONNULL_END
