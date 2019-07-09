@@ -11,6 +11,7 @@
 #import "MQTTClientModel.h"
 #import "BossCache.h"
 
+
 //RealmModule.m
 @implementation RealmModule
 static RealmModule * sharedSingleton = nil;
@@ -46,19 +47,14 @@ static RealmModule * sharedSingleton = nil;
     }];
 }
 // 修改消息发送状态
-- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror{
+- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror Success:(resetSendmessageBlock_success)success{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@ AND idField = %@",
-                         kCurrentBossOwnerAccount.accountModel.accountId,messageModel.sectionid,messageModel.idField];
-    
-    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
-    if (puppies.count > 0) {
-        RLMObject *object = puppies.firstObject;
-        RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
-        [realm transactionWithBlock:^{
-            model.sendstate = 100;
-            model.iserror = iserror;
-        }];
+    [realm beginWriteTransaction];
+    messageModel.sendstate = 100;
+    messageModel.iserror = iserror;
+    [realm commitWriteTransaction];
+    if (success){
+        success();
     }
 }
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid{

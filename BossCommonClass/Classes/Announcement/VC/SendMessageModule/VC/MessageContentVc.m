@@ -424,10 +424,14 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSString *imagePath = [path_document stringByAppendingString: imagelastPath];
     //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取)
     [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
-    return imagePath;
+    return imageName;
 }
 /// 获取图片
-- (UIImage *)getImageToDocument:(NSString *)imagePath{
+- (UIImage *)getImageToDocument:(NSString *)imagename{
+    NSString *path_document = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagelastPath = [NSString stringWithFormat:@"/Documents/%@.png",imagename];
+    NSString *imagePath = [path_document stringByAppendingString: imagelastPath];
     UIImage *getimage2 = [UIImage imageWithContentsOfFile:imagePath];
     return getimage2;
 }
@@ -490,8 +494,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [cell.timeLabel setHidden:true];
         }
         // 重发消息
-        cell.resetSendmessageBlock = ^{
-            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+        cell.resetSendmessageBlock = ^(NSInteger index) {
+            RealmRecordModel *selectmodel = self.contentArr[index];
             [self SendMessage:selectmodel.content imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
                 // 刷新列表
                 if (isSuccess) {
@@ -563,26 +567,21 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
         // 重发消息
         WS(waekself)
-        cell.resetSendmessageBlock = ^{
-            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-            [[RealmModule sharedInstance] updateMessagetoRealmSendStatus:model errorStatus:false];
-            UIImage *image = [self getImageToDocument:selectmodel.encodedImageStr];
-            UIImage *decodedImage = image;
-            [waekself getQiniuTockenforImage:decodedImage];
+        
+        cell.resetSendMessageButton.tag = indexPath.row;
+        
+        cell.resetSendmessageBlock = ^(NSInteger index) {
             
-            waekself.uploadImage = ^(BOOL isSuccess) {
-                if (isSuccess){
-                    [[RealmModule sharedInstance] deleteMessagetoRealm:model];
-                }
-                // 主线程执行
-                dispatch_after(0, dispatch_get_main_queue(), ^(void){
-                    [weakself scrollViewToBottom:true];
-                    [weakself.customTableView reloadData];
-                });
-            };
-            dispatch_after(0, dispatch_get_main_queue(), ^(void){
-                [weakself.customTableView reloadData];
-            });
+            NSArray *arr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+            
+            RealmRecordModel *selectmodel = arr[index];
+            
+            [[RealmModule sharedInstance] deleteMessagetoRealm:selectmodel];
+            
+            UIImage *image = [self getImageToDocument:selectmodel.encodedImageStr];
+            
+            [self sendImageMessage:image];
+            
         };
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         // 图片点击回调
