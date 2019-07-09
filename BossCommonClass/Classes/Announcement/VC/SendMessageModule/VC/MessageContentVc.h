@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MessageContentVc : BossViewController
 @property (nonatomic, strong)NSString *sectionid;
 @property (nonatomic, strong)NSString *targetid;
-
+@property (nonatomic, strong)CABasicAnimation *animation;
+ 
 @end
 
 NS_ASSUME_NONNULL_END
