@@ -27,10 +27,12 @@ NSString *const kBossOwnerUserModelNational = @"national";
 NSString *const kBossOwnerUserModelNickname = @"nickname";
 NSString *const kBossOwnerUserModelphone = @"phone";
 
+NSString *const kBossOwnerUserWechatModel = @"wechat_account";
+NSString *const kBossOwnerUserWalletModel = @"wallet_info";
+
 @interface BossOwnerUserModel ()
 @end
 @implementation BossOwnerUserModel
-
 
 
 
@@ -109,6 +111,13 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	if(![dictionary[kBossOwnerUserModelNickname] isKindOfClass:[NSNull class]]){
 		self.nickname = dictionary[kBossOwnerUserModelNickname];
 	}
+    
+    if(![dictionary[kBossOwnerUserWalletModel] isKindOfClass:[NSNull class]]){
+        self.WalletModel = [[BalanceMoneyModel alloc]initWithDictionary:dictionary[kBossOwnerUserWalletModel]] ;
+    }
+    if(![dictionary[kBossOwnerUserWechatModel] isKindOfClass:[NSNull class]]){
+        self.WeChatModel = [[WeChatModel alloc]initWithDictionary:dictionary[kBossOwnerUserWechatModel]];
+    }
 	return self;
 }
 
@@ -173,6 +182,12 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	if(self.nickname != nil){
 		dictionary[kBossOwnerUserModelNickname] = self.nickname;
 	}
+    if(self.WeChatModel != nil){
+        dictionary[kBossOwnerUserWechatModel] = [self.WeChatModel toDictionary];
+    }
+    if(self.WalletModel != nil){
+        dictionary[kBossOwnerUserWalletModel] = [self.WalletModel toDictionary];
+    }
 	return dictionary;
 
 }
@@ -236,6 +251,12 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	if(self.nickname != nil){
 		[aCoder encodeObject:self.nickname forKey:kBossOwnerUserModelNickname];
 	}
+    if(self.WalletModel != nil){
+        [aCoder encodeObject:self.WalletModel forKey:kBossOwnerUserWalletModel];
+    }
+    if(self.WeChatModel != nil){
+        [aCoder encodeObject:self.WeChatModel forKey:kBossOwnerUserWechatModel];
+    }
 
 }
 
@@ -265,6 +286,8 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	self.name = [aDecoder decodeObjectForKey:kBossOwnerUserModelName];
 	self.national = [aDecoder decodeObjectForKey:kBossOwnerUserModelNational];
 	self.nickname = [aDecoder decodeObjectForKey:kBossOwnerUserModelNickname];
+    self.WalletModel = [aDecoder decodeObjectForKey:kBossOwnerUserWalletModel];
+    self.WeChatModel = [aDecoder decodeObjectForKey:kBossOwnerUserWechatModel];
 	return self;
 
 }
@@ -295,7 +318,8 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 	copy.name = [self.name copy];
 	copy.national = [self.national copy];
 	copy.nickname = [self.nickname copy];
-
+    copy.WeChatModel = [self.WeChatModel copy];
+    copy.WalletModel = [self.WalletModel copy];
 	return copy;
 }
 @end

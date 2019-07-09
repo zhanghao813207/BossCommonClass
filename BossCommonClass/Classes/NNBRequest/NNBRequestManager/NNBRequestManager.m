@@ -103,6 +103,7 @@ static NNBRequestManager *sharedManager = nil;
             [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
             [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
         }
+        
     } else {
         if(!kCache.netConfig || !kCache.checkLogin || [@"auth.auth.send_verify_code" isEqualToString:cmd]){
             // header中添加X-AUTH
