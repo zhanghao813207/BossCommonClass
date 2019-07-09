@@ -87,11 +87,12 @@
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
+        self.isEdit = true;
         [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
+        self.isEdit = false;
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
-    self.isEdit = [self completeButtonStatus];
     _type = type;
 }
 - (int)getType{
@@ -176,20 +177,28 @@
     for (BizDistrictTeamPlatformModel *F_Model in self.contentArr){
         NSNumber *val = [NSNumber numberWithInteger:F_Model.type];
         [typeArr addObject: val];
-        for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
-            NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
-            [typeArr addObject: val];
-            for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
-                NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+        if (F_Model.type == 1 || F_Model.type == 2) {
+            for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
+                NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
                 [typeArr addObject: val];
-                for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
-                    NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
-                    [typeArr addObject: val];
+                if (S_Model.type == 1 || S_Model.type == 2) {
+                    for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
+                        NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                        [typeArr addObject: val];
+                        for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
+                            NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
+                            [typeArr addObject: val];
+                        }
+                    }
                 }
             }
         }
     }
-    return [typeArr containsObject:@(1)] || [typeArr containsObject:@(2)];
+    if ([typeArr containsObject:@(1)] || [typeArr containsObject:@(2)]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 // 监听编辑状态
 -(void)setIsEdit:(BOOL)isEdit{
@@ -222,8 +231,8 @@
         } else {
             teamListModel.type = 0;
         }
-        self.isEdit = [self completeButtonStatus];
         self.type = [self getType];
+        self.isEdit = [self completeButtonStatus];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     
