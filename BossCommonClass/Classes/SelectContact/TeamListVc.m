@@ -56,6 +56,27 @@
     BizDistrictTeamPlatformModel *C_Model = S_Model.supplierArr[self.index];
     self.contentArr = C_Model.cityArr;
     self.type = [self getType:self.contentArr];
+    self.isEdit = [self completeButtonStatus];
+}
+-(BOOL)completeButtonStatus{
+    NSMutableArray *typeArr = [[NSMutableArray alloc] init];
+    for (BizDistrictTeamPlatformModel *F_Model in self.allContentArr){
+        NSNumber *val = [NSNumber numberWithInteger:F_Model.type];
+        [typeArr addObject: val];
+        for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
+            NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
+            [typeArr addObject: val];
+            for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
+                NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                [typeArr addObject: val];
+                for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
+                    NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
+                    [typeArr addObject: val];
+                }
+            }
+        }
+    }
+    return [typeArr containsObject:@(1)] || [typeArr containsObject:@(2)];
 }
 -(void)setUI{
     self.customTableView.estimatedRowHeight = 100;
@@ -75,6 +96,8 @@
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.alpha = 0.4;
+    [self.finishButton setEnabled:false];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
@@ -96,6 +119,7 @@
     C_Model.type = [self getType: self.contentArr];
     S_Model.type = [self getType: S_Model.supplierArr];
     F_Model.type = [self getType: F_Model.PlatformArr];
+    
 }
 // 返回平台
 - (IBAction)backtoSelectContactVc:(UIButton *)sender {
@@ -143,13 +167,19 @@
     }
     [self.customTableView reloadData];
 }
+
 // 是否全选
 - (void)setType:(int)type{
     if (type == 1) {
+//        self.isEdit = true;
+        
         [self.allSelectButton setTitle:@"取消全选" forState:UIControlStateNormal];
     } else {
+//        self.isEdit = false;
+//        self.isEdit = [self completeButtonStatus];
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
+    self.isEdit = [self completeButtonStatus];
     _type = type;
 }
 - (int)getType:(NSArray *)contentArr{
@@ -159,12 +189,15 @@
         [self.typeArr addObject:[NSNumber numberWithInteger:teamListModel.type]];
     }
     if (([self.typeArr containsObject:[NSNumber numberWithInteger:0]] && [self.typeArr containsObject:[NSNumber numberWithInteger:1]]) || [self.typeArr containsObject:[NSNumber numberWithInteger:2]] ){
+//        self.isEdit = true;
         return 2;
         
     }  else if (![self.typeArr containsObject:[NSNumber numberWithInteger:1]]) {
+//        self.isEdit = false;
         return 0;
         
     } else if (![self.typeArr containsObject:[NSNumber numberWithInteger:0]]){
+//        self.isEdit = true;
         return 1;
     }
     return 0;
@@ -193,11 +226,15 @@
 }
 // 监听编辑状态
 -(void)setIsEdit:(BOOL)isEdit{
-    // 是编辑状态 显示 完成&全选
+    // 是编辑状态 完成可点击
     if (isEdit) {
+        // 不是 隐藏 完成 & 全选 & 编辑 状态
+        self.finishButton.alpha = 1;
+        [self.finishButton setEnabled:true];
         
     } else {
-        // 不是 隐藏 完成 & 全选 & 编辑 状态
+        self.finishButton.alpha = 0.4;
+        [self.finishButton setEnabled:false];
     }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -213,11 +250,8 @@
             teamListModel.type = 1;
         } else if (teamListModel.type == 1) {
             teamListModel.type = 0;
-        } else if (teamListModel.type == 2){
-            teamListModel.type = 1;
-        } else {
-            teamListModel.type = 1;
         }
+        self.isEdit = [self completeButtonStatus];
         self.type = [self getType: self.contentArr];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
@@ -225,10 +259,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
-    ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    vc.group_id = teamListModel.idField;
-    vc.title = teamListModel.name;
-    [self.navigationController pushViewController:vc animated:true];
+//    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+//    ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+//    vc.group_id = teamListModel.idField;
+//    vc.title = teamListModel.name;
+//    [self.navigationController pushViewController:vc animated:true];
 }
 @end

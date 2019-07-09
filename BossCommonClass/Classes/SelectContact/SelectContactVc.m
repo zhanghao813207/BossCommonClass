@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.isEdit = [self completeButtonStatus];
 }
 
 -(void)setUI{
@@ -70,6 +71,8 @@
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
+    self.finishButton.alpha = 0.4;
+    [self.finishButton setEnabled:false];
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
@@ -88,6 +91,7 @@
     } else {
         [self.allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
     }
+    self.isEdit = [self completeButtonStatus];
     _type = type;
 }
 - (int)getType{
@@ -133,10 +137,11 @@
                                    @"wpp_id":self.wppId,
                                    @"_meta":@{
                                            @"limit":@(0)
-                                           }
+                                           },
+                                   @"type": @(10)
                                    };
             [NNBBasicRequest postJsonWithUrl:kUrl  parameters: para CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
-                NSDictionary *dic = responseObject[@"data"];
+                NSDictionary *dic = responseObject;
                 BaseTeamListModel *teamListModel = [[BaseTeamListModel alloc] initWithDictionary:dic];
                 
                 if (teamListModel.roleTeam.data.count > 0) {
@@ -166,14 +171,37 @@
         }
     }
 }
-
+-(BOOL)completeButtonStatus{
+    NSMutableArray *typeArr = [[NSMutableArray alloc] init];
+    for (BizDistrictTeamPlatformModel *F_Model in self.contentArr){
+        NSNumber *val = [NSNumber numberWithInteger:F_Model.type];
+        [typeArr addObject: val];
+        for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
+            NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
+            [typeArr addObject: val];
+            for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
+                NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                [typeArr addObject: val];
+                for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
+                    NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
+                    [typeArr addObject: val];
+                }
+            }
+        }
+    }
+    return [typeArr containsObject:@(1)] || [typeArr containsObject:@(2)];
+}
 // 监听编辑状态
 -(void)setIsEdit:(BOOL)isEdit{
-    // 是编辑状态 显示 完成&全选
+    // 是编辑状态 完成可点击
     if (isEdit) {
+        // 不是 隐藏 完成 & 全选 & 编辑 状态
+        self.finishButton.alpha = 1;
+        [self.finishButton setEnabled:true];
         
     } else {
-        // 不是 隐藏 完成 & 全选 & 编辑 状态
+        self.finishButton.alpha = 0.4;
+        [self.finishButton setEnabled:false];
     }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -194,6 +222,7 @@
         } else {
             teamListModel.type = 0;
         }
+        self.isEdit = [self completeButtonStatus];
         self.type = [self getType];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
