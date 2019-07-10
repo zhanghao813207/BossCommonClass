@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+/// 图片点击回调
 typedef void(^imageclick)(void);
+/// 消息重发回调
+typedef void(^resetSendmessageBlock)(void);
 
 @interface SendImageCell : UITableViewCell
 
@@ -22,6 +25,13 @@ typedef void(^imageclick)(void);
 @property (weak, nonatomic) IBOutlet UIView *sendInfoView;
 
 @property (nonatomic, copy) imageclick imageclick;
+
+@property (nonatomic, copy) resetSendmessageBlock resetSendmessageBlock;
+
+@property (weak, nonatomic) IBOutlet UIButton *resetSendMessageButton;
+/// 加载动画
+@property (weak, nonatomic) IBOutlet UIImageView *sendmessageLoadingImageView;
+
 @end
 
 NS_ASSUME_NONNULL_END
