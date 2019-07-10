@@ -585,15 +585,28 @@ static int textLength = 30;
  打开
  */
 - (void)select {
+#ifdef kBossManager
+    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    vc.contentArr = self.contentArr;
+    vc.wppId = self.wppId;
+    [self.viewController.navigationController pushViewController:vc animated:true];
+#else
+    AddressBookVC *vc = [[AddressBookVC alloc] init];
+    vc.delegate = self;
+    vc.teamArr = self.model.members;
+    vc.isShowSelectBar = true;
+    [self.viewController.navigationController pushViewController:vc animated:true];
+#endif
+
 //    AddressBookVC *vc = [[AddressBookVC alloc] init];
 //    vc.delegate = self;
 //    vc.teamArr = self.model.members;
 //    vc.isShowSelectBar = true;
     // 选择联系人优化
-    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    vc.contentArr = self.contentArr;
-    vc.wppId = self.wppId;
-    [self.viewController.navigationController pushViewController:vc animated:true];
+//    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+//    vc.contentArr = self.contentArr;
+//    vc.wppId = self.wppId;
+//    [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate
 - (void)select:(NSArray *)modelArr {
