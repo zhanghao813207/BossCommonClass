@@ -131,7 +131,7 @@
 }
 - (void)getpublishButtonStatus{
     
-    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2  parameters:nil CMD:@"message.address_book.send_notice_permission" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:nil CMD:@"message.address_book.send_notice_permission" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
         BOOL isok = [[dic objectForKey:@"ok"] boolValue];
         if (isok) {
