@@ -312,7 +312,8 @@
     self.titleLabel.text = model.message_summary_info.title;
     self.contentLabel.text = model.message_summary_info.content;
     self.timeLable.text = model.message_summary_info.time;
-  
+ 
+    
     if (model.sender_info.isMe) {
 //        self.nameLable.text = [self reversalString:model.sender_info.nick_name];
         self.nameLable.text = model.sender_info.nick_name;

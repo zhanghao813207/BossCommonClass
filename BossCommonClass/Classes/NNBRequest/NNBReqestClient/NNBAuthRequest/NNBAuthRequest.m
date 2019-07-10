@@ -34,16 +34,19 @@
     
     [NNBBasicRequest postLoginJsonWithUrl:kUrl parameters:paramDic CMD:[self cmdRequest] success:^(id responseObject) {
 
-         NSLog(@"postLoginJsonWithUrl->response\n%@", responseObject);
+         NSLog(@"登录postLoginJsonWithUrl->response\n%@", responseObject);
         
 #ifdef kBossKnight
         kCurrentBossKnightAccount.isNeedUpdate = NO;
         
         TokenModel *token = [[TokenModel alloc] init];
+        
         [token setValuesForKeysWithDictionary:responseObject];
+        
         token.account_id = [responseObject objectForKey:@"_id"];
         
         NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:token.expired_at];
+        
         NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
         token.expired_at = [NSString stringWithFormat:@"%.0f", [date timeIntervalSince1970]];
         

@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, StaffStates) {
 
 /**
  解约协议签字状态
-
+ 
  - DepartureStateNotSign: 未签字
  - StaffPositionType: 已签字
  */
@@ -436,6 +436,14 @@ typedef NS_ENUM(NSUInteger, CostCenterType) {
 typedef NS_ENUM(NSUInteger, NodeApproveMode) {
     NodeApproveModeAny = 20, // 任意
     NodeApproveModeAll = 10, // 全部
+};
+
+//消息会话列表
+typedef NS_ENUM(NSInteger, MessageType) {
+    MessageTypeSingleChat     =  40, // 单聊
+    MessageTypeGroupChat =  50, // 群聊
+    MessageTypeAnnouncement =  60, // 公告
+    MessageTypeMeeting =  70, // 应用(会议)
 };
 
 #endif /* BossEnumDefin_h */

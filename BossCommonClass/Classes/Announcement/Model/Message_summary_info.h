@@ -7,9 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Message_summary_info : NSObject
+
 @property(nonatomic, copy)NSString *_id;
 @property(nonatomic, copy)NSString *content;
 @property(nonatomic, copy)NSString *created_at;
@@ -18,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy)NSString *title;
 @property(nonatomic, copy)NSString *time;
 @property(nonatomic, copy)NSString *home_time;
+
+
+@property(nonatomic, strong)NSDictionary *extra_data;
+
 @end
 
 NS_ASSUME_NONNULL_END

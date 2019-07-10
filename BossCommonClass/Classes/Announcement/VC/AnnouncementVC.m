@@ -124,6 +124,8 @@
     button.titleLabel.font = [UIFont systemFontOfSize:17];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
+
+
 - (void)setAction {
     
 }
@@ -157,6 +159,7 @@
     NSLog(@"发布成功");
     [self refreshLatestData];
 }
+
 - (void)publishAction {
     PublishAnnouncementController *vc = [[PublishAnnouncementController alloc] init];
     vc.wppId = self.messageModel.idField;
@@ -225,6 +228,7 @@
         [self.tableview.mj_footer endRefreshing];
     }];
 }
+
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -243,6 +247,7 @@
     }
     return _tableview;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnoucementList *list = self.dataArrM[indexPath.row];
     AnnouncementDetailVC *vc = [[AnnouncementDetailVC alloc] init];
@@ -259,6 +264,7 @@
     [self.navigationController pushViewController:vc animated:true];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [tableView tableViewDisplayWitMsg:@"暂无消息" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
     return self.dataArrM.count;

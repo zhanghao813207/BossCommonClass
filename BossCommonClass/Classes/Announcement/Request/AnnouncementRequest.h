@@ -90,6 +90,9 @@ typedef NS_ENUM(NSInteger, Storage_type) {
  */
 + (void)findNoticeList:(NSString *)proxyId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock;
 
+//模仿公告 写个 会议
++ (void)findMeetingNoticeList:(NSString *)sessionId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock;
+
 /**
  发布公告
  */
