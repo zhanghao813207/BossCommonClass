@@ -31,6 +31,7 @@
 #import "JYCPickImage.h"
 #import "PhotoManager.h"
 #import "BossCache.h"
+#import "IQKeyboardManager.h"
 
 typedef void(^uploadImage)(BOOL isSuccess);
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
@@ -38,6 +39,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
 //
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewForBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewforBottom2;
 
 @property (weak, nonatomic) IBOutlet UIView *selectImageView;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *SelectImageViewHeight;
@@ -65,10 +67,17 @@ typedef void(^uploadImage)(BOOL isSuccess);
 - (BOOL)prefersStatusBarHidden{
     return NO;
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    IQKeyboardManager *keyboardManager =  [IQKeyboardManager sharedManager];
+    keyboardManager.enable = NO;
+    keyboardManager.enableAutoToolbar = NO;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    // 请求历史聊天记录
-    
     // 注册键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
@@ -92,6 +101,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
     _isshowImageView = false;
     
     [self.AddImageButton setSelected:false];
+    
+//    self.
 }
 
 
@@ -162,6 +173,10 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //
 }
 - (void)viewWillDisappear:(BOOL)animated {
+    // 开启
+    IQKeyboardManager *keyboardManager =  [IQKeyboardManager sharedManager];
+    keyboardManager.enable = YES;
+    keyboardManager.enableAutoToolbar = YES;
     // 注销消息通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -213,8 +228,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     RealmRecordModel *model = [self.contentArr lastObject];
                     [self readedmsgid:model.idField Sectionid:sectionid];
                 }
-                
-                [self.customTableView reloadData];
+                dispatch_after(0, dispatch_get_main_queue(), ^(void){
+                    [self.customTableView reloadData];
+                });
             }
             
         } fail:^(id error) {
@@ -456,10 +472,10 @@ typedef void(^uploadImage)(BOOL isSuccess);
         model.isShowTime = YES;
     }
     // 聊天图片处理
-    if (self.contentArr.count > indexPath.row + 1) {
-        RealmRecordModel *Nextmodel = self.contentArr[indexPath.row + 1];
-        NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
-        NSString *startTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:model.createdAt];
+    if (indexPath.row != 0) {
+        RealmRecordModel *Nextmodel = self.contentArr[indexPath.row - 1];
+        NSString *startTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
+        NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:model.createdAt];
         int a = [self pleaseInsertStarTime:startTime andInsertEndTime:nextTime];
         if (a > 180) {
             model.isShowTime = true;
@@ -470,6 +486,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
+        cell.resetSendMessageButton.tag = indexPath.row;
         if (model.sendstate == 100) {
             [cell.sendmessageLoadingImageView setHidden:false];
             CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];

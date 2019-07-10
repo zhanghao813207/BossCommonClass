@@ -1716,6 +1716,7 @@
                         <outlet property="textFIeldView" destination="GdV-jW-s8d" id="XEY-JS-H3v"/>
                         <outlet property="textFieldContent" destination="ncS-iZ-bbV" id="sce-K9-qNw"/>
                         <outlet property="viewForBottom" destination="dYj-kT-SNv" id="eEM-d0-Qlx"/>
+                        <outlet property="viewforBottom2" destination="Wif-q5-Lrp" id="t3I-9W-44c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5CT-2b-yaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
