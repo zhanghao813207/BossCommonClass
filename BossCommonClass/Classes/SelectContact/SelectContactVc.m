@@ -177,18 +177,16 @@
     for (BizDistrictTeamPlatformModel *F_Model in self.contentArr){
         NSNumber *val = [NSNumber numberWithInteger:F_Model.type];
         [typeArr addObject: val];
-        if (F_Model.type == 1 || F_Model.type == 2) {
+        if (F_Model.type == 1 || F_Model.type == 2){
             for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
                 NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
                 [typeArr addObject: val];
-                if (S_Model.type == 1 || S_Model.type == 2) {
-                    for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
-                        NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
+                    NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                    [typeArr addObject: val];
+                    for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
+                        NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
                         [typeArr addObject: val];
-                        for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
-                            NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
-                            [typeArr addObject: val];
-                        }
                     }
                 }
             }
