@@ -52,6 +52,8 @@
         [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
     } fail:^(id error) {
         // 校验是否获取消息推送请求token的接口
+        NSLog(@"fail=========%@",cmd);
+
         if(cmd && [cmd isEqualToString:@"auth.token.get_ums_access_token"]){
             kCache.checkStartUMS = NO;
             if(fail){
@@ -158,7 +160,8 @@
 + (void)handleSuccessWithResponseObject:(id)responseObject dealType:(ResultDealTypes)dealType success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     NSDictionary *dic = (NSDictionary *)responseObject;
-    if (dic[@"err_code"]) {
+    if (dic[@"err_code"])
+    {
         NSInteger errCode = [dic[@"err_code"] integerValue];
         // 400403:商户不使用消息系统
         if(errCode == 400403){
@@ -283,7 +286,6 @@
         } else {
             showView = [JYCSimpleToolClass getCurrentVC].view;
         }
-        
         [showView dismissLoadingViewWithCompletion:nil];
         if (dealType == ResultDealTypesQHErrorView) {
             [[[QHErrorView alloc] initWithTitle:@"网络异常，请检查网络设置"] showInView:showView];
