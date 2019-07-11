@@ -7,8 +7,8 @@
 #import "BaseTeamListModel.h"
 #import "BizDistrictTeamPlatformModel.h"
 
-NSString *const kBaseTeamListModelBizDistrictTeam = @"biz_district_team";
-NSString *const kBaseTeamListModelRoleTeam = @"role_team";
+NSString *const kBaseTeamListModelBizDistrictTeam = @"data";
+//NSString *const kBaseTeamListModelRoleTeam = @"role_team";
 
 @interface BaseTeamListModel ()
 @end
@@ -30,7 +30,7 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
         NSMutableArray * platformList = [NSMutableArray array];
         NSMutableArray * platformCodeLists = [NSMutableArray array];
 //        NSMutableArray * supplierIDArr = [NSMutableArray array];
-
+// 
         for(NSDictionary * bizDistrictTeamDictionary in bizDistrictTeamDictionaries){
             
             BizDistrictTeam *bizDistrictTeam = [[BizDistrictTeam alloc] initWithDictionary:bizDistrictTeamDictionary];
@@ -61,9 +61,9 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
     
         self.bizDistrictTeam = bizDistrictTeamItems;
     }
-	if(![dictionary[kBaseTeamListModelRoleTeam] isKindOfClass:[NSNull class]]){
-		self.roleTeam = [[RoleTeam alloc] initWithDictionary:dictionary[kBaseTeamListModelRoleTeam]];
-	}
+//    if(![dictionary[kBaseTeamListModelRoleTeam] isKindOfClass:[NSNull class]]){
+//        self.roleTeam = [[RoleTeam alloc] initWithDictionary:dictionary[kBaseTeamListModelRoleTeam]];
+//    }
 
 	return self;
 }
@@ -83,7 +83,7 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
 		dictionary[kBaseTeamListModelBizDistrictTeam] = dictionaryElements;
 	}
 	if(self.roleTeam != nil){
-		dictionary[kBaseTeamListModelRoleTeam] = [self.roleTeam toDictionary];
+//        dictionary[kBaseTeamListModelRoleTeam] = [self.roleTeam toDictionary];
 	}
 	return dictionary;
 
@@ -101,7 +101,7 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
 		[aCoder encodeObject:self.bizDistrictTeam forKey:kBaseTeamListModelBizDistrictTeam];
 	}
 	if(self.roleTeam != nil){
-		[aCoder encodeObject:self.roleTeam forKey:kBaseTeamListModelRoleTeam];
+//        [aCoder encodeObject:self.roleTeam forKey:kBaseTeamListModelRoleTeam];
 	}
 
 }
@@ -113,7 +113,7 @@ NSString *const kBaseTeamListModelRoleTeam = @"role_team";
 {
 	self = [super init];
 	self.bizDistrictTeam = [aDecoder decodeObjectForKey:kBaseTeamListModelBizDistrictTeam];
-	self.roleTeam = [aDecoder decodeObjectForKey:kBaseTeamListModelRoleTeam];
+//    self.roleTeam = [aDecoder decodeObjectForKey:kBaseTeamListModelRoleTeam];
 	return self;
 
 }

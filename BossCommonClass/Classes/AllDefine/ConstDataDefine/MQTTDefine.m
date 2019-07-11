@@ -13,8 +13,8 @@
 
     // local
 
-//    NSString *const mqttServer = @"192.168.10.62";
-//    NSInteger const mqttPort   = 8082;
+//    NSString *const mqttServer = @"192.168.10.69";
+//    NSInteger const mqttPort   = 1883;
 //
 //    NSString *const mqttUserName = @"im_server";
 //    NSString *const mqttPassword = @"im_server-123";
