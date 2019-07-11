@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 /// 消息重发回调
-typedef void(^resetSendmessageBlock)(void);
+typedef void(^resetSendmessageBlock)(NSInteger index);
 
 @interface SendMessageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *messageContentView;
