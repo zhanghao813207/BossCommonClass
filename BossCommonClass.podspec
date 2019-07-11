@@ -56,5 +56,5 @@ these are common classes,they are used by boss system.
   s.dependency 'UMCCommonLog', '~> 1.0.0'
   s.dependency 'XFHProject', '~> 0.0.2'
   s.dependency 'MGJRouter', '~> 0.10.0'
-  s.dependency 'Realm'
+  s.dependency 'Realm', '~> 3.17.0'
 end
