@@ -593,6 +593,9 @@ static int textLength = 30;
 #else
     AddressBookVC *vc = [[AddressBookVC alloc] init];
     vc.delegate = self;
+    vc.wppId = self.wppId;
+    vc.iscloseTalk = true;
+//    vc.contentArr = self.contentArr;
     vc.teamArr = self.model.members;
     vc.isShowSelectBar = true;
     [self.viewController.navigationController pushViewController:vc animated:true];

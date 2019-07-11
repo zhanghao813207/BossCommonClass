@@ -250,6 +250,7 @@
     ContactsGroup *model = self.arrM[indexPath.row];
     PersonAddressBookVC *vc = [[PersonAddressBookVC alloc] init];
     vc.group = model;
+    vc.iscloseTalk = !self.iscloseTalk;
     if (model.state == SelectStateAll) {
         vc.isAll = true;
     }else {
