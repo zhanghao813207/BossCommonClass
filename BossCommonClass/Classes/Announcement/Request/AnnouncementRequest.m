@@ -119,7 +119,7 @@
             [tempArr addObject:GrouptempModel.vendor_target_id];
         } else {
             [tempArr addObject:[NSString stringWithFormat:@"%@", tempModel]];
-
+// 新建公告
         }
     }
     dic[@"members"] = tempArr;
@@ -194,7 +194,8 @@
                           @"wpp_id":wppId,
                           @"_meta":@{
                                   @"limit":@(0)
-                                  }
+                                  },
+                          @"type": @(10)
                           };
 
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {

@@ -49,7 +49,7 @@
     self.title = self.group.name;
     self.arrM = [NSMutableArray array];
     self.selectArrM = [NSMutableArray array];
-  
+//    self.isinsertStartTolk = true;
     [self addSubviews];
     ////先隐藏掉
 //    [self setSelectModel];
@@ -165,12 +165,14 @@
     return view;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SendMessageStartVc * vc = [SendMessageStartVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-    ContactsPerson *model = self.arrM[indexPath.row];
-    vc.name = model.nick_name;
-    vc.teamName = self.title;
-    vc.targetid = model._id;
-    [self.navigationController pushViewController:vc animated:true];
+    if (self.iscloseTalk) {
+        SendMessageStartVc * vc = [SendMessageStartVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+        ContactsPerson *model = self.arrM[indexPath.row];
+        vc.name = model.nick_name;
+        vc.teamName = self.title;
+        vc.targetid = model._id;
+        [self.navigationController pushViewController:vc animated:true];
+    }
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
