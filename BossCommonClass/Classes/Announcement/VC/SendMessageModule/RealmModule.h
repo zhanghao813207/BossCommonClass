@@ -11,6 +11,8 @@
 #import "BossOwnerAccount.h"
 
 NS_ASSUME_NONNULL_BEGIN
+/// 消息重发回调
+typedef void(^resetSendmessageBlock_success)(void);
 
 @interface RealmModule : NSObject
 
@@ -27,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid;
 /// 更新错误状态
 - (void)updateMessagetoRealmErrorStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror;
-- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror;
+//- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror;
+
+- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror Success:(resetSendmessageBlock_success)success;
 @end
 
 NS_ASSUME_NONNULL_END

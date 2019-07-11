@@ -11,6 +11,7 @@
 #import "MQTTClientModel.h"
 #import "BossCache.h"
 
+
 //RealmModule.m
 @implementation RealmModule
 static RealmModule * sharedSingleton = nil;
@@ -46,19 +47,14 @@ static RealmModule * sharedSingleton = nil;
     }];
 }
 // 修改消息发送状态
-- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror{
+- (void)updateMessagetoRealmSendStatus:(RealmRecordModel *)messageModel errorStatus:(BOOL )iserror Success:(resetSendmessageBlock_success)success{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@ AND sectionid = %@ AND idField = %@",
-                         kCurrentBossOwnerAccount.accountModel.accountId,messageModel.sectionid,messageModel.idField];
-    
-    RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
-    if (puppies.count > 0) {
-        RLMObject *object = puppies.firstObject;
-        RealmRecordModel *model = [[RealmRecordModel alloc] initWithValue:object];
-        [realm transactionWithBlock:^{
-            model.sendstate = 100;
-            model.iserror = iserror;
-        }];
+    [realm beginWriteTransaction];
+    messageModel.sendstate = 100;
+    messageModel.iserror = iserror;
+    [realm commitWriteTransaction];
+    if (success){
+        success();
     }
 }
 - (RealmRecordModel *)getLastRealmRecordModelFormRealm:(NSString *)sectionid{
@@ -76,24 +72,20 @@ static RealmModule * sharedSingleton = nil;
 }
 - (void)saveMessagetoRealm:(RealmRecordModel *)messageModel Sectionid:(NSString *)sectionid{
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"userid = %@",
-                         kCurrentBossOwnerAccount.accountModel.accountId];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"sectionid = %@ AND idField = %@",
+                         sectionid, messageModel.idField];
     RLMResults<RealmRecordModel *> *puppies = [RealmRecordModel objectsWithPredicate:pred];
-    
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    
-    // 保存
-    [realm transactionWithBlock:^{
-        [realm addObject:messageModel];
-    }];
-    
-    if (messageModel.idField){
-        // 标记
-        NSDictionary *dic = @{@"event_name":@"msg_ack",@"payload":@{@"account_id":[BossCache defaultCache].umsAccessTokenModel.accountId, @"message_ids": @[messageModel.idField]}};
-        NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
-        [[MQTTClientModel sharedInstance] sendDataToTopic:@"ums/" data:data];
+    if (puppies.count <= 0) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        // 保存
+        [realm transactionWithBlock:^{
+            [realm addObject:messageModel];
+        }];
     }
-    
+    // 标记
+    NSDictionary *dic = @{@"event_name":@"msg_ack",@"payload":@{@"account_id":[BossCache defaultCache].umsAccessTokenModel.accountId, @"message_ids": @[messageModel.idField]}};
+    NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
+    [[MQTTClientModel sharedInstance] sendDataToTopic:@"ums/" data:data];
 
 }
 // 获取数据
