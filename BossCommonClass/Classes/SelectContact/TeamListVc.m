@@ -263,10 +263,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
-//    ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-//    vc.group_id = teamListModel.idField;
-//    vc.title = teamListModel.name;
-//    [self.navigationController pushViewController:vc animated:true];
+    BizDistrictTeamPlatformModel *teamListModel = self.contentArr[indexPath.row];
+    ContactListVc *vc = [ContactListVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    vc.group_id = teamListModel.idField;
+    vc.title = teamListModel.name;
+    [self.navigationController pushViewController:vc animated:true];
 }
 @end

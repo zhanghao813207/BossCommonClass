@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)NSArray *personSelectArr;
 @property(nonatomic, strong)ContactsGroup *group;
 @property(nonatomic, strong)NSString *group_id;
+
+@property(nonatomic, assign)BOOL iscloseTalk;
+
 @end
 
 NS_ASSUME_NONNULL_END
