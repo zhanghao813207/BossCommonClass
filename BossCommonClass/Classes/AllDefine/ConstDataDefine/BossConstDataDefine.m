@@ -14,7 +14,7 @@
 #ifdef DEBUG
 
 #ifdef kBossOwner
-    // deva
+    // dev
     // 测试环境 Boss老板
     NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
     NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
@@ -107,7 +107,7 @@ NSString *const BossUmsPrefix = @"boss";
 #endif
 
 // 会议基础URL
-NSString *const MeetingBasicURL = @"https://boss.aoaosong.com/";
+NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
 
 #endif
 
