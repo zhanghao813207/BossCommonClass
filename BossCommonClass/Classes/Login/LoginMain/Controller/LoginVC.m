@@ -78,6 +78,7 @@
         [self.inputMerchantCodeView isBecomeFirstResponder];
         [self showInputMerchantCodeView:@""];
     }
+    self.navigationController.navigationBar.backgroundColor = UIColor.redColor;
     
     
 }
@@ -224,8 +225,9 @@
     if (!showView) {
         return;
     }
+    NSLog(@"%@,%@", NSStringFromClass([self class]), NSStringFromClass([self superclass]));
     // 是否显示左侧返回按钮
-    self.navigationController.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
+    self.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
     
     // 登陆模块View切换键盘一直显示
     if ([showView respondsToSelector:@selector(isBecomeFirstResponder)]) {
@@ -493,6 +495,7 @@
 {
     if (!_backBarButtonItem) {
         _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(backBarButtonItemAction:)];
+        
         [_backBarButtonItem setTintColor:kHexRGBA(0x000000, 0.8)];
     }
     return _backBarButtonItem;
