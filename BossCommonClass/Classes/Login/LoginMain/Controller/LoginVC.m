@@ -78,8 +78,9 @@
         [self.inputMerchantCodeView isBecomeFirstResponder];
         [self showInputMerchantCodeView:@""];
     }
+    self.navigationController.navigationBar.backgroundColor = UIColor.redColor;
     
-  
+    
 }
 
 
@@ -89,8 +90,7 @@
     
 #ifdef kBossKnight
     
- 
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
     
     //添加手势方法防止直接跳转回来的VC 可以滑动到主VC引起问题
@@ -121,7 +121,7 @@
     
 #endif
     
-   
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -225,6 +225,7 @@
     if (!showView) {
         return;
     }
+    NSLog(@"%@,%@", NSStringFromClass([self class]), NSStringFromClass([self superclass]));
     // 是否显示左侧返回按钮
     self.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
     
@@ -494,6 +495,7 @@
 {
     if (!_backBarButtonItem) {
         _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(backBarButtonItemAction:)];
+        
         [_backBarButtonItem setTintColor:kHexRGBA(0x000000, 0.8)];
     }
     return _backBarButtonItem;

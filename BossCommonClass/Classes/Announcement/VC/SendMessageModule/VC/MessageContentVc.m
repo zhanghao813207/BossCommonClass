@@ -64,9 +64,11 @@ typedef void(^uploadImage)(BOOL isSuccess);
 @end
 
 @implementation MessageContentVc
+
 - (BOOL)prefersStatusBarHidden{
     return NO;
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -75,27 +77,27 @@ typedef void(^uploadImage)(BOOL isSuccess);
     keyboardManager.enableAutoToolbar = NO;
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // 注册键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShowNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShowNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidHideNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     // 注册一对一消息通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessageList:) name:@"receiveMessage" object:nil];
-
+    
     [self setUI];
     
     self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+    
     if (self.contentArr.count > 0) {
         RealmRecordModel *model = [self.contentArr lastObject];
         [self readedmsgid:model.idField Sectionid:self.sectionid];
-        
     }
+    
     [self getNewMessageOfMsgid:nil Sectionid:self.sectionid];
     
     _isshowImageView = false;
@@ -104,7 +106,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
     
 //    self.
 }
-
 
 - (void)setIsshowImageView:(BOOL)isshowImageView{
     _isshowImageView = isshowImageView;
@@ -135,7 +136,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     }
     self.isshowImageView = !self.isshowImageView;
     
-
+    
 }
 
 - (void)viewDidLoad {
@@ -144,6 +145,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     self.contentArr = [[NSMutableArray alloc] init];
     
 }
+
 - (void)setUI{
     self.CameraButton.layer.cornerRadius = 20;
     self.selectImageButton.layer.cornerRadius = 20;
@@ -170,7 +172,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSString * sectionid = payload[@"session_id"];
     
     [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
-//
+    //
 }
 - (void)viewWillDisappear:(BOOL)animated {
     // 开启
@@ -208,6 +210,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
     });
 }
+
 // 获取最新的消息
 - (void)getNewMessageOfMsgid: (NSString *)msgid Sectionid:(NSString *)sectionid{
     
@@ -232,12 +235,13 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     [self.customTableView reloadData];
                 });
             }
-            
+            //
         } fail:^(id error) {
             NSLog(@"%@", error);
         }];
     }
 }
+
 - (void)readedmsgid:(NSString *)msgid Sectionid:(NSString *)sectionid{
     
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"session_id": sectionid, @"last_message_id": msgid} CMD:@"ums.message.mark_read" success:^(id responseObject) {
@@ -294,9 +298,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //}
 -(void)keyboardDidHideNotification:(NSNotification *)note{
     
-//    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    //    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-//    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
+    //    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
 }
 -(void)keyboardWillChangeFrameNotification:(NSNotification *)note{
     //获取键盘的饿frame
@@ -341,7 +345,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
     [PhotoManager sharedInstance].chooseImageBlock = ^(UIImage * _Nonnull image) {
         [self sendImageMessage:image];
     };
-    
 }
 - (void)sendImageMessage:(UIImage *)image{
     WS(weakSelf);
@@ -407,7 +410,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
                 DLog(@"%@", key);
                 DLog(@"%@",resp);
                 [weakSelf addmedia:key];
-
+                
             } fail:^(id error) {
                 if (weakSelf.uploadImage) {
                     weakSelf.uploadImage(false);
@@ -671,7 +674,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
-//            [cell. sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
+            //            [cell. sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
@@ -785,7 +788,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
             
             if (Block) {
-               Block(true);
+                Block(true);
             }
         }
         // 通讯录

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LoginVC : UIViewController
+#import "BossViewController.h"
+@interface LoginVC : BossViewController
 
 /**
  当前操作View

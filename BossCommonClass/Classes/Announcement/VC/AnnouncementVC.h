@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AnnouncementVC : BossViewController
 
 @property (nonatomic, strong) Message *messageModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

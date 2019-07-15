@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  总数
  */
 @property(nonatomic, assign)NSInteger total_counter;
+
 @end
 
 NS_ASSUME_NONNULL_END

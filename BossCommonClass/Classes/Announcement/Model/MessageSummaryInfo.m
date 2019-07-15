@@ -10,6 +10,10 @@
 #import "NSDate+Extension.h"
 #import "NSString+Time.h"
 
+
+NSString *const kmessageSessionsModelExtraData = @"extra_data";
+
+
 NSString *const kMessageSummaryInfoIdField = @"_id";
 NSString *const kMessageSummaryInfoContent = @"content";
 NSString *const kMessageSummaryInfoCreatedAt = @"created_at";
@@ -33,6 +37,14 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if(![dictionary[kmessageSessionsModelExtraData] isKindOfClass:[NSNull class]]){
+        
+        self.extra_data = [[NSDictionary alloc] initWithDictionary:dictionary[kmessageSessionsModelExtraData]];
+    }
+    
+    
+    
 	if(![dictionary[kMessageSummaryInfoIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kMessageSummaryInfoIdField];
 	}	
@@ -66,6 +78,13 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+    
+    
+    if(self.extra_data != nil){
+//        dictionary[kmessageSessionsModelExtraData] = [self.extra_data toDictionary];
+    }
+    
+    
 	if(self.idField != nil){
 		dictionary[kMessageSummaryInfoIdField] = self.idField;
 	}
@@ -94,6 +113,11 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    
+    if(self.extra_data != nil){
+        [aCoder encodeObject:self.extra_data forKey:kmessageSessionsModelExtraData];
+    }
+    
 	if(self.idField != nil){
 		[aCoder encodeObject:self.idField forKey:kMessageSummaryInfoIdField];
 	}
@@ -115,6 +139,10 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
+    
+    
+    self.extra_data = [aDecoder decodeObjectForKey:kmessageSessionsModelExtraData];
+    
 	self.idField = [aDecoder decodeObjectForKey:kMessageSummaryInfoIdField];
 	self.content = [aDecoder decodeObjectForKey:kMessageSummaryInfoContent];
 	self.createdAt = [aDecoder decodeObjectForKey:kMessageSummaryInfoCreatedAt];
@@ -123,6 +151,7 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 	self.title = [aDecoder decodeObjectForKey:kMessageSummaryInfoTitle];
 	return self;
 
+    
 }
 
 /**
@@ -132,6 +161,9 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 {
 	MessageSummaryInfo *copy = [MessageSummaryInfo new];
 
+    copy.extra_data = [self.extra_data copy];
+
+    
 	copy.idField = [self.idField copy];
 	copy.content = [self.content copy];
 	copy.createdAt = [self.createdAt copy];
