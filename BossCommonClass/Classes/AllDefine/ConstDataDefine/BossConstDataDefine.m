@@ -14,7 +14,7 @@
 #ifdef DEBUG
 
 #ifdef kBossOwner
-    // deva
+    // dev
     // 测试环境 Boss老板
     NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
     NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
@@ -43,9 +43,9 @@
 //   NSString *const MessageBasicURLV2 = @"http://192.168.10.5:8112/2.0/";
 //   NSString *const BossUmsPrefix = @"boss";
 
-NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-NSString *const BossUmsPrefix = @"boss";
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const BossUmsPrefix = @"boss";
 
 //
 #else
@@ -75,6 +75,9 @@ NSString *const BossUmsPrefix = @"boss";
 //    NSString *const BossUmsPrefix = @"boss";
 #endif
 
+// 会议基础URL
+NSString *const MeetingBasicURL = @"https://boss-dev.aoaosong.com:8112/";
+
 #else
 
 #ifdef kBossOwner
@@ -102,6 +105,9 @@ NSString *const MessageBasicURL = @"https://ums-api.aoaosong.com/1.0/";
 NSString *const MessageBasicURLV2 = @"https://ums-api.aoaosong.com/2.0/";
 NSString *const BossUmsPrefix = @"boss";
 #endif
+
+// 会议基础URL
+NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
 
 #endif
 
