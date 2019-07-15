@@ -213,7 +213,7 @@ static BossCache *defaultCache = nil;
 - (NSString *)accessToken
 {
 #ifdef kBossKnight
-    return self.currentKnightAccount.tokenModel.access_token;
+    return self.currentBossOwnerAccount.accountModel.accessToken;
 #elif defined kBossManager
     return self.currentManagerAccount.tokenModel.access_token;
 #elif defined kBossOwner

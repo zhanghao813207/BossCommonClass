@@ -46,17 +46,17 @@
 //
 #else
     // dev
-    // 测试环境 Boss之家 骑士
-//    NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
-//    NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
-//    NSString *const BossBasicPrefix = @"boss";
-//    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
-//    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
-    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
-    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+    // 测试环境 Boss之家 骑士 -- 物资联调
+    NSString *const BossBasicURL = @"http://192.168.10.69:8083/1.0/";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.69:8083/2.0/";
     NSString *const BossBasicPrefix = @"qlife";
-    NSString *const ACCESS_KEY = @"6ad99b0c7144b5a4bfbf0962c9f682e2";
-    NSString *const SECRET_KEY = @"e84c63f2d69b0409a681a384b157c8fa";
+    NSString *const ACCESS_KEY = @"9296bbbf34bfa2c268cd4d111d068cfb";
+    NSString *const SECRET_KEY = @"5fb7366afce09b8d92dc7a145e07de7e";
+//    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
+//    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+//    NSString *const BossBasicPrefix = @"qlife";
+//    NSString *const ACCESS_KEY = @"6ad99b0c7144b5a4bfbf0962c9f682e2";
+//    NSString *const SECRET_KEY = @"e84c63f2d69b0409a681a384b157c8fa";
     // 消息服务
     NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
     NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
@@ -100,7 +100,7 @@
 #ifdef kBossKnight
 
     NSString *const APPCODE = @"aoao_boss_app_ios";
-    NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
+    NSString *const APP_ID = @"5d2c2283aea3611795ccf0df";
     NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
