@@ -16,6 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) BossOwnerUserModel *accountModel;
 
+/**
+ 判断是否需电子签约
+ 
+ @param onterContractBlock      其他签约回调
+ @param electronicContractBlock 电子签约回调
+ @param viewController          弹出去完善的按钮
+ */
++ (void)checkElectronicContract:(void(^)(void))onterContractBlock electronicContractBlock:(void(^)(void))electronicContractBlock withController:(UIViewController *)viewController;
+
 @end
 
 NS_ASSUME_NONNULL_END
