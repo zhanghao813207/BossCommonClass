@@ -57,6 +57,7 @@
     NSString *const BossBasicPrefix = @"qlife";
     NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
     NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
+
     // 消息服务
     NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
     NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
@@ -100,7 +101,7 @@
 #ifdef kBossKnight
 
     NSString *const APPCODE = @"aoao_boss_app_ios";
-    NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
+    NSString *const APP_ID = @"5d2c2283aea3611795ccf0df";
     NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
