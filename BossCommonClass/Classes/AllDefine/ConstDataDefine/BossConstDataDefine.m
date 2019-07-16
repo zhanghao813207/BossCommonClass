@@ -52,11 +52,11 @@
 //    NSString *const BossBasicPrefix = @"boss";
 //    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
 //    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
-    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
-    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+    NSString *const BossBasicURL = @"http://192.168.10.78:8083/2.0";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.78:8083/2.0";
     NSString *const BossBasicPrefix = @"qlife";
-    NSString *const ACCESS_KEY = @"6ad99b0c7144b5a4bfbf0962c9f682e2";
-    NSString *const SECRET_KEY = @"e84c63f2d69b0409a681a384b157c8fa";
+    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
+    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
     // 消息服务
     NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
     NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
