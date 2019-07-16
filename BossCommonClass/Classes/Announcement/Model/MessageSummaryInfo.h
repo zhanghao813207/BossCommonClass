@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 
+//#import "WebExtraDataModel.h"
+
 @interface MessageSummaryInfo : NSObject
 
 @property (nonatomic, strong) NSString * idField;
@@ -11,6 +13,12 @@
 @property (nonatomic, assign) NSInteger messagemimekind;
 @property (nonatomic, strong) NSString *showAt_time;
 @property (nonatomic, strong) NSString *showAt;
+
+@property (nonatomic, strong) NSDictionary * extra_data;
+
+//@property (nonatomic, strong) WebExtraDataModel * extra_data;
+
+
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

@@ -36,7 +36,7 @@
 }
 - (IBAction)resetSendMessage:(UIButton *)sender {
     if (self.resetSendmessageBlock) {
-        self.resetSendmessageBlock();
+        self.resetSendmessageBlock(sender.tag);
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

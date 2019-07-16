@@ -26,6 +26,7 @@
 #import "QLifeAES256.h"
 #import "MQTTClientModel.h"
 #import "ProxyAccountInfo.h"
+#import "NNBBasicRequest.h"
 
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f && isiPhone
@@ -77,7 +78,7 @@
         make.bottom.equalTo(self.publishButton.mas_top).offset(46);
     }];
 #elif defined kBossManager
-    self.publishButton.hidden = false;
+    self.publishButton.hidden = true;
 #elif defined kBossOwner
     self.publishButton.hidden = false;
 #else
@@ -104,6 +105,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLatestData) name:@"message" object:nil];
+    [self getpublishButtonStatus];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -124,10 +126,24 @@
     button.titleLabel.font = [UIFont systemFontOfSize:17];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
+
+
 - (void)setAction {
     
 }
-
+- (void)getpublishButtonStatus{
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:nil CMD:@"message.address_book.send_notice_permission" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        BOOL isok = [[dic objectForKey:@"ok"] boolValue];
+        if (isok) {
+            BOOL status_2 = [[dic objectForKey:@"have_permission"] boolValue];
+            self.publishButton.hidden = !status_2;
+        }
+    } fail:^(id error) {
+        NSLog(@"%@", error);
+    }];
+}
 - (UIButton *)publishButton {
     if (_publishButton == nil) {
         _publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -157,6 +173,7 @@
     NSLog(@"发布成功");
     [self refreshLatestData];
 }
+
 - (void)publishAction {
     PublishAnnouncementController *vc = [[PublishAnnouncementController alloc] init];
     vc.wppId = self.messageModel.idField;
@@ -225,6 +242,7 @@
         [self.tableview.mj_footer endRefreshing];
     }];
 }
+
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -243,6 +261,7 @@
     }
     return _tableview;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnoucementList *list = self.dataArrM[indexPath.row];
     AnnouncementDetailVC *vc = [[AnnouncementDetailVC alloc] init];
@@ -259,6 +278,7 @@
     [self.navigationController pushViewController:vc animated:true];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [tableView tableViewDisplayWitMsg:@"暂无消息" imageName:@"" ifNecessaryForRowCount:self.dataArrM.count];
     return self.dataArrM.count;

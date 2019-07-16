@@ -27,6 +27,16 @@
 @property (nonatomic, strong)MQTTSessionManager *sessionManager;
 @end
 
+#ifdef DEBUG
+
+#define SLog(format, ...) printf("class: <%p %s:(%d) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )
+
+#else
+
+#define SLog(format, ...)
+
+#endif
+
 @implementation AnnouncementRequest
 
 + (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock {
@@ -54,7 +64,7 @@
     NSDictionary *paramDic = @{};
     
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"message.address_book.find_message_wpp_list" success:^(id responseObject) {
-        NSLog(@"AnnouncementRequest->findMessageList->response:\n%@",responseObject);
+    NSLog(@"AnnouncementRequest->findMessageList->response:\n%@",responseObject);
         
         MessageListDicModel *model = [[MessageListDicModel alloc] initWithDictionary:responseObject];
         
@@ -76,8 +86,39 @@
         
         successBlock(model);
     } fail:^(id error) {
-        NSLog(@"AnnouncementRequest->findAccountNotices->error:\n%@",error);
+        NSLog(@"错误AnnouncementRequest->findAccountNotices->error:\n%@",error);
     }];
+}
+
++ (void)findMeetingNoticeList:(NSString *)sessionId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:sessionId  forKey:@"session_id"];
+    
+//    if(lastMessageId){
+//        [dic setValue:lastMessageId forKey:@"message_id"];
+//    }
+    
+    [dic setValue:@(currentPage) forKey:@"page"];
+    [dic setValue:@{@"limit":@(20)} forKey:@"_meta"];
+    
+    [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.message.find_session_messages" success:^(id responseObject) {
+        SLog(@"会议AnnouncementRequest->findNoticeList->response:\n%@",responseObject);
+        NSArray *dataArr = [AnnoucementList mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSArray *tempArr;
+        if (currentPage > 1) {
+            tempArr = dataArr;
+        }else {
+            tempArr = [[dataArr reverseObjectEnumerator] allObjects];
+        }
+        
+        AnnounceListHeader *header = [AnnounceListHeader mj_objectWithKeyValues:responseObject[@"_meta"]];
+        successBlock(tempArr,header);
+    } fail:^(id error) {
+        NSLog(@"%@",error);
+        failBlock(@"");
+    }];
+    
 }
 
 + (void)findNoticeList:(NSString *)proxyId lastMessageId:(NSString *)lastMessageId page:(NSInteger)currentPage success:(void(^)(NSArray *dataArr,AnnounceListHeader *header))successBlock fail:(void(^)(NSString *))failBlock{
@@ -119,7 +160,7 @@
             [tempArr addObject:GrouptempModel.vendor_target_id];
         } else {
             [tempArr addObject:[NSString stringWithFormat:@"%@", tempModel]];
-
+// 新建公告
         }
     }
     dic[@"members"] = tempArr;
@@ -194,7 +235,8 @@
                           @"wpp_id":wppId,
                           @"_meta":@{
                                   @"limit":@(0)
-                                  }
+                                  },
+                          @"type": @(10)
                           };
 
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {

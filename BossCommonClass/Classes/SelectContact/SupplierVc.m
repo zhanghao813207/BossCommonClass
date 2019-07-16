@@ -48,7 +48,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     // 获取
     BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.index];
-    
     if (self.contentArr.count == 0){
         
         if (F_Model.businessExtraField.platformName) {
@@ -78,8 +77,35 @@
             self.contentArr = self.roleTeamdata;
         }
     }
+    self.isEdit = [self completeButtonStatus];
 }
 
+-(BOOL)completeButtonStatus{
+    NSMutableArray *typeArr = [[NSMutableArray alloc] init];
+    for (BizDistrictTeamPlatformModel *F_Model in self.allContentArr){
+        NSNumber *val = [NSNumber numberWithInteger:F_Model.type];
+        [typeArr addObject: val];
+        for (BizDistrictTeamPlatformModel *S_Model in F_Model.PlatformArr){
+            NSNumber *val = [NSNumber numberWithInteger:S_Model.type];
+            [typeArr addObject: val];
+            if (S_Model.type == 1 || S_Model.type == 2) {
+                for (BizDistrictTeamPlatformModel *C_Model in S_Model.supplierArr){
+                    NSNumber *val = [NSNumber numberWithInteger:C_Model.type];
+                    [typeArr addObject: val];
+                    for (BizDistrictTeamPlatformModel *D_Model in C_Model.cityArr){
+                        NSNumber *val = [NSNumber numberWithInteger:D_Model.type];
+                        [typeArr addObject: val];
+                    }
+                }
+            }
+        }
+    }
+    if ([typeArr containsObject:@(1)] || [typeArr containsObject:@(2)]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 - (void)finishAction{
     BizDistrictTeamPlatformModel *F_Model = self.allContentArr[self.index];
@@ -101,6 +127,8 @@
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    self.finishButton.alpha = 0.4;
+    [self.finishButton setEnabled:false];
     self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
@@ -117,6 +145,21 @@
     }
     _type = type;
 }
+
+// 监听编辑状态
+-(void)setIsEdit:(BOOL)isEdit{
+    // 是编辑状态 完成可点击
+    if (isEdit) {
+        // 不是 隐藏 完成 & 全选 & 编辑 状态
+        self.finishButton.alpha = 1;
+        [self.finishButton setEnabled:true];
+        
+    } else {
+        self.finishButton.alpha = 0.4;
+        [self.finishButton setEnabled:false];
+    }
+}
+
 // 返回
 - (IBAction)backpVc:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:true];
@@ -134,16 +177,6 @@
         }
     }
     [self.customTableView reloadData];
-}
-
-// 监听编辑状态
--(void)setIsEdit:(BOOL)isEdit{
-    // 是编辑状态 显示 完成&全选
-    if (isEdit) {
-        
-    } else {
-        // 不是 隐藏 完成 & 全选 & 编辑 状态
-    }
 }
 -(void)popToLastViewController:(UIBarButtonItem *)sender{
     
@@ -209,6 +242,7 @@
             teamListModel.type = 1;
         }
         self.type = [self getType: self.contentArr];
+        self.isEdit = [self completeButtonStatus];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     return cell;

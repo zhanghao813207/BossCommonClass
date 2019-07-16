@@ -31,6 +31,7 @@
 #import "JYCPickImage.h"
 #import "PhotoManager.h"
 #import "BossCache.h"
+#import "IQKeyboardManager.h"
 
 typedef void(^uploadImage)(BOOL isSuccess);
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
@@ -38,6 +39,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
 @property (weak, nonatomic) IBOutlet UITableView *customTableView;
 //
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewForBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewforBottom2;
 
 @property (weak, nonatomic) IBOutlet UIView *selectImageView;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *SelectImageViewHeight;
@@ -62,38 +64,48 @@ typedef void(^uploadImage)(BOOL isSuccess);
 @end
 
 @implementation MessageContentVc
+
 - (BOOL)prefersStatusBarHidden{
     return NO;
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    IQKeyboardManager *keyboardManager =  [IQKeyboardManager sharedManager];
+    keyboardManager.enable = NO;
+    keyboardManager.enableAutoToolbar = NO;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    // 请求历史聊天记录
-    
     // 注册键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShowNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShowNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidHideNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     // 注册一对一消息通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessageList:) name:@"receiveMessage" object:nil];
-
+    
     [self setUI];
     
     self.contentArr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+    
     if (self.contentArr.count > 0) {
         RealmRecordModel *model = [self.contentArr lastObject];
         [self readedmsgid:model.idField Sectionid:self.sectionid];
-        
     }
+    
     [self getNewMessageOfMsgid:nil Sectionid:self.sectionid];
     
     _isshowImageView = false;
     
     [self.AddImageButton setSelected:false];
+    
+//    self.
 }
-
 
 - (void)setIsshowImageView:(BOOL)isshowImageView{
     _isshowImageView = isshowImageView;
@@ -124,7 +136,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     }
     self.isshowImageView = !self.isshowImageView;
     
-
+    
 }
 
 - (void)viewDidLoad {
@@ -133,6 +145,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     self.contentArr = [[NSMutableArray alloc] init];
     
 }
+
 - (void)setUI{
     self.CameraButton.layer.cornerRadius = 20;
     self.selectImageButton.layer.cornerRadius = 20;
@@ -159,9 +172,13 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSString * sectionid = payload[@"session_id"];
     
     [self getNewMessageOfMsgid:msgid Sectionid:sectionid];
-//
+    //
 }
 - (void)viewWillDisappear:(BOOL)animated {
+    // 开启
+    IQKeyboardManager *keyboardManager =  [IQKeyboardManager sharedManager];
+    keyboardManager.enable = YES;
+    keyboardManager.enableAutoToolbar = YES;
     // 注销消息通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -193,6 +210,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
     });
 }
+
 // 获取最新的消息
 - (void)getNewMessageOfMsgid: (NSString *)msgid Sectionid:(NSString *)sectionid{
     
@@ -213,15 +231,17 @@ typedef void(^uploadImage)(BOOL isSuccess);
                     RealmRecordModel *model = [self.contentArr lastObject];
                     [self readedmsgid:model.idField Sectionid:sectionid];
                 }
-                
-                [self.customTableView reloadData];
+                dispatch_after(0, dispatch_get_main_queue(), ^(void){
+                    [self.customTableView reloadData];
+                });
             }
-            
+            //
         } fail:^(id error) {
             NSLog(@"%@", error);
         }];
     }
 }
+
 - (void)readedmsgid:(NSString *)msgid Sectionid:(NSString *)sectionid{
     
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:@{@"session_id": sectionid, @"last_message_id": msgid} CMD:@"ums.message.mark_read" success:^(id responseObject) {
@@ -278,9 +298,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //}
 -(void)keyboardDidHideNotification:(NSNotification *)note{
     
-//    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    //    CGRect frame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-//    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
+    //    self.viewForBottom.constant = -([UIScreen mainScreen].bounds.size.height - frame.origin.y);
 }
 -(void)keyboardWillChangeFrameNotification:(NSNotification *)note{
     //获取键盘的饿frame
@@ -325,7 +345,6 @@ typedef void(^uploadImage)(BOOL isSuccess);
     [PhotoManager sharedInstance].chooseImageBlock = ^(UIImage * _Nonnull image) {
         [self sendImageMessage:image];
     };
-    
 }
 - (void)sendImageMessage:(UIImage *)image{
     WS(weakSelf);
@@ -391,7 +410,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
                 DLog(@"%@", key);
                 DLog(@"%@",resp);
                 [weakSelf addmedia:key];
-
+                
             } fail:^(id error) {
                 if (weakSelf.uploadImage) {
                     weakSelf.uploadImage(false);
@@ -424,10 +443,14 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSString *imagePath = [path_document stringByAppendingString: imagelastPath];
     //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取)
     [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
-    return imagePath;
+    return imageName;
 }
 /// 获取图片
-- (UIImage *)getImageToDocument:(NSString *)imagePath{
+- (UIImage *)getImageToDocument:(NSString *)imagename{
+    NSString *path_document = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagelastPath = [NSString stringWithFormat:@"/Documents/%@.png",imagename];
+    NSString *imagePath = [path_document stringByAppendingString: imagelastPath];
     UIImage *getimage2 = [UIImage imageWithContentsOfFile:imagePath];
     return getimage2;
 }
@@ -452,10 +475,10 @@ typedef void(^uploadImage)(BOOL isSuccess);
         model.isShowTime = YES;
     }
     // 聊天图片处理
-    if (self.contentArr.count > indexPath.row + 1) {
-        RealmRecordModel *Nextmodel = self.contentArr[indexPath.row + 1];
-        NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
-        NSString *startTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:model.createdAt];
+    if (indexPath.row != 0) {
+        RealmRecordModel *Nextmodel = self.contentArr[indexPath.row - 1];
+        NSString *startTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:Nextmodel.createdAt];
+        NSString *nextTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:model.createdAt];
         int a = [self pleaseInsertStarTime:startTime andInsertEndTime:nextTime];
         if (a > 180) {
             model.isShowTime = true;
@@ -466,6 +489,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         
         SendMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SendMCell" forIndexPath:indexPath];
         cell.contentLabel.text = model.content;
+        cell.resetSendMessageButton.tag = indexPath.row;
         if (model.sendstate == 100) {
             [cell.sendmessageLoadingImageView setHidden:false];
             CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -490,8 +514,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [cell.timeLabel setHidden:true];
         }
         // 重发消息
-        cell.resetSendmessageBlock = ^{
-            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
+        cell.resetSendmessageBlock = ^(NSInteger index) {
+            RealmRecordModel *selectmodel = self.contentArr[index];
             [self SendMessage:selectmodel.content imageList:nil type:10 SendStatusBlock:^(BOOL isSuccess) {
                 // 刷新列表
                 if (isSuccess) {
@@ -563,26 +587,21 @@ typedef void(^uploadImage)(BOOL isSuccess);
         }
         // 重发消息
         WS(waekself)
-        cell.resetSendmessageBlock = ^{
-            RealmRecordModel *selectmodel = self.contentArr[indexPath.row];
-            [[RealmModule sharedInstance] updateMessagetoRealmSendStatus:model errorStatus:false];
-            UIImage *image = [self getImageToDocument:selectmodel.encodedImageStr];
-            UIImage *decodedImage = image;
-            [waekself getQiniuTockenforImage:decodedImage];
+        
+        cell.resetSendMessageButton.tag = indexPath.row;
+        
+        cell.resetSendmessageBlock = ^(NSInteger index) {
             
-            waekself.uploadImage = ^(BOOL isSuccess) {
-                if (isSuccess){
-                    [[RealmModule sharedInstance] deleteMessagetoRealm:model];
-                }
-                // 主线程执行
-                dispatch_after(0, dispatch_get_main_queue(), ^(void){
-                    [weakself scrollViewToBottom:true];
-                    [weakself.customTableView reloadData];
-                });
-            };
-            dispatch_after(0, dispatch_get_main_queue(), ^(void){
-                [weakself.customTableView reloadData];
-            });
+            NSArray *arr = [[RealmModule sharedInstance] getMessageListSectionID:self.sectionid];
+            
+            RealmRecordModel *selectmodel = arr[index];
+            
+            [[RealmModule sharedInstance] deleteMessagetoRealm:selectmodel];
+            
+            UIImage *image = [self getImageToDocument:selectmodel.encodedImageStr];
+            
+            [self sendImageMessage:image];
+            
         };
         cell.sendInfoNameLabel.text = [kCurrentBossOwnerAccount.accountModel.name substringFromIndex:kCurrentBossOwnerAccount.accountModel.name.length - 1];
         // 图片点击回调
@@ -655,7 +674,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.receiveImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
-//            [cell. sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
+            //            [cell. sd_setImageWithURL:[NSURL URLWithString: rmodel.url]];
         }
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
@@ -769,7 +788,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
             [[RealmModule sharedInstance] saveMessagetoRealm:model Sectionid:self.sectionid];
             
             if (Block) {
-               Block(true);
+                Block(true);
             }
         }
         // 通讯录
