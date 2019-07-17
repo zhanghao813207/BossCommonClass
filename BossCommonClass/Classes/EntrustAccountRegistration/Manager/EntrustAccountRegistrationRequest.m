@@ -13,7 +13,7 @@
 
 + (void)registerIndividualRegister:(nonnull successRegister)successBlock failBlock:(nonnull failBlock)failBlock{
     
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:nil CMD:@"individual_register.individual_register.register" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"entrust_source": @"10"} CMD:@"individual_register.individual_register.register" success:^(id responseObject) {
         NSLog(@"EntrustAccountRegistrationRequest->registerIndividualRegister->response:\n%@", responseObject);
         NSDictionary *dic = responseObject;
         IndividualRegisterResultModel *result = [[IndividualRegisterResultModel alloc] initWithDictionary:dic];

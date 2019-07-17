@@ -56,8 +56,8 @@
 //    NSString *const BossBasicPrefix = @"boss";
 //    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
 //    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
-    NSString *const BossBasicURL = @"http://192.168.10.78:8083/2.0";
-    NSString *const BossBasicURLV2 = @"http://192.168.10.78:8083/2.0";
+    NSString *const BossBasicURL = @"http://192.168.10.49:8083/2.0";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0";
     NSString *const BossBasicPrefix = @"qlife";
     NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
     NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";    // 消息服务
