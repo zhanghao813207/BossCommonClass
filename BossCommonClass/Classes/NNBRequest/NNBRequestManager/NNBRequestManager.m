@@ -81,9 +81,13 @@ static NNBRequestManager *sharedManager = nil;
     [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[JYCSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
     NSLog(@"%@",cmd);
     // 校验cmd是否为nil
-    if(cmd && ([cmd isEqualToString:@"qlife_boss.material.material.find_material_distribution_order"] ||[cmd isEqualToString:@"qlife_boss.material.material.receive_material_distribution"] ||[cmd isEqualToString:@"qlife_boss.material.material.find_material_deduction_order"]))
+    if(cmd && ([cmd isEqualToString:@"qlife_boss.material.material.find_material_distribution_order"]
+               ||[cmd isEqualToString:@"qlife_boss.material.material.receive_material_distribution"]
+               ||[cmd isEqualToString:@"qlife_boss.material.material.find_material_deduction_order"]
+               ||[cmd isEqualToString:@"qlife_boss.private_coach.coach_suggests.find"]))
     {
         [sharedManager.requestSerializer setValue:cmd forHTTPHeaderField:@"X-CMD"];
+        
     }else if (cmd) {
         // cmd添加前缀
         // header中添加X-CMD
