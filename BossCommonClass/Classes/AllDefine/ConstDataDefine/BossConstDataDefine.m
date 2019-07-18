@@ -31,17 +31,17 @@
 //    NSString *const ACCESS_KEY = @"6ad99b0c7144b5a4bfbf0962c9f682e2";
 //    NSString *const SECRET_KEY = @"e84c63f2d69b0409a681a384b157c8fa";
 
-//    NSString *const BossBasicURL = @"http://192.168.10.57:8083/1.0/";
-//    NSString *const BossBasicURLV2 = @"http://192.168.10.57:8083/2.0/";
-//    NSString *const BossBasicPrefix = @"qlife";
-//    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
-//    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
-
-    NSString *const BossBasicURL = @"http://192.168.10.78:8083/1.0/";
-    NSString *const BossBasicURLV2 = @"http://192.168.10.78:8083/2.0";
+    NSString *const BossBasicURL = @"http://192.168.10.38:8083/1.0/";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.38:8083/2.0/";
     NSString *const BossBasicPrefix = @"qlife";
     NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
     NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+
+//    NSString *const BossBasicURL = @"http://192.168.10.78:8083/1.0/";
+//    NSString *const BossBasicURLV2 = @"http://192.168.10.78:8083/2.0";
+//    NSString *const BossBasicPrefix = @"qlife";
+//    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+//    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
 //"access_key" : "3f92d896b23d960e529048c2fc2ab762",
 //"secret_key" : "2fd89206dd6edd7b87b8833ba6bed5a9"
@@ -101,8 +101,8 @@
 //    NSString *const BossBasicPrefix = @"boss";
 //    NSString *const ACCESS_KEY = @"5c6bb6fcce6d2a1779126214";
 //    NSString *const SECRET_KEY = @"5c6bb6fcce6d2a1779126215";
-    NSString *const BossBasicURL = @"http://192.168.10.49:8083/2.0";
-    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0";
+    NSString *const BossBasicURL = @"http://192.168.10.38:8083/2.0";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.38:8083/2.0";
     NSString *const BossBasicPrefix = @"qlife";
     NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
     NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";    // 消息服务

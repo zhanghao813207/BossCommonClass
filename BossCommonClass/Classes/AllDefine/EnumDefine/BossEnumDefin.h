@@ -446,4 +446,12 @@ typedef NS_ENUM(NSInteger, MessageType) {
     MessageTypeMeeting =  70, // 应用(会议)
 };
 
+
+typedef NS_ENUM(NSUInteger, LineDustryType) {
+    LineDustryTypeLogistics              = 1000, // 外卖配送
+    LineDustryTypeTaxi                   = 2000, // 网约车
+    LineDustryTypeCleaning               = 3000, // 家政保洁
+    LineDustryTypeSecurity               = 4000, // 安保服务
+    LineDustryTypeBicycle                = 5000,  //共享单车
+};
 #endif /* BossEnumDefin_h */
