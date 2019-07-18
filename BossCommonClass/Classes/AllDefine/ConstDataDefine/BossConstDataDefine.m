@@ -60,7 +60,39 @@
     NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
     NSString *const BossUmsPrefix = @"boss";
 
-//
+#elif defined kBossKnight
+    // dev
+    // 测试环境 Boss老板
+    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8481/1.0/";
+    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8481/2.0/";
+    NSString *const BossBasicPrefix = @"qlife";
+    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+    // 质检环境 Boss老板
+    //    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8483/1.0/";
+    //    NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8483/2.0/";
+    //    NSString *const BossBasicPrefix = @"qlife";
+    //    NSString *const ACCESS_KEY = @"6ad99b0c7144b5a4bfbf0962c9f682e2";
+    //    NSString *const SECRET_KEY = @"e84c63f2d69b0409a681a384b157c8fa";
+
+    //    NSString *const BossBasicURL = @"http://192.168.10.57:8083/1.0/";
+    //    NSString *const BossBasicURLV2 = @"http://192.168.10.57:8083/2.0/";
+    //    NSString *const BossBasicPrefix = @"qlife";
+    //    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+    //    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+
+    // 测试环境消息服务
+    //   NSString *const MessageBasicURL = @"http://192.168.10.62:8082/2.0/";
+    //   NSString *const MessageBasicURLV2 = @"http://192.168.10.62:8082/2.0/";
+    //   NSString *const BossUmsPrefix = @"boss";
+
+    //   NSString *const MessageBasicURL = @"http://192.168.10.5:8112/2.0/";
+    //   NSString *const MessageBasicURLV2 = @"http://192.168.10.5:8112/2.0/";
+    //   NSString *const BossUmsPrefix = @"boss";
+
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+    NSString *const BossUmsPrefix = @"boss";
 #else
     // dev
     // 测试环境 Boss之家 骑士
@@ -103,20 +135,33 @@ NSString *const BossBasicURLV2 = @"https://qlife-api.aoaosong.com/2.0/";
 NSString *const BossBasicPrefix = @"qlife";
 NSString *const ACCESS_KEY = @"7827bafd44edad630286e406579ee76d";
 NSString *const SECRET_KEY = @"09d93665b7c63d85607176aeaf6411ee";
+
+// 生产环境 Boss老板消息服务
+NSString *const MessageBasicURL = @"https://ums-api.aoaosong.com/1.0/";
+NSString *const MessageBasicURLV2 = @"https://ums-api.aoaosong.com/2.0/";
+NSString *const BossUmsPrefix = @"boss";
+#elif defined kBossKnight
+// 生产环境 Boss骑士
+NSString *const BossBasicURL = @"https://qlife-api.aoaosong.com/1.0/";
+NSString *const BossBasicURLV2 = @"https://qlife-api.aoaosong.com/2.0/";
+NSString *const BossBasicPrefix = @"qlife";
+NSString *const ACCESS_KEY = @"7827bafd44edad630286e406579ee76d";
+NSString *const SECRET_KEY = @"09d93665b7c63d85607176aeaf6411ee";
+
 // 生产环境 Boss老板消息服务
 NSString *const MessageBasicURL = @"https://ums-api.aoaosong.com/1.0/";
 NSString *const MessageBasicURLV2 = @"https://ums-api.aoaosong.com/2.0/";
 NSString *const BossUmsPrefix = @"boss";
 #else
 // release
-// 生产环境之家 骑士 基础服务
+// 生产环境 Boss之家
 NSString *const BossBasicURL = @"https://saas-api.aoaosong.com/1.0/";
 NSString *const BossBasicURLV2 = @"https://saas-api.aoaosong.com/2.0/";
 NSString *const BossBasicPrefix = @"boss";
 NSString *const ACCESS_KEY = @"5c779ed4887d1f45fc349753";
 NSString *const SECRET_KEY = @"5c779ed4887d1f45fc349754";
 
-// 生产环境之家 骑士 消息服务
+// 生产环境 Boss之家 消息服务
 NSString *const MessageBasicURL = @"https://ums-api.aoaosong.com/1.0/";
 NSString *const MessageBasicURLV2 = @"https://ums-api.aoaosong.com/2.0/";
 NSString *const BossUmsPrefix = @"boss";
