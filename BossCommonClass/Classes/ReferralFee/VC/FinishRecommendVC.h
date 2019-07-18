@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FinishRecommendVC : UIViewController
 
-@property (nonatomic, strong)NSString *teamID;
 
 /**
  是否编辑

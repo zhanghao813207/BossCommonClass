@@ -1,16 +1,17 @@
 //
-//  BOPramaShare.m
-//  AFNetworking
+//  BOPramaShareModel.m
+//  Pods
 //
 //  Created by admin on 2019/7/18.
 //
 
-#import "BOPramaShare.h"
+#import "BOPramaShareModel.h"
 
-@implementation BOPramaShare
+@implementation BOPramaShareModel
+
 + (instancetype)sharedSingleton
 {
-    static BOPramaShare *_pramaShare = nil;
+    static BOPramaShareModel *_pramaShare = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         //不能再使用alloc方法
@@ -22,12 +23,11 @@
 
 // 防止外部调用alloc 或者 new
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [BOPramaShare sharedSingleton];
+    return [BOPramaShareModel sharedSingleton];
 }
 
 // 防止外部调用copy
 - (id)copyWithZone:(nullable NSZone *)zone {
-    return [BOPramaShare sharedSingleton];
+    return [BOPramaShareModel sharedSingleton];
 }
-
 @end

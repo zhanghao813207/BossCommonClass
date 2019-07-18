@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecommendedVC : UIViewController
 
-@property (nonatomic, copy)NSString *teamID;
-@property (nonatomic, copy)NSString *staffID;
-
 @end
 
 NS_ASSUME_NONNULL_END

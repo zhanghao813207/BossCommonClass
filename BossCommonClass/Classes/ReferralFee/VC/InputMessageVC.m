@@ -31,7 +31,7 @@ static NSString *idt = @"cell";
     
     self.model = [[InputMessageModel alloc] init];
     [self tableview];
-    
+    [self setBackItem];
 #warning 控制底部按钮上移，当键盘弹起时
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHiden:) name:UIKeyboardWillHideNotification object:nil];
@@ -52,6 +52,19 @@ static NSString *idt = @"cell";
     }
     
 }
+
+-(void)setBackItem
+{
+    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
+    [buttonItem_back setTintColor:[UIColor blackColor]];
+    self.navigationItem.leftBarButtonItem = buttonItem_back;
+}
+
+- (void)popToLastViewController:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)getRecommendDetail {
   

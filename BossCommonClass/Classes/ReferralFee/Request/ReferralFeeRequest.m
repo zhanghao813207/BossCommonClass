@@ -15,6 +15,7 @@
 #import "InputMessageModel.h"
 #import "MJExtension.h"
 #import "BossBasicDefine.h"
+#import "BOPramaShareModel.h"
 
 @implementation ReferralFeeRequest
 ////提交 yes 是提交  no 是保存
@@ -73,11 +74,14 @@
         paramDic[@"identity_card_id"] = inputModel.identity_card_id;
     }
     paramDic[@"app_type"] = @(inputModel.app_type);
+    paramDic[@"team_id"] = [BOPramaShareModel sharedSingleton].teamID;
+    paramDic[@"staff_id"] = [BOPramaShareModel sharedSingleton].staffID;
+
     NSString *subStr = @"";
     if (isSubmit) {
-        subStr = @"qlife_boss.internal_recommend.internal_recommend_staff.submit";
+        subStr = @"qlife_boss.internal_recommend.internal_recommend_staff_qlife.submit";
     }else {
-        subStr = @"qlife_boss.internal_recommend.internal_recommend_staff.save";
+        subStr = @"qlife_boss.internal_recommend.internal_recommend_staff_qlife.save";
     }
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:subStr success:^(id responseObject) {
         successBlock([InputMessageModel mj_objectWithKeyValues:responseObject]);
@@ -90,6 +94,8 @@
 + (void)recommendList:(NSInteger)state currentPage:(NSInteger)page success:(void(^)(NSArray *listModel))successBlock  meta:(void(^)(id meta))metaBlock fail:(void(^)(void))failBlock {
    
     NSDictionary *dic = @{@"state":@(state),
+                          @"team_id":[BOPramaShareModel sharedSingleton].teamID,
+                          @"staff_id":[BOPramaShareModel sharedSingleton].staffID,
                           @"_meta": @{
                               @"page":@(page),
                               @"limit":@(10)
@@ -97,7 +103,7 @@
                           };
    
     NSLog(@"%@",dic);
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"qlife_boss.internal_recommend.internal_recommend_staff.find" success:^(id responseObject) {
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"qlife_boss.internal_recommend.internal_recommend_staff_qlife.find" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
         NSLog(@"%@",dic);
 //        if (isF) {
@@ -115,8 +121,14 @@
     }];
 }
 //internal_recommend.internal_recommend_staff.get
-+ (void)recommendDetail:(NSString *)idStr isEntry:(BOOL)entry success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock {
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_id":idStr} CMD:@"qlife_boss.internal_recommend.internal_recommend_staff.get" success:^(id responseObject) {
++ (void)recommendDetail:(NSString *)idStr isEntry:(BOOL)entry success:(void(^)(NSArray *list))successBlock detailModel:(void(^)(RecommendDetailModel *model))detailmodel fail:(void(^)(void))failBlock
+{
+    NSDictionary *dic = @{@"internal_recommend_staff_id":idStr,
+                          @"team_id":[BOPramaShareModel sharedSingleton].teamID,
+                          @"staff_id":[BOPramaShareModel sharedSingleton].staffID,
+                          };
+
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"qlife_boss.internal_recommend.internal_recommend_staff_qlife.get" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         RecommendDetailModel *model = (RecommendDetailModel *)[RecommendDetailModel mj_objectWithKeyValues:dic];
@@ -206,7 +218,12 @@
 //internal_recommend.internal_recommend_staff.delete   删除员工
 + (void)deleteRecommend:(NSArray *)idcardArr success:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
     NSLog(@"%@",idcardArr);
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"qlife_boss.internal_recommend.internal_recommend_staff.delete" success:^(id responseObject) {
+    NSDictionary *dic = @{@"internal_recommend_staff_ids":idcardArr,
+                          @"team_id":[BOPramaShareModel sharedSingleton].teamID,
+                          @"staff_id":[BOPramaShareModel sharedSingleton].staffID,
+                          };
+
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"qlife_boss.internal_recommend.internal_recommend_staff_qlife.delete" success:^(id responseObject) {
         NSLog(@"%@",responseObject[@"zh_message"]);
         successBlock();
     } fail:^(id error) {
@@ -216,7 +233,11 @@
 ////批量提交 internal_recommend.internal_recommend_staff.batch_submit
 + (void)submitArrs:(NSArray *)idcardArr success:(void(^)(NSArray *sucessarr))successBlock fail:(void(^)(NSArray *failArr))failBlock {
     NSLog(@"adf");
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:@{@"internal_recommend_staff_ids":idcardArr} CMD:@"qlife_boss.internal_recommend.internal_recommend_staff.batch_submit" success:^(id responseObject) {
+    NSDictionary *dic = @{@"internal_recommend_staff_ids":idcardArr,
+                          @"team_id":[BOPramaShareModel sharedSingleton].teamID,
+                          @"staff_id":[BOPramaShareModel sharedSingleton].staffID,
+                          };
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dic CMD:@"qlife_boss.internal_recommend.internal_recommend_staff_qlife.batch_submit" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
 #warning 需替换成failBlock
         successBlock(responseObject[@"error_ids"]);

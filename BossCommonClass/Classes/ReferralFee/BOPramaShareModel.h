@@ -1,6 +1,6 @@
 //
-//  BOPramaShare.h
-//  AFNetworking
+//  BOPramaShareModel.h
+//  Pods
 //
 //  Created by admin on 2019/7/18.
 //
@@ -9,11 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BOPramaShare : NSObject
+@interface BOPramaShareModel : NSObject
 
 @property (nonatomic, copy)NSString *teamID;
 @property (nonatomic, copy)NSString *staffID;
 + (instancetype)sharedSingleton;
+
 
 @end
 

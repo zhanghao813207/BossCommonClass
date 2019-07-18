@@ -39,7 +39,18 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     self.title = @"我的推荐";
     [self setupPageView];
     [self setRightItem];
-   
+    [self setBackItem];
+}
+-(void)setBackItem
+{
+    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
+    [buttonItem_back setTintColor:[UIColor blackColor]];
+    self.navigationItem.leftBarButtonItem = buttonItem_back;
+}
+
+- (void)popToLastViewController:(UIBarButtonItem *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - private
@@ -80,12 +91,9 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     
     self.waitVc = [[WaitRecommendVC alloc] init];
     self.waitVc .isEditing = false;
-    self.waitVc.teamID = self.teamID;
     self.finishVC = [[FinishRecommendVC alloc] init];
     self.finishVC.isEditing = false;
-    self.finishVC.teamID = self.teamID;
     self.entryVC = [[EntryVC alloc] init];
-    self.entryVC.teamID = self.teamID;
     self.entryVC.isEditing = false;
     
     
