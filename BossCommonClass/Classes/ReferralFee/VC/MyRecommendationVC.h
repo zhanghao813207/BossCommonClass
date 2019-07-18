@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MyRecommendationVC : UIViewController
 
+@property (nonatomic, strong)NSString *teamID;
+
 @end
 
 NS_ASSUME_NONNULL_END

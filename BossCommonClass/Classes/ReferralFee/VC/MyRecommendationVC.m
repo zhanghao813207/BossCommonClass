@@ -80,9 +80,12 @@ typedef NS_ENUM(NSInteger, SubVCType) {
     
     self.waitVc = [[WaitRecommendVC alloc] init];
     self.waitVc .isEditing = false;
+    self.waitVc.teamID = self.teamID;
     self.finishVC = [[FinishRecommendVC alloc] init];
     self.finishVC.isEditing = false;
+    self.finishVC.teamID = self.teamID;
     self.entryVC = [[EntryVC alloc] init];
+    self.entryVC.teamID = self.teamID;
     self.entryVC.isEditing = false;
     
     

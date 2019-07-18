@@ -48,6 +48,7 @@
  */
 + (void)postJsonWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
+    NSLog(@"=======%@======%@",url,cmd);
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
         [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
     } fail:^(id error) {

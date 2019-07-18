@@ -1,19 +1,19 @@
 //
-//  RecommendedVC.h
+//  BOPramaShare.h
 //  AFNetworking
-//  推荐员工页
 //
-//  Created by admin on 2019/3/27.
+//  Created by admin on 2019/7/18.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RecommendedVC : UIViewController
+@interface BOPramaShare : NSObject
 
 @property (nonatomic, copy)NSString *teamID;
 @property (nonatomic, copy)NSString *staffID;
++ (instancetype)sharedSingleton;
 
 @end
 

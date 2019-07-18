@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, assign)NSInteger index;
 @property(nonatomic, weak)id<InputMessageVCDelegate>delegate;
+@property (nonatomic, strong)NSString *teamID;
+
 @end
 
 NS_ASSUME_NONNULL_END

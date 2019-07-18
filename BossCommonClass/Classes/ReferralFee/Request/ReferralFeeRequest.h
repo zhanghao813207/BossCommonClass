@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReferralFeeRequest : NSObject
+
 + (void)recommendSubmit:(BOOL)isSubmit  WithParam:(InputMessageModel *)inputModel success:(void(^)(InputMessageModel *inputModel))successBlock fail:(void(^)(NSString *))failBlock;
 
 //1:已保存 10:已推荐 100:已入职 state

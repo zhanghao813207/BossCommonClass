@@ -25,7 +25,6 @@
     self.title = @"推荐员工";
     [self button];
     [self setRightItem];
-
    
 }
 
@@ -42,7 +41,7 @@
 
 - (void)rightAction {
     MyRecommendationVC *vc = [[MyRecommendationVC alloc] init];
-    
+    vc.teamID = self.teamID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
