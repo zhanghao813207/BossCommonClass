@@ -39,6 +39,15 @@ NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
  */
+- (BOOL)checkElectronicContract
+{
+    return self.sign_type == StaffSignTypeElectronic;
+}
+
+- (BOOL)checkStaffDeparture
+{
+    return self.state == StaffStateDeparture;
+}
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
