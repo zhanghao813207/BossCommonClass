@@ -67,10 +67,10 @@ NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_ba
 	self = [super init];
     
     if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
-        self.healthcertificateend = dictionary[kBossOwnerUserhealthcertificateendModel];
+        self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];
     }
     if(![dictionary[kBossOwnerUserhealthcertificatestart] isKindOfClass:[NSNull class]]){
-        self.healthcertificatestart = dictionary[kBossOwnerUserhealthcertificatestart];
+        self.healthcertificatestart = [dictionary[kBossOwnerUserhealthcertificatestart] integerValue];
     }
     if(![dictionary[kBossOwnerUserhealthcertificateurl] isKindOfClass:[NSNull class]]){
         self.healthcertificateurl = dictionary[kBossOwnerUserhealthcertificateurl];
@@ -169,6 +169,20 @@ NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_ba
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+    if(self.healthcertificateend){
+        dictionary[kBossOwnerUserhealthcertificateendModel] = @(self.healthcertificateend);
+    }
+    if(self.healthcertificatestart){
+        dictionary[kBossOwnerUserhealthcertificatestart] = @(self.healthcertificatestart);
+    }
+    if(self.healthcertificateurl != nil){
+        dictionary[kBossOwnerUserhealthcertificateurl] = self.healthcertificateurl;
+    }
+    if(self.healthcertificatebackurl != nil){
+        dictionary[kBossOwnerUserhealthcertificatebackurl] = self.healthcertificatebackurl;
+    }
+    
+    
 	if(self.accessToken != nil){
 		dictionary[kBossOwnerUserModelAccessToken] = self.accessToken;
 	}
@@ -199,6 +213,7 @@ NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_ba
 	}
 	dictionary[kBossOwnerUserModelExpiredAt] = @(self.expiredAt);
 	dictionary[kBossOwnerUserModelGenderId] = @(self.genderId);
+    
 	if(self.handBustUrl != nil){
 		dictionary[kBossOwnerUserModelHandBustUrl] = self.handBustUrl;
 	}
