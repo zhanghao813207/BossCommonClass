@@ -26,6 +26,20 @@
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * gender;
+// 结束时间
+@property (nonatomic, strong) NSString * healthcertificateend;
+
+// 开始时间
+@property (nonatomic, strong) NSString * healthcertificatestart;
+
+//  健康证图片url(正面照片)
+@property (nonatomic, strong) NSString * healthcertificateurl;
+
+// 健康证图片url(背面照片)
+@property (nonatomic, strong) NSString * healthcertificatebackurl;
+
+
+
 @property (nonatomic, assign) BOOL isshowJoinTeam;
 
 /**

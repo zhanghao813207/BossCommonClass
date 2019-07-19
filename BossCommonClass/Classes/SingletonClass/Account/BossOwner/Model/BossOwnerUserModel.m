@@ -30,6 +30,19 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 NSString *const kBossOwnerUserWechatModel = @"wechat_account";
 NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 
+// 结束时间
+NSString *const kBossOwnerUserhealthcertificateendModel = @"health_certificate_end";
+
+// 开始时间
+NSString *const kBossOwnerUserhealthcertificatestart = @"health_certificate_start";
+
+//  健康证图片url(正面照片)
+NSString *const kBossOwnerUserhealthcertificateurl = @"health_certificate_url";
+
+// 健康证图片url(背面照片)
+NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_back_url";
+
+
 @interface BossOwnerUserModel ()
 @end
 @implementation BossOwnerUserModel
@@ -52,6 +65,25 @@ NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
+        self.healthcertificateend = dictionary[kBossOwnerUserhealthcertificateendModel];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificatestart] isKindOfClass:[NSNull class]]){
+        self.healthcertificatestart = dictionary[kBossOwnerUserhealthcertificatestart];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificateurl] isKindOfClass:[NSNull class]]){
+        self.healthcertificateurl = dictionary[kBossOwnerUserhealthcertificateurl];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificatebackurl] isKindOfClass:[NSNull class]]){
+        self.healthcertificatebackurl = dictionary[kBossOwnerUserhealthcertificatebackurl];
+    }
+
+    if(![dictionary[kBossOwnerUserModelphone] isKindOfClass:[NSNull class]]){
+        self.phone = dictionary[kBossOwnerUserModelphone];
+    }
+
+    
 	if(![dictionary[kBossOwnerUserModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kBossOwnerUserModelAccessToken];
 	}

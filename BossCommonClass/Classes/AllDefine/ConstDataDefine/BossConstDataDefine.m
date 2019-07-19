@@ -62,9 +62,9 @@
 //   NSString *const MessageBasicURLV2 = @"http://192.168.10.5:8112/2.0/";
 //   NSString *const BossUmsPrefix = @"boss";
 
-    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
-    NSString *const BossUmsPrefix = @"boss";
+//    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+//    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:8009/2.0/";
+//    NSString *const BossUmsPrefix = @"boss";
 
 #elif defined kBossKnight
     // dev
