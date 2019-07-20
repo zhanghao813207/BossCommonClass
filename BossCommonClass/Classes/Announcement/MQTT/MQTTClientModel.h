@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Service.h"
 #import "MQTTPackage.h"
 #import <MQTTClient/MQTTClient.h>
 

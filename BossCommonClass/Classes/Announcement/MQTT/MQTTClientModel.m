@@ -181,6 +181,7 @@
 
     NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     id decodeObj = [QLifeAES256 objDecodeWithString:dataStr password:mqttSecretKey];
+    NSLog(@"--------------   handleMessage ------------ \n %@", dataStr);
     
     // TODO:
     [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
@@ -282,17 +283,6 @@
         _mySessionManager.delegate = self;
     }
     return _mySessionManager;
-}
-
-- (MQTTCFSocketTransport *)myTransport {
-    if (!_myTransport) {
-        _myTransport = [[MQTTCFSocketTransport alloc]init];
-        _myTransport.host = AddressOfMQTTServer;
-        NSLog(@"AddressOfMQTTServer = %@",AddressOfMQTTServer);
-        _myTransport.port = self.isSSL?PortOfMQTTServerWithSSL:PortOfMQTTServer;
-        _myTransport.tls = self.isSSL;
-    }
-    return _myTransport;
 }
 
 - (NSMutableDictionary *)subedDict {
