@@ -58,7 +58,7 @@
                                 will:NO/////will为no 下面的will一定为默认
                            willTopic:nil
                              willMsg:nil
-                             willQos:MQTTQosLevelAtMostOnce
+                             willQos:MQTTQosLevelExactlyOnce
                       willRetainFlag:NO
                         withClientId:clientId
                       securityPolicy:nil
@@ -197,7 +197,7 @@
     NSLog(@"当前需要订阅-------- topic = %@",topic);
     
     if (![self.subedDict.allKeys containsObject:topic]) {
-        [self.subedDict setObject:[NSNumber numberWithLong:MQTTQosLevelAtLeastOnce] forKey:topic];
+        [self.subedDict setObject:[NSNumber numberWithLong:MQTTQosLevelExactlyOnce] forKey:topic];
         NSLog(@"订阅字典 ----------- = %@",self.subedDict);
         NSLog(@"%@",self.subedDict);
         self.mySessionManager.subscriptions =  self.subedDict;

@@ -172,8 +172,8 @@ NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
 #ifdef kBossKnight
 
 //    NSString *const APPCODE = @"aoao_boss_app_ios";
-    NSString *const APPCODE = @"qlife-ios";
-//    NSString *const APPCODE = @"qlife-knight-ios";
+//    NSString *const APPCODE = @"qlife-ios";
+    NSString *const APPCODE = @"qlife-knight-ios";
     NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
     NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
