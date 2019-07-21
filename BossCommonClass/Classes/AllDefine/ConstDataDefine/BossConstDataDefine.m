@@ -23,11 +23,16 @@
 //    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
     // 演示环境 Boss老板
-//    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
-//    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
-//    NSString *const BossBasicPrefix = @"qlife";
-//    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
-//    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
+    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
+    NSString *const BossBasicPrefix = @"qlife";
+    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+
+    // 测试环境 消息服务
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+    NSString *const BossUmsPrefix = @"boss";
 
     // 质检环境 Boss老板
 //    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8483/1.0/";
@@ -42,15 +47,15 @@
 //    NSString *const BossUmsPrefix = @"boss";
 
     // local
-    NSString *const BossBasicURL = @"http://192.168.10.49:8083/1.0/";
-    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0/";
-    NSString *const BossBasicPrefix = @"qlife";
-    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
-    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
+//    NSString *const BossBasicURL = @"http://192.168.10.49:8083/1.0/";
+//    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0/";
+//    NSString *const BossBasicPrefix = @"qlife";
+//    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
+//    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
-    NSString *const MessageBasicURL = @"http://192.168.10.49:8082/1.0/";
-    NSString *const MessageBasicURLV2 = @"http://192.168.10.49:8082/2.0/";
-    NSString *const BossUmsPrefix = @"boss";
+//    NSString *const MessageBasicURL = @"http://192.168.10.49:8082/1.0/";
+//    NSString *const MessageBasicURLV2 = @"http://192.168.10.49:8082/2.0/";
+//    NSString *const BossUmsPrefix = @"boss";
 
 #elif defined kBossKnight
     // dev
@@ -62,11 +67,16 @@
 //    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
 
     // 演示环境 Boss骑士
-//    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
-//    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
-//    NSString *const BossBasicPrefix = @"qlife";
-//    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
-//    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
+    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
+    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
+    NSString *const BossBasicPrefix = @"qlife";
+    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
+    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
+
+    // 测试环境 消息服务
+    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+    NSString *const BossUmsPrefix = @"boss";
 
     // 质检环境 Boss老板
 //    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8483/1.0/";
@@ -81,15 +91,15 @@
 //    NSString *const BossUmsPrefix = @"boss";
 
     // local
-    NSString *const BossBasicURL = @"http://192.168.10.49:8083/1.0/";
-    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0/";
-    NSString *const BossBasicPrefix = @"qlife";
-    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
-    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
-
-    NSString *const MessageBasicURL = @"http://192.168.10.49:8082/1.0/";
-    NSString *const MessageBasicURLV2 = @"http://192.168.10.49:8082/2.0/";
-    NSString *const BossUmsPrefix = @"boss";
+//    NSString *const BossBasicURL = @"http://192.168.10.49:8083/1.0/";
+//    NSString *const BossBasicURLV2 = @"http://192.168.10.49:8083/2.0/";
+//    NSString *const BossBasicPrefix = @"qlife";
+//    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
+//    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
+//
+//    NSString *const MessageBasicURL = @"http://192.168.10.49:8082/1.0/";
+//    NSString *const MessageBasicURLV2 = @"http://192.168.10.49:8082/2.0/";
+//    NSString *const BossUmsPrefix = @"boss";
 
 #else
     // dev
@@ -163,6 +173,7 @@ NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
 
 //    NSString *const APPCODE = @"aoao_boss_app_ios";
     NSString *const APPCODE = @"qlife-ios";
+//    NSString *const APPCODE = @"qlife-knight-ios";
     NSString *const APP_ID = @"5c0a1988ce6d2a984c1fe8fc";
     NSString *const AGREEMENTURL = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
     NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
