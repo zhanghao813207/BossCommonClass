@@ -17,11 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"协议详情";
+    if (!self.url) {
+        self.url = AGREEMENTURL;
+    }
 //    CGRect bounds = [[UIScreen mainScreen]applicationFrame];
     UIWebView* webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
-    NSURL* url = [NSURL URLWithString: AGREEMENTURL];//创建URL
+    NSURL* url = [NSURL URLWithString: self.url];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];//加载
     [self.view addSubview:webView];
