@@ -117,8 +117,10 @@
 #endif
 
 // 会议基础URL
-NSString *const MeetingBasicURL = @"https://boss-dev.aoaosong.com:8112/";
-
+//NSString *const MeetingBasicURL = @"https://boss-dev.aoaosong.com:8112/";
+// 路由演示
+NSString *const MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:2090/";
+//https://boss-quhuo.aoaosong.com:2090/meeting/#/Meeting/Create
 #else
 
 #ifdef kBossOwner
