@@ -171,7 +171,11 @@
         vc.name = model.nick_name;
         vc.teamName = self.title;
         vc.targetid = model._id;
+        #ifdef kBossKnight
+        return;
+        #else
         [self.navigationController pushViewController:vc animated:true];
+        #endif
     }
 }
 - (UITableView *)tableview {
