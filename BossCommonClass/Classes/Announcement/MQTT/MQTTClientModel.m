@@ -186,9 +186,8 @@
     NSDictionary *msgDic = decodeObj;
     NSDictionary *dic = msgDic[@"payload"];
     int type = [dic[@"msg_type"] intValue];
-    if (type == 60 || type == 70) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
-    } else {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
+    if (type == 40) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"receiveMessage" object:decodeObj];
     }
 }
