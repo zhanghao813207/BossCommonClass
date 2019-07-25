@@ -182,12 +182,15 @@
     NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     id decodeObj = [QLifeAES256 objDecodeWithString:dataStr password:mqttSecretKey];
     NSLog(@"--------------   handleMessage ------------ \n %@", dataStr);
-    
-    // TODO:
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"receiveMessage" object:decodeObj];
-    
+//    msgtype 60公告 70会议 40单聊
+    NSDictionary *msgDic = decodeObj;
+    NSDictionary *dic = msgDic[@"payload"];
+    int type = [dic[@"msg_type"] intValue];
+    if (type == 60 || type == 70) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"message" object:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"receiveMessage" object:decodeObj];
+    }
 }
 
 
