@@ -20,6 +20,7 @@ typedef void(^PrivacyProtocolActionBlock)(void);
 @property (strong,nonatomic)AgreectionBlock agreeBlock;
 @property (strong,nonatomic)SoftProtocolActionBlock softBlock;
 @property (strong,nonatomic)PrivacyProtocolActionBlock privacyBlock;
+@property (weak, nonatomic) IBOutlet UIView *protocolBgView;
 
 @end
 

@@ -32,6 +32,8 @@
     
     [self.backGroundView addGestureRecognizer:backGroundViewClicked];
     
+    self.protocolBgView.layer.cornerRadius = 8;
+    self.protocolBgView.clipsToBounds = true;
 }
 
 - (void)backGroundViewClicked{
@@ -56,9 +58,16 @@
     if(self.privacyBlock){
         self.privacyBlock();
     }
+    
 }
 
 
+- (IBAction)exitAppAction:(id)sender {
+    //    exit(1)是异常退出;
+    //正常退出;
+    exit(0);
+    
+}
 
 
 @end

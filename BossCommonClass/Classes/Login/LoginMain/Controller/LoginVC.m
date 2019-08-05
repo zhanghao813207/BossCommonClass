@@ -21,7 +21,7 @@
 
 /**
  用户协议提示框
-*/
+ */
 @property (nonatomic,strong)ProtocollAlertView *protocolAlertView;
 
 /**
@@ -374,28 +374,43 @@
         
         WS(weakSelf);
         [_inputPhoneNumberView setAgreementBlock:^{
-            AgreementVc *vc = [[AgreementVc alloc] init];
-            [weakSelf.navigationController pushViewController:vc animated:true];
+            [weakSelf agreementClicked:@"用户服务协议"];
+            //            AgreementVc *vc = [[AgreementVc alloc] init];
+            //            [weakSelf.navigationController pushViewController:vc animated:true];
         }];
+        
+        [_inputPhoneNumberView setPrivacyBlock:^{
+            [weakSelf agreementClicked:@"隐私协议"];
+        }];
+        
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-//                if (ok) {
-//                    if (kIsAlertPassword) {
-//                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
-//                    }
-//
-//                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
-//                    if (!kIsAlertPassword) {
-//                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
-//                    }
-//                    [weakSelf showInputCodeView:phoneNumber];
-//
-//                }
+                //                if (ok) {
+                //                    if (kIsAlertPassword) {
+                //                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
+                //                    }
+                //
+                //                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
+                //                    if (!kIsAlertPassword) {
+                //                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+                //                    }
+                //                    [weakSelf showInputCodeView:phoneNumber];
+                //
+                //                }
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [window addSubview:weakSelf.protocolAlertView];
-        
+                weakSelf.protocolAlertView.softBlock = ^{
+                    [weakSelf agreementClicked:@"用户服务协议"];
+                };
+                weakSelf.protocolAlertView.privacyBlock = ^{
+                    [weakSelf agreementClicked:@"隐私协议"];
+                };
+                weakSelf.protocolAlertView.agreeBlock = ^{
+                    
+                };
+                
                 
             } fail:^{
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
@@ -522,6 +537,41 @@
 - (NSString *)defaultPhoneNumber
 {
     return self.addAccount ? @"" : kCache.lastLoginPhone;
+}
+
+
+- (void)agreementClicked:(NSString *)type {
+    NSString *url;
+    NSString *title;
+    if ([type isEqualToString:@"用户服务协议"]) {
+        title = @"用户服务协议";
+#ifdef kBossKnight
+        url = @"https://boss-dev.aoaosong.com/static/agreement-knight.html";
+        
+#elif defined kBossOwner
+        url = @"https://boss.aoaosong.com/static/agreement-boss.html";
+        
+#else
+        url = @"https://boss-dev.aoaosong.com/static/agreement-knight.html";
+        
+#endif
+    } else {
+        title = @"隐私政策";
+#ifdef kBossKnight
+        url = @"https://boss-dev.aoaosong.com/static/privacy-knight.html";
+        
+#elif defined kBossOwner
+        url = @"https://boss-dev.aoaosong.com:8107/static/privacy-boss.html";
+        
+#else
+        url = @"https://boss-dev.aoaosong.com/static/privacy-knight.html";
+        
+#endif
+    }
+    AgreementVc *vc = [[AgreementVc alloc] init];
+    vc.url = url;
+    vc.title = title;
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 @end

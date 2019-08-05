@@ -48,6 +48,9 @@
                                 <constraint firstAttribute="height" constant="50" id="Wvt-gu-NTd"/>
                             </constraints>
                             <state key="normal" title="不同意"/>
+                            <connections>
+                                <action selector="exitAppAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Jfd-YP-6c9"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYk-bS-dmx">
                             <rect key="frame" x="207" y="250" width="207" height="50"/>
@@ -95,6 +98,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backGroundView" destination="taa-zY-kfM" id="hcF-R5-IGt"/>
+                <outlet property="protocolBgView" destination="xzn-CF-boY" id="4nn-sq-JTD"/>
             </connections>
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>
         </view>
