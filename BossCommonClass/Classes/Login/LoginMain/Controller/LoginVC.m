@@ -17,6 +17,7 @@
 #import "NNBRequestManager.h"
 #import "AgreementVc.h"
 #import "ProtocollAlertView.h"
+#import "Masonry.h"
 @interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
@@ -61,6 +62,10 @@
 
 @property (nonatomic, readonly) NSString *defaultPhoneNumber;
 
+/**
+ 服务器获取当前是否为第一次登录
+ */
+@property BOOL isFirstLogin;
 @end
 
 @implementation LoginVC
@@ -94,6 +99,9 @@
     [super viewWillAppear:animated];
     
 #ifdef kBossKnight
+    if (self.protocolAlertView.alpha == 0){
+        self.protocolAlertView.alpha = 1;
+    }
     
     //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
@@ -271,7 +279,7 @@
     inputCodeView.showVoiceCode = YES;
     inputCodeView.inputCodeViewStatus = InputCodeViewStatusBegainCount;
     // 发送验证码请求
-    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
+    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage,BOOL is_first_login) {
         if (ok) {
             if (kIsAlertPassword) {
                 [self.navigationController.view showAnimationStatus:mockMessage completion:nil];
@@ -385,32 +393,23 @@
         
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
-            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
-                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-                //                if (ok) {
-                //                    if (kIsAlertPassword) {
-                //                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
-                //                    }
-                //
-                //                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
-                //                    if (!kIsAlertPassword) {
-                //                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
-                //                    }
-                //                    [weakSelf showInputCodeView:phoneNumber];
-                //
-                //                }
-                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                [window addSubview:weakSelf.protocolAlertView];
-                weakSelf.protocolAlertView.softBlock = ^{
-                    [weakSelf agreementClicked:@"用户服务协议"];
-                };
-                weakSelf.protocolAlertView.privacyBlock = ^{
-                    [weakSelf agreementClicked:@"隐私协议"];
-                };
-                weakSelf.protocolAlertView.agreeBlock = ^{
-                    
-                };
+            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage,BOOL is_first_login) {
                 
+                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+                //获取是否为第一次登录
+                weakSelf.isFirstLogin = is_first_login;
+                if (ok) {
+                    if (kIsAlertPassword) {
+                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
+                    }
+                    
+                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
+                    if (!kIsAlertPassword) {
+                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+                    }
+                    [weakSelf showInputCodeView:phoneNumber];
+                    
+                }
                 
             } fail:^{
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
@@ -471,10 +470,36 @@
                     [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                     
 #ifdef kBossKnight
-                    //BOSS骑士 特殊登录需求 直接显示VC
-                    [weakSelf removeNavigationLoginVC];
-                    if (weakSelf.loginSuccessBlock) {
-                        weakSelf.loginSuccessBlock(YES);
+                    
+                    if(weakSelf.isFirstLogin){
+                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                        [window addSubview:weakSelf.protocolAlertView];
+                        [weakSelf.protocolAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.bottom.width.equalTo(window);
+                        }];
+                        
+                        weakSelf.protocolAlertView.softBlock = ^{
+                            [weakSelf agreementClicked:@"用户服务协议"];
+                            weakSelf.protocolAlertView.alpha = 0;
+                        };
+                        weakSelf.protocolAlertView.privacyBlock = ^{
+                            [weakSelf agreementClicked:@"隐私协议"];
+                            weakSelf.protocolAlertView.alpha = 0;
+                        };
+                        weakSelf.protocolAlertView.agreeBlock = ^{
+                            //BOSS骑士 特殊登录需求 直接显示VC
+                            [weakSelf removeNavigationLoginVC];
+                            if (weakSelf.loginSuccessBlock) {
+                                weakSelf.loginSuccessBlock(YES);
+                            }
+                        };
+                        
+                    }else {
+                        //BOSS骑士 特殊登录需求 直接显示VC
+                        [weakSelf removeNavigationLoginVC];
+                        if (weakSelf.loginSuccessBlock) {
+                            weakSelf.loginSuccessBlock(YES);
+                        }
                     }
 #elif defined kBossManager
                     
@@ -504,6 +529,7 @@
     }
     return _inputCodeView;
 }
+
 
 - (void)removeNavigationLoginVC{
     

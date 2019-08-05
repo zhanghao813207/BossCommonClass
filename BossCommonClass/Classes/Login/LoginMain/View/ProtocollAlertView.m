@@ -45,7 +45,7 @@
 
 - (void)backGroundViewClicked{
     
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
     
 }
 - (IBAction)agreeAction:(id)sender {
