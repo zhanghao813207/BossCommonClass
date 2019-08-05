@@ -32,8 +32,15 @@
     
     [self.backGroundView addGestureRecognizer:backGroundViewClicked];
     
-    self.protocolBgView.layer.cornerRadius = 8;
+    // 左上和右上为圆角
+    UIBezierPath *cornerRadiusPath = [UIBezierPath bezierPathWithRoundedRect:self.protocolBgView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft cornerRadii:CGSizeMake(8, 8)];
+    CAShapeLayer *cornerRadiusLayer = [[CAShapeLayer alloc] init];
+    cornerRadiusLayer.frame = self.protocolBgView.bounds;
+    cornerRadiusLayer.path = cornerRadiusPath.CGPath;
+    self.protocolBgView.layer.mask = cornerRadiusLayer;
     self.protocolBgView.clipsToBounds = true;
+    
+    
 }
 
 - (void)backGroundViewClicked{
