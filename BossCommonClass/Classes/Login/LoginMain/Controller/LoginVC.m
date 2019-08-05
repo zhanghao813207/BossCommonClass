@@ -16,8 +16,13 @@
 #import "BossBasicDefine.h"
 #import "NNBRequestManager.h"
 #import "AgreementVc.h"
-
+#import "ProtocollAlertView.h"
 @interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
+
+/**
+ 用户协议提示框
+*/
+@property (nonatomic,strong)ProtocollAlertView *protocolAlertView;
 
 /**
  登陆页背景View
@@ -376,18 +381,22 @@
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-                if (ok) {
-                    if (kIsAlertPassword) {
-                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
-                    }
-                    
-                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
-                    if (!kIsAlertPassword) {
-                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
-                    }
-                    [weakSelf showInputCodeView:phoneNumber];
-                    
-                }
+//                if (ok) {
+//                    if (kIsAlertPassword) {
+//                        [weakSelf.navigationController.view showAnimationStatus:mockMessage completion:nil];
+//                    }
+//
+//                    weakSelf.inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
+//                    if (!kIsAlertPassword) {
+//                        [weakSelf.navigationController.view showSuccessStaus:@"验证码已发"];
+//                    }
+//                    [weakSelf showInputCodeView:phoneNumber];
+//
+//                }
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                [window addSubview:weakSelf.protocolAlertView];
+        
+                
             } fail:^{
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
             }];
@@ -395,6 +404,15 @@
         
     }
     return _inputPhoneNumberView;
+}
+
+- (ProtocollAlertView *)protocolAlertView
+{
+    if(!_protocolAlertView)
+    {
+        _protocolAlertView = [[ProtocollAlertView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    return _protocolAlertView;
 }
 
 - (InputCodeView *)inputCodeView
