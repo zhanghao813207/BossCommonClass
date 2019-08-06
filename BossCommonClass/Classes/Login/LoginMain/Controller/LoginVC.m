@@ -637,7 +637,8 @@
         url = @"https://boss.aoaosong.com/static/agreement-boss.html";
         
 #else
-        url = @"https://boss-dev.aoaosong.com/static/agreement-knight.html";
+        //之家
+        url = @"https://boss-dev.aoaosong.com/static/agreement-home.html";
         
 #endif
     } else {
@@ -649,7 +650,8 @@
         url = @"https://boss-dev.aoaosong.com:8107/static/privacy-boss.html";
         
 #else
-        url = @"https://boss-dev.aoaosong.com/static/privacy-knight.html";
+        //之家
+        url = @"https://boss-dev.aoaosong.com/static/privacy-home.html";
         
 #endif
     }
