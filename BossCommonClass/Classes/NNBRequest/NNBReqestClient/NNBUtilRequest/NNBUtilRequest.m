@@ -50,7 +50,7 @@
         NSLog(@"%@", responseObject);
         if (successBlock) {
             successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"],
-                         responseObject[@"is_first_login"]);
+                         [responseObject[@"is_first_login"] boolValue]);
         }
     } fail:^(id error) {
         if (failBlock) {
