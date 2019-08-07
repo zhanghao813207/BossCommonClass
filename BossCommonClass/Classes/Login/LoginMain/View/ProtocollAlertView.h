@@ -21,6 +21,8 @@ typedef void(^PrivacyProtocolActionBlock)(void);
 @property (strong,nonatomic)SoftProtocolActionBlock softBlock;
 @property (strong,nonatomic)PrivacyProtocolActionBlock privacyBlock;
 @property (weak, nonatomic) IBOutlet UIView *protocolBgView;
+@property (weak, nonatomic) IBOutlet UIButton *agreeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *disagreeBtn;
 
 @end
 

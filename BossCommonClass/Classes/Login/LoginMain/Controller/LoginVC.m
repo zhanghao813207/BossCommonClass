@@ -472,9 +472,21 @@
                 
 #if (defined kBossKnight) || (defined kBossManager)
                 //如果是第一次登录 的 并且没有点击过同意协议的
-                if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
+//                if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
+                if(true) {
+                    
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     [window addSubview:weakSelf.protocolAlertView];
+                    weakSelf.protocolAlertView.alpha = 0;
+                    [UIView animateWithDuration:0.25f animations:^{
+                       
+                    } completion:^(BOOL finished) {
+                        weakSelf.protocolAlertView.alpha = 1;
+                    }];
+                   
+                    
+                    
+                    
                     [weakSelf.protocolAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.top.width.equalTo(window);
                         if (@available(iOS 11.0, *)) {

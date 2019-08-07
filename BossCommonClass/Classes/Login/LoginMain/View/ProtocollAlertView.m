@@ -40,7 +40,13 @@
     self.protocolBgView.layer.mask = cornerRadiusLayer;
     self.protocolBgView.clipsToBounds = true;
     
+    self.agreeBtn.layer.cornerRadius = 5;
+    self.agreeBtn.clipsToBounds = true;
     
+    self.disagreeBtn.layer.cornerRadius = 5;
+    self.disagreeBtn.clipsToBounds = true;
+    self.disagreeBtn.layer.borderColor = [UIColor blueColor].CGColor;
+    self.disagreeBtn.layer.borderWidth = 1;
 }
 
 - (void)backGroundViewClicked{
