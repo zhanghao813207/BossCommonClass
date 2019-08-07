@@ -472,8 +472,8 @@
                 
 #if (defined kBossKnight) || (defined kBossManager)
                 //如果是第一次登录 的 并且没有点击过同意协议的
-//                if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
-                if(true) {
+                if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
+//                if(true) {
                     
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     [window addSubview:weakSelf.protocolAlertView];
