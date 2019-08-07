@@ -29,9 +29,9 @@
     }
     
     NSMutableDictionary *paraDic = @{
-                              @"phone":phoneNumber,
-                              @"if_voice":@(NO)
-                              }.mutableCopy;
+                                     @"phone":phoneNumber,
+                                     @"if_voice":@(NO)
+                                     }.mutableCopy;
     
     if (smsType == NNBSendSMSTypeChangePhoneNumber) {
         [paraDic setValue:@"exchange_mobile" forKey:@"event"];
@@ -49,7 +49,15 @@
     [self requestSmsCode:kUrl parameters:paraDic CMD:[self cmdRequest] success:^(id responseObject) {
         NSLog(@"%@", responseObject);
         if (successBlock) {
-            successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"],[responseObject[@"is_first_login"] boolValue]);
+            BOOL isFirstLogin;
+            if ([responseObject[@"is_first_login"] isEqual:[NSNull null]]){
+                NSLog(@"字符串为空");
+                isFirstLogin = true;
+            }else {
+                isFirstLogin = [responseObject[@"is_first_login"] boolValue];
+            };
+            
+            successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"],isFirstLogin);
         }
     } fail:^(id error) {
         if (failBlock) {
@@ -70,7 +78,7 @@
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
     }
-
+    
     NSMutableDictionary *paraDic = @{
                                      @"phone":phoneNumber,
                                      @"if_voice":@(YES)
@@ -96,7 +104,7 @@
 
 /**
  获取七牛token
-
+ 
  @param operateType 操作类型
  @param successBlock 获取成功的回调 返回七牛token
  */
@@ -125,7 +133,7 @@
 
 /**
  发送验证码请求
-
+ 
  @param url 请求url
  @param parameters 请求参数
  @param cmd 请求cmd
