@@ -446,12 +446,19 @@ typedef NS_ENUM(NSInteger, MessageType) {
     MessageTypeMeeting =  70, // 应用(会议)
 };
 
-
+//业务线类型
 typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeLogistics              = 1000, // 外卖配送
     LineDustryTypeTaxi                   = 2000, // 网约车
     LineDustryTypeCleaning               = 3000, // 家政保洁
     LineDustryTypeSecurity               = 4000, // 安保服务
     LineDustryTypeBicycle                = 5000,  //共享单车
+};
+
+// 身份信息状态
+typedef NS_ENUM(NSUInteger, IdentityStatus) {
+    IdentityStatusFew            = 1, // 正反面照片任一面缺少
+    IdentityStatusMissSome       = 2, // 只缺手持证件照
+    IdentityStatusDone           = 3, // 身份信息完善
 };
 #endif /* BossEnumDefin_h */

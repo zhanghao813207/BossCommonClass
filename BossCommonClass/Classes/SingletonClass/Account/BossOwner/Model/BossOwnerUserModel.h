@@ -38,8 +38,6 @@
 // 健康证图片url(背面照片)
 @property (nonatomic, strong) NSString * healthcertificatebackurl;
 
-
-
 @property (nonatomic, assign) BOOL isshowJoinTeam;
 
 /**
@@ -68,6 +66,9 @@
  员工状态(1:待签约 100:已签约-正常 101:已签约-待换签 102:已签约-待续签 -100:已解约)
  */
 @property (nonatomic, assign) StaffStates state;
+
+//
+@property (nonatomic, assign, readonly) BOOL checkStaffDeparture;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
