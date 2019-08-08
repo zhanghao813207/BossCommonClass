@@ -641,34 +641,62 @@
     NSString *title;
     if ([type isEqualToString:@"用户服务协议"]) {
         title = @"用户服务协议";
-#ifdef kBossKnight
-        url = @"https://boss.quhuo.cn/static/agreement-knight.html";
-        
-#elif defined kBossOwner
-        url = @" https://boss.quhuo.cn/static/agreement-boss.html";
-#else
-        //之家
-        url = @"https://boss.quhuo.cn/static/agreement-home.html";
-        
-#endif
+        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], [self getAgreementPath]];
     } else {
         title = @"隐私政策";
-#ifdef kBossKnight
-        url = @"https://boss.quhuo.cn/static/privacy-knight.html";
-        
-#elif defined kBossOwner
-        url = @"https://boss.quhuo.cn/static/privacy-boss.html";
-        
-#else
-        //之家
-        url = @"https://boss.quhuo.cn/static/privacy-home.html";
-        
-#endif
+        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], [self getPrivacyPath]];
     }
     AgreementVc *vc = [[AgreementVc alloc] init];
     vc.url = url;
     vc.title = title;
     [self.navigationController pushViewController:vc animated:true];
+}
+
+/**
+ 获取域名
+
+ @return 域名
+ */
+- (NSString *)getHost {
+#ifdef DEBUG
+    return @"https://boss.quhuo.cn/";
+#else
+    return @"https://boss.aoaosong.com/";
+#endif
+}
+
+/**
+ 用户协议path
+
+ @return 用户协议path
+ */
+- (NSString *)getAgreementPath {
+    
+#ifdef kBossKnight
+    return @"agreement-knight";
+    
+#elif defined kBossOwner
+    return @"agreement-boss"
+#else
+    return @"agreement-home"
+#endif
+}
+
+/**
+ 隐私政策path
+ 
+ @return 隐私政策path
+ */
+- (NSString *)getPrivacyPath {
+    
+#ifdef kBossKnight
+    return @"privacy-knight";
+    
+#elif defined kBossOwner
+    return @"privacy-boss"
+#else
+    return @"privacy-home"
+#endif
 }
 
 @end
