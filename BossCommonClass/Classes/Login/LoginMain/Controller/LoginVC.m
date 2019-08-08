@@ -472,17 +472,17 @@
 #if (defined kBossKnight) || (defined kBossManager)
                 //如果是第一次登录 的 并且没有点击过同意协议的
                 if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
-//                if(true) {
+                    //                if(true) {
                     
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     [window addSubview:weakSelf.protocolAlertView];
                     weakSelf.protocolAlertView.alpha = 0;
                     [UIView animateWithDuration:0.25f animations:^{
-                       
+                        
                     } completion:^(BOOL finished) {
                         weakSelf.protocolAlertView.alpha = 1;
                     }];
-                   
+                    
                     
                     
                     
@@ -642,27 +642,26 @@
     if ([type isEqualToString:@"用户服务协议"]) {
         title = @"用户服务协议";
 #ifdef kBossKnight
-        url = @"https://boss-dev.aoaosong.com/static/agreement-knight.html";
+        url = @"https://boss.quhuo.cn/static/agreement-knight.html";
         
 #elif defined kBossOwner
-        url = @"https://boss.aoaosong.com/static/agreement-boss.html";
-        
+        url = @" https://boss.quhuo.cn/static/agreement-boss.html";
 #else
         //之家
-        url = @"https://boss-dev.aoaosong.com/static/agreement-home.html";
+        url = @"https://boss.quhuo.cn/static/agreement-home.html";
         
 #endif
     } else {
         title = @"隐私政策";
 #ifdef kBossKnight
-        url = @"https://boss-dev.aoaosong.com/static/privacy-knight.html";
+        url = @"https://boss.quhuo.cn/static/privacy-knight.html";
         
 #elif defined kBossOwner
-        url = @"https://boss-dev.aoaosong.com:8107/static/privacy-boss.html";
+        url = @"https://boss.quhuo.cn/static/privacy-boss.html";
         
 #else
         //之家
-        url = @"https://boss-dev.aoaosong.com/static/privacy-home.html";
+        url = @"https://boss.quhuo.cn/static/privacy-home.html";
         
 #endif
     }
