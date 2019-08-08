@@ -106,7 +106,6 @@
     if (self.protocolAlertView.alpha == 0){
         self.protocolAlertView.alpha = 1;
     }
-    
     //    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
     
@@ -246,8 +245,8 @@
     }
     NSLog(@"%@,%@", NSStringFromClass([self class]), NSStringFromClass([self superclass]));
     // 是否显示左侧返回按钮
-    self.navigationItem.leftBarButtonItem = show ? self.backBarButtonItem : nil;
-    
+    self.navigationItem.leftBarButtonItems = show ? @[self.backBarButtonItem] : @[];
+    self.navigationItem.leftItemsSupplementBackButton = NO;
     // 登陆模块View切换键盘一直显示
     if ([showView respondsToSelector:@selector(isBecomeFirstResponder)]) {
         [showView performSelector:@selector(isBecomeFirstResponder) withObject:nil afterDelay:0];
