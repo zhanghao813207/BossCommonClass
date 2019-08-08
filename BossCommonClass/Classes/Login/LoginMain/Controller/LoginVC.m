@@ -676,9 +676,9 @@
     return @"agreement-knight";
     
 #elif defined kBossOwner
-    return @"agreement-boss"
+    return @"agreement-boss";
 #else
-    return @"agreement-home"
+    return @"agreement-home";
 #endif
 }
 
@@ -693,9 +693,9 @@
     return @"privacy-knight";
     
 #elif defined kBossOwner
-    return @"privacy-boss"
+    return @"privacy-boss";
 #else
-    return @"privacy-home"
+    return @"privacy-home";
 #endif
 }
 
