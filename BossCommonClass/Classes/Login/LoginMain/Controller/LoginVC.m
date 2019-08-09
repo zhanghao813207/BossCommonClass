@@ -266,7 +266,7 @@
     inputCodeView.showVoiceCode = YES;
     inputCodeView.inputCodeViewStatus = InputCodeViewStatusBegainCount;
     // 发送验证码请求
-    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
+    [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:self.inputPhoneNumberView.phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage,BOOL is_first_login) {
         if (ok) {
             if (kIsAlertPassword) {
                 [self.navigationController.view showAnimationStatus:mockMessage completion:nil];
@@ -374,7 +374,7 @@
         }];
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
-            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage) {
+            [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage,BOOL is_first_login) {
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                 if (ok) {
                     if (kIsAlertPassword) {
