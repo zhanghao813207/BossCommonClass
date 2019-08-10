@@ -67,8 +67,12 @@
  */
 @property (nonatomic, assign) StaffStates state;
 
-//
-@property (nonatomic, assign, readonly) BOOL checkStaffDeparture;
+//身份证状态
+@property (nonatomic, assign, readonly) IdentityStatus identityStatus;
+//银行卡状态
+@property (nonatomic, assign, readonly) BankCardStatus bankCardStatus;
+//工作证件是否完善
+@property (nonatomic, assign, readonly) BOOL workCardIsDone;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

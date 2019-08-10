@@ -457,8 +457,16 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
 
 // 身份信息状态
 typedef NS_ENUM(NSUInteger, IdentityStatus) {
-    IdentityStatusFew            = 1, // 正反面照片任一面缺少
-    IdentityStatusMissSome       = 2, // 只缺手持证件照
+    IdentityStatusFew            = 1, // 正反面照片任一面缺少,未完善
+    IdentityStatusMissSome       = 2, // 只缺手持证件照,未完善
     IdentityStatusDone           = 3, // 身份信息完善
 };
+
+// 银行卡信息状态
+typedef NS_ENUM(NSUInteger, BankCardStatus) {
+    BankCardStatusNOCardId       = 1, // 缺少银行卡号,未完善
+    BankCardStatusNOSome         = 2, // 缺少除银行卡号之外的其他字段,未完善
+    BankCardStatusDone           = 3, // 银行卡信息完善
+};
+
 #endif /* BossEnumDefin_h */

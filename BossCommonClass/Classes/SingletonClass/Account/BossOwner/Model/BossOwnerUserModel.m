@@ -8,11 +8,11 @@
 
 NSString *const kBossOwnerUserModelAccessToken = @"access_token";
 NSString *const kBossOwnerUserModelAccountId = @"_id";
-NSString *const kBossOwnerUserModelBankBranch = @"bank_branch";
+NSString *const kBossOwnerUserModelBankBranch = @"bank_name";
 NSString *const kBossOwnerUserModelBankCardFrontUrl = @"bank_card_front_url";
 NSString *const kBossOwnerUserModelBankCardId = @"bank_card_id";
 NSString *const kBossOwnerUserModelBankLocation = @"bank_location";
-NSString *const kBossOwnerUserModelBankName = @"bank_name";
+NSString *const kBossOwnerUserModelBankName = @"bank_branch";
 NSString *const kBossOwnerUserModelBirthDate = @"birth_date";
 NSString *const kBossOwnerUserModelCardholderName = @"cardholder_name";
 NSString *const kBossOwnerUserModelExpiredAt = @"expired_at";
@@ -61,7 +61,44 @@ NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_ba
 {
     return self.state == StaffStateDeparture;
 }
+//身份信息状态
+- (IdentityStatus)identityStatus
+{
+    if(self.identityCardBackUrl == nil ||[self.identityCardBackUrl isEqualToString:@""] || self.identityCardFrontUrl == nil ||[self.identityCardFrontUrl isEqualToString:@""])
+    {
+        return IdentityStatusFew;
+    }
+    
+    if (self.handBustUrl == nil || [self.handBustUrl isEqualToString:@""] )
+    {
+        return IdentityStatusMissSome;
+    }
+    return IdentityStatusDone;
+}
+//银行卡信息状态
+- (BankCardStatus)bankCardStatus
+{
+    if( self.bankCardId == nil ||[self.bankCardId isEqualToString:@""])
+    {
+        return BankCardStatusNOCardId;
+    }
+    if(self.bankCardId != nil && (self.cardholderName == nil ||[self.cardholderName isEqualToString:@""] || self.bankName == nil || [self.bankName isEqualToString:@""]
+       || self.bankBranch == nil || [self.bankBranch isEqualToString:@""] || self.bankLocation == nil ))
+    {
+        return BankCardStatusNOSome;
+    }
+    return BankCardStatusDone;
+}
 
+//工作证件是否完善
+- (BOOL)workCardIsDone
+{
+   if(self.healthcertificatebackurl == nil ||self.healthcertificateurl == nil || !self.healthcertificateend  || !self.healthcertificatestart)
+   {
+       return NO;
+   }
+    return YES;
+}
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
