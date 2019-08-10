@@ -65,18 +65,28 @@
 //    NSString *const BossBasicPrefix = @"qlife";
 //    NSString *const ACCESS_KEY = @"3f92d896b23d960e529048c2fc2ab762";
 //    NSString *const SECRET_KEY = @"2fd89206dd6edd7b87b8833ba6bed5a9";
-
     // 演示环境 Boss骑士
-    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
-    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
+NSString *const BossBasicURL = @"http://192.168.10.69:8083/1.0/";
+    NSString *const BossBasicURLV2 = @"http://192.168.10.69:8083/2.0/";
     NSString *const BossBasicPrefix = @"qlife";
     NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
     NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
 
     // 演示环境 消息服务
-    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
-    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+    NSString *const MessageBasicURL = @"http://192.168.10.69:8083/2.0/";
+    NSString *const MessageBasicURLV2 = @"http://192.168.10.69:8083/2.0/";
     NSString *const BossUmsPrefix = @"boss";
+//    // 演示环境 Boss骑士
+//    NSString *const BossBasicURL = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
+//    NSString *const BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
+//    NSString *const BossBasicPrefix = @"qlife";
+//    NSString *const ACCESS_KEY = @"500aa2ba0e248edff26c502ac11d8f41";
+//    NSString *const SECRET_KEY = @"f175a2c83bbec7732c6acd0c8b405504";
+//
+//    // 演示环境 消息服务
+//    NSString *const MessageBasicURL = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+//    NSString *const MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+//    NSString *const BossUmsPrefix = @"boss";
 
     // 质检环境 Boss老板
 //    NSString *const BossBasicURL = @"https://boss-api-dev.aoaosong.com:8483/1.0/";
