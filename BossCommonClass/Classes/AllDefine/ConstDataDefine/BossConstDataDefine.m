@@ -145,8 +145,8 @@ NSString *const MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:2090/meeting
     NSString *const BossBasicURL = @"https://qlife-api.aoaosong.com/1.0/";
     NSString *const BossBasicURLV2 = @"https://qlife-api.aoaosong.com/2.0/";
     NSString *const BossBasicPrefix = @"qlife";
-    NSString *const ACCESS_KEY = @"7827bafd44edad630286e406579ee76d";
-    NSString *const SECRET_KEY = @"09d93665b7c63d85607176aeaf6411ee";
+    NSString *const ACCESS_KEY = @"e837806cdf3a33e1340383fe4607f48e";
+    NSString *const SECRET_KEY = @"8499a637c20d6d7bb7c08da2d0a74f81";
 
     // 生产环境 Boss老板消息服务
     NSString *const MessageBasicURL = @"https://ums-api.aoaosong.com/1.0/";
