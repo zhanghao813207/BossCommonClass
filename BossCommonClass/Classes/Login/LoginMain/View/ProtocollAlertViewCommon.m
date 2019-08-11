@@ -1,13 +1,13 @@
 //
-//  ProtocollAlertView.m
+//  ProtocollAlertViewCommon.m
 //  AFNetworking
 //
 //  Created by yjs on 2019/8/5.
 //
 
-#import "ProtocollAlertView.h"
+#import "ProtocollAlertViewCommon.h"
 
-@implementation ProtocollAlertView
+@implementation ProtocollAlertViewCommon
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -17,7 +17,7 @@
         NSBundle *baseBundle = [NSBundle bundleForClass:[self class]];
         NSURL *bundleUrl = [baseBundle URLForResource:@"BossCommonClass" withExtension:@"bundle"];
         NSBundle *currentBundle = [NSBundle bundleWithURL:bundleUrl];
-        self = [[currentBundle loadNibNamed:@"ProtocollAlertView" owner:self options:nil] firstObject];
+        self = [[currentBundle loadNibNamed:@"ProtocollAlertViewCommon" owner:self options:nil] firstObject];
         self.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         [self setView];
     }
