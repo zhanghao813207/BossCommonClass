@@ -68,14 +68,10 @@
                           NSLog(@"%@",error);
                       }];
     
-    
-    self.isDiscontent = NO;
     self.mySessionManager.subscriptions = self.subedDict;
 }
 
 - (void)disconnect {
-    
-    self.isDiscontent = YES;
     //    self.isContented = NO;
     [self.mySessionManager disconnectWithDisconnectHandler:^(NSError *error) {
         NSLog(@"断开连接  error = %@",[error description]);
@@ -95,7 +91,6 @@
     
     if (self.mySessionManager && self.mySessionManager.port) {
         self.mySessionManager.delegate = self;
-        self.isDiscontent = NO;
         [self.mySessionManager connectToLast:^(NSError *error) {
             NSLog(@"重新连接  error = %@",[error description]);
         }];
@@ -139,6 +134,8 @@
     switch (newState) {
         case MQTTSessionManagerStateConnected:
         {
+            self.isConnect = true;
+            
             NSLog(@"eventCode -- 连接成功");
             // 启动定时发布心跳包
             [self countDownWithTopic:@"ums/"];
@@ -153,11 +150,13 @@
             break;
         case MQTTSessionManagerStateClosed:
             NSLog(@"eventCode -- 连接被关闭");
+            self.isConnect = false;
             [self cancelTimer];
             // 取消定时发送心跳包
             break;
         case MQTTSessionManagerStateError:
             NSLog(@"eventCode -- 连接错误");
+            self.isConnect = false;
             [self cancelTimer];
             // 取消定时发送心跳包
             break;

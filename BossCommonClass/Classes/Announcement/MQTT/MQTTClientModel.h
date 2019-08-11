@@ -14,7 +14,7 @@
 
 @interface MQTTClientModel : NSObject
 
-@property (nonatomic, assign) BOOL isDiscontent;
+@property (nonatomic, assign) BOOL isConnect;
 
 @property (nonatomic,strong) MQTTSessionManager *mySessionManager;
 
