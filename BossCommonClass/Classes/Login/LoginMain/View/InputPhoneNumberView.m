@@ -9,6 +9,8 @@
 #import "InputPhoneNumberView.h"
 #import "BossBasicDefine.h"
 #import "AgreementVc.h"
+#import "Masonry.h"
+
 /**
  输入手机号View的高度
  */
@@ -30,6 +32,8 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
  协议Label
  */
 @property (nonatomic, strong) UIButton *agreementLabel;
+
+@property (nonatomic, strong) UIButton *privacyBtn;
 
 
 @property (nonatomic, strong) UITextField *phoneTextField;
@@ -57,6 +61,13 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         [self addSubview:self.errorNoticeLabel];
         [self addSubview:self.nextStepButton];
         [self addSubview:self.agreementLabel];
+        [self addSubview:self.privacyBtn];
+        [self.privacyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.agreementLabel.mas_right).offset(0);
+            make.top.equalTo(self.agreementLabel);
+            make.width.mas_equalTo(100);
+            make.height.mas_equalTo(13);
+        }];
     }
     
 
@@ -191,24 +202,48 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     return _merchantNameLabel;
 }
 
+
+
+- (UIButton *)privacyBtn{
+    if (!_privacyBtn) {
+       
+ 
+        //添加文字背景颜色
+        _privacyBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, 100, 13)];
+
+        //设置label的富文本
+        [_privacyBtn addTarget:self action:@selector(privacyAction) forControlEvents:UIControlEventTouchUpInside];
+        [_privacyBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        [_privacyBtn setTitleColor:kHexRGB(0x3589DE) forState:UIControlStateNormal];
+        [_privacyBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
+        _privacyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
+        
+    }
+    return _privacyBtn;
+}
+
 - (UIButton *)agreementLabel{
     if (!_agreementLabel) {
 //       #ifdef kBossKnight
 //        NSString *str = @"";
         //创建NSMutableAttributedString
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:AGREEMENTTITLE];
+//        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:AGREEMENTTITLE];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:@"登录即代表您已同意软件许可及服务协议 和"];
+
 //        UITapGestureRecognizer *tapRecognizerWeibo =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doIt:)];
 //        _agreementLabel.userInteractionEnabled = YES;
 //        [_agreementLabel addGestureRecognizer: tapRecognizerWeibo];
         //设置字体和设置字体的范围
-        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, 23)];
+        [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, attrStr.length)];
         //添加文字颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(0, 9)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(14, 9)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(1, 9)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(9, 9)];
 //        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(15, 1)];
 //        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(16, 4)];
         //添加文字背景颜色
-        _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, kScreenWidth, 13)];
+        _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, 240, 13)];
+//        _agreementLabel.backgroundColor = [UIColor redColor];
         //设置label的富文本
         _agreementLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_agreementLabel addTarget:self action:@selector(doIt:) forControlEvents:UIControlEventTouchUpInside];
@@ -220,6 +255,13 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     if (self.agreementBlock) {
         self.agreementBlock();
     }
+}
+
+- (void)privacyAction {
+    if (self.privacyBlock) {
+        self.privacyBlock();
+    }
+    
 }
 
 

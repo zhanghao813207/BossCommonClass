@@ -25,6 +25,7 @@ UIKIT_EXTERN CGFloat const kInputPhoneNumberViewHeight;
  */
 @property (nonatomic, copy) void(^nextStepBlock)(NSString *phoneNumber,NSString *textFieldText);
 @property (nonatomic, copy) void(^agreementBlock)(void);
+@property (nonatomic, copy) void(^privacyBlock)(void);
 
 /**
  成为第一响应者

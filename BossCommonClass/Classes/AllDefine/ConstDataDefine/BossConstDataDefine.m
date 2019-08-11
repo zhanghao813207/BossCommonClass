@@ -102,7 +102,7 @@
 //    NSString *const BossUmsPrefix = @"boss";
 
 #else
-    // dev
+    // dev189
     // 测试环境 Boss之家 骑士
     NSString *const BossBasicURL = @"https://saas-api-dev.aoaosong.com/1.0/";
     NSString *const BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";

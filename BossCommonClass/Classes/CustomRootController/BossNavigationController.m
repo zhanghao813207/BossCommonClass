@@ -76,14 +76,14 @@
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animate
 {
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
-        self.interactivePopGestureRecognizer.enabled = YES;
+//    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+//        self.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
-        self.interactivePopGestureRecognizer.enabled = YES;
+//    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+//        self.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (UIBarButtonItem *)customCommentLeftBarButtonItem

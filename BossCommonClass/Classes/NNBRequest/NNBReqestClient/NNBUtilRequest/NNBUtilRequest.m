@@ -50,7 +50,10 @@
         NSLog(@"%@", responseObject);
         if (successBlock) {
             BOOL isFirstLogin;
+            
+            // 当标签为空时
             if ([responseObject[@"is_first_login"] isEqual:[NSNull null]]){
+                
                 NSLog(@"字符串为空");
                 isFirstLogin = true;
             }else {
