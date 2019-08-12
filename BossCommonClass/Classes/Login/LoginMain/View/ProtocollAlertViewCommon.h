@@ -1,5 +1,5 @@
 //
-//  ProtocollAlertView.h
+//  ProtocollAlertViewCommon.h
 //  AFNetworking
 //
 //  Created by yjs on 2019/8/5.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProtocollAlertView : UIView
+@interface ProtocollAlertViewCommon : UIView
 
 typedef void(^AgreectionBlock)(void);
 typedef void(^SoftProtocolActionBlock)(void);

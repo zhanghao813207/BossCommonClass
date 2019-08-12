@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProtocollAlertView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProtocollAlertViewCommon">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -30,46 +30,7 @@
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <font key="NSFont" size="18" name="PingFangSC-Medium"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="19" maximumLineHeight="19" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                            <tabStops>
-                                                <textTab alignment="left" location="28">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="56">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="84">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="112">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="140">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="168">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="196">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="224">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="252">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="280">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="308">
-                                                    <options/>
-                                                </textTab>
-                                                <textTab alignment="left" location="336">
-                                                    <options/>
-                                                </textTab>
-                                            </tabStops>
-                                        </paragraphStyle>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="19" maximumLineHeight="19" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>

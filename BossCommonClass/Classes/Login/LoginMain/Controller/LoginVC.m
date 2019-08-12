@@ -16,14 +16,14 @@
 #import "BossBasicDefine.h"
 #import "NNBRequestManager.h"
 #import "AgreementVc.h"
-#import "ProtocollAlertView.h"
+#import "ProtocollAlertViewCommon.h"
 #import "Masonry.h"
 @interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
  用户协议提示框
  */
-@property (nonatomic,strong)ProtocollAlertView *protocolAlertView;
+@property (nonatomic,strong)ProtocollAlertViewCommon *protocolAlertView;
 
 /**
  登陆页背景View
@@ -425,11 +425,11 @@
     return _inputPhoneNumberView;
 }
 
-- (ProtocollAlertView *)protocolAlertView
+- (ProtocollAlertViewCommon *)protocolAlertView
 {
     if(!_protocolAlertView)
     {
-        _protocolAlertView = [[ProtocollAlertView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _protocolAlertView = [[ProtocollAlertViewCommon alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     }
     return _protocolAlertView;
 }
