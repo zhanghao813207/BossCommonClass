@@ -231,6 +231,9 @@ static NSString *identifier = @"cell";
         self.tableview.tableFooterView = self.emptyView;
     }
     
+    // 编辑状态并且数组数量大于0
+    self.selectView.hidden = !self.isEditing || count == 0;
+    
 }
 - (void)setIsHasmore:(BOOL)isHasmore {
     _isHasmore = isHasmore;

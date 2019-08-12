@@ -1,0 +1,33 @@
+//
+//  BOPramaShareModel.m
+//  Pods
+//
+//  Created by admin on 2019/7/18.
+//
+
+#import "BOPramaShareModel.h"
+
+@implementation BOPramaShareModel
+
++ (instancetype)sharedSingleton
+{
+    static BOPramaShareModel *_pramaShare = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        //不能再使用alloc方法
+        //因为已经重写了allocWithZone方法，所以这里要调用父类的分配空间的方法
+        _pramaShare = [[super allocWithZone:NULL] init];
+    });
+    return _pramaShare;
+}
+
+// 防止外部调用alloc 或者 new
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    return [BOPramaShareModel sharedSingleton];
+}
+
+// 防止外部调用copy
+- (id)copyWithZone:(nullable NSZone *)zone {
+    return [BOPramaShareModel sharedSingleton];
+}
+@end

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param storyBoardName storyBoard名称
  @return UIViewController
  */
-+ (UIViewController *)storyBoardCreateViewControllerWithBundle: (nonnull NSString *)bundleName StoryBoardName: (nonnull NSString *)storyBoardName;
++ (id)storyBoardCreateViewControllerWithBundle: (nonnull NSString *)bundleName StoryBoardName: (nonnull NSString *)storyBoardName;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Service.h"
 #import "MQTTPackage.h"
 #import <MQTTClient/MQTTClient.h>
 
@@ -15,7 +14,7 @@
 
 @interface MQTTClientModel : NSObject
 
-@property (nonatomic, assign) BOOL isDiscontent;
+@property (nonatomic, assign) BOOL isConnect;
 
 @property (nonatomic,strong) MQTTSessionManager *mySessionManager;
 

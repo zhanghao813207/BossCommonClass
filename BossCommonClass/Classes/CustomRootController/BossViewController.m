@@ -34,7 +34,8 @@
 
 }
     
-- (UIBarButtonItem *)customCommentLeftBarButtonItem{
+- (UIBarButtonItem *)customCommentLeftBarButtonItem
+{
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
 #ifdef kBossKnight
     [buttonItem_back setTintColor:kAppMainColor];

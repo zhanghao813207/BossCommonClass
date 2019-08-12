@@ -8,11 +8,11 @@
 
 NSString *const kBossOwnerUserModelAccessToken = @"access_token";
 NSString *const kBossOwnerUserModelAccountId = @"_id";
-NSString *const kBossOwnerUserModelBankBranch = @"bank_branch";
+NSString *const kBossOwnerUserModelBankBranch = @"bank_name";
 NSString *const kBossOwnerUserModelBankCardFrontUrl = @"bank_card_front_url";
 NSString *const kBossOwnerUserModelBankCardId = @"bank_card_id";
 NSString *const kBossOwnerUserModelBankLocation = @"bank_location";
-NSString *const kBossOwnerUserModelBankName = @"bank_name";
+NSString *const kBossOwnerUserModelBankName = @"bank_branch";
 NSString *const kBossOwnerUserModelBirthDate = @"birth_date";
 NSString *const kBossOwnerUserModelCardholderName = @"cardholder_name";
 NSString *const kBossOwnerUserModelExpiredAt = @"expired_at";
@@ -30,6 +30,19 @@ NSString *const kBossOwnerUserModelphone = @"phone";
 NSString *const kBossOwnerUserWechatModel = @"wechat_account";
 NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 
+// 结束时间
+NSString *const kBossOwnerUserhealthcertificateendModel = @"health_certificate_end";
+
+// 开始时间
+NSString *const kBossOwnerUserhealthcertificatestart = @"health_certificate_start";
+
+//  健康证图片url(正面照片)
+NSString *const kBossOwnerUserhealthcertificateurl = @"health_certificate_url";
+
+// 健康证图片url(背面照片)
+NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_back_url";
+
+
 @interface BossOwnerUserModel ()
 @end
 @implementation BossOwnerUserModel
@@ -39,10 +52,75 @@ NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
  */
+- (BOOL)checkElectronicContract
+{
+    return self.sign_type == StaffSignTypeElectronic;
+}
 
+- (BOOL)checkStaffDeparture
+{
+    return self.state == StaffStateDeparture;
+}
+//身份信息状态
+- (IdentityStatus)identityStatus
+{
+    if(self.identityCardBackUrl == nil ||[self.identityCardBackUrl isEqualToString:@""] || self.identityCardFrontUrl == nil ||[self.identityCardFrontUrl isEqualToString:@""])
+    {
+        return IdentityStatusFew;
+    }
+    
+    if (self.handBustUrl == nil || [self.handBustUrl isEqualToString:@""] )
+    {
+        return IdentityStatusMissSome;
+    }
+    return IdentityStatusDone;
+}
+//银行卡信息状态
+- (BankCardStatus)bankCardStatus
+{
+    if( self.bankCardId == nil ||[self.bankCardId isEqualToString:@""])
+    {
+        return BankCardStatusNOCardId;
+    }
+    if(self.bankCardId != nil && (self.cardholderName == nil ||[self.cardholderName isEqualToString:@""] || self.bankName == nil || [self.bankName isEqualToString:@""]
+       || self.bankBranch == nil || [self.bankBranch isEqualToString:@""] || self.bankLocation == nil ))
+    {
+        return BankCardStatusNOSome;
+    }
+    return BankCardStatusDone;
+}
+
+//工作证件是否完善
+- (BOOL)workCardIsDone
+{
+   if(self.healthcertificatebackurl == nil ||self.healthcertificateurl == nil || !self.healthcertificateend  || !self.healthcertificatestart)
+   {
+       return NO;
+   }
+    return YES;
+}
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
+        self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificatestart] isKindOfClass:[NSNull class]]){
+        self.healthcertificatestart = [dictionary[kBossOwnerUserhealthcertificatestart] integerValue];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificateurl] isKindOfClass:[NSNull class]]){
+        self.healthcertificateurl = dictionary[kBossOwnerUserhealthcertificateurl];
+    }
+    if(![dictionary[kBossOwnerUserhealthcertificatebackurl] isKindOfClass:[NSNull class]]){
+        self.healthcertificatebackurl = dictionary[kBossOwnerUserhealthcertificatebackurl];
+    }
+
+    if(![dictionary[kBossOwnerUserModelphone] isKindOfClass:[NSNull class]]){
+        self.phone = dictionary[kBossOwnerUserModelphone];
+    }
+
+    
 	if(![dictionary[kBossOwnerUserModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kBossOwnerUserModelAccessToken];
 	}
@@ -128,6 +206,20 @@ NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+    if(self.healthcertificateend){
+        dictionary[kBossOwnerUserhealthcertificateendModel] = @(self.healthcertificateend);
+    }
+    if(self.healthcertificatestart){
+        dictionary[kBossOwnerUserhealthcertificatestart] = @(self.healthcertificatestart);
+    }
+    if(self.healthcertificateurl != nil){
+        dictionary[kBossOwnerUserhealthcertificateurl] = self.healthcertificateurl;
+    }
+    if(self.healthcertificatebackurl != nil){
+        dictionary[kBossOwnerUserhealthcertificatebackurl] = self.healthcertificatebackurl;
+    }
+    
+    
 	if(self.accessToken != nil){
 		dictionary[kBossOwnerUserModelAccessToken] = self.accessToken;
 	}
@@ -158,6 +250,7 @@ NSString *const kBossOwnerUserWalletModel = @"wallet_info";
 	}
 	dictionary[kBossOwnerUserModelExpiredAt] = @(self.expiredAt);
 	dictionary[kBossOwnerUserModelGenderId] = @(self.genderId);
+    
 	if(self.handBustUrl != nil){
 		dictionary[kBossOwnerUserModelHandBustUrl] = self.handBustUrl;
 	}

@@ -10,7 +10,7 @@
 
 @implementation UIViewController (StoryBoard)
 
-+ (UIViewController *)storyBoardCreateViewControllerWithBundle: (nonnull NSString *)bundleName StoryBoardName: (nonnull NSString *)storyBoardName{
++ (id )storyBoardCreateViewControllerWithBundle: (nonnull NSString *)bundleName StoryBoardName: (nonnull NSString *)storyBoardName{
     NSBundle *baseBundle = [NSBundle bundleForClass:self];
     
     NSURL *bundleUrl = [baseBundle URLForResource:bundleName withExtension:@"bundle"];

@@ -50,16 +50,17 @@
         NSLog(@"%@", responseObject);
         if (successBlock) {
             BOOL isFirstLogin;
-            if ([responseObject[@"is_first_login"] isEqual:[NSNull null]])
-            {
-                //当标签为空时
+            
+            // 当标签为空时
+            if ([responseObject[@"is_first_login"] isEqual:[NSNull null]]){
+                
                 NSLog(@"字符串为空");
                 isFirstLogin = true;
             }else {
                 isFirstLogin = [responseObject[@"is_first_login"] boolValue];
             };
-            successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"],
-                         isFirstLogin);
+            
+            successBlock([responseObject[@"ok"] boolValue],responseObject[@"verify_code"],isFirstLogin);
         }
     } fail:^(id error) {
         if (failBlock) {

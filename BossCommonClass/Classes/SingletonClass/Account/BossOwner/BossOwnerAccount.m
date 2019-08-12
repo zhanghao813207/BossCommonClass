@@ -76,6 +76,34 @@
 //+ (void)userIsLoginSuccess:(nonnull void (^)(BOOL, BOOL))success withController:(nonnull UIViewController *)viewController {
 //    <#code#>
 //}
-
++ (void)checkElectronicContract:(void(^)(void))onterContractBlock electronicContractBlock:(void(^)(void))electronicContractBlock withController:(UIViewController *)viewController
+{
+    // 电子签约
+    if(kCurrentBossOwnerAccount.accountModel.checkElectronicContract){
+        // 弹出签约/解约对话框
+        NSString *message = kCurrentBossOwnerAccount.accountModel.checkStaffDeparture ? @"您有解约协议未签署\n请立刻前往签署" : @"您有合同未签约，请立即签约";
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        NSString *setUpTitle = kCurrentBossOwnerAccount.accountModel.checkStaffDeparture ? @"立即解约" : @"立即签约";
+        UIAlertAction *setUpAction = [UIAlertAction actionWithTitle:setUpTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if(electronicContractBlock){
+                electronicContractBlock();
+            }
+        }];
+        [alert addAction:cancelAction];
+        [alert addAction:setUpAction];
+        [viewController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    // 纸质签约
+    if (onterContractBlock) {
+        onterContractBlock();
+    }
+    return;
+    
+}
 
 @end

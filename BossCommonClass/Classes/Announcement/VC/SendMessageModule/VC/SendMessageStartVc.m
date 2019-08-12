@@ -17,6 +17,7 @@
 @interface SendMessageStartVc ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *teamLabel;
+@property (weak, nonatomic) IBOutlet UIView *sendMessageView;
 
 @end
 
@@ -29,6 +30,7 @@
     
     self.headerNameLabel.text = [self.name substringFromIndex:self.name.length - 1];
     self.headerLabelView.layer.cornerRadius = 67 / 2;
+    self.sendMessageView.hidden = YES;
 }
 - (IBAction)beginSendMessage:(UITapGestureRecognizer *)sender {
     if (self.targetid){
