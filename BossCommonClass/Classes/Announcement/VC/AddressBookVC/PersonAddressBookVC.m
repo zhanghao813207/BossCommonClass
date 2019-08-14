@@ -15,6 +15,7 @@
 #import "UIView+ShowView.h"
 #import "SendMessageStartVc.h"
 #import "UIViewController+StoryBoard.h"
+#import "HeaderIndexCell.h"
 
 @interface PersonAddressBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableview;
@@ -37,6 +38,8 @@
 @property(nonatomic, assign)BOOL isSelecAll;
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *arrM;
 @property(nonatomic, strong)NSArray *allDataArr;
+// 索引Arr
+@property(nonatomic, strong)NSMutableArray *indexArr;
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *selectArrM;
 @end
 
@@ -143,12 +146,114 @@
 //    NSLog(@"%@",self.selectArrM);
 //    [tableView reloadData];
 //}
+-(NSMutableArray *)sortObjectsAccordingToInitialWith:(NSArray *)arr {
+    
+    // 初始化UILocalizedIndexedCollation
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    
+    //得出collation索引的数量，这里是27个（26个字母和1个#）
+    NSInteger sectionTitlesCount = [[collation sectionTitles] count];
+    //初始化一个数组newSectionsArray用来存放最终的数据，我们最终要得到的数据模型应该形如@[@[以A开头的数据数组], @[以B开头的数据数组], @[以C开头的数据数组], ... @[以#(其它)开头的数据数组]]
+    NSMutableArray *newSectionsArray = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
+    
+    //初始化27个空数组加入newSectionsArray
+    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        [newSectionsArray addObject:array];
+    }
+    
+    //将每个名字分到某个section下
+    for (ContactsPerson *personModel in self.arrM) {
+        //获取name属性的值所在的位置，比如"林丹"，首字母是L，在A~Z中排第11（第一位是0），sectionNumber就为11
+        NSInteger sectionNumber = [collation sectionForObject:personModel collationStringSelector:@selector(nick_name)];
+        //把name为“林丹”的p加入newSectionsArray中的第11个数组中去
+        NSMutableArray *sectionNames = newSectionsArray[sectionNumber];
+        [sectionNames addObject:personModel];
+    }
+    
+    //对每个section中的数组按照name属性排序
+    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+        NSMutableArray *personArrayForSection = newSectionsArray[index];
+        NSArray *sortedPersonArrayForSection = [collation sortedArrayFromArray:personArrayForSection collationStringSelector:@selector(nick_name)];
+        newSectionsArray[index] = sortedPersonArrayForSection;
+    }
+    
+    //    //删除空的数组
+    NSMutableArray *finalArr = [NSMutableArray new];
+    NSMutableArray *indexArr = [NSMutableArray new];
+    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+        if (((NSMutableArray *)(newSectionsArray[index])).count != 0) {
+            NSMutableArray *personModelArr = (NSMutableArray *)(newSectionsArray[index]);
+            ContactsPerson *personModel = personModelArr[0];
+            [indexArr addObject: [self getFirstLetterFromString:personModel.nick_name]];
+            [finalArr addObject:personModelArr];
+        }
+    }
+    self.indexArr = indexArr;
+    return finalArr;
+    
+//    return newSectionsArray;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM];
+    return contentArr.count;
+}
+//返回每个section的title
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+
+    return self.indexArr[section];
+}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
+//}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return self.indexArr;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 35;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] init];
+    view.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
+    view.backgroundColor = kHexRGB(0xF2F3F4);
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(10, 0, 100, 35);
+    label.textColor = UIColor.blackColor;
+    label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    label.text = self.indexArr[section];
+    [view addSubview:label];
+    return view;
+}
+// 获取字符首字母拼音
+- (NSString *)getFirstLetterFromString:(NSString *)aString
+{
+    //转成了可变字符串
+    NSMutableString *str = [NSMutableString stringWithString:aString];
+    //先转换为带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+    //再转换为不带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+    //转化为大写拼音
+    NSString *strPinYin = [str capitalizedString];
+    //获取并返回首字母
+    return [strPinYin substringToIndex:1];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arrM.count;
+    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM][section];
+    return contentArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonAddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.model = self.arrM[indexPath.row];
+    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM][indexPath.section];
+    cell.model = contentArr[indexPath.row];
     return cell;
 }
 
@@ -180,7 +285,7 @@
 }
 - (UITableView *)tableview {
     if (_tableview == nil) {
-        _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
@@ -188,6 +293,7 @@
         _tableview.tableFooterView = [[UIView alloc] init];
         _tableview.backgroundColor = [UIColor clearColor];
         [_tableview registerClass:[PersonAddressBookCell class] forCellReuseIdentifier:@"cell"];
+//        [_tableview registerNib:[UINib nibWithNibName:@"HeaderIndexCell" bundle:[self getCurrentBundle]] forCellReuseIdentifier:@"index"];
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -197,6 +303,19 @@
         }];
     }
     return _tableview;
+}
+- (NSBundle *)getCurrentBundle {
+    NSBundle *baseBundle = [NSBundle bundleForClass:[self class]];
+    
+    NSURL *bundleUrl = [baseBundle URLForResource:@"BossCommonClass" withExtension:@"bundle"];
+    if(!bundleUrl){
+        
+        [self.navigationController.view showStatus:@"文件路径有误!"];
+        
+    }
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleUrl];
+    
+    return bundle;
 }
 - (UIView *)selecBar {
     if (_selecBar == nil) {
