@@ -26,4 +26,7 @@ typedef NS_ENUM(NSInteger, OperatingView) {
  */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
 
+
+@property(nullable, nonatomic,strong) UINavigationController *lastNavigationController; // If this view controller has been pushed onto a navigation controller, return it.
+
 @end
