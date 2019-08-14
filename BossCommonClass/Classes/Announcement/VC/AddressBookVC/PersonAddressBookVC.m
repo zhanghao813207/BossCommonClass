@@ -15,8 +15,6 @@
 #import "UIView+ShowView.h"
 #import "SendMessageStartVc.h"
 #import "UIViewController+StoryBoard.h"
-#import "HeaderIndexCell.h"
-
 @interface PersonAddressBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableview;
 
