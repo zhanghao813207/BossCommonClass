@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^chooseImageBlock)(UIImage *image);
+typedef void(^camertConfig)(void);
 @interface PhotoManager : NSObject
 
 @property(nonatomic, copy)chooseImageBlock chooseImageBlock;
@@ -18,6 +19,8 @@ typedef void(^chooseImageBlock)(UIImage *image);
 - (void)showPhotoLibary;
 
 - (void)showCamera;
+
+- (void)cameraConfig:(camertConfig)camertConfig;
 
 
 @end
