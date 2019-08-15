@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BossKnightAccountModel : NSObject
 
 /**
- 员工Id
+ 人员Id
  */
 @property (nonatomic, strong) NSString *_id;
 
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) GenderIDs gender_id;
 
 /**
- 员工手机号
+ 人员手机号
  */
 @property (nonatomic, strong) NSString *phone;
 
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *education;
 
 /**
- 员工状态(1:待签约 100:已签约-正常 101:已签约-待换签 102:已签约-待续签 -100:已解约)
+ 人员状态(1:待签约 100:已签约-正常 101:已签约-待换签 102:已签约-待续签 -100:已解约)
  */
 @property (nonatomic, assign) StaffStates state;
 
@@ -436,7 +436,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL userInfoIsPerfect;
 
 /**
- 员工信息是否完善
+ 人员信息是否完善
  */
 @property (nonatomic, assign, readonly) BOOL staffInfoIsPerfect;
 

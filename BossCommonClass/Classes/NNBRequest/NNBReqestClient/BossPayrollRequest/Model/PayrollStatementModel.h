@@ -58,12 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 薪资计划id
+ 服务费计划id
  */
 @property (nonatomic, strong) NSString *payroll_plan_id;
 
 /**
- 薪资计划周期编号
+ 服务费计划周期编号
  */
 @property (nonatomic, assign) NSInteger payroll_cycle_no;
 
@@ -139,22 +139,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger adjustment_hr_inc_money;
 
 /**
- 员工扣款总额
+ 人员扣款总额
  */
 @property (nonatomic, assign) NSInteger adjustment_staff_dec_money;
 
 /**
- 员工补款总额
+ 人员补款总额
  */
 @property (nonatomic, assign) NSInteger adjustment_staff_inc_money;
 
 /**
- 员工补款状态
+ 人员补款状态
  */
 @property (nonatomic, assign) BOOL adjustment_staff_inc_state;
 
 /**
- 员工扣款状态
+ 人员扣款状态
  */
 @property (nonatomic, assign) BOOL adjustment_staff_dec_state;
 
@@ -179,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *oa_application_order_id;
 
 /**
- 薪资计算结果集ID
+ 服务费计算结果集ID
  */
 @property (nonatomic, strong) NSString *salary_compute_data_set_id;
 
@@ -224,7 +224,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *workTypeString;
 
 /**
- 薪资计算描述
+ 服务费计算描述
  */
 @property (nonatomic, strong) NSString *payroll_cycle_string;
 

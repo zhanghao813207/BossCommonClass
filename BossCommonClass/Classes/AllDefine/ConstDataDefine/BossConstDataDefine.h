@@ -52,7 +52,7 @@ UIKIT_EXTERN NSString *const MeetingBasicURL;
 // 存放商户信息
 UIKIT_EXTERN NSString *const SAAS_KEY;
 
-// 存放员工/骑士信息
+// 存放人员/骑士信息
 UIKIT_EXTERN NSString *const ACCOUNT_KEY;
 
 // 多帐号信息

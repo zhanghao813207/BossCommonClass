@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *position_name;
 
 /**
- 员工id
+ 人员id
  */
 @property (nonatomic, strong) NSString *staff_id;
 

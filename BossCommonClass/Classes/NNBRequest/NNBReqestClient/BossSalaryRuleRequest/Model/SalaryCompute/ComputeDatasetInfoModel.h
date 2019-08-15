@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger total_manage;
 
 
-#pragma mark -- 薪资方案
+#pragma mark -- 服务费方案
 /**
  完成单量
  */
