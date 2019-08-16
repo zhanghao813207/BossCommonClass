@@ -114,7 +114,9 @@
                                };
     
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.mark_state" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+//        DLog(@"%@", responseObject);
+        DLog(@"消息已读请求完毕结果:%@ 参数:%@",responseObject,paramDic);
+
         if (!successBlock) {
             return;
         }
@@ -141,7 +143,7 @@
                                @"state":states,
                                };
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.channel_counter" success:^(id responseObject) {
-//        DLog(@"%@", responseObject);
+        DLog(@"助理消息条数%@", responseObject);
         if (!successBlock) {
             return;
         }
