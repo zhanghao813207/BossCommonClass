@@ -53,7 +53,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlT-QV-fVh">
-                            <rect key="frame" x="42" y="240" width="150" height="50"/>
+                            <rect key="frame" x="42" y="230" width="150" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="Wvt-gu-NTd"/>
                                 <constraint firstAttribute="width" constant="150" id="ayn-WI-sdV"/>
@@ -67,7 +67,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYk-bS-dmx">
-                            <rect key="frame" x="222" y="240" width="150" height="50"/>
+                            <rect key="frame" x="222" y="230" width="150" height="50"/>
                             <color key="backgroundColor" red="0.20648965239524841" green="0.53780633211135864" blue="0.86995548009872437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="Xis-sa-n1f"/>
@@ -94,7 +94,7 @@
                         <constraint firstItem="CWv-Oj-M3S" firstAttribute="leading" secondItem="xzn-CF-boY" secondAttribute="leading" constant="16" id="irh-7i-eV3"/>
                         <constraint firstAttribute="trailing" secondItem="CWv-Oj-M3S" secondAttribute="trailing" constant="16" id="otV-aR-AZG"/>
                         <constraint firstAttribute="height" constant="290" id="vAn-Pe-RZ4"/>
-                        <constraint firstAttribute="bottom" secondItem="jlT-QV-fVh" secondAttribute="bottom" id="vtg-lk-hri"/>
+                        <constraint firstAttribute="bottom" secondItem="jlT-QV-fVh" secondAttribute="bottom" constant="10" id="vtg-lk-hri"/>
                         <constraint firstItem="3tg-kL-nIu" firstAttribute="top" secondItem="CWv-Oj-M3S" secondAttribute="bottom" constant="10" id="zQS-wc-l9d"/>
                     </constraints>
                 </view>
