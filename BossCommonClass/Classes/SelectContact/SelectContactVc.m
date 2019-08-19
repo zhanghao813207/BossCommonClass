@@ -247,7 +247,7 @@
     supplier.allContentArr = self.contentArr;
     // 点击索引
     supplier.index = indexPath.row;
-    // 内部员工
+    // 内部人员
 //    supplier.roleTeamdata = self.roleTeamdata;
     
     supplier.selectStatus_type = ^(NSInteger index, int type) {

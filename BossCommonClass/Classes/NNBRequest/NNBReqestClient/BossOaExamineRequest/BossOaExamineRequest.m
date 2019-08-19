@@ -18,7 +18,6 @@
 //#else
 //#define NSLog(FORMAT, ...) nil
 //#endif
-
 @implementation BossOaExamineRequest
 
 /**

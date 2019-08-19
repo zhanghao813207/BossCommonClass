@@ -223,7 +223,7 @@ CGFloat const kKeyBordAnimationDuration = 0.25f; // 键盘动画持续时间
 // 存放商户信息
 NSString *const SAAS_KEY = @"saas_key";
 
-// 存放员工/骑士信息
+// 存放人员/骑士信息
 NSString *const ACCOUNT_KEY = @"account_key";
 
 // 多帐号信息

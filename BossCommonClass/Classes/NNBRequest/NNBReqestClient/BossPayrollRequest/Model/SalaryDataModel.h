@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) NSInteger bad_weather_subsidy;
 /**
- 优秀员工奖励
+ 优秀人员奖励
  */
 @property (nonatomic, assign) NSInteger excellent_staff_award;
 /**

@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *session_id;
 
 /**
- 类型 1（员工明细）2（商圈）3（城市）
+ 类型 1（人员明细）2（商圈）3（城市）
  */
 @property (nonatomic, assign) SalaryComputeTaskType type;
 
 /**
- 员工id
+ 人员id
  */
 @property (nonatomic, strong) NSString *staff_id;
 
@@ -64,22 +64,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 工作类型 3001（全职）3002（兼职）
+ 工作类型 3001（全职）3002（乙类）
  */
 @property (nonatomic, assign) STAFFWORKTYPE work_type;
 
 /**
- 薪资方案ID
+ 服务费方案ID
  */
 @property (nonatomic, strong) NSString *plan_id;
 
 /**
- 薪资方案版本ID
+ 服务费方案版本ID
  */
 @property (nonatomic, strong) NSString *plan_version_id;
 
 /**
- 薪资方案修订版本号（规则每次修改均变化）
+ 服务费方案修订版本号（规则每次修改均变化）
  */
 @property (nonatomic, strong) NSString *plan_revision_id;
 

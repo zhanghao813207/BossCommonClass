@@ -157,7 +157,7 @@ typedef NS_ENUM(NSUInteger, MOBILE_EXAMINE_TYPES) {
 };
 
 /**
- 员工平台映射状态
+ 人员平台映射状态
  */
 typedef NS_ENUM(NSUInteger, StaffCustomState) {
     StaffCustomStatePending     =    1,  // 映射草稿（等待使用中）
@@ -173,8 +173,8 @@ typedef NS_ENUM(NSUInteger, StaffCustomState) {
  */
 typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeCost          = 1, // 费用申请
-    ApplicationOrderTypeSalaryRule    = 2, // 薪资规则
-    ApplicationOrderTypeSalaryPayment = 3, // 薪资发放
+    ApplicationOrderTypeSalaryRule    = 2, // 服务费规则
+    ApplicationOrderTypeSalaryPayment = 3, // 服务费发放
     ApplicationOrderTypeMaterial      = 4, // 物资采购
     ApplicationOrderTypeHouseContract = 5, // 房屋管理
     ApplicationOrderTypeLoan          = 6, // 借款申请
@@ -316,7 +316,7 @@ typedef NS_ENUM(NSUInteger, ALLOCATION_MODE) {
 typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
     OA_TEMPLATE_ONE          = 1, // 报销
     OA_TEMPLATE_TWO          = 2, // 租房
-    OS_COSTCLASS_SALARY      = 3, // 薪资
+    OS_COSTCLASS_SALARY      = 3, // 服务费
     OS_COSTCLASS_SUBJOIN     = 4, // 租房、中介费、押金(租房)
     OS_COSTCLASS_AGENCY      = 5, // 租房、中介费、押金(中介费)
     OS_COSTCLASS_PLEDGE      = 6, // 租房、中介费、押金(押金)
@@ -360,8 +360,8 @@ typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
 };
 
 typedef NS_ENUM(NSUInteger, STAFFWORKTYPE) {
-    STAFFWORKTYPEFULLTIME        =  3002, // 全职
-    STAFFWORKTYPEPARTTIME        =  3001, // 兼职
+    STAFFWORKTYPEFULLTIME        =  3002, // 甲类
+    STAFFWORKTYPEPARTTIME        =  3001, // 乙类
 };
 
 typedef NS_ENUM(NSUInteger, PayrooCycleType) {
@@ -393,7 +393,7 @@ typedef NS_ENUM(NSUInteger, WorkLogicType) {
 };
 
 typedef NS_ENUM(NSUInteger, SalaryComputeTaskType) {
-    SalaryComputeTaskTypeStaff         = 1,  // 员工
+    SalaryComputeTaskTypeStaff         = 1,  // 人员
     SalaryComputeTaskTypeBizDistrict   = 2,  // 商圈
     SalaryComputeTaskTypeCity          = 3,  // 城市
 };
