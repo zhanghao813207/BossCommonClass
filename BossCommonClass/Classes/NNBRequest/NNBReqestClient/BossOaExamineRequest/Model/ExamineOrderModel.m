@@ -184,10 +184,10 @@
             typeStr = @"费用申请";
             break;
             case ApplicationOrderTypeSalaryRule:
-            typeStr = @"薪资规则";
+            typeStr = @"服务费规则";
             break;
             case ApplicationOrderTypeSalaryPayment:
-            typeStr = @"薪资发放";
+            typeStr = @"服务费发放";
             break;
             case ApplicationOrderTypeMaterial:
             typeStr = @"物资采购";

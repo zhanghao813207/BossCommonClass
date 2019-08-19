@@ -16,7 +16,7 @@
 @property (nonatomic, assign) BOOL message;
 
 /**
- 薪资贷
+ 服务费预支
  */
 @property (nonatomic, assign) BOOL salaryLoan;
 

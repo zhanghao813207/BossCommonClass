@@ -11,7 +11,13 @@
 #import "BossManagerAccount.h"
 #import "SaasModel.h"
 #import "NNBRequestManager.h"
-
+#import "PrintBeautifulLog.h"
+//调试代码 解决打印不全的问题
+//#ifdef DEBUG
+//#define NSLog(FORMAT, ...) fprintf(stderr, "%s:%zd\t%s\n", [[[NSString stringWithUTF8String: __FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat: FORMAT, ## __VA_ARGS__] UTF8String]);
+//#else
+//#define NSLog(FORMAT, ...) nil
+//#endif
 @implementation BossOaExamineRequest
 
 /**
@@ -187,7 +193,7 @@
                                };
     
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.cost_order.get" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+        NSLog(@"费用单数据%@", responseObject);
         if (!successBlock) {
             return;
         }

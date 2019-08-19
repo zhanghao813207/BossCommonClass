@@ -14,9 +14,9 @@
 @implementation BossStaffRequest
 
 /**
- 获取员工详情
+ 获取人员详情
 
- @param successBlock 成功返回员工的信息
+ @param successBlock 成功返回人员的信息
  @param failBlock 响应失败
  */
 + (void)staffRequestGetStaffInfoWithIdz:(void(^)(void))successBlock fail:(void(^)(id error))failBlock
@@ -48,16 +48,16 @@
 }
 
 /**
- 更新员工信息
+ 更新人员信息
  
- @param staffInfo 员工信息
+ @param staffInfo 人员信息
  @param successBlock 是否更新成功
  @param failBlock 服务器响应失败
  */
 + (void)staffRequestUpdateStaffInfoWithStaffInfo:(BossKnightAccountModel *)staffInfo success:(void(^)(BOOL updateSuccess))successBlock fail:(void(^)(id error))failBlock
 {
     if (!staffInfo) {
-        DLog(@"员工信息为空");
+        DLog(@"人员信息为空");
         return;
     }
     

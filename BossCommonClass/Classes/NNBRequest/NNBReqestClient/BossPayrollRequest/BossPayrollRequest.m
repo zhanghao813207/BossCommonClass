@@ -12,12 +12,12 @@
 @implementation BossPayrollRequest
 
 /**
- 薪资单汇总列表
+ 结算单汇总列表
  
  @param platform 平台code
  @param supplierIds 供应商ID
  @param citycode 城市code
- @param work_types 工作性质(3001:兼职,3002:全职)
+ @param work_types 工作性质(3001:乙类,3002:全职)
  @param state 审核状态(1=待审核, 50=审核中,100=审核通过)
  @param successBlock 成功回调
  @param failBlock 失败回调
@@ -52,13 +52,13 @@
 }
 
 /**
- 薪资单列表
+ 结算单列表
  
  @param page 页数
- @param payrollStatementId 薪资单账单ID
+ @param payrollStatementId 结算单账单ID
  @param bizDistrictId 商圈ID
  @param staffName 姓名
- @param pay_salary_state 薪资发放状态(1:正常,2:缓发)
+ @param pay_salary_state 服务费发放状态(1:正常,2:缓发)
  @param successBlock 成功
  @param failBlock 失败
  */

@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL checkShowMessage;
 
 /**
- 检查是否开启薪资贷模块
+ 检查是否开启服务费预支模块
  */
 @property (nonatomic, assign) BOOL checkShowSalaryLoan;
 

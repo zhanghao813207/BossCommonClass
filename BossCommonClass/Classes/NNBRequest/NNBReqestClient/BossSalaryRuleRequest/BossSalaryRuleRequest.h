@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)salaryRequestFindSalaryVarListWithPlatformCode:(NSString *)platformCode success:(void(^)(NSArray <IndexInfoModel *>*indexList))successBlock fail:(void(^)(id error))failBlock;
 
 /**
- 薪资方案版本详情
+ 服务费方案版本详情
 
  @param versionId 版本ID
  @param successBlock 成功回调
@@ -40,9 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 薪资计算规则列表
+ 服务费计算规则列表
 
- @param ruleCollectionId 薪资规则集ID
+ @param ruleCollectionId 服务费规则集ID
  @param collection_cate 规则分类(1:单量,2:出勤,3:质量,4:管理)
  @param successBlock 成功回调
  @param failBlock 失败
@@ -50,11 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)salaryRuleRequestFindSalaryRuleListWithRuleCollectionId:(NSString *)ruleCollectionId salarRuleCollectionType:(SalaryRuleCollectionType)collection_cate success:(void(^)(NSArray <TemplateDataBasicModel *>*templateList))successBlock fail:(void (^)(id error))failBlock;
 
 /**
- 员工薪资计算结果集列表
+ 人员服务费计算结果集列表
  
  @param page 页数
- @param taskId  薪资试算任务id
- @param type '1（员工明细）2（商圈）3（城市）'
+ @param taskId  服务费试算任务id
+ @param type '1（人员明细）2（商圈）3（城市）'
  @param successBlock 成功的回调
  @param failBlock 服务器响应失败
  */

@@ -201,14 +201,14 @@
 @property (nonatomic, strong) NSArray <CostOrderModel *> *cost_order_list;
 
 /**
- 薪资方案版本
+ 服务费方案版本
  */
 @property (nonatomic, strong) NSString *salary_plan_version_id;
 
 @property (nonatomic, strong) SalaryPlaneModel *salary_plan_version_info;
 
 /**
- 薪资单版本
+ 结算单版本
  */
 @property (nonatomic, strong) NSString *payroll_statement_id;
 

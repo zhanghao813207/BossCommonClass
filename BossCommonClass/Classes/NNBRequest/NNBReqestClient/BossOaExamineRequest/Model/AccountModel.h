@@ -26,7 +26,7 @@
 @property (nonatomic, assign) PositionID gid;
 
 /**
- 员工ID
+ 人员ID
  */
 @property (nonatomic, assign) NSInteger staff_id;
 

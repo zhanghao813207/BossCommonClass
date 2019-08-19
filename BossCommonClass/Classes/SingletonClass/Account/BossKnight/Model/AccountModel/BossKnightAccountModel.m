@@ -245,7 +245,7 @@
 
 - (BOOL)userInfoIsPerfect
 {
-    // 员工信息 & 工作信息 & 身份信息 & 银行卡
+    // 人员信息 & 工作信息 & 身份信息 & 银行卡
     if (!self.staffInfoIsPerfect || !self.jobInfoIsPerfect || !self.identityInfoIsPerfect || !self.bankCardInfoIsPerfect) {
         return NO;
     }

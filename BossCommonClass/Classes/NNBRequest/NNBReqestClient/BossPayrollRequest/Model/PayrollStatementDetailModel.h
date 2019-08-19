@@ -14,17 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PayrollStatementDetailModel : PayrollStatementModel
 
 /**
- 员工id
+ 人员id
  */
 @property (nonatomic, strong) NSString *staff_id;
 
 /**
- 薪资数据
+ 服务费数据
  */
 @property (nonatomic, strong) SalaryDataModel *salary_data;
 
 /**
- 员工信息
+ 人员信息
  */
 @property (nonatomic, strong) StaffInfoModel *staff_info;
 

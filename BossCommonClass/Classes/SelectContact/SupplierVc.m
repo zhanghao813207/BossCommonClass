@@ -65,7 +65,7 @@
             self.type = self.fatherType;
             self.contentArr = F_Model.PlatformArr;
         } else {
-            // 趣活内部员工
+            // 趣活内部人员
             [self.subTitleButton setTitle:F_Model.name forState:UIControlStateNormal];
             self.title = F_Model.name;
             if (self.fatherType == 1 || self.fatherType == 0) {

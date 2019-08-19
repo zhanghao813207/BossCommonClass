@@ -1,6 +1,6 @@
 {
   "name": "BossCommonClass",
-  "version": "7.23",
+  "version": "8.0",
   "summary": "a common class of boss system",
   "description": "these are common classes,they are used by boss system.",
   "homepage": "https://git.coding.net/J_YC/BossCommonClass.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://git.coding.net/J_YC/BossCommonClass.git",
-    "tag": "7.23"
+    "tag": "8.0"
   },
   "platforms": {
     "ios": "9.0"
@@ -77,7 +77,7 @@
       "~> 1.0.0"
     ],
     "XFHProject": [
-      "~> 0.0.2"
+      "~> 2.0.0"
     ],
     "MGJRouter": [
       "~> 0.10.0"

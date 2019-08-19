@@ -27,10 +27,10 @@
 {
     switch (self.work_type) {
             case STAFFWORKTYPEFULLTIME:
-            _workTypeString = @"全职";
+            _workTypeString = @"甲类";
             break;
             case STAFFWORKTYPEPARTTIME:
-            _workTypeString = @"兼职";
+            _workTypeString = @"乙类";
             break;
         default:
             _workTypeString = @"未知";
