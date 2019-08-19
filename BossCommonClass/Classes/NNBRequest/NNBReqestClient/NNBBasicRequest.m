@@ -249,7 +249,7 @@
             [currentVc.navigationController popToRootViewControllerAnimated:YES];
         }
         
-        if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowVc")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
+        if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
             [rootVc viewWillAppear:YES];
         }
     }
