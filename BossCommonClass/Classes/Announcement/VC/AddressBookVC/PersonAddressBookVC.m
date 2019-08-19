@@ -38,6 +38,8 @@
 @property(nonatomic, strong)NSArray *allDataArr;
 // 索引Arr
 @property(nonatomic, strong)NSMutableArray *indexArr;
+// 内容Arr
+@property(nonatomic, strong)NSMutableArray *userContentArr;
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *selectArrM;
 @end
 
@@ -72,10 +74,14 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
 }
 - (void)getData {
+    WS(weakSelf);
+    [self.view showLoadingView:@"数据加载中..."];
     [AnnouncementRequest announcementContactsMembersId:self.group._id Success:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         [self setSelectModel];
+        self.userContentArr = [self sortObjectsAccordingToInitialWith:self.arrM];
         [self.tableview reloadData];
+        [weakSelf.view dismissLoadingViewWithCompletion:nil];
     } fail:^(NSString * _Nonnull message) {
         
     }];
@@ -193,8 +199,8 @@
 //    return newSectionsArray;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM];
-    return contentArr.count;
+
+    return self.userContentArr.count;
 }
 //返回每个section的title
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -245,12 +251,12 @@
     return [strPinYin substringToIndex:1];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM][section];
+    NSMutableArray *contentArr = self.userContentArr[section];
     return contentArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonAddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    NSMutableArray *contentArr = [self sortObjectsAccordingToInitialWith:self.arrM][indexPath.section];
+    NSMutableArray *contentArr = self.userContentArr[indexPath.section];
     cell.model = contentArr[indexPath.row];
     return cell;
 }
