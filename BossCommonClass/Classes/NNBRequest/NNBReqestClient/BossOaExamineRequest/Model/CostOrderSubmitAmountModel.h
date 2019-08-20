@@ -20,6 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *platform_code;
 
+/**
+ 平台名称列表
+ */
+@property (nonatomic, strong) NSArray *platform_names;
+
+
 @property (nonatomic, strong) NSString *supplier_id;
 
 @property (nonatomic, strong) NSString *city_code;
