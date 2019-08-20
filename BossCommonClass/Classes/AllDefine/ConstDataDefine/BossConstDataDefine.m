@@ -212,6 +212,20 @@ NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
     NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 #endif
 
+#ifdef kBossOwner
+     // 当家
+     NSString *const APPSTOREID = @"1466744567";
+#elif defined kBossKnight
+     // 骑士
+     NSString *const APPSTOREID = @"1391525314";
+#elif defined kBossManager
+     //之家
+     NSString *const APPSTOREID = @"1425789658";
+#else
+     // 当家
+     NSString *const APPSTOREID = @"1425789658";
+#endif
+
 BOOL const kIsAlertPassword = NO;
 
 NSString *const SOBOT_KEY = @"20631dce86e641aca874c6d50562056f";

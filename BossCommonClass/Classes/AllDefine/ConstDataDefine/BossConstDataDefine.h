@@ -45,6 +45,8 @@ UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时�
 // 会议基础URL
 UIKIT_EXTERN NSString *const MeetingBasicURL;
 
+UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroeS中应用的id
+
 /********* userdefaultKey ************/
 
 #pragma mark -- kUserDefault Key
