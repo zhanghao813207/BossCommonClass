@@ -508,9 +508,13 @@
                         [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                         [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
 #if (defined kBossManager)
-                            //如果是账号管理页面跳转过来的就直接退到我的页面。
-                            [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
-                            weakSelf.tabBarController.selectedIndex = 0;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                //如果是账号管理页面跳转过来的就直接退到我的页面。
+                                [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
+                                weakSelf.currentTabbarController.selectedIndex = 0;
+                            });
+
+                         
                             // 登陆成功
                             // 隐藏对话框
                             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
