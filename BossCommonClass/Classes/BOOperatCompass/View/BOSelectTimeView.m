@@ -7,7 +7,8 @@
 //
 
 #import "BOSelectTimeView.h"
-
+#import "JYCMethodDefine.h"
+#import "BossMethodDefine.h"
 
 @interface BOSelectTimeView ()
 
@@ -18,14 +19,16 @@
 
 @implementation BOSelectTimeView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    if(self = [super initWithFrame:frame])
-    {
+- (instancetype)initWithFrame:(CGRect)frame{
+    
+    if(self = [super initWithFrame:frame]){
+        
         self.backgroundColor = kHexRGB(0xF9FBFC);
         
         self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
+        
         self.timeLab.font = BossBlodFont(24);
+        
         self.timeLab.textColor = kHexRGB(0x1A9CFF);
         NSCalendar *calendar = [[NSCalendar alloc]
                                 initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

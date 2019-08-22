@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BOOperatCompassVC : UIViewController
 
 @property(nonatomic, copy) NSString *teamId;
-
+// 团队List
+@property(nonatomic, strong) NSArray *teamList;
 @end
 
 NS_ASSUME_NONNULL_END

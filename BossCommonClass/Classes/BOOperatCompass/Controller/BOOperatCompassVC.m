@@ -10,6 +10,7 @@
 #import "BOSelectTimeView.h"
 #import "BOOpenSelectTimeView.h"
 #import "NNBBasicRequest.h"
+#import "BossBasicDefine.h"
 
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
@@ -28,17 +29,27 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"数据罗盘";
+    
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
-    
+//    NSLog(self.teamList);
     self.selectedTimeView = [[BOSelectTimeView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     NSCalendar *calendar = [[NSCalendar alloc]
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
     NSDateComponents *comp = [calendar components: unitFlags fromDate:[NSDate date]];
-    
+#ifdef kBossKnight
+    // 骑士
     NSDictionary *dict = @{@"team_account_map_id":self.teamId,@"domain":@"worker-kanban"};
+#elif defined kBossOwner
+    // 老板
+    NSDictionary *dict = @{@"merchant_id":self.teamId,@"domain":@"owner-app-center"};
+#else
+    // 之家
+    NSDictionary *dict = @{@"merchant_id":self.teamId,@"domain":@"owner-app-center"};
+#endif
+    
+    
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:dict CMD:@"jump_to_datahub.jump_to_datahub.jump" success:^(id responseObject)
      {
          NSDictionary *dic = responseObject;
