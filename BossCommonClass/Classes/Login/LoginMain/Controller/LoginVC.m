@@ -510,6 +510,7 @@
 #if (defined kBossManager)
                             //如果是账号管理页面跳转过来的就直接退到我的页面。
                             [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
+                            weakSelf.tabBarController.selectedIndex = 0;
                             // 登陆成功
                             // 隐藏对话框
                             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
