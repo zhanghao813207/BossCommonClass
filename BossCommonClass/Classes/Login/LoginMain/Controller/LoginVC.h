@@ -29,4 +29,6 @@ typedef NS_ENUM(NSInteger, OperatingView) {
 
 @property(nullable, nonatomic,strong) UINavigationController *lastNavigationController; // If this view controller has been pushed onto a navigation controller, return it.
 
+@property(nullable, nonatomic,strong) UITabBarController *currentTabbarController; 
+
 @end
