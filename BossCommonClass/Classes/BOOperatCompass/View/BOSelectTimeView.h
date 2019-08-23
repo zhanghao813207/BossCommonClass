@@ -13,10 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^OpenSelectPickViewBlock)(void);
 
 @interface BOSelectTimeView : UIView
-@property (nonatomic, copy) NSString *businessDistrictStr; //商圈名字
+
 @property (nonatomic, copy) NSString *selectTimeStr; //选择的时间
 @property (nonatomic, copy) OpenSelectPickViewBlock openSelectBlock; //打开选择时间器
+@property (nonatomic, copy) OpenSelectPickViewBlock openSelectDistrictBlock; //打开选择商圈器
 
+- (void)setupData:(NSString *)test;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,6 +9,7 @@
 #import "BOSelectTimeView.h"
 #import "JYCMethodDefine.h"
 #import "BossMethodDefine.h"
+#import "Masonry.h"
 
 @interface BOSelectTimeView ()
 
@@ -31,6 +32,10 @@
         
     }
     return self;
+}
+
+- (void)setupData:(NSString *)test {
+    self.businessDistrictLab.text = test;
 }
 
 - (void)setupTimeLabel {
@@ -58,22 +63,32 @@
 }
 
 - (void)setupBusinessDistrict {
-    self.businessDistrictLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-170)*0.5, 0, 120, 64)];
-    self.businessDistrictLab  = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 120, 64)];
+    self.businessDistrictLab = [[UILabel alloc]init];
+
     self.businessDistrictLab.font = BossBlodFont(24);
     self.businessDistrictLab.textColor = kHexRGB(0x1A9CFF);
-    self.businessDistrictLab.text = [NSString stringWithFormat:@"%@",self.businessDistrictStr];
+//    self.businessDistrictLab.text = [NSString stringWithFormat:@"%@",self.businessDistrictStr];
     self.businessDistrictLab.textAlignment = NSTextAlignmentRight;
     self.businessDistrictLab.userInteractionEnabled = true;
     [self addSubview:self.businessDistrictLab];
+    [self.businessDistrictLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(-40);
+        make.centerY.equalTo(self);
+    }];
+//    mas_makeConstraints
     
-    self.districtArrowView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.businessDistrictLab.frame)+10 , (64-14)*0.5, 9, 14)];
+    self.districtArrowView = [[UIImageView alloc]init];
     self.districtArrowView.image = [UIImage imageNamed:@"teamrightIcon"];
     self.districtArrowView.userInteractionEnabled = true;
     [self addSubview:self.districtArrowView];
+    [self.districtArrowView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.businessDistrictLab.mas_right).offset(5);
+        make.centerY.equalTo(self);
+    }];
+    
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openSelecteDistrictPickView)];
-    [self.districtArrowView addGestureRecognizer:tapRecognizer];
+    [self.businessDistrictLab addGestureRecognizer:tapRecognizer];
     
 }
 
@@ -87,6 +102,11 @@
 
 - (void)openSelecteDistrictPickView {
     NSLog(@"点击了选择商圈");
+    if(self.openSelectDistrictBlock)
+    {
+        self.openSelectDistrictBlock();
+    }
+   
 }
 
 - (void)setSelectTimeStr:(NSString *)selectTimeStr
@@ -94,5 +114,6 @@
     _selectTimeStr = selectTimeStr;
     self.timeLab.text = selectTimeStr;
 }
+
 
 @end

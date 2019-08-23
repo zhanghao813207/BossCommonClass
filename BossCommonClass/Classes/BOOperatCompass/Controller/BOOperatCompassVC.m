@@ -12,12 +12,16 @@
 #import "NNBBasicRequest.h"
 #import "BossBasicDefine.h"
 #import "TeamListModel.h"
+#import "BOOpenSelectbusinessDistrictView.h"
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
 @property(nonatomic, strong) BOSelectTimeView *selectedTimeView;
 @property(nonatomic, strong) WKWebView *webView;
 
 @property(nonatomic, strong) BOOpenSelectTimeView *openSelectView;
+
+@property(nonatomic, strong) BOOpenSelectbusinessDistrictView *districtSelectView;
+
 @property(nonatomic, copy) NSString *baseUrl;
 
 
@@ -35,11 +39,12 @@
         TeamListModel *list  = self.teamList[i];
         [self.bizDistrictNameArr addObject:list.bizDistrictName];
     }
-    
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
 //    NSLog(self.teamList);
     self.selectedTimeView = [[BOSelectTimeView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    [self.selectedTimeView setupData:self.bizDistrictNameArr[0]];
+    
     NSCalendar *calendar = [[NSCalendar alloc]
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
@@ -52,20 +57,22 @@
     // 老板
     NSDictionary *dict = @{@"merchant_id":self.teamId,@"domain":@"owner-app-center"};
 #else
-    cmdString = @"boss.jump_to_datahub.jump_to_datahub.jump";
+    cmdString = @"jump_to_datahub.jump_to_datahub.jump";
     // 之家
     NSDictionary *dict = @{@"domain":@"private-app-center"};
 #endif
     
+    TeamListModel *list  = self.teamList[1];
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:dict CMD:cmdString success:^(id responseObject)
      {
          NSDictionary *dic = responseObject;
+         NSLog(@"返回url%@",responseObject);
          if(dic)
          {
              self.baseUrl = [dic objectForKey:@"url"];
              if (self.baseUrl)
              {
-                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld",2019,6]];
+                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld&biz_district_id=%@",2019,6,list.biz_district_id]];
                  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
                  [weakSelf.webView loadRequest:request];
              }
@@ -80,6 +87,9 @@
     
     self.selectedTimeView.openSelectBlock = ^{
         [weakSelf.openSelectView show];
+    };
+    self.selectedTimeView.openSelectDistrictBlock = ^{
+          [weakSelf.districtSelectView show];
     };
     
     self.openSelectView.sureSelectBlock = ^(NSString * _Nonnull year, NSString * _Nonnull mouth) {
@@ -138,5 +148,6 @@
  // Pass the selected object to the new view controller.
  }
  */
+
 
 @end

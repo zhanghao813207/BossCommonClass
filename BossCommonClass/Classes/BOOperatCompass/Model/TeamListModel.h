@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSString * qrcode;
 @property (nonatomic, strong) NSArray * workbenchLabel;
 @property (nonatomic, strong) NSString * merchantId;
+@property (nonatomic, strong) NSString * biz_district_id;
 
 @property (nonatomic, assign) LineDustryType industryCode; //业务线
 
