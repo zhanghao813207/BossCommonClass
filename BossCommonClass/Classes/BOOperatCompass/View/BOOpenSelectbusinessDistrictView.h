@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// 选择的具体时间
-typedef void(^SureSelectPickViewBlock)(NSString *year,NSString *mouth);
+// 选择的具体商圈
+typedef void(^SureSelectPickViewBlock)(NSString *name,NSString *dizId);
 
 //取消
 typedef void(^CanselSelectPickViewBlock)(void);
@@ -25,6 +25,8 @@ typedef void(^CanselSelectPickViewBlock)(void);
 -(void)show;
 
 - (void)remove;
+
+- (void)setupData:(NSArray *)showData;
 
 @end
 

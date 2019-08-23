@@ -28,19 +28,28 @@
         
         self.backgroundColor = kHexRGB(0xF9FBFC);
         [self setupTimeLabel];
+#ifdef kBossOwner
         [self setupBusinessDistrict];
-        
+#endif
     }
     return self;
 }
 
-- (void)setupData:(NSString *)test {
-    self.businessDistrictLab.text = test;
+- (void)setupDefault:(NSString *)title {
+    self.businessDistrictLab.text = title;
 }
 
 - (void)setupTimeLabel {
-    //        self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
-    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 120, 64)];
+#ifdef kBossKnight
+    // 骑士
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
+#elif defined kBossOwner
+    // 老板
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake(16, 0, 120, 64)];
+#else
+    // 之家
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
+#endif
     self.timeLab.font = BossBlodFont(24);
     self.timeLab.textColor = kHexRGB(0x1A9CFF);
     NSCalendar *calendar = [[NSCalendar alloc]
@@ -74,6 +83,7 @@
     [self.businessDistrictLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-40);
         make.centerY.equalTo(self);
+        make.width.mas_equalTo(200);
     }];
 //    mas_makeConstraints
     

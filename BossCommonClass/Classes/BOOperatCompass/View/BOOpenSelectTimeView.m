@@ -184,6 +184,7 @@
         _pickerView.dataSource = self;
         _pickerView.delegate = self;
         _pickerView.backgroundColor = [UIColor whiteColor];
+        
         [self addSubview:_pickerView];
         
         NSCalendar *calendar = [[NSCalendar alloc]

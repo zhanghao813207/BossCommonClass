@@ -18,7 +18,7 @@ typedef void(^OpenSelectPickViewBlock)(void);
 @property (nonatomic, copy) OpenSelectPickViewBlock openSelectBlock; //打开选择时间器
 @property (nonatomic, copy) OpenSelectPickViewBlock openSelectDistrictBlock; //打开选择商圈器
 
-- (void)setupData:(NSString *)test;
+- (void)setupDefault:(NSString *)title;
 @end
 
 NS_ASSUME_NONNULL_END

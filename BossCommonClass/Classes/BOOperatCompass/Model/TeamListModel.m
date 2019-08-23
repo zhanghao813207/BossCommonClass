@@ -4,7 +4,7 @@
 
 
 
-#import "WorkbenchLabel.h"
+
 #import "TeamListModel.h"
 
 NSString *const kOwnerTeamListIdField = @"_id";
@@ -59,17 +59,7 @@ NSString *const kDataWorkbenchLabel = @"workbench_label";
     if(![dictionary[kjoinedDataIndustryCode] isKindOfClass:[NSNull class]]){
         self.industryCode = [dictionary[kjoinedDataIndustryCode] integerValue];
     }
-//    if(dictionary[kDataWorkbenchLabel] != nil && [dictionary[kDataWorkbenchLabel] isKindOfClass:[NSArray class]]){
-//        NSArray * workbenchLabelDictionaries = dictionary[kDataWorkbenchLabel];
-//        NSMutableArray * workbenchLabelItems = [NSMutableArray array];
-//        for(NSDictionary * workbenchLabelDictionary in workbenchLabelDictionaries){
-//            WorkbenchLabel * workbenchLabelItem = [[WorkbenchLabel alloc] initWithDictionary:workbenchLabelDictionary];
-//            if (workbenchLabelItem.appListEnable == true){
-//                [workbenchLabelItems addObject:workbenchLabelItem];
-//            }
-//        }
-//        self.workbenchLabel = workbenchLabelItems;
-//    }
+ 
     return self;
 }
 
