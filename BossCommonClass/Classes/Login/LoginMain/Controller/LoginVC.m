@@ -399,7 +399,7 @@
         [_inputPhoneNumberView setNextStepBlock:^(NSString *phoneNumber, NSString *textFieldText) {
             [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
             [NNBUtilRequest UtilRequestSendSMSWithPhhoneNumber:phoneNumber smsType:NNBSendSMSTypeLogin begainSend:nil success:^(BOOL ok, NSString *mockMessage,BOOL is_first_login) {
-
+                
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
                 //获取是否为第一次登录
                 weakSelf.isFirstLogin = is_first_login;
@@ -510,6 +510,8 @@
 #if (defined kBossManager)
                             //如果是账号管理页面跳转过来的就直接退到我的页面。
                             [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
+                            weakSelf.currentTabbarController.selectedIndex = 0;
+                            
                             // 登陆成功
                             // 隐藏对话框
                             [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -543,8 +545,9 @@
                     [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
                         
 #if (defined kBossManager)
-                        // 登陆成功
-                        // 隐藏对话框
+                        //如果是账号管理页面跳转过来的就直接退到我的页面。
+                        [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
+                        weakSelf.currentTabbarController.selectedIndex = 0;
                         [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
                             if (weakSelf.loginSuccessBlock) {
                                 weakSelf.loginSuccessBlock(YES);
@@ -656,7 +659,7 @@
 
 /**
  获取域名
-
+ 
  @return 域名
  */
 - (NSString *)getHost {
@@ -669,7 +672,7 @@
 
 /**
  用户协议path
-
+ 
  @return 用户协议path
  */
 - (NSString *)getAgreementPath {
