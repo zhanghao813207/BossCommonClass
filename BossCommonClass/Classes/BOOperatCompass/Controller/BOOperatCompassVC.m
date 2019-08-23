@@ -38,6 +38,7 @@
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
     NSDateComponents *comp = [calendar components: unitFlags fromDate:[NSDate date]];
+    NSString *cmdString = @"jump_to_datahub.jump_to_datahub.jump";
 #ifdef kBossKnight
     // 骑士
     NSDictionary *dict = @{@"team_account_map_id":self.teamId,@"domain":@"worker-kanban"};
@@ -45,12 +46,12 @@
     // 老板
     NSDictionary *dict = @{@"merchant_id":self.teamId,@"domain":@"owner-app-center"};
 #else
+    cmdString = @"boss.jump_to_datahub.jump_to_datahub.jump";
     // 之家
-    NSDictionary *dict = @{@"merchant_id":self.teamId,@"domain":@"owner-app-center"};
+    NSDictionary *dict = @{@"domain":@"private-app-center"};
 #endif
     
-    
-    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dict CMD:@"jump_to_datahub.jump_to_datahub.jump" success:^(id responseObject)
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:dict CMD:cmdString success:^(id responseObject)
      {
          NSDictionary *dic = responseObject;
          if(dic)
