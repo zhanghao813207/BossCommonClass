@@ -11,7 +11,7 @@
 #import "BOOpenSelectTimeView.h"
 #import "NNBBasicRequest.h"
 #import "BossBasicDefine.h"
-
+#import "TeamListModel.h"
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
 @property(nonatomic, strong) BOSelectTimeView *selectedTimeView;
@@ -29,6 +29,12 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.bizDistrictNameArr = [NSMutableArray new];
+    for (int i =0 ; i <self.teamList.count ; i ++ ){
+        TeamListModel *list  = self.teamList[i];
+        [self.bizDistrictNameArr addObject:list.bizDistrictName];
+    }
     
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;

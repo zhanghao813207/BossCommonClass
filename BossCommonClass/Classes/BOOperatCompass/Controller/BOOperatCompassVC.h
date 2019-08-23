@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString *teamId;
 // 团队List
 @property(nonatomic, strong) NSArray *teamList;
+// 商圈名字数组
+@property (nonatomic, strong) NSMutableArray * bizDistrictNameArr;
+
 @end
 
 NS_ASSUME_NONNULL_END
