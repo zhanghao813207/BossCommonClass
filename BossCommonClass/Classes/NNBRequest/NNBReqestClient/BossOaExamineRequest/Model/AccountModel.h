@@ -47,4 +47,10 @@
  */
 @property (nonatomic, strong) NSString *postName;
 
+
+/**
+ 职位名称
+ */
+@property (nonatomic, strong) NSString *position_name;
+
 @end

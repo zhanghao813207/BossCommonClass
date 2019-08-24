@@ -63,6 +63,9 @@
  */
 @property (nonatomic, assign) BOOL invoice_flag;
 
+//发票抬头
+@property (nonatomic, strong) NSString *invoice_title;
+
 /**
  费用分摊方式
  */

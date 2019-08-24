@@ -26,15 +26,17 @@
 - (NSString *)allocationString
 {
     if (!_allocationString) {
+//        归属信息都显示 且顺序为平台—供应商—城市—商圈
         NSMutableArray *array = [NSMutableArray array];
-        if (![JYCSimpleToolClass stringIsEmpty:self.city_name]) {
-            [array addObject:self.city_name];
+      
+        if (![JYCSimpleToolClass stringIsEmpty:self.platform_name]) {
+            [array addObject:self.platform_name];
         }
         if (![JYCSimpleToolClass stringIsEmpty:self.supplier_name]) {
             [array addObject:self.supplier_name];
         }
-        if (![JYCSimpleToolClass stringIsEmpty:self.platform_name]) {
-            [array addObject:self.platform_name];
+        if (![JYCSimpleToolClass stringIsEmpty:self.city_name]) {
+            [array addObject:self.city_name];
         }
         if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
             [array addObject:self.biz_district_name];

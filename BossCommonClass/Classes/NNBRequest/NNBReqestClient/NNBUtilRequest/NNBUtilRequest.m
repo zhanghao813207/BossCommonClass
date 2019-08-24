@@ -55,7 +55,7 @@
             if ([responseObject[@"is_first_login"] isEqual:[NSNull null]]){
                 
                 NSLog(@"字符串为空");
-                isFirstLogin = true;
+                isFirstLogin = false;
             }else {
                 isFirstLogin = [responseObject[@"is_first_login"] boolValue];
             };

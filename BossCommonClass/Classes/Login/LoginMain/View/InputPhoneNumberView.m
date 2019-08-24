@@ -62,6 +62,13 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         [self addSubview:self.nextStepButton];
         [self addSubview:self.agreementLabel];
         [self addSubview:self.privacyBtn];
+        [self.agreementLabel sizeToFit];
+//        self.nextStepButton.frame.origin.y - 30
+        [self.agreementLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.nextStepButton.mas_top).offset(-30);
+            make.left.equalTo(self.mas_left).offset(20);
+            make.height.mas_equalTo(13);
+        }];
         [self.privacyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.agreementLabel.mas_right).offset(0);
             make.top.equalTo(self.agreementLabel);
@@ -229,7 +236,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 //        NSString *str = @"";
         //创建NSMutableAttributedString
 //        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:AGREEMENTTITLE];
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:@"登录即代表您已同意软件许可及服务协议 和"];
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:@"点击下一步即代表您已同意 软件许可及服务协议 和 "];
 
 //        UITapGestureRecognizer *tapRecognizerWeibo =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doIt:)];
 //        _agreementLabel.userInteractionEnabled = YES;
@@ -237,12 +244,12 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         //设置字体和设置字体的范围
         [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, attrStr.length)];
         //添加文字颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(1, 9)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(9, 9)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(1, 12)];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(13, 9)];
 //        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(15, 1)];
 //        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(16, 4)];
         //添加文字背景颜色
-        _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, 240, 13)];
+        _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, 280, 13)];
 //        _agreementLabel.backgroundColor = [UIColor redColor];
         //设置label的富文本
         _agreementLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
