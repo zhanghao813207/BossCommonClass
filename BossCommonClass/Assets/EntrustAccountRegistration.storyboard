@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="height" constant="46" id="9eN-yY-jKX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
-                                <state key="normal" title="下一步">
+                                <state key="normal" title="上传工商APP截图">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -263,10 +263,10 @@
             </objects>
             <point key="canvasLocation" x="-836" y="-62"/>
         </scene>
-        <!--Entrust Account Registration upload Image TipVC-->
+        <!--Entrust Account Registrationupload Image TipVC-->
         <scene sceneID="vhw-vW-avo">
             <objects>
-                <viewController storyboardIdentifier="EntrustAccountRegistration_uploadImage_TipVC" id="23g-g1-fPl" customClass="EntrustAccountRegistration_uploadImage_TipVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EntrustAccountRegistrationuploadImageTipVC" id="23g-g1-fPl" customClass="EntrustAccountRegistrationuploadImageTipVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NqD-mD-jbD"/>
                         <viewControllerLayoutGuide type="bottom" id="rGA-Ck-CU6"/>
@@ -377,10 +377,10 @@
             </objects>
             <point key="canvasLocation" x="-43" y="-39"/>
         </scene>
-        <!--Entrust Account Registration upload ImageVC-->
+        <!--Entrust Account Registration Upload ImageVC-->
         <scene sceneID="1Z3-ed-8qy">
             <objects>
-                <viewController storyboardIdentifier="EntrustAccountRegistration_uploadImageVC" id="M4W-MK-Djk" customClass="EntrustAccountRegistration_uploadImageVC" sceneMemberID="viewController">
+                <viewController restorationIdentifier="" storyboardIdentifier="EntrustAccountRegistrationUploadImageVC" id="M4W-MK-Djk" customClass="EntrustAccountRegistrationUploadImageVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yZr-wN-MTQ"/>
                         <viewControllerLayoutGuide type="bottom" id="ubJ-Wy-8AC"/>

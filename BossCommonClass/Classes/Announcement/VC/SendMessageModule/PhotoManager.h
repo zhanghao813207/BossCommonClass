@@ -20,6 +20,8 @@ typedef void(^camertConfig)(void);
 
 - (void)showCamera;
 
+- (void)pickChooseManagerWithBlock:(nonnull chooseImageBlock)chooseImageBlock;
+
 - (void)cameraConfig:(camertConfig)camertConfig;
 
 
