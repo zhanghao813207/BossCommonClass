@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -279,10 +279,10 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="772"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="123-b5-IeI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFN-2G-E6P">
-                                                <rect key="frame" x="15.999999999999986" y="0.0" width="237.66666666666663" height="42"/>
+                                                <rect key="frame" x="15.999999999999986" y="20" width="237.66666666666663" height="42"/>
                                                 <string key="text">工商APP截图说明
 </string>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="30"/>
@@ -290,24 +290,27 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您首先需要在新版工商APP中完成实名认证" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNk-UC-M8D">
-                                                <rect key="frame" x="16" y="42" width="382" height="22.666666666666671"/>
+                                                <rect key="frame" x="16" y="61.999999999999993" width="382" height="22.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                                 <color key="textColor" red="0.16078431372549018" green="0.19215686274509802" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykm-8n-J7o">
-                                                <rect key="frame" x="16" y="64.666666666666671" width="382" height="35"/>
+                                                <rect key="frame" x="16" y="84.666666666666657" width="382" height="35"/>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                                 <state key="normal" title="《登记注册身份验证》工商APP使用说明"/>
+                                                <connections>
+                                                    <action selector="openurl:" destination="23g-g1-fPl" eventType="touchUpInside" id="EtE-w5-jEI"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您首先需要在新版工商APP中完成实名认证，并且截取指定页面进行上传。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eQ-SF-dfS">
-                                                <rect key="frame" x="16" y="99.666666666666657" width="382" height="45"/>
+                                                <rect key="frame" x="16" y="119.66666666666666" width="382" height="45"/>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                                 <color key="textColor" red="0.16078431369999999" green="0.19215686269999999" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bz-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Xqc-lD-UGc">
-                                                <rect key="frame" x="16" y="163" width="382" height="573"/>
+                                                <rect key="frame" x="16" y="183" width="382" height="573"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="573" id="Rkd-sJ-d0J"/>
                                                 </constraints>
@@ -321,7 +324,7 @@
                                             <constraint firstItem="Ykm-8n-J7o" firstAttribute="leading" secondItem="wNk-UC-M8D" secondAttribute="leading" id="EyQ-iU-lRu"/>
                                             <constraint firstItem="wNk-UC-M8D" firstAttribute="leading" secondItem="aFN-2G-E6P" secondAttribute="leading" id="GP1-wS-WBk"/>
                                             <constraint firstItem="8eQ-SF-dfS" firstAttribute="top" secondItem="Ykm-8n-J7o" secondAttribute="bottom" id="HSe-rz-SE5"/>
-                                            <constraint firstItem="aFN-2G-E6P" firstAttribute="top" secondItem="123-b5-IeI" secondAttribute="top" id="KIa-Ey-ISk"/>
+                                            <constraint firstItem="aFN-2G-E6P" firstAttribute="top" secondItem="123-b5-IeI" secondAttribute="top" constant="20" id="KIa-Ey-ISk"/>
                                             <constraint firstItem="8eQ-SF-dfS" firstAttribute="leading" secondItem="Ykm-8n-J7o" secondAttribute="leading" id="N5P-vg-0Hg"/>
                                             <constraint firstItem="wNk-UC-M8D" firstAttribute="top" secondItem="aFN-2G-E6P" secondAttribute="bottom" id="Nl2-96-7pI"/>
                                             <constraint firstItem="Ykm-8n-J7o" firstAttribute="top" secondItem="wNk-UC-M8D" secondAttribute="bottom" id="S4Y-PC-3oH"/>
@@ -387,19 +390,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传截图" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-aE-XxA">
-                                <rect key="frame" x="20" y="44" width="120" height="42"/>
+                                <rect key="frame" x="20" y="64" width="120" height="42"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您首先需要在新版工商APP中完成实名认证" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QC6-JJ-zYu">
-                                <rect key="frame" x="20" y="96" width="303.33333333333331" height="22.666666666666671"/>
+                                <rect key="frame" x="20" y="116" width="303.33333333333331" height="22.666666666666657"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                 <color key="textColor" red="0.16078431369999999" green="0.19215686269999999" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u37-wc-xF0">
-                                <rect key="frame" x="20" y="128.66666666666669" width="374" height="637.33333333333326"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u37-wc-xF0">
+                                <rect key="frame" x="20" y="148.66666666666663" width="374" height="630"/>
                                 <state key="normal" image="upload-bg-icon"/>
                                 <connections>
                                     <action selector="uploadAction:" destination="M4W-MK-Djk" eventType="touchUpInside" id="8tO-we-rd1"/>
@@ -431,8 +434,8 @@
                             <constraint firstItem="L0R-D2-K89" firstAttribute="leading" secondItem="Bpq-5I-TL5" secondAttribute="leading" constant="20" id="Tfc-3I-6OZ"/>
                             <constraint firstItem="u37-wc-xF0" firstAttribute="leading" secondItem="Bpq-5I-TL5" secondAttribute="leading" constant="20" id="h9s-ZX-Dys"/>
                             <constraint firstAttribute="trailing" secondItem="u37-wc-xF0" secondAttribute="trailing" constant="20" id="lSV-Jq-kMc"/>
-                            <constraint firstItem="fia-aE-XxA" firstAttribute="top" secondItem="yZr-wN-MTQ" secondAttribute="bottom" id="q6j-cY-VBI"/>
-                            <constraint firstItem="L0R-D2-K89" firstAttribute="top" secondItem="u37-wc-xF0" secondAttribute="bottom" constant="50" id="rbn-An-vm6"/>
+                            <constraint firstItem="fia-aE-XxA" firstAttribute="top" secondItem="yZr-wN-MTQ" secondAttribute="bottom" constant="20" id="q6j-cY-VBI"/>
+                            <constraint firstItem="L0R-D2-K89" firstAttribute="top" relation="greaterThanOrEqual" secondItem="u37-wc-xF0" secondAttribute="bottom" constant="10" id="rbn-An-vm6"/>
                             <constraint firstAttribute="bottom" secondItem="L0R-D2-K89" secondAttribute="bottom" constant="34" id="zIv-VG-Mb0"/>
                         </constraints>
                     </view>
@@ -1720,7 +1723,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messageIcon-blue" translatesAutoresizingMaskIntoConstraints="NO" id="sKA-WL-5z5">
-                                                    <rect key="frame" x="333" y="61.666666666666657" width="22" height="17"/>
+                                                    <rect key="frame" x="339" y="62.666666666666657" width="16" height="16"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u1-uM-Tei">
                                                     <rect key="frame" x="0.0" y="9.9999999999999982" width="414" height="18.333333333333329"/>
