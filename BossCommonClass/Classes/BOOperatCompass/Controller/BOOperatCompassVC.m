@@ -148,7 +148,7 @@
     //设置是否支持javaScript 默认是支持的
     preference.javaScriptEnabled = YES;
     
-    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64*2) configuration:config];
+    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2) configuration:config];
     // UI代理
     _webView.UIDelegate = self;
     // 导航代理
