@@ -43,7 +43,7 @@
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
     //    NSLog(self.teamList);
-    self.selectedTimeView = [[BOSelectTimeView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.selectedTimeView = [[BOSelectTimeView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     
     NSCalendar *calendar = [[NSCalendar alloc]
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
