@@ -664,7 +664,7 @@
  */
 - (NSString *)getHost {
 #ifdef DEBUG
-    return @"https://boss.quhuo.cn/";
+    return @"https://boss-dev.aoaosong.com/";
 #else
     return @"https://boss.aoaosong.com/";
 #endif
