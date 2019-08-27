@@ -197,11 +197,14 @@
         // 获取不同时间字段的信息
         NSDateComponents *comp = [calendar components: unitFlags fromDate:[NSDate date]];
         
-        yearIndex = [self.yearArray indexOfObject:[NSString stringWithFormat:@"%ld年", comp.year]];
-        monthIndex = [self.firstMonthArray indexOfObject:[NSString stringWithFormat:@"%02ld月", comp.month]];
+//        yearIndex = [self.yearArray indexOfObject:[NSString stringWithFormat:@"%ld年", comp.year]];
+//        monthIndex = [self.firstMonthArray indexOfObject:[NSString stringWithFormat:@"%02ld月", comp.month]];
         
-        [_pickerView selectRow:yearIndex inComponent:0 animated:YES];
-        [_pickerView selectRow:0 inComponent:1 animated:YES];
+        yearIndex = 1;
+        monthIndex = 1;
+        
+        [_pickerView selectRow:yearIndex inComponent:monthIndex animated:YES];
+//        [_pickerView selectRow:0 inComponent:1 animated:YES];
         
         [self pickerView:_pickerView didSelectRow:yearIndex inComponent:0];
         [self pickerView:_pickerView didSelectRow:monthIndex inComponent:1];
@@ -256,6 +259,8 @@
         self.frame =  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         topV.frame = CGRectMake(0, kScreenHeight - 44-207, kScreenWidth, 44);
         _pickerView.frame = CGRectMake(0, CGRectGetMaxY(topV.frame), kScreenWidth, 207);
+        
+        [_pickerView selectRow:monthIndex inComponent:monthIndex animated:true];
     }];
 }
 
