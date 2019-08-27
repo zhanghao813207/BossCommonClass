@@ -25,8 +25,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     
     if(self = [super initWithFrame:frame]){
-        
-        self.backgroundColor = kHexRGB(0xF9FBFC);
+        self.backgroundColor = kHexRGB(0xf0f2f5);
         [self setupTimeLabel];
 #ifdef kBossOwner
         [self setupBusinessDistrict];
@@ -42,15 +41,15 @@
 - (void)setupTimeLabel {
 #ifdef kBossKnight
     // 骑士
-    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-176)*0.5, 0, 120, 44)];
 #elif defined kBossOwner
     // 老板
-    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake(16, 0, 120, 64)];
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake(16, 0, 120, 44)];
 #else
     // 之家
-    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-140)*0.5, 0, 120, 64)];
+    self.timeLab = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth-176)*0.5, 0, 120, 44)];
 #endif
-    self.timeLab.font = BossBlodFont(24);
+    self.timeLab.font = BossBlodFont(18);
     self.timeLab.textColor = kHexRGB(0x1A9CFF);
     NSCalendar *calendar = [[NSCalendar alloc]
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -61,7 +60,7 @@
     self.timeLab.userInteractionEnabled = true;
     [self addSubview:self.timeLab];
     
-    self.arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.timeLab.frame)+10 , (64-14)*0.5, 9, 14)];
+    self.arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.timeLab.frame)+10 , (44-14)*0.5, 9, 14)];
     self.arrowView.image = [UIImage imageNamed:@"teamrightIcon"];
     self.arrowView.userInteractionEnabled = true;
     [self addSubview:self.arrowView];
@@ -74,7 +73,7 @@
 - (void)setupBusinessDistrict {
     self.businessDistrictLab = [[UILabel alloc]init];
 
-    self.businessDistrictLab.font = BossBlodFont(24);
+    self.businessDistrictLab.font = BossBlodFont(18);
     self.businessDistrictLab.textColor = kHexRGB(0x1A9CFF);
 //    self.businessDistrictLab.text = [NSString stringWithFormat:@"%@",self.businessDistrictStr];
     self.businessDistrictLab.textAlignment = NSTextAlignmentRight;

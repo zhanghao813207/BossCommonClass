@@ -138,7 +138,8 @@
     UILabel *genderLabel = [[UILabel alloc] init];
     genderLabel.textAlignment = NSTextAlignmentCenter;
     
-    genderLabel.textColor = kHexRGB(0x1A9CFF);
+//    genderLabel.textColor = kHexRGB(0x1A9CFF);
+    genderLabel.textColor = [UIColor colorWithRed:41/255.0f green:49/255.0f blue:77/255.0f alpha:1];
     
     genderLabel.font = BossRegularFont(16);
    
