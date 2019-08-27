@@ -26,6 +26,27 @@ static PhotoManager * sharedSingleton = nil;
     }
     return sharedSingleton;
 }
+- (void)pickChooseManagerWithBlock:(nonnull chooseImageBlock)chooseImageBlock{
+    self.chooseImageBlock = ^(UIImage * _Nonnull image) {
+        chooseImageBlock(image);
+    };
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"图库选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self showPhotoLibary];
+    }];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"立即拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self showCamera];
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:photoAction];
+    [alertController addAction:cameraAction];
+    [[self topMostController] presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)showPhotoLibary{
     // 以"检查用户对相册的授权状态"为例
     
