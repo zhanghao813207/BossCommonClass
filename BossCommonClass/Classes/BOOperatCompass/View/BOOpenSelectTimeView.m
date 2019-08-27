@@ -212,11 +212,13 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             UILabel *label = (UILabel *)[_pickerView viewForRow:yearIndex forComponent:0];
-            label.textColor =kHexRGB(0x1A9CFF);
+//            label.textColor =kHexRGB(0x1A9CFF);
+            label.textColor = [UIColor colorWithRed:41/255.0f green:49/255.0f blue:77/255.0f alpha:1];
             label.font = BossRegularFont(16);
             
             label = (UILabel *)[_pickerView viewForRow:monthIndex forComponent:1];
-            label.textColor = kHexRGB(0x1A9CFF);
+//            label.textColor = kHexRGB(0x1A9CFF);
+            label.textColor = [UIColor colorWithRed:41/255.0f green:49/255.0f blue:77/255.0f alpha:1];
             label.font = BossRegularFont(16);
             
             
@@ -370,8 +372,8 @@
     UILabel *genderLabel = [[UILabel alloc] init];
     genderLabel.textAlignment = NSTextAlignmentCenter;
     
-    genderLabel.textColor = kHexRGB(0x1A9CFF);
-    
+//    genderLabel.textColor = kHexRGB(0x1A9CFF);
+    genderLabel.textColor = [UIColor colorWithRed:41/255.0f green:49/255.0f blue:77/255.0f alpha:1];
     genderLabel.font = BossRegularFont(16);
     if (component == 0)
     {
