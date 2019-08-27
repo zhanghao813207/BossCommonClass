@@ -26,7 +26,9 @@
     
     if(self = [super initWithFrame:frame]){
         
-        self.backgroundColor = kHexRGB(0xF9FBFC);
+        self.backgroundColor = kHexRGB(0xf0f2f5);
+
+//        self.backgroundColor = kHexRGB(0xF9FBFC);
         [self setupTimeLabel];
 #ifdef kBossOwner
         [self setupBusinessDistrict];
