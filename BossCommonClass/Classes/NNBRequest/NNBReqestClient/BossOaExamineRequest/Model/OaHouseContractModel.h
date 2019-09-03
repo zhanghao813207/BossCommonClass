@@ -21,6 +21,33 @@
 @property (nonatomic, strong) NSString *house_num;
 
 /**
+ 房屋地址
+ */
+@property (nonatomic, strong) NSString *house_address;
+
+/**
+ 房东姓名
+ */
+@property (nonatomic, strong) NSString *landlord_name;
+
+/**
+ 用途
+ */
+@property (nonatomic, strong) NSString *usage;
+
+/**
+ 附件地址
+ */
+@property (nonatomic, strong) NSArray *attachment_private_urls;
+
+/**
+ 押几付几
+ */
+@property(nonatomic, assign)NSInteger payment_method_pledge;
+
+@property(nonatomic, assign)NSInteger payment_method_rent;
+
+/**
  执行状态(房屋状态)
  */
 @property (nonatomic, assign) OA_HOUSE_STATES state;
