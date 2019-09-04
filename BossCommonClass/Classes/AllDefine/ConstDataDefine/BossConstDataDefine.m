@@ -22,7 +22,7 @@ NSString *const BossUmsPrefix = @"boss";
 
 // dev
 NSString *const BossBasicURL   = @"https://boss-api-dev.aoaosong.com:9040/1.0/";
-NSString *const BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:9040/2.0/";
+NSString * BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:9040/2.0/";
 NSString *const ACCESS_KEY     = @"5277d8d0265d5ae93e23da9a640fe354";
 NSString *const SECRET_KEY     = @"d9ccf222c2a9e1378de3bff603bfde96";
 

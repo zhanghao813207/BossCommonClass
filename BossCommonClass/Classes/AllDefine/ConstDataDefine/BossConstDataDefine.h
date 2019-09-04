@@ -11,7 +11,7 @@
 
 UIKIT_EXTERN NSString *const BossBasicURL;
 
-UIKIT_EXTERN NSString *const BossBasicURLV2;
+UIKIT_EXTERN NSString * BossBasicURLV2;
 // CMD前缀 默认Boss 项目不同前缀不同
 UIKIT_EXTERN NSString *const BossBasicPrefix;
 
