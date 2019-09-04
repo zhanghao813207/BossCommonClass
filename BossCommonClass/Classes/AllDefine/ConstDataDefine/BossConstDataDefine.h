@@ -9,19 +9,19 @@
 #import <UIKit/UIKit.h>
 @interface BossConstDataDefine : NSObject
 
-UIKIT_EXTERN NSString *const BossBasicURL;
+UIKIT_EXTERN NSString * BossBasicURL;
 
 UIKIT_EXTERN NSString * BossBasicURLV2;
 // CMD前缀 默认Boss 项目不同前缀不同
 UIKIT_EXTERN NSString *const BossBasicPrefix;
 
-UIKIT_EXTERN NSString *const ACCESS_KEY;
+UIKIT_EXTERN NSString *ACCESS_KEY;
 
-UIKIT_EXTERN NSString *const SECRET_KEY;
+UIKIT_EXTERN NSString *SECRET_KEY;
 
-UIKIT_EXTERN NSString *const MessageBasicURL;
+UIKIT_EXTERN NSString *MessageBasicURL;
 
-UIKIT_EXTERN NSString *const MessageBasicURLV2;
+UIKIT_EXTERN NSString *MessageBasicURLV2;
 // 路由scheme
 UIKIT_EXTERN NSString *const SCHEME;
 
