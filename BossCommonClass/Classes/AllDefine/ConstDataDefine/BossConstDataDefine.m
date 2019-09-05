@@ -7,82 +7,15 @@
 
 #import "BossConstDataDefine.h"
 
+
 @implementation BossConstDataDefine
 
 #pragma mark-- 访问域名
 
 #ifdef DEBUG
 
-#ifdef kBossOwner
-// BossOwner
-
-NSString *const BossBasicPrefix = @"qlife";
-
-NSString *const BossUmsPrefix = @"boss";
-
-// dev
-NSString * BossBasicURL   = @"https://boss-api-dev.aoaosong.com:9040/1.0/";
-NSString * BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:9040/2.0/";
-NSString * ACCESS_KEY     = @"5277d8d0265d5ae93e23da9a640fe354";
-NSString * SECRET_KEY     = @"d9ccf222c2a9e1378de3bff603bfde96";
-
-NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
-NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
-
-// QA
-//NSString * BossBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9070/1.0/";
-//NSString * BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9070/2.0/";
-//NSString * ACCESS_KEY     = @"e6d14e49b8589e95508e6245d6628337";
-//NSString * SECRET_KEY     = @"a6b0a55291872fa9e2c3707285f297d2";
-//
-//NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
-//NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
-
-// Demo
-//NSString * BossBasicURL    = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
-//NSString * BossBasicURLV2  = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
-//NSString * ACCESS_KEY      = @"3f92d896b23d960e529048c2fc2ab762";
-//NSString * SECRET_KEY      = @"2fd89206dd6edd7b87b8833ba6bed5a9";
-//
-//NSString * MessageBasicURL   = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
-//NSString * MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
-
-#elif defined kBossKnight
-// BossKnight
-
-NSString *const BossBasicPrefix = @"qlife";
-
-NSString *const BossUmsPrefix = @"boss";
-
-// dev
-NSString * BossBasicURL   = @"https://boss-api-dev.aoaosong.com:9040/1.0/";
-NSString * BossBasicURLV2 = @"https://boss-api-dev.aoaosong.com:9040/2.0/";
-NSString * ACCESS_KEY     = @"e2ee2080d71f31b7e5794089ec5ddadc";
-NSString * SECRET_KEY     = @"717285b895ddce6a8197e4b9773800c8";
-
-NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
-NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
-
-// QA
-//NSString * BossBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9070/1.0/";
-//NSString * BossBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9070/2.0/";
-//NSString * ACCESS_KEY     = @"e6d14e49b8589e95508e6245d6628337";
-//NSString * SECRET_KEY     = @"a6b0a55291872fa9e2c3707285f297d2";
-//
-//NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
-//NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
-
-// Demo
-//NSString * BossBasicURL    = @"https://boss-quhuo-api.aoaosong.com:1082/1.0/";
-//NSString * BossBasicURLV2  = @"https://boss-quhuo-api.aoaosong.com:1082/2.0/";
-//NSString * ACCESS_KEY      = @"500aa2ba0e248edff26c502ac11d8f41";
-//NSString * SECRET_KEY      = @"f175a2c83bbec7732c6acd0c8b405504";
-//
-//NSString * MessageBasicURL   = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
-//NSString * MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
-
-#else
-// BossManager
+#ifdef kBossManager
+// 之家配置(测试)
 
 NSString *const BossBasicPrefix = @"boss";
 
@@ -101,6 +34,23 @@ NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
 // Demo
 //NSString * MessageBasicURL   = @"https://boss-api-dev.aoaosong.com:1083/1.0/";
 //NSString * MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+
+#else
+// 骑士 当家配置(测试)
+
+NSString *const BossBasicPrefix = @"qlife";
+
+NSString *const BossUmsPrefix = @"boss";
+// dev
+NSString * BossBasicURL;
+NSString * BossBasicURLV2;
+NSString * ACCESS_KEY;
+NSString * SECRET_KEY;
+
+NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
+NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
+
+
 #endif
 
 // meeting basic url
