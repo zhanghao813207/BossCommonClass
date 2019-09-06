@@ -9,7 +9,7 @@
 #import "BossConstDataDefine.h"
 #import "BossWhiteNavigationController.h"
 #import "UIViewController+StoryBoard.h"
-#import "BindPhoneVc.h"
+//#import "BindPhoneVc.h"
 
 @interface addressConfigViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *configstatusLabel;
@@ -83,10 +83,10 @@
     }
 #endif
     
-    UIViewController *vc = [BindPhoneVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
-    BossWhiteNavigationController *nav = [[BossWhiteNavigationController alloc] initWithRootViewController:vc];
-    nav.hasLine = true;
-    [[UIApplication sharedApplication].keyWindow setRootViewController:nav];
+//    UIViewController *vc = [BindPhoneVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
+//    BossWhiteNavigationController *nav = [[BossWhiteNavigationController alloc] initWithRootViewController:vc];
+//    nav.hasLine = true;
+//    [[UIApplication sharedApplication].keyWindow setRootViewController:nav];
 }
 
 

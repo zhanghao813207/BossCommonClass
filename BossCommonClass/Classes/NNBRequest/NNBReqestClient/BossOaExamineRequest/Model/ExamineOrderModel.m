@@ -30,7 +30,7 @@
         self.apply_account_info = model;
         return;
     }
-
+    
     if ([key isEqualToString:@"current_operate_account_list"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
@@ -52,7 +52,7 @@
         self.current_record_list = [array copy];
         return;
     }
-
+    
     if ([key isEqualToString:@"flow_record_list"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
@@ -63,7 +63,7 @@
         self.flow_record_list = [array copy];
         return;
     }
-
+    
     if ([key isEqualToString:@"cost_order_list"]) {
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
@@ -82,13 +82,13 @@
         NSDate *date = [NSDate dateFromString:normalTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
         
         self.submit_at_int = [date stringWithFormat:@"yyyyMM"];
-
+        
         NSString *mainTitleString = [JYCSimpleToolClass standardTimeFormatterToWChatTimeFormatterByDate:date nowDate:[NSDate date] showToday:NO showFullYear:YES showChineYear:YES];
         
         NSString *lastString = [JYCSimpleToolClass segementOneDayByDate:date segement:YES];
         
         self.wchat_submit_at = [NSString stringWithFormat:@"%@ %@",mainTitleString, lastString];
-
+        
         return;
     }
     
@@ -97,7 +97,7 @@
         self.created_at = [JYCSimpleToolClass quickChangeTimeWithTimeString:normalTime];
         return;
     }
-
+    
     if ([key isEqualToString:@"current_flow_node_info"]) {
         ExamineFlowNodeBriefModel *model = [[ExamineFlowNodeBriefModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
@@ -111,7 +111,7 @@
         self.salary_plan_version_info = model;
         return;
     }
-
+    
     if ([key isEqualToString:@"payroll_statement_info"]) {
         PayrollStatementModel *model = [[PayrollStatementModel alloc] init];
         [model setValuesForKeysWithDictionary:value];
@@ -180,31 +180,31 @@
 - (NSString *)applicationOrderTypeStr {
     NSString *typeStr = @"未知";
     switch (self.application_order_type) {
-            case ApplicationOrderTypeCost:
+        case ApplicationOrderTypeCost:
             typeStr = @"费用申请";
             break;
-            case ApplicationOrderTypeSalaryRule:
+        case ApplicationOrderTypeSalaryRule:
             typeStr = @"服务费规则";
             break;
-            case ApplicationOrderTypeSalaryPayment:
+        case ApplicationOrderTypeSalaryPayment:
             typeStr = @"服务费发放";
             break;
-            case ApplicationOrderTypeMaterial:
+        case ApplicationOrderTypeMaterial:
             typeStr = @"物资采购";
             break;
-            case ApplicationOrderTypeHouseContract:
+        case ApplicationOrderTypeHouseContract:
             typeStr = @"房屋管理";
             break;
-            case ApplicationOrderTypeLoan:
+        case ApplicationOrderTypeLoan:
             typeStr = @"借款申请";
             break;
-            case ApplicationOrderTypeRepayment:
+        case ApplicationOrderTypeRepayment:
             typeStr = @"还款";
             break;
-            case ApplicationOrderTypeBusinessTrave:
+        case ApplicationOrderTypeBusinessTrave:
             typeStr = @"出差申请";
             break;
-            case ApplicationOrderTypeTravelExpense:
+        case ApplicationOrderTypeTravelExpense:
             typeStr = @"差旅报销";
             break;
         default:
@@ -317,7 +317,7 @@
             
             _current_node.index_num = recordModel.index_num;
             _current_node.state = recordModel.state;
-    
+            
             switch (recordModel.state) {
                 case OA_EXAMINE_NODE_STATE_INIT:
                 {
@@ -361,7 +361,7 @@
         _file_url_dic = dic.copy;
     }
     return _file_url_dic;
-
+    
 }
 
 - (ExamineFlowNodeModel *)createExamineFlowNodeModel:(ExamineFlowNodeBriefModel *)flowNodeBriefModel {
@@ -388,7 +388,7 @@
             model._id = recordModel.node_id;
             model.index_num = recordModel.index_num;
         }
-
+        
         model.state = recordModel.state;
         
         switch (recordModel.state) {
