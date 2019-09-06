@@ -41,7 +41,8 @@ NSString *const kBossOwnerUserhealthcertificateurl = @"health_certificate_url";
 
 // 健康证图片url(背面照片)
 NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_back_url";
-
+// 网络配置
+NSString *const kBossOwnerconfigurl = @"config";
 
 @interface BossOwnerUserModel ()
 @end
@@ -195,6 +196,9 @@ NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_ba
     }
     if(![dictionary[kBossOwnerUserWechatModel] isKindOfClass:[NSNull class]]){
         self.WeChatModel = [[WeChatModel alloc]initWithDictionary:dictionary[kBossOwnerUserWechatModel]];
+    }
+    if(![dictionary[kBossOwnerconfigurl] isKindOfClass:[NSNull class]]){
+        self.configModel = [[configModel alloc]initWithDictionary:dictionary[kBossOwnerconfigurl]];
     }
 	return self;
 }

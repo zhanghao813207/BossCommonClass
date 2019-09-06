@@ -44,7 +44,7 @@ UIKIT_EXTERN NSString *const APPDOWNLOADURL; // app在appStore的下载链接
 UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时间
 
 // 会议基础URL
-UIKIT_EXTERN NSString *const MeetingBasicURL;
+UIKIT_EXTERN NSString * MeetingBasicURL;
 
 UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroeS中应用的id
 

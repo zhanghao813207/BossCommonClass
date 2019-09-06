@@ -36,7 +36,7 @@ NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
 //NSString * MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
 
 #else
-// 骑士 当家配置(测试)
+// 骑士 当家 配置(测试)
 
 NSString *const BossBasicPrefix = @"qlife";
 
@@ -46,6 +46,7 @@ NSString * BossBasicURL;
 NSString * BossBasicURLV2;
 NSString * ACCESS_KEY;
 NSString * SECRET_KEY;
+// dev 默认测试环境
 
 NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
 NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
@@ -55,7 +56,7 @@ NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
 
 // meeting basic url
 // Dev/QA
-NSString *const MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:9030/meeting/";
+NSString * MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:9030/meeting/";
 // Demo
 //NSString *const MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:2090/meeting/";
 #else
@@ -100,7 +101,7 @@ NSString *const BossUmsPrefix     = @"boss";
 #endif
 
 // 会议基础URL
-NSString *const MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
+NSString * MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
 
 #endif
 
