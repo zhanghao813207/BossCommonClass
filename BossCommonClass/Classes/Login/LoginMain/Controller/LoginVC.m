@@ -543,7 +543,7 @@
                     // 显示加载对话框
                     [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
                     [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
-                        
+                        NSLog(@"%@", accountInfo);
 #if (defined kBossManager)
                         //如果是账号管理页面跳转过来的就直接退到我的页面。
                         [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
