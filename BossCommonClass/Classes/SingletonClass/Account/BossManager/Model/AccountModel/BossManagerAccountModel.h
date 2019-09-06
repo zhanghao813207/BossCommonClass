@@ -113,11 +113,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *_id;
 
-/**
- UMS&MQTT配置
- */
-//@property (nonatomic, strong) configModel *configModel;
-
 
 /**
  模型转字典

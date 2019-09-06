@@ -33,6 +33,13 @@
         self.accountModel = model;
         return;
     }
+    if ([key isEqualToString:@"config"]) {
+        configModel *model = [[configModel alloc] initWithDictionary:value];
+        self.configModel = model;
+        return;
+    }
+    
+    
     
     [super setValue:value forKey:key];
 }

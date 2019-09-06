@@ -74,10 +74,9 @@
         
         TokenModel *token = [[TokenModel alloc] init];
         [token setValuesForKeysWithDictionary:responseObject];
-        
-        
+
         NSDictionary *dic = responseObject[@"config"];
-        
+        BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
         if (dic) {
             configModel *model = [[configModel alloc] initWithDictionary:dic];
             [[NSUserDefaults standardUserDefaults] setObject:model.toDictionary forKey:@"umsconfig"];
@@ -99,10 +98,11 @@
                 mqttClientId = model.mqtt.clientid;
                 mqttSecretKey = model.mqtt.secretKey;
             }
+            
+            managerAccount.configModel = model;
         }
-        
-        BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
         managerAccount.tokenModel = token;
+        
         kCurrentBossManagerAccount = managerAccount;
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
