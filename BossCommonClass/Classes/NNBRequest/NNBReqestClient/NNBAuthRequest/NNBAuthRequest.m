@@ -17,6 +17,8 @@
 #import "SaasModel.h"
 #import "BossKnightAccountModel.h"
 #import "NSDate+Helper.h"
+#import "configModel.h"
+#import "MQTTDefine.h"
 
 @implementation NNBAuthRequest
 
@@ -72,9 +74,35 @@
         
         TokenModel *token = [[TokenModel alloc] init];
         [token setValuesForKeysWithDictionary:responseObject];
-        
+
+        NSDictionary *dic = responseObject[@"config"];
         BossManagerAccount *managerAccount = [[BossManagerAccount alloc] init];
+        if (dic) {
+            configModel *model = [[configModel alloc] initWithDictionary:dic];
+            [[NSUserDefaults standardUserDefaults] setObject:model.toDictionary forKey:@"umsconfig"];
+            if (model){
+                MessageBasicURL = [NSString stringWithFormat:@"%@/1.0", model.ums.url];
+                MessageBasicURLV2 = [NSString stringWithFormat:@"%@/2.0", model.ums.url];
+                MeetingBasicURL = [NSString stringWithFormat:@"%@/meeting/", model.h5.url];
+                NSString *server = model.mqtt.server;
+                if ([server containsString:@"tcp://"]){
+                    NSArray *strArr = [server componentsSeparatedByString:@"//"];
+                    if (strArr.count >= 2){
+                        server = strArr[1];
+                    }
+                }
+                mqttServer = server;
+                mqttPort   = model.mqtt.port;
+                mqttUserName = model.mqtt.userName;
+                mqttPassword = model.mqtt.password;
+                mqttClientId = model.mqtt.clientid;
+                mqttSecretKey = model.mqtt.secretKey;
+            }
+            
+            managerAccount.configModel = model;
+        }
         managerAccount.tokenModel = token;
+        
         kCurrentBossManagerAccount = managerAccount;
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){

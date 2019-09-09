@@ -13,6 +13,7 @@
 #import "PlatformModel.h"
 #import "BizDistrictModel.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BossManagerAccountModel : NSObject
@@ -111,6 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
  用户ID
  */
 @property (nonatomic, strong) NSString *_id;
+
 
 /**
  模型转字典

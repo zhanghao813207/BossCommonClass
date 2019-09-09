@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TokenModel.h"
+#import "configModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -65,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) TokenModel *tokenModel;
 
+@property (nonatomic, strong) configModel *configModel;
 /**
  个人信息是否需要更新
  */

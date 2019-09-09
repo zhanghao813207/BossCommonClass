@@ -402,7 +402,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u37-wc-xF0">
-                                <rect key="frame" x="20" y="148.66666666666663" width="374" height="630"/>
+                                <rect key="frame" x="20" y="148.66666666666666" width="374" height="22"/>
                                 <state key="normal" image="upload-bg-icon"/>
                                 <connections>
                                     <action selector="uploadAction:" destination="M4W-MK-Djk" eventType="touchUpInside" id="8tO-we-rd1"/>
@@ -1723,7 +1723,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messageIcon-blue" translatesAutoresizingMaskIntoConstraints="NO" id="sKA-WL-5z5">
-                                                    <rect key="frame" x="333" y="61.666666666666657" width="22" height="17"/>
+                                                    <rect key="frame" x="339" y="62.666666666666657" width="16" height="16"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u1-uM-Tei">
                                                     <rect key="frame" x="0.0" y="9.9999999999999982" width="414" height="18.333333333333329"/>
@@ -2112,76 +2112,11 @@
             </objects>
             <point key="canvasLocation" x="6164" y="-60"/>
         </scene>
-        <!--Address Config View Controller-->
-        <scene sceneID="6qR-oX-nMw">
-            <objects>
-                <viewController storyboardIdentifier="addressConfigViewController" id="t5g-bB-h0T" customClass="addressConfigViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JmZ-H2-x0A"/>
-                        <viewControllerLayoutGuide type="bottom" id="fYd-kp-Ndi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tP6-gw-rZ4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fid-MU-UQQ">
-                                <rect key="frame" x="176" y="433" width="62" height="30"/>
-                                <state key="normal" title="质检环境"/>
-                                <connections>
-                                    <action selector="changeConfig:" destination="t5g-bB-h0T" eventType="touchUpInside" id="BJi-cA-NiA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxM-Rq-TCD">
-                                <rect key="frame" x="176" y="563" width="62" height="30"/>
-                                <state key="normal" title="演示环境"/>
-                                <connections>
-                                    <action selector="changeConfig:" destination="t5g-bB-h0T" eventType="touchUpInside" id="OVe-Gr-Ejx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWn-3b-DTk">
-                                <rect key="frame" x="176" y="303" width="62" height="30"/>
-                                <state key="normal" title="测试环境"/>
-                                <connections>
-                                    <action selector="changeConfig:" destination="t5g-bB-h0T" eventType="touchUpInside" id="Awg-39-Pzd"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq6-aW-OdD">
-                                <rect key="frame" x="170" y="104" width="74" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3D-WC-L97">
-                                <rect key="frame" x="186" y="133" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="rxM-Rq-TCD" firstAttribute="top" secondItem="fid-MU-UQQ" secondAttribute="bottom" constant="100" id="E09-Mr-v4M"/>
-                            <constraint firstItem="fid-MU-UQQ" firstAttribute="centerY" secondItem="tP6-gw-rZ4" secondAttribute="centerY" id="ENt-wn-VcY"/>
-                            <constraint firstItem="D3D-WC-L97" firstAttribute="centerX" secondItem="Wq6-aW-OdD" secondAttribute="centerX" id="Ge2-Ym-isv"/>
-                            <constraint firstItem="Wq6-aW-OdD" firstAttribute="top" secondItem="JmZ-H2-x0A" secondAttribute="bottom" constant="60" id="IyP-BY-TVE"/>
-                            <constraint firstItem="Wq6-aW-OdD" firstAttribute="centerX" secondItem="AWn-3b-DTk" secondAttribute="centerX" id="Jcv-Cb-AaK"/>
-                            <constraint firstItem="AWn-3b-DTk" firstAttribute="centerX" secondItem="fid-MU-UQQ" secondAttribute="centerX" id="Lnr-AF-2A3"/>
-                            <constraint firstItem="fid-MU-UQQ" firstAttribute="centerX" secondItem="tP6-gw-rZ4" secondAttribute="centerX" id="RiC-xi-LaG"/>
-                            <constraint firstItem="D3D-WC-L97" firstAttribute="top" secondItem="Wq6-aW-OdD" secondAttribute="bottom" constant="8" id="Rss-7f-Emr"/>
-                            <constraint firstItem="rxM-Rq-TCD" firstAttribute="centerX" secondItem="fid-MU-UQQ" secondAttribute="centerX" id="asg-5t-6F9"/>
-                            <constraint firstItem="fid-MU-UQQ" firstAttribute="top" secondItem="AWn-3b-DTk" secondAttribute="bottom" constant="100" id="mW9-am-lj9"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hex-cO-CDG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6849" y="-79"/>
-        </scene>
     </scenes>
     <resources>
         <image name="AlbumIcon" width="20" height="20"/>
         <image name="bz-icon" width="382" height="573"/>
-        <image name="cameraIcon" width="20" height="16"/>
+        <image name="cameraIcon" width="71" height="62"/>
         <image name="choseImageIcon" width="28" height="30"/>
         <image name="closeImageIcon" width="28" height="30"/>
         <image name="correctIcon" width="18" height="18"/>

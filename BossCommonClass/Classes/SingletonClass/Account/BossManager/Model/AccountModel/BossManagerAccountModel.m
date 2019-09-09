@@ -69,7 +69,12 @@
         self.biz_district_list = [array copy];
         return;
     }
-    
+//    if ([key isEqualToString:@"config"]) {
+//        NSDictionary *dic = value;
+//        self.configModel = [[configModel alloc] initWithDictionary:dic];
+//        return;
+//    }
+
     [super setValue:value forKey:key];
 }
 
