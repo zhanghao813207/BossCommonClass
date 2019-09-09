@@ -2,6 +2,7 @@
 #import "BalanceMoneyModel.h"
 #import "WeChatModel.h"
 #import "BossEnumDefin.h"
+#import "configModel.h"
 
 @interface BossOwnerUserModel : NSObject
 
@@ -51,6 +52,8 @@
 //钱包信息
 @property (nonatomic, strong) BalanceMoneyModel *WalletModel;
 
+//网络配置信息
+@property (nonatomic, strong) configModel *configModel;
 /**
  检查是否电子签约
  */

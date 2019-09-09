@@ -64,5 +64,6 @@
 #define bundlePath  [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"]
 #define QH_Bundle [NSBundle bundleWithPath:bundlePath]
 
+#define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f
 
 #endif /* BossMethodDefine_h */
