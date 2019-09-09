@@ -197,7 +197,8 @@
 {
     NSDictionary *dic = @{
                           @"token":self.tokenModel ? [self.tokenModel decodeToDic] : @{},
-                          @"account":self.accountModel ? [self.accountModel decodeToDic] : @{}
+                          @"account":self.accountModel ? [self.accountModel decodeToDic] : @{},
+                          @"config": self.configModel ? [self.configModel toDictionary]: @{}
                           };
     return dic;
 }
