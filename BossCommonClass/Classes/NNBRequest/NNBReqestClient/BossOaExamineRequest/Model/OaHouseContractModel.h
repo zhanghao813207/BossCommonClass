@@ -60,12 +60,12 @@
 /**
  合同租期起始时间(租房)
  */
-@property (nonatomic, strong) NSString *contract_start_date;
+@property (nonatomic) NSInteger contract_start_date;
 
 /**
  合同租期结束时间（租房）
  */
-@property (nonatomic, strong) NSString *contract_end_date;
+@property (nonatomic) NSInteger contract_end_date;
 
 /**
  押金
