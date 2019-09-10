@@ -12,22 +12,22 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MQTTDefine : NSObject
 
 // MQTT服务器地址
-UIKIT_EXTERN NSString *const mqttServer;
+UIKIT_EXTERN NSString * mqttServer;
 
 // MQTT端口
-UIKIT_EXTERN NSInteger const mqttPort;
+UIKIT_EXTERN NSInteger  mqttPort;
 
 // 用户名
-UIKIT_EXTERN NSString *const mqttUserName;
+UIKIT_EXTERN NSString * mqttUserName;
 
 // 密钥
-UIKIT_EXTERN NSString *const mqttPassword;
+UIKIT_EXTERN NSString * mqttPassword;
 
 // client id
-UIKIT_EXTERN NSString *const mqttClientId;
+UIKIT_EXTERN NSString * mqttClientId;
 
 // secret key
-UIKIT_EXTERN NSString *const mqttSecretKey;
+UIKIT_EXTERN NSString * mqttSecretKey;
 
 @end
 

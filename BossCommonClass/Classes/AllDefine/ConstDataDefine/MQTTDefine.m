@@ -10,58 +10,48 @@
 @implementation MQTTDefine
 
 #ifdef DEBUG
-// Dev/QA
-NSString *const mqttServer = @"boss-api-dev.aoaosong.com";
-NSInteger const mqttPort   = 1883;
+// Dev/QA 默认测试环境
+NSString * mqttServer = @"boss-api-dev.aoaosong.com";
+NSInteger  mqttPort   = 1883;
 
-NSString *const mqttUserName = @"im_server";
-NSString *const mqttPassword = @"im_server-123";
-NSString *const mqttClientId = @"im_server";
+NSString * mqttUserName = @"im_server";
+NSString * mqttPassword = @"im_server-123";
+NSString * mqttClientId = @"im_server";
 
-NSString *const mqttSecretKey = @"cc6803a649ff7f3f036566d1421c4315";
-
-// Demo
-//NSString *const mqttServer = @"boss-quhuo-api.aoaosong.com";
-//NSInteger const mqttPort   = 1884;
-//
-//NSString *const mqttUserName = @"im_server";
-//NSString *const mqttPassword = @"im_server-123";
-//NSString *const mqttClientId = @"im_server";
-//
-//NSString *const mqttSecretKey = @"cc6803a649ff7f3f036566d1421c4315";
+NSString * mqttSecretKey = @"cc6803a649ff7f3f036566d1421c4315";
 
 #else
 
 // release
 
-NSString *const mqttServer = @"ums-mt.aoaosong.com";
-NSInteger const mqttPort   = 1883;
+NSString * mqttServer = @"ums-mt.aoaosong.com";
+NSInteger  mqttPort   = 1883;
 
 #ifdef kBossKnight
 
-NSString *const mqttUserName = @"aoao_boss_app_ios";
-NSString *const mqttPassword = @"f241c529e2da4695bb3d6ef4abafd10b";
+NSString * mqttUserName = @"aoao_boss_app_ios";
+NSString * mqttPassword = @"f241c529e2da4695bb3d6ef4abafd10b";
 
 #elif defined kBossManager
 
-NSString *const mqttUserName = @"aoao_boss_manager_ios";
-NSString *const mqttPassword = @"4e3993b160ea47b898bb6b2737b8b6ec";
+NSString * mqttUserName = @"aoao_boss_manager_ios";
+NSString * mqttPassword = @"4e3993b160ea47b898bb6b2737b8b6ec";
 
 #elif defined kBossOwner
 
-NSString *const mqttUserName = @"qlife_ios";
-NSString *const mqttPassword = @"79a6bcac9a4e43a7aebcb856ae0d9165";
+NSString * mqttUserName = @"qlife_ios";
+NSString * mqttPassword = @"79a6bcac9a4e43a7aebcb856ae0d9165";
 
 #else
 
-NSString *const mqttUserName = @"im_server";
-NSString *const mqttPassword = @"im_server-123";
+NSString * mqttUserName = @"im_server";
+NSString * mqttPassword = @"im_server-123";
 
 #endif
 
-NSString *const mqttClientId = @"im_server-";
+NSString * mqttClientId = @"im_server-";
 
-NSString *const mqttSecretKey = @"6fc6baf2875911e9bc42526af7764f64";
+NSString * mqttSecretKey = @"6fc6baf2875911e9bc42526af7764f64";
 
 #endif
 
