@@ -48,11 +48,6 @@
 @property(nonatomic, assign)NSInteger payment_method_rent;
 
 /**
- 执行状态(房屋状态)
- */
-@property (nonatomic, assign) OA_HOUSE_STATES state;
-
-/**
  面积
  */
 @property (nonatomic, strong) NSString *area;

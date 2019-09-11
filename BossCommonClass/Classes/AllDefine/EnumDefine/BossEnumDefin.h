@@ -322,13 +322,6 @@ typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
     OS_COSTCLASS_PLEDGE      = 6, // 租房、中介费、押金(押金)
 };
 
-typedef NS_ENUM(NSInteger, OA_HOUSE_STATES) {
-    OA_HOUSE_STATE_STOP     = -100,  // 终止（断租）
-    OA_HOUSE_STATE_INIT     =    1,  // 未执行/待审批（新租/续签）
-    OA_HOUSE_STATE_KEEP     =   50,  // 执行中（续租)
-    OA_HOUSE_STATE_DONE     =  100,  // 完成（退租)
-};
-
 typedef NS_ENUM(NSInteger, MESSAGE_TYPE) {
     MESSAGE_TYPE_NEW       =    1,  // 新消息
     MESSAGE_TYPE_SEND      =   90,  // 已送达
