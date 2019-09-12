@@ -241,7 +241,7 @@
 {
     NSString *executableFile = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey];
     NSLog(@"%@", executableFile);
-    if ([executableFile isEqualToString:@"BossOwner"]) {
+    if ([executableFile isEqualToString:@"BossOwner"] || [executableFile isEqualToString:@"BossKnight"]) {
         [@"login" openURL];
     } else {
         UIViewController *rootVc = currentVc.navigationController.viewControllers.firstObject;
