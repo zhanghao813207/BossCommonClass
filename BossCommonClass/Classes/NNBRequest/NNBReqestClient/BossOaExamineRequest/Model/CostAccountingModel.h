@@ -23,6 +23,10 @@
  名称
  */
 @property (nonatomic, strong) NSString *name;
+/**
+ 编号
+ */
+@property (nonatomic, strong) NSString *accounting_code;
 
 /**
  成本中心归属类型

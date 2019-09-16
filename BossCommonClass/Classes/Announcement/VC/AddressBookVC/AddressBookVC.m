@@ -230,7 +230,7 @@
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.arrM.count > 0){
+//    if (self.arrM.count > 0){
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = kHexRGB(0xF3F3F3);
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -238,7 +238,7 @@
             make.width.mas_equalTo(kScreenWidth);
         }];
         UILabel *label = [[UILabel alloc] init];
-        label.text = @"我的分组";
+        label.text = @"我的群组";
         label.font = [UIFont systemFontOfSize:12];
         [headerView addSubview:label];
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -246,9 +246,9 @@
             make.centerY.equalTo(headerView);
         }];
         return headerView;
-    } else {
-        return nil;
-    }
+//    } else {
+//        return nil;
+//    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactsGroup *model = self.arrM[indexPath.row];
