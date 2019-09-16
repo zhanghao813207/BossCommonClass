@@ -176,6 +176,9 @@
         kCache.lastLoginPhone = logoutPhone;
         [kCache addPhone:logoutPhone];
         kCurrentBossManagerAccount = nil;
+        //移除审批权限列表
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:@"permission_id_list"];
         kCache.umsAccessTokenModel = nil;
         if (!confirmBlock) {
             return;
