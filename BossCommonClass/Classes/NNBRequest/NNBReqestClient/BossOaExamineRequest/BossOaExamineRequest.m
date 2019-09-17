@@ -150,7 +150,7 @@
                                };
     if (showError) {
         [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
-            DLog(@"%@", responseObject);
+            DLog(@"节点1 %@", responseObject);
             if (!successBlock) {
                 return;
             }
@@ -165,7 +165,7 @@
         }];
     } else {
         [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
-            DLog(@"%@", responseObject);
+            DLog(@"节点2 %@", responseObject);
             if (!successBlock) {
                 return;
             }
