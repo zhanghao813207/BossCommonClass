@@ -13,6 +13,11 @@
 /**
  id
  */
+@property (nonatomic) PopupItemTypes type;
+
+/**
+ id
+ */
 @property (nonatomic, strong) NSString *_id;
 
 /**

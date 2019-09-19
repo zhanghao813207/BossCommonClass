@@ -229,7 +229,7 @@
     }
     
     [NNBBasicRequest postJsonNoneWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.approve" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+        DLog(@"同意审批流操作%@", responseObject);
         if (!successBlock) {
             return;
         }
