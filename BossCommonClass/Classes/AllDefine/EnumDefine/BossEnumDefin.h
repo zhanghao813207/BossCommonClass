@@ -106,6 +106,11 @@ typedef NS_ENUM(NSUInteger, PaymentTypes) {
     PaymentTypeDeposit = 303, // 押金
 };
 
+typedef NS_ENUM(NSUInteger, PopupItemTypes) {
+    PopupItemAccount    = 1, // 用户
+    PopupItemPost    = 2,  // 岗位
+};
+
 typedef NS_ENUM(NSUInteger, PositionID) {
     PositionIDAdministrator    = 1000, // 超级管理员
     PositionIDCOO              = 1001, // COO
