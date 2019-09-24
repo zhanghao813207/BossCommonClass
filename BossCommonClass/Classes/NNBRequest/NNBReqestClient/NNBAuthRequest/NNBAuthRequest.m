@@ -102,10 +102,7 @@
             managerAccount.configModel = model;
         }
         managerAccount.tokenModel = token;
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[responseObject objectForKey:@"permission_id_list"] forKey:@"permission_id_list"];
-        [defaults synchronize];
+       
         kCurrentBossManagerAccount = managerAccount;
         
         [BossAccountRequest BossAccountRequestGainAccountWithAccountId:token.account_id success:^(BossManagerAccountModel *accountModel){
