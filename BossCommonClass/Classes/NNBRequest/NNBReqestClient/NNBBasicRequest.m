@@ -211,9 +211,6 @@
                 kCache.lastLoginPhone = phone;
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                [defaults removeObjectForKey:@"permission_id_list"];
-
 #else
                 if(!kCurrentBossOwnerAccount){
                     return;
