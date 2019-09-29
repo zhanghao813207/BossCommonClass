@@ -42,7 +42,11 @@ these are common classes,they are used by boss system.
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'BasicCommonClass', '~> 0.4.4'
   s.dependency 'AFNetworking', '~> 3.1.0'
+  
+  # 七牛
   s.dependency 'Qiniu', '~> 7.1'
+  s.dependency 'HappyDNS'
+  
   s.dependency 'BGFMDB', '~> 1.51'
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.0'
