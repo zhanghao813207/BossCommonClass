@@ -146,6 +146,9 @@ static PhotoManager * sharedSingleton = nil;
     // 设置代理,需要遵守两个协议
     picker.delegate = self;
     // 弹出图像选取控制器
+    // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
+    // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
+    picker.modalPresentationStyle = UIModalPresentationFullScreen;
     [[self topMostController] presentViewController:picker animated:YES completion:nil];
 }
 - (void)alertcamera{
@@ -164,6 +167,9 @@ static PhotoManager * sharedSingleton = nil;
     // 设置代理,需要遵守两个协议
     picker.delegate = self;
     // 弹出图像选取控制器
+    // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
+    // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
+    picker.modalPresentationStyle = UIModalPresentationFullScreen;
     [[self topMostController] presentViewController:picker animated:true completion:nil];
 
 }
