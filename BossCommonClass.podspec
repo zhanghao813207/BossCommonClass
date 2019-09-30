@@ -42,7 +42,11 @@ these are common classes,they are used by boss system.
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'BasicCommonClass', '~> 0.4.4'
   s.dependency 'AFNetworking', '~> 3.1.0'
+  
+  # 七牛
   s.dependency 'Qiniu', '~> 7.1'
+  s.dependency 'HappyDNS'
+  
   s.dependency 'BGFMDB', '~> 1.51'
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.0'
@@ -50,10 +54,16 @@ these are common classes,they are used by boss system.
   s.dependency 'MJRefresh'
   s.dependency 'SDWebImage', '~> 5.0.1'
   s.dependency 'MQTTClient', '~> 0.15.2'
-  s.dependency 'UMCCommon', '~> 2.0.1'
-  s.dependency 'UMCSecurityPlugins', '~> 1.0.6'
-  s.dependency 'UMCPush', '~> 3.2.4'
-  s.dependency 'UMCCommonLog', '~> 1.0.0'
+  
+  # 友盟基础库
+  s.dependency 'UMCCommon'
+  # 'UMCSecurityPlugins'为安全组件，不需要开发者显式调用，为开发者提供安全的数据环境，能有效的防止刷量和反作弊等行为，属于可选项，如果对App的数据安全性要求不高的话，可以去掉
+  s.dependency 'UMCSecurityPlugins'
+  # 友盟Push库
+  s.dependency 'UMCPush'
+  # 友盟日志库（调试）
+  s.dependency 'UMCCommonLog'
+  
   s.dependency 'XFHProject', '~> 2.0.0'
   s.dependency 'MGJRouter', '~> 0.10.0'
   s.dependency 'Realm', '~> 3.17.0'

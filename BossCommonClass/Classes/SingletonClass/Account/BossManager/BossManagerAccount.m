@@ -73,6 +73,9 @@
                 success(isLogin,YES);
             }];
             BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
+            // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
+            // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
+            loginNC.modalPresentationStyle = UIModalPresentationFullScreen;
             [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossManagerAccount.isFirstLogin completion:nil];
             [viewController.tabBarController setSelectedIndex:0];
             return;
@@ -118,6 +121,9 @@
             
         }];
         BossWhiteNavigationController *loginNC = [[BossWhiteNavigationController alloc] initWithRootViewController:loginVC];
+        // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
+        // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
+        loginNC.modalPresentationStyle = UIModalPresentationFullScreen;
         [viewController.navigationController presentViewController:loginNC animated:!kCurrentBossManagerAccount.isFirstLogin completion:nil];
         [viewController.tabBarController setSelectedIndex:0];
     }
