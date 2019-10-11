@@ -41,8 +41,21 @@ NSString *const kBossOwnerUserhealthcertificateurl = @"health_certificate_url";
 
 // 健康证图片url(背面照片)
 NSString *const kBossOwnerUserhealthcertificatebackurl = @"health_certificate_back_url";
+
 // 网络配置
 NSString *const kBossOwnerconfigurl = @"config";
+
+// 身份证类型
+NSString *const kBossOwnerUserIDcardType = @"idcard_type";
+
+// 身份证开始时间
+NSString *const kBossOwnerUserIDcardStartDate = @"idcard_start_date";
+
+//  身份证结束时间
+NSString *const kBossOwnerUserIDcardEndDate = @"idcard_end_date";
+
+// 临时身份证的剩余有限天数
+NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_effect_days";
 
 @interface BossOwnerUserModel ()
 @end
@@ -200,6 +213,18 @@ NSString *const kBossOwnerconfigurl = @"config";
     if(![dictionary[kBossOwnerconfigurl] isKindOfClass:[NSNull class]]){
         self.configModel = [[configModel alloc]initWithDictionary:dictionary[kBossOwnerconfigurl]];
     }
+    if(![dictionary[kBossOwnerUserIDcardType] isKindOfClass:[NSNull class]]){
+        self.idcardType = [dictionary[kBossOwnerUserIDcardType] integerValue];
+    }
+    if(![dictionary[kBossOwnerUserIDcardStartDate] isKindOfClass:[NSNull class]]){
+        self.idcardStartDate = [dictionary[kBossOwnerUserIDcardStartDate] integerValue];
+       }
+    if(![dictionary[kBossOwnerUserIDcardEndDate] isKindOfClass:[NSNull class]]){
+        self.idcardEndDate = [dictionary[kBossOwnerUserIDcardEndDate] integerValue];
+       }
+    if(![dictionary[kBossOwnerUserTemporaryIDcardEffectDays] isKindOfClass:[NSNull class]]){
+        self.temporaryIdcardDffectDays = [dictionary[kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
+    }
 	return self;
 }
 
@@ -285,6 +310,11 @@ NSString *const kBossOwnerconfigurl = @"config";
     if(self.WalletModel != nil){
         dictionary[kBossOwnerUserWalletModel] = [self.WalletModel toDictionary];
     }
+    dictionary[kBossOwnerUserIDcardType] = @(self.idcardType);
+    dictionary[kBossOwnerUserIDcardStartDate] = @(self.idcardStartDate);
+    dictionary[kBossOwnerUserIDcardEndDate] = @(self.idcardEndDate);
+    dictionary[kBossOwnerUserTemporaryIDcardEffectDays] = @(self.temporaryIdcardDffectDays);
+
 	return dictionary;
 
 }
@@ -321,10 +351,13 @@ NSString *const kBossOwnerconfigurl = @"config";
 	if(self.bankName != nil){
 		[aCoder encodeObject:self.bankName forKey:kBossOwnerUserModelBankName];
 	}
-	[aCoder encodeObject:@(self.birthDate) forKey:kBossOwnerUserModelBirthDate];	if(self.cardholderName != nil){
+	[aCoder encodeObject:@(self.birthDate) forKey:kBossOwnerUserModelBirthDate];
+    if(self.cardholderName != nil){
 		[aCoder encodeObject:self.cardholderName forKey:kBossOwnerUserModelCardholderName];
 	}
-	[aCoder encodeObject:@(self.expiredAt) forKey:kBossOwnerUserModelExpiredAt];	[aCoder encodeObject:@(self.genderId) forKey:kBossOwnerUserModelGenderId];	if(self.handBustUrl != nil){
+	[aCoder encodeObject:@(self.expiredAt) forKey:kBossOwnerUserModelExpiredAt];
+    [aCoder encodeObject:@(self.genderId) forKey:kBossOwnerUserModelGenderId];
+    if(self.handBustUrl != nil){
 		[aCoder encodeObject:self.handBustUrl forKey:kBossOwnerUserModelHandBustUrl];
 	}
 	if(self.headPortraitPhotoUrl != nil){
@@ -354,6 +387,10 @@ NSString *const kBossOwnerconfigurl = @"config";
     if(self.WeChatModel != nil){
         [aCoder encodeObject:self.WeChatModel forKey:kBossOwnerUserWechatModel];
     }
+    [aCoder encodeObject:@(self.idcardType) forKey:kBossOwnerUserIDcardType];
+    [aCoder encodeObject:@(self.idcardStartDate) forKey:kBossOwnerUserIDcardStartDate];
+    [aCoder encodeObject:@(self.idcardEndDate) forKey:kBossOwnerUserIDcardEndDate];
+    [aCoder encodeObject:@(self.temporaryIdcardDffectDays) forKey:kBossOwnerUserTemporaryIDcardEffectDays];
 
 }
 
@@ -385,6 +422,12 @@ NSString *const kBossOwnerconfigurl = @"config";
 	self.nickname = [aDecoder decodeObjectForKey:kBossOwnerUserModelNickname];
     self.WalletModel = [aDecoder decodeObjectForKey:kBossOwnerUserWalletModel];
     self.WeChatModel = [aDecoder decodeObjectForKey:kBossOwnerUserWechatModel];
+    
+    self.idcardType = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardType] integerValue];
+    self.idcardStartDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardStartDate] integerValue];
+    self.idcardEndDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardEndDate] integerValue];
+    self.temporaryIdcardDffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
+
 	return self;
 
 }
@@ -417,6 +460,10 @@ NSString *const kBossOwnerconfigurl = @"config";
 	copy.nickname = [self.nickname copy];
     copy.WeChatModel = [self.WeChatModel copy];
     copy.WalletModel = [self.WalletModel copy];
+    copy.idcardType = self.idcardType;
+    copy.idcardStartDate = self.idcardStartDate;
+    copy.idcardEndDate = self.idcardEndDate;
+    copy.temporaryIdcardDffectDays = self.temporaryIdcardDffectDays;
 	return copy;
 }
 @end

@@ -27,10 +27,10 @@
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * gender;
-// 结束时间
+// 健康证结束时间
 @property (nonatomic, assign) NSInteger healthcertificateend;
 
-// 开始时间
+//健康证开始时间
 @property (nonatomic, assign) NSInteger healthcertificatestart;
 
 //  健康证图片url(正面照片)
@@ -40,6 +40,18 @@
 @property (nonatomic, strong) NSString * healthcertificatebackurl;
 
 @property (nonatomic, assign) BOOL isshowJoinTeam;
+
+// 身份证类型 10正常的身份证类型,20临时的身份证类型
+@property (nonatomic, assign) IdentityType idcardType;
+
+// 身份证开始时间
+@property (nonatomic, assign) NSInteger idcardStartDate;
+
+//身份证结束时间
+@property (nonatomic, assign) NSInteger idcardEndDate;
+
+// 临时身份证的剩余有限天数
+@property (nonatomic, assign) NSInteger temporaryIdcardDffectDays;
 
 /**
  签约类型
