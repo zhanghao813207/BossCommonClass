@@ -51,7 +51,7 @@
 @property (nonatomic, assign) NSInteger idcardEndDate;
 
 // 临时身份证的剩余有限天数
-@property (nonatomic, assign) NSInteger temporaryIdcardDffectDays;
+@property (nonatomic, assign) NSInteger temporaryIdcardEffectDays;
 
 /**
  签约类型
