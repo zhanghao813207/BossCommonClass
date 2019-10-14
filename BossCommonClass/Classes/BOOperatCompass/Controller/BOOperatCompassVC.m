@@ -13,6 +13,8 @@
 #import "BossBasicDefine.h"
 #import "TeamListModel.h"
 #import "BOOpenSelectbusinessDistrictView.h"
+#import "PGDatePickManager.h"
+
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
 @property(nonatomic, strong) BOSelectTimeView *selectedTimeView;
@@ -28,16 +30,59 @@
 @property (nonatomic,strong)NSString *currentMouth;
 @property (nonatomic,strong)NSString *currentBizDistrictId;
 @property (nonatomic,strong)NSString *currentBizDistrictName;
+@property (nonatomic,strong)PGDatePickManager *datePickManager;
 
 
 
 @end
 
 @implementation BOOperatCompassVC
+- (void)pickDateCreate{
+    self.datePickManager = [[PGDatePickManager alloc]init];
+    PGDatePicker *datePicker = self.datePickManager.datePicker;
+    datePicker.datePickerMode = PGDatePickerModeYearAndMonth;
+    NSDate *date =[NSDate date];//简书 FlyElephant
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+
+    [formatter setDateFormat:@"yyyy"];
+    // 最大年份为当前年份
+    int currentYear = [[formatter stringFromDate:date] intValue];
+    [formatter setDateFormat:@"MM"];
+    // 最大时间为当前月份 -1
+    int currentMonth = [[formatter stringFromDate:date] intValue] - 1;
+    // 拼接字符串
+    NSString *maxStr = [NSString stringWithFormat:@"%d-%.2d", currentYear, currentMonth];
+    // 拼接字符串
+    NSString *minStr = @"2019-05";
+    // 获取 formatter
+    NSDateFormatter *nextformatter = [[NSDateFormatter alloc] init] ;
+    [nextformatter setDateFormat:@"yyyy-MM"];
+    // 转为 NSDate 格式 (结束时间)
+    NSDate *maxDate=[nextformatter dateFromString:maxStr];
+    // 转为 NSDate 格式 (开始时间)
+    NSDate *minDate=[nextformatter dateFromString:minStr];
+    datePicker.maximumDate = maxDate;
+    
+    datePicker.minimumDate = minDate;
+    __weak typeof(self) weakSelf = self;
+    datePicker.selectedDate = ^(NSDateComponents *dateComponents) {
+//        NSLog(@"dateComponents = %.d", dateComponents.month);
+//        NSLog(@"dateComponents = %.2d", dateComponents.year);
+        weakSelf.currentYear = [NSString stringWithFormat:@"%ld",  dateComponents.year];
+        weakSelf.currentMouth = [NSString stringWithFormat:@"%.2ld",  dateComponents.month];
+        weakSelf.selectedTimeView.selectTimeStr = [NSString stringWithFormat:@"%@-%@",weakSelf.currentYear,weakSelf.currentMouth];
+        //        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@",year,mouth]];
+        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@&biz_district_id=%@",weakSelf.currentYear,weakSelf.currentMouth,weakSelf.currentBizDistrictId]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        [weakSelf.webView loadRequest:request];
+    };
+    [self presentViewController:self.datePickManager animated:false completion:nil];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    [self pickDateCreate];
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setLeftItem];
@@ -76,14 +121,23 @@
          NSLog(@"返回url%@",responseObject);
          if(dic)
          {
+             NSDate *date =[NSDate date];//简书 FlyElephant
+             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+
+             [formatter setDateFormat:@"yyyy"];
+             // 最大年份为当前年份
+             int currentYear = [[formatter stringFromDate:date] intValue];
+             [formatter setDateFormat:@"MM"];
+             // 最大时间为当前月份 -1
+             int currentMonth = [[formatter stringFromDate:date] intValue] - 1;
              self.baseUrl = [dic objectForKey:@"url"];
              if (self.baseUrl)
              {
-                 weakSelf.currentYear = @"2019";
-                 weakSelf.currentMouth = @"06";
+                 weakSelf.currentYear = [NSString stringWithFormat:@"%d", currentYear];
+                 weakSelf.currentMouth = [NSString stringWithFormat:@"%d", currentMonth];
                  
 #ifdef kBossOwner
-                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld&biz_district_id=%@",2019,6,firstDistrictId]];
+                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld&biz_district_id=%@",currentYear,currentMonth,firstDistrictId]];
 #else
                  NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld",2019,6]];
 #endif
@@ -103,7 +157,10 @@
     [[UIApplication sharedApplication].keyWindow addSubview:self.openSelectView];
     
     self.selectedTimeView.openSelectBlock = ^{
-        [weakSelf.openSelectView show];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf pickDateCreate];
+        });
+
     };
     
     self.districtSelectView = [[BOOpenSelectbusinessDistrictView alloc]init];
@@ -118,13 +175,7 @@
     
     
     self.openSelectView.sureSelectBlock = ^(NSString * _Nonnull year, NSString * _Nonnull mouth) {
-        weakSelf.currentYear = year;
-        weakSelf.currentMouth = mouth;
-        weakSelf.selectedTimeView.selectTimeStr = [NSString stringWithFormat:@"%@-%@",year,mouth];
-        //        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@",year,mouth]];
-        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@&biz_district_id=%@",weakSelf.currentYear,weakSelf.currentMouth,weakSelf.currentBizDistrictId]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-        [weakSelf.webView loadRequest:request];
+        
     };
     
     
@@ -157,6 +208,11 @@
     _webView.allowsBackForwardNavigationGestures = YES;
     [self.view addSubview:_webView];
     
+    
+}
+-(void)tapView:(UITapGestureRecognizer *)sender{
+    //设置轻拍事件改变testView的颜色
+    // UI更新代码
     
 }
 -(void)viewWillDisappear:(BOOL)animated

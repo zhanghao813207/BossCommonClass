@@ -55,7 +55,17 @@
                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
     NSDateComponents *comp = [calendar components: unitFlags fromDate:[NSDate date]];
-    self.timeLab.text = [NSString stringWithFormat:@"%02ld-%02ld",2019,6];
+    NSDate *date =[NSDate date];//简书 FlyElephant
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+
+    [formatter setDateFormat:@"yyyy"];
+    // 最大年份为当前年份
+    int currentYear = [[formatter stringFromDate:date] intValue];
+    [formatter setDateFormat:@"MM"];
+    // 最大时间为当前月份 -1
+    int currentMonth = [[formatter stringFromDate:date] intValue] - 1;
+    
+    self.timeLab.text = [NSString stringWithFormat:@"%d-%.2d",currentYear,currentMonth];
     self.timeLab.textAlignment = NSTextAlignmentRight;
     self.timeLab.userInteractionEnabled = true;
     [self addSubview:self.timeLab];
