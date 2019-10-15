@@ -188,7 +188,7 @@
 - (void)refreshLatestData {
     NSInteger currPage = 1;
     
-    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:nil page:self.currentPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
+    [AnnouncementRequest findNoticeList:self.messageModel.proxyAccountInfo.idField lastMessageId:nil page:currPage success:^(NSArray * _Nonnull dataArr, AnnounceListHeader * _Nonnull header) {
         
         self.dataArrM = [dataArr mutableCopy];
         self.currentPage = currPage;
