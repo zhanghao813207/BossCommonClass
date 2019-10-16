@@ -276,7 +276,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.iscloseTalk) {
         SendMessageStartVc * vc = [SendMessageStartVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-        ContactsPerson *model = self.arrM[indexPath.row];
+        NSMutableArray *contentArr = self.userContentArr[indexPath.section];
+        ContactsPerson *model = contentArr[indexPath.row];
         vc.name = model.nick_name;
         vc.teamName = self.title;
         vc.targetid = model._id;
