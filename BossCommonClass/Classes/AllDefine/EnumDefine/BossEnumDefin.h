@@ -467,4 +467,9 @@ typedef NS_ENUM(NSUInteger, BankCardStatus) {
     BankCardStatusDone           = 3, // 银行卡信息完善
 };
 
+// 身份证类型
+typedef NS_ENUM(NSUInteger, IdentityType) {
+    IdentityTypeNormal            = 10, // 正常身份证
+    IdentityTypeTemp              = 20, // 临时身份证
+};
 #endif /* BossEnumDefin_h */
