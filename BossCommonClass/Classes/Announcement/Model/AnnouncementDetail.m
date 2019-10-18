@@ -14,6 +14,8 @@
 #import "NSString+Time.h"
 #import "NSDate+Extension.h"
 
+
+
 @implementation AnnouncementDetail
 - (instancetype)init
 {
@@ -25,6 +27,11 @@
     }
     return self;
 }
+
+- (messageContextType)message_type{
+    return self.message_mime_kind;
+}
+
 - (NSString *)time {
     NSString *normalTime = [JYCSimpleToolClass fastChangeToNormalTimeWithString:self.created_at];
     NSDate *normalDate = [NSDate dateFromString:normalTime];

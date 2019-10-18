@@ -13,6 +13,9 @@
 #import "KNPhotoBrowser.h"
 #import "AnnouncementRequest.h"
 #import "Media_info.h"
+#import "BossEnumDefin.h"
+#import <WebKit/WebKit.h>
+#import "BossBasicDefine.h"
 
 @interface AnnouncementDetailVC ()<UITableViewDelegate,UITableViewDataSource,AnnouncementDetailCellDelegate>
 
@@ -29,6 +32,8 @@
 
 @property(nonatomic, strong)NSMutableArray *itemsArr;
 @property(nonatomic, strong)NSArray *imgArr;
+
+@property(nonatomic, strong)WKWebView *officialAccountWebView;
 @end
 
 @implementation AnnouncementDetailVC
@@ -38,21 +43,35 @@
     self.title = @"公告详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self footerView];
-    [self tableview];
+    WS(weakself)
     [AnnouncementRequest announcementDetail:self.idStr success:^(AnnouncementDetail * _Nonnull detailModel) {
-//        self.title = detailModel.title;
-        self.headerView.model = detailModel;
-        self.footerView.model = detailModel;
-        self.imgArr = detailModel.media_info_list;
-        for (Media_info *model in self.imgArr) {
-            KNPhotoItems *items = [[KNPhotoItems alloc] init];
-            items.sourceImage = [UIImage imageNamed:model.url];
-            [self.itemsArr addObject:items];
+        NSLog(@"%@", [NSThread currentThread]);
+        
+        weakself.imgArr = detailModel.media_info_list;
+        if (detailModel.message_type == MESSAGE_KIND_URL){
+            NSLog(@"获取到了");
+            NSString *url = detailModel.extra_data.url;
+            [weakself officialAccountWebViewWithUrl:url];
+        } else {
+            
+            [weakself footerView];
+            [weakself tableview];
+            
+            weakself.headerView.model = detailModel;
+            weakself.footerView.model = detailModel;
+            
+            for (Media_info *model in weakself.imgArr) {
+                KNPhotoItems *items = [[KNPhotoItems alloc] init];
+                items.sourceImage = [UIImage imageNamed:model.url];
+                [weakself.itemsArr addObject:items];
+            }
+            
+            [weakself.tableview reloadData];
+            
         }
-        [self.tableview reloadData];
+        
     } fail:^(NSString * message) {
-
+        // TODO: 错误时 展示详情错误页 --- 需设计
     }];
     
 }
@@ -145,6 +164,23 @@
         }];
     }
     return _footerView;
+}
+- (WKWebView *)officialAccountWebViewWithUrl:(NSString * _Nonnull)urlStr{
+    if (_officialAccountWebView == nil){
+        _officialAccountWebView = [[WKWebView alloc] init];
+        // 生成URL
+        NSURL *url = [NSURL URLWithString:urlStr];
+        // 网络请求
+        NSURLRequest *request =[NSURLRequest requestWithURL:url];
+        // 加载网页
+        [_officialAccountWebView loadRequest:request];
+        [self.view addSubview:_officialAccountWebView];
+        [_officialAccountWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.top.equalTo(self.view);
+        }];
+    }
+    
+    return _officialAccountWebView;
 }
 
 @end

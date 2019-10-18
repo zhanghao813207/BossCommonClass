@@ -356,6 +356,16 @@ typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
     URGE_RECORD_STATE_COMPLETE =  100, // 已办理
     URGE_RECORD_STATE_SHUTDOWN = -100, // 关闭
 };
+// 消息内容类型
+typedef enum : NSUInteger {
+    MESSAGE_KIND_TEXT = 10, // 纯文本
+    MESSAGE_KIND_VIDEO = 20, // 视频
+    MESSAGE_KIND_VOICE = 30, // 语音
+    MESSAGE_KIND_PICTURE = 40, // 图片
+    MESSAGE_KIND_RICH_TEXT = 50, // 富文本富媒体
+    MESSAGE_KIND_CUSTOM_FORM = 60, // 自定义表单信息
+    MESSAGE_KIND_URL = 70 // URL外部链接跳转
+} messageContextType;
 
 typedef NS_ENUM(NSUInteger, STAFFWORKTYPE) {
     STAFFWORKTYPEFULLTIME        =  3002, // 甲类
