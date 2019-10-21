@@ -69,4 +69,16 @@
     NSCalendarUnit calendarUnit = NSCalendarUnitWeekday;    NSDateComponents* theComponents = [calendar components:calendarUnit fromDate:inputDate];    return[weekdays objectAtIndex:theComponents.weekday];
     
 }
+
+/**
+*  变更时间格式满足现实要求, 将20191010变更为2019/10/10格式
+*/
++(NSString *)changeTimeDisplayFormatWithOriginalTime:(NSString *)originalTime{
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyyMMdd";
+    NSDate *date = [format dateFromString:originalTime];
+    format.dateFormat = @"yyyy/MM/dd";
+    return  [format stringFromDate:date];
+}
+
 @end
