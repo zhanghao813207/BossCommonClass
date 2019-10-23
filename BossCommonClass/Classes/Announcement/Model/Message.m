@@ -10,6 +10,7 @@ NSString *const kDataIdField = @"_id";
 NSString *const kDataAccountId = @"account_id";
 NSString *const kDataName = @"name";
 NSString *const kDataProxyAccountInfo = @"proxy_account_info";
+NSString *const kDatatype = @"type";
 
 @interface Message ()
 @end
@@ -27,7 +28,11 @@ NSString *const kDataProxyAccountInfo = @"proxy_account_info";
 	self = [super init];
 	if(![dictionary[kDataIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kDataIdField];
-	}	
+	}
+    if(![dictionary[kDatatype] isKindOfClass:[NSNull class]]){
+        self.type = [dictionary[kDatatype] integerValue];
+        self.messageType = self.type;
+    }
 	if(![dictionary[kDataAccountId] isKindOfClass:[NSNull class]]){
 		self.accountId = dictionary[kDataAccountId];
 	}	
@@ -40,8 +45,6 @@ NSString *const kDataProxyAccountInfo = @"proxy_account_info";
 
 	return self;
 }
-
-
 /**
  * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
  */

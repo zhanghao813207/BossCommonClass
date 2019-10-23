@@ -80,7 +80,16 @@
 #elif defined kBossManager
     self.publishButton.hidden = true;
 #elif defined kBossOwner
-    self.publishButton.hidden = false;
+    // 只要不是公众号就显示 新建公告按钮
+    if (self.messageModel.messageType != MessageListTypeOfficial){
+        self.publishButton.hidden = false;
+    } else {
+        self.publishButton.hidden = true;
+        [self.tableview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.publishButton.mas_top).offset(46);
+        }];
+    }
+    
 #else
     self.publishButton.hidden = true;
 #endif
@@ -287,6 +296,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AnnouncementCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.model = self.dataArrM[indexPath.row];
+    cell.type = self.messageModel.messageType;
     return cell;
 }
 

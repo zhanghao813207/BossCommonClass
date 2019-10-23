@@ -454,6 +454,12 @@ typedef NS_ENUM(NSInteger, MessageType) {
     MessageTypeMeeting =  70, // 应用(会议)
 };
 
+///消息列表-消息类型 10 普通公告 20 公众号
+typedef NS_ENUM(NSInteger, MessageListType) {
+    MessageListTypeAnnouncement =  10,
+    MessageListTypeOfficial = 20,
+};
+
 //业务线类型
 typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeLogistics              = 1000, // 外卖配送

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BossBasicDefine.h"
+
 @class AnnoucementList;
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
  数据
  */
 @property(nonatomic, strong)AnnoucementList *model;
+/**
+ 数据类型 公众号 or 普通公告
+ */
+@property(nonatomic, assign)MessageListType type;
 @end
 
 NS_ASSUME_NONNULL_END

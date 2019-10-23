@@ -396,6 +396,33 @@
         make.top.equalTo(self.imgView.mas_bottom).offset(10);
     }];
 }
+- (void)setType:(MessageListType)type{
+    // 公众号
+    if (type == MessageListTypeOfficial){
+        // 不显示头像
+        self.headerImgView.hidden = true;
+        // 不显示名字
+        self.nameLable.hidden = true;
+        
+        // 时间居中
+        self.timeLable.textAlignment = NSTextAlignmentCenter;
+        
+        [self.timeLable mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.containerView);
+            make.top.equalTo(self.contentView).offset(16);
+        }];
+        //
+        [_containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(16);
+            make.right.equalTo(self.contentView).offset(-16);
+//            make.top.equalTo(self.headerImgView.mas_centerY);
+        }];
+        
+    } else if (type == MessageListTypeAnnouncement){
+        self.headerImgView.hidden = false;
+        self.nameLable.hidden = false;
+    }
+}
 - (NSString *)reversalString:(NSString *)originString{
     NSString *resultStr = @"";
     for (NSInteger i = originString.length -1; i >= 0; i--) {
