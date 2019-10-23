@@ -10,6 +10,8 @@
 @property (nonatomic, strong) NSString * accessKey;
 @property (nonatomic, strong) NSString * secretKey;
 
+@property (nonatomic, assign, readonly) BOOL tokenAvailable; // token是否有效
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;
