@@ -9,6 +9,7 @@
 @property (nonatomic, strong) NSString * accountId;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) NSString * headimgurl;
 @property (nonatomic, strong) ProxyAccountInfo * proxyAccountInfo;
 // 公众号 or 公告
 @property (nonatomic, assign) MessageListType messageType;

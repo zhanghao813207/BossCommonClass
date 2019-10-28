@@ -11,6 +11,7 @@ NSString *const kDataAccountId = @"account_id";
 NSString *const kDataName = @"name";
 NSString *const kDataProxyAccountInfo = @"proxy_account_info";
 NSString *const kDatatype = @"type";
+NSString *const kDataHeadimgUrl = @"head_img_url";
 
 @interface Message ()
 @end
@@ -42,7 +43,9 @@ NSString *const kDatatype = @"type";
 	if(![dictionary[kDataProxyAccountInfo] isKindOfClass:[NSNull class]]){
 		self.proxyAccountInfo = [[ProxyAccountInfo alloc] initWithDictionary:dictionary[kDataProxyAccountInfo]];
 	}
-
+    if(![dictionary[kDataHeadimgUrl] isKindOfClass:[NSNull class]]){
+        self.headimgurl = dictionary[kDataHeadimgUrl];
+    }
 	return self;
 }
 /**
@@ -54,6 +57,9 @@ NSString *const kDatatype = @"type";
 	if(self.idField != nil){
 		dictionary[kDataIdField] = self.idField;
 	}
+    if(self.headimgurl != nil){
+        dictionary[kDataHeadimgUrl] = self.headimgurl;
+    }
 	if(self.accountId != nil){
 		dictionary[kDataAccountId] = self.accountId;
 	}
