@@ -356,6 +356,16 @@ typedef NS_ENUM(NSInteger, URGE_RECORD_STATE) {
     URGE_RECORD_STATE_COMPLETE =  100, // 已办理
     URGE_RECORD_STATE_SHUTDOWN = -100, // 关闭
 };
+// 消息内容类型
+typedef enum : NSUInteger {
+    MESSAGE_KIND_TEXT = 10, // 纯文本
+    MESSAGE_KIND_VIDEO = 20, // 视频
+    MESSAGE_KIND_VOICE = 30, // 语音
+    MESSAGE_KIND_PICTURE = 40, // 图片
+    MESSAGE_KIND_RICH_TEXT = 50, // 富文本富媒体
+    MESSAGE_KIND_CUSTOM_FORM = 60, // 自定义表单信息
+    MESSAGE_KIND_URL = 70 // URL外部链接跳转
+} messageContextType;
 
 typedef NS_ENUM(NSUInteger, STAFFWORKTYPE) {
     STAFFWORKTYPEFULLTIME        =  3002, // 甲类
@@ -442,6 +452,12 @@ typedef NS_ENUM(NSInteger, MessageType) {
     MessageTypeGroupChat =  50, // 群聊
     MessageTypeAnnouncement =  60, // 公告
     MessageTypeMeeting =  70, // 应用(会议)
+};
+
+///消息列表-消息类型 10 普通公告 20 公众号
+typedef NS_ENUM(NSInteger, MessageListType) {
+    MessageListTypeAnnouncement =  10,
+    MessageListTypeOfficial = 20,
 };
 
 //业务线类型
