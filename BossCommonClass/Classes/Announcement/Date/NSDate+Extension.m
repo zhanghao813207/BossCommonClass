@@ -403,4 +403,54 @@
         return 0;
     }
 }
+/// 比较两个时间的先后顺序,compareStr是否在baseStr之后
+/// @param compareStr  比对的时间
+/// @param baseStr 比对的基础时间点
++ (BOOL)compareDateOrderdWithCompareStr:(NSString *)compareStr
+                            withBaseStr:(NSString *)baseStr{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    NSDate *compareDate = [formatter dateFromString:compareStr];
+    NSDate *baseDate = [formatter dateFromString:baseStr];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitDay fromDate:baseDate toDate:compareDate options:NSCalendarWrapComponents];
+      if (cmps.day <= 0){
+        return YES;
+      }
+      return NO;
+}
+
+/// 传入的时间和当前时间的时间间隔是否大于某个特定值(如15天)
+/// @param compareStr  比对的时间
+/// @param numday 比对的天数
++ (BOOL)numberOfDaysWithCompareDate:(NSString *)compareStr
+                         withNumday:(int)numday {
+    if (compareStr==nil ||[compareStr isEqualToString:@""] ){
+        return NO;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *now = [NSDate date];
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay ;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    NSInteger year = [dateComponent year];
+    NSInteger month = [dateComponent month];
+    NSInteger day = [dateComponent day];
+    NSString *currentTimeStr = [NSString stringWithFormat:@"%04ld-%02ld-%02ld",year,month,day];
+    NSDate *currentDate = [formatter dateFromString:currentTimeStr];
+    NSDate *compareDate = [formatter dateFromString:compareStr];
+    NSDateComponents *comp = [calendar components:NSCalendarUnitDay
+                                         fromDate:currentDate
+                                           toDate:compareDate
+                                          options:NSCalendarWrapComponents];
+    if (comp.day > numday)
+    {
+      return YES;
+    }
+    return NO;
+}
+
 @end

@@ -3,9 +3,10 @@
 //	Model file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 
+#define kTokenAvailibleBaseDays  15  // 比对服务端过期时间在当前时间的15天之外是可用,15天之内需要重新获取token
 
 #import "UmsAccessTokenModel.h"
-
+#import "NSDate+Extension.h"
 NSString *const kUmsAccessTokenModelAccessToken = @"access_token";
 NSString *const kUmsAccessTokenModelAccountId = @"account_id";
 NSString *const kUmsAccessTokenModelAppId = @"app_id";
@@ -17,6 +18,20 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 @interface UmsAccessTokenModel ()
 @end
 @implementation UmsAccessTokenModel
+
+
+// token是否可用
+-(BOOL)tokenAvailable{
+    
+    if(self.expiredAt && self.expiredAt != nil  && ![self.expiredAt isEqualToString:@""]){
+        NSArray *arr = [self.expiredAt componentsSeparatedByString:@"T"];
+        if (!arr || arr.count != 2){
+            return NO;
+        }
+        return [NSDate numberOfDaysWithCompareDate:arr.firstObject withNumday:kTokenAvailibleBaseDays];
+    }
+    return NO;
+}
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values

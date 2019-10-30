@@ -185,6 +185,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSComparisonResult)compare:(NSDate *)targetDate format:(NSString *)format;
 
+/// 比较两个时间的先后顺序,compareStr是否在baseStr之后
+/// @param compareStr  比对的时间
+/// @param baseStr 比对的基础时间点
++ (BOOL)compareDateOrderdWithCompareStr:(NSString *)compareStr
+                            withBaseStr:(NSString *)baseStr;
+
+/// 传入的时间和当前时间的时间间隔是否大于某个特定值(如15天)
+/// @param compareStr  比对的时间
+/// @param numday 比对的天数
++ (BOOL)numberOfDaysWithCompareDate:(NSString *)compareStr
+                         withNumday:(int)numday;
 @end
 
 NS_ASSUME_NONNULL_END
