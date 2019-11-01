@@ -216,6 +216,7 @@
                     return;
                 }
                 kCurrentBossOwnerAccount = nil;
+                kCurrentRefreshToken = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 kCache.umsAccessTokenModel = nil;

@@ -3,7 +3,6 @@
 //	Model file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 
-#define kTokenAvailibleBaseDays  15  // 比对服务端过期时间在当前时间的15天之外是可用,15天之内需要重新获取token
 
 #import "UmsAccessTokenModel.h"
 #import "NSDate+Extension.h"

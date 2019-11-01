@@ -27,6 +27,9 @@
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * gender;
+// 刷新token
+@property (nonatomic, strong) NSString * refreshToken;
+
 // 健康证结束时间
 @property (nonatomic, assign) NSInteger healthcertificateend;
 

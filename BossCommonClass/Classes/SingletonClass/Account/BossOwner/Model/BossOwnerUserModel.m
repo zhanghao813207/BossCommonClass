@@ -26,6 +26,7 @@ NSString *const kBossOwnerUserModelName = @"name";
 NSString *const kBossOwnerUserModelNational = @"national";
 NSString *const kBossOwnerUserModelNickname = @"nickname";
 NSString *const kBossOwnerUserModelphone = @"phone";
+NSString *const kBossOwnerUserModelRefreshToken = @"refresh_token";
 
 NSString *const kBossOwnerUserWechatModel = @"wechat_account";
 NSString *const kBossOwnerUserWalletModel = @"wallet_info";
@@ -138,6 +139,10 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 	if(![dictionary[kBossOwnerUserModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kBossOwnerUserModelAccessToken];
 	}
+    
+    if(![dictionary[kBossOwnerUserModelRefreshToken] isKindOfClass:[NSNull class]]){
+        self.refreshToken = dictionary[kBossOwnerUserModelRefreshToken];
+    }
     if(![dictionary[kBossOwnerUserModelphone] isKindOfClass:[NSNull class]]){
         self.phone = dictionary[kBossOwnerUserModelphone];
     }
@@ -252,6 +257,11 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 	if(self.accessToken != nil){
 		dictionary[kBossOwnerUserModelAccessToken] = self.accessToken;
 	}
+    
+    if (self.refreshToken != nil){
+        dictionary[kBossOwnerUserModelRefreshToken] = self.refreshToken;
+
+    }
     if(self.phone != nil){
         dictionary[kBossOwnerUserModelphone] = self.phone;
     }
@@ -330,6 +340,9 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 	if(self.accessToken != nil){
 		[aCoder encodeObject:self.accessToken forKey:kBossOwnerUserModelAccessToken];
 	}
+    if(self.refreshToken != nil){
+        [aCoder encodeObject:self.refreshToken forKey:kBossOwnerUserModelRefreshToken];
+    }
     if(self.phone != nil){
         [aCoder encodeObject:self.phone forKey:kBossOwnerUserModelphone];
     }
@@ -401,6 +414,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 {
 	self = [super init];
 	self.accessToken = [aDecoder decodeObjectForKey:kBossOwnerUserModelAccessToken];
+    self.refreshToken = [aDecoder decodeObjectForKey:kBossOwnerUserModelRefreshToken];
     self.phone = [aDecoder decodeObjectForKey:kBossOwnerUserModelphone];
 	self.accountId = [aDecoder decodeObjectForKey:kBossOwnerUserModelAccountId];
 	self.bankBranch = [aDecoder decodeObjectForKey:kBossOwnerUserModelBankBranch];
@@ -440,6 +454,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 	BossOwnerUserModel *copy = [BossOwnerUserModel new];
     copy.phone = [self.phone copy];
 	copy.accessToken = [self.accessToken copy];
+    copy.refreshToken = [self.refreshToken copy];
 	copy.accountId = [self.accountId copy];
 	copy.bankBranch = [self.bankBranch copy];
 	copy.bankCardFrontUrl = [self.bankCardFrontUrl copy];

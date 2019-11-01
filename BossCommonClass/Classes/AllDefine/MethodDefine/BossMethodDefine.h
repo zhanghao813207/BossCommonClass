@@ -19,6 +19,9 @@
 // 当前Boss老板登录帐号 - BossOwnerAccount
 #define kCurrentBossOwnerAccount kCache.currentBossOwnerAccount
 
+// 刷新token的存储
+#define kCurrentRefreshToken kCache.refreshTokenModel
+
 // 是否启用本地配置
 #define kLocalConfig kCache.localConfig
 
