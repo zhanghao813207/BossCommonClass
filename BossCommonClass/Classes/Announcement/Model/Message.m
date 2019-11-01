@@ -18,8 +18,25 @@ NSString *const kDataHeadimgUrl = @"head_img_url";
 @implementation Message
 
 
-
-
+- (BOOL)isEqual:(Message *)object{
+    if (self == object){
+        return true;
+    }
+    // ID 相等 名字相等 图标相等
+    if ([self.idField isEqualToString:object.idField] && [self.name isEqualToString:object.name] && [[self ImageCharacteristicsAndString:self.headimgurl] isEqualToString:[self ImageCharacteristicsAndString:object.headimgurl]]){
+        return true;
+    }
+    return false;
+}
+// ?分割为2个字符串
+- (NSString *)ImageCharacteristicsAndString:(NSString *)url{
+    NSArray *urlArr = [url componentsSeparatedByString:@"?"];
+    // 数量为2 表示分割成功 返回下表为0的字符串
+    if (urlArr.count == 2) {
+        return urlArr[0];
+    }
+    return @"";
+}
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
  */
