@@ -42,7 +42,16 @@ NSString *const kDataSenderInfo = @"sender_info";
 	return self;
 }
 
-
+-(BOOL)isEqual:(AccountNotice *)object{
+    if (self == object){
+        return true;
+    }
+    // 数量 以及 title相等才会相等
+    if (self.count == object.count && [self.messageSummaryInfo.title isEqualToString:object.messageSummaryInfo.title] && [self.messageSummaryInfo.idField isEqualToString:object.messageSummaryInfo.idField]){
+        return true;
+    }
+    return false;
+}
 /**
  * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
  */

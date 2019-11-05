@@ -54,7 +54,8 @@ these are common classes,they are used by boss system.
   s.dependency 'MJRefresh'
   s.dependency 'SDWebImage', '~> 5.0.1'
   s.dependency 'MQTTClient', '~> 0.15.2'
-  
+  s.dependency 'mob_linksdk_pro', '3.3.1'
+  s.dependency 'LinkedME_LinkPage'
   # 友盟基础库
   s.dependency 'UMCCommon'
   # 'UMCSecurityPlugins'为安全组件，不需要开发者显式调用，为开发者提供安全的数据环境，能有效的防止刷量和反作弊等行为，属于可选项，如果对App的数据安全性要求不高的话，可以去掉
@@ -63,6 +64,8 @@ these are common classes,they are used by boss system.
   s.dependency 'UMCPush'
   # 友盟日志库（调试）
   s.dependency 'UMCCommonLog'
+  # 友盟统计
+  s.dependency 'UMCAnalytics'
   
   s.dependency 'XFHProject', '~> 2.0.0'
   s.dependency 'MGJRouter', '~> 0.10.0'
