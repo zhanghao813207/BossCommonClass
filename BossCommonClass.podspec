@@ -64,6 +64,8 @@ these are common classes,they are used by boss system.
   s.dependency 'UMCPush'
   # 友盟日志库（调试）
   s.dependency 'UMCCommonLog'
+  # 友盟统计
+  s.dependency 'UMCAnalytics'
   
   s.dependency 'XFHProject', '~> 2.0.0'
   s.dependency 'MGJRouter', '~> 0.10.0'
