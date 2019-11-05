@@ -23,8 +23,6 @@ static BossCache *defaultCache = nil;
 
 @synthesize currentBossOwnerAccount = _currentBossOwnerAccount;
 
-@synthesize refreshTokenModel = _refreshTokenModel;
-
 @synthesize saasAccountList = _saasAccountList;
 
 @synthesize lastLoginPhone = _lastLoginPhone;
@@ -109,18 +107,6 @@ static BossCache *defaultCache = nil;
    
 }
 
-- (TokenModel *)refreshTokenModel{
-    if(!_refreshTokenModel){
-        NSDictionary *refreshTokenDict = [kUserDefault objectForKey:REFRESH_TOKEN];
-        if(refreshTokenDict){
-            TokenModel *tokenModel = [[TokenModel alloc] init];
-            [tokenModel setValuesForKeysWithDictionary:refreshTokenDict];
-            _refreshTokenModel = tokenModel;
-        }
-    }
-    return _refreshTokenModel;
-}
-
 - (void)setCurrentBossOwnerAccount:(BossOwnerAccount *)currentBossOwnerAccount{
     _currentBossOwnerAccount = currentBossOwnerAccount;
     
@@ -128,11 +114,7 @@ static BossCache *defaultCache = nil;
     [kUserDefault synchronize];
 }
 
--(void)setRefreshTokenModel:(TokenModel *)refreshTokenModel{
-    _refreshTokenModel = refreshTokenModel;
-    [kUserDefault setObject:[_refreshTokenModel decodeToDic] forKey:REFRESH_TOKEN];
-    [kUserDefault synchronize];
-}
+
 - (void)setCurrentManagerAccount:(BossManagerAccount *)currentManagerAccount
 {
     _currentManagerAccount = currentManagerAccount;

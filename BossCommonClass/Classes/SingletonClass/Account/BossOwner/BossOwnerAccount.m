@@ -9,6 +9,7 @@
 
 @implementation BossOwnerAccount
 
+
 - (NSDictionary *)decodeToDic
 {
     if (self.accountModel) {
@@ -55,7 +56,6 @@
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        kCurrentBossKnightAccount = nil;
         kCurrentBossOwnerAccount = nil;
-        kCurrentRefreshToken = nil;
         kCache.umsAccessTokenModel = nil;
         if (!confirmBlock) {
             return;

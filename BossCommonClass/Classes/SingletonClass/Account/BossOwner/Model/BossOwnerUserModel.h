@@ -3,6 +3,7 @@
 #import "WeChatModel.h"
 #import "BossEnumDefin.h"
 #import "configModel.h"
+#import "TokenModel.h"
 
 @interface BossOwnerUserModel : NSObject
 
@@ -95,4 +96,7 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;
+
+-(void)updateRefreshTokenWithTokenModel:(TokenModel *)tokenModel;
+
 @end

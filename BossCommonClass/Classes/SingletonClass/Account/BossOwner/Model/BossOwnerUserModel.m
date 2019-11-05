@@ -62,6 +62,12 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
 @end
 @implementation BossOwnerUserModel
 
+-(void)updateRefreshTokenWithTokenModel:(TokenModel *)tokenModel
+{
+    self.refreshToken = tokenModel.refresh_token;
+    self.expiredAt = tokenModel.expiredAt;
+    self.accessToken = tokenModel.access_token;
+}
 
 
 /**

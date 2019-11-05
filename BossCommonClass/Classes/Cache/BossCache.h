@@ -11,7 +11,6 @@
 @class BossManagerAccount;
 @class BossKnightAccount;
 @class BossOwnerAccount;
-@class TokenModel;
 // @class UmsAccessTokenModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -44,8 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) BossKnightAccount *currentKnightAccount;
 
 @property (nonatomic, strong, nullable) BossOwnerAccount *currentBossOwnerAccount;
-
-@property (nonatomic, strong, nullable) TokenModel *refreshTokenModel;
 
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *saasAccountList;
 
