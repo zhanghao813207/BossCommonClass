@@ -196,6 +196,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param numday 比对的天数
 + (BOOL)numberOfDaysWithCompareDate:(NSString *)compareStr
                          withNumday:(int)numday;
+
+/// 比较时间戳跟当前时间相差多久
+/// @param compareTime 传入的时间
+/// @return 相差的天数
++ (NSInteger)diffDaysWithCompareTime:(NSInteger)compareTime;
+
 @end
 
 NS_ASSUME_NONNULL_END

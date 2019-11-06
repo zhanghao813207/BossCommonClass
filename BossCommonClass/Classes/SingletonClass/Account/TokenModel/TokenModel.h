@@ -32,11 +32,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *expired_at;
 
 /**
+过期时间 ,刷新token时候,服务端返回字符, 校验时间以这个为准
+*/
+@property (nonatomic, assign) NSInteger expiredAt;
+
+/**
  检查是否过期
  */
 @property (nonatomic, readonly, assign) BOOL checkExpired;
 
 - (NSDictionary *)decodeToDic;
+
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end
 

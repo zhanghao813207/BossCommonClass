@@ -9,6 +9,7 @@
 
 @implementation BossOwnerAccount
 
+
 - (NSDictionary *)decodeToDic
 {
     if (self.accountModel) {

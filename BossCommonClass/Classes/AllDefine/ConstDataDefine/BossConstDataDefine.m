@@ -180,4 +180,8 @@ NSString *const LAST_LOGIN_PHONE_KEY = @"last_login_phone_key";
 // 退出登录列表
 NSString *const LOGOUT_PHONE_LIST_KEY = @"logout_phone_list_key";
 
+
+// 刷新的token
+NSString *const REFRESH_TOKEN = @"refresh_token";
+
 @end

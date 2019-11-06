@@ -99,9 +99,6 @@ static BossCache *defaultCache = nil;
         NSDictionary *accountDic = [kUserDefault objectForKey:ACCOUNT_KEY];
         if(accountDic){
             BossOwnerAccount *accountModel = [[BossOwnerAccount alloc] init];
-            
-            
-            
             [accountModel setValuesForKeysWithDictionary:accountDic];
             _currentBossOwnerAccount = accountModel;
         }
@@ -116,6 +113,7 @@ static BossCache *defaultCache = nil;
     [kUserDefault setObject:[_currentBossOwnerAccount decodeToDic] forKey:ACCOUNT_KEY];
     [kUserDefault synchronize];
 }
+
 
 - (void)setCurrentManagerAccount:(BossManagerAccount *)currentManagerAccount
 {

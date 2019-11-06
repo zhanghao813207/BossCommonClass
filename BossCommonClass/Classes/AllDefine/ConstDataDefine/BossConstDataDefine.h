@@ -67,4 +67,7 @@ UIKIT_EXTERN NSString *const LAST_LOGIN_PHONE_KEY;
 // 退出登录列表
 UIKIT_EXTERN NSString *const LOGOUT_PHONE_LIST_KEY;
 
+// 刷新的token
+UIKIT_EXTERN NSString *const REFRESH_TOKEN ;
+
 @end
