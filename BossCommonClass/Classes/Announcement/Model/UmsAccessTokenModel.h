@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 
+#define kTokenAvailibleBaseDays  15  // 比对服务端过期时间在当前时间的15天之外是可用,15天之内需要重新获取token
+
 @interface UmsAccessTokenModel : NSObject
 
 @property (nonatomic, strong) NSString * accessToken;

@@ -453,4 +453,19 @@
     return NO;
 }
 
++ (NSInteger)diffDaysWithCompareTime:(NSInteger)compareTime
+{
+    NSDate *compareDate = [[NSDate alloc]initWithTimeIntervalSince1970:compareTime];
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comp = [calendar components:NSCalendarUnitDay
+                                            fromDate:currentDate
+                                              toDate:compareDate
+                                             options:NSCalendarWrapComponents];
+ 
+    return comp.day;
+}
+
+
+
 @end
