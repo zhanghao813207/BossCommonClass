@@ -46,6 +46,9 @@ UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时�
 // 会议基础URL
 UIKIT_EXTERN NSString * MeetingBasicURL;
 
+//数据中台基础URL（用于薪资贷）
+UIKIT_EXTERN NSString * SalaryLoanBasicURL;
+
 UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroeS中应用的id
 
 /********* userdefaultKey ************/

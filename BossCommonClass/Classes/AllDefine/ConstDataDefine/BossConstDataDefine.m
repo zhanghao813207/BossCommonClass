@@ -57,6 +57,7 @@ NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
 // meeting basic url
 // Dev/QA
 NSString * MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:9030/meeting/";
+NSString * SalaryLoanBasicURL = @"";
 // Demo
 //NSString *const MeetingBasicURL = @"https://boss-quhuo.aoaosong.com:2090/meeting/";
 #else
@@ -102,7 +103,7 @@ NSString *const BossUmsPrefix     = @"boss";
 
 // 会议基础URL
 NSString * MeetingBasicURL = @"https://qlife-apps.aoaosong.com/meeting/";
-
+NSString * SalaryLoanBasicURL = @"";
 #endif
 
 #pragma mark-- ACCESS_KEY 和 SECRET_KEY
