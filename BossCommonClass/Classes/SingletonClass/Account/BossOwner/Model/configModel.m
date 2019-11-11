@@ -117,4 +117,9 @@ NSString *const kconfigModelSalaryLoan = @"pushu";
 
 	return copy;
 }
+
+- (BOOL)checkSalaryLoanURLValid
+{
+    return self.pushu && self.pushu.url && self.pushu.url.length > 0;
+}
 @end
