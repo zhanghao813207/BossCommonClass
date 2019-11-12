@@ -25,7 +25,6 @@
     NSString *url = [NSString stringWithFormat:@"%@knight_material/gain_knight_material_flow",kUrlApiVersion(@"/1.0")];
     
     NSDictionary *paramDic = @{
-                               @"account_id":kCurrentBossKnightAccount.accountModel._id,
 //                               @"page":@(page)
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
@@ -59,7 +58,6 @@
     NSString *url = [NSString stringWithFormat:@"%@knight_material/gain_knight_material_flow_order",kUrlApiVersion(@"/1.0")];
     
     NSDictionary *paramDic = @{
-                               @"account_id":kCurrentBossKnightAccount.accountModel._id,
                                @"order_id":orderId
                                };
     [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {

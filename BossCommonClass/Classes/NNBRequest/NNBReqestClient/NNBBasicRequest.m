@@ -197,13 +197,7 @@
                 [showView showStatus:errorMsg];
             }
             if (errCode == 415001 || errCode == 415002) {
-#ifdef kBossKnight
-                if(!kCurrentBossKnightAccount){
-                    return;
-                }
-                kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
-                kCurrentBossKnightAccount = nil;
-#elif defined kBossManager
+#ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
                 }
