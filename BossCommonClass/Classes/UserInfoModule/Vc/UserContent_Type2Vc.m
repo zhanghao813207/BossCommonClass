@@ -20,6 +20,7 @@
 #import "BankCardRegistCompleteVc.h"
 #import "workerDocumentVc.h"
 #import "RegistComplete_Setup2Vc.h"
+#import "UserInfoFixVc.h"
 
 @interface UserContent_Type2Vc ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -189,6 +190,11 @@
     NSBundle *bundle = [NSBundle bundleWithURL:bundleUrl];
     
     return bundle;
+}
+- (IBAction)fixUserInfoTipClicked:(id)sender {
+    UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
+    vc.fixType = fixIDCardDate;
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
