@@ -33,20 +33,20 @@
             break;
     }
     
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"需要您允许%@打开%@权限才能使用哦~去\"设置->隐私->%@\"开启一下吧",message,permissionTypeString,permissionTypeString] preferredStyle:(UIAlertControllerStyleAlert)];
-    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *permissionAlertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"需要您允许%@打开%@权限才能使用哦~去\"设置->隐私->%@\"开启一下吧",message,permissionTypeString,permissionTypeString] preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *setAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
             [[UIApplication sharedApplication] openURL:url];
             
         }
     }];
-    [alertC addAction:cameraAction];
-    [alertC addAction:alertA];
-    [[JYCSimpleToolClass getCurrentVC] presentViewController:alertC animated:YES completion:nil];
+    [permissionAlertController addAction:setAction];
+    [permissionAlertController addAction:cancleAction];
+    [[JYCSimpleToolClass getCurrentVC] presentViewController:permissionAlertController animated:YES completion:nil];
     
 }
 
