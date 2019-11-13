@@ -11,7 +11,7 @@
 #import "UIViewController+StoryBoard.h"
 #import "ChooseImageVc.h"
 #import "JYCSimpleToolClass.h"
-
+#import "AlertToolViewController.h"
 @interface PhotoManager()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @end
@@ -272,24 +272,7 @@ static PhotoManager * sharedSingleton = nil;
                 break;
             }
             case AVAuthorizationStatusDenied: {
-                NSString *message = @"BOSS当家";
-                   #ifdef kBossKnight
-                       message = @"BOSS骑士";
-                   #endif
-                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"需要您允许%@打开相机权限才能使用哦~去\"设置->隐私->相机\"开启一下吧",message] preferredStyle:(UIAlertControllerStyleAlert)];
-                UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                        [[UIApplication sharedApplication] openURL:url];
-                        
-                    }
-                }];
-                [alertC addAction:cameraAction];
-                [alertC addAction:alertA];
-                [[JYCSimpleToolClass getCurrentVC] presentViewController:alertC animated:YES completion:nil];
+                [AlertToolViewController showPermissionAlert:CameraPermission];
                 break;
             }
             case AVAuthorizationStatusRestricted: {
