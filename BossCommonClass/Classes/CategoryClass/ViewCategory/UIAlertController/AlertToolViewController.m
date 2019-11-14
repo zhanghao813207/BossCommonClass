@@ -33,7 +33,7 @@
             break;
     }
     
-    UIAlertController *permissionAlertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"需要您允许%@打开%@权限才能使用哦~去\"设置->隐私->%@\"开启一下吧",message,permissionTypeString,permissionTypeString] preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertController *permissionAlertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"需要您允许%@打开%@权限才能使用哦~去\"设置->隐私->%@\"开启一下吧",message,permissionTypeString,permissionTypeString] preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
         
     }];
