@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 修改类型
 @property (nonatomic, assign)SelectModifyOperationType fixType;
+
+// 修改类型
+@property (nonatomic, assign)changeUserInfoCurrentstate fixState;
 // 任务ID
 @property (nonatomic, strong)NSString *taskID;
 @end

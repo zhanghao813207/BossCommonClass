@@ -72,6 +72,7 @@ typedef void(^successUpload)(NSMutableArray *arr);
 @property (weak, nonatomic) IBOutlet UIView *dateErrorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dateErrorHeight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomButtonHeight;
 // 存放所有信息错误状态
 @property (nonatomic, strong) NSMutableArray *errorStateArr;
 //
@@ -152,6 +153,14 @@ typedef void(^successUpload)(NSMutableArray *arr);
         self.currentFixTaskLabel.text = @"立即更换正式身份证";
         self.taskContentLabel.text = @"您的身份证是临时身份证，请立即更换正式身份证";
         [self.bottomButton setTitle:@"更换正式身份证" forState:UIControlStateNormal];
+    }
+    // 只有未编辑 以及 被驳回才会显示操作按钮 其余为查看
+    if (self.fixState == normalState || self.fixState == rejectedState){
+        [self.bottomButton setHidden:false];
+        self.bottomButtonHeight.constant = 46;
+    } else {
+        [self.bottomButton setHidden:true];
+        self.bottomButtonHeight.constant = 0;
     }
         
 }
@@ -255,8 +264,8 @@ typedef void(^successUpload)(NSMutableArray *arr);
                      
                     self.racialTextField.text = textArray[3];
                     
-                    self.IDCardTextField.text = @"131182199306291026";
-//                    textArray[4];
+                    self.IDCardTextField.text = textArray[4];
+//
                     // 判断姓名
                     if (![textArray[0] isEqualToString:kCurrentBossOwnerAccount.accountModel.name]){
                         // 错误 更改后 与原姓名不可一致
@@ -302,10 +311,8 @@ typedef void(^successUpload)(NSMutableArray *arr);
                         
                     }
                     // 如果是修改身份证号 则必须与原先不一致 一致则为出错
-                    if (self.fixType == fixIDNumber){
-//                        
-                        
-                        if ([self.IDCardTextField.text isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
+                    if (self.fixType == fixIDNumber){               
+                        if ([textArray[4] isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
                             self.idCardErrorHeight.constant = 42;
                             self.idCardErrorLabel.text = @"当前身份证号码与录入身份证号码不可一致";
                             [self.idCardErrorView setHidden:false];
@@ -317,7 +324,7 @@ typedef void(^successUpload)(NSMutableArray *arr);
                         }
                     } else if (self.fixType == fixIDCardDate || self.fixType == fixIDcard){
                         // textArray[4]
-                        if (![self.IDCardTextField.text isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
+                        if (![textArray[4] isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
                             self.idCardErrorHeight.constant = 42;
                             [self.idCardErrorView setHidden:false];
                             

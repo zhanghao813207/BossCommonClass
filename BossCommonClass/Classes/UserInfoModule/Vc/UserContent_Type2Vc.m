@@ -130,29 +130,38 @@
         NSNumber *numbStatue = dic[@"content"];
         if ([name containsString:@"身份证信息"])
         {
-            if ([numbStatue intValue] == IdentityStatusFew)
-            {
-                //正反面照片任一面缺少,未完善 -- 实名认证流程
-                IdCardTipVc *vc = [IdCardTipVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
-                vc.notShowSuccess = YES;
-                vc.isUploadUserContent = YES;
+            if (self.taskStateView.hidden) {
+                if ([numbStatue intValue] == IdentityStatusFew)
+                {
+                    //正反面照片任一面缺少,未完善 -- 实名认证流程
+                    IdCardTipVc *vc = [IdCardTipVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
+                    vc.notShowSuccess = YES;
+                    vc.isUploadUserContent = YES;
+                    [self.navigationController pushViewController:vc animated:true];
+                    
+                }else if ([numbStatue intValue] == IdentityStatusMissSome)
+                {
+                    //只缺手持证件照,未完善 -- 上传手持照片
+                    IDCardAIVc * VC = (IDCardAIVc*)[IDCardAIVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
+                    VC.isUploadUserContent = TRUE;
+                    VC.notShowSuccess = YES;
+                    [self.navigationController pushViewController:VC animated: true];
+                }else
+                {
+                    //身份信息完善
+                    MyInfoViewController *archivesVC = [[MyInfoViewController alloc] initWithNibName:@"MyInfoViewController" bundle:[self getCurrentBundle]];
+                    archivesVC.canUpdateTempID = YES;
+                    [self.navigationController pushViewController:archivesVC animated:true];
+                    
+                }
+            } else {
+                UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
+                vc.fixType = self.taskModel.type;
+                vc.taskID = self.taskModel.idField;
+                vc.fixState = self.taskModel.state;
                 [self.navigationController pushViewController:vc animated:true];
-                
-            }else if ([numbStatue intValue] == IdentityStatusMissSome)
-            {
-                //只缺手持证件照,未完善 -- 上传手持照片
-                IDCardAIVc * VC = (IDCardAIVc*)[IDCardAIVc storyBoardCreateViewControllerWithBundle:@"BossOwnerLogin" StoryBoardName:@"BossOwnerLogin"];
-                VC.isUploadUserContent = TRUE;
-                VC.notShowSuccess = YES;
-                [self.navigationController pushViewController:VC animated: true];
-            }else
-            {
-                //身份信息完善
-                MyInfoViewController *archivesVC = [[MyInfoViewController alloc] initWithNibName:@"MyInfoViewController" bundle:[self getCurrentBundle]];
-                archivesVC.canUpdateTempID = YES;
-                [self.navigationController pushViewController:archivesVC animated:true];
-                
             }
+            
         }else if ([name isEqualToString:@"银行卡信息"])
         {
             if ([numbStatue intValue] == BankCardStatusNOCardId)
@@ -244,6 +253,7 @@
 }
 - (IBAction)fixUserInfoTipClicked:(id)sender {
     UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
+    vc.fixState = self.taskModel.state;
     vc.fixType = self.taskModel.type;
     vc.taskID = self.taskModel.idField;
     [self.navigationController pushViewController:vc animated:true];

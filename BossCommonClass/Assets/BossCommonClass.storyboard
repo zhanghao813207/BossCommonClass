@@ -741,6 +741,7 @@
                         <outlet property="birthdayErrorView" destination="tv5-pM-yid" id="Yd0-tC-7dN"/>
                         <outlet property="birthdayTextField" destination="j68-1k-Zqw" id="pFO-Zx-4Ti"/>
                         <outlet property="bottomButton" destination="gGw-9v-nmu" id="isX-T4-BIU"/>
+                        <outlet property="bottomButtonHeight" destination="ALC-dD-TC2" id="RId-9U-QT6"/>
                         <outlet property="currentFixTaskLabel" destination="apx-H8-lJc" id="hIh-I1-WZh"/>
                         <outlet property="dateErrorHeight" destination="Hie-al-rGU" id="SFW-Ep-4zV"/>
                         <outlet property="dateErrorView" destination="UVF-wq-Lad" id="fxS-Yt-pWY"/>
