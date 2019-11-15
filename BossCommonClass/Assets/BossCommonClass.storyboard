@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wsw-Jq-Mdy">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="header" rowHeight="141" id="RMV-md-2CK" customClass="userContent_Type2HeaderCell">
@@ -161,24 +161,24 @@
                                     <outlet property="delegate" destination="mI8-ti-bDZ" id="vzR-Us-fUK"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lkp-cD-1fK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lkp-cD-1fK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYt-6b-KDG">
-                                        <rect key="frame" x="16" y="11.5" width="42" height="21"/>
+                                        <rect key="frame" x="16" y="-10.5" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.85882352941176465" green="0.53333333333333333" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tipRightIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o6g-pR-Fgd">
-                                        <rect key="frame" x="63" y="17" width="9" height="10"/>
+                                        <rect key="frame" x="63" y="-5" width="9" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="dpN-vV-WMN"/>
                                             <constraint firstAttribute="width" constant="9" id="zHk-zZ-1yN"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close-memberList" translatesAutoresizingMaskIntoConstraints="NO" id="gwh-lU-5bH">
-                                        <rect key="frame" x="384" y="15" width="14" height="14"/>
+                                        <rect key="frame" x="384" y="-7" width="14" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gwh-lU-5bH" secondAttribute="height" id="fdK-Xn-VHP"/>
                                             <constraint firstAttribute="width" constant="14" id="ytv-wG-xuO"/>
@@ -192,7 +192,7 @@
                                     <constraint firstItem="o6g-pR-Fgd" firstAttribute="centerY" secondItem="yYt-6b-KDG" secondAttribute="centerY" id="Qg0-Rg-v4t"/>
                                     <constraint firstItem="gwh-lU-5bH" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="and-h0-8ZQ"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" constant="16" id="jdo-JS-gd7"/>
-                                    <constraint firstAttribute="height" constant="44" id="y9P-hX-fdz"/>
+                                    <constraint firstAttribute="height" id="y9P-hX-fdz"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="yFh-UH-s2w"/>
                                 </constraints>
                                 <connections>
@@ -214,6 +214,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="juX-tZ-mNP"/>
                     <connections>
+                        <outlet property="currentTaskLabel" destination="yYt-6b-KDG" id="GX2-My-iYw"/>
+                        <outlet property="isClickedIconImageView" destination="o6g-pR-Fgd" id="RN4-4S-US9"/>
+                        <outlet property="stateLabelHeight" destination="y9P-hX-fdz" id="Vuv-Bt-xBh"/>
+                        <outlet property="taskStateView" destination="Lkp-cD-1fK" id="9zJ-sd-6kt"/>
                         <outlet property="usercontentTableView" destination="wsw-Jq-Mdy" id="ce5-uM-R87"/>
                     </connections>
                 </viewController>

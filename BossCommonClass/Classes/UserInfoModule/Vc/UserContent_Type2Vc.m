@@ -21,13 +21,25 @@
 #import "workerDocumentVc.h"
 #import "RegistComplete_Setup2Vc.h"
 #import "UserInfoFixVc.h"
+#import "NNBBasicRequest.h"
+#import "findLatestModel.h"
 
 @interface UserContent_Type2Vc ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong) NSArray *tableArr;
 @property (weak, nonatomic) IBOutlet UITableView *usercontentTableView;
+@property (weak, nonatomic) IBOutlet UILabel *currentTaskLabel;
 
 @property(nonatomic, assign) IdentityType identityType;
+
+@property(nonatomic, strong) findLatestModel *taskModel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stateLabelHeight;
+
+// 是否显示右边箭头 根据当前状态判断
+@property (weak, nonatomic) IBOutlet UIImageView *isClickedIconImageView;
+//
+@property (weak, nonatomic) IBOutlet UIView *taskStateView;
 
 @end
 
@@ -35,7 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self getCurrentState];
     // 第0个是header站位
     self.identityType = kCurrentBossOwnerAccount.accountModel.idcardType;
     if (self.identityType == IdentityTypeNormal){
@@ -191,9 +203,49 @@
     
     return bundle;
 }
+- (void)getCurrentState{
+    if (kCurrentBossOwnerAccount.accountModel.accountId) {
+        NSDictionary *dic = @{
+//            @"state": @[@(normalState),@(auditState),@(rejectedState)],
+            @"account_id": kCurrentBossOwnerAccount.accountModel.accountId
+        };
+        
+        [NNBBasicRequest postJsonWithUrl:kUrl parameters: dic CMD:@"account.idcard_change.find_latest" success:^(id responseObject) {
+            // TODO: 处理返回结果
+            NSDictionary *dic = responseObject;
+            
+            if (dic.count <= 0) {
+                // 当前没有可执行任务
+                self.taskStateView.hidden = true;
+                self.stateLabelHeight.constant = 0;
+            } else {
+                // 任务正在执行
+                self.taskModel = [[findLatestModel alloc] initWithDictionary:dic];
+                self.taskStateView.hidden = false;
+                self.stateLabelHeight.constant = 44;
+                self.currentTaskLabel.text = self.taskModel.currentState;
+                
+                if (self.taskModel.updatestate == normalState || self.taskModel.updatestate == rejectedState || self.taskModel.updatestate == throughState){
+                    self.taskStateView.backgroundColor = kHexRGB(0xFFF6E8);
+                    self.currentTaskLabel.textColor = kHexRGB(0xDB8800);
+                    self.isClickedIconImageView.hidden = false;
+                } else if (self.taskModel.updatestate == auditState){
+                    self.taskStateView.backgroundColor = kHexRGB(0xF6F6F6);
+                    self.currentTaskLabel.textColor = kHexRGB(0xBFBFBF);
+                    self.isClickedIconImageView.hidden = true;
+                }
+                
+            }
+        } fail:^(id error) {
+            NSLog(@"%@", error);
+        }];
+    }
+    
+}
 - (IBAction)fixUserInfoTipClicked:(id)sender {
     UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
-    vc.fixType = fixIDCardDate;
+    vc.fixType = self.taskModel.type;
+    vc.taskID = self.taskModel.idField;
     [self.navigationController pushViewController:vc animated:true];
 }
 

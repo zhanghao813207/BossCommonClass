@@ -10,6 +10,10 @@
 #import "SDWebImage.h"
 #import "BossAiManager.h"
 #import "UIView+ImagePick.h"
+#import "NNBBasicRequest.h"
+#import "NNBUploadManager.h"
+#import "NNBUtilRequest.h"
+
 //#import <AipOcrSdk/AipOcrSdk.h>
 // 按钮状态
 // 保存状态 保存
@@ -18,7 +22,7 @@ typedef enum : NSUInteger {
     btnfixType,
     btnsaveType
 } buttonStateType;
-
+typedef void(^successUpload)(NSMutableArray *arr);
 @interface UserInfoFixVc ()<UITextFieldDelegate>
 // 底部操作按钮
 // 开始编辑 提交编辑
@@ -75,6 +79,15 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIImage *reverseImage;
 @property (nonatomic, strong) UIImage *headerImage;
 
+@property (nonatomic, strong) NSMutableArray *imageMutableArray;
+
+@property (nonatomic, strong) NSMutableArray *imageArray;
+
+@property (nonatomic, copy) successUpload successUploadBlock;
+// 开始时间
+@property (nonatomic, assign) NSInteger startdate;
+// 结束时间
+@property (nonatomic, assign) NSInteger enddate;
 @end
 
 @implementation UserInfoFixVc
@@ -115,6 +128,8 @@ typedef enum : NSUInteger {
     self.btnType = btnfixType;
     
     [BossAiManager autoRegist];
+
+    self.imageMutableArray = [[NSMutableArray alloc] init];
     
     self.errorStateArr = [[NSMutableArray alloc] init];
 }
@@ -190,6 +205,7 @@ typedef enum : NSUInteger {
             [self.headerImageView setUserInteractionEnabled:true];
         }
     }
+    _btnType = btnType;
 }
 - (void)setCanSaved:(BOOL)canSaved{
     if (canSaved){
@@ -239,7 +255,8 @@ typedef enum : NSUInteger {
                      
                     self.racialTextField.text = textArray[3];
                     
-                    self.IDCardTextField.text = textArray[4];
+                    self.IDCardTextField.text = @"131182199306291026";
+//                    textArray[4];
                     // 判断姓名
                     if (![textArray[0] isEqualToString:kCurrentBossOwnerAccount.accountModel.name]){
                         // 错误 更改后 与原姓名不可一致
@@ -286,7 +303,9 @@ typedef enum : NSUInteger {
                     }
                     // 如果是修改身份证号 则必须与原先不一致 一致则为出错
                     if (self.fixType == fixIDNumber){
-                        if ([textArray[4] isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
+//                        
+                        
+                        if ([self.IDCardTextField.text isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
                             self.idCardErrorHeight.constant = 42;
                             self.idCardErrorLabel.text = @"当前身份证号码与录入身份证号码不可一致";
                             [self.idCardErrorView setHidden:false];
@@ -297,7 +316,8 @@ typedef enum : NSUInteger {
                             
                         }
                     } else if (self.fixType == fixIDCardDate || self.fixType == fixIDcard){
-                        if (![textArray[4] isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
+                        // textArray[4]
+                        if (![self.IDCardTextField.text isEqualToString:kCurrentBossOwnerAccount.accountModel.identityCardId]){
                             self.idCardErrorHeight.constant = 42;
                             [self.idCardErrorView setHidden:false];
                             
@@ -318,6 +338,8 @@ typedef enum : NSUInteger {
                             return;
                         }
                         NSString * timeStr = [NSString stringWithFormat:@"%@ ~ %@", timeArray.firstObject, timeArray.lastObject];
+                        self.startdate = [timeArray.firstObject integerValue];
+                        self.enddate = [timeArray.lastObject integerValue];
                         self.dateTextField.text = timeStr;
                         // 判断过期时间是否大于3个月 如果小于 报错
                     }
@@ -362,21 +384,139 @@ typedef enum : NSUInteger {
     if([self.errorStateArr containsObject:@(false)]){
         return;
     }
+    self.imageArray = [[NSMutableArray alloc] initWithArray:@[self.faceImage, self.reverseImage, self.headerImage]];
     // 所有规则都符合
     self.canSaved = true;
+}
+// 获取token
+- (void)getQiniuTockenforImage:(UIImage *)Image{
+    WS(weakSelf);
+    if (self.imageMutableArray.count < 3) {
+        [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
+            NSLog(@"%@, %@", path, qiniu_token);
+            if (weakSelf.imageMutableArray.count == 0) {
+                [self.view showLoadingView:@"上传中"];
+            }
+            if (qiniu_token) {
+                UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:1];
+                NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
+                [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
+                    DLog(@"key = %@,percent = %f", key, percent);
+                } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                    DLog(@"%@", info);
+                    DLog(@"%@", key);
+                    DLog(@"%@",resp);
+                    // 0 正 1 反 2 手持
+                    [weakSelf.imageArray removeObjectAtIndex:0];
+                    [weakSelf.imageMutableArray addObject:key];
+                    if (weakSelf.imageMutableArray.count != 3) {
+                        [weakSelf getQiniuTockenforImage:weakSelf.imageArray[0]];
+                    } else {
+                        [weakSelf.view dismissLoadingStatusViewWithCompletion:^(BOOL Completion) {
+                            if (Completion) {
+                                if (self.successUploadBlock){
+                                    self.successUploadBlock(weakSelf.imageMutableArray);
+                                }
+                            }
+                        }];
+                    }
+                } fail:^(id error) {
+                    [weakSelf.view dismissLoadingViewWithCompletion:nil];
+                }];
+            } else {
+                // 提示网络故障
+                [self.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+                    [self.view showAnimationErrorStaus:@"当前网络状态不佳，请重试" completion:nil];
+                    
+                }];
+            }
+        } fail:nil];
+    }
 }
 - (IBAction)fixAction:(UIButton *)sender {
     // 如果按钮是fix 点击后 改为 保存状态
     if (self.btnType == btnfixType){
         
         [self.bottomButton setTitle:@"保存" forState:UIControlStateNormal];
-        self.canSaved = false;
         self.btnType = btnsaveType;
+        self.canSaved = false;
         
     } else if (self.btnType == btnsaveType){
         // 发起保存操作
         // 验证在点击之前做 如果不符合规则 按钮不可点击
+        NSString *cmd;
+        NSMutableDictionary *para;
+        if (self.fixType == fixName && self.taskID && self.nameTextField.text){
+            cmd = @"account.idcard_change.update_name";
+            para = [[NSMutableDictionary alloc] initWithDictionary: @{@"_id": self.taskID, @"name": self.nameTextField.text}];
+            
+            [self saveAction:cmd AndPara:para];
+
+        } else {
+            if (self.taskID && self.startdate && self.enddate){
+                
+                para = [[NSMutableDictionary alloc] initWithDictionary: @{
+                    @"_id": self.taskID,
+                    @"identity_card_id": self.IDCardTextField.text,
+                    @"idcard_type": @(10),
+                    @"idcard_start_date": @(self.startdate),
+                    @"idcard_end_date": @(self.enddate)
+                }];
+                if (self.fixType == fixIDNumber){
+                    cmd = @"account.idcard_change.update_idcard_no";
+                } else if (self.fixType == fixIDCardDate){
+                    cmd = @"account.idcard_change.upload_available_idcard";
+                    [para setObject:self.nameTextField.text forKey:@"name"];
+                    int gender = 0;
+                    if ([self.genderTextField.text isEqualToString:@"男"]){
+                        gender = 10;
+                    } else {
+                        gender = 20;
+                    }
+                    [para setObject:@(gender) forKey:@"gender_id"];
+                } else if (self.fixType == fixIDcard){
+                    cmd = @"account.idcard_change.invalid_temporary_idcard";
+                    [para setObject:self.nameTextField.text forKey:@"name"];
+                    int gender = 0;
+                    if ([self.genderTextField.text isEqualToString:@"男"]){
+                        gender = 10;
+                    } else {
+                        gender = 20;
+                    }
+                    [para setObject:@(gender) forKey:@"gender_id"];
+                }
+                // 首先 上传图片
+                if (self.imageArray.count > 0){
+                    [self getQiniuTockenforImage:self.imageArray[0]];
+                }
+                // 发起保存操作
+                WS(weakSelf)
+                self.successUploadBlock = ^(NSMutableArray *arr) {
+                    // 上传完成
+                    if (arr.count >= 3){
+                        [para setObject:arr[0] forKey:@"identity_card_front"];
+                        [para setObject:arr[1] forKey:@"identity_card_back"];
+                        [para setObject:arr[2] forKey:@"hand_bust"];
+                    }
+                    
+                    [weakSelf saveAction:cmd AndPara:para];
+                };
+            }
+        }
     }
+}
+- (void)saveAction:(NSString *)cmd AndPara:(NSMutableDictionary *)para{
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters: para CMD:cmd success:^(id responseObject) {
+        // TODO: 处理返回结果
+        BOOL isok = [responseObject objectForKey:@"ok"];
+        if (isok){
+            [self.navigationController popViewControllerAnimated:true];
+        } else {
+            // 错误处理
+        }
+    } fail:^(id error) {
+        NSLog(@"%@", error);
+    }];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if (textField == self.nameTextField){
@@ -405,6 +545,7 @@ typedef enum : NSUInteger {
             if ([content isEqualToString:kCurrentBossOwnerAccount.accountModel.name]){
                 self.nameErrorViewHeight.constant = 0;
                 [self.nameErrorView setHidden:true];
+                [self fixButtonIsClicked];
             } else {
                 // 不可编辑
                 self.canSaved = false;

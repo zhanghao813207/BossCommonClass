@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 修改类型
 @property (nonatomic, assign)SelectModifyOperationType fixType;
-
+// 任务ID
+@property (nonatomic, strong)NSString *taskID;
 @end
 
 NS_ASSUME_NONNULL_END
