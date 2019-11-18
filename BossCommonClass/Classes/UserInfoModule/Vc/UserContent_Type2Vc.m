@@ -159,6 +159,7 @@
                 vc.fixType = self.taskModel.type;
                 vc.taskID = self.taskModel.idField;
                 vc.fixState = self.taskModel.state;
+                vc.days = self.taskModel.dcardeffectdays;
                 [self.navigationController pushViewController:vc animated:true];
             }
             
@@ -238,10 +239,12 @@
                         self.taskStateView.backgroundColor = kHexRGB(0xFFF6E8);
                         self.currentTaskLabel.textColor = kHexRGB(0xDB8800);
                         self.isClickedIconImageView.hidden = false;
+                        [self.taskStateView setUserInteractionEnabled:true];
                     } else if (self.taskModel.updatestate == auditState){
                         self.taskStateView.backgroundColor = kHexRGB(0xF6F6F6);
                         self.currentTaskLabel.textColor = kHexRGB(0xBFBFBF);
                         self.isClickedIconImageView.hidden = true;
+                        [self.taskStateView setUserInteractionEnabled:false];
                     }
                 } else {
                     self.taskStateView.hidden = true;
@@ -261,6 +264,7 @@
     vc.fixState = self.taskModel.state;
     vc.fixType = self.taskModel.type;
     vc.taskID = self.taskModel.idField;
+    vc.days = self.taskModel.dcardeffectdays;
     [self.navigationController pushViewController:vc animated:true];
 }
 

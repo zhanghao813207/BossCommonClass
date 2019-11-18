@@ -29,6 +29,7 @@ NSString *const kfindLatestModelRejectedAt = @"rejected_at";
 NSString *const kfindLatestModelState = @"state";
 NSString *const kfindLatestModelType = @"type";
 NSString *const kfindLatestModelUpdatedAt = @"updated_at";
+NSString *const kfindLatestModelidcardeffectdays = @"idcard_effect_days";
 
 @interface findLatestModel ()
 @end
@@ -154,6 +155,11 @@ NSString *const kfindLatestModelUpdatedAt = @"updated_at";
 	if(![dictionary[kfindLatestModelUpdatedAt] isKindOfClass:[NSNull class]]){
 		self.updatedAt = dictionary[kfindLatestModelUpdatedAt];
 	}
+    
+    if(![dictionary[kfindLatestModelidcardeffectdays] isKindOfClass:[NSNull class]]){
+        self.dcardeffectdays = [dictionary[kfindLatestModelidcardeffectdays] integerValue];
+    }
+    
 	return self;
 }
 

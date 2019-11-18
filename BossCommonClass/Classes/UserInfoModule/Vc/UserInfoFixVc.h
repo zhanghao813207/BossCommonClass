@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)changeUserInfoCurrentstate fixState;
 // 任务ID
 @property (nonatomic, strong)NSString *taskID;
+
+@property (nonatomic, assign)NSInteger days;
+
 @end
 
 NS_ASSUME_NONNULL_END

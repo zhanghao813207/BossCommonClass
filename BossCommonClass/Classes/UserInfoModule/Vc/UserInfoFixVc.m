@@ -163,9 +163,15 @@ typedef void(^successUpload)(NSMutableArray *arr);
         }
         
     } else if (self.fixType == fixIDCardDate){
+        if (self.days <= 0) {
+            self.taskContentLabel.text = @"身份证已过期了，请更换成未过期的正式身份证照片";
+        } else {
+            self.taskContentLabel.text = @"身份证快过期了，请更换成未过期的正式身份证照片";
+        }
         self.currentFixTaskLabel.text = @"立即更换正式身份证照片";
         self.taskContentLabel.text = @"身份证快过期了，请更换成未过期的正式身份证照片";
         [self.bottomButton setTitle:@"更换正式新身份证" forState:UIControlStateNormal];
+        
     } else if (self.fixType == fixIDcard){
         self.currentFixTaskLabel.text = @"立即更换正式身份证";
         self.taskContentLabel.text = @"您是临时身份证，请立即更换正式身份证";
