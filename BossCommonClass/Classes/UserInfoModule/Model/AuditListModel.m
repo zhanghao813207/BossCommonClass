@@ -5,9 +5,9 @@
 
 
 #import "AuditListModel.h"
+#import "BossBasicDefine.h"
 
 NSString *const kAuditListModelIdField = @"_id";
-NSString *const kAuditListModelAccountInfo = @"account_info";
 NSString *const kAuditListModelBirthDate = @"birth_date";
 NSString *const kAuditListModelCreatedAt = @"created_at";
 NSString *const kAuditListModelGenderId = @"gender_id";
@@ -20,6 +20,11 @@ NSString *const kAuditListModelIdentityCardFrontUrl = @"identity_card_front_url"
 NSString *const kAuditListModelIdentityCardId = @"identity_card_id";
 NSString *const kAuditListModelName = @"name";
 NSString *const kAuditListModelNational = @"national";
+NSString *const kAuditListModelOldHandBustUrl = @"old_hand_bust_url";
+NSString *const kAuditListModelOldIdentityCardBackUrl = @"old_identity_card_back_url";
+NSString *const kAuditListModelOldIdentityCardFrontUrl = @"old_identity_card_front_url";
+NSString *const kAuditListModelOldIdentityCardId = @"old_identity_card_id";
+NSString *const kAuditListModelOldName = @"old_name";
 NSString *const kAuditListModelReason = @"reason";
 NSString *const kAuditListModelState = @"state";
 NSString *const kAuditListModelType = @"type";
@@ -30,7 +35,33 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 @implementation AuditListModel
 
 
-
+- (NSString *)currentstateStr{
+    if (self.state == normalState){
+        return @"待完善";
+    } else if (self.state == auditState){
+        return @"待审核";
+    } else if (self.state == rejectedState){
+        return @"已驳回";
+    } else if (self.state == throughState){
+        return @"已同意";
+    } else if (self.state == deleteState){
+       return @"已删除";
+    }
+    return @"";
+}
+- (NSString *)stateStr{
+    if (self.type == fixName){
+        return @"修改姓名";
+    } else if (self.type == fixIDNumber){
+        return @"修改证件号码";
+    } else if (self.type == fixIDCardDate){
+        return @"身份证过期更换";
+    } else if (self.type == fixIDcard){
+        return @"临时身份证更换";
+    } else {
+        return @"";
+    }
+}
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
@@ -42,10 +73,6 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	if(![dictionary[kAuditListModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kAuditListModelIdField];
 	}	
-	if(![dictionary[kAuditListModelAccountInfo] isKindOfClass:[NSNull class]]){
-		self.accountInfo = [[AuditAccountInfo alloc] initWithDictionary:dictionary[kAuditListModelAccountInfo]];
-	}
-
 	if(![dictionary[kAuditListModelBirthDate] isKindOfClass:[NSNull class]]){
 		self.birthDate = dictionary[kAuditListModelBirthDate];
 	}	
@@ -82,6 +109,21 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	if(![dictionary[kAuditListModelNational] isKindOfClass:[NSNull class]]){
 		self.national = dictionary[kAuditListModelNational];
 	}	
+	if(![dictionary[kAuditListModelOldHandBustUrl] isKindOfClass:[NSNull class]]){
+		self.oldHandBustUrl = dictionary[kAuditListModelOldHandBustUrl];
+	}	
+	if(![dictionary[kAuditListModelOldIdentityCardBackUrl] isKindOfClass:[NSNull class]]){
+		self.oldIdentityCardBackUrl = dictionary[kAuditListModelOldIdentityCardBackUrl];
+	}	
+	if(![dictionary[kAuditListModelOldIdentityCardFrontUrl] isKindOfClass:[NSNull class]]){
+		self.oldIdentityCardFrontUrl = dictionary[kAuditListModelOldIdentityCardFrontUrl];
+	}	
+	if(![dictionary[kAuditListModelOldIdentityCardId] isKindOfClass:[NSNull class]]){
+		self.oldIdentityCardId = dictionary[kAuditListModelOldIdentityCardId];
+	}	
+	if(![dictionary[kAuditListModelOldName] isKindOfClass:[NSNull class]]){
+		self.oldName = dictionary[kAuditListModelOldName];
+	}	
 	if(![dictionary[kAuditListModelReason] isKindOfClass:[NSNull class]]){
 		self.reason = dictionary[kAuditListModelReason];
 	}	
@@ -108,9 +150,6 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
 	if(self.idField != nil){
 		dictionary[kAuditListModelIdField] = self.idField;
-	}
-	if(self.accountInfo != nil){
-		dictionary[kAuditListModelAccountInfo] = [self.accountInfo toDictionary];
 	}
 	if(self.birthDate != nil){
 		dictionary[kAuditListModelBirthDate] = self.birthDate;
@@ -148,6 +187,21 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	if(self.national != nil){
 		dictionary[kAuditListModelNational] = self.national;
 	}
+	if(self.oldHandBustUrl != nil){
+		dictionary[kAuditListModelOldHandBustUrl] = self.oldHandBustUrl;
+	}
+	if(self.oldIdentityCardBackUrl != nil){
+		dictionary[kAuditListModelOldIdentityCardBackUrl] = self.oldIdentityCardBackUrl;
+	}
+	if(self.oldIdentityCardFrontUrl != nil){
+		dictionary[kAuditListModelOldIdentityCardFrontUrl] = self.oldIdentityCardFrontUrl;
+	}
+	if(self.oldIdentityCardId != nil){
+		dictionary[kAuditListModelOldIdentityCardId] = self.oldIdentityCardId;
+	}
+	if(self.oldName != nil){
+		dictionary[kAuditListModelOldName] = self.oldName;
+	}
 	if(self.reason != nil){
 		dictionary[kAuditListModelReason] = self.reason;
 	}
@@ -170,9 +224,6 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 {
 	if(self.idField != nil){
 		[aCoder encodeObject:self.idField forKey:kAuditListModelIdField];
-	}
-	if(self.accountInfo != nil){
-		[aCoder encodeObject:self.accountInfo forKey:kAuditListModelAccountInfo];
 	}
 	if(self.birthDate != nil){
 		[aCoder encodeObject:self.birthDate forKey:kAuditListModelBirthDate];
@@ -210,6 +261,21 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	if(self.national != nil){
 		[aCoder encodeObject:self.national forKey:kAuditListModelNational];
 	}
+	if(self.oldHandBustUrl != nil){
+		[aCoder encodeObject:self.oldHandBustUrl forKey:kAuditListModelOldHandBustUrl];
+	}
+	if(self.oldIdentityCardBackUrl != nil){
+		[aCoder encodeObject:self.oldIdentityCardBackUrl forKey:kAuditListModelOldIdentityCardBackUrl];
+	}
+	if(self.oldIdentityCardFrontUrl != nil){
+		[aCoder encodeObject:self.oldIdentityCardFrontUrl forKey:kAuditListModelOldIdentityCardFrontUrl];
+	}
+	if(self.oldIdentityCardId != nil){
+		[aCoder encodeObject:self.oldIdentityCardId forKey:kAuditListModelOldIdentityCardId];
+	}
+	if(self.oldName != nil){
+		[aCoder encodeObject:self.oldName forKey:kAuditListModelOldName];
+	}
 	if(self.reason != nil){
 		[aCoder encodeObject:self.reason forKey:kAuditListModelReason];
 	}
@@ -226,7 +292,6 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 {
 	self = [super init];
 	self.idField = [aDecoder decodeObjectForKey:kAuditListModelIdField];
-	self.accountInfo = [aDecoder decodeObjectForKey:kAuditListModelAccountInfo];
 	self.birthDate = [aDecoder decodeObjectForKey:kAuditListModelBirthDate];
 	self.createdAt = [aDecoder decodeObjectForKey:kAuditListModelCreatedAt];
 	self.genderId = [aDecoder decodeObjectForKey:kAuditListModelGenderId];
@@ -239,6 +304,11 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	self.identityCardId = [aDecoder decodeObjectForKey:kAuditListModelIdentityCardId];
 	self.name = [aDecoder decodeObjectForKey:kAuditListModelName];
 	self.national = [aDecoder decodeObjectForKey:kAuditListModelNational];
+	self.oldHandBustUrl = [aDecoder decodeObjectForKey:kAuditListModelOldHandBustUrl];
+	self.oldIdentityCardBackUrl = [aDecoder decodeObjectForKey:kAuditListModelOldIdentityCardBackUrl];
+	self.oldIdentityCardFrontUrl = [aDecoder decodeObjectForKey:kAuditListModelOldIdentityCardFrontUrl];
+	self.oldIdentityCardId = [aDecoder decodeObjectForKey:kAuditListModelOldIdentityCardId];
+	self.oldName = [aDecoder decodeObjectForKey:kAuditListModelOldName];
 	self.reason = [aDecoder decodeObjectForKey:kAuditListModelReason];
 	self.state = [[aDecoder decodeObjectForKey:kAuditListModelState] integerValue];
 	self.type = [[aDecoder decodeObjectForKey:kAuditListModelType] integerValue];
@@ -255,7 +325,6 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	AuditListModel *copy = [AuditListModel new];
 
 	copy.idField = [self.idField copy];
-	copy.accountInfo = [self.accountInfo copy];
 	copy.birthDate = [self.birthDate copy];
 	copy.createdAt = [self.createdAt copy];
 	copy.genderId = [self.genderId copy];
@@ -268,6 +337,11 @@ NSString *const kAuditListModelUpdatedAt = @"updated_at";
 	copy.identityCardId = [self.identityCardId copy];
 	copy.name = [self.name copy];
 	copy.national = [self.national copy];
+	copy.oldHandBustUrl = [self.oldHandBustUrl copy];
+	copy.oldIdentityCardBackUrl = [self.oldIdentityCardBackUrl copy];
+	copy.oldIdentityCardFrontUrl = [self.oldIdentityCardFrontUrl copy];
+	copy.oldIdentityCardId = [self.oldIdentityCardId copy];
+	copy.oldName = [self.oldName copy];
 	copy.reason = [self.reason copy];
 	copy.state = self.state;
 	copy.type = self.type;

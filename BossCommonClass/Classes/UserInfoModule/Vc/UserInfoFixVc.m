@@ -205,6 +205,8 @@ typedef void(^successUpload)(NSMutableArray *arr);
     if (btnType == btnsaveType){
         // 如果是姓名修改 直接将name获取焦点
         if (self.fixType == fixName){
+            // 置空
+            self.nameTextField.text = @"";
             // 可以编辑
             [self.nameTextField setEnabled:true];
             // 获取焦点
@@ -485,7 +487,18 @@ typedef void(^successUpload)(NSMutableArray *arr);
             cmd = @"account.idcard_change.update_name";
             para = [[NSMutableDictionary alloc] initWithDictionary: @{@"_id": self.taskID, @"name": self.nameTextField.text}];
             
-            [self saveAction:cmd AndPara:para];
+            NSString *message = [NSString stringWithFormat:@"您确认将姓名变更为: %@", self.nameTextField.text];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"确定提交" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self saveAction:cmd AndPara:para];
+                
+            }];
+            UIAlertAction *alertB = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
+            [alertC addAction:alertB];
+            [alertC addAction:alertA];
+            [self.navigationController presentViewController:alertC animated:YES completion:nil];
+            
 
         } else {
             if (self.taskID && self.startdate && self.enddate){
@@ -520,9 +533,24 @@ typedef void(^successUpload)(NSMutableArray *arr);
                     }
                     [para setObject:@(gender) forKey:@"gender_id"];
                 }
-                // 首先 上传图片
-                if (self.imageArray.count > 0){
-                    [self getQiniuTockenforImage:self.imageArray[0]];
+                if (self.fixType == fixIDcard){
+                    NSString *message = [NSString stringWithFormat:@"您确认将身份证号码变更为: %@", self.IDCardTextField.text];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"确定提交" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                        // 首先 上传图片
+                        if (self.imageArray.count > 0){
+                            [self getQiniuTockenforImage:self.imageArray[0]];
+                        }
+                        
+                    }];
+                    UIAlertAction *alertB = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
+                    [alertC addAction:alertB];
+                    [alertC addAction:alertA];
+                } else {
+                    // 首先 上传图片
+                    if (self.imageArray.count > 0){
+                        [self getQiniuTockenforImage:self.imageArray[0]];
+                    }
                 }
                 // 发起保存操作
                 WS(weakSelf)
@@ -533,10 +561,16 @@ typedef void(^successUpload)(NSMutableArray *arr);
                         [para setObject:arr[1] forKey:@"identity_card_back"];
                         [para setObject:arr[2] forKey:@"hand_bust"];
                     }
-                    
                     [weakSelf saveAction:cmd AndPara:para];
                 };
             }
+        }
+        
+        if (self.fixType == fixName || self.fixType == fixIDNumber){
+            // 二次弹窗
+        } else {
+            // 不弹
+            
         }
     }
 }
