@@ -488,4 +488,12 @@ typedef NS_ENUM(NSUInteger, IdentityType) {
     IdentityTypeNormal            = 10, // 正常身份证
     IdentityTypeTemp              = 20, // 临时身份证
 };
+
+// 签约状态
+typedef NS_ENUM(NSUInteger, ContractStatus) {
+    ContractStatusInit                  = 1,    // 合同初始化
+    ContractStatusHandSuccess           = 50,   // 骑士手签成功
+    ContractStatusPerformance           = 100,  //履约中
+    ContractStatusOverdue               = -105, // 过期
+};
 #endif /* BossEnumDefin_h */
