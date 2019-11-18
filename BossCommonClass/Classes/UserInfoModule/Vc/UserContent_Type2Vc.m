@@ -233,16 +233,21 @@
                 self.taskStateView.hidden = false;
                 self.stateLabelHeight.constant = 44;
                 self.currentTaskLabel.text = self.taskModel.currentState;
-                
-                if (self.taskModel.updatestate == normalState || self.taskModel.updatestate == rejectedState || self.taskModel.updatestate == throughState){
-                    self.taskStateView.backgroundColor = kHexRGB(0xFFF6E8);
-                    self.currentTaskLabel.textColor = kHexRGB(0xDB8800);
-                    self.isClickedIconImageView.hidden = false;
-                } else if (self.taskModel.updatestate == auditState){
-                    self.taskStateView.backgroundColor = kHexRGB(0xF6F6F6);
-                    self.currentTaskLabel.textColor = kHexRGB(0xBFBFBF);
-                    self.isClickedIconImageView.hidden = true;
+                if (self.taskModel.state != throughState && self.taskModel.state != deleteState){
+                    if (self.taskModel.updatestate == normalState || self.taskModel.updatestate == rejectedState || self.taskModel.updatestate == throughState){
+                        self.taskStateView.backgroundColor = kHexRGB(0xFFF6E8);
+                        self.currentTaskLabel.textColor = kHexRGB(0xDB8800);
+                        self.isClickedIconImageView.hidden = false;
+                    } else if (self.taskModel.updatestate == auditState){
+                        self.taskStateView.backgroundColor = kHexRGB(0xF6F6F6);
+                        self.currentTaskLabel.textColor = kHexRGB(0xBFBFBF);
+                        self.isClickedIconImageView.hidden = true;
+                    }
+                } else {
+                    self.taskStateView.hidden = true;
+                    self.stateLabelHeight.constant = 0;
                 }
+                
                 
             }
         } fail:^(id error) {

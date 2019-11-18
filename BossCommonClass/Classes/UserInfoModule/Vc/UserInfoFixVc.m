@@ -114,7 +114,12 @@ typedef void(^successUpload)(NSMutableArray *arr);
     self.IDCardTextField.text = kCurrentBossOwnerAccount.accountModel.identityCardId;
     NSString *startDate = [NSString stringWithFormat:@"%ld",(long)kCurrentBossOwnerAccount.accountModel.idcardStartDate];
     NSString *endDate = [NSString stringWithFormat:@"%ld",(long)kCurrentBossOwnerAccount.accountModel.idcardEndDate];
-    self.dateTextField.text = [NSString stringWithFormat:@"%@ ~ %@", startDate, endDate];
+    if (kCurrentBossOwnerAccount.accountModel.idcardStartDate != 0 && kCurrentBossOwnerAccount.accountModel.idcardEndDate != 0){
+        self.dateTextField.text = [NSString stringWithFormat:@"%@ ~ %@", startDate, endDate];
+    } else {
+        self.dateTextField.text = @"";
+    }
+    
     
     [self.faceImageView sd_setImageWithURL:[NSURL URLWithString: kCurrentBossOwnerAccount.accountModel.identityCardFrontUrl] placeholderImage:[UIImage imageNamed: @"none-icon"]];
     [self.reverseImageView sd_setImageWithURL:[NSURL URLWithString:kCurrentBossOwnerAccount.accountModel.identityCardBackUrl] placeholderImage:[UIImage imageNamed: @"none-icon"]];
@@ -138,20 +143,32 @@ typedef void(^successUpload)(NSMutableArray *arr);
     if (self.fixType == fixName){
         // 修改姓名
         // 图片点击事件无效 按钮修改为
-        self.currentFixTaskLabel.text = @"姓名有误，请立即修改";
-        self.taskContentLabel.text = @"您的姓名与身份证上的不一致";
+        if (self.fixState == auditState){
+            self.currentFixTaskLabel.text = @"姓名修改正在审核";
+            self.taskContentLabel.text = @"请稍等…";
+        } else {
+            self.currentFixTaskLabel.text = @"姓名有误，请立即修改";
+            self.taskContentLabel.text = @"您的姓名与身份证上的不一致";
+        }
+        
         [self.bottomButton setTitle:@"修改姓名" forState:UIControlStateNormal];
     } else if (self.fixType == fixIDNumber){
-        self.currentFixTaskLabel.text = @"身份证号有误，请立即修改";
-        self.taskContentLabel.text = @"您的身份证号码与身份证上的不一致";
-        [self.bottomButton setTitle:@"修改身份证号码" forState:UIControlStateNormal];
+        if (self.fixState == auditState){
+            self.currentFixTaskLabel.text = @"身份证号修改正在审核";
+            self.taskContentLabel.text = @"请稍等…";
+        } else {
+            self.currentFixTaskLabel.text = @"身份证号有误，请立即修改";
+            self.taskContentLabel.text = @"您的身份证号码与身份证上的不一致";
+            [self.bottomButton setTitle:@"修改身份证号码" forState:UIControlStateNormal];
+        }
+        
     } else if (self.fixType == fixIDCardDate){
         self.currentFixTaskLabel.text = @"立即更换正式身份证照片";
         self.taskContentLabel.text = @"身份证快过期了，请更换成未过期的正式身份证照片";
         [self.bottomButton setTitle:@"更换正式新身份证" forState:UIControlStateNormal];
     } else if (self.fixType == fixIDcard){
         self.currentFixTaskLabel.text = @"立即更换正式身份证";
-        self.taskContentLabel.text = @"您的身份证是临时身份证，请立即更换正式身份证";
+        self.taskContentLabel.text = @"您是临时身份证，请立即更换正式身份证";
         [self.bottomButton setTitle:@"更换正式身份证" forState:UIControlStateNormal];
     }
     // 只有未编辑 以及 被驳回才会显示操作按钮 其余为查看
@@ -347,7 +364,12 @@ typedef void(^successUpload)(NSMutableArray *arr);
                         NSString * timeStr = [NSString stringWithFormat:@"%@ ~ %@", timeArray.firstObject, timeArray.lastObject];
                         self.startdate = [timeArray.firstObject integerValue];
                         self.enddate = [timeArray.lastObject integerValue];
-                        self.dateTextField.text = timeStr;
+                        if (self.startdate != 0 && self.enddate != 0){
+                            self.dateTextField.text = timeStr;
+                        } else {
+                            self.dateTextField.text = @"";
+                        }
+                        
                         // 判断过期时间是否大于3个月 如果小于 报错
                     }
                 }
