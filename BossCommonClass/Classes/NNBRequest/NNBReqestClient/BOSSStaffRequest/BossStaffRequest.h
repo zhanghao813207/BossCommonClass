@@ -17,7 +17,7 @@
  @param successBlock 成功返回人员的信息
  @param failBlock 响应失败
  */
-+ (void)staffRequestGetStaffInfoWithId:(void(^)(void))successBlock fail:(void(^)(id error))failBlock;
+//+ (void)staffRequestGetStaffInfoWithId:(void(^)(void))successBlock fail:(void(^)(id error))failBlock;
 
 /**
  手持端编辑人员

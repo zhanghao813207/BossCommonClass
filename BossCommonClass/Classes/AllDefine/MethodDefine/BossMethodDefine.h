@@ -10,13 +10,13 @@
 // 缓存
 #define kCache ([BossCache defaultCache])
 
-// 当前Boss骑士登录帐号 - BossKnightAccount
-#define kCurrentBossKnightAccount kCache.currentKnightAccount
+//// 当前Boss骑士登录帐号 - BossKnightAccount
+//#define kCurrentBossKnightAccount kCache.currentKnightAccount
 
 // 当前Boss之家登录帐号 - BossMangerAccount
 #define kCurrentBossManagerAccount kCache.currentManagerAccount
 
-// 当前Boss老板登录帐号 - BossOwnerAccount
+// 当前Boss老板登录帐号 - BossOwnerAccount （骑士和当家共用一个 kCurrentBossOwnerAccount）
 #define kCurrentBossOwnerAccount kCache.currentBossOwnerAccount
 
 // 是否启用本地配置
