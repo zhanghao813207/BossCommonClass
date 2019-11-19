@@ -20,20 +20,20 @@
     message = @"BOSS骑士";
 #endif
     //配置对应提示文字
-    NSString *permissionTypeString;
+    NSString *messageString;
     switch (type) {
         case CameraPermission:
-            permissionTypeString = @"相机";
+            messageString = [NSString stringWithFormat:@"需要您允许%@打开相机权限才能使用哦~去\"设置->隐私->相机\"开启一下吧",message];
             break;
         case PhotoLibraryPermission:
-            permissionTypeString = @"相册";
+            messageString = [NSString stringWithFormat:@"需要您允许%@访问相册权限才能使用哦~去\"设置->隐私->相册\"开启一下吧",message];
             break;
             
         default:
             break;
     }
     
-    UIAlertController *permissionAlertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"需要您允许%@打开%@权限才能使用哦~去\"设置->隐私->%@\"开启一下吧",message,permissionTypeString,permissionTypeString] preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertController *permissionAlertController = [UIAlertController alertControllerWithTitle:nil message:messageString preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
         
     }];
