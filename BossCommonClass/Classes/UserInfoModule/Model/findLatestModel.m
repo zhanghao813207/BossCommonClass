@@ -62,7 +62,7 @@ NSString *const kfindLatestModelidcardeffectdays = @"idcard_effect_days";
         return [NSString stringWithFormat:@"您的%@%@",typeStr, stateStr];
     } else if (self.type == fixIDCardDate){
         
-        return @"您的身份证即将过期";
+        return @"您的身份证即将过期, 点击进入";
         
     } else if (self.type == fixIDcard){
         

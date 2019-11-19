@@ -13,7 +13,7 @@
 #import "NNBBasicRequest.h"
 #import "NNBUploadManager.h"
 #import "NNBUtilRequest.h"
-
+#import "NSDate+Extension.h"
 //#import <AipOcrSdk/AipOcrSdk.h>
 // 按钮状态
 // 保存状态 保存
@@ -67,7 +67,7 @@ typedef void(^successUpload)(NSMutableArray *arr);
 @property (weak, nonatomic) IBOutlet UILabel *idCardErrorLabel;
 
 @property (nonatomic, assign) BOOL canSaved;
-
+/// 有效期
 @property (weak, nonatomic) IBOutlet UITextField *dateTextField;
 @property (weak, nonatomic) IBOutlet UIView *dateErrorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dateErrorHeight;
@@ -112,8 +112,9 @@ typedef void(^successUpload)(NSMutableArray *arr);
     self.racialTextField.text = kCurrentBossOwnerAccount.accountModel.national;
     
     self.IDCardTextField.text = kCurrentBossOwnerAccount.accountModel.identityCardId;
-    NSString *startDate = [NSString stringWithFormat:@"%ld",(long)kCurrentBossOwnerAccount.accountModel.idcardStartDate];
-    NSString *endDate = [NSString stringWithFormat:@"%ld",(long)kCurrentBossOwnerAccount.accountModel.idcardEndDate];
+    NSString *startDate = [self convertDateFormatType2:kCurrentBossOwnerAccount.accountModel.idcardStartDate];
+    NSString *endDate = [self convertDateFormatType2:kCurrentBossOwnerAccount.accountModel.idcardEndDate];
+    
     if (kCurrentBossOwnerAccount.accountModel.idcardStartDate != 0 && kCurrentBossOwnerAccount.accountModel.idcardEndDate != 0){
         self.dateTextField.text = [NSString stringWithFormat:@"%@ ~ %@", startDate, endDate];
     } else {
@@ -189,13 +190,27 @@ typedef void(^successUpload)(NSMutableArray *arr);
 }
 - (NSString *)convertDateFormat:(NSInteger)dateInt
 {
-    NSString * birthStr = [NSString stringWithFormat:@"%ld", dateInt];
+    NSString * birthStr = [NSString stringWithFormat:@"%ld", (long)dateInt];
     //                    19930404
     //                    NSString *string = @"7月-16/2016 09:33:22秒";// 日期格式化类
     NSDateFormatter *format = [[NSDateFormatter alloc] init];// 设置日期格式 为了转换成功
     format.dateFormat = @"yyyyMMdd";
     NSDate * date =[format dateFromString:birthStr];
     format.dateFormat = @"yyyy/MM/dd";
+    if ([format stringFromDate:date]) {
+        return [format stringFromDate:date];
+    }
+    return @"";
+}
+- (NSString *)convertDateFormatType2:(NSInteger)dateInt
+{
+    NSString * birthStr = [NSString stringWithFormat:@"%ld", (long)dateInt];
+    //                    19930404
+    //                    NSString *string = @"7月-16/2016 09:33:22秒";// 日期格式化类
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];// 设置日期格式 为了转换成功
+    format.dateFormat = @"yyyyMMdd";
+    NSDate * date =[format dateFromString:birthStr];
+    format.dateFormat = @"yyyy.MM.dd";
     if ([format stringFromDate:date]) {
         return [format stringFromDate:date];
     }
@@ -251,7 +266,16 @@ typedef void(^successUpload)(NSMutableArray *arr);
     }
 }
 - (void)showAlertView{
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"当前身份证是临时身份证, 请使用正式身份证!" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:@"当前身份证是临时身份证, 请使用正式身份证!" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"我知道了" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertC addAction:alertA];
+    [self.navigationController presentViewController:alertC animated:YES completion:nil];
+}
+- (void)showAlertViewType2: (NSString *)tip{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat: @"当前身份证 %@", tip] preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"我知道了" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         
     }];
@@ -369,16 +393,29 @@ typedef void(^successUpload)(NSMutableArray *arr);
                         if (timeArray.count != 2){
                             return;
                         }
-                        NSString * timeStr = [NSString stringWithFormat:@"%@ ~ %@", timeArray.firstObject, timeArray.lastObject];
                         self.startdate = [timeArray.firstObject integerValue];
                         self.enddate = [timeArray.lastObject integerValue];
+                        
+                        NSString * timeStr = [NSString stringWithFormat:@"%@ ~ %@", [self convertDateFormatType2: self.startdate], [self convertDateFormatType2: self.enddate]];
+                        NSString *endStr = [self convertDateFormatType2: self.enddate];
+                        NSInteger endDateTimeStamp = [self cTimestampFromString:endStr];
                         if (self.startdate != 0 && self.enddate != 0){
                             self.dateTextField.text = timeStr;
                         } else {
                             self.dateTextField.text = @"";
                         }
-                        
-                        // 判断过期时间是否大于3个月 如果小于 报错
+                        NSInteger endDays = [NSDate diffDaysWithCompareTime:endDateTimeStamp];
+                        NSString *tip;
+                        if (endDays <= 0){
+                            tip = @"已过期";
+                            [self showAlertViewType2:tip];
+                            return;
+                        }
+                        if (endDays <= 90){
+                            tip = @"快过期";
+                            [self showAlertViewType2:tip];
+                            return;
+                        }
                     }
                 }
                 // 执行 按钮是否可以点击操作
@@ -394,6 +431,20 @@ typedef void(^successUpload)(NSMutableArray *arr);
             [self fixButtonIsClicked];
         }];
     }
+}
+
+- (NSInteger)cTimestampFromString:(NSString *)theTime {
+ // theTime __@"%04d-%02d-%02d %02d:%02d:00"
+    // 转换为时间戳
+     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+     [formatter setDateStyle:NSDateFormatterMediumStyle];
+     [formatter setTimeStyle:NSDateFormatterShortStyle];
+     [formatter setDateFormat:@"YYYY.MM.dd"];
+     // NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+     // [formatter setTimeZone:timeZone];
+     NSDate* dateTodo = [formatter dateFromString:theTime];
+    NSInteger timeSp = [dateTodo timeIntervalSince1970];
+    return timeSp;
 }
 - (void)fixButtonIsClicked{
     // 是否选择了正面照
@@ -471,7 +522,7 @@ typedef void(^successUpload)(NSMutableArray *arr);
     }
 }
 - (IBAction)fixAction:(UIButton *)sender {
-    // 如果按钮是fix 点击后 改为 保存状态
+    // 如果按钮是fix 点击后 改为 保存状态 点击进入
     if (self.btnType == btnfixType){
         
         [self.bottomButton setTitle:@"保存" forState:UIControlStateNormal];
@@ -564,13 +615,6 @@ typedef void(^successUpload)(NSMutableArray *arr);
                     [weakSelf saveAction:cmd AndPara:para];
                 };
             }
-        }
-        
-        if (self.fixType == fixName || self.fixType == fixIDNumber){
-            // 二次弹窗
-        } else {
-            // 不弹
-            
         }
     }
 }
