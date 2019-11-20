@@ -84,6 +84,9 @@ typedef void(^successUpload)(NSMutableArray *arr);
 
 @property (nonatomic, strong) NSMutableArray *imageArray;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *errorViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *errorView;
+
 @property (nonatomic, copy) successUpload successUploadBlock;
 // 开始时间
 @property (nonatomic, assign) NSInteger startdate;
@@ -139,6 +142,10 @@ typedef void(^successUpload)(NSMutableArray *arr);
     self.imageMutableArray = [[NSMutableArray alloc] init];
     
     self.errorStateArr = [[NSMutableArray alloc] init];
+}
+- (IBAction)close:(id)sender {
+    self.errorView.hidden = true;
+    self.errorViewHeight.constant = 0;
 }
 - (void)setTask{
     if (self.fixType == fixName){

@@ -59,6 +59,10 @@ NSString *const kfindLatestModelidcardeffectdays = @"idcard_effect_days";
         } else if (self.state == rejectedState){
             stateStr = @"审核被驳回, 点击进入";
         }
+        
+        if (self.state == throughState){
+            return @"您的审核已通过，立即签约";
+        }
         return [NSString stringWithFormat:@"您的%@%@",typeStr, stateStr];
     } else if (self.type == fixIDCardDate){
         

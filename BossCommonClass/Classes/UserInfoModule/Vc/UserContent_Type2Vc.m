@@ -41,6 +41,7 @@
 //
 @property (weak, nonatomic) IBOutlet UIView *taskStateView;
 
+@property(nonatomic, assign) BOOL isshowUserInfoFixVc;
 @end
 
 @implementation UserContent_Type2Vc
@@ -130,7 +131,7 @@
         NSNumber *numbStatue = dic[@"content"];
         if ([name containsString:@"身份证信息"])
         {
-            if (self.taskStateView.hidden) {
+            if (!self.isshowUserInfoFixVc) {
                 if ([numbStatue intValue] == IdentityStatusFew)
                 {
                     //正反面照片任一面缺少,未完善 -- 实名认证流程
@@ -213,6 +214,10 @@
     
     return bundle;
 }
+- (IBAction)closeStatusView:(id)sender {
+    self.taskStateView.hidden = true;
+    self.stateLabelHeight.constant = 0;
+}
 - (void)getCurrentState{
     if (kCurrentBossOwnerAccount.accountModel.accountId) {
         NSDictionary *dic = @{
@@ -226,20 +231,26 @@
             
             if (dic.count <= 0) {
                 // 当前没有可执行任务
+                self.isshowUserInfoFixVc = false;
                 self.taskStateView.hidden = true;
                 self.stateLabelHeight.constant = 0;
             } else {
                 // 任务正在执行
+                self.isshowUserInfoFixVc = true;
                 self.taskModel = [[findLatestModel alloc] initWithDictionary:dic];
                 self.taskStateView.hidden = false;
                 self.stateLabelHeight.constant = 44;
                 self.currentTaskLabel.text = self.taskModel.currentState;
-                if (self.taskModel.state != throughState && self.taskModel.state != deleteState){
+                if (self.taskModel.state != deleteState){
                     if (self.taskModel.updatestate == normalState || self.taskModel.updatestate == rejectedState || self.taskModel.updatestate == throughState){
                         self.taskStateView.backgroundColor = kHexRGB(0xFFF6E8);
                         self.currentTaskLabel.textColor = kHexRGB(0xDB8800);
                         self.isClickedIconImageView.hidden = false;
                         [self.taskStateView setUserInteractionEnabled:true];
+                        if (self.taskModel.updatestate == throughState){
+                            self.isshowUserInfoFixVc = false;
+//                            [self.taskStateView setUserInteractionEnabled:false];
+                        }
                     } else if (self.taskModel.updatestate == auditState){
                         self.taskStateView.backgroundColor = kHexRGB(0xF6F6F6);
                         self.currentTaskLabel.textColor = kHexRGB(0xBFBFBF);
@@ -247,6 +258,7 @@
                         [self.taskStateView setUserInteractionEnabled:false];
                     }
                 } else {
+                    self.isshowUserInfoFixVc = false;
                     self.taskStateView.hidden = true;
                     self.stateLabelHeight.constant = 0;
                 }
@@ -260,12 +272,14 @@
     
 }
 - (IBAction)fixUserInfoTipClicked:(id)sender {
-    UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
-    vc.fixState = self.taskModel.state;
-    vc.fixType = self.taskModel.type;
-    vc.taskID = self.taskModel.idField;
-    vc.days = self.taskModel.dcardeffectdays;
-    [self.navigationController pushViewController:vc animated:true];
+    if (self.taskModel.updatestate != throughState){
+        UserInfoFixVc * vc = [UserInfoFixVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"BossCommonClass"];
+        vc.fixState = self.taskModel.state;
+        vc.fixType = self.taskModel.type;
+        vc.taskID = self.taskModel.idField;
+        vc.days = self.taskModel.dcardeffectdays;
+        [self.navigationController pushViewController:vc animated:true];
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
