@@ -419,7 +419,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         } else {
             // 提示网络故障
             [weakSelf.view dismissLoadingViewWithCompletion:^(BOOL finish) {
-                [weakSelf.view showAnimationErrorStaus:@"当前网络状态不佳，请重试" completion:nil];
+                [weakSelf.view showAnimationErrorStaus:@"您的网络好像不给力，请稍后再试" completion:nil];
             }];
             
             if (weakSelf.uploadImage) {
