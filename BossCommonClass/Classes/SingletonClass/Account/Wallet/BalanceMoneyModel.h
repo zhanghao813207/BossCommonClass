@@ -9,6 +9,7 @@
 @property (nonatomic, assign) CGFloat frozenMoney;
 @property (nonatomic, assign) NSInteger ownerType;
 @property (nonatomic, strong) NSString * updatedAt;
+@property (nonatomic, assign) CGFloat totalScore;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
