@@ -13,6 +13,9 @@
 @property (nonatomic, strong) NSString * unionId;
 @property (nonatomic, strong) NSString * updatedAt;
 
+/// 是否绑定微信
+@property (nonatomic, assign, readonly) BOOL isBindWeChat;
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

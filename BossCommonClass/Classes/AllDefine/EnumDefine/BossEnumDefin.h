@@ -467,6 +467,7 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeCleaning               = 3000, // 家政保洁
     LineDustryTypeSecurity               = 4000, // 安保服务
     LineDustryTypeBicycle                = 5000,  //共享单车
+    LineDustryTypeHotel                  = 9000,  //酒店服务
 };
 
 // 身份信息状态
