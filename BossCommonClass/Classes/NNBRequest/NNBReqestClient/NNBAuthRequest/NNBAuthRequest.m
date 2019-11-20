@@ -39,7 +39,6 @@
          NSLog(@"登录postLoginJsonWithUrl->response\n%@", responseObject);
         
 #ifdef kBossKnight
-        kCurrentBossKnightAccount.isNeedUpdate = NO;
         
         TokenModel *token = [[TokenModel alloc] init];
         
@@ -58,13 +57,9 @@
         BossKnightAccount *knightAccount = [[BossKnightAccount alloc]init];
         knightAccount.tokenModel = token;
         knightAccount.accountModel = accountModel;
-        
-        kCurrentBossKnightAccount = knightAccount;
-        
+                
         kCache.currentSaasModel = saasModel;
-        
-        NSLog(@"NNBAuthRequest->authRequestLoginWithPhoneNumber->kCurrentBossKnightAccount\n%@", [kCurrentBossKnightAccount decodeToDic]);
-        
+                
         if (successBlock) {
             successBlock(knightAccount);
         }

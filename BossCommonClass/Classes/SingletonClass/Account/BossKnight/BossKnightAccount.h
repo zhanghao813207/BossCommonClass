@@ -25,7 +25,7 @@
  @param toPerfectBlock 去完善
  @param viewController 弹出去完善的按钮
  */
-+ (void)userInfoIsPerfect:(void(^)(BOOL isPerfect))perfectBlock toPerfect:(void(^)(void))toPerfectBlock withController:(UIViewController *)viewController;
+//+ (void)userInfoIsPerfect:(void(^)(BOOL isPerfect))perfectBlock toPerfect:(void(^)(void))toPerfectBlock withController:(UIViewController *)viewController;
 
 /**
  判断健康证是否即将到期/已过期

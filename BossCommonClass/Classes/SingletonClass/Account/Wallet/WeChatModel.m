@@ -21,8 +21,10 @@ NSString *const kWeChatModelUpdatedAt = @"updated_at";
 @end
 @implementation WeChatModel
 
-
-
+- (BOOL)isBindWeChat
+{
+    return self.state = 100;
+}
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
