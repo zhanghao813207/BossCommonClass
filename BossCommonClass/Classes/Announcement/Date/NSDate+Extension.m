@@ -466,6 +466,19 @@
     return comp.day;
 }
 
++ (BOOL)currentdayBeforeAtCompareDate:(NSInteger)compareDate
+{
+   
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *now = [NSDate date];
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay ;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    NSInteger year = [dateComponent year];
+    NSInteger month = [dateComponent month];
+    NSInteger day = [dateComponent day];
+    NSString *currentTimeStr = [NSString stringWithFormat:@"%04ld%02ld%02ld",year,month,day];
+    return compareDate < currentTimeStr.integerValue;
+}
 
 
 @end

@@ -490,7 +490,7 @@ typedef NS_ENUM(NSUInteger, IdentityType) {
 };
 
 // 签约状态
-typedef NS_ENUM(NSUInteger, ContractStatus) {
+typedef NS_ENUM(NSInteger, ContractStatus) {
     ContractStatusInit                  = 1,    // 合同初始化
     ContractStatusHandSuccess           = 50,   // 骑士手签成功
     ContractStatusPerformance           = 100,  //履约中
