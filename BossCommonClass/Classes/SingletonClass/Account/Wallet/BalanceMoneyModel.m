@@ -19,6 +19,9 @@ NSString *const kBalanceMoneyModelFrozenMoney = @"frozen_money";
 NSString *const kBalanceMoneyModelOwnerType = @"owner_type";
 // 更新时间
 NSString *const kBalanceMoneyModelUpdatedAt = @"updated_at";
+// 积分
+NSString *const kBalanceMoneyModeltotalScore = @"total_score";
+
 
 @interface BalanceMoneyModel ()
 @end
@@ -71,7 +74,11 @@ NSString *const kBalanceMoneyModelUpdatedAt = @"updated_at";
 
 	if(![dictionary[kBalanceMoneyModelUpdatedAt] isKindOfClass:[NSNull class]]){
 		self.updatedAt = dictionary[kBalanceMoneyModelUpdatedAt];
-	}	
+	}
+    
+    if(![dictionary[kBalanceMoneyModeltotalScore] isKindOfClass:[NSNull class]]){
+        self.totalScore = [dictionary[kBalanceMoneyModeltotalScore] floatValue];
+    }
 	return self;
 }
 
