@@ -477,7 +477,7 @@
     NSInteger month = [dateComponent month];
     NSInteger day = [dateComponent day];
     NSString *currentTimeStr = [NSString stringWithFormat:@"%04ld%02ld%02ld",year,month,day];
-    return compareDate < currentTimeStr.integerValue;
+    return compareDate <= currentTimeStr.integerValue;
 }
 
 
