@@ -189,22 +189,27 @@
         if (((NSMutableArray *)(newSectionsArray[index])).count != 0) {
             NSMutableArray *personModelArr = (NSMutableArray *)(newSectionsArray[index]);
             ContactsPerson *personModel = personModelArr[0];
-            [indexArr addObject: [self getFirstLetterFromString:personModel.nick_name]];
+            //如果不等于空 直接取字符串首字母 ，否则用 # 号来代替；
+            if (![JYCSimpleToolClass stringIsEmpty:personModel.nick_name]){
+                [indexArr addObject: [self getFirstLetterFromString:personModel.nick_name]];
+            }else {
+                [indexArr addObject:@"#"];
+            }
             [finalArr addObject:personModelArr];
         }
     }
     self.indexArr = indexArr;
     return finalArr;
     
-//    return newSectionsArray;
+    //    return newSectionsArray;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-
+    
     return self.userContentArr.count;
 }
 //返回每个section的title
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-
+    
     return self.indexArr[section];
 }
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
