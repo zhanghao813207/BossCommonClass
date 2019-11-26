@@ -202,6 +202,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return 相差的天数
 + (NSInteger)diffDaysWithCompareTime:(NSInteger)compareTime;
 
+
+/// 判断"比较的时间"是否在当前时间之前
+/// @param compareDate 比较的时间
++ (BOOL)currentdayBeforeAtCompareDate:(NSInteger)compareDate;
+
 @end
 
 NS_ASSUME_NONNULL_END
