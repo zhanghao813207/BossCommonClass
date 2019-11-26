@@ -43,11 +43,12 @@
     NSString *localFilePath = [NSString stringWithFormat:@"%@/conract/%@",kDocumentPath,fileName];
     
     NSLog(@"localFilePath : %@", localFilePath);
-    if([[NSFileManager defaultManager] fileExistsAtPath:localFilePath]){
-        self.fileUrl = [NSURL fileURLWithPath:localFilePath];
-        [self previewFile];
-        return;
-    }
+    
+//    if([[NSFileManager defaultManager] fileExistsAtPath:localFilePath]){
+//        self.fileUrl = [NSURL fileURLWithPath:localFilePath];
+//        [self previewFile];
+//        return;
+//    }
     
     [self.view showLoadingView:@"加载中..."];
     self.fileDownloader = [[HWIFileDownloader alloc] initWithDelegate:self];

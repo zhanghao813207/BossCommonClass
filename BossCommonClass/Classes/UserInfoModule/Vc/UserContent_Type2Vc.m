@@ -249,6 +249,7 @@
                         [self.taskStateView setUserInteractionEnabled:true];
                         if (self.taskModel.updatestate == throughState){
                             self.isshowUserInfoFixVc = false;
+                            self.isClickedIconImageView.hidden = true;
 //                            [self.taskStateView setUserInteractionEnabled:false];
                         }
                     } else if (self.taskModel.updatestate == auditState){
