@@ -61,7 +61,7 @@ NSString *const kfindLatestModelidcardeffectdays = @"idcard_effect_days";
         }
         
         if (self.state == throughState){
-            return @"您的审核已通过，立即签约";
+            return @"您的身份信息修改已审核通过";
         }
         return [NSString stringWithFormat:@"您的%@%@",typeStr, stateStr];
     } else if (self.type == fixIDCardDate){
@@ -72,12 +72,7 @@ NSString *const kfindLatestModelidcardeffectdays = @"idcard_effect_days";
         
        return @"您是临时身份证, 点击进入";
     }
-    /**
-     * 不论当前任务是什么 所有审核通过都会显示 您的审核已通过，立即签约
-     */
-    if (self.state == throughState){
-        return @"您的审核已通过，立即签约";
-    }
+   
     return @"";
 }
 
