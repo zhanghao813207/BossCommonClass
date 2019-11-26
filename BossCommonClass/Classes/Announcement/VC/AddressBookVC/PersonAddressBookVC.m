@@ -60,7 +60,7 @@
 }
 - (void)addSubviews {
     [self tableview];
-    [self selecBar];
+//    [self selecBar];
 //    [self lineView];
 //    [self allSelectButton];
 //    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
