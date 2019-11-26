@@ -467,6 +467,7 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeCleaning               = 3000, // 家政保洁
     LineDustryTypeSecurity               = 4000, // 安保服务
     LineDustryTypeBicycle                = 5000,  //共享单车
+    LineDustryTypeHotel                  = 9000,  //酒店服务
 };
 
 // 身份信息状态
@@ -482,6 +483,22 @@ typedef NS_ENUM(NSUInteger, BankCardStatus) {
     BankCardStatusNOSome         = 2, // 缺少除银行卡号之外的其他字段,未完善
     BankCardStatusDone           = 3, // 银行卡信息完善
 };
+// 修改用户信息流程当前状态
+typedef enum : NSUInteger {
+    normalState = 1, // 普通状态
+    auditState = 50, // 待审核
+    rejectedState = -50, // 驳回
+    throughState = 100, // 通过
+    deleteState = -100, // 删除
+} changeUserInfoCurrentstate;
+
+// 修改用户信息类型
+typedef enum : NSUInteger {
+    fixName = 10, // 修改姓名
+    fixIDNumber = 20, // 身份证号
+    fixIDCardDate = 30, // 身份证日期
+    fixIDcard = 40, // 临时换正式
+} SelectModifyOperationType;
 
 // 身份证类型
 typedef NS_ENUM(NSUInteger, IdentityType) {

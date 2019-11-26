@@ -197,13 +197,7 @@
                 [showView showStatus:errorMsg];
             }
             if (errCode == 415001 || errCode == 415002) {
-#ifdef kBossKnight
-                if(!kCurrentBossKnightAccount){
-                    return;
-                }
-                kCache.lastLoginPhone = kCurrentBossKnightAccount.accountModel.phone;
-                kCurrentBossKnightAccount = nil;
-#elif defined kBossManager
+#ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
                 }
@@ -289,9 +283,9 @@
         }
         [showView dismissLoadingViewWithCompletion:nil];
         if (dealType == ResultDealTypesQHErrorView) {
-            [[[QHErrorView alloc] initWithTitle:@"网络异常，请检查网络设置"] showInView:showView];
+            [[[QHErrorView alloc] initWithTitle:@"您的网络好像不给力，请稍后再试"] showInView:showView];
         } else if (dealType == ResultDealTypesNNBStatusView){
-            [showView showStatus:@"网络异常，请检查网络设置"];
+            [showView showStatus:@"您的网络好像不给力，请稍后再试"];
         }
         if (fail) {
             fail(error);
