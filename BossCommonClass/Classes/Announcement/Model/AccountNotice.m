@@ -50,6 +50,9 @@ NSString *const kDataSenderInfo = @"sender_info";
     if (self.count == object.count && [self.messageSummaryInfo.title isEqualToString:object.messageSummaryInfo.title] && [self.messageSummaryInfo.idField isEqualToString:object.messageSummaryInfo.idField]){
         return true;
     }
+    if (self.messageSummaryInfo == nil && object.messageSummaryInfo == nil){
+        return true;
+    }
     return false;
 }
 /**
