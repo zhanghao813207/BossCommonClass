@@ -506,6 +506,24 @@ typedef NS_ENUM(NSUInteger, IdentityType) {
     IdentityTypeTemp              = 20, // 临时身份证
 };
 
+// 银行卡类型
+typedef NS_ENUM(NSUInteger, BankCardType) {
+    BankCardTypeSelf               = 10, // 自己的银行卡
+    BankCardTypeOther              = 20, // 代收人的银行卡
+};
+
+// 员工类型 一线 还是二线
+typedef NS_ENUM(NSUInteger, WorkerType) {
+    WorkerTypeFirstLine               = 10, //一线员工
+    WorkerTypeSecondLine              = 20, //二线员工
+};
+
+// 个户工商注册来源 10为伯渡 20为盟达
+typedef NS_ENUM(NSUInteger, EntrustRegistrationSource) {
+    EntrustRegistrationSourceBoDu                = 10, //工商注册 伯渡
+    EntrustRegistrationSourceMengDa              = 20, //工商注册 盟达
+};
+
 // 签约状态
 typedef NS_ENUM(NSInteger, ContractStatus) {
     ContractStatusInit                  = 1,    // 合同初始化
