@@ -117,7 +117,7 @@
     }
     
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.find" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+        DLog(@"审批列表请求返回结果：%@", responseObject);
         if (!successBlock) {
             return;
         }
