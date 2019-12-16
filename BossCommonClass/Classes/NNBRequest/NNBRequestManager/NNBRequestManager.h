@@ -25,5 +25,9 @@ UIKIT_EXTERN float const kNetworkTimeoutInterval;
  @param cmd 请求的服务
  */
 - (void)addTokenWithCMD:(NSString *)cmd;
+/**
+ requestHeader
+*/
++ (NSDictionary *)requestHeader;
 
 @end
