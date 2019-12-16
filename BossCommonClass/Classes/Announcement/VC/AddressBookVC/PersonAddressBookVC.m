@@ -168,6 +168,9 @@
     
     //将每个名字分到某个section下
     for (ContactsPerson *personModel in self.arrM) {
+        if (personModel.nick_name == nil ||[personModel.nick_name isEqualToString:@""]||[personModel.nick_name isKindOfClass:[NSNull class]]){
+            continue;
+        }
         //获取name属性的值所在的位置，比如"林丹"，首字母是L，在A~Z中排第11（第一位是0），sectionNumber就为11
         NSInteger sectionNumber = [collation sectionForObject:personModel collationStringSelector:@selector(nick_name)];
         //把name为“林丹”的p加入newSectionsArray中的第11个数组中去
