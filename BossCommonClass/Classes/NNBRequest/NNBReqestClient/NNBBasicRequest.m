@@ -15,6 +15,8 @@
 #import "BossManagerAccount.h"
 #import "MQTTClientModel.h"
 #import "NSString+Router.h"
+#import "TraceManager.h"
+#import "JYCSimpleToolClass.h"
 
 @class ViewController;
 
@@ -54,7 +56,7 @@
     } fail:^(id error) {
         // 校验是否获取消息推送请求token的接口
         NSLog(@"fail=========%@",cmd);
-
+        
         if(cmd && [cmd isEqualToString:@"auth.token.get_ums_access_token"]){
             kCache.checkStartUMS = NO;
             if(fail){
@@ -105,6 +107,14 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         DLog(@"ERROR:%@",[error localizedDescription]);
+        
+        TraceError *model = [[TraceError alloc] initWithDictionary:@{
+            @"url":url,
+            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+            @"data": [error localizedDescription]
+        }];
+        [[TraceManager shareTraceManager] requestTrace:cmd Error:model];
+        
         [self handleErrorCodeWithError:error success:success fail:fail];
     }];
 }
