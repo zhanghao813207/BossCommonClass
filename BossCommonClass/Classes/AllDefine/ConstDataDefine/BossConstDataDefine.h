@@ -43,10 +43,13 @@ UIKIT_EXTERN NSString *const APPDOWNLOADURL; // app在appStore的下载链接
 
 UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时间
 
-// 会议基础URL
-UIKIT_EXTERN NSString * MeetingBasicURL;
+UIKIT_EXTERN NSString * MeetingBasicURL; // 会议基础URL
 
-UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroeS中应用的id
+UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroe中应用的id
+
+UIKIT_EXTERN uint32_t const XINGEACCESSID; //信鸽推送配置中的 Access ID
+
+UIKIT_EXTERN NSString *const XINGEACCESSKEY; //信鸽推送配置中的 Access Key
 
 /********* userdefaultKey ************/
 
