@@ -186,6 +186,9 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeRepayment     = 7, // 还款
     ApplicationOrderTypeBusinessTrave = 8, // 出差申请
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
+    ApplicationOrderTypeOverTime      = 10,// 加班
+    ApplicationOrderTypeLeaveOrder    = 11,// 请假
+
 };
 
 // 审批单整体状态
