@@ -165,7 +165,7 @@
         }];
     } else {
         [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
-            DLog(@"费用汇总单详情 节点2 %@", responseObject);
+            DLog(@"费用汇总单详情 节点1 %@", responseObject);
             if (!successBlock) {
                 return;
             }
@@ -200,6 +200,28 @@
         }
         CostOrderModel *model = [[CostOrderModel alloc] init];
         [model setValuesForKeysWithDictionary:responseObject];
+        successBlock(model);
+
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
++ (void)OaOverTimeDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(OverTimeRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock
+{
+    NSDictionary *paramDic = @{
+                               @"apply_order_id":orderId,
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.oa_extra_work_order.get" success:^(id responseObject) {
+        NSLog(@"加班单数据%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        NSDictionary *dictionary = responseObject;
+        OverTimeRootClass *model = [[OverTimeRootClass alloc] initWithDictionary:dictionary];
         successBlock(model);
 
     } fail:^(id error) {
