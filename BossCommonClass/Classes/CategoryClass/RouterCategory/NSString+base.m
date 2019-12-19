@@ -18,4 +18,11 @@
     }
 }
 
+- (BOOL)isEmptyString{
+    if (self == nil || [self isEqualToString:@""] || [self isKindOfClass:[NSNull class]]){
+        return YES;
+    }
+    return NO;
+}
+
 @end
