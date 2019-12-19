@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否为空若为空返回空字符串否则返回自己
 + (NSString *)isEmptyString:(NSString *)str;
 
+- (BOOL)isEmptyString;
+
 @end
 
 NS_ASSUME_NONNULL_END
