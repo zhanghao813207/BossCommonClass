@@ -96,7 +96,7 @@ NSString *const kOverTimeRootClassWorkingHours = @"working_hours";
 		self.doneAt = dictionary[kOverTimeRootClassDoneAt];
 	}	
 	if(![dictionary[kOverTimeRootClassDuration] isKindOfClass:[NSNull class]]){
-		self.duration = [dictionary[kOverTimeRootClassDuration] integerValue];
+		self.duration = [dictionary[kOverTimeRootClassDuration] floatValue];
 	}
 
 	if(![dictionary[kOverTimeRootClassEndAt] isKindOfClass:[NSNull class]]){
@@ -147,7 +147,7 @@ NSString *const kOverTimeRootClassWorkingHours = @"working_hours";
 		self.updatedAt = dictionary[kOverTimeRootClassUpdatedAt];
 	}	
 	if(![dictionary[kOverTimeRootClassWorkingHours] isKindOfClass:[NSNull class]]){
-		self.workingHours = [dictionary[kOverTimeRootClassWorkingHours] integerValue];
+		self.workingHours = [dictionary[kOverTimeRootClassWorkingHours] floatValue];
 	}
 
 	return self;
@@ -366,7 +366,7 @@ NSString *const kOverTimeRootClassWorkingHours = @"working_hours";
 	self.closedAt = [aDecoder decodeObjectForKey:kOverTimeRootClassClosedAt];
 	self.createdAt = [aDecoder decodeObjectForKey:kOverTimeRootClassCreatedAt];
 	self.doneAt = [aDecoder decodeObjectForKey:kOverTimeRootClassDoneAt];
-	self.duration = [[aDecoder decodeObjectForKey:kOverTimeRootClassDuration] integerValue];
+	self.duration = [[aDecoder decodeObjectForKey:kOverTimeRootClassDuration] floatValue];
 	self.endAt = [aDecoder decodeObjectForKey:kOverTimeRootClassEndAt];
 	self.fileUrlList = [aDecoder decodeObjectForKey:kOverTimeRootClassFileUrlList];
 	self.infoAddress = [aDecoder decodeObjectForKey:kOverTimeRootClassInfoAddress];
@@ -382,7 +382,7 @@ NSString *const kOverTimeRootClassWorkingHours = @"working_hours";
 	self.supplierId = [aDecoder decodeObjectForKey:kOverTimeRootClassSupplierId];
 	self.tags = [aDecoder decodeObjectForKey:kOverTimeRootClassTags];
 	self.updatedAt = [aDecoder decodeObjectForKey:kOverTimeRootClassUpdatedAt];
-	self.workingHours = [[aDecoder decodeObjectForKey:kOverTimeRootClassWorkingHours] integerValue];
+	self.workingHours = [[aDecoder decodeObjectForKey:kOverTimeRootClassWorkingHours] floatValue];
 	return self;
 
 }

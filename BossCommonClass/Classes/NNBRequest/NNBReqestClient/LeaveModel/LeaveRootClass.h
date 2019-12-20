@@ -1,22 +1,16 @@
 #import <UIKit/UIKit.h>
-#import "OverTimeApplyAccountInfo.h"
-#import "OverTimeApplyAccountInfo.h"
+#import "LeaveApplicationOrderInfo.h"
+#import "LeaveAccountInfoList.h"
+#import "LeaveAccountInfoList.h"
 
-@interface OverTimeRootClass : NSObject
-/**
- 请假/加班标题 （实际请假/加班人）
-*/
-@property (nonatomic, assign) NSString *titleString;
-/**
- 归属字符串
- */
-@property (nonatomic, strong, readonly) NSString *belongStr;
-
+@interface LeaveRootClass : NSObject
+@property (nonatomic, strong) NSString * titleString;
 @property (nonatomic, strong) NSString * idField;
 @property (nonatomic, strong) NSString * actualApplyName;
 @property (nonatomic, strong) NSString * applicationOrderId;
+@property (nonatomic, strong) LeaveApplicationOrderInfo * applicationOrderInfo;
 @property (nonatomic, strong) NSString * applyAccountId;
-@property (nonatomic, strong) OverTimeApplyAccountInfo * applyAccountInfo;
+@property (nonatomic, strong) LeaveAccountInfoList * applyAccountInfo;
 @property (nonatomic, strong) NSArray * assetIds;
 @property (nonatomic, strong) NSString * bizDistrictId;
 @property (nonatomic, strong) NSString * bizDistrictName;
@@ -29,10 +23,11 @@
 @property (nonatomic, assign) float duration;
 @property (nonatomic, strong) NSString * endAt;
 @property (nonatomic, strong) NSArray * fileUrlList;
-@property (nonatomic, strong) NSString * infoAddress;
+@property (nonatomic, assign) NSInteger leaveType;
 @property (nonatomic, strong) NSObject * note;
 @property (nonatomic, strong) NSString * operatorId;
-@property (nonatomic, strong) OverTimeApplyAccountInfo * operatorInfo;
+@property (nonatomic, strong) LeaveAccountInfoList * operatorInfo;
+@property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * platformCode;
 @property (nonatomic, strong) NSString * platformName;
 @property (nonatomic, strong) NSString * reason;
@@ -40,9 +35,12 @@
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, strong) NSString * submitAt;
 @property (nonatomic, strong) NSObject * supplierId;
-@property (nonatomic, strong) NSArray * tags;
 @property (nonatomic, strong) NSString * updatedAt;
-@property (nonatomic, assign) float workingHours;
+@property (nonatomic, strong) NSObject * workPlacement;
+/**
+ 归属字符串
+ */
+@property (nonatomic, strong, readonly) NSString *belongStr;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

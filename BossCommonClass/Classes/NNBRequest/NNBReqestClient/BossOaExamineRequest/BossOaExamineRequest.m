@@ -209,6 +209,29 @@
     }];
 }
 
++ (void)OaLeaveDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(LeaveRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock{
+    
+    NSDictionary *paramDic = @{
+                               @"apply_order_id":orderId,
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.leave_apply_order.get" success:^(id responseObject) {
+        NSLog(@"请假单数据%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        NSDictionary *dictionary = responseObject;
+        OverTimeRootClass *model = [[OverTimeRootClass alloc] initWithDictionary:dictionary];
+        successBlock(model);
+
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+
+}
+
 + (void)OaOverTimeDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(OverTimeRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock
 {
     NSDictionary *paramDic = @{
