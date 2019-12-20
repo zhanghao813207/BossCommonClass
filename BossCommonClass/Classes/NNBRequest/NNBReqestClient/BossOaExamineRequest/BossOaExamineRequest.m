@@ -221,7 +221,7 @@
             return;
         }
         NSDictionary *dictionary = responseObject;
-        OverTimeRootClass *model = [[OverTimeRootClass alloc] initWithDictionary:dictionary];
+        LeaveRootClass *model = [[LeaveRootClass alloc] initWithDictionary:dictionary];
         successBlock(model);
 
     } fail:^(id error) {
