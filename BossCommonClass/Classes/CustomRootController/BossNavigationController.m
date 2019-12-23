@@ -24,7 +24,7 @@
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.interactivePopGestureRecognizer.delegate = self;
         self.delegate = self;
-        self.interactivePopGestureRecognizer.enabled = NO;
+        self.interactivePopGestureRecognizer.enabled = YES;
     }
 
     //设置navigationBar的字体
@@ -45,7 +45,7 @@
         viewController.navigationItem.leftBarButtonItem = self.customCommentLeftBarButtonItem;
     }
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]){
-        self.interactivePopGestureRecognizer.enabled = NO;
+        self.interactivePopGestureRecognizer.enabled = YES;
     }
 }
 
@@ -53,7 +53,7 @@
 {
     if ( [self respondsToSelector:@selector(interactivePopGestureRecognizer)] && animated == YES )
     {
-        self.interactivePopGestureRecognizer.enabled = NO;
+        self.interactivePopGestureRecognizer.enabled = YES;
     }
     
     return  [super popToRootViewControllerAnimated:animated];
@@ -64,7 +64,7 @@
 {
     if( [self respondsToSelector:@selector(interactivePopGestureRecognizer)] )
     {
-        self.interactivePopGestureRecognizer.enabled = NO;
+        self.interactivePopGestureRecognizer.enabled = YES;
     }
     return [super popToViewController:viewController animated:animated];
 }

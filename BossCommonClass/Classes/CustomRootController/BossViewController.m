@@ -72,7 +72,7 @@
         }
     }
 }
-
+//手势
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleDefault;
