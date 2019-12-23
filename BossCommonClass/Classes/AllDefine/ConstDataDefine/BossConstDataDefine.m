@@ -143,12 +143,18 @@ NSString *const AGREEMENTURL   = @"http://boss-dev.aoaosong.com/static/agreement
 NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 #endif
 
+#pragma mark-- XINGE_ACCESS_ID 和 XINGE_ACCESS_KEY
+
 #ifdef kBossOwner
 // 当家
 NSString *const APPSTOREID = @"1466744567";
+
 #elif defined kBossKnight
 // 骑士
 NSString *const APPSTOREID = @"1391525314";
+uint32_t const XINGEACCESSID = 2200349479;
+NSString *const XINGEACCESSKEY = @"IIKF1I6821KB";
+
 #elif defined kBossManager
 //之家
 NSString *const APPSTOREID = @"1425789658";
