@@ -97,7 +97,7 @@ static NNBRequestManager *sharedManager = nil;
     // "X-TOKEN": 已登录但不是发送验证码接口
     if ([BossBasicPrefix isEqualToString:@"qlife"]) {
         // 获取验证码 登录 都使用 X-AUTH;
-        if ([@"auth.auth.send_verify_code" isEqualToString:cmd] || [@"auth.auth.login" isEqualToString:cmd]) {
+        if ([@"auth.auth.send_verify_code" isEqualToString:cmd] || [@"auth.auth.login" isEqualToString:cmd] || [@"qlife.event.event_storage.bulk_insert" isEqualToString:cmd]) {
             // header中添加X-AUTH
             [sharedManager.requestSerializer setValue:[sharedManager headAuthStr:date] forHTTPHeaderField:@"X-AUTH"];
             [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-TOKEN"];
@@ -168,5 +168,7 @@ static NNBRequestManager *sharedManager = nil;
     }
     return kCache.accessToken;
 }
-
++ (NSDictionary *)requestHeader{
+    return sharedManager.requestSerializer.HTTPRequestHeaders;
+}
 @end
