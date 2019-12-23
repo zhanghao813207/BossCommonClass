@@ -465,12 +465,18 @@ typedef NS_ENUM(NSInteger, MessageListType) {
 
 //业务线类型
 typedef NS_ENUM(NSUInteger, LineDustryType) {
-    LineDustryTypeLogistics              = 1000, // 外卖配送
-    LineDustryTypeTaxi                   = 2000, // 网约车
-    LineDustryTypeCleaning               = 3000, // 家政保洁
-    LineDustryTypeSecurity               = 4000, // 安保服务
-    LineDustryTypeBicycle                = 5000,  //共享单车
-    LineDustryTypeHotel                  = 9000,  //酒店服务
+    LineDustryTypeLogistics              = 1000,  // 外卖配送
+    LineDustryTypeTaxi                   = 2000,  // 网约车
+    LineDustryTypeCleaning               = 3000,  // 家政保洁
+    LineDustryTypeSecurity               = 4000,  // 安保服务
+    LineDustryTypeBicycle                = 5000,  // 共享单车
+    LineDustryTypePromotion              = 6000,  // 促销
+    LineDustryTypeBusinessService        = 7000,  // 商业清洗
+    LineDustryTypeAgentOperation         = 8000,  // 平台代运营
+    LineDustryTypeHotel                  = 9000,  // 酒店服务
+    LineDustryTypeAdvertising            = 10000, // 广告投放
+    LineDustryTypeCarSharing             = 11000, // 共享汽车
+
 };
 
 // 身份信息状态
