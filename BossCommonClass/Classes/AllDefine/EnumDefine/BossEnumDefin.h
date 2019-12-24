@@ -186,6 +186,9 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeRepayment     = 7, // 还款
     ApplicationOrderTypeBusinessTrave = 8, // 出差申请
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
+    ApplicationOrderTypeOverTime      = 10,// 加班
+    ApplicationOrderTypeLeaveOrder    = 11,// 请假
+
 };
 
 // 审批单整体状态
@@ -537,4 +540,17 @@ typedef NS_ENUM(NSInteger, ContractStatus) {
     ContractStatusPerformance           = 100,  //履约中
     ContractStatusOverdue               = -105, // 过期
 };
+
+//请假类型
+typedef NS_ENUM(NSInteger, LeaveType) {
+    LeaveTypePersonal                   = 10,    // 事假
+    LeaveTypeSick                       = 20,    // 病假
+    LeaveTypeAnnual                     = 30,    // 年假
+    LeaveTypeMarriage                   = 40,    // 婚假
+    LeaveTypeMaternity                  = 50,    // 产假
+    LeaveTypePaternity                  = 60,    // 陪产假
+    LeaveTypeFuneral                    = 70,    // 丧假
+
+};
+
 #endif /* BossEnumDefin_h */

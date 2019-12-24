@@ -117,7 +117,7 @@
     }
     
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.find" success:^(id responseObject) {
-        DLog(@"%@", responseObject);
+        DLog(@"获取审批列表：%@", responseObject);
         if (!successBlock) {
             return;
         }
@@ -150,7 +150,7 @@
                                };
     if (showError) {
         [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.get" success:^(id responseObject) {
-            DLog(@"节点1 %@", responseObject);
+            DLog(@"费用汇总单详情 节点1 %@", responseObject);
             if (!successBlock) {
                 return;
             }
@@ -165,7 +165,7 @@
         }];
     } else {
         [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.application_order.get" success:^(id responseObject) {
-            DLog(@"节点2 %@", responseObject);
+            DLog(@"费用汇总单详情 节点1 %@", responseObject);
             if (!successBlock) {
                 return;
             }
@@ -200,6 +200,51 @@
         }
         CostOrderModel *model = [[CostOrderModel alloc] init];
         [model setValuesForKeysWithDictionary:responseObject];
+        successBlock(model);
+
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
++ (void)OaLeaveDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(LeaveRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock{
+    
+    NSDictionary *paramDic = @{
+                               @"apply_order_id":orderId,
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.leave_apply_order.get" success:^(id responseObject) {
+        NSLog(@"请假单数据%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        NSDictionary *dictionary = responseObject;
+        LeaveRootClass *model = [[LeaveRootClass alloc] initWithDictionary:dictionary];
+        successBlock(model);
+
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+
+}
+
++ (void)OaOverTimeDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(OverTimeRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock
+{
+    NSDictionary *paramDic = @{
+                               @"apply_order_id":orderId,
+                               };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.oa_extra_work_order.get" success:^(id responseObject) {
+        NSLog(@"加班单数据%@", responseObject);
+        if (!successBlock) {
+            return;
+        }
+        NSDictionary *dictionary = responseObject;
+        OverTimeRootClass *model = [[OverTimeRootClass alloc] initWithDictionary:dictionary];
         successBlock(model);
 
     } fail:^(id error) {
