@@ -45,7 +45,7 @@
     
     self.disagreeBtn.layer.cornerRadius = 5;
     self.disagreeBtn.clipsToBounds = true;
-    self.disagreeBtn.layer.borderColor = [UIColor blueColor].CGColor;
+    self.disagreeBtn.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4].CGColor;
     self.disagreeBtn.layer.borderWidth = 1;
 }
 
