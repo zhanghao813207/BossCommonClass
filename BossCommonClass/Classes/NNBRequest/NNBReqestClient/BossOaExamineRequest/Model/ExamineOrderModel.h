@@ -23,6 +23,12 @@
 
 #pragma mark --brief
 
+
+/**
+ 加班申请单或请假单ID
+ */
+@property (nonatomic, strong) NSString *extra_work_or_leave_id;
+
 /**
  审批单号
  */
