@@ -207,6 +207,12 @@
         case ApplicationOrderTypeTravelExpense:
             typeStr = @"差旅报销";
             break;
+        case ApplicationOrderTypeOverTime:
+            typeStr = @"加班申请";
+            break;
+        case ApplicationOrderTypeLeaveOrder:
+            typeStr = @"请假申请";
+            break;
         default:
             break;
     }
@@ -247,6 +253,7 @@
         case ApplicationOrderTypeHouseContract:
         case ApplicationOrderTypeMaterial:
         case ApplicationOrderTypeTravelExpense:
+        case ApplicationOrderTypeOverTime:
             orderCount = self.cost_order_list.count;
             break;
         case ApplicationOrderTypeSalaryRule:

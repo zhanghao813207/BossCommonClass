@@ -11,6 +11,8 @@
 #import "ApplicationUrgeRecordModel.h"
 #import "CostBookMonthBriefModel.h"
 #import "CostOrderSubmitAmountModel.h"
+#import "OverTimeRootClass.h"
+#import "LeaveRootClass.h"
 @interface BossOaExamineRequest : NSObject
 
 /**
@@ -40,7 +42,10 @@
  @param failBlock 服务器响应失败
  */
 + (void)OaApplyOrderDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(CostOrderModel *applyOrder))successBlock fail:(void(^)(id error))failBlock;
-
+//加班
++ (void)OaOverTimeDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(OverTimeRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock;
+//请假
++ (void)OaLeaveDetailWithOrderId:(NSString *)orderId successBlock:(void(^)(LeaveRootClass *applyOrder))successBlock fail:(void(^)(id error))failBlock;
 /**
  审核同意
 
