@@ -81,7 +81,7 @@ static NNBRequestManager *sharedManager = nil;
     [sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"%@,%d",[JYCSimpleToolClass getUUID],date] forHTTPHeaderField:@"X-MSG-ID"];
     NSLog(@"%@",cmd);
     // 校验cmd是否为nil
-    if(cmd && ([cmd hasPrefix:@"qlife_boss"] ||[cmd hasPrefix:@"qlife"]))
+    if(cmd && ([cmd hasPrefix:@"qlife_boss"] ||[cmd hasPrefix:@"qlife"] || [cmd hasPrefix:@"datahub_qlife"]))
     {
         [sharedManager.requestSerializer setValue:cmd forHTTPHeaderField:@"X-CMD"];
         

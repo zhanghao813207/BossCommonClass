@@ -9,6 +9,7 @@
 NSString *const kconfigModelH5 = @"h5";
 NSString *const kconfigModelMqtt = @"mqtt";
 NSString *const kconfigModelUms = @"ums";
+NSString *const kconfigModelSalaryLoan = @"pushu";
 
 @interface configModel ()
 @end
@@ -36,6 +37,10 @@ NSString *const kconfigModelUms = @"ums";
 		self.ums = [[configH5 alloc] initWithDictionary:dictionary[kconfigModelUms]];
 	}
 
+    if(![dictionary[kconfigModelSalaryLoan] isKindOfClass:[NSNull class]]){
+        self.pushu = [[ConfigSalaryLoan alloc] initWithDictionary:dictionary[kconfigModelSalaryLoan]];
+    }
+    
 	return self;
 }
 
@@ -55,6 +60,9 @@ NSString *const kconfigModelUms = @"ums";
 	if(self.ums != nil){
 		dictionary[kconfigModelUms] = [self.ums toDictionary];
 	}
+    if(self.pushu != nil){
+        dictionary[kconfigModelSalaryLoan] = [self.pushu toDictionary];
+    }
 	return dictionary;
 
 }
@@ -77,6 +85,9 @@ NSString *const kconfigModelUms = @"ums";
 		[aCoder encodeObject:self.ums forKey:kconfigModelUms];
 	}
 
+    if(self.pushu != nil){
+        [aCoder encodeObject:self.pushu forKey:kconfigModelSalaryLoan];
+    }
 }
 
 /**
@@ -102,7 +113,13 @@ NSString *const kconfigModelUms = @"ums";
 	copy.h5 = [self.h5 copy];
 	copy.mqtt = [self.mqtt copy];
 	copy.ums = [self.ums copy];
+    copy.pushu = [self.pushu copy];
 
 	return copy;
+}
+
+- (BOOL)checkSalaryLoanURLValid
+{
+    return self.pushu && self.pushu.url && self.pushu.url.length > 0;
 }
 @end

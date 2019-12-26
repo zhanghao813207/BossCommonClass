@@ -45,11 +45,15 @@ UIKIT_EXTERN CGFloat const kKeyBordAnimationDuration; // 键盘动画持续时�
 
 UIKIT_EXTERN NSString * MeetingBasicURL; // 会议基础URL
 
+//数据中台基础URL（用于薪资贷）
+UIKIT_EXTERN NSString * SalaryLoanBasicURL;
+
 UIKIT_EXTERN NSString *const APPSTOREID; //在APPStroe中应用的id
 
 UIKIT_EXTERN uint32_t const XINGEACCESSID; //信鸽推送配置中的 Access ID
 
 UIKIT_EXTERN NSString *const XINGEACCESSKEY; //信鸽推送配置中的 Access Key
+
 
 /********* userdefaultKey ************/
 
