@@ -15,6 +15,10 @@
 @end
 
 @implementation AgreementVc
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setToolbarHidden:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
