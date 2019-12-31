@@ -161,4 +161,10 @@
  */
 @property (nonatomic, strong, readonly) NSString *allocation_name;
 
+/**
+    归属类型 有个人 团队
+ */
+@property (nonatomic, assign) ListCostCenterType cost_center_type;
+
+
 @end

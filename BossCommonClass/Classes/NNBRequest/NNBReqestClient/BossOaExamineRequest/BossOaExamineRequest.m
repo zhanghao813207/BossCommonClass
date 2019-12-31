@@ -492,7 +492,7 @@
     NSString *costTargetId = @"";
     
     NSString *bookMonth = examineOrderModel.submit_at_int;
-    CostCenterType type = costAccountingModel.cost_center_type;
+    ListCostCenterType type = applyOrder.cost_center_type;
 
     NSMutableDictionary *listDic = @{}.mutableCopy;
     NSMutableArray *list = @[].mutableCopy;
@@ -504,23 +504,32 @@
         
         NSString *key = [NSString stringWithFormat:@"%tu",i];
         
-        CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
-        
-        switch (costAccountingModel.cost_center_type) {
-            case CostCenterTypeItem:
+      CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
+    
+        switch (type) {
+            case cost_center_type_prj:
                 costTargetId = allocationModel.platform_code?:@"";
                 break;
-            case CostCenterTypeItemMainHQ:
+            case cost_center_type_prj_base:
                 costTargetId = allocationModel.supplier_id?:@"";
                 break;
-            case CostCenterTypeCity:
+            case cost_center_type_city:
                 costTargetId = allocationModel.city_code?:@"";
                 break;
-            case CostCenterTypeBD:
+            case cost_center_type_biz_district:
                 costTargetId = allocationModel.biz_district_id?:@"";
                 break;
-            case CostCenterTypeKnight:
+            case cost_center_type_knight:
                 costTargetId = allocationModel.biz_district_id?:@"";
+                break;
+            case cost_center_type_team:
+                costTargetId = allocationModel.team_id?:@"";
+                break;
+            case cost_center_type_personal:
+                costTargetId = allocationModel.identity_card_id ?:@"";
+                break;
+            case cost_center_type_assets:
+                costTargetId = allocationModel.assets_id?:@"";
                 break;
             default:
                 break;
@@ -624,6 +633,14 @@
     [paramDic setValue:allocationModel.city_code?:@"" forKey:@"city_code"];
     // 商圈Id
     [paramDic setValue:allocationModel.biz_district_id?:@"" forKey:@"biz_district_id"];
+    
+    //团队id
+    [paramDic setValue:allocationModel.team_id?:@"" forKey:@"team_id"];
+    //身份证id
+    [paramDic setValue:allocationModel.identity_card_id?:@"" forKey:@"identity_card_id"];
+    //资产id
+    [paramDic setValue:allocationModel.assets_id?:@"" forKey:@"assets_id"];
+
     
     return paramDic;
 }

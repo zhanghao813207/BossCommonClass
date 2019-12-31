@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
     ApplicationOrderTypeOverTime      = 10,// 加班
     ApplicationOrderTypeLeaveOrder    = 11,// 请假
-
+    
 };
 
 // 审批单整体状态
@@ -435,13 +435,38 @@ typedef NS_ENUM(NSInteger, SupplementOpinionState) {
     SupplementOpinionStateDelete   =  -101, // 删除
     SupplementOpinionStateNormal   =   100, // 正常
 };
+// 旧的不用了
+//typedef NS_ENUM(NSUInteger, CostCenterType) {
+//    CostCenterTypeKnight     = 1, // 骑士
+//    CostCenterTypeBD         = 2, // 商圈
+//    CostCenterTypeCity       = 3, // 城市
+//    CostCenterTypeItemMainHQ = 4, // 项目主体总部
+//    CostCenterTypeItem       = 5, // 项目
+//};
 
-typedef NS_ENUM(NSUInteger, CostCenterType) {
-    CostCenterTypeKnight     = 1, // 骑士
-    CostCenterTypeBD         = 2, // 商圈
-    CostCenterTypeCity       = 3, // 城市
-    CostCenterTypeItemMainHQ = 4, // 项目主体总部
-    CostCenterTypeItem       = 5, // 项目
+typedef NS_ENUM(NSUInteger, ListCostCenterType) {
+    cost_center_type_knight           = 1, // 骑士
+    cost_center_type_biz_district     = 2, // 商圈
+    cost_center_type_city             = 3, // 城市
+    cost_center_type_prj_base         = 4, // 项目主体
+    cost_center_type_prj              = 5, // 项目总部
+    cost_center_type_manager          = 6, // 管理费用
+    cost_center_type_operation        = 7, // 运营支持
+    cost_center_type_direct           = 8, // 车辆直接成本
+    cost_center_type_indirect         = 9, // 车辆间接成本
+    cost_center_type_team             = 10,// 团队
+    cost_center_type_personal         = 11,// 个人
+    cost_center_type_assets           = 12,// 资产
+};
+//业务考核各级团队类型
+typedef NS_ENUM(NSUInteger,TeamType) {
+    TEAM_TYPE_OWNER_TEAM = 1,       //业主小队
+    TEAM_TYPE_COACH_TEAM = 2,       //私教小队
+    TEAM_TYPE_COACH_GROUP_TEAM = 3, //私教团队
+    TEAM_TYPE_COMPANY_TEAM = 4,     //业务赋能小队
+    TEAM_TYPE_DATA_TEAM = 5, //数据小队
+    TEAM_TYPE_OPERATION_TEAM = 6, //运维小队
+    TEAM_TYPE_BUSINESS_TEAM = 7, //商务小队
 };
 
 typedef NS_ENUM(NSUInteger, NodeApproveMode) {
@@ -476,7 +501,7 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeHotel                  = 9000,  // 酒店服务
     LineDustryTypeAdvertising            = 10000, // 广告投放
     LineDustryTypeCarSharing             = 11000, // 共享汽车
-
+    
 };
 
 // 身份信息状态
@@ -550,7 +575,7 @@ typedef NS_ENUM(NSInteger, LeaveType) {
     LeaveTypeMaternity                  = 50,    // 产假
     LeaveTypePaternity                  = 60,    // 陪产假
     LeaveTypeFuneral                    = 70,    // 丧假
-
+    
 };
 
 #endif /* BossEnumDefin_h */
