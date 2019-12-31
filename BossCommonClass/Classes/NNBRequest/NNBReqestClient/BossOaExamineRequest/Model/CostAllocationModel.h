@@ -9,6 +9,10 @@
 #import "BossEnumDefin.h"
 @interface CostAllocationModel : NSObject
 
+@property (nonatomic, strong) NSString *identity_card_id;
+
+@property (nonatomic, strong) NSString *assets_id;
+
 /**
  城市名称列表
  */

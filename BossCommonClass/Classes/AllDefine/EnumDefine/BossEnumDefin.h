@@ -435,28 +435,28 @@ typedef NS_ENUM(NSInteger, SupplementOpinionState) {
     SupplementOpinionStateDelete   =  -101, // 删除
     SupplementOpinionStateNormal   =   100, // 正常
 };
-
-typedef NS_ENUM(NSUInteger, CostCenterType) {
-    CostCenterTypeKnight     = 1, // 骑士
-    CostCenterTypeBD         = 2, // 商圈
-    CostCenterTypeCity       = 3, // 城市
-    CostCenterTypeItemMainHQ = 4, // 项目主体总部
-    CostCenterTypeItem       = 5, // 项目
-};
+// 旧的不用了
+//typedef NS_ENUM(NSUInteger, CostCenterType) {
+//    CostCenterTypeKnight     = 1, // 骑士
+//    CostCenterTypeBD         = 2, // 商圈
+//    CostCenterTypeCity       = 3, // 城市
+//    CostCenterTypeItemMainHQ = 4, // 项目主体总部
+//    CostCenterTypeItem       = 5, // 项目
+//};
 
 typedef NS_ENUM(NSUInteger, ListCostCenterType) {
-    ListCostCenterTypePlatform   = 1, // 项目（平台）
-    ListCostCenterTypeSupplier   = 2, // 项目主体总部（供应商）
-    ListCostCenterTypeCity       = 3, // 城市
-    ListCostCenterTypeBD         = 4, // 商圈
-    ListCostCenterTypeItem       = 5, // 项目
-    ListCostCenterTypeManager    = 6, // 管理费用
-    ListCostCenterTypeOperating    = 7, // 运营支持
-    ListCostCenterTypeDirectVehicleCost    = 8, // 车辆直接成本
-    ListCostCenterTypeIndirectVehicleCost    = 9, // 车辆间接成本
-    ListCostCenterTypeTeam       = 10,// 团队
-    ListCostCenterTypePerson     = 11,// 个人
-    ListCostCenterTypeAssets     = 12,// 资产
+    cost_center_type_knight           = 1, // 骑士
+    cost_center_type_biz_district     = 2, // 商圈
+    cost_center_type_city             = 3, // 城市
+    cost_center_type_prj_base         = 4, // 项目主体
+    cost_center_type_prj              = 5, // 项目总部
+    cost_center_type_manager          = 6, // 管理费用
+    cost_center_type_operation        = 7, // 运营支持
+    cost_center_type_direct           = 8, // 车辆直接成本
+    cost_center_type_indirect         = 9, // 车辆间接成本
+    cost_center_type_team             = 10,// 团队
+    cost_center_type_personal         = 11,// 个人
+    cost_center_type_assets           = 12,// 资产
 };
 //业务考核各级团队类型
 typedef NS_ENUM(NSUInteger,TeamType) {

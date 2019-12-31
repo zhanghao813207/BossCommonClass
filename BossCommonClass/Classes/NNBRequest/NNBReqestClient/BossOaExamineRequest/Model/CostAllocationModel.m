@@ -115,28 +115,27 @@
     return _personAllocationString;
 }
 
-
 - (NSString *)getTeamTypeString:(TeamType)type {
     switch (type) {
-        case ListCostCenterTypePlatform:
+        case TEAM_TYPE_OWNER_TEAM:
             return @"业主小队";
             break;
-        case ListCostCenterTypeSupplier:
+        case TEAM_TYPE_COACH_TEAM:
             return @"私教小队";
             break;
-        case ListCostCenterTypeCity:
+        case TEAM_TYPE_COACH_GROUP_TEAM:
             return @"私教团队";
             break;
-        case ListCostCenterTypeBD:
+        case TEAM_TYPE_COMPANY_TEAM:
             return @"业务赋能小队";
             break;
-        case ListCostCenterTypeItem:
+        case TEAM_TYPE_DATA_TEAM:
             return @"数据小队";
             break;
-        case ListCostCenterTypeManager:
+        case TEAM_TYPE_OPERATION_TEAM:
             return @"运维小队";
             break;
-        case ListCostCenterTypeOperating:
+        case TEAM_TYPE_BUSINESS_TEAM:
             return @"商务小队";
             break;
         
