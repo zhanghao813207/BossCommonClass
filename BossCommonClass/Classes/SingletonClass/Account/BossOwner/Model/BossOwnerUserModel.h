@@ -93,10 +93,14 @@
 //工作证件是否完善
 @property (nonatomic, assign, readonly) BOOL workCardIsDone;
 
+// 汗点三方是否授权
+@property (nonatomic, assign,readonly) BOOL hanDianAuth;
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;
 
 -(void)updateRefreshTokenWithTokenModel:(TokenModel *)tokenModel;
+
 
 @end
