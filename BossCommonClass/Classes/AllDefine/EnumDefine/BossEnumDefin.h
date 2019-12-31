@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
     ApplicationOrderTypeOverTime      = 10,// 加班
     ApplicationOrderTypeLeaveOrder    = 11,// 请假
-
+    
 };
 
 // 审批单整体状态
@@ -444,6 +444,21 @@ typedef NS_ENUM(NSUInteger, CostCenterType) {
     CostCenterTypeItem       = 5, // 项目
 };
 
+typedef NS_ENUM(NSUInteger, ListCostCenterType) {
+    ListCostCenterTypePlatform   = 1, // 项目（平台）
+    ListCostCenterTypeSupplier   = 2, // 项目主体总部（供应商）
+    ListCostCenterTypeCity       = 3, // 城市
+    ListCostCenterTypeBD         = 4, // 商圈
+    ListCostCenterTypeItem       = 5, // 项目
+    ListCostCenterTypeManager    = 6, // 管理费用
+    ListCostCenterTypeOperating    = 7, // 运营支持
+    ListCostCenterTypeDirectVehicleCost    = 8, // 车辆直接成本
+    ListCostCenterTypeIndirectVehicleCost    = 9, // 车辆间接成本
+    ListCostCenterTypeTeam       = 10,// 团队
+    ListCostCenterTypePerson     = 11,// 个人
+    ListCostCenterTypeAssets     = 12,// 资产
+};
+
 typedef NS_ENUM(NSUInteger, NodeApproveMode) {
     NodeApproveModeAny = 20, // 任意
     NodeApproveModeAll = 10, // 全部
@@ -476,7 +491,7 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeHotel                  = 9000,  // 酒店服务
     LineDustryTypeAdvertising            = 10000, // 广告投放
     LineDustryTypeCarSharing             = 11000, // 共享汽车
-
+    
 };
 
 // 身份信息状态
@@ -550,7 +565,7 @@ typedef NS_ENUM(NSInteger, LeaveType) {
     LeaveTypeMaternity                  = 50,    // 产假
     LeaveTypePaternity                  = 60,    // 陪产假
     LeaveTypeFuneral                    = 70,    // 丧假
-
+    
 };
 
 #endif /* BossEnumDefin_h */
