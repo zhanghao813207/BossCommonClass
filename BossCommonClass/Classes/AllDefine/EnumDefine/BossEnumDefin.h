@@ -458,6 +458,16 @@ typedef NS_ENUM(NSUInteger, ListCostCenterType) {
     ListCostCenterTypePerson     = 11,// 个人
     ListCostCenterTypeAssets     = 12,// 资产
 };
+//业务考核各级团队类型
+typedef NS_ENUM(NSUInteger,TeamType) {
+    TEAM_TYPE_OWNER_TEAM = 1,       //业主小队
+    TEAM_TYPE_COACH_TEAM = 2,       //私教小队
+    TEAM_TYPE_COACH_GROUP_TEAM = 3, //私教团队
+    TEAM_TYPE_COMPANY_TEAM = 4,     //业务赋能小队
+    TEAM_TYPE_DATA_TEAM = 5, //数据小队
+    TEAM_TYPE_OPERATION_TEAM = 6, //运维小队
+    TEAM_TYPE_BUSINESS_TEAM = 7, //商务小队
+};
 
 typedef NS_ENUM(NSUInteger, NodeApproveMode) {
     NodeApproveModeAny = 20, // 任意

@@ -532,7 +532,7 @@
                                    @"book_month":bookMonth,
                                    @"cost_center_type":@(type)
                                    };
-        [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
+        [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.c" success:^(id responseObject) {
             DLog(@"%@", responseObject);
             [self getListWithResponseObject:responseObject applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
         } fail:^(id error) {
