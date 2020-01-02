@@ -92,7 +92,7 @@
  @param parameters 请求参数
  @param success 成功返回参数
  @param fail 失败返回参数
- */
+ */ 
 + (void)postJsonNativeWithUrl:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     NNBRequestManager *manager = [self configureManagerWithCMD:cmd];

@@ -6,8 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BossEnumDefin.h"
 @interface CostAllocationModel : NSObject
+
+@property (nonatomic, strong) NSString *identity_card_id;
+
+@property (nonatomic, strong) NSString *assets_id;
 
 /**
  城市名称列表
@@ -50,5 +54,20 @@
  分摊明细字符串
  */
 @property (nonatomic, strong) NSString *allocationString;
+
+/**
+ 团队分摊明细字符串
+ */
+@property (nonatomic, strong) NSString *teamAllocationString;
+
+@property (nonatomic, assign) TeamType team_type;
+@property (nonatomic, strong) NSString *team_name;
+@property (nonatomic, strong) NSString *team_id;
+
+/**
+个人分摊明细字符串
+*/
+@property (nonatomic, strong) NSString *personAllocationString;
+@property (nonatomic,strong) NSDictionary *staff_info;
 
 @end
