@@ -36,7 +36,7 @@
 @property (nonatomic, strong) NSString * submitAt;
 @property (nonatomic, strong) NSObject * supplierId;
 @property (nonatomic, strong) NSString * updatedAt;
-@property (nonatomic, strong) NSObject * workPlacement;
+@property (nonatomic, strong) NSString * workPlacement;
 /**
  归属字符串
  */
