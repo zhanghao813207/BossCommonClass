@@ -164,7 +164,7 @@
 /**
     归属类型 有个人 团队
  */
-@property (nonatomic, assign) ListCostCenterType cost_center_type;
+@property (nonatomic, assign) CostCenterTypeV2 cost_center_type;
 
 
 @end
