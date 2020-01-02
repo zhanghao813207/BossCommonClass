@@ -42,7 +42,7 @@
 @property (nonatomic, strong) NSObject * supplierId;
 @property (nonatomic, strong) NSArray * tags;
 @property (nonatomic, strong) NSString * updatedAt;
-@property (nonatomic, assign) float workingHours;
+@property (nonatomic, strong) NSString * workingHours;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

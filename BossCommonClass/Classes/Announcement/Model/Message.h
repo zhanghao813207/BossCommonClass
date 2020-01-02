@@ -4,7 +4,8 @@
 #import "BossBasicDefine.h"
 
 @interface Message : NSObject
-
+//本地使用 是否是新数据
+@property (nonatomic) BOOL isNewData;
 @property (nonatomic, strong) NSString * idField;
 @property (nonatomic, strong) NSString * accountId;
 @property (nonatomic, strong) NSString * name;

@@ -42,6 +42,8 @@
  */
 @property (nonatomic, strong, readonly) NSString *belongStr;
 
+@property (nonatomic, strong, readonly) NSString *leaveTypeString;
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;
