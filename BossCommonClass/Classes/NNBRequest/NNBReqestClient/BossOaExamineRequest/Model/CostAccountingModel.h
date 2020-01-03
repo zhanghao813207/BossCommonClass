@@ -31,7 +31,7 @@
 /**
  成本中心归属类型
  */
-@property (nonatomic, assign) ListCostCenterType cost_center_type;
+@property (nonatomic, assign) CostCenterTypeV2 cost_center_type;
 
 /**
  成本中心归属类型名称

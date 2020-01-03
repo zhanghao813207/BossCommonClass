@@ -492,7 +492,7 @@
     NSString *costTargetId = @"";
     
     NSString *bookMonth = examineOrderModel.submit_at_int;
-    ListCostCenterType type = applyOrder.cost_center_type;
+    CostCenterTypeV2 type = applyOrder.cost_center_type;
 
     NSMutableDictionary *listDic = @{}.mutableCopy;
     NSMutableArray *list = @[].mutableCopy;
@@ -507,28 +507,28 @@
       CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
     
         switch (type) {
-            case cost_center_type_prj:
+            case CostCenterTypePrj:
                 costTargetId = allocationModel.platform_code?:@"";
                 break;
-            case cost_center_type_prj_base:
+            case CostCenterTypePrjBase:
                 costTargetId = allocationModel.supplier_id?:@"";
                 break;
-            case cost_center_type_city:
+            case CostCenterTypeCity:
                 costTargetId = allocationModel.city_code?:@"";
                 break;
-            case cost_center_type_biz_district:
+            case CostCenterTypeBizDistrict:
                 costTargetId = allocationModel.biz_district_id?:@"";
                 break;
-            case cost_center_type_knight:
+            case CostCenterTypeKnight:
                 costTargetId = allocationModel.biz_district_id?:@"";
                 break;
-            case cost_center_type_team:
+            case CostCenterTypeTeam:
                 costTargetId = allocationModel.team_id?:@"";
                 break;
-            case cost_center_type_personal:
+            case CostCenterTypePersonal:
                 costTargetId = allocationModel.identity_card_id ?:@"";
                 break;
-            case cost_center_type_assets:
+            case CostCenterTypeAssets:
                 costTargetId = allocationModel.assets_id?:@"";
                 break;
             default:

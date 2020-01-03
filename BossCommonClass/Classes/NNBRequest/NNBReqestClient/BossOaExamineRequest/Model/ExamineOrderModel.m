@@ -427,4 +427,14 @@
     return model;
 }
 
+#pragma mark -- 非服务器返回字段，统一校验的本地添加字段
+/// 是否显示金额
+- (BOOL)isHideAmount {
+    
+    if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder){
+        return true;
+    }
+    return false;
+}
+
 @end
