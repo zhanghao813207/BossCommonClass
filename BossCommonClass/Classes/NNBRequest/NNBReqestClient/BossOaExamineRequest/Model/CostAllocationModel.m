@@ -66,13 +66,14 @@
         if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
             [array addObject:self.biz_district_name];
         }
-        if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
-            [array addObject:[self getTeamTypeString:self.team_type]];
+        NSString *teamTypeString = [self getTeamTypeString:self.team_type];
+        if (![JYCSimpleToolClass stringIsEmpty:teamTypeString]) {
+            [array addObject:teamTypeString];
         }
-        if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
+        if (![JYCSimpleToolClass stringIsEmpty:self.team_name]) {
             [array addObject:self.team_name];
         }
-        if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
+        if (![JYCSimpleToolClass stringIsEmpty:self.team_id]) {
             [array addObject:self.team_id];
         }
         
