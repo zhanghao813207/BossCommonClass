@@ -18,11 +18,13 @@
     }
 }
 
-- (BOOL)isEmptyString{
-    if (self == nil || [self isEqualToString:@""] || [self isKindOfClass:[NSNull class]]){
++ (BOOL)isEmptyStringWithString:(NSString *)str{
+    
+    if (str == nil || str == NULL || [str isEqualToString:@""] || [str isKindOfClass:[NSNull class]] || [str isEqualToString:@"(null)"] || str.length == 0){
         return YES;
     }
     return NO;
 }
+
 
 @end
