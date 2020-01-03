@@ -435,7 +435,7 @@ typedef NS_ENUM(NSInteger, SupplementOpinionState) {
     SupplementOpinionStateDelete   =  -101, // 删除
     SupplementOpinionStateNormal   =   100, // 正常
 };
-// 旧的不用了
+//旧的枚举，不用了
 //typedef NS_ENUM(NSUInteger, CostCenterType) {
 //    CostCenterTypeKnight     = 1, // 骑士
 //    CostCenterTypeBD         = 2, // 商圈
@@ -444,19 +444,19 @@ typedef NS_ENUM(NSInteger, SupplementOpinionState) {
 //    CostCenterTypeItem       = 5, // 项目
 //};
 
-typedef NS_ENUM(NSUInteger, ListCostCenterType) {
-    cost_center_type_knight           = 1, // 骑士
-    cost_center_type_biz_district     = 2, // 商圈
-    cost_center_type_city             = 3, // 城市
-    cost_center_type_prj_base         = 4, // 项目主体
-    cost_center_type_prj              = 5, // 项目总部
-    cost_center_type_manager          = 6, // 管理费用
-    cost_center_type_operation        = 7, // 运营支持
-    cost_center_type_direct           = 8, // 车辆直接成本
-    cost_center_type_indirect         = 9, // 车辆间接成本
-    cost_center_type_team             = 10,// 团队
-    cost_center_type_personal         = 11,// 个人
-    cost_center_type_assets           = 12,// 资产
+typedef NS_ENUM(NSUInteger, CostCenterTypeV2) {
+    CostCenterTypeKnight           = 1, // 骑士
+    CostCenterTypeBizDistrict      = 2, // 商圈
+    CostCenterTypeCity             = 3, // 城市
+    CostCenterTypePrjBase          = 4, // 项目主体
+    CostCenterTypePrj              = 5, // 项目总部
+    CostCenterTypeManager          = 6, // 管理费用
+    CostCenterTypeOperation        = 7, // 运营支持
+    CostCenterTypeDirect           = 8, // 车辆直接成本
+    CostCenterTypeIndirect         = 9, // 车辆间接成本
+    CostCenterTypeTeam             = 10,// 团队
+    CostCenterTypePersonal         = 11,// 个人
+    CostCenterTypeAssets           = 12,// 资产
 };
 //业务考核各级团队类型
 typedef NS_ENUM(NSUInteger,TeamType) {
@@ -526,6 +526,7 @@ typedef enum : NSUInteger {
     deleteState = -100, // 删除
 } changeUserInfoCurrentstate;
 
+// 枚举全部遵循 大驼峰命名规则，后面统一改一下
 // 修改用户信息类型
 typedef enum : NSUInteger {
     fixName = 10, // 修改姓名
