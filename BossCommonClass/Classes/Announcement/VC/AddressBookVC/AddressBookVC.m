@@ -17,10 +17,10 @@
 #import "UIView+ShowView.h"
 #import "JYCMethodDefine.h"
 #import "BossBasicDefine.h"
-
+#import "NotDateEmptyView.h"
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
-
+@property (nonatomic, strong) NotDateEmptyView *emptyView;
 /**
  全选按钮的父视图
  */
@@ -230,7 +230,7 @@
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if (self.arrM.count > 0){
+    if (self.arrM.count > 0){
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = kHexRGB(0xF3F3F3);
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -246,9 +246,9 @@
             make.centerY.equalTo(headerView);
         }];
         return headerView;
-//    } else {
-//        return nil;
-//    }
+    } else {
+        return self.emptyView;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactsGroup *model = self.arrM[indexPath.row];
@@ -408,6 +408,13 @@
     
 }
 
-
+- (NotDateEmptyView *)emptyView
+{
+    if (!_emptyView) {
+        CGRect rect = self.view.bounds;
+        _emptyView = [[NotDateEmptyView alloc] initWithFrame:rect theImageViewOrigin:0 theImageAddTitleSpace:0 imageName:nil imageSize:CGSizeZero title:@"暂无群组" isType:NotDateEmptyViewTypeIsUpImageDownTitle];
+    }
+    return _emptyView;
+}
 
 @end
