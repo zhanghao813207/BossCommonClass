@@ -413,7 +413,12 @@ static int textLength = 30;
         make.bottom.equalTo(self).offset(-64);
     }];
     [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.bottom.equalTo(self).offset(0);
+        if (kIsiPhoneX) {
+            make.bottom.equalTo(self).offset(-64 - 64);
+        }else {
+            make.bottom.equalTo(self).offset(-64);
+        }
+         
     }];
 }
 - (void)keyboardShow:(NSNotification *)aNotification {
@@ -427,7 +432,11 @@ static int textLength = 30;
     }];
     [UIView animateWithDuration:1 animations:^{
         [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self).offset(-self.keyboardHeight);
+            if (kIsiPhoneX) {
+                make.bottom.equalTo(self).offset(-self.keyboardHeight - 64 - 20);
+            }else {
+                make.bottom.equalTo(self).offset(-self.keyboardHeight - 64);
+            }
         }];
         [self layoutIfNeeded];
     }];
@@ -480,7 +489,12 @@ static int textLength = 30;
         [_cameraView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);
-            make.bottom.equalTo(self).offset(0);
+            if (kIsiPhoneX){
+                make.bottom.equalTo(self).offset(-64 - 64);
+            } else {
+                make.bottom.equalTo(self).offset(-64);
+            }
+            
             make.height.equalTo(@64);
         }];
     }
@@ -499,7 +513,11 @@ static int textLength = 30;
         [_addView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);//-16
-            make.bottom.equalTo(self).offset(-64);
+            if (kIsiPhoneX){
+                make.bottom.equalTo(self).offset(-64 - 64 - 64);
+            } else {
+                make.bottom.equalTo(self).offset(-64 - 64);
+            }
             make.height.equalTo(@100);
         }];
     }
