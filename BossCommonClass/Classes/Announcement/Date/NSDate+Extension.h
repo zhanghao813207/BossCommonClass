@@ -207,6 +207,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param compareDate 比较的时间
 + (BOOL)currentdayBeforeAtCompareDate:(NSInteger)compareDate;
 
+/**
+ 得到当前时间N天前后的日期
+ @param day   传入正数 n天后   传入负数 N天前
+ @return return value description
+ */
++ (NSDate *)getTimeAfterNowWithDay:(int)day;
+
 @end
 
 NS_ASSUME_NONNULL_END

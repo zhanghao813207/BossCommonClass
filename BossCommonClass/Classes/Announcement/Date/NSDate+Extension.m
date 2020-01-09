@@ -480,5 +480,26 @@
     return compareDate <= currentTimeStr.integerValue;
 }
 
-
+/**
+ 得到当前时间N天前后的日期
+ @param day   传入正数 n天后   传入负数 N天前
+ @return return value description
+ */
++ (NSDate *)getTimeAfterNowWithDay:(int)day
+{
+    NSDate *nowDate = [NSDate date];
+    NSDate *theDate;
+    
+    if(day!=0)
+    {
+        NSTimeInterval  oneDay = 24*60*60*1;  //1天的长度
+        theDate = [nowDate initWithTimeIntervalSinceNow: oneDay*day ];
+        
+    }
+    else
+    {
+        theDate = nowDate;
+    }
+    return theDate;
+}
 @end
