@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy)NSString *_id;
 @property(nonatomic, copy)NSString *file_type;
 @property(nonatomic, copy)NSString *url;
+@property(nonatomic, assign)NSInteger coverTag;
 @end
 
 NS_ASSUME_NONNULL_END
