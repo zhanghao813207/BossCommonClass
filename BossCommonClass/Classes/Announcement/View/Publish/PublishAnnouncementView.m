@@ -337,11 +337,14 @@ static int textLength = 30;
                     filetype = @"jpg";
                     UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.3];
                     data = [JYCSimpleToolClass dataByImage:imageNew];
+                    [tempDataArr addObject:data];
                 } else {
-                    filetype = @"mov";
-                    PHAsset *model = self.imageArrM[i];
+                    NSDictionary *dic = self.imageArrM[i];
+                    PHAsset *model = [dic objectForKey:@"value"];
+                    filetype = [dic objectForKey:@"type"];
                     [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
                         data = fileData;
+                        [tempDataArr addObject:data];
                     }];
                 }
                 [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
@@ -352,7 +355,7 @@ static int textLength = 30;
                 } fail:^(id error) {
                     
                 }];
-                [tempDataArr addObject:data];
+                
             }
         }else {
             [self publish];
@@ -527,15 +530,22 @@ static int textLength = 30;
         NSString *fileType = info[@"UIImagePickerControllerMediaType"];
         if ([fileType isEqualToString:@"public.movie"]){
             NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
-            
+            NSString *fileType;
+            NSArray *strAry = [[NSString stringWithFormat:@"%@", url] componentsSeparatedByString:@"ext="];
+            if (strAry.count > 1){
+                fileType = strAry[1];
+            } else {
+                fileType = @"";
+            }
             PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
             PHAsset *asset = fetchResult.firstObject;
             KNPhotoItems *items = [[KNPhotoItems alloc] init];
             items.sourceImage = [self getVideoPreViewImage:url];
             items.mediatype = mediaVideo;
             items.videourl = url;
+            NSDictionary *dic = @{@"type": fileType, @"value": asset};
             [self.addView addImage:items];
-            [self.imageArrM addObject:asset];
+            [self.imageArrM addObject:dic];
         } else {
             UIImage *pickImage = info[@"UIImagePickerControllerOriginalImage"];
             KNPhotoItems *items = [[KNPhotoItems alloc] init];
