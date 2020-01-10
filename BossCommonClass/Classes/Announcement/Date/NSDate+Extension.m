@@ -502,4 +502,17 @@
     }
     return theDate;
 }
+
+//设置你需要增加或减少的年、月、日即可获得新的日期。
++ (NSDate *)getLaterDateFromDate:(NSDate *)date withYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
+  NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+  NSDateComponents *comps = nil;
+  comps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
+  NSDateComponents *adcomps = [[NSDateComponents alloc] init];
+  [adcomps setYear:year];
+  [adcomps setMonth:month];
+  [adcomps setDay:day];
+  NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:date options:0];
+  return newdate;
+}
 @end
