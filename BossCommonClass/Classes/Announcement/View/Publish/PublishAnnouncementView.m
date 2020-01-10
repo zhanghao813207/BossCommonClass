@@ -467,24 +467,58 @@ static int textLength = 30;
 //CameraViewDelegate
 - (void)pictureSelect:(PictureType)type {
     [self endEditing:true];
+    if (type == PictureTypePhoto){
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if(status == PHAuthorizationStatusAuthorized) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 用户点击 "OK"
+                        [self showImagePickerVc:type];
+                    });
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 用户点击 不允许访问
+                        [self showStatus:@"拒绝后不可上传图片视频"];
+                        return;
+                    });
+                }
+            }];
+        } else if (status == PHAuthorizationStatusAuthorized) {
+            [self showImagePickerVc:type];
+        } else {
+            [self showStatus:@"请在设置-开启相册权限"];
+        }
+    } else if (type == PictureTypeCamera){
+        // 检查用户对相机的授权状态
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied) {
+            [self showStatus:@"请在设置-开启相机权限"];
+            return;
+        } else {
+            [self showImagePickerVc:type];
+        }
+    }
+    
+
+    
+   
+}
+- (void)showImagePickerVc:(PictureType)type{
     if (self.imageArrM.count > 4) {
         [self showStatus:@"最多可上传5张图片"];
         return;
     }
     UIImagePickerController *pic = [[UIImagePickerController alloc] init];
-    pic.delegate = self;
-    pic.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
-    if (type == PictureTypePhoto) {//相机
-        pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }else {//相册
-        pic.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
-    // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
-    pic.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.viewController presentViewController:pic animated:true completion:^{
-        
-    }];
+       pic.delegate = self;
+       if (type == PictureTypePhoto) {//相机
+           pic.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+           pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+       }else {//相册
+           pic.sourceType = UIImagePickerControllerSourceTypeCamera;
+       }
+       pic.modalPresentationStyle = UIModalPresentationFullScreen;
+       [self.viewController presentViewController:pic animated:true completion:nil];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
