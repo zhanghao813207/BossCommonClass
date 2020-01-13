@@ -345,11 +345,20 @@ static int textLength = 30;
                     NSDictionary *dic = self.imageArrM[i];
                     PHAsset *model = [dic objectForKey:@"value"];
                     filetype = [dic objectForKey:@"type"];
-                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
-                        data = fileData;
-                        [tempDataArr addObject:data];
-                        [self uploadqiniu:data filetype:filetype];
+                    [[PHImageManager defaultManager] requestAVAssetForVideo:model options:nil resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                            
+                            if (asset) {
+                                AVURLAsset *a = (AVURLAsset *)asset;
+                                NSData *data = [NSData dataWithContentsOfURL:a.URL];
+                                [tempDataArr addObject:data];
+                                [self uploadqiniu:data filetype:filetype];
+                            }
+                            
                     }];
+//                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
+//                        data = fileData;
+//
+//                    }];
                 }
             }
         }else {
@@ -908,44 +917,6 @@ static int textLength = 30;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)getVideoFromPHAsset:(PHAsset *)asset Complete:(Result)result {
-    NSArray *assetResources = [PHAssetResource assetResourcesForAsset:asset];
-    PHAssetResource *resource;
-
-    for (PHAssetResource *assetRes in assetResources) {
-        if (assetRes.type == PHAssetResourceTypeVideo) {
-            resource = assetRes;
-        }
-    }
-    NSString *fileName = @"tempAssetVideo.mov";
-    if (resource.originalFilename) {
-        fileName = resource.originalFilename;
-    }
-    if (asset.mediaType == PHAssetMediaTypeVideo) {
-        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-        options.version = PHImageRequestOptionsVersionCurrent;
-        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-        
-        NSString *PATH_MOVIE_FILE = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-        [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE error:nil];
-        [[PHAssetResourceManager defaultManager] writeDataForAssetResource:resource
-                                                                    toFile:[NSURL fileURLWithPath:PATH_MOVIE_FILE]
-                                                                   options:nil
-                                                         completionHandler:^(NSError * _Nullable error) {
-                                                             if (error) {
-                                                                 result(nil, nil);
-                                                             } else {
-                                                                 
-                                                                 NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:PATH_MOVIE_FILE]];
-                                                                 result(data, fileName);
-                                                             }
-                                                             [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE  error:nil];
-                                                         }];
-    } else {
-        result(nil, nil);
-    }
 }
 - (UIImage*)getVideoPreViewImage:(NSURL *)path
 {
