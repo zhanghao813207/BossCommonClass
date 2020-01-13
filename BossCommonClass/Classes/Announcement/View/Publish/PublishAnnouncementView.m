@@ -350,10 +350,11 @@ static int textLength = 30;
                             if (asset) {
                                 AVURLAsset *a = (AVURLAsset *)asset;
                                 NSData *data = [NSData dataWithContentsOfURL:a.URL];
-                                [tempDataArr addObject:data];
-                                [self uploadqiniu:data filetype:filetype];
+                                if (data){
+                                    [tempDataArr addObject:data];
+                                    [self uploadqiniu:data filetype:filetype];
+                                }
                             }
-                            
                     }];
 //                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
 //                        data = fileData;
