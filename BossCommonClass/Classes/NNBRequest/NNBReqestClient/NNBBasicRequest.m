@@ -95,8 +95,9 @@
  */ 
 + (void)postJsonNativeWithUrl:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
+    
     NNBRequestManager *manager = [self configureManagerWithCMD:cmd];
-    DLog(@"POST: parameters = %@",parameters);
+    DLog(@"POST: parameters = %@ cmd = %@ url = %@",parameters,cmd,url);
     [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -113,7 +114,20 @@
             @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
             @"data": [error localizedDescription]
         }];
-        [[TraceManager shareTraceManager] requestTrace:cmd Error:model];
+        
+        NSString *cmdName = @"";
+        // 判断cmd是否为空
+        if ([cmd isEmptyString]){
+            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
+            if (![url isEmptyString]){
+                cmdName = url;
+            }
+        }else {
+        // 如果不为空直接用cmd
+            cmdName = cmd;
+        }
+        
+        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
         
         [self handleErrorCodeWithError:error success:success fail:fail];
     }];
