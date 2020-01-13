@@ -353,7 +353,9 @@ static int textLength = 30;
                         [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
                     }
                 } fail:^(id error) {
-                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self dismissLoadingViewWithCompletion:nil];;
+                    });
                 }];
                 
             }
@@ -539,6 +541,13 @@ static int textLength = 30;
             }
             PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
             PHAsset *asset = fetchResult.firstObject;
+            PHAssetResource *resource = [[PHAssetResource assetResourcesForAsset:asset] firstObject];
+
+            CGFloat size = (CGFloat) [[resource valueForKey:@"fileSize"] longLongValue] / (1024*1024);
+            if (size > 20){
+                [self showStatus:@"大于20M的文件不支持上传"];
+                return;
+            }
             KNPhotoItems *items = [[KNPhotoItems alloc] init];
             items.sourceImage = [self getVideoPreViewImage:url];
             items.mediatype = mediaVideo;
@@ -556,6 +565,17 @@ static int textLength = 30;
         }
     }];
   
+}
+- (CGFloat)getFileSize:(NSString *)path
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    float filesize = -1.0;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:path error:nil];//获取文件的属性
+        unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
+        filesize = 1.0*size/1024;
+    }
+    return filesize;
 }
 - (CameraView *)cameraView {
     if (_cameraView == nil) {
