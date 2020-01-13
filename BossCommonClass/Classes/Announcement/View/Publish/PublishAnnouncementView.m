@@ -335,9 +335,12 @@ static int textLength = 30;
                 // 如果上传文件为图片
                 if ([self.imageArrM[i] isKindOfClass:[UIImage class]]){
                     filetype = @"jpg";
-                    UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.3];
+                    UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.8];
                     data = [JYCSimpleToolClass dataByImage:imageNew];
                     [tempDataArr addObject:data];
+                    
+                    [self uploadqiniu:data filetype:filetype];
+
                 } else {
                     NSDictionary *dic = self.imageArrM[i];
                     PHAsset *model = [dic objectForKey:@"value"];
@@ -345,19 +348,9 @@ static int textLength = 30;
                     [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
                         data = fileData;
                         [tempDataArr addObject:data];
+                        [self uploadqiniu:data filetype:filetype];
                     }];
                 }
-                [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
-                    NSLog(@"fdfdfd%@",qiniu_token);
-                    if (qiniu_token) {
-                        [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
-                    }
-                } fail:^(id error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self dismissLoadingViewWithCompletion:nil];;
-                    });
-                }];
-                
             }
         }else {
             [self publish];
@@ -368,7 +361,18 @@ static int textLength = 30;
         
     }];
 }
-
+- (void)uploadqiniu:(NSData *)data filetype:(NSString *)filetype {
+    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
+        NSLog(@"fdfdfd%@",qiniu_token);
+        if (qiniu_token) {
+            [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
+        }
+    } fail:^(id error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissLoadingViewWithCompletion:nil];;
+        });
+    }];
+}
 /**
  上传到七牛
 
