@@ -579,4 +579,10 @@ typedef NS_ENUM(NSInteger, LeaveType) {
     
 };
 
+//合同提示类型
+typedef NS_ENUM(NSInteger, ContractTipType) {
+    ContractTipTypeNotForce                = 10,    // 合同已失效
+    ContractTipTypeError                   = 20,    // 合同信息有误
+};
+
 #endif /* BossEnumDefin_h */

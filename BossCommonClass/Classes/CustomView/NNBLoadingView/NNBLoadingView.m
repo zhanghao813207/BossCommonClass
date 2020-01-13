@@ -129,7 +129,7 @@
 -(UIView *)backGroundView
 {
     if (!_backGroundView) {
-        UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((kCurrentViewWidth - kCurrentWidth(120)) / 2.0, (kCurrentViewHeight - kCurrentWidth(120)) / 2.0, kCurrentWidth(120), kCurrentWidth(120))];
+        UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((kCurrentViewWidth - kCurrentWidth(150)) / 2.0, (kCurrentViewHeight - kCurrentWidth(150)) / 2.0, kCurrentWidth(150), kCurrentWidth(150))];
         backGroundView.backgroundColor = kHexRGBA(0x000000, 0.6);
         backGroundView.layer.cornerRadius = 2.f;
         
@@ -146,7 +146,7 @@
 - (UILabel *)statusLabel
 {
     if (!_statusLabel) {
-        UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.loadingImageView.frame) + kCurrentWidth(10), kCurrentWidth(120), 20)];
+        UILabel *loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.loadingImageView.frame) + kCurrentWidth(10), kCurrentWidth(150), 20)];
         loadingLabel.text = @"加载中";
         loadingLabel.textAlignment = NSTextAlignmentCenter;
         loadingLabel.font = BossRegularFont(14.f);
@@ -160,8 +160,8 @@
 {
     if (!_loadingImageView) {
         // 34 34
-        UIImageView *loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kCurrentWidth(120) - kCurrentWidth(34)) / 2.0, kCurrentWidth(30), kCurrentWidth(34), kCurrentWidth(34))];
-        loadingImageView.image = [UIImage imageNamed:@"loading"];
+        UIImageView *loadingImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kCurrentWidth(150) - kCurrentWidth(74)) / 2.0, kCurrentWidth(30), kCurrentWidth(74), kCurrentWidth(74))];
+        loadingImageView.image = [UIImage imageNamed:@"replaceLoading"];
         
         CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         //默认是顺时针效果，若将fromValue和toValue的值互换，则为逆时针效果
