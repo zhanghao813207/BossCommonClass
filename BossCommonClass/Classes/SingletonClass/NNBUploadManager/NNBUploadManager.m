@@ -41,7 +41,7 @@
             if(failBlock){
                 failBlock(info.error);
             }
-            [[[QHErrorView alloc] initWithTitle:@"图片上传失败，请稍后重试"] showInView:[JYCSimpleToolClass getCurrentVC].view];
+            [[[QHErrorView alloc] initWithTitle:@"上传失败，请稍后重试"] showInView:[JYCSimpleToolClass getCurrentVC].view];
         } else {
             if (complete) {
                 complete(info,key,resp);

@@ -116,8 +116,12 @@
     
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [currentDate timeIntervalSince1970];
-    
-    NSString *path = [NSString stringWithFormat:@"%.0f.jpg",timeInterval];
+    NSString *path;
+    if(operateType){
+        path = [NSString stringWithFormat:@"%.0f.%@",timeInterval, operateType];
+    } else {
+        path = [NSString stringWithFormat:@"%.0f.jpg",timeInterval];
+    }
     NSDictionary *paramDic = @{
                                @"file_name":path,
                                };
