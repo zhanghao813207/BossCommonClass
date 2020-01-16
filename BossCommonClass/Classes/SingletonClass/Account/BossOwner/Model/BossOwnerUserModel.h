@@ -43,6 +43,9 @@
 // 健康证图片url(背面照片)
 @property (nonatomic, strong) NSString * healthcertificatebackurl;
 
+//健康证的有效天数
+@property (nonatomic, assign) NSInteger healthEffectDays;
+
 @property (nonatomic, assign) BOOL isshowJoinTeam;
 
 // 身份证类型 10正常的身份证类型,20临时的身份证类型

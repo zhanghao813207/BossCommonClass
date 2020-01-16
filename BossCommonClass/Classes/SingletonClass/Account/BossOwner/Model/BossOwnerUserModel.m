@@ -58,6 +58,10 @@ NSString *const kBossOwnerUserIDcardEndDate = @"idcard_end_date";
 // 临时身份证的剩余有限天数
 NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_effect_days";
 
+NSString *const kBossOwnerUserHealthEffectDays = @"health_certificate_effect_days";
+
+
+
 @interface BossOwnerUserModel ()
 @end
 @implementation BossOwnerUserModel
@@ -236,6 +240,10 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     if(![dictionary[kBossOwnerUserTemporaryIDcardEffectDays] isKindOfClass:[NSNull class]]){
         self.temporaryIdcardEffectDays = [dictionary[kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
     }
+    
+    if(![dictionary[kBossOwnerUserHealthEffectDays] isKindOfClass:[NSNull class]]){
+        self.healthEffectDays = [dictionary[kBossOwnerUserHealthEffectDays] integerValue];
+    }
 	return self;
 }
 
@@ -330,7 +338,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     dictionary[kBossOwnerUserIDcardStartDate] = @(self.idcardStartDate);
     dictionary[kBossOwnerUserIDcardEndDate] = @(self.idcardEndDate);
     dictionary[kBossOwnerUserTemporaryIDcardEffectDays] = @(self.temporaryIdcardEffectDays);
-
+    dictionary[kBossOwnerUserHealthEffectDays] = @(self.healthEffectDays);
 	return dictionary;
 
 }
@@ -410,6 +418,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     [aCoder encodeObject:@(self.idcardStartDate) forKey:kBossOwnerUserIDcardStartDate];
     [aCoder encodeObject:@(self.idcardEndDate) forKey:kBossOwnerUserIDcardEndDate];
     [aCoder encodeObject:@(self.temporaryIdcardEffectDays) forKey:kBossOwnerUserTemporaryIDcardEffectDays];
+    [aCoder encodeObject:@(self.healthEffectDays) forKey:kBossOwnerUserHealthEffectDays];
 
 }
 
@@ -447,6 +456,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     self.idcardStartDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardStartDate] integerValue];
     self.idcardEndDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardEndDate] integerValue];
     self.temporaryIdcardEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
+    self.healthEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserHealthEffectDays] integerValue];
 
 	return self;
 
@@ -485,6 +495,8 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     copy.idcardStartDate = self.idcardStartDate;
     copy.idcardEndDate = self.idcardEndDate;
     copy.temporaryIdcardEffectDays = self.temporaryIdcardEffectDays;
+    copy.healthEffectDays = self.healthEffectDays;
+
 	return copy;
 }
 @end

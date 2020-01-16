@@ -217,6 +217,10 @@ NS_ASSUME_NONNULL_BEGIN
 //设置你需要增加或减少的年、月、日即可获得新的日期
 + (NSDate *)getLaterDateFromDate:(NSDate *)date withYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day;
 
+// 获取当前的年月日
++(NSString*)getCurrentTimesContainYearMouthDay;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
