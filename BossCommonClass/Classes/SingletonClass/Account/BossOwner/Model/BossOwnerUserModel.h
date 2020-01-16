@@ -37,6 +37,13 @@
 //健康证开始时间
 @property (nonatomic, assign) NSInteger healthcertificatestart;
 
+
+//  健康证图片key(正面照片)
+@property (nonatomic, strong) NSString * healthCertificateKey;
+
+// 健康证图片key(背面照片)
+@property (nonatomic, strong) NSString * healthCertificateBackKey;
+
 //  健康证图片url(正面照片)
 @property (nonatomic, strong) NSString * healthcertificateurl;
 
