@@ -188,7 +188,7 @@
                                         </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L91-Fs-Gv1">
-                                        <rect key="frame" x="16" y="-1" width="398" height="1"/>
+                                        <rect key="frame" x="0.0" y="-1" width="414" height="1"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10438440635451506" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="xpM-f7-Vs6"/>
@@ -206,7 +206,7 @@
                                     <constraint firstAttribute="trailing" secondItem="L91-Fs-Gv1" secondAttribute="trailing" id="YtA-Ol-LQl"/>
                                     <constraint firstItem="gwh-lU-5bH" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="and-h0-8ZQ"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" constant="16" id="jdo-JS-gd7"/>
-                                    <constraint firstItem="L91-Fs-Gv1" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" constant="16" id="mgP-Ry-Wl4"/>
+                                    <constraint firstItem="L91-Fs-Gv1" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" id="mgP-Ry-Wl4"/>
                                     <constraint firstAttribute="bottom" secondItem="L91-Fs-Gv1" secondAttribute="bottom" id="wbh-t2-ohN"/>
                                     <constraint firstAttribute="height" id="y9P-hX-fdz"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="yFh-UH-s2w"/>
