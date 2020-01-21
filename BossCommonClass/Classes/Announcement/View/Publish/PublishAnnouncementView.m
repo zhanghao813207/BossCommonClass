@@ -26,6 +26,11 @@
 #import "SelectContactVc.h"
 #import "UIViewController+StoryBoard.h"
 #import "BizDistrictTeamPlatformModel.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+typedef void(^Result)(NSData *fileData, NSString *fileName);
 
 @interface PublishAnnouncementView ()<UITextViewDelegate,CameraViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextFieldDelegate,AddImageViewDelegate,AddressBookVCDelegate>
 
@@ -325,17 +330,37 @@ static int textLength = 30;
             
             for (NSInteger i = 0;i < self.imageArrM.count; i ++) {
                 [kUserDefault setValue:@"uploadImage" forKey:@"uploadImage"];
-                UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.3];
-                NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
-                [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
-                    NSLog(@"fdfdfd%@",qiniu_token);
-                    if (qiniu_token) {
-                        [self uploadQiniu:data path:path token:qiniu_token];
-                    }
-                } fail:^(id error) {
+                __block NSData *data;
+                NSString *filetype;
+                // 如果上传文件为图片
+                if ([self.imageArrM[i] isKindOfClass:[UIImage class]]){
+                    filetype = @"jpg";
+                    UIImage *imageNew = [NNBUploadManager compressionImage:self.imageArrM[i] proportion:0.8];
+                    data = [JYCSimpleToolClass dataByImage:imageNew];
+                    [tempDataArr addObject:data];
                     
-                }];
-                [tempDataArr addObject:data];
+                    [self uploadqiniu:data filetype:filetype];
+
+                } else {
+                    NSDictionary *dic = self.imageArrM[i];
+                    PHAsset *model = [dic objectForKey:@"value"];
+                    filetype = [dic objectForKey:@"type"];
+                    [[PHImageManager defaultManager] requestAVAssetForVideo:model options:nil resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                            
+                            if (asset) {
+                                AVURLAsset *a = (AVURLAsset *)asset;
+                                NSData *data = [NSData dataWithContentsOfURL:a.URL];
+                                if (data){
+                                    [tempDataArr addObject:data];
+                                    [self uploadqiniu:data filetype:filetype];
+                                }
+                            }
+                    }];
+//                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
+//                        data = fileData;
+//
+//                    }];
+                }
             }
         }else {
             [self publish];
@@ -346,18 +371,29 @@ static int textLength = 30;
         
     }];
 }
-
+- (void)uploadqiniu:(NSData *)data filetype:(NSString *)filetype {
+    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
+        NSLog(@"fdfdfd%@",qiniu_token);
+        if (qiniu_token) {
+            [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
+        }
+    } fail:^(id error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissLoadingViewWithCompletion:nil];;
+        });
+    }];
+}
 /**
  上传到七牛
 
  */
-- (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token {
+- (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token fileType:(NSString *)filetype {
     
     [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
     } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         NSLog(@"%@",key);
         [kUserDefault removeObjectForKey:@"uploadImage"];
-        [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
+        [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:filetype file_key:key Success:^(id  _Nonnull response) {
             NSLog(@"%@",response);
             [self.tempArr addObject:response[@"record"][@"_id"]];
             if (self.tempArr.count == self.imageArrM.count) {
@@ -414,9 +450,9 @@ static int textLength = 30;
     }];
     [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
         if (kIsiPhoneX) {
-            make.bottom.equalTo(self).offset(-64 - 64);
-        }else {
             make.bottom.equalTo(self).offset(-64);
+        }else {
+            make.bottom.equalTo(self).offset(0);
         }
          
     }];
@@ -433,9 +469,9 @@ static int textLength = 30;
     [UIView animateWithDuration:1 animations:^{
         [self.cameraView mas_updateConstraints:^(MASConstraintMaker *make) {
             if (kIsiPhoneX) {
-                make.bottom.equalTo(self).offset(-self.keyboardHeight - 64 - 20);
+                make.bottom.equalTo(self).offset(-self.keyboardHeight - 20);
             }else {
-                make.bottom.equalTo(self).offset(-self.keyboardHeight - 64);
+                make.bottom.equalTo(self).offset(-self.keyboardHeight);
             }
         }];
         [self layoutIfNeeded];
@@ -450,35 +486,110 @@ static int textLength = 30;
 //CameraViewDelegate
 - (void)pictureSelect:(PictureType)type {
     [self endEditing:true];
+    if (type == PictureTypePhoto){
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if(status == PHAuthorizationStatusAuthorized) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 用户点击 "OK"
+                        [self showImagePickerVc:type];
+                    });
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 用户点击 不允许访问
+                        [self showStatus:@"拒绝后不可上传图片视频"];
+                        return;
+                    });
+                }
+            }];
+        } else if (status == PHAuthorizationStatusAuthorized) {
+            [self showImagePickerVc:type];
+        } else {
+            [self showStatus:@"请在设置-开启相册权限"];
+        }
+    } else if (type == PictureTypeCamera){
+        // 检查用户对相机的授权状态
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied) {
+            [self showStatus:@"请在设置-开启相机权限"];
+            return;
+        } else {
+            [self showImagePickerVc:type];
+        }
+    }
+    
+
+    
+   
+}
+- (void)showImagePickerVc:(PictureType)type{
     if (self.imageArrM.count > 4) {
         [self showStatus:@"最多可上传5张图片"];
         return;
     }
     UIImagePickerController *pic = [[UIImagePickerController alloc] init];
-    pic.delegate = self;
-    if (type == PictureTypePhoto) {//相机
-        pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }else {//相册
-        pic.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    // iOS 13 的 presentViewController 默认有视差效果，模态出来的界面现在默认都下滑返回。 一些页面必须要点确认才能消失的，需要适配。
-    // 如果项目中页面高度全部是屏幕尺寸，那么多出来的导航高度会出现问题。
-    pic.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.viewController presentViewController:pic animated:true completion:^{
-        
-    }];
+       pic.delegate = self;
+       if (type == PictureTypePhoto) {//相机
+           pic.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+           pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+       }else {//相册
+           pic.sourceType = UIImagePickerControllerSourceTypeCamera;
+       }
+       pic.modalPresentationStyle = UIModalPresentationFullScreen;
+       [self.viewController presentViewController:pic animated:true completion:nil];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     [picker dismissViewControllerAnimated:true completion:^{
-        UIImage *pickImage;
-        
-        //                pickImage = info[@"UIImagePickerControllerEditedImage"];
-        
-        pickImage = info[@"UIImagePickerControllerOriginalImage"];
-        [self.imageArrM addObject:pickImage];
-        [self.addView addImage:pickImage];
+       
+        NSString *fileType = info[@"UIImagePickerControllerMediaType"];
+        if ([fileType isEqualToString:@"public.movie"]){
+            NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
+            NSString *fileType;
+            NSArray *strAry = [[NSString stringWithFormat:@"%@", url] componentsSeparatedByString:@"ext="];
+            if (strAry.count > 1){
+                fileType = strAry[1];
+            } else {
+                fileType = @"";
+            }
+            PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+            PHAsset *asset = fetchResult.firstObject;
+            PHAssetResource *resource = [[PHAssetResource assetResourcesForAsset:asset] firstObject];
+
+            CGFloat size = (CGFloat) [[resource valueForKey:@"fileSize"] longLongValue] / (1024*1024);
+            if (size > 20){
+                [self showStatus:@"大于20M的文件不支持上传"];
+                return;
+            }
+            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+            items.sourceImage = [self getVideoPreViewImage:url];
+            items.mediatype = mediaVideo;
+            items.videourl = url;
+            NSDictionary *dic = @{@"type": fileType, @"value": asset};
+            [self.addView addImage:items];
+            [self.imageArrM addObject:dic];
+        } else {
+            UIImage *pickImage = info[@"UIImagePickerControllerOriginalImage"];
+            KNPhotoItems *items = [[KNPhotoItems alloc] init];
+            items.sourceImage = pickImage;
+            items.mediatype = mediaImage;
+            [self.addView addImage:items];
+            [self.imageArrM addObject:pickImage];
+        }
     }];
   
+}
+- (CGFloat)getFileSize:(NSString *)path
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    float filesize = -1.0;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:path error:nil];//获取文件的属性
+        unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
+        filesize = 1.0*size/1024;
+    }
+    return filesize;
 }
 - (CameraView *)cameraView {
     if (_cameraView == nil) {
@@ -490,9 +601,9 @@ static int textLength = 30;
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);
             if (kIsiPhoneX){
-                make.bottom.equalTo(self).offset(-64 - 64);
-            } else {
                 make.bottom.equalTo(self).offset(-64);
+            } else {
+                make.bottom.equalTo(self).offset(0);
             }
             
             make.height.equalTo(@64);
@@ -514,9 +625,9 @@ static int textLength = 30;
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);//-16
             if (kIsiPhoneX){
-                make.bottom.equalTo(self).offset(-64 - 64 - 64);
-            } else {
                 make.bottom.equalTo(self).offset(-64 - 64);
+            } else {
+                make.bottom.equalTo(self).offset(-64);
             }
             make.height.equalTo(@100);
         }];
@@ -807,5 +918,19 @@ static int textLength = 30;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (UIImage*)getVideoPreViewImage:(NSURL *)path
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:path options:nil];
+    AVAssetImageGenerator *assetGen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    
+    assetGen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [assetGen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *videoImage = [[UIImage alloc] initWithCGImage:image];
+    CGImageRelease(image);
+    return videoImage;
 }
 @end

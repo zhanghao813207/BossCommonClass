@@ -9,6 +9,7 @@
 #import "KNPhotoBaseCell.h"
 #import "UIView+PBExtesion.h"
 #import "KNProgressHUD.h"
+#import "Masonry.h"
 
 @implementation KNPhotoBaseCell{
     KNProgressHUD *_progressHUD;
@@ -17,10 +18,34 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setupImageView];
+        _playbutton = [[UIButton alloc] init];
+        [_playbutton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
+        [_playbutton setTintColor:UIColor.redColor];
+        [_playbutton setTitle:@"" forState:UIControlStateNormal];
+        [self.contentView addSubview:_playbutton];
+        [_playbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.centerY.equalTo(self.contentView);
+            make.width.height.offset(90);
+        }];
+        
+        NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/boss-message-ios.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        self.playImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"playImage" inBundle:bundle  compatibleWithTraitCollection:nil]];
+        [self.contentView addSubview:self.playImageView];
+        
+        [self.playImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.centerY.equalTo(self.contentView);
+            make.width.height.offset(40);
+        }];
+        
     }
     return self;
 }
-
+- (void)play{
+    if (self.playTap){
+        self.playTap();
+    }
+}
 - (void)setupImageView{
     // 1.photoBrowerView
     KNPhotoBrowserImageView *photoBrowerView = [[KNPhotoBrowserImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];

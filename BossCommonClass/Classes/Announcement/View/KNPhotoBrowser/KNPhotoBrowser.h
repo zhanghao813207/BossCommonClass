@@ -16,6 +16,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+    mediaImage,
+    mediaVideo
+} mediaType;
+
 @interface KNPhotoItems : NSObject
 
 /**
@@ -32,6 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
  current control
  */
 @property (nonatomic,strong) UIView *sourceView;
+
+
+@property (nonatomic,assign) mediaType mediatype;
+
+
+@property (nonatomic,strong) NSURL *videourl;
 
 @end
 

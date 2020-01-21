@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "KNPhotoBrowser.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol AddImageViewDelegate <NSObject>
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface AddImageView : UIView
-- (void)addImage:(UIImage *)image;
+- (void)addImage:(KNPhotoItems *)image;
 @property(nonatomic, weak)id<AddImageViewDelegate>delegate;
 @end
 

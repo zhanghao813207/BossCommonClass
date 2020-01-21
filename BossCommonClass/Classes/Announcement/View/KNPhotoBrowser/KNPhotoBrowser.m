@@ -15,7 +15,7 @@
 #import "KNPhotoBrowser.h"
 #import "KNPhotoBaseCell.h"
 #import "KNPhotoBrowserPch.h"
-
+#import "PlayerViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
 #import <SDWebImage/SDImageCache.h>
@@ -119,17 +119,26 @@
 }
 
 - (void)hiddenStatusBar{
-    UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    [UIView animateWithDuration:0.15 animations:^{
-        statusBar.transform = CGAffineTransformMakeTranslation(0, - statusBar.height);
-    }];
+    if (@available(iOS 13.0, *)) {
+        
+    } else {
+        UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+        [UIView animateWithDuration:0.15 animations:^{
+            statusBar.transform = CGAffineTransformMakeTranslation(0, - statusBar.height);
+        }];
+    }
+    
 }
 
 - (void)showStatusBar{
-    UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
-    [UIView animateWithDuration:0.15 animations:^{
-        statusBar.transform = CGAffineTransformIdentity;
-    }];
+    if (@available(iOS 13.0, *)) {
+        
+    } else {
+        UIView *statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+        [UIView animateWithDuration:0.15 animations:^{
+            statusBar.transform = CGAffineTransformIdentity;
+        }];
+    }
 }
 
 - (void)viewDidLoad {
@@ -290,8 +299,25 @@
     UIImageView *tempView = [self tempViewFromSourceViewWithCurrentIndex:indexPath.row];
     
     [cell sd_ImageWithUrl:url placeHolder:tempView.image?tempView.image:[self createImageWithUIColor:[UIColor lightGrayColor]]];
-    
+    // 是 mediaVideo 显示
+    if (item.mediatype == mediaVideo){
+        [cell.playImageView setHidden:false];
+        [cell.playbutton setHidden:false];
+    } else {
+        // 隐藏
+        [cell.playImageView setHidden:true];
+        [cell.playbutton setHidden:true];
+    }
     __weak typeof(self) weakSelf = self;
+    cell.playTap = ^{
+        PlayerViewController *vc = [[PlayerViewController alloc] init];
+        vc.url = [NSString stringWithFormat:@"%@", item.videourl];
+        if (@available(iOS 13.0, *)) {
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        }
+        [weakSelf presentViewController:vc animated:true completion:nil];
+    };
+    
     cell.singleTap = ^{
         [weakSelf dismiss];
     };
@@ -306,6 +332,10 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return collectionView.frame.size;
 }
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    KNPhotoItems *items = _itemsArr[_currentIndex];
+//    NSLog(items.videourl);
+//}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat scrollViewW = scrollView.frame.size.width;
     _currentIndex = scrollView.contentOffset.x / _layout.itemSize.width;

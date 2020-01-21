@@ -17,10 +17,10 @@
 #import "UIView+ShowView.h"
 #import "JYCMethodDefine.h"
 #import "BossBasicDefine.h"
-
+#import "NotDateEmptyView.h"
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
-
+@property (nonatomic, strong) NotDateEmptyView *emptyView;
 /**
  全选按钮的父视图
  */
@@ -78,7 +78,7 @@
     self.selectArrM = [NSMutableArray array];
     
     self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.finishButton.userInteractionEnabled = false;
+    //    self.finishButton.userInteractionEnabled = false;
     self.finishButton.frame = CGRectMake(0, 0, 60, 35);
     self.finishButton.layer.cornerRadius = 4;
     self.finishButton.layer.masksToBounds = true;
@@ -112,7 +112,7 @@
     }
     
     [self.selectArrM removeAllObjects];
-//    [self.view showStatus:@"正在请求数据..."];
+    //    [self.view showStatus:@"正在请求数据..."];
     if(self.isShowSelectBar){
         [AnnouncementRequest findWPPAdressBook:self.wppId successBlock:^(NSArray * _Nonnull dataArr) {
             [self handleSuccess:dataArr];
@@ -166,7 +166,7 @@
 }
 
 - (void)refreshMoreData {
-   
+    
 }
 - (NSMutableDictionary *)selectDic {
     if (_selectDic == nil) {
@@ -177,17 +177,17 @@
 
 - (void)finishAction {
     
-/*这是选择的人数  先注释掉
-    NSMutableArray *tempArr = [NSMutableArray array];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
-        NSArray *keys = self.selectDic.allKeys;
-        for (NSInteger i = 0; i < keys.count; i ++) {
-            for (ContactsPerson *model in self.selectDic[keys[i]]) {
-                [tempArr addObject:model.nick_name];
-            }
-        }
-        [self.delegate select:tempArr];
-//    }*/
+    /*这是选择的人数  先注释掉
+     NSMutableArray *tempArr = [NSMutableArray array];
+     if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
+     NSArray *keys = self.selectDic.allKeys;
+     for (NSInteger i = 0; i < keys.count; i ++) {
+     for (ContactsPerson *model in self.selectDic[keys[i]]) {
+     [tempArr addObject:model.nick_name];
+     }
+     }
+     [self.delegate select:tempArr];
+     //    }*/
     NSLog(@"%@",self.selectArrM);
     if (self.selectArrM.count > 0) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
@@ -197,19 +197,19 @@
     }else {
         [self.view showStatus:@"请选择联系人"];
     }
-   
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-
+    
     [self.tableview.mj_header beginRefreshing];
 }
 
 //AddressBookCellDelegate
 - (void)didSelectCell:(AddressBookCell *)cell model:(ContactsGroup *)model {
     if (model.state == SelectStateAll) {
-       [self.selectArrM addObject:model];
+        [self.selectArrM addObject:model];
     }else if (model.state == SelectStateNo) {
         [self.selectArrM removeObject:model];
     }
@@ -230,7 +230,7 @@
     [self.tableview reloadData];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if (self.arrM.count > 0){
+    if (self.arrM.count > 0){
         UIView *headerView = [[UIView alloc] init];
         headerView.backgroundColor = kHexRGB(0xF3F3F3);
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -246,9 +246,9 @@
             make.centerY.equalTo(headerView);
         }];
         return headerView;
-//    } else {
-//        return nil;
-//    }
+    } else {
+        return self.emptyView;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactsGroup *model = self.arrM[indexPath.row];
@@ -258,7 +258,7 @@
     if (model.state == SelectStateAll) {
         vc.isAll = true;
     }else {
-//        vc.personSelectArr = self.personSelectArr;
+        //        vc.personSelectArr = self.personSelectArr;
         vc.personSelectArr = self.selectDic[[NSNumber numberWithInteger:indexPath.row]];
     }
     vc.delegate = self;
@@ -274,7 +274,7 @@
     if (self.arrM.count > 0) {
         return 35;
     }
-    return 0.01;
+    return self.emptyView.frame.size.height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -319,7 +319,7 @@
         button.selected = true;
     }
     button.selected = !button.isSelected;
-   
+    
     [self.selectArrM removeAllObjects];
     if (button.selected) {
         for (ContactsGroup *model in self.arrM) {
@@ -343,7 +343,7 @@
         _tableview.dataSource = self;
         _tableview.separatorColor = kHexRGB(0xE5E5EE);
         _tableview.backgroundColor = [UIColor clearColor];
-//        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
+        //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
         }else {
@@ -362,7 +362,7 @@
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.view);
             if (self.isShowSelectBar) {
-               make.bottom.equalTo(self.selecBar.mas_top);
+                make.bottom.equalTo(self.selecBar.mas_top);
             }else {
                 make.bottom.equalTo(self.view);
             }
@@ -408,6 +408,13 @@
     
 }
 
-
+- (NotDateEmptyView *)emptyView
+{
+    if (!_emptyView) {
+        CGRect rect = self.view.bounds;
+        _emptyView = [[NotDateEmptyView alloc] initWithFrame:rect theImageViewOrigin:0 theImageAddTitleSpace:0 imageName:nil imageSize:CGSizeZero title:@"暂无群组" isType:NotDateEmptyViewTypeIsUpImageDownTitle];
+    }
+    return _emptyView;
+}
 
 @end

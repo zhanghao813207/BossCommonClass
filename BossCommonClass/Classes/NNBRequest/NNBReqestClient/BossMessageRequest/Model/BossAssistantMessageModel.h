@@ -54,5 +54,7 @@
  */
 @property (nonatomic, assign) BOOL is_deleted;
 
+/// 是否全部标记为已读（本地字段）
+@property (nonatomic, assign) BOOL isReadAll;
 
 @end
