@@ -61,7 +61,11 @@
         if (size.width > 0 && size.height > 0) {
             self.imageSize = size;
         } else {
-            self.imageSize = CGSizeMake(kIphone6Width(108), kIphone6Width(75));
+             #if kBossManager
+             self.imageSize = CGSizeMake(kIphone6Width(68), kIphone6Width(69));
+             #else
+             self.imageSize = CGSizeMake(kIphone6Width(90), kIphone6Width(90));
+             #endif
         }
         
         if (originY > 0) {
