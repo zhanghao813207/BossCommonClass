@@ -585,4 +585,13 @@ typedef NS_ENUM(NSInteger, ContractTipType) {
     ContractTipTypeError                   = 20,    // 合同信息有误
 };
 
+//储存文件类型[1: 七牛 2: 本地 3:S3] |
+typedef NS_ENUM(NSInteger, SavePhotoType) {
+    SavePhotoTypeQiNiu                 = 1,    // 七牛
+    SavePhotoTypeLocal                 = 2,    // 本地
+    SavePhotoTypeS3                    = 3,    // S3
+
+};
+
+
 #endif /* BossEnumDefin_h */
