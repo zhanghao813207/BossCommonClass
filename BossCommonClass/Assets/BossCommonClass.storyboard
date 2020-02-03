@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,8 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wsw-Jq-Mdy">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wsw-Jq-Mdy">
+                                <rect key="frame" x="0.0" y="176" width="414" height="686"/>
                                 <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="header" rowHeight="141" id="RMV-md-2CK" customClass="userContent_Type2HeaderCell">
@@ -165,13 +165,13 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="0.0"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYt-6b-KDG">
-                                        <rect key="frame" x="16" y="-10.5" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="16" y="-10.5" width="38" height="21"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
                                         <color key="textColor" red="0.85882352941176465" green="0.53333333333333333" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tipRightIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o6g-pR-Fgd">
-                                        <rect key="frame" x="63" y="-5" width="9" height="10"/>
+                                        <rect key="frame" x="59" y="-5" width="9" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="dpN-vV-WMN"/>
                                             <constraint firstAttribute="width" constant="9" id="zHk-zZ-1yN"/>
@@ -187,14 +187,27 @@
                                             <outletCollection property="gestureRecognizers" destination="rIZ-WP-mjK" appends="YES" id="4nx-n9-HaQ"/>
                                         </connections>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L91-Fs-Gv1">
+                                        <rect key="frame" x="0.0" y="-1" width="414" height="1"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10438440635451506" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="xpM-f7-Vs6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.96470588235294119" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="o6g-pR-Fgd" firstAttribute="leading" secondItem="yYt-6b-KDG" secondAttribute="trailing" constant="5" id="0k8-yz-unK"/>
                                     <constraint firstAttribute="trailing" secondItem="gwh-lU-5bH" secondAttribute="trailing" constant="16" id="DjU-M4-How"/>
                                     <constraint firstItem="o6g-pR-Fgd" firstAttribute="centerY" secondItem="yYt-6b-KDG" secondAttribute="centerY" id="Qg0-Rg-v4t"/>
+                                    <constraint firstAttribute="trailing" secondItem="L91-Fs-Gv1" secondAttribute="trailing" id="YtA-Ol-LQl"/>
                                     <constraint firstItem="gwh-lU-5bH" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="and-h0-8ZQ"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" constant="16" id="jdo-JS-gd7"/>
+                                    <constraint firstItem="L91-Fs-Gv1" firstAttribute="leading" secondItem="Lkp-cD-1fK" secondAttribute="leading" id="mgP-Ry-Wl4"/>
+                                    <constraint firstAttribute="bottom" secondItem="L91-Fs-Gv1" secondAttribute="bottom" id="wbh-t2-ohN"/>
                                     <constraint firstAttribute="height" id="y9P-hX-fdz"/>
                                     <constraint firstItem="yYt-6b-KDG" firstAttribute="centerY" secondItem="Lkp-cD-1fK" secondAttribute="centerY" id="yFh-UH-s2w"/>
                                 </constraints>
@@ -202,22 +215,64 @@
                                     <outletCollection property="gestureRecognizers" destination="y7c-pe-vRe" appends="YES" id="2t6-Ii-b51"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vmn-RS-Lej" userLabel="HealthDateTipView">
+                                <rect key="frame" x="0.0" y="72" width="414" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="您的健康证还有1天即将到期，请及时办理新证件并上传哦" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ita-T0-Dc8">
+                                        <rect key="frame" x="16" y="8" width="292" height="42"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                        <color key="textColor" red="0.85882352939999995" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close-memberList" translatesAutoresizingMaskIntoConstraints="NO" id="rOz-mc-iMl">
+                                        <rect key="frame" x="378" y="20" width="20" height="20"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="SOi-Db-LHM"/>
+                                            <constraint firstAttribute="width" secondItem="rOz-mc-iMl" secondAttribute="height" id="a4i-V0-qsB"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="vXk-oa-Z3e" appends="YES" id="rTS-KL-ogY"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.96470588239999999" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1HV-MW-1gc"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ita-T0-Dc8" secondAttribute="bottom" constant="8" id="JWU-WW-oSh"/>
+                                    <constraint firstItem="rOz-mc-iMl" firstAttribute="centerY" secondItem="Vmn-RS-Lej" secondAttribute="centerY" id="PHC-GE-LYv"/>
+                                    <constraint firstItem="Ita-T0-Dc8" firstAttribute="leading" secondItem="Vmn-RS-Lej" secondAttribute="leading" constant="16" id="bPj-59-WxK"/>
+                                    <constraint firstAttribute="trailing" secondItem="rOz-mc-iMl" secondAttribute="trailing" constant="16" id="g5J-vn-h3m"/>
+                                    <constraint firstItem="Ita-T0-Dc8" firstAttribute="trailing" secondItem="rOz-mc-iMl" secondAttribute="leading" constant="-8" id="oH9-q6-MY2"/>
+                                    <constraint firstItem="Ita-T0-Dc8" firstAttribute="top" secondItem="Vmn-RS-Lej" secondAttribute="top" constant="8" id="rJc-49-5Zx"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qRM-Or-nqe" appends="YES" id="NeW-m9-Cva"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Lkp-cD-1fK" firstAttribute="leading" secondItem="sD0-CU-kxL" secondAttribute="leading" id="2iH-pg-cJf"/>
+                            <constraint firstItem="Vmn-RS-Lej" firstAttribute="top" secondItem="Lkp-cD-1fK" secondAttribute="bottom" id="Dg0-6H-mEV"/>
                             <constraint firstAttribute="trailing" secondItem="wsw-Jq-Mdy" secondAttribute="trailing" id="I1J-6X-nub"/>
                             <constraint firstItem="Lkp-cD-1fK" firstAttribute="top" secondItem="c6k-3X-fM9" secondAttribute="bottom" id="Mtn-yp-JgI"/>
+                            <constraint firstItem="Vmn-RS-Lej" firstAttribute="leading" secondItem="sD0-CU-kxL" secondAttribute="leading" id="NXg-hA-mdX"/>
                             <constraint firstItem="wsw-Jq-Mdy" firstAttribute="leading" secondItem="SdR-T7-FJq" secondAttribute="leading" id="ODd-47-EKi"/>
                             <constraint firstItem="qpT-TO-nF3" firstAttribute="top" secondItem="wsw-Jq-Mdy" secondAttribute="bottom" id="ain-1L-tzt"/>
                             <constraint firstItem="Lkp-cD-1fK" firstAttribute="trailing" secondItem="sD0-CU-kxL" secondAttribute="trailing" id="anm-DD-Acz"/>
-                            <constraint firstItem="wsw-Jq-Mdy" firstAttribute="top" secondItem="Lkp-cD-1fK" secondAttribute="bottom" id="hES-J3-o4J"/>
+                            <constraint firstItem="wsw-Jq-Mdy" firstAttribute="top" secondItem="Vmn-RS-Lej" secondAttribute="bottom" id="hES-J3-o4J"/>
+                            <constraint firstItem="sD0-CU-kxL" firstAttribute="trailing" secondItem="Vmn-RS-Lej" secondAttribute="trailing" id="vzl-PF-bMz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sD0-CU-kxL"/>
                     </view>
                     <navigationItem key="navigationItem" id="juX-tZ-mNP"/>
                     <connections>
                         <outlet property="currentTaskLabel" destination="yYt-6b-KDG" id="GX2-My-iYw"/>
+                        <outlet property="healthDateTipView" destination="Vmn-RS-Lej" id="Ug3-bR-NMQ"/>
+                        <outlet property="healthDateTipViewHeight" destination="1HV-MW-1gc" id="6uW-1B-z9U"/>
+                        <outlet property="healthExpireTipLab" destination="Ita-T0-Dc8" id="Wl9-XN-0Vh"/>
                         <outlet property="isClickedIconImageView" destination="o6g-pR-Fgd" id="RN4-4S-US9"/>
                         <outlet property="stateLabelHeight" destination="y9P-hX-fdz" id="Vuv-Bt-xBh"/>
                         <outlet property="taskStateView" destination="Lkp-cD-1fK" id="9zJ-sd-6kt"/>
@@ -235,8 +290,18 @@
                         <action selector="closeStatusView:" destination="mI8-ti-bDZ" id="82G-Cb-ggd"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="qRM-Or-nqe">
+                    <connections>
+                        <action selector="healthDateTipViewClick:" destination="mI8-ti-bDZ" id="UAn-Z4-vxn"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="vXk-oa-Z3e">
+                    <connections>
+                        <action selector="healthViewClose:" destination="mI8-ti-bDZ" id="NX0-Bm-xfR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="961" y="577"/>
+            <point key="canvasLocation" x="960.86956521739137" y="576.5625"/>
         </scene>
         <!--User Info Fix Vc-->
         <scene sceneID="SIF-JG-V33">

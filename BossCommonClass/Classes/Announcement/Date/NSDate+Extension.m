@@ -515,4 +515,15 @@
   NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:date options:0];
   return newdate;
 }
+
+// 获取当前的年月日
++(NSString*)getCurrentTimesContainYearMouthDay{
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+    NSDate *dateNow = [NSDate date];
+    NSString *currentTimeString = [formatter stringFromDate:dateNow];
+    return currentTimeString;
+}
+
 @end
