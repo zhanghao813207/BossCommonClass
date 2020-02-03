@@ -32,7 +32,7 @@
                                        @"limit":@(limmit),
                                        },
                                @"broad_type":@(BROAD_TYPE_ORIERN),
-                               @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
+                               @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ),@(MESSAGE_TYPE_DONE)],
                                @"account_ids":@[kCurrentBossManagerAccount.accountModel._id]
                                };
     
@@ -74,7 +74,7 @@
                                        @"limit":@(limmit),
                                        },
                                @"broad_type":@(BROAD_TYPE_ORIERN),
-                               @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ)],
+                               @"state":@[@(MESSAGE_TYPE_NEW),@(MESSAGE_TYPE_SEND),@(MESSAGE_TYPE_READ),@(MESSAGE_TYPE_DONE)],
                                @"account_ids":@[kCurrentBossManagerAccount.accountModel._id],
                                };
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"notify.message_bus.ba_channel" success:^(id responseObject) {
