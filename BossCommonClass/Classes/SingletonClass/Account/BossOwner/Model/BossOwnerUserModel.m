@@ -83,6 +83,10 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     self.accessToken = tokenModel.access_token;
 }
 
+-(BOOL)hanDianAuth{
+    NSString *authKey = [NSString stringWithFormat:@"%@threeAuthAgree",self.accountId];
+    return  [[NSUserDefaults standardUserDefaults] valueForKey:authKey];
+}
 
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values

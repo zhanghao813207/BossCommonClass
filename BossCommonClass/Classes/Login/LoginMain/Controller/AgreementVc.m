@@ -15,10 +15,15 @@
 @end
 
 @implementation AgreementVc
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    [self.navigationController setToolbarHidden:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
     UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
     [self.view addGestureRecognizer:pan];
@@ -27,7 +32,8 @@
         self.url = AGREEMENTURL;
     }
 //    CGRect bounds = [[UIScreen mainScreen]applicationFrame];
-    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50)];
+    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    webView.backgroundColor = [UIColor whiteColor];
 //    webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
     NSURL* url = [NSURL URLWithString: self.url];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
