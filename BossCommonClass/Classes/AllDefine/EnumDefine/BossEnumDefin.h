@@ -329,11 +329,19 @@ typedef NS_ENUM(NSUInteger, OS_COSTCLASS_TYPE) {
     OS_COSTCLASS_AGENCY      = 5, // 租房、中介费、押金(中介费)
     OS_COSTCLASS_PLEDGE      = 6, // 租房、中介费、押金(押金)
 };
+//旧的枚举 V1
+//typedef NS_ENUM(NSInteger, MESSAGE_TYPE) {
+//    MESSAGE_TYPE_NEW       =    1,  // 新消息
+//    MESSAGE_TYPE_SEND      =   90,  // 已送达
+//    MESSAGE_TYPE_READ      =  100,  // 已读
+//    MESSAGE_TYPE_DEL       = -100,  // 已删除
+//};
 
 typedef NS_ENUM(NSInteger, MESSAGE_TYPE) {
     MESSAGE_TYPE_NEW       =    1,  // 新消息
     MESSAGE_TYPE_SEND      =   90,  // 已送达
-    MESSAGE_TYPE_READ      =  100,  // 已读
+    MESSAGE_TYPE_READ      =  91,   // 已读
+    MESSAGE_TYPE_DONE      =  100,  // 完成
     MESSAGE_TYPE_DEL       = -100,  // 已删除
 };
 
@@ -578,5 +586,20 @@ typedef NS_ENUM(NSInteger, LeaveType) {
     LeaveTypeFuneral                    = 70,    // 丧假
     
 };
+
+//合同提示类型
+typedef NS_ENUM(NSInteger, ContractTipType) {
+    ContractTipTypeNotForce                = 10,    // 合同已失效
+    ContractTipTypeError                   = 20,    // 合同信息有误
+};
+
+//储存文件类型[1: 七牛 2: 本地 3:S3] |
+typedef NS_ENUM(NSInteger, SavePhotoType) {
+    SavePhotoTypeQiNiu                 = 1,    // 七牛
+    SavePhotoTypeLocal                 = 2,    // 本地
+    SavePhotoTypeS3                    = 3,    // S3
+
+};
+
 
 #endif /* BossEnumDefin_h */

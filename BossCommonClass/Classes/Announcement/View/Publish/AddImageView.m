@@ -41,15 +41,13 @@
     }
     return _itemsArr;
 }
-- (void)addImage:(UIImage *)image {
-    [self.itemsArr removeAllObjects];
-    [self.imageArr insertObject:image atIndex:0];
-    for (NSInteger i = 0; i < self.imageArr.count; i++) {
-        UIImage *image = self.imageArr[i];
-        KNPhotoItems *items = [[KNPhotoItems alloc] init];
-        items.sourceImage = image;
-        [self.itemsArr addObject:items];
-    }
+- (void)addImage:(KNPhotoItems *)item {
+    KNPhotoItems *items = [[KNPhotoItems alloc] init];
+    [self.imageArr insertObject:item.sourceImage atIndex:0];
+    items.sourceImage = item.sourceImage;
+    items.mediatype = item.mediatype;
+    items.videourl = item.videourl;
+    [self.itemsArr insertObject:items atIndex:0];
     [self.collectionview reloadData];
 }
 //AddimgViewCellDelegate
@@ -105,10 +103,9 @@
     AddimgViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.image = self.imageArr[indexPath.item];
     cell.delegate = self;
-
-        KNPhotoItems *items = self.itemsArr[indexPath.row];
-        items.sourceView = cell.imgView;
-
+    KNPhotoItems *items = self.itemsArr[indexPath.row];
+    items.sourceView = cell.imgView;
+    
     return cell;
 }
 - (UICollectionView *)collectionview {

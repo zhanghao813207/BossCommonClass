@@ -5,6 +5,7 @@
 
 
 #import "BossOwnerUserModel.h"
+#import "NSString+base.h"
 
 NSString *const kBossOwnerUserModelAccessToken = @"access_token";
 NSString *const kBossOwnerUserModelAccountId = @"_id";
@@ -57,6 +58,19 @@ NSString *const kBossOwnerUserIDcardEndDate = @"idcard_end_date";
 
 // 临时身份证的剩余有限天数
 NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_effect_days";
+
+// 健康证剩余有效天数
+NSString *const kBossOwnerUserHealthEffectDays = @"health_certificate_effect_days";
+
+// 健康证是否完善
+NSString *const kBossOwnerUserHealthCardIsOk = @"health_card_is_ok";
+
+// 健康证正面key
+NSString *const kBossOwnerUserHealthCertificateKey = @"health_certificate";
+
+// 健康证反面key
+NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_back";
+
 
 @interface BossOwnerUserModel ()
 @end
@@ -115,15 +129,7 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     return BankCardStatusDone;
 }
 
-//工作证件是否完善
-- (BOOL)workCardIsDone
-{
-   if(self.healthcertificatebackurl == nil ||self.healthcertificateurl == nil || !self.healthcertificateend  || !self.healthcertificatestart)
-   {
-       return NO;
-   }
-    return YES;
-}
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
@@ -144,7 +150,6 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     if(![dictionary[kBossOwnerUserModelphone] isKindOfClass:[NSNull class]]){
         self.phone = dictionary[kBossOwnerUserModelphone];
     }
-
     
 	if(![dictionary[kBossOwnerUserModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kBossOwnerUserModelAccessToken];
@@ -240,6 +245,21 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     if(![dictionary[kBossOwnerUserTemporaryIDcardEffectDays] isKindOfClass:[NSNull class]]){
         self.temporaryIdcardEffectDays = [dictionary[kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
     }
+    if(![dictionary[kBossOwnerUserHealthCardIsOk] isKindOfClass:[NSNull class]]){
+        self.healthCardIsOK = [dictionary[kBossOwnerUserHealthCardIsOk] boolValue];
+    }
+    
+    if(![dictionary[kBossOwnerUserHealthEffectDays] isKindOfClass:[NSNull class]]){
+        self.healthEffectDays = [dictionary[kBossOwnerUserHealthEffectDays] integerValue];
+    }
+  
+    if(![dictionary[kBossOwnerUserHealthCertificateKey] isKindOfClass:[NSNull class]]){
+        self.healthCertificateKey = dictionary[kBossOwnerUserHealthCertificateKey];
+    }
+    if(![dictionary[kBossOwnerUserHealthCertificateBackKey] isKindOfClass:[NSNull class]]){
+        self.healthCertificateBackKey = dictionary[kBossOwnerUserHealthCertificateBackKey];
+    }
+    
 	return self;
 }
 
@@ -334,7 +354,15 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     dictionary[kBossOwnerUserIDcardStartDate] = @(self.idcardStartDate);
     dictionary[kBossOwnerUserIDcardEndDate] = @(self.idcardEndDate);
     dictionary[kBossOwnerUserTemporaryIDcardEffectDays] = @(self.temporaryIdcardEffectDays);
-
+    dictionary[kBossOwnerUserHealthCardIsOk] = @(self.healthCardIsOK);
+    dictionary[kBossOwnerUserHealthEffectDays] = @(self.healthEffectDays);
+    
+    if(self.healthCertificateKey != nil){
+        dictionary[kBossOwnerUserHealthCertificateKey] = self.healthCertificateKey;
+    }
+    if(self.healthCertificateBackKey != nil){
+        dictionary[kBossOwnerUserHealthCertificateBackKey] = self.healthCertificateBackKey;
+    }
 	return dictionary;
 
 }
@@ -414,7 +442,16 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     [aCoder encodeObject:@(self.idcardStartDate) forKey:kBossOwnerUserIDcardStartDate];
     [aCoder encodeObject:@(self.idcardEndDate) forKey:kBossOwnerUserIDcardEndDate];
     [aCoder encodeObject:@(self.temporaryIdcardEffectDays) forKey:kBossOwnerUserTemporaryIDcardEffectDays];
+    [aCoder encodeObject:@(self.healthCardIsOK) forKey:kBossOwnerUserHealthCardIsOk];
+    [aCoder encodeObject:@(self.healthEffectDays) forKey:kBossOwnerUserHealthEffectDays];
 
+    
+    if(self.healthCertificateKey != nil){
+        [aCoder encodeObject:self.healthCertificateKey forKey:kBossOwnerUserHealthCertificateKey];
+    }
+    if(self.healthCertificateBackKey != nil){
+        [aCoder encodeObject:self.healthCertificateBackKey forKey:kBossOwnerUserHealthCertificateBackKey];
+    }
 }
 
 /**
@@ -451,7 +488,10 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     self.idcardStartDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardStartDate] integerValue];
     self.idcardEndDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardEndDate] integerValue];
     self.temporaryIdcardEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
-
+    self.healthCardIsOK = [[aDecoder decodeObjectForKey:kBossOwnerUserHealthCardIsOk] boolValue];
+    self.healthEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserHealthEffectDays] integerValue];
+    self.healthCertificateKey = [aDecoder decodeObjectForKey:kBossOwnerUserHealthCertificateKey];
+    self.healthCertificateBackKey = [aDecoder decodeObjectForKey:kBossOwnerUserHealthCertificateBackKey];
 	return self;
 
 }
@@ -489,6 +529,11 @@ NSString *const kBossOwnerUserTemporaryIDcardEffectDays = @"temporary_idcard_eff
     copy.idcardStartDate = self.idcardStartDate;
     copy.idcardEndDate = self.idcardEndDate;
     copy.temporaryIdcardEffectDays = self.temporaryIdcardEffectDays;
+    copy.healthCardIsOK = self.healthCardIsOK;
+    copy.healthEffectDays = self.healthEffectDays;
+    copy.healthCertificateKey = self.healthCertificateKey;
+    copy.healthCertificateBackKey = self.healthCertificateBackKey;
+
 	return copy;
 }
 @end

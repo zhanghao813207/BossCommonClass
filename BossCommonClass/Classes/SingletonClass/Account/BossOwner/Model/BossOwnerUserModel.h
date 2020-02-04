@@ -37,11 +37,21 @@
 //健康证开始时间
 @property (nonatomic, assign) NSInteger healthcertificatestart;
 
+
+//  健康证图片key(正面照片)
+@property (nonatomic, strong) NSString * healthCertificateKey;
+
+// 健康证图片key(背面照片)
+@property (nonatomic, strong) NSString * healthCertificateBackKey;
+
 //  健康证图片url(正面照片)
 @property (nonatomic, strong) NSString * healthcertificateurl;
 
 // 健康证图片url(背面照片)
 @property (nonatomic, strong) NSString * healthcertificatebackurl;
+
+//健康证的有效天数
+@property (nonatomic, assign) NSInteger healthEffectDays;
 
 @property (nonatomic, assign) BOOL isshowJoinTeam;
 
@@ -86,12 +96,15 @@
  */
 @property (nonatomic, assign) StaffStates state;
 
+//健康证件是否完善
+@property (nonatomic, assign) BOOL healthCardIsOK;
+
 //身份证状态
 @property (nonatomic, assign, readonly) IdentityStatus identityStatus;
 //银行卡状态
 @property (nonatomic, assign, readonly) BankCardStatus bankCardStatus;
-//工作证件是否完善
-@property (nonatomic, assign, readonly) BOOL workCardIsDone;
+
+
 
 // 汗点三方是否授权
 @property (nonatomic, assign,readonly) BOOL hanDianAuth;
