@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AgreementVc : BossViewController
 
-@property (nonatomic, strong)NSString *url;
+@property (nonatomic, strong) NSString *url;
 
 @end
 
