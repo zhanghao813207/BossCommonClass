@@ -22,7 +22,7 @@ pod 'BossCommonClass'
 
 ## Author
 
-JiaYuanchao, yuanchao__2106@163.com
+zhanghao,zh508149687@gmail.com
 
 ## License
 
