@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '8.12.16'
+  s.version          = '8.12.18'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -22,11 +22,11 @@ Pod::Spec.new do |s|
 these are common classes,they are used by boss system.
                        DESC
 
-  s.homepage         = 'https://git.coding.net/J_YC/BossCommonClass.git'
+  s.homepage         = 'git@github.com:zhanghao813207/BossCommonClass.git'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'JiaYuanchao' => 'yuanchao__2106@163.com' }
-  s.source           = { :git => 'https://git.coding.net/J_YC/BossCommonClass.git', :tag => s.version.to_s }
+  s.author           = { 'zhanghao' => 'zh508149687@gmail.com' }
+  s.source           = { :git => 'git@github.com:zhanghao813207/BossCommonClass.git', :tag => s.version.to_s }
   # s.source           = { :git => '~/soft/develop/ios/BossCommonClass-master'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
