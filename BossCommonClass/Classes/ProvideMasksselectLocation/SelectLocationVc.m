@@ -132,7 +132,7 @@
     model.isselect = true;
     for(joinedData *models in self.TeamListArray){
         if (model.hash != models.hash){
-            model.isselect = false;
+            models.isselect = false;
         }
     }
     self.s_model = model;

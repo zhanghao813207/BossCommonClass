@@ -23,6 +23,7 @@ NSString *const kmasksDataTakeAt = @"take_at";
 NSString *const kmasksDataTeamId = @"team_id";
 NSString *const kmasksDataTeamInfo = @"team_info";
 NSString *const kmasksDataUpdatedAt = @"updated_at";
+NSString *const kmasksqty = @"qty";
 
 @interface masksData ()
 @end
@@ -40,7 +41,10 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 	self = [super init];
 	if(![dictionary[kmasksDataIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kmasksDataIdField];
-	}	
+	}
+    if(![dictionary[kmasksqty] isKindOfClass:[NSNull class]]){
+        self.qty = [dictionary[kmasksqty] stringValue];
+    }
 	if(![dictionary[kmasksDataAccountId] isKindOfClass:[NSNull class]]){
 		self.accountId = dictionary[kmasksDataAccountId];
 	}	
@@ -58,11 +62,12 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 		self.belongDate = [dictionary[kmasksDataBelongDate] integerValue];
         NSString * date = [NSString stringWithFormat:@"%ld", self.belongDate];
         if (date.length == 8){
-            // 0210
+            // 20200210
             NSString *dayAndMonth = [date substringFromIndex:4];
+            self.yearStr = [date substringToIndex:4];
             self.dayStr = [dayAndMonth substringFromIndex:2];
             NSString *month_z = [dayAndMonth substringToIndex:2];
-            self.monthStr = [NSString stringWithFormat:@"%@月", [month_z substringFromIndex:1]];
+            self.monthStr = [NSString stringWithFormat:@"%@", [month_z substringFromIndex:1]];
         }
 	}
 

@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSString * statusStr;
 @property (nonatomic, strong) NSString * dayStr;
 @property (nonatomic, strong) NSString * monthStr;
+@property (nonatomic, strong) NSString * yearStr;
+@property (nonatomic, strong) NSString * qty;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
