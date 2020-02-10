@@ -9,17 +9,17 @@
 
 NSString *const kmasksDataIdField = @"_id";
 NSString *const kmasksDataAccountId = @"account_id";
+NSString *const kmasksDataAccountInfo = @"account_info";
+NSString *const kmasksDataApprovalAccountId = @"approval_account_id";
+NSString *const kmasksDataApprovalAt = @"approval_at";
+NSString *const kmasksDataBelongDate = @"belong_date";
+NSString *const kmasksDataBizDistrictId = @"biz_district_id";
 NSString *const kmasksDataCreatedAt = @"created_at";
-NSString *const kmasksDataIsOwner = @"is_owner";
-NSString *const kmasksDataNote = @"note";
-NSString *const kmasksDataPermissionList = @"permission_list";
-NSString *const kmasksDataQrcode = @"qrcode";
-NSString *const kmasksDataQuitReason = @"quit_reason";
-NSString *const kmasksDataRole = @"role";
-NSString *const kmasksDataRoleInfo = @"role_info";
-NSString *const kmasksDataSalaryOpen = @"salary_open";
-NSString *const kmasksDataStaffId = @"staff_id";
+NSString *const kmasksDataCustomId = @"custom_id";
+NSString *const kmasksDataDistributeAccountId = @"distribute_account_id";
+NSString *const kmasksDataRejectNote = @"reject_note";
 NSString *const kmasksDataState = @"state";
+NSString *const kmasksDataTakeAt = @"take_at";
 NSString *const kmasksDataTeamId = @"team_id";
 NSString *const kmasksDataTeamInfo = @"team_info";
 NSString *const kmasksDataUpdatedAt = @"updated_at";
@@ -44,42 +44,46 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 	if(![dictionary[kmasksDataAccountId] isKindOfClass:[NSNull class]]){
 		self.accountId = dictionary[kmasksDataAccountId];
 	}	
+	if(![dictionary[kmasksDataAccountInfo] isKindOfClass:[NSNull class]]){
+		self.accountInfo = [[masksAccountInfo alloc] initWithDictionary:dictionary[kmasksDataAccountInfo]];
+	}
+
+	if(![dictionary[kmasksDataApprovalAccountId] isKindOfClass:[NSNull class]]){
+		self.approvalAccountId = dictionary[kmasksDataApprovalAccountId];
+	}	
+	if(![dictionary[kmasksDataApprovalAt] isKindOfClass:[NSNull class]]){
+		self.approvalAt = dictionary[kmasksDataApprovalAt];
+	}	
+	if(![dictionary[kmasksDataBelongDate] isKindOfClass:[NSNull class]]){
+		self.belongDate = [dictionary[kmasksDataBelongDate] integerValue];
+        NSString * date = [NSString stringWithFormat:@"%ld", self.belongDate];
+        if (date.length == 8){
+            // 0210
+            NSString *dayAndMonth = [date substringFromIndex:4];
+            self.dayStr = [dayAndMonth substringFromIndex:2];
+            NSString *month_z = [dayAndMonth substringToIndex:2];
+            self.monthStr = [NSString stringWithFormat:@"%@月", [month_z substringFromIndex:1]];
+        }
+	}
+
+	if(![dictionary[kmasksDataBizDistrictId] isKindOfClass:[NSNull class]]){
+		self.bizDistrictId = dictionary[kmasksDataBizDistrictId];
+	}	
 	if(![dictionary[kmasksDataCreatedAt] isKindOfClass:[NSNull class]]){
 		self.createdAt = dictionary[kmasksDataCreatedAt];
 	}	
-	if(![dictionary[kmasksDataIsOwner] isKindOfClass:[NSNull class]]){
-		self.isOwner = [dictionary[kmasksDataIsOwner] boolValue];
-	}
-
-	if(![dictionary[kmasksDataNote] isKindOfClass:[NSNull class]]){
-		self.note = dictionary[kmasksDataNote];
+	if(![dictionary[kmasksDataCustomId] isKindOfClass:[NSNull class]]){
+		self.customId = dictionary[kmasksDataCustomId];
 	}	
-	if(![dictionary[kmasksDataPermissionList] isKindOfClass:[NSNull class]]){
-		self.permissionList = dictionary[kmasksDataPermissionList];
+	if(![dictionary[kmasksDataDistributeAccountId] isKindOfClass:[NSNull class]]){
+		self.distributeAccountId = dictionary[kmasksDataDistributeAccountId];
 	}	
-	if(![dictionary[kmasksDataQrcode] isKindOfClass:[NSNull class]]){
-		self.qrcode = dictionary[kmasksDataQrcode];
-	}	
-	if(![dictionary[kmasksDataQuitReason] isKindOfClass:[NSNull class]]){
-		self.quitReason = dictionary[kmasksDataQuitReason];
-	}	
-	if(![dictionary[kmasksDataRole] isKindOfClass:[NSNull class]]){
-		self.role = [dictionary[kmasksDataRole] integerValue];
-	}
-
-	if(![dictionary[kmasksDataRoleInfo] isKindOfClass:[NSNull class]]){
-		self.roleInfo = [[masksRoleInfo alloc] initWithDictionary:dictionary[kmasksDataRoleInfo]];
-	}
-
-	if(![dictionary[kmasksDataSalaryOpen] isKindOfClass:[NSNull class]]){
-		self.salaryOpen = [dictionary[kmasksDataSalaryOpen] boolValue];
-	}
-
-	if(![dictionary[kmasksDataStaffId] isKindOfClass:[NSNull class]]){
-		self.staffId = dictionary[kmasksDataStaffId];
+	if(![dictionary[kmasksDataRejectNote] isKindOfClass:[NSNull class]]){
+		self.rejectNote = dictionary[kmasksDataRejectNote];
 	}	
 	if(![dictionary[kmasksDataState] isKindOfClass:[NSNull class]]){
 		self.state = [dictionary[kmasksDataState] integerValue];
+        
         //        MasksCreateSuccess                 = 1,     // 未审核
         //        MasksReceive                       = 50,    // 待领取
         //        MasksRefused                       = -50,   // 被拒绝
@@ -98,6 +102,9 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
         }
 	}
 
+	if(![dictionary[kmasksDataTakeAt] isKindOfClass:[NSNull class]]){
+		self.takeAt = dictionary[kmasksDataTakeAt];
+	}	
 	if(![dictionary[kmasksDataTeamId] isKindOfClass:[NSNull class]]){
 		self.teamId = dictionary[kmasksDataTeamId];
 	}	
@@ -124,31 +131,35 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 	if(self.accountId != nil){
 		dictionary[kmasksDataAccountId] = self.accountId;
 	}
+	if(self.accountInfo != nil){
+		dictionary[kmasksDataAccountInfo] = [self.accountInfo toDictionary];
+	}
+	if(self.approvalAccountId != nil){
+		dictionary[kmasksDataApprovalAccountId] = self.approvalAccountId;
+	}
+	if(self.approvalAt != nil){
+		dictionary[kmasksDataApprovalAt] = self.approvalAt;
+	}
+	dictionary[kmasksDataBelongDate] = @(self.belongDate);
+	if(self.bizDistrictId != nil){
+		dictionary[kmasksDataBizDistrictId] = self.bizDistrictId;
+	}
 	if(self.createdAt != nil){
 		dictionary[kmasksDataCreatedAt] = self.createdAt;
 	}
-	dictionary[kmasksDataIsOwner] = @(self.isOwner);
-	if(self.note != nil){
-		dictionary[kmasksDataNote] = self.note;
+	if(self.customId != nil){
+		dictionary[kmasksDataCustomId] = self.customId;
 	}
-	if(self.permissionList != nil){
-		dictionary[kmasksDataPermissionList] = self.permissionList;
+	if(self.distributeAccountId != nil){
+		dictionary[kmasksDataDistributeAccountId] = self.distributeAccountId;
 	}
-	if(self.qrcode != nil){
-		dictionary[kmasksDataQrcode] = self.qrcode;
-	}
-	if(self.quitReason != nil){
-		dictionary[kmasksDataQuitReason] = self.quitReason;
-	}
-	dictionary[kmasksDataRole] = @(self.role);
-	if(self.roleInfo != nil){
-		dictionary[kmasksDataRoleInfo] = [self.roleInfo toDictionary];
-	}
-	dictionary[kmasksDataSalaryOpen] = @(self.salaryOpen);
-	if(self.staffId != nil){
-		dictionary[kmasksDataStaffId] = self.staffId;
+	if(self.rejectNote != nil){
+		dictionary[kmasksDataRejectNote] = self.rejectNote;
 	}
 	dictionary[kmasksDataState] = @(self.state);
+	if(self.takeAt != nil){
+		dictionary[kmasksDataTakeAt] = self.takeAt;
+	}
 	if(self.teamId != nil){
 		dictionary[kmasksDataTeamId] = self.teamId;
 	}
@@ -176,28 +187,34 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 	if(self.accountId != nil){
 		[aCoder encodeObject:self.accountId forKey:kmasksDataAccountId];
 	}
+	if(self.accountInfo != nil){
+		[aCoder encodeObject:self.accountInfo forKey:kmasksDataAccountInfo];
+	}
+	if(self.approvalAccountId != nil){
+		[aCoder encodeObject:self.approvalAccountId forKey:kmasksDataApprovalAccountId];
+	}
+	if(self.approvalAt != nil){
+		[aCoder encodeObject:self.approvalAt forKey:kmasksDataApprovalAt];
+	}
+	[aCoder encodeObject:@(self.belongDate) forKey:kmasksDataBelongDate];	if(self.bizDistrictId != nil){
+		[aCoder encodeObject:self.bizDistrictId forKey:kmasksDataBizDistrictId];
+	}
 	if(self.createdAt != nil){
 		[aCoder encodeObject:self.createdAt forKey:kmasksDataCreatedAt];
 	}
-	[aCoder encodeObject:@(self.isOwner) forKey:kmasksDataIsOwner];	if(self.note != nil){
-		[aCoder encodeObject:self.note forKey:kmasksDataNote];
+	if(self.customId != nil){
+		[aCoder encodeObject:self.customId forKey:kmasksDataCustomId];
 	}
-	if(self.permissionList != nil){
-		[aCoder encodeObject:self.permissionList forKey:kmasksDataPermissionList];
+	if(self.distributeAccountId != nil){
+		[aCoder encodeObject:self.distributeAccountId forKey:kmasksDataDistributeAccountId];
 	}
-	if(self.qrcode != nil){
-		[aCoder encodeObject:self.qrcode forKey:kmasksDataQrcode];
+	if(self.rejectNote != nil){
+		[aCoder encodeObject:self.rejectNote forKey:kmasksDataRejectNote];
 	}
-	if(self.quitReason != nil){
-		[aCoder encodeObject:self.quitReason forKey:kmasksDataQuitReason];
+	[aCoder encodeObject:@(self.state) forKey:kmasksDataState];	if(self.takeAt != nil){
+		[aCoder encodeObject:self.takeAt forKey:kmasksDataTakeAt];
 	}
-	[aCoder encodeObject:@(self.role) forKey:kmasksDataRole];	if(self.roleInfo != nil){
-		[aCoder encodeObject:self.roleInfo forKey:kmasksDataRoleInfo];
-	}
-	[aCoder encodeObject:@(self.salaryOpen) forKey:kmasksDataSalaryOpen];	if(self.staffId != nil){
-		[aCoder encodeObject:self.staffId forKey:kmasksDataStaffId];
-	}
-	[aCoder encodeObject:@(self.state) forKey:kmasksDataState];	if(self.teamId != nil){
+	if(self.teamId != nil){
 		[aCoder encodeObject:self.teamId forKey:kmasksDataTeamId];
 	}
 	if(self.teamInfo != nil){
@@ -217,17 +234,17 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 	self = [super init];
 	self.idField = [aDecoder decodeObjectForKey:kmasksDataIdField];
 	self.accountId = [aDecoder decodeObjectForKey:kmasksDataAccountId];
+	self.accountInfo = [aDecoder decodeObjectForKey:kmasksDataAccountInfo];
+	self.approvalAccountId = [aDecoder decodeObjectForKey:kmasksDataApprovalAccountId];
+	self.approvalAt = [aDecoder decodeObjectForKey:kmasksDataApprovalAt];
+	self.belongDate = [[aDecoder decodeObjectForKey:kmasksDataBelongDate] integerValue];
+	self.bizDistrictId = [aDecoder decodeObjectForKey:kmasksDataBizDistrictId];
 	self.createdAt = [aDecoder decodeObjectForKey:kmasksDataCreatedAt];
-	self.isOwner = [[aDecoder decodeObjectForKey:kmasksDataIsOwner] boolValue];
-	self.note = [aDecoder decodeObjectForKey:kmasksDataNote];
-	self.permissionList = [aDecoder decodeObjectForKey:kmasksDataPermissionList];
-	self.qrcode = [aDecoder decodeObjectForKey:kmasksDataQrcode];
-	self.quitReason = [aDecoder decodeObjectForKey:kmasksDataQuitReason];
-	self.role = [[aDecoder decodeObjectForKey:kmasksDataRole] integerValue];
-	self.roleInfo = [aDecoder decodeObjectForKey:kmasksDataRoleInfo];
-	self.salaryOpen = [[aDecoder decodeObjectForKey:kmasksDataSalaryOpen] boolValue];
-	self.staffId = [aDecoder decodeObjectForKey:kmasksDataStaffId];
+	self.customId = [aDecoder decodeObjectForKey:kmasksDataCustomId];
+	self.distributeAccountId = [aDecoder decodeObjectForKey:kmasksDataDistributeAccountId];
+	self.rejectNote = [aDecoder decodeObjectForKey:kmasksDataRejectNote];
 	self.state = [[aDecoder decodeObjectForKey:kmasksDataState] integerValue];
+	self.takeAt = [aDecoder decodeObjectForKey:kmasksDataTakeAt];
 	self.teamId = [aDecoder decodeObjectForKey:kmasksDataTeamId];
 	self.teamInfo = [aDecoder decodeObjectForKey:kmasksDataTeamInfo];
 	self.updatedAt = [aDecoder decodeObjectForKey:kmasksDataUpdatedAt];
@@ -244,17 +261,17 @@ NSString *const kmasksDataUpdatedAt = @"updated_at";
 
 	copy.idField = [self.idField copy];
 	copy.accountId = [self.accountId copy];
+	copy.accountInfo = [self.accountInfo copy];
+	copy.approvalAccountId = [self.approvalAccountId copy];
+	copy.approvalAt = [self.approvalAt copy];
+	copy.belongDate = self.belongDate;
+	copy.bizDistrictId = [self.bizDistrictId copy];
 	copy.createdAt = [self.createdAt copy];
-	copy.isOwner = self.isOwner;
-	copy.note = [self.note copy];
-	copy.permissionList = [self.permissionList copy];
-	copy.qrcode = [self.qrcode copy];
-	copy.quitReason = [self.quitReason copy];
-	copy.role = self.role;
-	copy.roleInfo = [self.roleInfo copy];
-	copy.salaryOpen = self.salaryOpen;
-	copy.staffId = [self.staffId copy];
+	copy.customId = [self.customId copy];
+	copy.distributeAccountId = [self.distributeAccountId copy];
+	copy.rejectNote = [self.rejectNote copy];
 	copy.state = self.state;
+	copy.takeAt = [self.takeAt copy];
 	copy.teamId = [self.teamId copy];
 	copy.teamInfo = [self.teamInfo copy];
 	copy.updatedAt = [self.updatedAt copy];

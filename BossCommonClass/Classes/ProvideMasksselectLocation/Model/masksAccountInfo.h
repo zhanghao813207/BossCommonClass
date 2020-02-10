@@ -1,12 +1,10 @@
 #import <UIKit/UIKit.h>
 
-@interface masksRoleInfo : NSObject
+@interface masksAccountInfo : NSObject
 
 @property (nonatomic, strong) NSString * idField;
+@property (nonatomic, strong) NSString * createdAt;
 @property (nonatomic, strong) NSString * name;
-@property (nonatomic, strong) NSArray * permissionIds;
-@property (nonatomic, assign) NSInteger role;
-@property (nonatomic, assign) NSInteger state;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

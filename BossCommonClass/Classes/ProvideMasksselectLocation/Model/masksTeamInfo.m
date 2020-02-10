@@ -14,7 +14,6 @@ NSString *const kmasksTeamInfoCityName = @"city_name";
 NSString *const kmasksTeamInfoCreatedAt = @"created_at";
 NSString *const kmasksTeamInfoIndustryCode = @"industry_code";
 NSString *const kmasksTeamInfoMerchantId = @"merchant_id";
-NSString *const kmasksTeamInfoMerchantInfo = @"merchant_info";
 NSString *const kmasksTeamInfoName = @"name";
 NSString *const kmasksTeamInfoNickname = @"nickname";
 NSString *const kmasksTeamInfoPlatformCode = @"platform_code";
@@ -63,10 +62,6 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 	if(![dictionary[kmasksTeamInfoMerchantId] isKindOfClass:[NSNull class]]){
 		self.merchantId = dictionary[kmasksTeamInfoMerchantId];
 	}	
-	if(![dictionary[kmasksTeamInfoMerchantInfo] isKindOfClass:[NSNull class]]){
-		self.merchantInfo = [[masksMerchantInfo alloc] initWithDictionary:dictionary[kmasksTeamInfoMerchantInfo]];
-	}
-
 	if(![dictionary[kmasksTeamInfoName] isKindOfClass:[NSNull class]]){
 		self.name = dictionary[kmasksTeamInfoName];
 	}	
@@ -124,9 +119,6 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 	if(self.merchantId != nil){
 		dictionary[kmasksTeamInfoMerchantId] = self.merchantId;
 	}
-	if(self.merchantInfo != nil){
-		dictionary[kmasksTeamInfoMerchantInfo] = [self.merchantInfo toDictionary];
-	}
 	if(self.name != nil){
 		dictionary[kmasksTeamInfoName] = self.name;
 	}
@@ -182,9 +174,6 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 	[aCoder encodeObject:@(self.industryCode) forKey:kmasksTeamInfoIndustryCode];	if(self.merchantId != nil){
 		[aCoder encodeObject:self.merchantId forKey:kmasksTeamInfoMerchantId];
 	}
-	if(self.merchantInfo != nil){
-		[aCoder encodeObject:self.merchantInfo forKey:kmasksTeamInfoMerchantInfo];
-	}
 	if(self.name != nil){
 		[aCoder encodeObject:self.name forKey:kmasksTeamInfoName];
 	}
@@ -223,7 +212,6 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 	self.createdAt = [aDecoder decodeObjectForKey:kmasksTeamInfoCreatedAt];
 	self.industryCode = [[aDecoder decodeObjectForKey:kmasksTeamInfoIndustryCode] integerValue];
 	self.merchantId = [aDecoder decodeObjectForKey:kmasksTeamInfoMerchantId];
-	self.merchantInfo = [aDecoder decodeObjectForKey:kmasksTeamInfoMerchantInfo];
 	self.name = [aDecoder decodeObjectForKey:kmasksTeamInfoName];
 	self.nickname = [aDecoder decodeObjectForKey:kmasksTeamInfoNickname];
 	self.platformCode = [aDecoder decodeObjectForKey:kmasksTeamInfoPlatformCode];
@@ -251,7 +239,6 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 	copy.createdAt = [self.createdAt copy];
 	copy.industryCode = self.industryCode;
 	copy.merchantId = [self.merchantId copy];
-	copy.merchantInfo = [self.merchantInfo copy];
 	copy.name = [self.name copy];
 	copy.nickname = [self.nickname copy];
 	copy.platformCode = [self.platformCode copy];

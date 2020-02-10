@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "masksMerchantInfo.h"
 
 @interface masksTeamInfo : NSObject
 
@@ -11,7 +10,6 @@
 @property (nonatomic, strong) NSString * createdAt;
 @property (nonatomic, assign) NSInteger industryCode;
 @property (nonatomic, strong) NSString * merchantId;
-@property (nonatomic, strong) masksMerchantInfo * merchantInfo;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * platformCode;

@@ -1,26 +1,28 @@
 #import <UIKit/UIKit.h>
-#import "masksRoleInfo.h"
+#import "masksAccountInfo.h"
 #import "masksTeamInfo.h"
 
 @interface masksData : NSObject
 
 @property (nonatomic, strong) NSString * idField;
 @property (nonatomic, strong) NSString * accountId;
+@property (nonatomic, strong) masksAccountInfo * accountInfo;
+@property (nonatomic, strong) NSObject * approvalAccountId;
+@property (nonatomic, strong) NSObject * approvalAt;
+@property (nonatomic, assign) NSInteger belongDate;
+@property (nonatomic, strong) NSString * bizDistrictId;
 @property (nonatomic, strong) NSString * createdAt;
-@property (nonatomic, assign) BOOL isOwner;
-@property (nonatomic, strong) NSString * note;
-@property (nonatomic, strong) NSArray * permissionList;
-@property (nonatomic, strong) NSString * qrcode;
-@property (nonatomic, strong) NSString * quitReason;
-@property (nonatomic, assign) NSInteger role;
-@property (nonatomic, strong) masksRoleInfo * roleInfo;
-@property (nonatomic, assign) BOOL salaryOpen;
-@property (nonatomic, strong) NSString * staffId;
+@property (nonatomic, strong) NSString * customId;
+@property (nonatomic, strong) NSObject * distributeAccountId;
+@property (nonatomic, strong) NSObject * rejectNote;
 @property (nonatomic, assign) NSInteger state;
+@property (nonatomic, strong) NSString * takeAt;
 @property (nonatomic, strong) NSString * teamId;
 @property (nonatomic, strong) masksTeamInfo * teamInfo;
 @property (nonatomic, strong) NSString * updatedAt;
 @property (nonatomic, strong) NSString * statusStr;
+@property (nonatomic, strong) NSString * dayStr;
+@property (nonatomic, strong) NSString * monthStr;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
