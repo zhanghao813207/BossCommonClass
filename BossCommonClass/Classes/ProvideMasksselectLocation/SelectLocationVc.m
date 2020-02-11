@@ -14,7 +14,7 @@
 
 @interface SelectLocationVc ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *locationTableView;
-@property (nonatomic, strong)NSMutableArray *TeamListArray;
+
 // 分页数据
 @property (assign, nonatomic) int page;
 
@@ -31,7 +31,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.locationTableView.mj_header beginRefreshing];
+//    [self.locationTableView.mj_header beginRefreshing];
 }
 - (void)setUI{
     self.locationTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
@@ -39,7 +39,7 @@
     
     self.page = 1;
     
-    self.TeamListArray = [[NSMutableArray alloc] init];
+//    self.TeamListArray = [[NSMutableArray alloc] init];
 }
 - (void)getTeamList{
     __weak __typeof__(self) weakSelf = self;
@@ -115,6 +115,9 @@
 // tag 0 取消 1 确定
 - (IBAction)chooseButtonClicked:(UIButton *)sender {
     if (sender.tag == 0){
+        if (self.selectcancleBlock){
+            self.selectcancleBlock();
+        }
         [self dismissViewControllerAnimated:true completion:nil];
         return;
     }
