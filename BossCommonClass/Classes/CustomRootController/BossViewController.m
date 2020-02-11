@@ -12,7 +12,7 @@
 @interface BossViewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *packKeybordTap;
-@property (nonatomic, strong) UIBarButtonItem *customCommentLeftBarButtonItem;
+
 @end
 
 @implementation BossViewController

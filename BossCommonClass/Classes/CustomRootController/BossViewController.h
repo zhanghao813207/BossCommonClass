@@ -9,6 +9,7 @@
 
 @interface BossViewController : UIViewController
 
+@property (nonatomic, strong) UIBarButtonItem *customCommentLeftBarButtonItem;
 /**
  是否点击屏幕收起键盘 默认可以收起
  */
