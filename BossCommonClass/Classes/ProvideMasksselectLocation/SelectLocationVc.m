@@ -97,8 +97,10 @@
     joinedData *model = self.TeamListArray[indexPath.row];
     cell.nameLabel.text = model.teamInfo.name;
     if (model.isselect){
+        cell.nameLabel.textColor = kHexRGB(0x07C44F);
         [cell.selectIconImageView setImage:[UIImage imageNamed:@"selectImage_p" inBundle:QH_Bundle  compatibleWithTraitCollection:nil]];
     } else {
+        cell.nameLabel.textColor = kHexRGB(0x000000);
         [cell.selectIconImageView setImage:[UIImage imageNamed:@""]];
     }
     return cell;
