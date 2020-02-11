@@ -600,6 +600,11 @@ typedef NS_ENUM(NSInteger, SavePhotoType) {
     SavePhotoTypeS3                    = 3,    // S3
 
 };
-
+typedef NS_ENUM(NSInteger, MasksStatus) {
+    MasksCreateSuccess                 = 1,     // 未审核 1
+    MasksReceive                       = 50,    // 待领取 50
+    MasksRefused                       = -50,   // 被拒绝 -50
+    MasksReceiveSuccess                = 100,   // 领取完成 100
+};
 
 #endif /* BossEnumDefin_h */
