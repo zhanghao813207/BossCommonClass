@@ -159,6 +159,8 @@ NSString *const XINGEACCESSKEY = @"IIKF1I6821KB";
 #elif defined kBossManager
 //之家
 NSString *const APPSTOREID = @"1425789658";
+uint32_t const XINGEACCESSID = 2200351693;
+NSString *const XINGEACCESSKEY = @"IB34AA2D57XT";
 #else
 // 当家
 NSString *const APPSTOREID = @"1425789658";
