@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSString * monthStr;
 @property (nonatomic, strong) NSString * yearStr;
 @property (nonatomic, strong) NSString * qty;
+@property (nonatomic, assign) BOOL customIdDifferent;
+
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

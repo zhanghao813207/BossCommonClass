@@ -24,6 +24,8 @@ NSString *const kmasksDataTeamId = @"team_id";
 NSString *const kmasksDataTeamInfo = @"team_info";
 NSString *const kmasksDataUpdatedAt = @"updated_at";
 NSString *const kmasksqty = @"qty";
+NSString *const kmaskcustomIdDifferent = @"custom_id_different";
+
 
 @interface masksData ()
 @end
@@ -42,6 +44,9 @@ NSString *const kmasksqty = @"qty";
 	if(![dictionary[kmasksDataIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kmasksDataIdField];
 	}
+    if(![dictionary[kmaskcustomIdDifferent] isKindOfClass:[NSNull class]]){
+        self.customIdDifferent = [dictionary[kmaskcustomIdDifferent] boolValue];
+    }
     if(![dictionary[kmasksqty] isKindOfClass:[NSNull class]]){
         self.qty = [dictionary[kmasksqty] stringValue];
     }
