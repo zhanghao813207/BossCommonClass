@@ -23,7 +23,6 @@
 
 #pragma mark --brief
 
-
 /**
  加班申请单或请假单ID
  */
@@ -179,6 +178,9 @@
  当前节点可审核操作（通过/驳回）的人员列表
  */
 @property (nonatomic, strong) NSArray  <AccountModel *>*current_operate_account_list;
+
+//
+@property (nonatomic, strong) NSArray  *operate_accounts_list;
 
 /**
  当前等待处理的人员账号列表
