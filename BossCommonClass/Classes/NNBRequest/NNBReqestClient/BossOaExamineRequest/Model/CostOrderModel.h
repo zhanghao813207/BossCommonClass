@@ -59,6 +59,11 @@
 @property (nonatomic, strong) NSString *cost_group_name;
 
 /**
+押金转租金
+*/
+@property (nonatomic, assign) NSInteger pledge_money_to_rent_money;
+
+/**
  发票标记(true 有 false 无)
  */
 @property (nonatomic, assign) BOOL invoice_flag;
