@@ -213,6 +213,12 @@
         case ApplicationOrderTypeLeaveOrder:
             typeStr = @"请假申请";
             break;
+        case ApplicationOrderTypePersonnelChanges:
+            typeStr = @"人员异动";
+            break;
+        case ApplicationOrderTypeCustomPlugInApproval:
+            typeStr = @"外部审批管理";
+            break;
         default:
             break;
     }
