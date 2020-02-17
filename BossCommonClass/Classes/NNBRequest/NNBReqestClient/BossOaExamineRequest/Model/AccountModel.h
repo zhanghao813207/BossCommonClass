@@ -58,4 +58,10 @@
  */
 @property (nonatomic, strong) NSString *position_name;
 
+/// 原始提报人
+@property (nonatomic, strong) NSString *origin_apply_account_name;
+
+/// 原始提报人手机号
+@property (nonatomic, strong) NSString *origin_apply_account_phone;
+
 @end
