@@ -26,6 +26,11 @@
 @property (nonatomic, strong) NSString *name;
 
 /**
+手机号
+*/
+@property (nonatomic, strong) NSString *phone;
+
+/**
  职位id
  */
 @property (nonatomic, assign) PositionID gid;
@@ -58,10 +63,5 @@
  */
 @property (nonatomic, strong) NSString *position_name;
 
-/// 原始提报人
-@property (nonatomic, strong) NSString *origin_apply_account_name;
-
-/// 原始提报人手机号
-@property (nonatomic, strong) NSString *origin_apply_account_phone;
 
 @end
