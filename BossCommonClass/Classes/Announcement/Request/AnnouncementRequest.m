@@ -42,8 +42,8 @@
 + (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock {
     
     NSDictionary *paramDic = @{
-                               @"app_code":APPCODE
-                               };
+        @"app_code":APPCODE
+    };
     
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
         NSLog(@"AnnouncementRequest->getUmsAccesstokenInfo->response:\n%@",responseObject);
@@ -64,7 +64,7 @@
     NSDictionary *paramDic = @{};
     
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"message.address_book.find_message_wpp_list" success:^(id responseObject) {
-    NSLog(@"AnnouncementRequest->findMessageList->response:\n%@",responseObject);
+        NSLog(@"AnnouncementRequest->findMessageList->response:\n%@",responseObject);
         
         MessageListDicModel *model = [[MessageListDicModel alloc] initWithDictionary:responseObject];
         
@@ -76,8 +76,8 @@
 
 + (void)findAccountNotices:(NSMutableArray *)proxyIdList successBlock:(void(^)(AccountNoticeListDicModel *accountNoticeListDicModel))successBlock failBlock:(void(^)(void))failBlock {
     NSDictionary *paramDic = @{
-                               @"proxy_ids":proxyIdList
-                               };
+        @"proxy_ids":proxyIdList
+    };
     
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:paramDic CMD:@"ums.notice.find_account_notices" success:^(id responseObject) {
         NSLog(@"AnnouncementRequest->findAccountNotices->response:\n%@",responseObject);
@@ -95,9 +95,9 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:sessionId  forKey:@"session_id"];
     
-//    if(lastMessageId){
-//        [dic setValue:lastMessageId forKey:@"message_id"];
-//    }
+    //    if(lastMessageId){
+    //        [dic setValue:lastMessageId forKey:@"message_id"];
+    //    }
     
     [dic setValue:@(currentPage) forKey:@"page"];
     [dic setValue:@{@"limit":@(20)} forKey:@"_meta"];
@@ -160,7 +160,7 @@
             [tempArr addObject:GrouptempModel.vendor_target_id];
         } else {
             [tempArr addObject:[NSString stringWithFormat:@"%@", tempModel]];
-// 新建公告
+            // 新建公告
         }
     }
     dic[@"members"] = tempArr;
@@ -188,7 +188,7 @@
     NSDictionary *dic = @{@"notice_id":notice_id};
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.notice.get" success:^(id responseObject) {
         NSLog(@"%@",responseObject);
-       AnnouncementDetail *model = [AnnouncementDetail mj_objectWithKeyValues:responseObject];
+        AnnouncementDetail *model = [AnnouncementDetail mj_objectWithKeyValues:responseObject];
         successBlock(model);
     } fail:^(id error) {
         failBlock(@"");
@@ -198,7 +198,7 @@
 + (void)findAddressBook:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock {
     
     NSDictionary *dic = @{};
-
+    
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find" success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
@@ -230,15 +230,15 @@
 }
 
 + (void)findWPPAdressBook:(NSString *)wppId successBlock:(void(^)(NSArray *dataArr))successBlock fail:(void(^)(NSString *))failBlock {
-
+    
     NSDictionary *dic = @{
-                          @"wpp_id":wppId,
-                          @"_meta":@{
-                                  @"limit":@(0)
-                                  },
-                          @"type": @(10)
-                          };
-
+        @"wpp_id":wppId,
+        @"_meta":@{
+                @"limit":@(0)
+        },
+        @"type": @(10)
+    };
+    
     [NNBBasicRequest postJsonWithUrl:kUrl  parameters:dic CMD:@"message.address_book.find_wpp_address_book" success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
@@ -305,27 +305,27 @@
 // 监听当前连接状态
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     switch (self.sessionManager.state) {
-            case MQTTSessionManagerStateClosed:
+        case MQTTSessionManagerStateClosed:
             NSLog(@"连接已经关闭");
             break;
-            case MQTTSessionManagerStateClosing:
+        case MQTTSessionManagerStateClosing:
             NSLog(@"连接正在关闭");
             
             break;
-            case MQTTSessionManagerStateConnected:
+        case MQTTSessionManagerStateConnected:
             NSLog(@"已经连接");
             
             break;
-            case MQTTSessionManagerStateConnecting:
+        case MQTTSessionManagerStateConnecting:
             NSLog(@"正在连接中");
             
             break;
-            case MQTTSessionManagerStateError: {
-                NSString *errorCode = self.sessionManager.lastErrorCode.localizedDescription;
-                NSLog(@"连接异常 ----- %@",errorCode);
-            }
+        case MQTTSessionManagerStateError: {
+            NSString *errorCode = self.sessionManager.lastErrorCode.localizedDescription;
+            NSLog(@"连接异常 ----- %@",errorCode);
+        }
             break;
-            case MQTTSessionManagerStateStarting:
+        case MQTTSessionManagerStateStarting:
             NSLog(@"开始连接");
             break;
         default:
@@ -362,7 +362,7 @@
 + (void)getNoReadCount:(void(^)(NSInteger count))block {
     [NNBBasicRequest postJsonWithUrl:MessageBasicURL  parameters:@{} CMD:@"ums.notice.get_unread_count" success:^(id responseObject) {
         if (responseObject[@"count"]) {
-           block([responseObject[@"count"] integerValue]);
+            block([responseObject[@"count"] integerValue]);
         }
     } fail:^(id error) {
         NSLog(@"%@",error);
