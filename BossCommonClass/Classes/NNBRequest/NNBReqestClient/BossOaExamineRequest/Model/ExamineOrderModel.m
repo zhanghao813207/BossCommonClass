@@ -437,7 +437,7 @@
 /// 是否显示金额
 - (BOOL)isHideAmount {
     
-    if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder){
+    if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder || self.application_order_type == ApplicationOrderTypeCustomPlugInApproval){
         return true;
     }
     return false;
