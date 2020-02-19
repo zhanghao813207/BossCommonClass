@@ -188,7 +188,8 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
     ApplicationOrderTypeOverTime      = 10,// 加班
     ApplicationOrderTypeLeaveOrder    = 11,// 请假
-    
+    ApplicationOrderTypePersonnelChanges    = 12,// 人员异动
+    ApplicationOrderTypeCustomPlugInApproval    = 13,// 自定义插件审批单
 };
 
 // 审批单整体状态
@@ -598,7 +599,7 @@ typedef NS_ENUM(NSInteger, SavePhotoType) {
     SavePhotoTypeQiNiu                 = 1,    // 七牛
     SavePhotoTypeLocal                 = 2,    // 本地
     SavePhotoTypeS3                    = 3,    // S3
-
+    
 };
 typedef NS_ENUM(NSInteger, MasksStatus) {
     MasksCreateSuccess                 = 1,     // 未审核 1
