@@ -349,7 +349,7 @@
  */
 + (void)registerSession:(void(^)(void))successBlock fail:(void(^)(void))failBlock {
     NSDictionary *dic = @{@"device_type":@(Device_type_app_ios),@"device_no":[JYCSimpleToolClass getUUID],@"device_model":@(Device_model_other),@"xinge_device_token":kCache.deviceToken,@"device_token":kCache.deviceToken};
-    NSLog(@"%@",dic);
+    NSLog(@"registerSession xinge_device_token%@",dic);
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.session.add" success:^(id responseObject) {
         NSLog(@"AnnouncementRequest->registerSession->response \n %@",responseObject);
         successBlock();
