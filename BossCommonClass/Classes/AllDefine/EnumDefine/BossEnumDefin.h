@@ -608,4 +608,30 @@ typedef NS_ENUM(NSInteger, MasksStatus) {
     MasksReceiveSuccess                = 100,   // 领取完成 100
 };
 
+typedef NS_ENUM(NSInteger,LeaveStatus) {
+    LeaveStatusWaitApproval           = 10,           //审批中
+    LeaveStatusApprovalDone           = 50,           //审批完成
+    LeaveStatusReportApproval         = 75,           //销假审批中
+    LeaveStatusReportDone             = 100,          //销假完成
+    LeaveStatusApprovalReject         = -50,          //审批驳回
+    LeaveStatusClose                  = -100,         //撤销关闭
+};
+
+typedef NS_ENUM(NSInteger, LeaveOrder) {
+    LeaveOrderAscending                 = 1,     // 升序
+    LeaveOrderDescending                = -1,    // 降序
+};
+
+typedef NS_ENUM(NSInteger, LeaveUnit) {
+    LeaveUnitDay                = 10,     // 天
+    LeaveUnitHour               = 20,    // 小时
+};
+
+
+
+
+
+
+
+
 #endif /* BossEnumDefin_h */
