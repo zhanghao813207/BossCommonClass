@@ -99,16 +99,17 @@ NSString *const kmaskcustomIdDifferent = @"custom_id_different";
         //        MasksRefused                       = -50,   // 被拒绝
         //        MasksReceiveSuccess                = 100,   // 领取完成
         if (self.state == MasksCreateSuccess){
-            self.statusStr = @"已预约";
+            self.statusStr = [NSString stringWithFormat:@"%@%@个", @"已预约",self.qty];
         }
         if (self.state == MasksReceive){
-            self.statusStr = @"待领取";
+            self.statusStr = [NSString stringWithFormat:@"%@%@个", @"待领取",self.qty];
         }
         if (self.state == MasksReceiveSuccess){
-            self.statusStr = @"已领取";
+            // 新字段
+            self.statusStr = [NSString stringWithFormat:@"%@%@个", @"已领取",self.qty];
         }
         if (self.state == MasksRefused){
-            self.statusStr = @"被拒绝";
+            self.statusStr = [NSString stringWithFormat:@"%@%@个", @"被拒绝",self.qty];
         }
 	}
 
