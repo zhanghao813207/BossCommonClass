@@ -3,7 +3,7 @@
 //  KNAlertView
 //
 //  Created by LuKane on 2016/12/7.
-//  Copyright © 2016年 KNKane. All rights reserved.
+//  Copyright © 2016 欧客云. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

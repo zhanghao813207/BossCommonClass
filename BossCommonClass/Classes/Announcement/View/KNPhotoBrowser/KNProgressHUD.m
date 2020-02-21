@@ -3,7 +3,7 @@
 //  KNPhotoBrowser
 //
 //  Created by LuKane on 16/8/17.
-//  Copyright © 2016年 LuKane. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "KNProgressHUD.h"
