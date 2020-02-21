@@ -2,8 +2,7 @@
 //  JYCTitleView.m
 //  NNBarKnight
 //
-//  Created by 贾远潮 on 2017/9/20.
-//  Copyright © 2017年 贾远潮. All rights reserved.
+//  Created by 贾远潮 on 2017/9/20
 //
 
 #import "JYCTitleView.h"

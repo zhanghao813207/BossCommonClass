@@ -4,7 +4,7 @@
 //  转星期
 //
 //  Created by admin on 2019/4/27.
-//  Copyright © 2019 admin. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "NSString+Time.h"

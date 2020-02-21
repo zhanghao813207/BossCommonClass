@@ -3,7 +3,6 @@
 //  倒计时View
 //
 //  Created by 贾远潮 on 2017/12/7.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "CountdownView.h"

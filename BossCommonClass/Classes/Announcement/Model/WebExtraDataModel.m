@@ -3,7 +3,7 @@
 //  BossOwner
 //
 //  Created by yjs on 2019/7/5.
-//  Copyright © 2019 高炀辉. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "WebExtraDataModel.h"

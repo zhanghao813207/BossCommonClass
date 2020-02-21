@@ -3,7 +3,7 @@
 //  AirCleaner
 //
 //  Created by Shaojun Han on 10/14/15.
-//  Copyright © 2015 HadLinks. All rights reserved.
+//  Copyright © 2015 欧客云. All rights reserved.
 //
 
 #import <systemconfiguration/captivenetwork.h>
