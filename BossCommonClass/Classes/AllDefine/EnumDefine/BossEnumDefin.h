@@ -627,7 +627,15 @@ typedef NS_ENUM(NSInteger, LeaveUnit) {
     LeaveUnitHour               = 20,    // 小时
 };
 
-
+typedef NS_ENUM(NSInteger,OperateState) {
+    OperateStateInit                   = 10,            //提交申请
+    OperateStateAgree                  = 20,            //已同意
+    OperateStateWaitReport             = 30,            //申请销假
+    OperateStateAgreeReport            = 40,            //同意销假
+    OperateStateClose                  = 50,            //撤销关闭
+    OperateStateNotLeave               = 60,            //拒接请假
+    OperateStateNotReport              = 70,            //拒绝销假
+};
 
 
 

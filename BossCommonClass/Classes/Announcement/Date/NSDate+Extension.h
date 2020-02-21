@@ -222,7 +222,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)timeToyyyyMMddHHmmssStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit;
 
++ (NSArray *)showTimeStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit;
 
++ (NSArray *)detailShowTimeStringWithString:(NSString *)originTimeStr ;
 @end
 
 NS_ASSUME_NONNULL_END
