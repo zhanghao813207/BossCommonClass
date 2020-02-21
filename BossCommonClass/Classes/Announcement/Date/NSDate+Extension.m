@@ -7,6 +7,8 @@
 //
 
 #import "NSDate+Extension.h"
+#import "NSString+base.h"
+#import "NSDate+Helper.h"
 
 @implementation NSDate (Extension)
 /**
@@ -525,5 +527,80 @@
     NSString *currentTimeString = [formatter stringFromDate:dateNow];
     return currentTimeString;
 }
+
++ (NSString *)timeToyyyyMMddHHmmssStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit{
+    
+    if ([NSString isEmptyStringWithString:originTimeStr]){
+          return @"";
+    }
+ 
+    if (originTimeStr.length <= 19) {
+        return originTimeStr;
+    }
+    originTimeStr = [originTimeStr substringToIndex:19];
+    originTimeStr = [originTimeStr stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSDate *date = [NSDate dateFromString:originTimeStr];
+    NSString *timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd HH:mm"];
+
+    if (unit == 10){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd"];
+    }
+    if (unit == 20){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd HH:mm"];
+    }
+    if ([NSString isEmptyStringWithString:timeStrings]){
+        return @"";
+    }
+    return timeStrings;
+    
+    
+    
+  
+//    // 时间字符串
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init]; // 2.格式化对象的样式/z大小写都行/格式必须严格和字符串时间一样
+////    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ"; // 3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)
+//        formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZ"; // 3.利用时间格式化对象让字符串转换成时间 (自动转换0时区/东加西减)    
+//    
+//    NSDate *date = [formatter dateFromString:originTimeStr];
+//    NSDateFormatter* formatter1 = [[NSDateFormatter alloc] init];
+//    formatter1.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+//    [formatter1 setDateStyle:NSDateFormatterMediumStyle];
+//    [formatter1 setTimeStyle:NSDateFormatterShortStyle];
+//    [formatter1 setDateFormat:@"yyyy.MM.dd HH:mm"];
+//    if (unit == 10){
+//        [formatter1 setDateFormat:@"yyyy.MM.dd"];
+//    }
+//    if (unit == 20){
+//        [formatter1 setDateFormat:@"yyyy.MM.dd HH:mm"];
+//    }
+//    NSString* dateString = [formatter1 stringFromDate:date];
+//    if ([NSString isEmptyStringWithString:dateString]){
+//        return @"";
+//    }
+//    return dateString;
+}
+
+///**
+// 将后台传出的时间格式改成一般格式 只是转格式 。只显示时分 不显示秒
+//
+// @param timeString 后端返回的时间
+// @return 一般时间格式
+// */
+//+ (NSString *)hmFastChangeToNormalTimeWithString:(NSString *)timeString
+//{
+//    if (!timeString || ![timeString isKindOfClass:[NSString class]]) {
+//        return nil;
+//    }
+//    if (timeString.length <= 19) {
+//        return timeString;
+//    }
+//    timeString = [timeString substringToIndex:19];
+//    timeString = [timeString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+//    NSDate *date = [NSDate dateFromString:timeString];
+//    //    date = [NSDate dateWithHour:date.hour + 8 minute:date.minute];
+//    NSString *timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd HH:mm"];
+//    return timeStrings;
+//}
+
 
 @end
