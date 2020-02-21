@@ -3,7 +3,7 @@
 //  Gtyk
 //
 //  Created by 贾远潮 on 2016/11/18.
-//  Copyright © 2016年 GTYK. All rights reserved.
+//  Copyright © 2016年 欧客云. All rights reserved.
 //
 
 #import "UIView+ShowView.h"

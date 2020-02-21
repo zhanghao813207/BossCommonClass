@@ -3,7 +3,7 @@
 //  Rinnai
 //
 //  Created by 朱天聪 on 2018/5/10.
-//  Copyright © 2018年 Hadlinks. All rights reserved.
+//  Copyright © 2018年 欧客云. All rights reserved.
 //
 
 #import "MQTTClientModel.h"
