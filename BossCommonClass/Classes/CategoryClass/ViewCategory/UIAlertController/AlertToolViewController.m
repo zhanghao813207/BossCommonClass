@@ -3,7 +3,7 @@
 //  flashman
 //
 //  Created by yjs on 2019/10/23.
-//  Copyright © 2019 white. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "AlertToolViewController.h"

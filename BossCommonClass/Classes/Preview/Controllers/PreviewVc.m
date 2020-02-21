@@ -4,7 +4,6 @@
 //  附件在线预览页
 //
 //  Created by 贾远潮 on 2018/8/14.
-//  Copyright © 2018年 贾远潮. All rights reserved.
 //
 
 #import "PreviewVc.h"

@@ -254,7 +254,7 @@
 			attributes = {
 				CLASSPREFIX = QH;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = JiaYuanchao;
+				ORGANIZATIONNAME = "欧客云";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = ZH956JYR6T;
