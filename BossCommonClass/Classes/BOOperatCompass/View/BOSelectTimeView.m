@@ -3,7 +3,6 @@
 //  BossKnight
 //
 //  Created by admin on 2019/7/19.
-//  Copyright © 2019 贾远潮. All rights reserved.
 //
 
 #import "BOSelectTimeView.h"

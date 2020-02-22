@@ -3,7 +3,7 @@
 //  KNPhotoBrowser
 //
 //  Created by LuKane on 2018/12/14.
-//  Copyright © 2018 LuKane. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
