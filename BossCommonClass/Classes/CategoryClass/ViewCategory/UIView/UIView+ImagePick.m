@@ -3,7 +3,7 @@
 //  Bapp_v2.3_new
 //
 //  Created by 贾远潮 on 16/5/5.
-//  Copyright © 2016年 wifier. All rights reserved.
+//  Copyright © 2016 欧客云. All rights reserved.
 //
 
 #import "UIView+ImagePick.h"

@@ -3,7 +3,6 @@
 //  BossManager
 //
 //  Created by 贾远潮 on 2018/12/12.
-//  Copyright © 2018 贾远潮. All rights reserved.
 //
 
 #import "SupplementOpinionModel.h"

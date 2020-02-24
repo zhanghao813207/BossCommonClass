@@ -3,7 +3,6 @@
 //  Bossar_knight
 //
 //  Created by 贾远潮 on 2017/9/19.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "BossLoadView.h"

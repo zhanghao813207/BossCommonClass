@@ -175,6 +175,11 @@
 @property (nonatomic, strong) AccountModel *apply_account_info;
 
 /**
+ 外部申请人信息
+ */
+@property (nonatomic, strong) NSDictionary *plugin_extra_meta;
+
+/**
  当前节点可审核操作（通过/驳回）的人员列表
  */
 @property (nonatomic, strong) NSArray  <AccountModel *>*current_operate_account_list;

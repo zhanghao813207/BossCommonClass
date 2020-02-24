@@ -3,7 +3,7 @@
 //  BossOwner
 //
 //  Created by 高炀辉 on 2019/6/21.
-//  Copyright © 2019 高炀辉. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "SendMessageStartVc.h"
