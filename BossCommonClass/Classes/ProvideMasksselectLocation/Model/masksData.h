@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSString * monthStr;
 @property (nonatomic, strong) NSString * yearStr;
 @property (nonatomic, strong) NSString * qty;
+@property (nonatomic, strong) NSString * realqty;
+@property (nonatomic, strong) NSString * realqtyTotal;
 @property (nonatomic, assign) BOOL customIdDifferent;
 
 
