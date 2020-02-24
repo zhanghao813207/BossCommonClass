@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isEmptyStringWithString:(NSString *)str;
 
++(NSString *)configListImageWithState:(NSInteger)state withStateLeavingType:(NSInteger)stateLeavingType;
+
 +(NSString *)configImageWithState:(NSInteger)state withStateLeavingType:(NSInteger)stateLeavingType;
 @end
 

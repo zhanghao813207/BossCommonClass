@@ -27,8 +27,54 @@
     return NO;
 }
 
+// 配置列表状态图片
++(NSString *)configListImageWithState:(NSInteger)state withStateLeavingType:(NSInteger)stateLeavingType{
+    switch (state) {
+        case LeaveStatusWaitApproval:
+        { //审批中
+            return @"approvalingList";
+        }
+          break;
+        case LeaveStatusApprovalDone:
+         { //审批完成  -- 已同意 /请假中
+             if (stateLeavingType == 60){
+                 return @"inLeaveList";
+             }
+            return @"agreeList";
+         }
+          break;
+        case LeaveStatusReportApproval:
+        {//销假审批中 -- 销假中
+            return @"backAfterLeaveList";
+        }
+          break;
+            
+        case LeaveStatusReportDone:
+        { //销假完成  -- 已完成
+             return @"alreadySoldOffList";
+        }
+            break;
+            
+        case LeaveStatusApprovalReject:
+        {
+              //审批驳回  -- 已驳回
+          return @"rejectedList";
+         }
+            break;
+            
+        case LeaveStatusClose:
+        {//撤销关闭  -- 已撤销
+            return @"selfRevokedList";
+        }
+           break;
+       
+        default:
+            return @"approvalingList";
+            break;
+    }
+}
 
-// 配置状态图片
+// 配置详情状态图片
 +(NSString *)configImageWithState:(NSInteger)state withStateLeavingType:(NSInteger)stateLeavingType{
     switch (state) {
         case LeaveStatusWaitApproval:
