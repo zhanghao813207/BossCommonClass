@@ -76,6 +76,9 @@
 //        if (![JYCSimpleToolClass stringIsEmpty:self.team_id]) {
 //            [array addObject:self.team_id];
 //        }
+        if (![JYCSimpleToolClass stringIsEmpty:self.team_id_code]) {
+            [array addObject:self.team_id_code];
+        }
         
         _teamAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
     }

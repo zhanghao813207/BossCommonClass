@@ -64,6 +64,7 @@
 @property (nonatomic, strong) NSString *team_name;
 @property (nonatomic, strong) NSString *team_id;
 
+@property (nonatomic, strong) NSString *team_id_code;
 /**
 个人分摊明细字符串
 */

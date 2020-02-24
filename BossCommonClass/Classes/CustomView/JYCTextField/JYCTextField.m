@@ -3,7 +3,6 @@
 //  NNB
 //
 //  Created by 贾远潮 on 2018/3/30.
-//  Copyright © 2018年 贾远潮. All rights reserved.
 //
 
 #import "JYCTextField.h"
