@@ -220,7 +220,11 @@ NS_ASSUME_NONNULL_BEGIN
 // 获取当前的年月日
 +(NSString*)getCurrentTimesContainYearMouthDay;
 
++ (NSString *)timeToyyyyMMddHHmmssStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit;
 
++ (NSArray *)showTimeStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit;
+
++ (NSArray *)detailShowTimeStringWithString:(NSString *)originTimeStr ;
 @end
 
 NS_ASSUME_NONNULL_END
