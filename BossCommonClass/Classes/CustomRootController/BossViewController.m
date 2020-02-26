@@ -50,6 +50,8 @@
 
 - (void)popToLastViewController:(UIBarButtonItem *)sender
 {
+    //有的页面是消息推送直接弹出来的，所以点返回的时候要dismiss掉
+    [self dismissViewControllerAnimated:true completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (UITapGestureRecognizer *)packKeybordTap
