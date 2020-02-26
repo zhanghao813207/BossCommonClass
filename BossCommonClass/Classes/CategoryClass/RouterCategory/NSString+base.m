@@ -7,6 +7,7 @@
 
 #import "NSString+base.h"
 #import "BossBasicDefine.h"
+#import "AttendanceEnum.h"
 
 @implementation NSString (base)
 
