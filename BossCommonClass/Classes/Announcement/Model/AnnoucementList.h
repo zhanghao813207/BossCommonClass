@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)Message_summary_info *message_summary_info;
 @property(nonatomic, strong)Sender_info *sender_info;
 
+/// 是否全部标记为已读（本地字段）
+@property (nonatomic, assign) BOOL isReadAll;
 
 @property(nonatomic, strong)NSDictionary *extra_data;
 
