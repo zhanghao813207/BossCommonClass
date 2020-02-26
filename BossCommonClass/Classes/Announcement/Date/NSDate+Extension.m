@@ -7,6 +7,8 @@
 //
 
 #import "NSDate+Extension.h"
+#import "NSString+base.h"
+#import "NSDate+Helper.h"
 
 @implementation NSDate (Extension)
 /**
@@ -525,5 +527,87 @@
     NSString *currentTimeString = [formatter stringFromDate:dateNow];
     return currentTimeString;
 }
+
+//// 将后台传出的时间格式改成一般格式 只是转格式 。只显示时分 不显示秒
++ (NSString *)timeToyyyyMMddHHmmssStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit{
+    
+    if ([NSString isEmptyStringWithString:originTimeStr]){
+          return @"";
+    }
+ 
+    if (originTimeStr.length <= 19) {
+        return originTimeStr;
+    }
+    originTimeStr = [originTimeStr substringToIndex:19];
+    originTimeStr = [originTimeStr stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSDate *date = [NSDate dateFromString:originTimeStr];
+    NSString *timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd HH:mm"];
+
+    if (unit == 10){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd"];
+    }
+    if (unit == 20){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"yyyy.MM.dd HH:mm"];
+    }
+    if ([NSString isEmptyStringWithString:timeStrings]){
+        return @"";
+    }
+    return timeStrings;
+}
+ 
+// 将后台传出的时间格式改成一般格式 只是转格式 。只显示时分 不显示秒
++ (NSArray *)showTimeStringWithString:(NSString *)originTimeStr withUnit:(NSInteger)unit{
+    if ([NSString isEmptyStringWithString:originTimeStr]){
+          return @[];
+    }
+ 
+    if (originTimeStr.length <= 19) {
+        return @[];
+    }
+    originTimeStr = [originTimeStr substringToIndex:19];
+    originTimeStr = [originTimeStr stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSDate *date = [NSDate dateFromString:originTimeStr];
+    NSString *timeStrings = [NSDate stringFromDate:date withFormat:@"MM.dd HH:mm"];
+    NSArray *needArr = @[];
+    if (unit == 10){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"MM.dd"];
+        if ([NSString isEmptyStringWithString:timeStrings]){
+           return @[];
+        }
+        needArr = [timeStrings componentsSeparatedByString:@"."];
+    }
+    if (unit == 20){
+        timeStrings = [NSDate stringFromDate:date withFormat:@"MM月dd日 HH:mm"];
+        if ([NSString isEmptyStringWithString:timeStrings]){
+            return @[];
+        }
+         needArr = [timeStrings componentsSeparatedByString:@" "];
+    }    
+    return needArr;
+}
+  
+
+// 将后台传出的时间格式改成一般格式 只是转格式 。只显示时分 不显示秒
++ (NSArray *)detailShowTimeStringWithString:(NSString *)originTimeStr {
+    if ([NSString isEmptyStringWithString:originTimeStr]){
+          return @[];
+    }
+ 
+    if (originTimeStr.length <= 19) {
+        return @[];
+    }
+    originTimeStr = [originTimeStr substringToIndex:19];
+    originTimeStr = [originTimeStr stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSDate *date = [NSDate dateFromString:originTimeStr];
+    NSString *timeStrings = [NSDate stringFromDate:date withFormat:@"MM/dd HH:mm"];
+    if ([NSString isEmptyStringWithString:timeStrings]){
+        return @[];
+    }
+    NSArray *needArr = [timeStrings componentsSeparatedByString:@" "];
+    return needArr;
+}
+
+
+
 
 @end
