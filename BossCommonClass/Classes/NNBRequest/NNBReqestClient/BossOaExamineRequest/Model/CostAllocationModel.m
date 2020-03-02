@@ -111,12 +111,22 @@
             [array addObject:name];
         }
         if (![JYCSimpleToolClass stringIsEmpty:identityCardId]) {
-            [array addObject:identityCardId];
+            [array addObject:[self idCardNumber:identityCardId]];
         }
 
         _personAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
     }
     return _personAllocationString;
+}
+
+- (NSString *)idCardNumber:(NSString *)idCardNumber {
+    NSString *tempStr = @"";
+    for (int i  = 0; i < idCardNumber.length - 7; i++) {
+        tempStr = [tempStr stringByAppendingString:@"*"];
+    }
+    //身份证号取前三位和后四位 中间拼接 tempSt（*）
+    idCardNumber = [NSString stringWithFormat:@"%@%@%@", [idCardNumber substringToIndex:3], tempStr, [idCardNumber substringFromIndex:idCardNumber.length - 4]];
+    return idCardNumber;
 }
 
 - (NSString *)getTeamTypeString:(TeamType)type {
