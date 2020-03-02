@@ -40,8 +40,7 @@ these are common classes,they are used by boss system.
   # s.vendored_frameworks = ['AVFoundation.framework']
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'BasicCommonClass', '~> 0.4.4'
-  s.dependency 'AFNetworking', '~> 3.1.0'
+  s.dependency 'AFNetworking', '~> 3.0'
   
   # 七牛
   s.dependency 'Qiniu', '~> 7.1'
