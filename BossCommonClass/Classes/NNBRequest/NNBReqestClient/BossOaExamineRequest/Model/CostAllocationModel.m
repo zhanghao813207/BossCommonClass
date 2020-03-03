@@ -77,7 +77,7 @@
 //            [array addObject:self.team_id];
 //        }
         if (![JYCSimpleToolClass stringIsEmpty:self.team_id_code]) {
-            [array addObject:self.team_id_code];
+            [array addObject:[self idCardNumber:self.team_id_code]];
         }
         
         _teamAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
@@ -111,7 +111,8 @@
             [array addObject:name];
         }
         if (![JYCSimpleToolClass stringIsEmpty:identityCardId]) {
-            [array addObject:[self idCardNumber:identityCardId]];
+//            [array addObject:[self idCardNumber:identityCardId]];
+            [array addObject:identityCardId];
         }
 
         _personAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
@@ -120,13 +121,8 @@
 }
 
 - (NSString *)idCardNumber:(NSString *)idCardNumber {
-    NSString *tempStr = @"";
-    for (int i  = 0; i < idCardNumber.length - 7; i++) {
-        tempStr = [tempStr stringByAppendingString:@"*"];
-    }
-    //身份证号取前三位和后四位 中间拼接 tempSt（*）
-    idCardNumber = [NSString stringWithFormat:@"%@%@%@", [idCardNumber substringToIndex:3], tempStr, [idCardNumber substringFromIndex:idCardNumber.length - 4]];
-    return idCardNumber;
+    NSString *idCard = [idCardNumber stringByReplacingCharactersInRange:NSMakeRange(idCardNumber.length - 8, 8) withString:@"********"];
+    return idCard;
 }
 
 - (NSString *)getTeamTypeString:(TeamType)type {
