@@ -7,7 +7,7 @@
 
 #import "ExamineOrderModel.h"
 #import "NSDate+Helper.h"
-
+#import "BossManagerAccount.h"
 @implementation ExamineOrderModel
 
 
@@ -438,6 +438,14 @@
 - (BOOL)isHideAmount {
     
     if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder || self.application_order_type == ApplicationOrderTypeCustomPlugInApproval){
+        return true;
+    }
+    return false;
+}
+
+///提报人是否是自己
+- (BOOL)isApplyAccount {
+    if ([self.apply_account_info.name isEqualToString:kCurrentBossManagerAccount.accountModel.name]) {
         return true;
     }
     return false;
