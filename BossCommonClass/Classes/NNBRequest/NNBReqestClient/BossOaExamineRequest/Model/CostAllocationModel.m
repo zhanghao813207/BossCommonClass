@@ -77,7 +77,7 @@
 //            [array addObject:self.team_id];
 //        }
         if (![JYCSimpleToolClass stringIsEmpty:self.team_id_code]) {
-            [array addObject:self.team_id_code];
+            [array addObject:[self idCardNumber:self.team_id_code]];
         }
         
         _teamAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
@@ -111,12 +111,18 @@
             [array addObject:name];
         }
         if (![JYCSimpleToolClass stringIsEmpty:identityCardId]) {
+//            [array addObject:[self idCardNumber:identityCardId]];
             [array addObject:identityCardId];
         }
 
         _personAllocationString = [NSString stringWithFormat:@"%@ ￥%.2f", [array componentsJoinedByString:@"-"],self.money / 100.0];
     }
     return _personAllocationString;
+}
+
+- (NSString *)idCardNumber:(NSString *)idCardNumber {
+    NSString *idCard = [idCardNumber stringByReplacingCharactersInRange:NSMakeRange(idCardNumber.length - 8, 8) withString:@"********"];
+    return idCard;
 }
 
 - (NSString *)getTeamTypeString:(TeamType)type {

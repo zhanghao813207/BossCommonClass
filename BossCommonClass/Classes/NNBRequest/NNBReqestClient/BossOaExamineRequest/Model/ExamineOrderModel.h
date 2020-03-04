@@ -301,5 +301,6 @@
 //非服务器返回字段，统一校验的本地添加字段
 /// 是否显示金额
 @property (nonatomic) BOOL isHideAmount;
-
+///提报人是否是自己
+- (BOOL)isApplyAccount;
 @end
