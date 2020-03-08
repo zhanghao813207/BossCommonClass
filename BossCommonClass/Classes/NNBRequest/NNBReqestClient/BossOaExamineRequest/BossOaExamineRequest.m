@@ -542,7 +542,7 @@
                                    @"cost_center_type":@(type)
                                    };
         [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.get_amount_summary" success:^(id responseObject) {
-            DLog(@"%@", responseObject);
+            DLog(@"oa.cost_order.get_amount_summary-test:%@", responseObject);
             [self getListWithResponseObject:responseObject applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
         } fail:^(id error) {
             [self getListWithResponseObject:@{} applyOrderModel:applyOrder key:key bookMonth:bookMonth listDic:listDic list:list success:successBlock];
@@ -632,14 +632,14 @@
     // 城市code
     [paramDic setValue:allocationModel.city_code?:@"" forKey:@"city_code"];
     // 商圈Id
-    [paramDic setValue:allocationModel.biz_district_id?:@"" forKey:@"biz_district_id"];
+//    [paramDic setValue:allocationModel.biz_district_id?:@"" forKey:@"biz_district_id"];
     
     //团队id
     [paramDic setValue:allocationModel.team_id?:@"" forKey:@"team_id"];
     //身份证id
-    [paramDic setValue:allocationModel.identity_card_id?:@"" forKey:@"identity_card_id"];
+//    [paramDic setValue:allocationModel.identity_card_id?:@"" forKey:@"identity_card_id"];
     //资产id
-    [paramDic setValue:allocationModel.assets_id?:@"" forKey:@"assets_id"];
+//    [paramDic setValue:allocationModel.assets_id?:@"" forKey:@"assets_id"];
 
     
     return paramDic;
@@ -652,7 +652,7 @@
     }
     CostBookMonthBriefModel *model = [[CostBookMonthBriefModel alloc] init];
     [model setValuesForKeysWithDictionary:responseObject];
-    
+
     NSDate *bookDate = [NSDate dateFromString:bookMonth withFormat:@"yyyyMM"];
     NSString *costDateString = [bookDate stringWithFormat:@"yyyy年MM月"];
     
