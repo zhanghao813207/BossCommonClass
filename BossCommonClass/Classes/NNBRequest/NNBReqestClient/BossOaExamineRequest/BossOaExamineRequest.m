@@ -580,6 +580,8 @@
     CostAccountingModel *costAccountingModel = applyOrder.cost_accounting_info;
     NSString *accountingId = costAccountingModel._id;
     NSString *submitAt = examineOrderModel.submit_at;
+    CostCenterTypeV2 constCenterType = applyOrder.cost_center_type;
+    
     
     NSMutableDictionary *listDic = @{}.mutableCopy;
     NSMutableArray *list = @[].mutableCopy;
@@ -594,11 +596,11 @@
         CostAllocationModel *allocationModel = applyOrder.cost_allocation_list[i];
         
         // 请求参数
-        NSMutableDictionary *paramDic = [BossOaExamineRequest getSubmitAmountRequestParams:accountingId submitAt:submitAt allocationModel:allocationModel];
+        NSMutableDictionary *paramDic = [BossOaExamineRequest getSubmitAmountRequestParams:accountingId submitAt:submitAt constCenterType:constCenterType allocationModel:allocationModel];
         
         // 发送网络请求
         [NNBBasicRequest postJsonNativeWithUrl:kUrl parameters:paramDic cmd:@"oa.cost_order.get_amount_with_submit" success:^(id responseObject) {
-            DLog(@"%@", responseObject);
+            DLog(@"OaExamineRequestGetSubmitAmount responseObject %@", responseObject);
             [BossOaExamineRequest handleGetSubmitAmountResponse:responseObject applyOrderModel:applyOrder key:key submitAt:submitAt listDic:listDic list:list success:successBlock];
         } fail:^(id error) {
             [BossOaExamineRequest handleGetSubmitAmountResponse:@{} applyOrderModel:applyOrder key:key submitAt:submitAt listDic:listDic list:list success:successBlock];
@@ -611,7 +613,7 @@
  
  @return 请求参数
  */
-+ (NSMutableDictionary *)getSubmitAmountRequestParams:(NSString *)accountingId submitAt:(NSString *) submitAt allocationModel:(CostAllocationModel *)allocationModel
++ (NSMutableDictionary *)getSubmitAmountRequestParams:(NSString *)accountingId submitAt:(NSString *) submitAt constCenterType:(CostCenterTypeV2)constCenterType allocationModel:(CostAllocationModel *)allocationModel
 {
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
     
@@ -623,24 +625,39 @@
     NSString *submitAtStr = [date stringWithFormat:@"yyyy-MM-dd"];
     [paramDic setValue:submitAtStr forKey:@"submit_at"];
     
+    // 归属类型 有个人 团队
+    [paramDic setValue:@(constCenterType) forKey:@"cost_center_type"];
+    
     
     // 请求参数value = @““会被过滤
     // 平台code
-    [paramDic setValue:allocationModel.platform_code?:@"" forKey:@"platform_code"];
+    if(!allocationModel.platform_code.isEmptyString){
+        [paramDic setValue:allocationModel.platform_code forKey:@"platform_code"];
+    }
     // 供应商Id
-    [paramDic setValue:allocationModel.supplier_id?:@"" forKey:@"supplier_id"];
+    if(!allocationModel.supplier_id.isEmptyString){
+        [paramDic setValue:allocationModel.supplier_id forKey:@"supplier_id"];
+    }
     // 城市code
-    [paramDic setValue:allocationModel.city_code?:@"" forKey:@"city_code"];
+    if(!allocationModel.city_code.isEmptyString){
+        [paramDic setValue:allocationModel.city_code forKey:@"city_code"];
+    }
     // 商圈Id
-//    [paramDic setValue:allocationModel.biz_district_id?:@"" forKey:@"biz_district_id"];
-    
+    if(!allocationModel.biz_district_id.isEmptyString){
+        [paramDic setValue:allocationModel.biz_district_id forKey:@"biz_district_id"];
+    }
     //团队id
-    [paramDic setValue:allocationModel.team_id?:@"" forKey:@"team_id"];
+    if(!allocationModel.team_id.isEmptyString){
+        [paramDic setValue:allocationModel.team_id forKey:@"team_id"];
+    }
     //身份证id
-//    [paramDic setValue:allocationModel.identity_card_id?:@"" forKey:@"identity_card_id"];
+    if(!allocationModel.identity_card_id.isEmptyString){
+        [paramDic setValue:allocationModel.identity_card_id forKey:@"identity_card_id"];
+    }
     //资产id
-//    [paramDic setValue:allocationModel.assets_id?:@"" forKey:@"assets_id"];
-
+    if(!allocationModel.assets_id.isEmptyString){
+        [paramDic setValue:allocationModel.assets_id forKey:@"assets_id"];
+    }
     
     return paramDic;
 }
