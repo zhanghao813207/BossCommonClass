@@ -104,7 +104,8 @@
 //银行卡状态
 @property (nonatomic, assign, readonly) BankCardStatus bankCardStatus;
 
-
+//认证类型 10 身份证 20 人脸
+@property (nonatomic, assign) authenticationType authenticationType;
 
 // 汗点三方是否授权
 @property (nonatomic, assign,readonly) BOOL hanDianAuth;
