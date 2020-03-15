@@ -608,13 +608,4 @@ typedef NS_ENUM(NSInteger, MasksStatus) {
     MasksReceiveSuccess                = 100,   // 领取完成 100
 };
 
-
-typedef NS_ENUM(NSInteger, MonitType) {
-    MonitTypeNameError                  = 1,     // 名字错误
-    MonitTypeIdentityError              = 50,    // 身份号错误
-    MonitTypeThreeIdErro                = 75,   // 三方id错误
-    MonitTypeThreeIdLack                = 100,   // 缺少三方id
-    MonitTypeWaitSign                   = 200    // 等待签约
-};
-
 #endif /* BossEnumDefin_h */
