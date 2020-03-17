@@ -610,10 +610,10 @@ typedef NS_ENUM(NSInteger, MasksStatus) {
 
 
 typedef NS_ENUM(NSInteger, MonitType) {
-    MonitTypeNameError                  = 1,     // 名字错误
-    MonitTypeIdentityError              = 50,    // 身份号错误
-    MonitTypeThreeIdErro                = 75,   // 三方id错误
-    MonitTypeThreeIdLack                = 100,   // 缺少三方id
-    MonitTypeWaitSign                   = 200    // 等待签约
+    MonitTypeIdentityError              = 1,    // 身份号错误
+    MonitTypeThreeIdError               = 2,   // 三方id不匹配
+    MonitTypeNameError                  = 3,     // 名字错误
+    MonitTypeSignError                  = 4,    // 签约不匹配
+
 };
 #endif /* BossEnumDefin_h */
