@@ -568,6 +568,11 @@ typedef NS_ENUM(NSUInteger, EntrustRegistrationSource) {
     EntrustRegistrationSourceMengDa              = 20, //工商注册 盟达
 };
 
+// 个户工商注册来源 10为伯渡 20为盟达
+typedef NS_ENUM(NSUInteger,  authenticationType) {
+    IDCardauthentication              = 10, //身份证识别认证
+    FaceIDauthentication              = 20, //人脸识别认证
+};
 // 签约状态
 typedef NS_ENUM(NSInteger, ContractStatus) {
     ContractStatusInit                  = 1,    // 合同初始化

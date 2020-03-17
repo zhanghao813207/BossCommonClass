@@ -31,7 +31,7 @@ NSString *const kBossOwnerUserModelRefreshToken = @"refresh_token";
 
 NSString *const kBossOwnerUserWechatModel = @"wechat_account";
 NSString *const kBossOwnerUserWalletModel = @"wallet_info";
-
+NSString *const kBossOwnerauthentication_type = @"authentication_type";
 // 结束时间
 NSString *const kBossOwnerUserhealthcertificateendModel = @"health_certificate_end";
 
@@ -137,6 +137,11 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
         self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];
     }
+    
+    if(![dictionary[kBossOwnerauthentication_type] isKindOfClass:[NSNull class]]){
+        self.authenticationType = [dictionary[kBossOwnerauthentication_type] integerValue];
+    }
+    
     if(![dictionary[kBossOwnerUserhealthcertificatestart] isKindOfClass:[NSNull class]]){
         self.healthcertificatestart = [dictionary[kBossOwnerUserhealthcertificatestart] integerValue];
     }
