@@ -614,4 +614,11 @@ typedef NS_ENUM(NSInteger, MasksStatus) {
 };
 
 
+typedef NS_ENUM(NSInteger, MonitType) {
+    MonitTypeIdentityError              = 1,    // 身份号错误
+    MonitTypeThreeIdError               = 2,   // 三方id不匹配
+    MonitTypeNameError                  = 3,     // 名字错误
+    MonitTypeSignError                  = 4,    // 签约不匹配
+
+};
 #endif /* BossEnumDefin_h */
