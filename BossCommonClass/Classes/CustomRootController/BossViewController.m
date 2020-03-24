@@ -9,6 +9,7 @@
 #import "UINavigationBar+BackgroundColor.h"
 #import "BossBasicDefine.h"
 #import "BossWhiteNavigationController.h"
+
 @interface BossViewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *packKeybordTap;
@@ -26,8 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = kBossBGColor;
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000" inBundle:QH_Bundle compatibleWithTraitCollection: nil];
     self.packUpKeybordEnable = YES;
 
     self.navigationItem.leftBarButtonItem = [self customCommentLeftBarButtonItem];

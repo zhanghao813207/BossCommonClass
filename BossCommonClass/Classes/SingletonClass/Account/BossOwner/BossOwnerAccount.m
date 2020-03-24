@@ -24,7 +24,6 @@
     if (!value || value == [NSNull null]) {
         return;
     }
-    
     if ([key isEqualToString:@"account"]) {
         self.accountModel = [[BossOwnerUserModel alloc] initWithDictionary:value];
         return;
