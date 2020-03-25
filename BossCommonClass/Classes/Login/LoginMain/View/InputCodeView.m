@@ -136,7 +136,7 @@ CGFloat const kInputCodeViewHeight = 242;
     if (!_sendPhoneNumberLabel) {
         CGFloat y = IsPhone_Size_4 ? 8 : 18;
         _sendPhoneNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, kScreenWidth - 40, 16)];
-        _sendPhoneNumberLabel.textColor = kHexRGBA(0x000000, 0.4);
+        _sendPhoneNumberLabel.textColor = [UIColor colorNamed:@"boss_000000-40_FFFFFF-40"];
         _sendPhoneNumberLabel.font = BossRegularFont(16.f);
     }
     return _sendPhoneNumberLabel;
@@ -147,7 +147,7 @@ CGFloat const kInputCodeViewHeight = 242;
     if (!_inputCodeNoticeLabel) {
         _inputCodeNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.sendPhoneNumberLabel.frame) + 10, kScreenWidth - 40, 22)];
         _inputCodeNoticeLabel.font = BossRegularFont(16.f);
-        _inputCodeNoticeLabel.textColor = kHexRGBA(0x000000, 0.2);
+        _inputCodeNoticeLabel.textColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
         _inputCodeNoticeLabel.text = @"输入验证码";
     }
     return _inputCodeNoticeLabel;
@@ -195,7 +195,7 @@ CGFloat const kInputCodeViewHeight = 242;
         _voiceCodeButton.frame = CGRectMake(20, y, kScreenWidth - 40, 14);
         _voiceCodeButton.titleLabel.font = BossRegularFont(14.f);
         [_voiceCodeButton setTitle:@"收不到验证码？试一试语音验证码" forState:UIControlStateNormal];
-        [_voiceCodeButton setTitleColor:kHexRGB(0x000000) forState:UIControlStateNormal];
+        [_voiceCodeButton setTitleColor: [UIColor colorNamed:@"boss_000000_FFFFFF"] forState:UIControlStateNormal];
         [_voiceCodeButton setImage:[[UIImage imageNamed:@"voiceIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         _voiceCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         CGFloat width = IsPhone_Size_4 ? 15 * 12 + 5 : 15 * 14 + 5;

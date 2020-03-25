@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000" inBundle:QH_Bundle compatibleWithTraitCollection: nil];
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     self.packUpKeybordEnable = YES;
 
     self.navigationItem.leftBarButtonItem = [self customCommentLeftBarButtonItem];
