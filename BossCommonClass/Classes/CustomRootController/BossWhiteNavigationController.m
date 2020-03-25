@@ -29,7 +29,7 @@
     }
 
     //设置navigationBar的字体
-    self.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:kHexRGBA(0x000000, 0.8)};
+    
     
     //设置navigationBar背景色
     

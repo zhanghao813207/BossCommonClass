@@ -24,7 +24,14 @@
     [self.view endEditing:YES];
     
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
+    
+    UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_FFFFFF-10"];
+    
+    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
@@ -42,7 +49,7 @@
 #elif defined kBossManager
     [buttonItem_back setTintColor:kHexRGB(0x06041D)];
 #else
-    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
+    [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
 #endif
     _customCommentLeftBarButtonItem = buttonItem_back;
     return _customCommentLeftBarButtonItem;
