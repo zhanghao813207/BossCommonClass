@@ -34,9 +34,9 @@
     //设置navigationBar背景色
     
     if (self.hasLine) {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_F5F5F5_000000"]];
     } else {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"]];
     }
 
     self.navigationBar.translucent = NO;
@@ -46,9 +46,9 @@
 {
     _hasLine = hasLine;
     if (self.hasLine) {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_F5F5F5_000000"]];
     } else {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"]];
     }
 }
 
