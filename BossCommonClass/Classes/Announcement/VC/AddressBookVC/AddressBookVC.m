@@ -67,7 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     self.packUpKeybordEnable = false;
     if(!self.isShowSelectBar){
         self.navigationItem.leftBarButtonItem = nil;
@@ -85,7 +85,7 @@
     self.finishButton.hidden = !self.isShowSelectBar;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.userInteractionEnabled = false;
-    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    self.finishButton.backgroundColor = [UIColor colorNamed:@"button_3589DE_0087FF"];
     self.finishButton.alpha = 0.4;
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
@@ -97,7 +97,7 @@
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
     
-    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+//    self.view.backgroundColor = kHexRGB(0xF9FBFC);
 }
 
 /**
@@ -142,7 +142,7 @@
                 }
             }
         }
-        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
+//        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
         [self.tableview reloadData];
         
     } else {
@@ -232,7 +232,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.arrM.count > 0){
         UIView *headerView = [[UIView alloc] init];
-        headerView.backgroundColor = kHexRGB(0xF3F3F3);
+        headerView.backgroundColor = [UIColor colorNamed:@"boss_F3F3F3_000000"];
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(35);
             make.width.mas_equalTo(kScreenWidth);
@@ -278,6 +278,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
     if (self.arrM.count > 0) {
         cell.model = self.arrM[indexPath.row];
     }
@@ -303,8 +304,8 @@
     if (_allSelectButton == nil) {
         _allSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
-        _allSelectButton.titleLabel.textColor = kHexRGB(0x0A86F9);
-        [_allSelectButton setTitleColor:kHexRGB(0x0A86F9) forState:UIControlStateNormal];
+//        _allSelectButton.titleLabel.textColor = kHexRGB(0x0A86F9);
+        [_allSelectButton setTitleColor:[UIColor colorNamed:@"button_3589DE_0087FF"] forState:UIControlStateNormal];
         [_allSelectButton addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
         [self.selecBar addSubview:_allSelectButton];
         [_allSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -337,11 +338,11 @@
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableview.backgroundColor = [UIColor whiteColor];
+        _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorColor = kHexRGB(0xE5E5EE);
+        _tableview.separatorColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         _tableview.backgroundColor = [UIColor clearColor];
         //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
@@ -374,7 +375,7 @@
 - (UIView *)selecBar {
     if (_selecBar == nil) {
         _selecBar = [[UIView alloc] init];
-        _selecBar.backgroundColor = [UIColor whiteColor];
+        _selecBar.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         [self.view addSubview:_selecBar];
         [_selecBar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -391,7 +392,7 @@
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
         [self.selecBar addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.selecBar);

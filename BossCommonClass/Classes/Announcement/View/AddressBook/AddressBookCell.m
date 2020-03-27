@@ -28,6 +28,7 @@
         [self imgView];
         [self nameLabel];
 //        [self arrowLabel];
+        self.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_1A1A1A"];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -75,7 +76,7 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor whiteColor];
+//        _imgView.backgroundColor = [UIColor whiteColor];
 //        _imgView.layer.cornerRadius = 20;
 //        _imgView.layer.masksToBounds = true;
         UIImage *image = [UIImage imageNamed:@"addressbook_userDefaultIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
@@ -96,6 +97,7 @@
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.left.equalTo(self.imgView.mas_right).offset(10);
+            make.right.equalTo(self.contentView).offset(60);
         }];
     }
     return _nameLabel;

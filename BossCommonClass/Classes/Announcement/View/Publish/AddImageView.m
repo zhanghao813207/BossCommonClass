@@ -30,7 +30,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         self.imageArr = [NSMutableArray array];
     }
     return self;
@@ -119,7 +119,7 @@
 //        layout.itemSize = CGSizeMake((UIScreen.mainScreen.bounds.size.width - 16 - margin * 3 ) / 4, 100);
         layout.itemSize = CGSizeMake(110, 100);
         _collectionview = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collectionview.backgroundColor = [UIColor whiteColor];
+        _collectionview.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         _collectionview.delegate = self;
         _collectionview.dataSource = self;
         [_collectionview registerClass:[AddimgViewCell class] forCellWithReuseIdentifier:@"cell"];

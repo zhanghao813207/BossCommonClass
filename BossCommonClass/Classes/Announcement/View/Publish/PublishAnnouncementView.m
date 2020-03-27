@@ -124,8 +124,8 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti2:) name:@"selectArrNotification" object:nil];
 //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 //        [self addGestureRecognizer:tapGesture];
-        self.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
-        
+        self.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
+//        self.view.backgroundColor =
         [self headerView];
         
         self.scrollView = [UIScrollView new];
@@ -778,7 +778,7 @@ static int textLength = 30;
         _titleTextView.placeholder = @"请输入标题";
         _titleTextView.textAlignment = NSTextAlignmentRight;
 //        _titleTextView.backgroundColor = [UIColor redColor];
-        _titleTextView.textColor = UIColor.redColor;
+//        _titleTextView.textColor = UIColor.redColor;
 //        [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
 //        [self.contentView addSubview:_titleTextView];
         _titleTextView.font = [UIFont boldSystemFontOfSize:17];
