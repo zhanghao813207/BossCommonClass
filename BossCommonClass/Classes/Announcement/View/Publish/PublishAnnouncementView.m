@@ -124,12 +124,12 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti2:) name:@"selectArrNotification" object:nil];
 //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 //        [self addGestureRecognizer:tapGesture];
-        self.backgroundColor = kHexRGBA(0x000000, 0.5);
+        self.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         
         [self headerView];
         
         self.scrollView = [UIScrollView new];
-        self.scrollView.backgroundColor = [UIColor whiteColor];
+        self.scrollView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
 //        self.scrollView.backgroundColor = [UIColor orangeColor];
         [self addSubview:self.scrollView];
         [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -296,7 +296,7 @@ static int textLength = 30;
 - (UIView *)bgView {
     if (_bgView == nil) {
         _bgView = [[UIView alloc] init];
-        _bgView.backgroundColor = [UIColor whiteColor];
+        _bgView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         [self insertSubview:_bgView belowSubview:self.headerView];
         [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(60);
@@ -594,7 +594,7 @@ static int textLength = 30;
 - (CameraView *)cameraView {
     if (_cameraView == nil) {
         _cameraView = [[CameraView alloc] init];
-        _cameraView.backgroundColor = [UIColor whiteColor];
+        _cameraView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         _cameraView.delegate = self;
         [self addSubview:_cameraView];
         [_cameraView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -619,7 +619,7 @@ static int textLength = 30;
     if (_addView == nil) {
         _addView = [[AddImageView alloc] init];
         _addView.delegate = self;
-        _addView.backgroundColor = [UIColor whiteColor];
+        _addView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         [self addSubview:_addView];
         [_addView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
@@ -641,6 +641,7 @@ static int textLength = 30;
         _textView.placeholder = @"请输入正文";
         _textView.font = [UIFont systemFontOfSize:16];
         _textView.layoutManager.allowsNonContiguousLayout = false;
+//        _textView.placeholderColor = [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
 //        [_textView becomeFirstResponder];
         [self.contentView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -659,7 +660,7 @@ static int textLength = 30;
 - (UIView *)twoLineView {
     if (_twoLineView == nil) {
         _twoLineView = [[UIView alloc] init];
-        _twoLineView.backgroundColor = kHexRGB(0xE8E8E8);
+        _twoLineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
         [self.contentView addSubview:_twoLineView];
         [_twoLineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.height.equalTo(self.lineView);
@@ -673,7 +674,7 @@ static int textLength = 30;
         _receptLabel = [[UILabel alloc] init];
         _receptLabel.text = @"接收人:";
         _receptLabel.font = [UIFont systemFontOfSize:16];
-        _receptLabel.textColor = kHexRGBA(0x000000, 0.6);
+        _receptLabel.textColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-60"];
         [_receptLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         [self.containerView addSubview:_receptLabel];
         [_receptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -688,7 +689,7 @@ static int textLength = 30;
         _selectLabel = [[UILabel alloc] init];
         _selectLabel.text = @"请选择接收人 >";
         _selectLabel.font = [UIFont systemFontOfSize:16];
-        _selectLabel.textColor = kHexRGBA(0x000000, 0.2);
+        _selectLabel.textColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
         [self.containerView addSubview:_selectLabel];
         [_selectLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.containerView).offset(-16);
@@ -700,7 +701,7 @@ static int textLength = 30;
 - (UIView *)containerView {
     if (_containerView == nil) {
         _containerView = [[UIView alloc] init];
-        _containerView.backgroundColor = [UIColor whiteColor];
+        _containerView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         UITapGestureRecognizer *selectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
         [_containerView addGestureRecognizer:selectGesture];
         [self.contentView addSubview:_containerView];
@@ -746,6 +747,7 @@ static int textLength = 30;
 //AddressBookVCDelegate
 - (void)select:(NSArray *)modelArr {
     self.model.members = modelArr;
+    self.selectLabel.textColor = [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
     self.selectLabel.text = @"已选择 >";
 }
 - (UILabel *)titleLabel {
@@ -754,7 +756,7 @@ static int textLength = 30;
         _titleLabel.text = @"标题:";
 //        _titleLabel.backgroundColor = [UIColor purpleColor];
         _titleLabel.font = [UIFont systemFontOfSize:16];
-        _titleLabel.textColor = kHexRGBA(0x000000, 0.6);
+        _titleLabel.textColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-60"];
         [_titleLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
         [self.contentView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -774,8 +776,11 @@ static int textLength = 30;
     if (_titleTextView == nil) {
         _titleTextView = [[AnnouncementTextView alloc] init];
         _titleTextView.placeholder = @"请输入标题";
+        _titleTextView.textAlignment = NSTextAlignmentRight;
 //        _titleTextView.backgroundColor = [UIColor redColor];
-        [self.contentView addSubview:_titleTextView];
+        _titleTextView.textColor = UIColor.redColor;
+//        [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
+//        [self.contentView addSubview:_titleTextView];
         _titleTextView.font = [UIFont boldSystemFontOfSize:17];
         [self.contentView addSubview:_titleTextView];
         [_titleTextView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -809,7 +814,7 @@ static int textLength = 30;
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = kHexRGB(0xE8E8E8);
+        _lineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
         [self.contentView addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
@@ -823,7 +828,7 @@ static int textLength = 30;
 - (UIView *)headerView {
     if (_headerView == nil) {
         _headerView = [[UIView alloc] init];
-        _headerView.backgroundColor = kHexRGB(0xF8F8F8);
+        _headerView.backgroundColor = [UIColor colorNamed:@"boss_F8F8F8_1A1A1A"];
         CGRect rect = CGRectMake(0, 0, kScreenWidth, 57);
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(13, 13)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -844,8 +849,8 @@ static int textLength = 30;
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelButton setTitleColor:kHexRGB(0x29314D) forState:UIControlStateNormal];
-        _cancelButton.alpha = 0.4;
+        [_cancelButton setTitleColor:[UIColor colorNamed:@"boss_000000-40_FFFFFF-40"] forState:UIControlStateNormal];
+//        _cancelButton.alpha = 0.4;
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self.headerView addSubview:_cancelButton];
         [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -877,7 +882,7 @@ static int textLength = 30;
         _publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _publishButton.userInteractionEnabled = false;
         [_publishButton setTitle:@"发布" forState:UIControlStateNormal];
-        [_publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
+        [_publishButton setTitleColor:[UIColor colorNamed:@"boss_000000-40_0087FF"] forState:UIControlStateNormal];
         _publishButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_publishButton addTarget:self action:@selector(publishAction) forControlEvents:UIControlEventTouchUpInside];
         [self.headerView addSubview:_publishButton];
@@ -905,7 +910,7 @@ static int textLength = 30;
 - (UIView *)contentView {
     if (_contentView == nil) {
         _contentView = [[UIView alloc] init];
-        _contentView.backgroundColor = [UIColor whiteColor];
+        _contentView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         [self.container addSubview:_contentView];
         [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.container);
