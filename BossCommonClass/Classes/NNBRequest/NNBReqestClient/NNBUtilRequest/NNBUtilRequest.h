@@ -36,4 +36,12 @@
  */
 + (void)UtilRequestGetQNTokenWithOperateType:(NSString *)operateType Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void(^)(id error))failBlock;
 
+/**
+ 获取S3配置信息
+ 
+ @param domain 文件来源（staff：员工，material：物资，cost：费用，salary：薪资）
+ @param successBlock 获取成功的回调 返回S3配置信息
+ */
++ (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void (^)(id error))failBlock;
+
 @end

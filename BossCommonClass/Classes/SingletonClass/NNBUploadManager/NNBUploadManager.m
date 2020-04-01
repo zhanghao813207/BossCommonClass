@@ -49,6 +49,47 @@
     } option:percentOption];
 }
 
+//func uploadData() {
+//
+//  let data: Data = Data() // Data to be uploaded
+//
+//  let expression = AWSS3TransferUtilityUploadExpression()
+//     expression.progressBlock = {(task, progress) in
+//        DispatchQueue.main.async(execute: {
+//          // Do something e.g. Update a progress bar.
+//       })
+//  }
+//
+//  var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
+//  completionHandler = { (task, error) -> Void in
+//     DispatchQueue.main.async(execute: {
+//        // Do something e.g. Alert a user for transfer completion.
+//        // On failed uploads, `error` contains the error object.
+//     })
+//  }
+//
+//  let transferUtility = AWSS3TransferUtility.default()
+//
+//  transferUtility.uploadData(data,
+//       bucket: "YourBucket",
+//       key: "YourFileName",
+//       contentType: "text/plain",
+//       expression: expression,
+//       completionHandler: completionHandler).continueWith {
+//          (task) -> AnyObject? in
+//              if let error = task.error {
+//                 print("Error: \(error.localizedDescription)")
+//              }
+//
+//              if let _ = task.result {
+//                 // Do something with uploadTask.
+//              }
+//              return nil;
+//      }
+//}
+
+
+
 /**
  压缩图片
  
