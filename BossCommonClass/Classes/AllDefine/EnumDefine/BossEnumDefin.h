@@ -621,4 +621,10 @@ typedef NS_ENUM(NSInteger, MonitType) {
     MonitTypeSignError                  = 4,    // 签约不匹配
 
 };
+
+typedef NS_ENUM(NSInteger, TeamInfo) {
+    TeamInfoNormal              =  100,    //正常在团队中
+    TeamInfoExit                = -100,   // 退出团队
+};
+
 #endif /* BossEnumDefin_h */
