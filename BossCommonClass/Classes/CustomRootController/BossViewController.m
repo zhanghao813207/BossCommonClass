@@ -24,23 +24,23 @@
     [self.view endEditing:YES];
     
 }
-//- (void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
-//    
-//    UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_FFFFFF-10"];
-//    
-//    
-//    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
-//    
-//    
-//    if (@available(iOS 13.0, *)) {
-//        BOOL isDark = (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
-//        if (!isDark){
-//            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:kHexRGB(0xF5F5F5)];
-//        }
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
+    
+    UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_FFFFFF-10"];
+    
+    
+    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+    
+    
+    if (@available(iOS 13.0, *)) {
+        BOOL isDark = (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
+        if (!isDark){
+            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:kHexRGB(0xF5F5F5)];
+        }
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];

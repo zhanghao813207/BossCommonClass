@@ -32,12 +32,8 @@
     
     
     //设置navigationBar背景色
-    
-    if (self.hasLine) {
-        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_F5F5F5_000000"]];
-    } else {
-        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"]];
-    }
+    //默认不显示
+    self.hasLine = false;
 
     self.navigationBar.translucent = NO;
 }
