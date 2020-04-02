@@ -10,7 +10,8 @@
 #import "BossBasicDefine.h"
 #import "BossCache.h"
 #import "NNBRequestManager.h"
-#import "AWSCore/AWSCore.h"
+
+
 @implementation NNBUtilRequest
 
 /**
@@ -137,6 +138,20 @@
     }];
 }
 
+/**
+ s3上传图片
+*/
++ (void)uploadImageToS3WithData:(NSData *)data
+                            key:(NSString *)key
+                         bucket:(NSString *)bucket
+                    contentType:(NSString *)contentType
+                        Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock
+                           fail:(void (^)(id error))failBlock
+{
+
+}
+
+
 
 /**
  发送验证码请求
@@ -169,24 +184,12 @@
  @param domain 文件来源（staff：员工，material：物资，cost：费用，salary：薪资）
  @param successBlock 获取成功的回调 返回S3配置信息
  */
-+ (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain Success:(void(^)(NSString *path,NSString *qiniu_token))successBlock fail:(void (^)(id error))failBlock{
++ (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain Success:(void(^)(NSString *url,NSString *key))successBlock fail:(void (^)(id error))failBlock{
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
     [paramDic setValue:domain forKey:@"domain"];
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"tool.tool.get_s3_policy" success:^(id responseObject) {
-        
-//        AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:AWS_ACCESS_KEY withSecretKey:AWS_SECRET_KEY];
-//        s3.endpoint = [AmazonEndpoints s3Endpoint：US_WEST_2];
-//        S3TransferManager * transferManager = [S3TransferManager新];
-//        transferManager.s3 = s3;
-//        transferManager.delegate = 自我;
-//        s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
-//        NSData *videoData = [NSData dataWithContentsOfURL:_videoURL];
-//        [transferManager uploadData:videoData bucket:@"" bucketname:@"test.mov"];
-//
-        
-        
         if (successBlock) {
-            successBlock(responseObject[@"path"], responseObject[@"token"]);
+            successBlock(responseObject[@"data"][@"url"], [responseObject valueForKeyPath:@"data.fields.key"]);
         }
     } fail:^(id error) {
         if(failBlock){
@@ -194,7 +197,5 @@
         }
     }];
 }
-
-
 
 @end
