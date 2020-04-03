@@ -11,7 +11,7 @@
 #import "UIImage+Category.h"
 #import "BossBasicDefine.h"
 
-@interface NNBUploadManager()
+@interface NNBUploadManager()<NSURLSessionDelegate>
 @property (nonatomic, strong) QNUploadManager *upLoader;
 
 @end
@@ -48,7 +48,6 @@
         }
     } option:percentOption];
 }
-
 
 /**
  压缩图片
