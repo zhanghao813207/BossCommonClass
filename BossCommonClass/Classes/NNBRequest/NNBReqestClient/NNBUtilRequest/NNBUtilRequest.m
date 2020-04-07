@@ -163,25 +163,24 @@
     return @"auth.auth.send_verify_code";
 }
 
-
 /**
  获取S3配置信息
  
- @param domain 文件来源（staff：员工，material：物资，cost：费用，salary：薪资）
+ @param domain 文件来源（account：员工，material：物资，cost：费用，salary：薪资 ,asyn_task: 异步任务 ,district:商圈 ,city:城市,coach:私教,individual:个户注册,internal_recommend:内推,oa:OA  ,organization:岗位/部门,owner:业主,personal_company:个独个户）
  @param successBlock 获取成功的回调 返回S3配置信息
  */
 + (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain
                               filePolicy:(NSString *)filePolicy
-                                 Success:(void(^)(NSString *url,NSString *fileType, NSDictionary *policyKey))successBlock
+                                 Success:(void(^)(NSString *url, NSDictionary *policyKey))successBlock
                                     fail:(void (^)(id error))failBlock{
     NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
     [paramDic setValue:domain forKey:@"domain"];
-    [paramDic setValue:filePolicy forKey:@"get_s3_policy"]; //jpg txt png
+    [paramDic setValue:filePolicy forKey:@"file_type"];
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"tool.tool.get_s3_policy" success:^(id responseObject) {
         NSDictionary *dic = responseObject;
         if (successBlock) {
             if (dic && [dic valueForKey:@"data"]){
-                successBlock( [responseObject valueForKeyPath:@"data.url"],[responseObject valueForKeyPath:@"data.file_type"], [responseObject valueForKeyPath:@"data.fields"]);
+                successBlock( [responseObject valueForKeyPath:@"data.url"], [responseObject valueForKeyPath:@"data.fields"]);
             }
         }
     } fail:^(id error) {
@@ -213,13 +212,16 @@
     [sharedManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat =@"yyyyMMddHHmmss";
+    formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString *str = [formatter stringFromDate:[NSDate date]];
     NSString *fileName = @"";
     NSString *mineType = @"";
-    if([NSString isEmptyStringWithString:contentType]||[contentType isEqualToString:@"jpg"]){
+    if([NSString isEmptyStringWithString:contentType]||[contentType isEqualToString:@"jpg"]||[contentType isEqualToString:@"jpeg"]){
         fileName = [NSString stringWithFormat:@"%@.jpg", str];
         mineType = @"image/jpeg";
+    }else if([contentType isEqualToString:@"png"]) {
+        fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
+        fileName =  @"image/png";
     }else{
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
         mineType = @"video/quicktime";

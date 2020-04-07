@@ -39,12 +39,12 @@
 /**
  获取S3配置信息
  
- @param domain 文件来源（staff：员工，material：物资，cost：费用，salary：薪资）
+ @param domain 文件来源（account：员工，material：物资，cost：费用，salary：薪资 ,asyn_task: 异步任务 ,district:商圈 ,city:城市,coach:私教,individual:个户注册,internal_recommend:内推,oa:OA  ,organization:岗位/部门,owner:业主,personal_company:个独个户）
  @param successBlock 获取成功的回调 返回S3配置信息
  */
 + (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain
                               filePolicy:(NSString *)filePolicy
-                                 Success:(void(^)(NSString *url,NSString *fileType, NSDictionary *policyKey))successBlock
+                                 Success:(void(^)(NSString *url, NSDictionary *policyKey))successBlock
                                     fail:(void (^)(id error))failBlock;
 
 /**
