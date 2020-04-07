@@ -142,11 +142,10 @@
                 }
             }
         }
-//        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
+        self.tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         [self.tableview reloadData];
-        
     } else {
-        self.tableview.backgroundColor = UIColor.clearColor;
+        self.tableview.backgroundColor = nil;
     }
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
         if (self.isShowSelectBar) {
@@ -157,6 +156,8 @@
 }
 
 - (void)handleFailed {
+    self.tableview.backgroundColor = UIColor.clearColor;
+    [self.tableview reloadData];
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
         
         if (self.isShowSelectBar) {
@@ -246,9 +247,8 @@
             make.centerY.equalTo(headerView);
         }];
         return headerView;
-    } else {
-        return self.emptyView;
     }
+    return nil;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactsGroup *model = self.arrM[indexPath.row];
@@ -274,7 +274,7 @@
     if (self.arrM.count > 0) {
         return 35;
     }
-    return self.emptyView.frame.size.height;
+    return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -343,7 +343,7 @@
         _tableview.delegate = self;
         _tableview.dataSource = self;
         _tableview.separatorColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
-        _tableview.backgroundColor = [UIColor clearColor];
+        _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
