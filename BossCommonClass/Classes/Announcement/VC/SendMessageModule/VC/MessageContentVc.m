@@ -404,9 +404,9 @@ typedef void(^uploadImage)(BOOL isSuccess);
     //获取s3配置,
     UIImage *imageNew = [NNBUploadManager compressionImage:image proportion:0.5];
     NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
-    NSString *imgType = @"jpg";
-    if (UIImagePNGRepresentation(imageNew) != nil){//png
-        imgType = @"png";
+    NSString *imgType = @"png";
+    if (UIImageJPEGRepresentation(imageNew, 0.5)!= nil){//jpg
+        imgType = @"jpg";
     }
     [NNBUtilRequest requestGetS3ConfigInfoWithDomain:@"message" filePolicy:imgType Success:^(NSString *url,NSDictionary *policyKey) {
         [weakSelf.view showLoadingView:@"上传中"];

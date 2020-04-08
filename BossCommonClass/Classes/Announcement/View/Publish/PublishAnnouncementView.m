@@ -339,8 +339,8 @@ static int textLength = 30;
                     data = [JYCSimpleToolClass dataByImage:imageNew];
                     [tempDataArr addObject:data];
                     
-//                    [self uploadqiniu:data filetype:filetype];
-                    [self uploadS3WithData:data filePolicy:filetype];
+                    [self uploadqiniu:data filetype:filetype];
+//                    [self uploadS3WithData:data filePolicy:filetype];
                 } else {
                     NSDictionary *dic = self.imageArrM[i];
                     PHAsset *model = [dic objectForKey:@"value"];
@@ -352,8 +352,8 @@ static int textLength = 30;
                             NSData *data = [NSData dataWithContentsOfURL:a.URL];
                             if (data){
                                 [tempDataArr addObject:data];
-//                                [self uploadqiniu:data filetype:filetype];
-                                [self uploadS3WithData:data filePolicy:filetype];
+                                [self uploadqiniu:data filetype:filetype];
+//                                [self uploadS3WithData:data filePolicy:filetype];
 
                             }
                         }
@@ -382,7 +382,7 @@ static int textLength = 30;
         // 数据上传s3
         [NNBUtilRequest uploadImageToS3WithData:data contentType:filePolicy bucketUrl:url policyDict:policyKey Success:^(NSString *fileKey) {
             [kUserDefault removeObjectForKey:@"uploadImage"];
-            [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeS3 file_type:filePolicy file_key:fileKey Success:^(id  _Nonnull response) {
+            [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:filePolicy file_key:fileKey Success:^(id  _Nonnull response) {
                 NSLog(@"%@",response);
                 if (response && response[@"record"]){
                     [weakSelf.tempArr addObject:response[@"record"][@"_id"]];
@@ -403,44 +403,43 @@ static int textLength = 30;
 }
 
 
-//
-//- (void)uploadqiniu:(NSData *)data filetype:(NSString *)filetype {
-//    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
-//        NSLog(@"fdfdfd%@",qiniu_token);
-//        if (qiniu_token) {
-//            [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
-//        }
-//    } fail:^(id error) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self dismissLoadingViewWithCompletion:nil];;
-//        });
-//    }];
-//}
-///**
-// 上传到七牛
-//
-// */
-//- (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token fileType:(NSString *)filetype {
-//
-//    [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
-//    } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//        NSLog(@"%@",key);
-//        [kUserDefault removeObjectForKey:@"uploadImage"];
-//        [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:filetype file_key:key Success:^(id  _Nonnull response) {
-//            NSLog(@"%@",response);
-//            [self.tempArr addObject:response[@"record"][@"_id"]];
-//            if (self.tempArr.count == self.imageArrM.count) {
-//                self.model.media_ids = self.tempArr;
-//                [self publish];
-//            }
-//        } fail:^(NSString * _Nonnull message) {
-//
-//        }];
-//
-//    } fail:^(id error) {
-//
-//    }];
-//}
+- (void)uploadqiniu:(NSData *)data filetype:(NSString *)filetype {
+    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
+        NSLog(@"fdfdfd%@",qiniu_token);
+        if (qiniu_token) {
+            [self uploadQiniu:data path:path token:qiniu_token fileType:filetype];
+        }
+    } fail:^(id error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissLoadingViewWithCompletion:nil];;
+        });
+    }];
+}
+/**
+ 上传到七牛
+
+ */
+- (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token fileType:(NSString *)filetype {
+
+    [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
+    } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSLog(@"%@",key);
+        [kUserDefault removeObjectForKey:@"uploadImage"];
+        [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:filetype file_key:key Success:^(id  _Nonnull response) {
+            NSLog(@"%@",response);
+            [self.tempArr addObject:response[@"record"][@"_id"]];
+            if (self.tempArr.count == self.imageArrM.count) {
+                self.model.media_ids = self.tempArr;
+                [self publish];
+            }
+        } fail:^(NSString * _Nonnull message) {
+
+        }];
+
+    } fail:^(id error) {
+
+    }];
+}
 
 
 
