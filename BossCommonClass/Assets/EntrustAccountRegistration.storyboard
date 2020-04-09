@@ -203,7 +203,7 @@
                                     <constraint firstAttribute="height" constant="46" id="9eN-yY-jKX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
-                                <state key="normal" title="下一步">
+                                <state key="normal" title="进入人脸识别">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -2286,7 +2286,7 @@
     <resources>
         <image name="AlbumIcon" width="20" height="20"/>
         <image name="bz-icon" width="382" height="573"/>
-        <image name="cameraIcon" width="20" height="16"/>
+        <image name="cameraIcon" width="71" height="62"/>
         <image name="choseImageIcon" width="28" height="30"/>
         <image name="closeImageIcon" width="28" height="30"/>
         <image name="correctIcon" width="18" height="18"/>
