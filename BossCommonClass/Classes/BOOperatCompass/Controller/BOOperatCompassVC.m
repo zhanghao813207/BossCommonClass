@@ -33,6 +33,7 @@
 
 
 
+
 @end
 
 @implementation BOOperatCompassVC
@@ -82,7 +83,7 @@
 {
     [super viewDidLoad];
 //    [self pickDateCreate];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
@@ -223,7 +224,7 @@
 -(void)setLeftItem
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popViewControllerAnimated)];
-    [buttonItem_back setTintColor:[UIColor blackColor]];
+    [buttonItem_back setTintColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
     self.navigationItem.leftBarButtonItem = buttonItem_back;
 }
 -(void)popViewControllerAnimated

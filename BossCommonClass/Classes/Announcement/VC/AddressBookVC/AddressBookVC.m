@@ -343,7 +343,7 @@
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorColor = [UIColor colorNamed:@"boss_39383C_242225"];
+        _tableview.separatorColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {

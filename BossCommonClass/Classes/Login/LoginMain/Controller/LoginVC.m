@@ -680,6 +680,11 @@
     return @"agreement-knight";
     
 #elif defined kBossOwner
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            return @"agreement-boss-diablo-mode";
+        }
+    }
     return @"agreement-boss";
 #else
     return @"agreement-home";
@@ -697,6 +702,11 @@
     return @"privacy-knight";
     
 #elif defined kBossOwner
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            return @"privacy-boss-diablo-mode";
+        }
+    }
     return @"privacy-boss";
 #else
     return @"privacy-home";

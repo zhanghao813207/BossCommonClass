@@ -61,7 +61,7 @@
         }
         confirmBlock(YES);
     }];
-    
+    [cancelAction setValue:[UIColor colorNamed:@"boss_000000-60_FFFFFF-60"] forKey:@"titleTextColor"];
     [alertController addAction:cancelAction];
     [alertController addAction:photoAction];
     [viewController.navigationController presentViewController:alertController animated:YES completion:nil];
