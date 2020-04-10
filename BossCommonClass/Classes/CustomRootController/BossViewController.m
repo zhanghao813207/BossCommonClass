@@ -28,7 +28,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
     
-    UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_FFFFFF-10"];
+    UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
     
     
     [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
@@ -95,7 +95,16 @@
 {
     return UIStatusBarStyleDefault;
 }
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UICollectionViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
+}
 #pragma mark - tap gestureRecognizer action method
 - (void)endEditing:(UITapGestureRecognizer *)tap {
     

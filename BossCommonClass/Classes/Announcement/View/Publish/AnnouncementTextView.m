@@ -24,7 +24,7 @@
         
 //        self.textColor = UIColor
         // 设置默认颜色
-        self.placeholderColor = [UIColor grayColor];
+        self.placeholderColor = [UIColor colorNamed:@"boss_FFFFFF-50_FFFFFF-20"];
         
         // 使用通知监听文字改变
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextViewTextDidChangeNotification object:self];

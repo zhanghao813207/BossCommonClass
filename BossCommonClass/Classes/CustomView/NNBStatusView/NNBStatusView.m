@@ -100,7 +100,7 @@
 {
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth / 6.0, (self.height - 35) / 2.0, kScreenWidth * 2 / 3.0, 35)];
-        _contentView.backgroundColor = kHexRGB(0x9D9D9D);
+        _contentView.backgroundColor = [UIColor colorNamed:@"boss_9D9D9D_434343"];
         [_contentView addSubview:self.successImageView];
         [_contentView addSubview:self.statusLabel];
     }

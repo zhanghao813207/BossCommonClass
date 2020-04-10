@@ -147,7 +147,7 @@ CGFloat const kInputCodeViewHeight = 242;
     if (!_inputCodeNoticeLabel) {
         _inputCodeNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.sendPhoneNumberLabel.frame) + 10, kScreenWidth - 40, 22)];
         _inputCodeNoticeLabel.font = BossRegularFont(16.f);
-        _inputCodeNoticeLabel.textColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
+        _inputCodeNoticeLabel.textColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         _inputCodeNoticeLabel.text = @"输入验证码";
     }
     return _inputCodeNoticeLabel;

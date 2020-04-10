@@ -65,10 +65,10 @@
                                                         </constraints>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xa5-75-hrS">
-                                                        <rect key="frame" x="260" y="298" width="50" height="23"/>
+                                                        <rect key="frame" x="251" y="298" width="68" height="36"/>
                                                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
                                                         <state key="normal" title="标准" image="correctIcon">
-                                                            <color key="titleColor" white="0.0" alpha="0.79939642558528423" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" name="boss_000000-80_FFFFFF-80"/>
                                                         </state>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yz-icon" translatesAutoresizingMaskIntoConstraints="NO" id="xmY-Tj-Yf3" userLabel="leftImg">
@@ -199,7 +199,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ar-fu-knx">
                                 <rect key="frame" x="16" y="816" width="382" height="46"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.53725490200000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="button_3589DE_0087FF"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="9eN-yY-jKX"/>
                                 </constraints>
@@ -250,11 +250,11 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标准" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyf-2v-1Sq">
                                                         <rect key="frame" x="23" y="-0.33333333333325754" width="32" height="22.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="boss_000000-80_FFFFFF-80"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                                                 <constraints>
                                                     <constraint firstItem="Jbd-1P-kGf" firstAttribute="leading" secondItem="9Mg-10-rnR" secondAttribute="leading" id="5bA-8K-OO8"/>
                                                     <constraint firstItem="pyf-2v-1Sq" firstAttribute="centerY" secondItem="9Mg-10-rnR" secondAttribute="centerY" id="VCK-lI-0lX"/>
@@ -297,11 +297,11 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标准" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3er-A8-O3A">
                                                         <rect key="frame" x="23" y="0.0" width="32" height="22.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="boss_000000-80_FFFFFF-80"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                                                 <constraints>
                                                     <constraint firstItem="XGw-Gm-ecq" firstAttribute="centerY" secondItem="O2y-Rb-v5f" secondAttribute="centerY" id="87j-Ko-6Fn"/>
                                                     <constraint firstAttribute="trailing" secondItem="3er-A8-O3A" secondAttribute="trailing" id="ANC-4R-rRI"/>
@@ -353,11 +353,11 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标准" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4GN-DC-oh9">
                                                                 <rect key="frame" x="23" y="-0.33333333333331439" width="32" height="22.666666666666668"/>
                                                                 <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" name="boss_000000-80_FFFFFF-80"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.97647058819999999" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                                                         <constraints>
                                                             <constraint firstItem="4GN-DC-oh9" firstAttribute="leading" secondItem="wG7-8B-nLp" secondAttribute="trailing" constant="5" id="26O-XI-JlO"/>
                                                             <constraint firstItem="wG7-8B-nLp" firstAttribute="leading" secondItem="iGY-q0-r8C" secondAttribute="leading" id="Deq-gO-465"/>
@@ -467,7 +467,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您首先需要在新版工商APP中完成实名认证，并且截取指定页面进行上传。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNk-UC-M8D">
                                                 <rect key="frame" x="16" y="62" width="382" height="45"/>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
-                                                <color key="textColor" red="0.16078431372549018" green="0.19215686274509802" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="boss_000000-60_FFFFFF-60"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykm-8n-J7o">
@@ -481,7 +481,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="截取页面：账号管理页,需打开&quot;是否办理企业登记注册&quot;，并选择办理企业登记注册截止时间，截止日期必须≥10个自然日（包括今天）。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eQ-SF-dfS">
                                                 <rect key="frame" x="16" y="142" width="382" height="67.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
-                                                <color key="textColor" red="0.16078431369999999" green="0.19215686269999999" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="boss_000000-60_FFFFFF-60"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bz-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Xqc-lD-UGc">
@@ -491,7 +491,7 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                                         <constraints>
                                             <constraint firstItem="aFN-2G-E6P" firstAttribute="leading" secondItem="123-b5-IeI" secondAttribute="leading" constant="16" id="6uh-k4-wQ7"/>
                                             <constraint firstAttribute="trailing" secondItem="wNk-UC-M8D" secondAttribute="trailing" constant="16" id="Ep1-eE-sUy"/>
@@ -520,7 +520,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1P9-Me-eES">
                                 <rect key="frame" x="20" y="762" width="374" height="46"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.53725490200000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="button_3589DE_0087FF"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="vms-nD-kO0"/>
                                 </constraints>
@@ -534,7 +534,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="1P9-Me-eES" secondAttribute="bottom" constant="34" id="H1Y-j3-Tuc"/>
                             <constraint firstAttribute="trailing" secondItem="iTj-SG-xM9" secondAttribute="trailing" id="HmS-A3-bEO"/>
@@ -564,19 +564,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传截图" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-aE-XxA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="上传截图" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-aE-XxA">
                                 <rect key="frame" x="20" y="20" width="120" height="42"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传账号管理截图" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QC6-JJ-zYu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="上传账号管理截图" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QC6-JJ-zYu">
                                 <rect key="frame" x="20" y="72" width="128" height="22.666666666666671"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                 <color key="textColor" red="0.16078431369999999" green="0.19215686269999999" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u37-wc-xF0">
+                            <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u37-wc-xF0">
                                 <rect key="frame" x="20" y="104.66666666666669" width="374" height="630"/>
                                 <state key="normal" image="upload-bg-icon"/>
                                 <connections>
@@ -585,7 +585,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0R-D2-K89">
                                 <rect key="frame" x="20" y="762" width="374" height="46"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.53725490200000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="button_3589DE_0087FF"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="Taz-BF-t6N"/>
                                 </constraints>
@@ -599,7 +599,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                         <constraints>
                             <constraint firstItem="fia-aE-XxA" firstAttribute="leading" secondItem="Bpq-5I-TL5" secondAttribute="leading" constant="20" id="3O9-B9-wj9"/>
                             <constraint firstItem="QC6-JJ-zYu" firstAttribute="top" secondItem="fia-aE-XxA" secondAttribute="bottom" constant="10" id="4Ek-3z-cFr"/>
@@ -646,7 +646,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已提交" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9a-s6-7Q3">
                                 <rect key="frame" x="177" y="141" width="60" height="28"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="boss_000000-80_FFFFFF-80"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="委托个户注册信息已提交工商系统 预计3个工作日完成注册" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEH-49-I0B">
@@ -660,7 +660,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZL-SU-CiF">
                                 <rect key="frame" x="16" y="258.33333333333331" width="382" height="46"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.53725490200000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="button_3589DE_0087FF"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="msc-cW-wyq"/>
                                 </constraints>
@@ -672,7 +672,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                         <constraints>
                             <constraint firstItem="PEH-49-I0B" firstAttribute="top" secondItem="Z9a-s6-7Q3" secondAttribute="bottom" constant="10" id="0TH-iM-j0q"/>
                             <constraint firstItem="Z9a-s6-7Q3" firstAttribute="centerX" secondItem="Hqx-0P-38k" secondAttribute="centerX" id="0wW-uD-Nqa"/>
@@ -2313,14 +2313,26 @@
         <namedColor name="bgcolor_F5F5F5_000000">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="bgcolor_FFFFFF_000000">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="boss_000000-40_FFFFFF-40">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.40000000596046448" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boss_000000-60_FFFFFF-60">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boss_000000-80_FFFFFF-80">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.80000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="boss_000000-90_FFFFFF-90">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="boss_FFFFFF_1A1A1A">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="button_3589DE_0087FF">
+            <color red="0.20800000429153442" green="0.53700000047683716" blue="0.87099999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

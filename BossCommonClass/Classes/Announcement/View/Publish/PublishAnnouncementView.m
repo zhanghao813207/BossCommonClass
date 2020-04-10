@@ -660,7 +660,7 @@ static int textLength = 30;
 - (UIView *)twoLineView {
     if (_twoLineView == nil) {
         _twoLineView = [[UIView alloc] init];
-        _twoLineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
+        _twoLineView.backgroundColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         [self.contentView addSubview:_twoLineView];
         [_twoLineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.height.equalTo(self.lineView);
@@ -689,7 +689,7 @@ static int textLength = 30;
         _selectLabel = [[UILabel alloc] init];
         _selectLabel.text = @"请选择接收人 >";
         _selectLabel.font = [UIFont systemFontOfSize:16];
-        _selectLabel.textColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
+        _selectLabel.textColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         [self.containerView addSubview:_selectLabel];
         [_selectLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.containerView).offset(-16);
@@ -776,7 +776,8 @@ static int textLength = 30;
     if (_titleTextView == nil) {
         _titleTextView = [[AnnouncementTextView alloc] init];
         _titleTextView.placeholder = @"请输入标题";
-        _titleTextView.textAlignment = NSTextAlignmentRight;
+        [_titleTextView becomeFirstResponder];
+        _titleTextView.textAlignment = NSTextAlignmentLeft;
 //        _titleTextView.backgroundColor = [UIColor redColor];
 //        _titleTextView.textColor = UIColor.redColor;
 //        [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
@@ -814,7 +815,7 @@ static int textLength = 30;
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
+        _lineView.backgroundColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         [self.contentView addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel);
@@ -864,7 +865,7 @@ static int textLength = 30;
 - (void)cancelAction {
     NSLog(@"点击取消按钮");
     
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"退出将放弃编辑内容,是否确认退出" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"退出将放弃编辑内容,是否确认退出?" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
             
         } rightClick:^(UIAlertAction * _Nonnull action) {
             [self.viewController.navigationController popViewControllerAnimated:false];

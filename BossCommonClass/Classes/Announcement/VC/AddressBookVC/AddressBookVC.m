@@ -310,7 +310,8 @@
         [self.selecBar addSubview:_allSelectButton];
         [_allSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.selecBar).offset(16);
-            make.centerY.equalTo(self.selecBar);
+            make.top.equalTo(self.selecBar).offset(10);
+//            make.centerY.equalTo(self.selecBar);
         }];
     }
     return _allSelectButton;
@@ -342,7 +343,7 @@
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
+        _tableview.separatorColor = [UIColor colorNamed:@"boss_39383C_242225"];
         _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
@@ -375,16 +376,16 @@
 - (UIView *)selecBar {
     if (_selecBar == nil) {
         _selecBar = [[UIView alloc] init];
-        _selecBar.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+        _selecBar.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_1A1A1A"];
         [self.view addSubview:_selecBar];
         [_selecBar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(45);
             if (kIsiPhoneX) {
-                make.bottom.mas_equalTo(-33);
+                make.height.mas_equalTo(80);
             }else {
-                make.bottom.equalTo(self.view);
+                make.height.mas_equalTo(45);
             }
+            make.bottom.equalTo(self.view);
         }];
     }
     return _selecBar;
@@ -392,7 +393,7 @@
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
+        _lineView.backgroundColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         [self.selecBar addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.selecBar);

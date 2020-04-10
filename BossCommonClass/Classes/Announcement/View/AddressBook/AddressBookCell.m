@@ -97,7 +97,7 @@
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.left.equalTo(self.imgView.mas_right).offset(10);
-            make.right.equalTo(self.contentView).offset(60);
+            make.right.equalTo(self.contentView.mas_right).offset(-10);
         }];
     }
     return _nameLabel;

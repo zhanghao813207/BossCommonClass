@@ -47,7 +47,7 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BX0-6o-egl">
                                                     <rect key="frame" x="16" y="67.5" width="381" height="0.5"/>
-                                                    <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                    <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="yXC-Ya-4Ng"/>
                                                     </constraints>
@@ -380,7 +380,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dub-Jt-ZX3" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="125" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="Un4-bB-qyx"/>
                                                 </constraints>
@@ -429,7 +429,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Imz-9J-kJg" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="180.5" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="Af3-LF-te2"/>
                                                 </constraints>
@@ -478,7 +478,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4v3-n4-Y9a" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="236" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="Ite-5f-3bI"/>
                                                 </constraints>
@@ -527,7 +527,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa8-Vq-zb6" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="291.5" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="fkV-w8-0ah"/>
                                                 </constraints>
@@ -576,7 +576,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CzK-H5-moB" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="347" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="haf-rn-2zr"/>
                                                 </constraints>
@@ -625,7 +625,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avm-hj-mx9" userLabel="namelineView">
                                                 <rect key="frame" x="16" y="402.5" width="398" height="0.5"/>
-                                                <color key="backgroundColor" name="boss_000000-20_FFFFFF-20"/>
+                                                <color key="backgroundColor" name="linecolor_E8E8E8_2B2B2B"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="lq4-GL-2rt"/>
                                                 </constraints>
@@ -1016,7 +1016,7 @@
         <namedColor name="bgcolor_F5F5F5_000000">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="boss_000000-20_FFFFFF-20">
+        <namedColor name="linecolor_E8E8E8_2B2B2B">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="boss_000000-60_FFFFFF-60">
