@@ -382,7 +382,7 @@ static int textLength = 30;
         // 数据上传s3
         [NNBUtilRequest uploadImageToS3WithData:data contentType:filePolicy bucketUrl:url policyDict:policyKey Success:^(NSString *fileKey) {
             [kUserDefault removeObjectForKey:@"uploadImage"];
-            [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeQIniu file_type:filePolicy file_key:fileKey Success:^(id  _Nonnull response) {
+            [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeS3 file_type:filePolicy file_key:fileKey Success:^(id  _Nonnull response) {
                 NSLog(@"%@",response);
                 if (response && response[@"record"]){
                     [weakSelf.tempArr addObject:response[@"record"][@"_id"]];
