@@ -209,7 +209,14 @@
     [self.view addSubview:_webView];
     
     
+    UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2)];
+//    maskView.userInteractionEnabled = true;
+    maskView.backgroundColor = [UIColor colorNamed:@"boss_000000-50"];
+//    maskView
+//    [self.view addSubview:maskView];
+    
 }
+
 -(void)tapView:(UITapGestureRecognizer *)sender{
     //设置轻拍事件改变testView的颜色
     // UI更新代码
