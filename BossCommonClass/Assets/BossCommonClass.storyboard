@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -793,14 +793,12 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="top" secondItem="M4B-QS-hbe" secondAttribute="top" id="9vh-GQ-hzO"/>
-                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="bottom" secondItem="M4B-QS-hbe" secondAttribute="bottom" id="FKv-Pf-gjX"/>
-                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="width" secondItem="9HX-XR-Nrk" secondAttribute="width" id="ei2-NF-enI"/>
-                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="leading" secondItem="M4B-QS-hbe" secondAttribute="leading" id="o5E-Hp-Abe"/>
-                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="trailing" secondItem="M4B-QS-hbe" secondAttribute="trailing" id="uqq-wO-WQf"/>
+                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="top" secondItem="WzS-Eo-lVb" secondAttribute="top" id="9vh-GQ-hzO"/>
+                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="bottom" secondItem="WzS-Eo-lVb" secondAttribute="bottom" id="FKv-Pf-gjX"/>
+                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="width" secondItem="WzS-Eo-lVb" secondAttribute="width" id="ei2-NF-enI"/>
+                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="leading" secondItem="WzS-Eo-lVb" secondAttribute="leading" id="o5E-Hp-Abe"/>
+                                    <constraint firstItem="Bpt-P1-2mK" firstAttribute="trailing" secondItem="WzS-Eo-lVb" secondAttribute="trailing" id="uqq-wO-WQf"/>
                                 </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="M4B-QS-hbe"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="9HX-XR-Nrk"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGw-9v-nmu">
                                 <rect key="frame" x="20" y="816" width="374" height="46"/>
