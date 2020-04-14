@@ -40,7 +40,10 @@
 @implementation BOOperatCompassVC
 - (void)pickDateCreate{
     self.datePickManager = [[PGDatePickManager alloc]init];
+    self.datePickManager.datePicker.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     PGDatePicker *datePicker = self.datePickManager.datePicker;
+    self.datePickManager.headerViewBackgroundColor = [UIColor colorNamed:@"boss_FBFBFB_1A1A1A"];
+//    self.confirmButtonTextColor
     datePicker.datePickerMode = PGDatePickerModeYearAndMonth;
     NSDate *date =[NSDate date];//简书 FlyElephant
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];

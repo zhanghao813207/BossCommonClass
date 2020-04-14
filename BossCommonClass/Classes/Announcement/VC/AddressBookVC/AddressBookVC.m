@@ -355,9 +355,11 @@
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
         
         // 设置下拉刷新 header view 并 设置回调
-        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [self refreshLatestData];
-        }];
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+//        MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+        [header.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
+//        [footer.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
+        _tableview.mj_header = header;
         
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
