@@ -11,7 +11,7 @@
 #import "UIImage+Category.h"
 #import "BossBasicDefine.h"
 
-@interface NNBUploadManager()
+@interface NNBUploadManager()<NSURLSessionDelegate>
 @property (nonatomic, strong) QNUploadManager *upLoader;
 
 @end
@@ -73,10 +73,10 @@
 {
     
     if (!_upLoader) {
-//        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
-//            builder.zone = QNFixedZone.zone1;
-//        }];
-//        _upLoader = [[QNUploadManager alloc] initWithConfiguration:config];
+        //        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+        //            builder.zone = QNFixedZone.zone1;
+        //        }];
+        //        _upLoader = [[QNUploadManager alloc] initWithConfiguration:config];
         _upLoader = [[QNUploadManager alloc] init];
     }
     return _upLoader;

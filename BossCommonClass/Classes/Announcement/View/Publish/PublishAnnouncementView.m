@@ -122,30 +122,30 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
     self = [super initWithFrame:frame];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti2:) name:@"selectArrNotification" object:nil];
-//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-//        [self addGestureRecognizer:tapGesture];
+        //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        //        [self addGestureRecognizer:tapGesture];
         self.backgroundColor = kHexRGBA(0x000000, 0.5);
         
         [self headerView];
         
         self.scrollView = [UIScrollView new];
         self.scrollView.backgroundColor = [UIColor whiteColor];
-//        self.scrollView.backgroundColor = [UIColor orangeColor];
+        //        self.scrollView.backgroundColor = [UIColor orangeColor];
         [self addSubview:self.scrollView];
         [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
             make.top.equalTo(self.headerView.mas_bottom);
             make.bottom.equalTo(self).offset(-164);
-//            make.height.mas_equalTo(300);
+            //            make.height.mas_equalTo(300);
         }];
         self.container = [UIView new];
-//        self.container.backgroundColor = [UIColor yellowColor];
+        //        self.container.backgroundColor = [UIColor yellowColor];
         [self.scrollView addSubview:self.container];
         [self.container mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.scrollView);
             make.width.equalTo(self.scrollView);
         }];
-  
+        
         
         [self addSubvies];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -155,7 +155,7 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
         [self.model addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         [self.model addObserver:self forKeyPath:@"members" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         [self.model addObserver:self forKeyPath:@"content" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-       
+        
     }
     return self;
 }
@@ -163,7 +163,7 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
     
     //使用object处理消息
     NSMutableArray * idArr = [NSMutableArray array];
-
+    
     NSMutableArray *infoArr = [noti object];
     self.contentArr = infoArr;
     for (BizDistrictTeamPlatformModel *teamListModel in infoArr){
@@ -232,14 +232,14 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
     }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
- {
-     if (self.model.title.length > 0 && self.model.content.length > 0 && self.model.members.count > 0) {
-         self.publishButton.userInteractionEnabled = true;
-         [self.publishButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
-     }else {
-         self.publishButton.userInteractionEnabled = false;
-         [self.publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
-     }
+{
+    if (self.model.title.length > 0 && self.model.content.length > 0 && self.model.members.count > 0) {
+        self.publishButton.userInteractionEnabled = true;
+        [self.publishButton setTitleColor:kHexRGB(0x1FB1FF) forState:UIControlStateNormal];
+    }else {
+        self.publishButton.userInteractionEnabled = false;
+        [self.publishButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
+    }
 }
 
 /**
@@ -248,10 +248,10 @@ typedef void(^Result)(NSData *fileData, NSString *fileName);
 ////标题的最大长度
 static int textLength = 30;
 - (void)fieldChange {
-//    self.model.title = self.titleField.text;
-//    if (self.titleField.text.length > textLength) {
-//        self.titleField.text = [self.titleField.text substringToIndex:textLength];
-//    }
+    //    self.model.title = self.titleField.text;
+    //    if (self.titleField.text.length > textLength) {
+    //        self.titleField.text = [self.titleField.text substringToIndex:textLength];
+    //    }
 }
 - (PublishModel *)model {
     if (_model == nil) {
@@ -278,7 +278,7 @@ static int textLength = 30;
     [self headlineLabel];
     [self contentView];
     [self titleLabel];
-//    [self titleField];
+    //    [self titleField];
     [self titleTextView];
     [self lineView];
     [self containerView];
@@ -290,7 +290,7 @@ static int textLength = 30;
     [self cameraView];
     [self bgView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.titleField becomeFirstResponder];
+        //        [self.titleField becomeFirstResponder];
     });
 }
 - (UIView *)bgView {
@@ -318,7 +318,7 @@ static int textLength = 30;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self showLoadingView:@"正在发布"];
         });
-//        [self showLoadingView:@"正在发布"];
+        //        [self showLoadingView:@"正在发布"];
         
         self.tempArr = [NSMutableArray array];
         NSMutableArray *tempDataArr = [NSMutableArray array];
@@ -340,26 +340,28 @@ static int textLength = 30;
                     [tempDataArr addObject:data];
                     
                     [self uploadqiniu:data filetype:filetype];
-
+//                    [self uploadS3WithData:data filePolicy:filetype];
                 } else {
                     NSDictionary *dic = self.imageArrM[i];
                     PHAsset *model = [dic objectForKey:@"value"];
                     filetype = [dic objectForKey:@"type"];
                     [[PHImageManager defaultManager] requestAVAssetForVideo:model options:nil resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-                            
-                            if (asset) {
-                                AVURLAsset *a = (AVURLAsset *)asset;
-                                NSData *data = [NSData dataWithContentsOfURL:a.URL];
-                                if (data){
-                                    [tempDataArr addObject:data];
-                                    [self uploadqiniu:data filetype:filetype];
-                                }
+                        
+                        if (asset) {
+                            AVURLAsset *a = (AVURLAsset *)asset;
+                            NSData *data = [NSData dataWithContentsOfURL:a.URL];
+                            if (data){
+                                [tempDataArr addObject:data];
+                                [self uploadqiniu:data filetype:filetype];
+//                                [self uploadS3WithData:data filePolicy:filetype];
+
                             }
+                        }
                     }];
-//                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
-//                        data = fileData;
-//
-//                    }];
+                    //                    [self getVideoFromPHAsset:model Complete:^(NSData *fileData, NSString *fileName) {
+                    //                        data = fileData;
+                    //
+                    //                    }];
                 }
             }
         }else {
@@ -371,6 +373,36 @@ static int textLength = 30;
         
     }];
 }
+
+// 上传S3
+- (void)uploadS3WithData:(NSData *)data filePolicy:(NSString *)filePolicy{
+    __weak typeof(self) weakSelf = self;
+    //获取s3配置,
+    [NNBUtilRequest requestGetS3ConfigInfoWithDomain:@"notice" filePolicy:filePolicy Success:^(NSString *url, NSDictionary *policyKey) {
+        // 数据上传s3
+        [NNBUtilRequest uploadImageToS3WithData:data contentType:filePolicy bucketUrl:url policyDict:policyKey Success:^(NSString *fileKey) {
+            [kUserDefault removeObjectForKey:@"uploadImage"];
+            [AnnouncementRequest uploadDomain_type:Domain_typeNotice Storage_type:Storage_typeS3 file_type:filePolicy file_key:fileKey Success:^(id  _Nonnull response) {
+                NSLog(@"%@",response);
+                if (response && response[@"record"]){
+                    [weakSelf.tempArr addObject:response[@"record"][@"_id"]];
+                      if (weakSelf.tempArr.count == self.imageArrM.count) {
+                          weakSelf.model.media_ids = self.tempArr;
+                          [weakSelf publish];
+                      }
+                }
+              
+            } fail:^(NSString * _Nonnull message) {
+                
+            }];
+        } fail:^(id error) {
+        }];
+    } fail:^(id error) {
+        
+    }];
+}
+
+
 - (void)uploadqiniu:(NSData *)data filetype:(NSString *)filetype {
     [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:filetype Success:^(NSString *path, NSString *qiniu_token) {
         NSLog(@"fdfdfd%@",qiniu_token);
@@ -388,7 +420,7 @@ static int textLength = 30;
 
  */
 - (void)uploadQiniu:(NSData *)data path:(NSString *)path token:(NSString *)qiniu_token fileType:(NSString *)filetype {
-    
+
     [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
     } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         NSLog(@"%@",key);
@@ -401,11 +433,11 @@ static int textLength = 30;
                 [self publish];
             }
         } fail:^(NSString * _Nonnull message) {
-            
+
         }];
-        
+
     } fail:^(id error) {
-        
+
     }];
 }
 
@@ -436,9 +468,9 @@ static int textLength = 30;
  */
 - (void)change {
     NSLog(@"%@",self.textView.text);
-     self.model.title = self.titleTextView.text;
+    self.model.title = self.titleTextView.text;
     if (self.titleTextView.text.length > textLength) {
-       self.titleTextView.text = [self.titleTextView.text substringToIndex:textLength];
+        self.titleTextView.text = [self.titleTextView.text substringToIndex:textLength];
     }
     self.model.content = self.textView.text;
 }
@@ -454,7 +486,7 @@ static int textLength = 30;
         }else {
             make.bottom.equalTo(self).offset(0);
         }
-         
+        
     }];
 }
 - (void)keyboardShow:(NSNotification *)aNotification {
@@ -519,9 +551,9 @@ static int textLength = 30;
         }
     }
     
-
     
-   
+    
+    
 }
 - (void)showImagePickerVc:(PictureType)type{
     if (self.imageArrM.count > 4) {
@@ -529,20 +561,20 @@ static int textLength = 30;
         return;
     }
     UIImagePickerController *pic = [[UIImagePickerController alloc] init];
-       pic.delegate = self;
-       if (type == PictureTypePhoto) {//相机
-           pic.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
-           pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-       }else {//相册
-           pic.sourceType = UIImagePickerControllerSourceTypeCamera;
-       }
-       pic.modalPresentationStyle = UIModalPresentationFullScreen;
-       [self.viewController presentViewController:pic animated:true completion:nil];
+    pic.delegate = self;
+    if (type == PictureTypePhoto) {//相机
+        pic.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+        pic.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }else {//相册
+        pic.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    pic.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.viewController presentViewController:pic animated:true completion:nil];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     [picker dismissViewControllerAnimated:true completion:^{
-       
+        
         NSString *fileType = info[@"UIImagePickerControllerMediaType"];
         if ([fileType isEqualToString:@"public.movie"]){
             NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
@@ -556,7 +588,7 @@ static int textLength = 30;
             PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
             PHAsset *asset = fetchResult.firstObject;
             PHAssetResource *resource = [[PHAssetResource assetResourcesForAsset:asset] firstObject];
-
+            
             CGFloat size = (CGFloat) [[resource valueForKey:@"fileSize"] longLongValue] / (1024*1024);
             if (size > 20){
                 [self showStatus:@"大于20M的文件不支持上传"];
@@ -578,7 +610,7 @@ static int textLength = 30;
             [self.imageArrM addObject:pickImage];
         }
     }];
-  
+    
 }
 - (CGFloat)getFileSize:(NSString *)path
 {
@@ -637,16 +669,16 @@ static int textLength = 30;
 - (AnnouncementTextView *)textView {
     if (_textView == nil) {
         _textView = [[AnnouncementTextView alloc] init];
-//        _textView.backgroundColor = [UIColor redColor];
+        //        _textView.backgroundColor = [UIColor redColor];
         _textView.placeholder = @"请输入正文";
         _textView.font = [UIFont systemFontOfSize:16];
         _textView.layoutManager.allowsNonContiguousLayout = false;
-//        [_textView becomeFirstResponder];
+        //        [_textView becomeFirstResponder];
         [self.contentView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
             make.right.equalTo(self.contentView).offset(-16);
-//            make.width.equalTo(@30);
+            //            make.width.equalTo(@30);
             make.height.mas_equalTo(150);
             make.top.equalTo(self.twoLineView.mas_bottom).offset(16);
             make.bottom.equalTo(self.contentView);
@@ -727,21 +759,21 @@ static int textLength = 30;
     vc.delegate = self;
     vc.wppId = self.wppId;
     vc.iscloseTalk = true;
-//    vc.contentArr = self.contentArr;
+    //    vc.contentArr = self.contentArr;
     vc.teamArr = self.model.members;
     vc.isShowSelectBar = true;
     [self.viewController.navigationController pushViewController:vc animated:true];
 #endif
-
-//    AddressBookVC *vc = [[AddressBookVC alloc] init];
-//    vc.delegate = self;
-//    vc.teamArr = self.model.members;
-//    vc.isShowSelectBar = true;
+    
+    //    AddressBookVC *vc = [[AddressBookVC alloc] init];
+    //    vc.delegate = self;
+    //    vc.teamArr = self.model.members;
+    //    vc.isShowSelectBar = true;
     // 选择联系人优化
-//    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-//    vc.contentArr = self.contentArr;
-//    vc.wppId = self.wppId;
-//    [self.viewController.navigationController pushViewController:vc animated:true];
+    //    SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
+    //    vc.contentArr = self.contentArr;
+    //    vc.wppId = self.wppId;
+    //    [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate
 - (void)select:(NSArray *)modelArr {
@@ -752,7 +784,7 @@ static int textLength = 30;
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.text = @"标题:";
-//        _titleLabel.backgroundColor = [UIColor purpleColor];
+        //        _titleLabel.backgroundColor = [UIColor purpleColor];
         _titleLabel.font = [UIFont systemFontOfSize:16];
         _titleLabel.textColor = kHexRGBA(0x000000, 0.6);
         [_titleLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -760,7 +792,7 @@ static int textLength = 30;
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(16);
             make.top.equalTo(self.titleTextView).offset(10);
-//            make.centerY.equalTo(self.titleTextView);
+            //            make.centerY.equalTo(self.titleTextView);
             make.height.equalTo(@20);
         }];
     }
@@ -774,17 +806,17 @@ static int textLength = 30;
     if (_titleTextView == nil) {
         _titleTextView = [[AnnouncementTextView alloc] init];
         _titleTextView.placeholder = @"请输入标题";
-//        _titleTextView.backgroundColor = [UIColor redColor];
+        //        _titleTextView.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:_titleTextView];
         _titleTextView.font = [UIFont boldSystemFontOfSize:17];
         [self.contentView addSubview:_titleTextView];
         [_titleTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.titleLabel.mas_right).offset(4);
-//            make.centerY.equalTo(self.titleLabel);
+            //            make.centerY.equalTo(self.titleLabel);
             make.top.equalTo(self.contentView);
             make.right.equalTo(self.contentView);
             make.height.mas_equalTo(40);
-//            make.height.equalTo(self.titleLabel);
+            //            make.height.equalTo(self.titleLabel);
         }];
     }
     return _titleTextView;
@@ -860,16 +892,16 @@ static int textLength = 30;
     NSLog(@"点击取消按钮");
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:@"退出将放弃编辑内容,是否确认退出" Titles:@[@"否",@"是"] leftClick:^(UIAlertAction * _Nonnull action) {
-            
-        } rightClick:^(UIAlertAction * _Nonnull action) {
-            [self.viewController.navigationController popViewControllerAnimated:false];
-
-        }];
-        [self.viewController presentViewController:alertVC animated:true completion:^{
-            
-        }];
+        
+    } rightClick:^(UIAlertAction * _Nonnull action) {
+        [self.viewController.navigationController popViewControllerAnimated:false];
+        
+    }];
+    [self.viewController presentViewController:alertVC animated:true completion:^{
+        
+    }];
     
-
+    
 }
 
 - (UIButton *)publishButton {
