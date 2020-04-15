@@ -2286,7 +2286,7 @@
     <resources>
         <image name="AlbumIcon" width="20" height="20"/>
         <image name="bz-icon" width="382" height="573"/>
-        <image name="cameraIcon" width="71" height="62"/>
+        <image name="cameraIcon" width="20" height="16"/>
         <image name="choseImageIcon" width="28" height="30"/>
         <image name="closeImageIcon" width="28" height="30"/>
         <image name="correctIcon" width="18" height="18"/>

@@ -346,6 +346,7 @@
         [paramDic setObject:fileList forKey:@"file_list"];
     }
     
+    [paramDic setValue:@(SavePhotoTypeS3) forKey:@"storage_type"];
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"oa.application_order.create_flow_extra" success:^(id responseObject) {
         DLog(@"%@", responseObject);
         if (!successBlock) {
