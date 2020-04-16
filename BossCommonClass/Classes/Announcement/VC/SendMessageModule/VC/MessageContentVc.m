@@ -32,6 +32,7 @@
 #import "PhotoManager.h"
 #import "BossCache.h"
 #import "IQKeyboardManager.h"
+#import "NSString+base.h"
 
 typedef void(^uploadImage)(BOOL isSuccess);
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
@@ -104,7 +105,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     
     [self.AddImageButton setSelected:false];
     
-//    self.
+    //    self.
 }
 
 - (void)setIsshowImageView:(BOOL)isshowImageView{
@@ -118,11 +119,11 @@ typedef void(^uploadImage)(BOOL isSuccess);
     
     [UIView animateWithDuration:.5f animations:
      ^{
-         self.selectImageView.frame = CGRectMake(self.selectImageView.frame.origin.x, self.selectImageViewY, self.selectImageView.frame.size.width, self.selectImageView.frame.size.height);
-         
-     } completion:^(BOOL finished) {
-         
-     }];
+        self.selectImageView.frame = CGRectMake(self.selectImageView.frame.origin.x, self.selectImageViewY, self.selectImageView.frame.size.width, self.selectImageView.frame.size.height);
+        
+    } completion:^(BOOL finished) {
+        
+    }];
     
     
 }
@@ -257,17 +258,17 @@ typedef void(^uploadImage)(BOOL isSuccess);
     
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
     if (window.windowLevel != UIWindowLevelNormal)
-    {
+        {
         NSArray *windows = [[UIApplication sharedApplication] windows];
         for(UIWindow * tmpWin in windows)
-        {
-            if (tmpWin.windowLevel == UIWindowLevelNormal)
             {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+                {
                 window = tmpWin;
                 break;
+                }
             }
         }
-    }
     if ([window subviews].count>0) {
         UIView *frontView = [[window subviews] objectAtIndex:0];
         id nextResponder = [frontView nextResponder];
@@ -371,8 +372,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
     NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
     // 图片转 base64 编码
     NSString *encodedImageStr = [self saveImageToDocument:image imageName:currentDateString];
-//    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
-//    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    //    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+    //    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     model.encodedImageStr = encodedImageStr;
     model.userid = kCurrentBossOwnerAccount.accountModel.accountId;
     model.senderId = [BossCache defaultCache].umsAccessTokenModel.accountId;
@@ -393,45 +394,85 @@ typedef void(^uploadImage)(BOOL isSuccess);
     };
     [self scrollViewToBottom:true];
     [self.customTableView reloadData];
-    [self getQiniuTockenforImage:image];
+//    [self getQiniuTockenforImage:image];
+    [self uploadS3WithImage:image];
 }
-// 上传图片
-- (void)getQiniuTockenforImage:(UIImage *)Image {
-    WS(weakSelf);
-    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
-        NSLog(@"%@, %@", path, qiniu_token);
-        if (qiniu_token) {
-            UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:0.5];
-            NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
-            [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
-                DLog(@"key = %@,percent = %f", key, percent);
-            } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                DLog(@"%@", info);
-                DLog(@"%@", key);
-                DLog(@"%@",resp);
-                [weakSelf addmedia:key];
-                
-            } fail:^(id error) {
+
+// 上传S3
+- (void)uploadS3WithImage:(UIImage *)image {
+    __weak typeof(self) weakSelf = self;
+    //获取s3配置,
+    UIImage *imageNew = [NNBUploadManager compressionImage:image proportion:0.5];
+    NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
+    NSString *imgType = @"png";
+    if (UIImageJPEGRepresentation(imageNew, 0.5)!= nil){//jpg
+        imgType = @"jpg";
+    }
+    [NNBUtilRequest requestGetS3ConfigInfoWithDomain:@"message" filePolicy:imgType Success:^(NSString *url,NSDictionary *policyKey) {
+        [weakSelf.view showLoadingView:@"上传中"];
+        [NNBUtilRequest uploadImageToS3WithData:data contentType:imgType bucketUrl:url policyDict:policyKey Success:^(NSString *fileKey) {
+            if (![NSString isEmptyStringWithString:fileKey]){
+                [weakSelf addmedia:fileKey];
+            }else{
+                // 提示网络故障
+                [weakSelf.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+                    [weakSelf.view showAnimationErrorStaus:@"您的网络好像不给力，请稍后再试" completion:nil];
+                }];
                 if (weakSelf.uploadImage) {
                     weakSelf.uploadImage(false);
                 }
-            }];
-        } else {
-            // 提示网络故障
-            [weakSelf.view dismissLoadingViewWithCompletion:^(BOOL finish) {
-                [weakSelf.view showAnimationErrorStaus:@"您的网络好像不给力，请稍后再试" completion:nil];
-            }];
+            }
             
+        } fail:^(id error) {
             if (weakSelf.uploadImage) {
                 weakSelf.uploadImage(false);
             }
-        }
+        }];
     } fail:^(id error) {
         if (weakSelf.uploadImage) {
             weakSelf.uploadImage(false);
         }
     }];
 }
+
+//// 上传图片
+//- (void)getQiniuTockenforImage:(UIImage *)Image {
+//    WS(weakSelf);
+//    [NNBUtilRequest UtilRequestGetQNTokenWithOperateType:nil Success:^(NSString *path, NSString *qiniu_token) {
+//        NSLog(@"%@, %@", path, qiniu_token);
+//        if (qiniu_token) {
+//            UIImage *imageNew = [NNBUploadManager compressionImage:Image proportion:0.5];
+//            NSData *data = [JYCSimpleToolClass dataByImage:imageNew];
+//            [[NNBUploadManager defaultManager] putData:data key:path token:qiniu_token progressHandler:^(NSString *key, float percent) {
+//                DLog(@"key = %@,percent = %f", key, percent);
+//            } complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//                DLog(@"%@", info);
+//                DLog(@"%@", key);
+//                DLog(@"%@",resp);
+//                [weakSelf addmedia:key];
+//
+//            } fail:^(id error) {
+//                if (weakSelf.uploadImage) {
+//                    weakSelf.uploadImage(false);
+//                }
+//            }];
+//        } else {
+//            // 提示网络故障
+//            [weakSelf.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+//                [weakSelf.view showAnimationErrorStaus:@"您的网络好像不给力，请稍后再试" completion:nil];
+//            }];
+//
+//            if (weakSelf.uploadImage) {
+//                weakSelf.uploadImage(false);
+//            }
+//        }
+//    } fail:^(id error) {
+//        if (weakSelf.uploadImage) {
+//            weakSelf.uploadImage(false);
+//        }
+//    }];
+//}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -502,7 +543,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
             animation.fillMode =kCAFillModeForwards;
             animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
             [cell.sendmessageLoadingImageView.layer addAnimation:animation forKey:@"moveanimation"];
-
+            
         }else {
             [cell.sendmessageLoadingImageView setHidden:true];
         }
@@ -541,17 +582,17 @@ typedef void(^uploadImage)(BOOL isSuccess);
         if (model.mediaInfoList.count > 0) {
             mediainfoListModel *rmodel = [[mediainfoListModel alloc] initWithValue:model.mediaInfoList[0]];
             [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:[UIImage imageNamed:@"placehold_Image"]];
-//            [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:nil options:SDWebImageProgressiveLoad context:nil progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-//                // 进度
-//            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//                // 完成
-//                // 更改进度
-//            }];
+            //            [cell.sendImageView sd_setImageWithURL:[NSURL URLWithString: rmodel.url] placeholderImage:nil options:SDWebImageProgressiveLoad context:nil progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+            //                // 进度
+            //            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            //                // 完成
+            //                // 更改进度
+            //            }];
         } else {
             if (model.encodedImageStr) {
                 UIImage *image = [self getImageToDocument:model.encodedImageStr];
-//                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+                //                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:model.encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                //                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
                 cell.sendImageView.image = image;
             }
         }
@@ -571,7 +612,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
         } else {
             [cell.sendmessageLoadingImageView setHidden:true];
         }
-
+        
         if (model.isShowTime) {
             [cell.timeLabel setHidden:false];
             cell.timeLabel.text = model.showAt_time;
@@ -748,7 +789,8 @@ typedef void(^uploadImage)(BOOL isSuccess);
 //}
 - (void)addmedia:(NSString *)key{
     WS(weakself)
-    [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeQIniu file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
+    
+    [AnnouncementRequest uploadDomain_type:Domain_typeMessage Storage_type:Storage_typeS3 file_type:@"jpg" file_key:key Success:^(id  _Nonnull response) {
         NSDictionary *result = response[@"record"];
         NSString *idstr = result[@"_id"];
         // 发送消息
@@ -774,7 +816,7 @@ typedef void(^uploadImage)(BOOL isSuccess);
     } else {
         dic = @{@"session_id": self.sectionid, @"message_mime_kind": @(type), @"media_ids": imageListarray};
     }
-
+    
     [NNBBasicRequest postJsonWithUrl:MessageBasicURLV2  parameters:dic CMD:@"ums.chat.add" success:^(id responseObject) {
         BOOL isok = responseObject[@"ok"];
         if (isok){

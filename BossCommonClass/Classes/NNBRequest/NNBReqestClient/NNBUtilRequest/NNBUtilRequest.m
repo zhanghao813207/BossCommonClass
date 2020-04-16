@@ -10,6 +10,9 @@
 #import "BossBasicDefine.h"
 #import "BossCache.h"
 #import "NNBRequestManager.h"
+#import "JYCSimpleToolClass.h"
+#import "NSString+base.h"
+
 @implementation NNBUtilRequest
 
 /**
@@ -136,7 +139,6 @@
     }];
 }
 
-
 /**
  发送验证码请求
  
@@ -160,6 +162,166 @@
 {
     return @"auth.auth.send_verify_code";
 }
+
+/**
+ 获取S3配置信息
+ 
+ @param domain 文件来源（account：员工，material：物资，cost：费用，salary：薪资 ,asyn_task: 异步任务 ,district:商圈 ,city:城市,coach:私教,individual:个户注册,internal_recommend:内推,oa:OA  ,organization:岗位/部门,owner:业主,personal_company:个独个户）
+ @param successBlock 获取成功的回调 返回S3配置信息
+ */
++ (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain
+                              filePolicy:(NSString *)filePolicy
+                                 Success:(void(^)(NSString *url, NSDictionary *policyKey))successBlock
+                                    fail:(void (^)(id error))failBlock{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
+    [paramDic setValue:domain forKey:@"domain"];
+    [paramDic setValue:filePolicy forKey:@"file_type"];
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"tool.tool.get_s3_policy" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        if (successBlock) {
+            if (dic && [dic valueForKey:@"data"]){
+                successBlock( [responseObject valueForKeyPath:@"data.url"], [responseObject valueForKeyPath:@"data.fields"]);
+            }
+        }
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ s3上传图片
+ */
++ (void)uploadImageToS3WithData:(NSData *)data
+                    contentType:(NSString *)contentType
+                      bucketUrl:(NSString *)bucketUrl
+                     policyDict:(NSDictionary *)policyDict
+                        Success:(void(^)(NSString *fileKey))successBlock
+                           fail:(void (^)(id error))failBlock
+{
+
+   // form表单
+    AFHTTPSessionManager *sharedManager = [AFHTTPSessionManager manager];
+    sharedManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    sharedManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [sharedManager.requestSerializer setValue:@"multipart/form-data;" forHTTPHeaderField:@"Content-Type"];
+    [sharedManager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    sharedManager.requestSerializer.timeoutInterval = 60.f;
+    [sharedManager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [sharedManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = @"";
+    NSString *mineType = @"";
+    if([NSString isEmptyStringWithString:contentType]||[contentType isEqualToString:@"jpg"]||[contentType isEqualToString:@"jpeg"]){
+        fileName = [NSString stringWithFormat:@"%@.jpg", str];
+        mineType = @"image/jpeg";
+    }else if([contentType isEqualToString:@"png"]) {
+        fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
+        fileName =  @"image/png";
+    }else{
+        fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
+        mineType = @"video/quicktime";
+    }
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
+    NSString *keyStr = [policyDict valueForKey:@"key"];
+    [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        // 其中name字段是跟服务端协商规定好的,不可随意更改
+        [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mineType];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+        if(successBlock){
+            successBlock(keyStr);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+        if (failBlock){
+            failBlock(@"");
+        }
+    }];
+}
+
+
+///**
+// s3上传图片
+// */
+//+ (void)uploadImageToS3WithData:(NSData *)data
+//                    contentType:(NSString *)contentType
+//                      bucketUrl:(NSString *)bucketUrl
+//                     policyDict:(NSDictionary *)policyDict
+//                        Success:(void(^)(NSString *url,NSString *result))successBlock
+//                           fail:(void (^)(id error))failBlock
+//{
+//    NSString *TWITTERFON_FORM_BOUNDARY = @"AaB03x";
+//       //分界线 --AaB03x
+//       NSString *MPboundary = [[NSString alloc]initWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
+//       //结束符 AaB03x--
+//       NSString *endMPboundary = [[NSString alloc]initWithFormat:@"%@--",MPboundary];
+//       //http body的字符串
+//       NSMutableString *body = [[NSMutableString alloc]init];
+//       //参数的集合的所有key的集合
+//       NSArray *keys= [policyDict allKeys];
+//       //遍历keys
+//       for(int i=0;i<[keys count];i++) {
+//           //得到当前key
+//           NSString *key=[keys objectAtIndex:i];
+//           //添加分界线，换行
+//           [body appendFormat:@"%@\r\n",MPboundary];
+//           //添加字段名称，换2行
+//           [body appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key];
+//           //添加字段的值
+//           [body appendFormat:@"%@\r\n",[policyDict objectForKey:key]];
+//       }
+//       //声明myRequestData，用来放入http body
+//       NSMutableData *myRequestData = [NSMutableData data];
+//       //将body字符串转化为UTF8格式的二进制
+//       [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
+//
+//       //要上传的图片--得到图片的data
+////       NSData* data = UIImageJPEGRepresentation(image, imageScale);
+//       NSMutableString *imgbody = [[NSMutableString alloc] init];
+//       //添加分界线，换行
+//       [imgbody appendFormat:@"%@\r\n",MPboundary];
+//
+//       NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//       formatter.dateFormat =@"yyyyMMddHHmmss";
+//       NSString *str = [formatter stringFromDate:[NSDate date]];
+//       NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+//       [imgbody appendFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", fileName];
+//       //声明上传文件的格式
+//       [imgbody appendFormat:@"Content-Type: application/octet-stream; charset=utf-8\r\n\r\n"];
+//       //将body字符串转化为UTF8格式的二进制
+//       [myRequestData appendData:[imgbody dataUsingEncoding:NSUTF8StringEncoding]];
+//       //将image的data加入
+//       [myRequestData appendData:data];
+//       [myRequestData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//
+//       //声明结束符：--AaB03x--
+//       NSString *end = [[NSString alloc]initWithFormat:@"%@\r\n",endMPboundary];
+//       //加入结束符--AaB03x--
+//       [myRequestData appendData:[end dataUsingEncoding:NSUTF8StringEncoding]];
+//       //设置HTTPHeader中Content-Type的值
+//       //设置HTTPHeader
+//     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:bucketUrl]];
+//     NSString *content = [[NSString alloc]initWithFormat:@"multipart/form-data;boundary=%@",TWITTERFON_FORM_BOUNDARY];
+//       [request setValue:content forHTTPHeaderField:@"Content-Type"];
+//       //设置Content-Length
+//       [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[myRequestData length]] forHTTPHeaderField:@"Content-Length"];
+//       //设置http body
+//       [request setHTTPBody:myRequestData];
+//       [request setHTTPMethod:@"POST"];
+//        [request setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        NSLog(@"%@#####%@",response,error);
+//    }] resume];
+//}
 
 
 @end
