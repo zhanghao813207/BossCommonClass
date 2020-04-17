@@ -21,7 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kHexRGB(0xD9D9D9);
+        self.backgroundColor = [UIColor colorNamed:@"boss_9D9D9D_434343"];
     }
     return self;
 }
