@@ -31,6 +31,14 @@ CGFloat const kInputCodeViewHeight = 242;
 
 @implementation InputCodeView
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    _sendPhoneNumberLabel.textColor = [UIColor colorNamed:@"boss_000000-40_FFFFFF-40"];
+    [self.voiceCodeButton setTitleColor:[UIColor colorNamed:@"boss_000000_FFFFFF"] forState:UIControlStateNormal];
+     _inputCodeNoticeLabel.textColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
+    
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -62,6 +70,8 @@ CGFloat const kInputCodeViewHeight = 242;
     if (_phoneNumber != phoneNumber) {
         _phoneNumber = phoneNumber;
         self.sendPhoneNumberLabel.text = [NSString stringWithFormat:@"验证码已发送到 %@",phoneNumber];
+        _inputCodeNoticeLabel.textColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
+
     }
 }
 

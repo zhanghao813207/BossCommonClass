@@ -25,6 +25,17 @@
 @implementation CodeView
 
 
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    for (UITextField *codeTextField in self.textArray){
+        
+        codeTextField.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_767680-24"];
+        codeTextField.layer.borderColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-10"].CGColor;
+        codeTextField.textColor = [UIColor colorNamed:@"boss_000000-80_FFFFFF-80"];
+    }
+    
+    
+}
 /**
  初始化CodeView
 
@@ -32,6 +43,7 @@
  @param maxNumber 验证码个数
  @return 验证码View
  */
+
 - (__kindof CodeView *)initWithFrame:(CGRect)frame
                            maxNumber:(NSInteger)maxNumber
 {
