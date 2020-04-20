@@ -34,7 +34,7 @@
         }];
         
         UILabel *messageLabel = [[UILabel alloc] init];
-        messageLabel.textColor = kHexRGBA(0x29314D, 0.8);
+        messageLabel.textColor = [UIColor colorNamed:@"boss_29314D-80_FFFFFF-90"];
         messageLabel.font = [UIFont fontWithName:@"PingFangSC" size: 16];
         messageLabel.text = message;
         [noDataView addSubview:messageLabel];

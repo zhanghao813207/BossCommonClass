@@ -377,7 +377,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="bgcolor_F5F5F5_000000"/>
+                                        <color key="backgroundColor" name="bgcolor_FFFFFF_000000"/>
                                         <constraints>
                                             <constraint firstItem="Wi8-em-mB7" firstAttribute="leading" secondItem="hPL-pb-VsE" secondAttribute="leading" id="2Fw-ej-48K"/>
                                             <constraint firstItem="O2y-Rb-v5f" firstAttribute="top" secondItem="hcA-du-BBd" secondAttribute="bottom" constant="10" id="2q6-C8-j6V"/>
@@ -1895,7 +1895,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messageIcon-blue" translatesAutoresizingMaskIntoConstraints="NO" id="sKA-WL-5z5">
-                                                    <rect key="frame" x="311" y="44.666666666666664" width="44" height="33.999999999999993"/>
+                                                    <rect key="frame" x="333" y="61.666666666666657" width="22" height="17"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u1-uM-Tei">
                                                     <rect key="frame" x="0.0" y="9.9999999999999982" width="414" height="18.333333333333329"/>
@@ -2039,7 +2039,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WrF-Ef-abk">
-                                                    <rect key="frame" x="45" y="89.333333333333329" width="79" height="39.999999999999986"/>
+                                                    <rect key="frame" x="45" y="98.333333333333329" width="79" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="79" id="cJr-8M-g8z"/>
                                                     </constraints>
