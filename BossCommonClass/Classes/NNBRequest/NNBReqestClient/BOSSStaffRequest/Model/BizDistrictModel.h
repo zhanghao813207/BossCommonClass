@@ -21,5 +21,7 @@
 
 - (NSDictionary *)decodeToDic;
 
+/// 城市全拼_平台code
+@property (nonatomic, strong) NSString *city_spelling;
 
 @end
