@@ -51,8 +51,10 @@
  */
 @property (nonatomic, assign) CostUpdateRule cost_update_rule;
 
+/// 手动/自动
 @property (nonatomic, assign) NodePickMode pick_mode;
 
+/// 任意/全部
 @property (nonatomic, assign) NodeApproveMode approve_mode;
 
 
