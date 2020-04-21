@@ -247,81 +247,25 @@
     }];
 }
 
-
-///**
-// s3上传图片
-// */
-//+ (void)uploadImageToS3WithData:(NSData *)data
-//                    contentType:(NSString *)contentType
-//                      bucketUrl:(NSString *)bucketUrl
-//                     policyDict:(NSDictionary *)policyDict
-//                        Success:(void(^)(NSString *url,NSString *result))successBlock
-//                           fail:(void (^)(id error))failBlock
-//{
-//    NSString *TWITTERFON_FORM_BOUNDARY = @"AaB03x";
-//       //分界线 --AaB03x
-//       NSString *MPboundary = [[NSString alloc]initWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
-//       //结束符 AaB03x--
-//       NSString *endMPboundary = [[NSString alloc]initWithFormat:@"%@--",MPboundary];
-//       //http body的字符串
-//       NSMutableString *body = [[NSMutableString alloc]init];
-//       //参数的集合的所有key的集合
-//       NSArray *keys= [policyDict allKeys];
-//       //遍历keys
-//       for(int i=0;i<[keys count];i++) {
-//           //得到当前key
-//           NSString *key=[keys objectAtIndex:i];
-//           //添加分界线，换行
-//           [body appendFormat:@"%@\r\n",MPboundary];
-//           //添加字段名称，换2行
-//           [body appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key];
-//           //添加字段的值
-//           [body appendFormat:@"%@\r\n",[policyDict objectForKey:key]];
-//       }
-//       //声明myRequestData，用来放入http body
-//       NSMutableData *myRequestData = [NSMutableData data];
-//       //将body字符串转化为UTF8格式的二进制
-//       [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
-//
-//       //要上传的图片--得到图片的data
-////       NSData* data = UIImageJPEGRepresentation(image, imageScale);
-//       NSMutableString *imgbody = [[NSMutableString alloc] init];
-//       //添加分界线，换行
-//       [imgbody appendFormat:@"%@\r\n",MPboundary];
-//
-//       NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//       formatter.dateFormat =@"yyyyMMddHHmmss";
-//       NSString *str = [formatter stringFromDate:[NSDate date]];
-//       NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
-//       [imgbody appendFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", fileName];
-//       //声明上传文件的格式
-//       [imgbody appendFormat:@"Content-Type: application/octet-stream; charset=utf-8\r\n\r\n"];
-//       //将body字符串转化为UTF8格式的二进制
-//       [myRequestData appendData:[imgbody dataUsingEncoding:NSUTF8StringEncoding]];
-//       //将image的data加入
-//       [myRequestData appendData:data];
-//       [myRequestData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-//
-//       //声明结束符：--AaB03x--
-//       NSString *end = [[NSString alloc]initWithFormat:@"%@\r\n",endMPboundary];
-//       //加入结束符--AaB03x--
-//       [myRequestData appendData:[end dataUsingEncoding:NSUTF8StringEncoding]];
-//       //设置HTTPHeader中Content-Type的值
-//       //设置HTTPHeader
-//     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:bucketUrl]];
-//     NSString *content = [[NSString alloc]initWithFormat:@"multipart/form-data;boundary=%@",TWITTERFON_FORM_BOUNDARY];
-//       [request setValue:content forHTTPHeaderField:@"Content-Type"];
-//       //设置Content-Length
-//       [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[myRequestData length]] forHTTPHeaderField:@"Content-Length"];
-//       //设置http body
-//       [request setHTTPBody:myRequestData];
-//       [request setHTTPMethod:@"POST"];
-//        [request setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
-//
-//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSLog(@"%@#####%@",response,error);
-//    }] resume];
-//}
+/// 获取银行卡信息查询接口
++(void)requestGetBankCardInfoQueryUrl{
+    // 从本地去获取 查询银行卡名称的URL
+    NSString *saveBankUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"BANKURL"];
+    if (![NSString isEmptyStringWithString:saveBankUrl]){
+          return;
+    }
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:nil CMD:@"tool.tool.gain_uris" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        if (dic){
+            NSString *bankUrl = [dic valueForKey:@"bank_uri"];
+            if (![NSString isEmptyStringWithString:bankUrl]){
+                [[NSUserDefaults standardUserDefaults] setValue:bankUrl forKey:@"BANKURL"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+    } fail:^(id error) {
+    }];
+}
 
 
 @end
