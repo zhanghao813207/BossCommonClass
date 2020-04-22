@@ -56,4 +56,11 @@
                      policyDict:(NSDictionary *)policyDict
                         Success:(void(^)(NSString *fileKey))successBlock
                            fail:(void (^)(id error))failBlock;
+
+
+/**
+   获取银行卡信息查询接口
+*/
++(void)requestGetBankCardInfoQueryUrl;
+
 @end
