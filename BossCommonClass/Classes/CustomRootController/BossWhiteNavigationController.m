@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     //判断是否支持右滑手势
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.interactivePopGestureRecognizer.delegate = self;
@@ -29,27 +29,24 @@
     }
 
     //设置navigationBar的字体
-    self.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:kHexRGBA(0x000000, 0.8)};
+    
     
     //设置navigationBar背景色
-    
-    if (self.hasLine) {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
-    } else {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
-    }
+    //默认不显示
+    self.hasLine = false;
 
     self.navigationBar.translucent = NO;
 }
 
 - (void)setHasLine:(BOOL)hasLine
 {
-    _hasLine = hasLine;
-    if (self.hasLine) {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:kHexRGB(0xE5E5E5)];
+    
+    if (hasLine) {
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_F5F5F5_000000"]];
     } else {
-        [self.navigationBar lt_setBackgroundColor:[UIColor whiteColor] showdowColor:[UIColor whiteColor]];
+        [self.navigationBar lt_setBackgroundColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"] showdowColor:[UIColor colorNamed:@"bgcolor_FFFFFF_000000"]];
     }
+    _hasLine = hasLine;
 }
 
 //push的时候将手势禁用

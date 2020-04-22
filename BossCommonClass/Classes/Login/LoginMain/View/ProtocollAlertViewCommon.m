@@ -45,6 +45,13 @@
     
     self.disagreeBtn.layer.cornerRadius = 5;
     self.disagreeBtn.clipsToBounds = true;
+    
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle
+        == UIUserInterfaceStyleDark) {
+            return;
+        }
+    }
     self.disagreeBtn.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4].CGColor;
     self.disagreeBtn.layer.borderWidth = 1;
 }
