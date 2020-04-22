@@ -40,9 +40,9 @@
 
 - (void)showLoadingStatus:(NSString *)status
 {
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_434343"];
     self.statusLabel.text = status;
-    self.statusLabel.textColor = kHexRGB(0x000000);
+    self.statusLabel.textColor = [UIColor colorNamed:@"boss_000000_FFFFFF"];
     self.loadingImageView.image = [[UIImage imageNamed:@"loadingStatusIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self layoutWithTitle:status success:YES];
     self.alertView.isBlur = YES;
@@ -51,9 +51,9 @@
 
 - (void)showClearLoadingStatus:(NSString *)status
 {
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_434343"];
     self.statusLabel.text = status;
-    self.statusLabel.textColor = kHexRGB(0x000000);
+    self.statusLabel.textColor = [UIColor colorNamed:@"boss_000000_FFFFFF"];
     self.loadingImageView.image = [[UIImage imageNamed:@"loadingStatusIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self layoutWithTitle:status success:YES];
     self.alertView.isBlur = NO;

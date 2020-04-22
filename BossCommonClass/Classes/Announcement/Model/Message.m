@@ -12,6 +12,7 @@ NSString *const kDataName = @"name";
 NSString *const kDataProxyAccountInfo = @"proxy_account_info";
 NSString *const kDatatype = @"type";
 NSString *const kDataHeadimgUrl = @"head_img_url";
+NSString *const kDataDarkModeHeadimgUrl = @"dark_mode_head_img_url";
 
 @interface Message ()
 @end
@@ -62,6 +63,9 @@ NSString *const kDataHeadimgUrl = @"head_img_url";
 	}
     if(![dictionary[kDataHeadimgUrl] isKindOfClass:[NSNull class]]){
         self.headimgurl = dictionary[kDataHeadimgUrl];
+    }
+    if(![dictionary[kDataDarkModeHeadimgUrl] isKindOfClass:[NSNull class]]){
+        self.DarkModeHeadimgUrl = dictionary[kDataDarkModeHeadimgUrl];
     }
 	return self;
 }
