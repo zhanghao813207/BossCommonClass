@@ -247,7 +247,9 @@
     }];
 }
 
-/// 获取银行卡信息查询接口
+/**
+   获取银行卡信息查询接口
+*/
 +(void)requestGetBankCardInfoQueryUrl{
     // 从本地去获取 查询银行卡名称的URL
     NSString *saveBankUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"BANKURL"];
