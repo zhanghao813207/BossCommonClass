@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BossViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BOOperatCompassVC : UIViewController
+@interface BOOperatCompassVC : BossViewController
 
 @property(nonatomic, copy) NSString *teamId;
 // 团队List

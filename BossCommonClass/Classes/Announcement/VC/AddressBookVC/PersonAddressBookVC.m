@@ -47,7 +47,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+//    self.view.backgroundColor = kHexRGB(0xF9FBFC);
     self.navigationController.navigationBarHidden = false;
     self.title = self.group.name;
     self.arrM = [NSMutableArray array];
@@ -235,10 +235,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
-    view.backgroundColor = kHexRGB(0xF2F3F4);
+    view.backgroundColor = [UIColor colorNamed:@"boss_F3F3F3_000000"];
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(10, 0, 100, 35);
-    label.textColor = UIColor.blackColor;
+    label.textColor = [UIColor colorNamed:@"boss_000000_FFFFFF"];
     label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     label.text = self.indexArr[section];
     [view addSubview:label];

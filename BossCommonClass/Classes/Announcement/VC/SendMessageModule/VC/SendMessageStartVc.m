@@ -31,6 +31,8 @@
     self.headerNameLabel.text = [self.name substringFromIndex:self.name.length - 1];
     self.headerLabelView.layer.cornerRadius = 67 / 2;
     self.sendMessageView.hidden = YES;
+    
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
 }
 - (IBAction)beginSendMessage:(UITapGestureRecognizer *)sender {
     if (self.targetid){

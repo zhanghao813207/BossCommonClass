@@ -24,7 +24,6 @@
     if (!value || value == [NSNull null]) {
         return;
     }
-    
     if ([key isEqualToString:@"account"]) {
         self.accountModel = [[BossOwnerUserModel alloc] initWithDictionary:value];
         return;
@@ -62,7 +61,7 @@
         }
         confirmBlock(YES);
     }];
-    
+    [cancelAction setValue:[UIColor colorNamed:@"boss_000000-60_FFFFFF-60"] forKey:@"titleTextColor"];
     [alertController addAction:cancelAction];
     [alertController addAction:photoAction];
     [viewController.navigationController presentViewController:alertController animated:YES completion:nil];

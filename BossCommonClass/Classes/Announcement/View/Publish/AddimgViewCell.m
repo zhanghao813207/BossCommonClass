@@ -27,7 +27,7 @@
         [self imgView];
         [self deletButton];
         
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     }
     return self;
 }
@@ -61,7 +61,7 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor redColor];
+//        _imgView.backgroundColor = [UIColor redColor];
         _imgView.userInteractionEnabled = true;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [_imgView addGestureRecognizer:tapGesture];

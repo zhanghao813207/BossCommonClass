@@ -67,7 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+//    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     self.packUpKeybordEnable = false;
     if(!self.isShowSelectBar){
         self.navigationItem.leftBarButtonItem = nil;
@@ -85,7 +85,7 @@
     self.finishButton.hidden = !self.isShowSelectBar;
     [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.finishButton.userInteractionEnabled = false;
-    self.finishButton.backgroundColor = kHexRGB(0x34A9FF);
+    self.finishButton.backgroundColor = [UIColor colorNamed:@"button_3589DE_0087FF"];
     self.finishButton.alpha = 0.4;
     [self.finishButton addTarget:self action:@selector(finishAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.finishButton];
@@ -97,7 +97,7 @@
     self.selecBar.hidden = !self.isShowSelectBar;
     self.title = @"通讯录";
     
-    self.view.backgroundColor = kHexRGB(0xF9FBFC);
+//    self.view.backgroundColor = kHexRGB(0xF9FBFC);
 }
 
 /**
@@ -142,11 +142,10 @@
                 }
             }
         }
-        self.tableview.backgroundColor = kHexRGB(0xF9FBFC);
+        self.tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         [self.tableview reloadData];
-        
     } else {
-        self.tableview.backgroundColor = UIColor.clearColor;
+        self.tableview.backgroundColor = nil;
     }
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
         if (self.isShowSelectBar) {
@@ -157,6 +156,8 @@
 }
 
 - (void)handleFailed {
+    self.tableview.backgroundColor = UIColor.clearColor;
+    [self.tableview reloadData];
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
         
         if (self.isShowSelectBar) {
@@ -232,7 +233,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.arrM.count > 0){
         UIView *headerView = [[UIView alloc] init];
-        headerView.backgroundColor = kHexRGB(0xF3F3F3);
+        headerView.backgroundColor = [UIColor colorNamed:@"boss_F3F3F3_000000"];
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(35);
             make.width.mas_equalTo(kScreenWidth);
@@ -246,9 +247,8 @@
             make.centerY.equalTo(headerView);
         }];
         return headerView;
-    } else {
-        return self.emptyView;
     }
+    return nil;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ContactsGroup *model = self.arrM[indexPath.row];
@@ -274,10 +274,11 @@
     if (self.arrM.count > 0) {
         return 35;
     }
-    return self.emptyView.frame.size.height;
+    return 0;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
     if (self.arrM.count > 0) {
         cell.model = self.arrM[indexPath.row];
     }
@@ -303,13 +304,14 @@
     if (_allSelectButton == nil) {
         _allSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_allSelectButton setTitle:@"全选" forState:UIControlStateNormal];
-        _allSelectButton.titleLabel.textColor = kHexRGB(0x0A86F9);
-        [_allSelectButton setTitleColor:kHexRGB(0x0A86F9) forState:UIControlStateNormal];
+//        _allSelectButton.titleLabel.textColor = kHexRGB(0x0A86F9);
+        [_allSelectButton setTitleColor:[UIColor colorNamed:@"button_3589DE_0087FF"] forState:UIControlStateNormal];
         [_allSelectButton addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
         [self.selecBar addSubview:_allSelectButton];
         [_allSelectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.selecBar).offset(16);
-            make.centerY.equalTo(self.selecBar);
+            make.top.equalTo(self.selecBar).offset(10);
+//            make.centerY.equalTo(self.selecBar);
         }];
     }
     return _allSelectButton;
@@ -337,12 +339,12 @@
 - (UITableView *)tableview {
     if (_tableview == nil) {
         _tableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableview.backgroundColor = [UIColor whiteColor];
+        _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         _tableview.rowHeight = 60;
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        _tableview.separatorColor = kHexRGB(0xE5E5EE);
-        _tableview.backgroundColor = [UIColor clearColor];
+        _tableview.separatorColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
+        _tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
         //        _tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMoreData)];
         if (self.isShowSelectBar) {
             _tableview.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
@@ -353,9 +355,11 @@
         [_tableview registerClass:[AddressBookCell class] forCellReuseIdentifier:@"cell"];
         
         // 设置下拉刷新 header view 并 设置回调
-        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [self refreshLatestData];
-        }];
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+//        MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+        [header.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
+//        [footer.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
+        _tableview.mj_header = header;
         
         [self.view addSubview:_tableview];
         [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -374,16 +378,16 @@
 - (UIView *)selecBar {
     if (_selecBar == nil) {
         _selecBar = [[UIView alloc] init];
-        _selecBar.backgroundColor = [UIColor whiteColor];
+        _selecBar.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_1A1A1A"];
         [self.view addSubview:_selecBar];
         [_selecBar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(45);
             if (kIsiPhoneX) {
-                make.bottom.mas_equalTo(-33);
+                make.height.mas_equalTo(80);
             }else {
-                make.bottom.equalTo(self.view);
+                make.height.mas_equalTo(45);
             }
+            make.bottom.equalTo(self.view);
         }];
     }
     return _selecBar;
@@ -391,7 +395,7 @@
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView.backgroundColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
         [self.selecBar addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.selecBar);
