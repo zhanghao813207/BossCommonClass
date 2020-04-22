@@ -44,7 +44,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+
+    #ifdef kBossOwner
+        self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+    #else
+         self.view.backgroundColor = kBossBGColor;
+    #endif
     self.packUpKeybordEnable = YES;
 
     self.navigationItem.leftBarButtonItem = [self customCommentLeftBarButtonItem];
