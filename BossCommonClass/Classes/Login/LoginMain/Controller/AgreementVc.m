@@ -17,7 +17,8 @@
 @implementation AgreementVc
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     [self.navigationController setToolbarHidden:YES];
 }
 
