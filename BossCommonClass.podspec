@@ -50,7 +50,7 @@ these are common classes,they are used by boss system.
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.0'
   s.dependency 'MJExtension'
-  s.dependency 'MJRefresh'
+  s.dependency 'MJRefresh', '~> 3.4.1'
   s.dependency 'SDWebImage', '~> 5.0.1'
   s.dependency 'MQTTClient', '~> 0.15.2'
   s.dependency 'mob_linksdk_pro', '3.3.1'

@@ -119,10 +119,8 @@ static NNBRequestManager *sharedManager = nil;
             [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
             [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
         }
-        
-        NSLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
     }
-    
+    NSLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
 }
 
 // AUTH请求方式 hMD5加密
