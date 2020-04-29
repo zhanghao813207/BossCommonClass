@@ -188,7 +188,8 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     ApplicationOrderTypeTravelExpense = 9, // 差旅报销
     ApplicationOrderTypeOverTime      = 10,// 加班
     ApplicationOrderTypeLeaveOrder    = 11,// 请假
-    
+    ApplicationOrderTypePersonnelChanges    = 12,// 人员异动
+    ApplicationOrderTypeCustomPlugInApproval    = 13,// 自定义插件审批单
 };
 
 // 审批单整体状态
@@ -567,6 +568,11 @@ typedef NS_ENUM(NSUInteger, EntrustRegistrationSource) {
     EntrustRegistrationSourceMengDa              = 20, //工商注册 盟达
 };
 
+// 个户工商注册来源 10为伯渡 20为盟达
+typedef NS_ENUM(NSUInteger,  authenticationType) {
+    IDCardauthentication              = 10, //身份证识别认证
+    FaceIDauthentication              = 20, //人脸识别认证
+};
 // 签约状态
 typedef NS_ENUM(NSInteger, ContractStatus) {
     ContractStatusInit                  = 1,    // 合同初始化
@@ -598,13 +604,27 @@ typedef NS_ENUM(NSInteger, SavePhotoType) {
     SavePhotoTypeQiNiu                 = 1,    // 七牛
     SavePhotoTypeLocal                 = 2,    // 本地
     SavePhotoTypeS3                    = 3,    // S3
-
+    
 };
 typedef NS_ENUM(NSInteger, MasksStatus) {
     MasksCreateSuccess                 = 1,     // 未审核 1
     MasksReceive                       = 50,    // 待领取 50
     MasksRefused                       = -50,   // 被拒绝 -50
     MasksReceiveSuccess                = 100,   // 领取完成 100
+};
+
+
+typedef NS_ENUM(NSInteger, MonitType) {
+    MonitTypeIdentityError              = 1,    // 身份号错误
+    MonitTypeThreeIdError               = 2,   // 三方id不匹配
+    MonitTypeNameError                  = 3,     // 名字错误
+    MonitTypeSignError                  = 4,    // 签约不匹配
+
+};
+
+typedef NS_ENUM(NSInteger, TeamInfo) {
+    TeamInfoNormal              =  100,    //正常在团队中
+    TeamInfoExit                = -100,   // 退出团队
 };
 
 #endif /* BossEnumDefin_h */

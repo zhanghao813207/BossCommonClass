@@ -3,7 +3,6 @@
 //  BossKnight
 //
 //  Created by admin on 2019/7/19.
-//  Copyright © 2019 贾远潮. All rights reserved.
 //
 
 #import "BOSelectTimeView.h"
@@ -25,7 +24,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     
     if(self = [super initWithFrame:frame]){
-        self.backgroundColor = kHexRGB(0xf0f2f5);
+        self.backgroundColor = [UIColor colorNamed:@"boss_f0f2f5_000000"];
         [self setupTimeLabel];
 #ifdef kBossOwner
         [self setupBusinessDistrict];

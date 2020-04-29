@@ -3,7 +3,7 @@
 //  MQTTTest
 //
 //  Created by 朱天聪 on 2018/7/3.
-//  Copyright © 2018年 朱天聪. All rights reserved.
+//  Copyright © 2018年 欧客云. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

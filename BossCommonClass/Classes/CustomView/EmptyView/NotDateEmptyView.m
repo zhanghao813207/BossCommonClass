@@ -3,7 +3,7 @@
 //  Gtyk
 //
 //  Created by 史华涛 on 2017/9/13.
-//  Copyright © 2017年 GTYK. All rights reserved.
+//  Copyright © 2017年 欧客云. All rights reserved.
 //
 
 #import "NotDateEmptyView.h"
@@ -38,7 +38,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         _titleString = @"您还没有数据哦~";
         _imageAddTitleSpace = 20;
         _imageNameString = @"NoDataIcon";
@@ -103,7 +103,7 @@
     
     UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imageIcon.frame)+_imageAddTitleSpace, kTitleWidth, self.noticeTitleHeight)];
     titleLab.numberOfLines = 0;
-    titleLab.textColor = kHexRGB(0X666666);
+    titleLab.textColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-60"];
     titleLab.font = kTitleFont;
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.text = _titleString;

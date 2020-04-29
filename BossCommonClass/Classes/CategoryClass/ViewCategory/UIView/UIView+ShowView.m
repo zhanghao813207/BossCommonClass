@@ -3,7 +3,7 @@
 //  Gtyk
 //
 //  Created by 贾远潮 on 2016/11/18.
-//  Copyright © 2016年 GTYK. All rights reserved.
+//  Copyright © 2016年 欧客云. All rights reserved.
 //
 
 #import "UIView+ShowView.h"
@@ -238,7 +238,7 @@ static char statusAnimationViewKey;
     }
     [self addSubview:self.statusAnimationView];
     [self.statusAnimationView showSuccessStatus:status];
-    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:3.f];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:1.5f];
 }
 
 - (void)showAnimationErrorStaus:(NSString *)status completion:(void (^)(BOOL finish))completion
@@ -248,7 +248,7 @@ static char statusAnimationViewKey;
     }
     [self addSubview:self.statusAnimationView];
     [self.statusAnimationView showErrorStatus:status];
-    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:3.f];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:1.5f];
 }
 
 - (void)dismissStatusAnimationViewWithCompletion:(void (^)(BOOL finish))completion

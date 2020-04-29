@@ -19,6 +19,14 @@
  */
 @property (nonatomic, strong) NSString *city;
 
+@property (nonatomic, strong) NSString *city_code;
+
+/// 平台code
+@property (nonatomic, strong) NSString *platform_code;
+
+/// 平台name
+@property (nonatomic, strong) NSString *platform_name;
+
 /**
  城市全拼_平台code
  */

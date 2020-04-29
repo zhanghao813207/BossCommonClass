@@ -7,7 +7,7 @@
 
 #import "ExamineOrderModel.h"
 #import "NSDate+Helper.h"
-
+#import "BossManagerAccount.h"
 @implementation ExamineOrderModel
 
 
@@ -212,6 +212,12 @@
             break;
         case ApplicationOrderTypeLeaveOrder:
             typeStr = @"请假申请";
+            break;
+        case ApplicationOrderTypePersonnelChanges:
+            typeStr = @"人员异动";
+            break;
+        case ApplicationOrderTypeCustomPlugInApproval:
+            typeStr = @"外部审批管理";
             break;
         default:
             break;
@@ -431,7 +437,15 @@
 /// 是否显示金额
 - (BOOL)isHideAmount {
     
-    if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder){
+    if (self.application_order_type == ApplicationOrderTypeBusinessTrave || self.application_order_type == ApplicationOrderTypeOverTime || self.application_order_type == ApplicationOrderTypeLeaveOrder || self.application_order_type == ApplicationOrderTypeCustomPlugInApproval){
+        return true;
+    }
+    return false;
+}
+
+///提报人是否是自己
+- (BOOL)isApplyAccount {
+    if ([self.apply_account_info.name isEqualToString:kCurrentBossManagerAccount.accountModel.name]) {
         return true;
     }
     return false;

@@ -3,7 +3,6 @@
 //  BossKnight
 //
 //  Created by admin on 2019/7/21.
-//  Copyright © 2019 贾远潮. All rights reserved.
 //
 
 #import "BOOpenSelectbusinessDistrictView.h"
@@ -57,7 +56,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(canCelBtnAction)];
         [self addGestureRecognizer:tap];
         topV = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 44-207+kScreenHeight, kScreenWidth, 44)];
-        topV.backgroundColor = kHexRGBA(0xFBFBFB, 1.0);
+        topV.backgroundColor = [UIColor colorNamed:@"boss_FBFBFB_1A1A1A"];
         [self addSubview:topV];
         
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,7 +81,7 @@
         _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topV.frame), kScreenWidth, 207)];
         _pickerView.dataSource = self;
         _pickerView.delegate = self;
-        _pickerView.backgroundColor = [UIColor whiteColor];
+        _pickerView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         [self addSubview:_pickerView];
         
     }
@@ -139,7 +138,7 @@
     genderLabel.textAlignment = NSTextAlignmentCenter;
     
 //    genderLabel.textColor = kHexRGB(0x1A9CFF);
-    genderLabel.textColor = [UIColor colorWithRed:41/255.0f green:49/255.0f blue:77/255.0f alpha:1];
+    genderLabel.textColor = [UIColor colorNamed:@"boss_29314D_FFFFFF-90"];
     
     genderLabel.font = BossRegularFont(16);
    

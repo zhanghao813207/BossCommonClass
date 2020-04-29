@@ -3,7 +3,6 @@
 //  NNB
 //
 //  Created by 贾远潮 on 2017/12/20.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "CodeView.h"
@@ -26,6 +25,17 @@
 @implementation CodeView
 
 
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    for (UITextField *codeTextField in self.textArray){
+        
+        codeTextField.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_767680-24"];
+        codeTextField.layer.borderColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-10"].CGColor;
+        codeTextField.textColor = [UIColor colorNamed:@"boss_000000-80_FFFFFF-80"];
+    }
+    
+    
+}
 /**
  初始化CodeView
 
@@ -33,6 +43,7 @@
  @param maxNumber 验证码个数
  @return 验证码View
  */
+
 - (__kindof CodeView *)initWithFrame:(CGRect)frame
                            maxNumber:(NSInteger)maxNumber
 {
@@ -47,14 +58,15 @@
         for (NSInteger i = 0; i < maxNumber; i++) {
             JYCTextField *codeTextField = [[JYCTextField alloc] initWithFrame:CGRectMake((self.height + margin) * i, 0, self.height, self.height)];
             codeTextField.layer.cornerRadius = 2.f;
-            codeTextField.layer.borderColor = kHexRGBA(0x000000, 0.6).CGColor;
+            codeTextField.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_767680-24"];
+            codeTextField.layer.borderColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-10"].CGColor;
             codeTextField.layer.borderWidth = 0.5f;
             codeTextField.textAlignment = NSTextAlignmentCenter;
             codeTextField.delegate = self;
             codeTextField.jyc_delegate = self;
             codeTextField.tag = 1000 + i;
             codeTextField.font = BossBlodFont(25.f);
-            codeTextField.textColor = kHexRGBA(0x000000, 0.8);
+            codeTextField.textColor = [UIColor colorNamed:@"boss_000000-80_FFFFFF-80"];
             codeTextField.keyboardType = UIKeyboardTypeNumberPad;
             codeTextField.tintColor = [UIColor clearColor];
             

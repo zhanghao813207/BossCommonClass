@@ -3,7 +3,6 @@
 //  倒计时View
 //
 //  Created by 贾远潮 on 2017/12/7.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "CountdownView.h"
@@ -51,10 +50,10 @@
     } else if(self.countViewStatus == CountViewStatusNomal){
         self.sendMsgButton.hidden = NO;
         self.countDownLabel.hidden = YES;
-        self.sendMsgButton.layer.borderColor = kHexRGBA(0x000000, 0.4).CGColor;
+        self.sendMsgButton.layer.borderColor = [UIColor colorNamed:@"boss_000000-40_FFFFFF-40"].CGColor;
         self.sendMsgButton.layer.borderWidth = 0.5f;
 //        self.sendMsgButton.backgroundColor = kColoWhite;
-        [self.sendMsgButton setTitleColor:kHexRGBA(0x000000, 0.4) forState:UIControlStateNormal];
+        [self.sendMsgButton setTitleColor:[UIColor colorNamed:@"boss_000000-40_FFFFFF-40"] forState:UIControlStateNormal];
         self.sendMsgButton.enabled = YES;
         [self.sendMsgButton setTitle:@"重发验证码" forState:UIControlStateNormal];
     } else if(self.countViewStatus == CountViewStatusBegainCount){
@@ -63,7 +62,7 @@
         self.sendMsgButton.layer.borderColor = kHexRGBA(0x000000, 0.4).CGColor;
         self.sendMsgButton.layer.borderWidth = 0.5f;
 //        self.sendMsgButton.backgroundColor = kColoWhite;
-        [self.sendMsgButton setTitleColor:kHexRGBA(0x000000, 0.4) forState:UIControlStateNormal];
+        [self.sendMsgButton setTitleColor:[UIColor colorNamed:@"boss_000000-40_FFFFFF-40"] forState:UIControlStateNormal];
         self.sendMsgButton.enabled = NO;
         [self.sendMsgButton setTitle:@"发送中..." forState:UIControlStateNormal];
     }
@@ -157,7 +156,7 @@
     if (!_countDownLabel) {
         _countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.height - 49) / 2.0, self.width, 49)];
         _countDownLabel.font = BossRegularFont(35.f);
-        _countDownLabel.textColor = kHexRGBA(0x000000, 0.6);
+        _countDownLabel.textColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-60"];
         _countDownLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _countDownLabel;

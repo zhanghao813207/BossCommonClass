@@ -3,7 +3,7 @@
 //  Gtyk
 //
 //  Created by 史华涛 on 2017/9/13.
-//  Copyright © 2017年 GTYK. All rights reserved.
+//  Copyright © 2017年 欧客云. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

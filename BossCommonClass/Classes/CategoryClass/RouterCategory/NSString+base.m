@@ -6,6 +6,7 @@
 //
 
 #import "NSString+base.h"
+#import "BossBasicDefine.h"
 
 @implementation NSString (base)
 

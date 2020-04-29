@@ -3,7 +3,6 @@
 //  BossKnight
 //
 //  Created by admin on 2019/7/19.
-//  Copyright © 2019 贾远潮. All rights reserved.
 //
 #import <WebKit/WebKit.h>
 #import "BOOperatCompassVC.h"
@@ -14,6 +13,7 @@
 #import "TeamListModel.h"
 #import "BOOpenSelectbusinessDistrictView.h"
 #import "PGDatePickManager.h"
+#import "MaskView.h"
 
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
@@ -31,6 +31,7 @@
 @property (nonatomic,strong)NSString *currentBizDistrictId;
 @property (nonatomic,strong)NSString *currentBizDistrictName;
 @property (nonatomic,strong)PGDatePickManager *datePickManager;
+@property (nonatomic,strong)UIView *maskView;
 
 
 
@@ -39,7 +40,10 @@
 @implementation BOOperatCompassVC
 - (void)pickDateCreate{
     self.datePickManager = [[PGDatePickManager alloc]init];
+    self.datePickManager.datePicker.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     PGDatePicker *datePicker = self.datePickManager.datePicker;
+    self.datePickManager.headerViewBackgroundColor = [UIColor colorNamed:@"boss_FBFBFB_1A1A1A"];
+//    self.confirmButtonTextColor
     datePicker.datePickerMode = PGDatePickerModeYearAndMonth;
     NSDate *date =[NSDate date];//简书 FlyElephant
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -83,7 +87,7 @@
 {
     [super viewDidLoad];
 //    [self pickDateCreate];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
@@ -154,6 +158,7 @@
     [self.view addSubview:self.selectedTimeView];
     
     self.openSelectView = [[BOOpenSelectTimeView alloc]init];
+    self.openSelectView.backgroundColor = UIColor.redColor;
     [[UIApplication sharedApplication].keyWindow addSubview:self.openSelectView];
     
     self.selectedTimeView.openSelectBlock = ^{
@@ -208,6 +213,27 @@
     _webView.allowsBackForwardNavigationGestures = YES;
     [self.view addSubview:_webView];
     
+    if (@available(iOS 13.0, *)) {
+        self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2)];
+        self.maskView.userInteractionEnabled = false;
+        self.maskView.backgroundColor = [UIColor colorNamed:@"boss_000000-50"];
+        if (self.view.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            [self.view addSubview:self.maskView];
+        }
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 13.0, *)) {
+        if (self.view.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            [self.view addSubview:self.maskView];
+        } else {
+            [self.maskView removeFromSuperview];
+        }
+    }
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
 }
 -(void)tapView:(UITapGestureRecognizer *)sender{
@@ -224,7 +250,7 @@
 -(void)setLeftItem
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popViewControllerAnimated)];
-    [buttonItem_back setTintColor:[UIColor blackColor]];
+    [buttonItem_back setTintColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
     self.navigationItem.leftBarButtonItem = buttonItem_back;
 }
 -(void)popViewControllerAnimated

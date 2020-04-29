@@ -3,7 +3,6 @@
 //  NNBarKnight
 //
 //  Created by 贾远潮 on 2017/9/26.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "NNBUtilRequest.h"
@@ -11,6 +10,9 @@
 #import "BossBasicDefine.h"
 #import "BossCache.h"
 #import "NNBRequestManager.h"
+#import "JYCSimpleToolClass.h"
+#import "NSString+base.h"
+
 @implementation NNBUtilRequest
 
 /**
@@ -137,7 +139,6 @@
     }];
 }
 
-
 /**
  发送验证码请求
  
@@ -160,6 +161,112 @@
 + (NSString *)cmdRequest
 {
     return @"auth.auth.send_verify_code";
+}
+
+/**
+ 获取S3配置信息
+ 
+ @param domain 文件来源（account：员工，material：物资，cost：费用，salary：薪资 ,asyn_task: 异步任务 ,district:商圈 ,city:城市,coach:私教,individual:个户注册,internal_recommend:内推,oa:OA  ,organization:岗位/部门,owner:业主,personal_company:个独个户）
+ @param successBlock 获取成功的回调 返回S3配置信息
+ */
++ (void)requestGetS3ConfigInfoWithDomain:(NSString *)domain
+                              filePolicy:(NSString *)filePolicy
+                                 Success:(void(^)(NSString *url, NSDictionary *policyKey))successBlock
+                                    fail:(void (^)(id error))failBlock{
+    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
+    [paramDic setValue:domain forKey:@"domain"];
+    [paramDic setValue:filePolicy forKey:@"file_type"];
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"tool.tool.get_s3_policy" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        if (successBlock) {
+            if (dic && [dic valueForKey:@"data"]){
+                successBlock( [responseObject valueForKeyPath:@"data.url"], [responseObject valueForKeyPath:@"data.fields"]);
+            }
+        }
+    } fail:^(id error) {
+        if(failBlock){
+            failBlock(error);
+        }
+    }];
+}
+
+/**
+ s3上传图片
+ */
++ (void)uploadImageToS3WithData:(NSData *)data
+                    contentType:(NSString *)contentType
+                      bucketUrl:(NSString *)bucketUrl
+                     policyDict:(NSDictionary *)policyDict
+                        Success:(void(^)(NSString *fileKey))successBlock
+                           fail:(void (^)(id error))failBlock
+{
+
+   // form表单
+    AFHTTPSessionManager *sharedManager = [AFHTTPSessionManager manager];
+    sharedManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    sharedManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [sharedManager.requestSerializer setValue:@"multipart/form-data;" forHTTPHeaderField:@"Content-Type"];
+    [sharedManager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    sharedManager.requestSerializer.timeoutInterval = 60.f;
+    [sharedManager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    [sharedManager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = @"";
+    NSString *mineType = @"";
+    if([NSString isEmptyStringWithString:contentType]||[contentType isEqualToString:@"jpg"]||[contentType isEqualToString:@"jpeg"]){
+        fileName = [NSString stringWithFormat:@"%@.jpg", str];
+        mineType = @"image/jpeg";
+    }else if([contentType isEqualToString:@"png"]) {
+        fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
+        fileName =  @"image/png";
+    }else{
+        fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
+        mineType = @"video/quicktime";
+    }
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
+    NSString *keyStr = [policyDict valueForKey:@"key"];
+    [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        // 其中name字段是跟服务端协商规定好的,不可随意更改
+        [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mineType];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"%@",uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+        if(successBlock){
+            successBlock(keyStr);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+        if (failBlock){
+            failBlock(@"");
+        }
+    }];
+}
+
+/**
+   获取银行卡信息查询接口
+*/
++(void)requestGetBankCardInfoQueryUrl{
+    // 从本地去获取 查询银行卡名称的URL
+    NSString *saveBankUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"BANKURL"];
+    if (![NSString isEmptyStringWithString:saveBankUrl]){
+          return;
+    }
+    [NNBBasicRequest postJsonWithUrl:kUrl parameters:nil CMD:@"tool.tool.gain_uris" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        if (dic){
+            NSString *bankUrl = [dic valueForKey:@"bank_uri"];
+            if (![NSString isEmptyStringWithString:bankUrl]){
+                [[NSUserDefaults standardUserDefaults] setValue:bankUrl forKey:@"BANKURL"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+    } fail:^(id error) {
+    }];
 }
 
 

@@ -3,7 +3,6 @@
 //  登陆模块
 //
 //  Created by 贾远潮 on 2017/12/20.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 #import "BossWhiteNavigationController.h"
 #import "LoginVC.h"
@@ -681,6 +680,11 @@
     return @"agreement-knight";
     
 #elif defined kBossOwner
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            return @"agreement-boss-diablo-mode";
+        }
+    }
     return @"agreement-boss";
 #else
     return @"agreement-home";
@@ -698,6 +702,11 @@
     return @"privacy-knight";
     
 #elif defined kBossOwner
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+            return @"privacy-boss-diablo-mode";
+        }
+    }
     return @"privacy-boss";
 #else
     return @"privacy-home";

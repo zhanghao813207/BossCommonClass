@@ -15,7 +15,7 @@
     UIAlertAction *leftAction = [UIAlertAction actionWithTitle:titles.firstObject style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         left(action);
     }];
-    [leftAction setValue:[UIColor lightGrayColor] forKey:@"titleTextColor"];
+    [leftAction setValue:[UIColor colorNamed:@"boss_000000-60_FFFFFF-60"] forKey:@"titleTextColor"];
     UIAlertAction *rightAction = [UIAlertAction actionWithTitle:titles.lastObject style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         right(action);
     }];

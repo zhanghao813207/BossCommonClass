@@ -3,7 +3,6 @@
 //  NNBar_knight
 //
 //  Created by 贾远潮 on 2017/9/19.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "NNBRequestManager.h"
@@ -120,10 +119,8 @@ static NNBRequestManager *sharedManager = nil;
             [sharedManager.requestSerializer setValue:X_TOKEN forHTTPHeaderField:@"X-TOKEN"];
             [sharedManager.requestSerializer setValue:nil forHTTPHeaderField:@"X-AUTH"];
         }
-        
-        NSLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
     }
-    
+    NSLog(@"HTTPRequestHeaders = %@",sharedManager.requestSerializer.HTTPRequestHeaders);
 }
 
 // AUTH请求方式 hMD5加密

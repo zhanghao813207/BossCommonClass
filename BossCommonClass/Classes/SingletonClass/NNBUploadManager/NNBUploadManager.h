@@ -3,7 +3,6 @@
 //  NNBarKnight
 //
 //  Created by 贾远潮 on 2017/10/17.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -25,5 +24,6 @@
 
 
 - (void)putData:(NSData *)data key:(NSString *)key token:(NSString *)token progressHandler:(void(^)(NSString *key, float percent))progressHandler complete:(void(^)(QNResponseInfo *info, NSString *key, NSDictionary *resp))complete fail:(void(^)(id error))failBlock;
+
 
 @end

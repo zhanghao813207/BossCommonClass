@@ -3,7 +3,6 @@
 //  NNBar_knight
 //
 //  Created by 贾远潮 on 2017/9/19.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "NNBLoadingView.h"
@@ -169,7 +168,7 @@
         animation.toValue = @(M_PI *2);
         animation.duration  = 1.f;
         animation.autoreverses = NO;
-        animation.fillMode =kCAFillModeForwards;
+        animation.fillMode = kCAFillModeForwards;
         animation.repeatCount = MAXFLOAT; //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
         [loadingImageView.layer addAnimation:animation forKey:nil];
         _loadingImageView = loadingImageView;

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,32 +16,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="taa-zY-kfM" userLabel="背景色view">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzn-CF-boY">
-                    <rect key="frame" x="0.0" y="606" width="414" height="290"/>
+                    <rect key="frame" x="0.0" y="572" width="414" height="290"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWv-Oj-M3S">
-                            <rect key="frame" x="16" y="20" width="382" height="72"/>
-                            <attributedString key="attributedText">
-                                <fragment content="我们非常重视您的隐私保护和个人信息保护并遵守相关法律法规。请认真阅读以下内容，您若同意并使用，我们会严格按照条款来使用并保护您的个人信息。">
-                                    <attributes>
-                                        <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="16" name=".PingFangSC-Regular"/>
-                                        <real key="NSKern" value="0.0"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="18" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                            <tabStops/>
-                                        </paragraphStyle>
-                                        <color key="NSStrokeColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们非常重视您的隐私保护和个人信息保护并遵守相关法律法规。请认真阅读以下内容，您若同意并使用，我们会严格按照条款来使用并保护您的个人信息。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWv-Oj-M3S">
+                            <rect key="frame" x="16" y="20" width="382" height="71"/>
+                            <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="16"/>
+                            <color key="textColor" name="boss_000000_FFFFFF"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-kL-nIu">
-                            <rect key="frame" x="16" y="102" width="176" height="35"/>
+                            <rect key="frame" x="16" y="101" width="176" height="35"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                             <state key="normal" title="《软件许可及服务协议》"/>
                             <connections>
@@ -48,7 +37,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-cP-eb5">
-                            <rect key="frame" x="16" y="147" width="96" height="35"/>
+                            <rect key="frame" x="16" y="146" width="96" height="35"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                             <state key="normal" title="《隐私政策》"/>
                             <connections>
@@ -57,13 +46,14 @@
                         </button>
                         <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlT-QV-fVh">
                             <rect key="frame" x="42" y="230" width="150" height="50"/>
+                            <color key="backgroundColor" name="boss_FFFFFF-0_434343"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="Wvt-gu-NTd"/>
                                 <constraint firstAttribute="width" constant="150" id="ayn-WI-sdV"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                             <state key="normal" title="不同意">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" name="boss_000000_FFFFFF"/>
                             </state>
                             <connections>
                                 <action selector="exitAppAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Jfd-YP-6c9"/>
@@ -85,7 +75,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="boss_FFFFFF_1A1A1A"/>
                     <constraints>
                         <constraint firstItem="VYk-bS-dmx" firstAttribute="top" secondItem="jlT-QV-fVh" secondAttribute="top" id="Aka-Gt-EM1"/>
                         <constraint firstItem="VYk-bS-dmx" firstAttribute="centerX" secondItem="xzn-CF-boY" secondAttribute="centerX" constant="90" id="HcS-DN-vAK"/>
@@ -101,15 +91,23 @@
                         <constraint firstItem="3tg-kL-nIu" firstAttribute="top" secondItem="CWv-Oj-M3S" secondAttribute="bottom" constant="10" id="zQS-wc-l9d"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvY-5J-1ke">
+                    <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                    <color key="backgroundColor" name="boss_FFEEEE_1A1A1A"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="uvY-5J-1ke" secondAttribute="trailing" id="5yb-Fb-fkt"/>
+                <constraint firstAttribute="bottom" secondItem="uvY-5J-1ke" secondAttribute="bottom" id="7Vj-Br-303"/>
                 <constraint firstItem="xzn-CF-boY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="KO2-Vl-HGb"/>
                 <constraint firstItem="taa-zY-kfM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZRB-1C-334"/>
                 <constraint firstAttribute="trailing" secondItem="xzn-CF-boY" secondAttribute="trailing" id="ac8-oB-8iG"/>
-                <constraint firstAttribute="bottom" secondItem="taa-zY-kfM" secondAttribute="bottom" id="boq-sr-frr"/>
-                <constraint firstAttribute="bottom" secondItem="xzn-CF-boY" secondAttribute="bottom" id="dtW-XK-uCr"/>
+                <constraint firstItem="MWQ-F1-e4H" firstAttribute="bottom" secondItem="taa-zY-kfM" secondAttribute="bottom" id="boq-sr-frr"/>
+                <constraint firstItem="taa-zY-kfM" firstAttribute="bottom" secondItem="xzn-CF-boY" secondAttribute="bottom" id="dtW-XK-uCr"/>
+                <constraint firstItem="uvY-5J-1ke" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="g1G-eO-wG1"/>
                 <constraint firstItem="taa-zY-kfM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="grn-MV-frE"/>
+                <constraint firstItem="uvY-5J-1ke" firstAttribute="top" secondItem="taa-zY-kfM" secondAttribute="bottom" id="jM3-Ap-NHl"/>
                 <constraint firstAttribute="trailing" secondItem="taa-zY-kfM" secondAttribute="trailing" id="qUQ-O5-GGT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -123,4 +121,18 @@
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="boss_000000_FFFFFF">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boss_FFEEEE_1A1A1A">
+            <color red="1" green="0.93300002813339233" blue="0.93300002813339233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boss_FFFFFF-0_434343">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boss_FFFFFF_1A1A1A">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

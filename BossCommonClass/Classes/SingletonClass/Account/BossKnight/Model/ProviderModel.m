@@ -2,8 +2,7 @@
 //  ProviderModel.m
 //  NNBarKnight
 //
-//  Created by 贾远潮 on 2017/9/27.
-//  Copyright © 2017年 贾远潮. All rights reserved.
+//  Created by 贾远潮 on 2017/9/27
 //
 
 #import "ProviderModel.h"

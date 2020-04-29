@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '8.13.4'
+  s.version          = '8.17.5'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -30,7 +30,7 @@ these are common classes,they are used by boss system.
   # s.source           = { :git => '~/soft/develop/ios/BossCommonClass-master'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '11.0'
   s.ios.frameworks = 'AVFoundation','Foundation'
   s.source_files = 'BossCommonClass/Classes/**/*'
   s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
@@ -40,8 +40,7 @@ these are common classes,they are used by boss system.
   # s.vendored_frameworks = ['AVFoundation.framework']
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'BasicCommonClass', '~> 0.4.4'
-  s.dependency 'AFNetworking', '~> 3.1.0'
+  s.dependency 'AFNetworking', '~> 3.0'
   
   # 七牛
   s.dependency 'Qiniu', '~> 7.1'
@@ -51,7 +50,7 @@ these are common classes,they are used by boss system.
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.0'
   s.dependency 'MJExtension'
-  s.dependency 'MJRefresh'
+  s.dependency 'MJRefresh', '~> 3.4.1'
   s.dependency 'SDWebImage', '~> 5.0.1'
   s.dependency 'MQTTClient', '~> 0.15.2'
   s.dependency 'mob_linksdk_pro', '3.3.1'
@@ -67,7 +66,6 @@ these are common classes,they are used by boss system.
   # 友盟统计
   s.dependency 'UMCAnalytics'
   
-  s.dependency 'XFHProject', '~> 2.0.0'
   s.dependency 'MGJRouter', '~> 0.10.0'
   s.dependency 'Realm', '~> 3.17.0'
   s.dependency 'IQKeyboardManager', '~> 6.4.0'

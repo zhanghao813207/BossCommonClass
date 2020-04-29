@@ -22,8 +22,9 @@
         // 设置默认字体
         self.font = [UIFont systemFontOfSize:15];
         
+//        self.textColor = UIColor
         // 设置默认颜色
-        self.placeholderColor = [UIColor grayColor];
+        self.placeholderColor = [UIColor colorNamed:@"boss_FFFFFF-50_FFFFFF-20"];
         
         // 使用通知监听文字改变
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextViewTextDidChangeNotification object:self];
@@ -37,6 +38,7 @@
 }
 - (void)textViewDidChange:(UITextView *)textView {
     CGFloat height = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, MAXFLOAT)].height;
+    textView.textColor = [UIColor colorNamed:@"boss_000000_FFFFFF"];
     textView.scrollEnabled = false;
     [textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(height));

@@ -15,6 +15,7 @@
 - (void) tableViewDisplayWitMsg:(NSString *)message imageName:(NSString *)imgName ifNecessaryForRowCount:(NSUInteger)rowCount {
     if (rowCount == 0) {
         UIView *noDataView = [[UIView alloc] init];
+        noDataView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
         self.backgroundView = noDataView;
         UIImageView *imgView = [[UIImageView alloc] init];
         UIImage *image = [UIImage imageNamed:@"NoDataIcon" inBundle:QH_Bundle  compatibleWithTraitCollection:nil];
@@ -32,7 +33,7 @@
         }];
       
         UILabel *messageLabel = [[UILabel alloc] init];
-        messageLabel.textColor = kHexRGBA(0x29314D, 0.8);
+        messageLabel.textColor = [UIColor colorNamed:@"boss_000000-60_FFFFFF-60"];
         messageLabel.font = [UIFont fontWithName:@"PingFangSC" size: 16];
         messageLabel.text = message;
         [noDataView addSubview:messageLabel];

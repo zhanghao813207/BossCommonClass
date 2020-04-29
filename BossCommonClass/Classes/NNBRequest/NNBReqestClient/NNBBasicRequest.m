@@ -3,7 +3,6 @@
 //  NNBar_knight
 //
 //  Created by 贾远潮 on 2017/9/19.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "NNBBasicRequest.h"
@@ -50,7 +49,7 @@
  */
 + (void)postJsonWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
-    NSLog(@"=======%@======%@",url,cmd);
+    NSLog(@"-------------------------------------------\n请求URL:%@\n------------------------------------\n请求CMD:%@",url,cmd);
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
         [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
     } fail:^(id error) {

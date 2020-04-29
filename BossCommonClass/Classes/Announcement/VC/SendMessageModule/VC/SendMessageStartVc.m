@@ -3,7 +3,7 @@
 //  BossOwner
 //
 //  Created by 高炀辉 on 2019/6/21.
-//  Copyright © 2019 高炀辉. All rights reserved.
+//  Copyright © 2019 欧客云. All rights reserved.
 //
 
 #import "SendMessageStartVc.h"
@@ -31,6 +31,8 @@
     self.headerNameLabel.text = [self.name substringFromIndex:self.name.length - 1];
     self.headerLabelView.layer.cornerRadius = 67 / 2;
     self.sendMessageView.hidden = YES;
+    
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
 }
 - (IBAction)beginSendMessage:(UITapGestureRecognizer *)sender {
     if (self.targetid){

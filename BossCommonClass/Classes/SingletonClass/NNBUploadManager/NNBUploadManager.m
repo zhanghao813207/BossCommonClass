@@ -3,7 +3,6 @@
 //  NNBarKnight
 //
 //  Created by 贾远潮 on 2017/10/17.
-//  Copyright © 2017年 贾远潮. All rights reserved.
 //
 
 #import "NNBUploadManager.h"
@@ -12,7 +11,7 @@
 #import "UIImage+Category.h"
 #import "BossBasicDefine.h"
 
-@interface NNBUploadManager()
+@interface NNBUploadManager()<NSURLSessionDelegate>
 @property (nonatomic, strong) QNUploadManager *upLoader;
 
 @end
@@ -74,10 +73,10 @@
 {
     
     if (!_upLoader) {
-//        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
-//            builder.zone = QNFixedZone.zone1;
-//        }];
-//        _upLoader = [[QNUploadManager alloc] initWithConfiguration:config];
+        //        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+        //            builder.zone = QNFixedZone.zone1;
+        //        }];
+        //        _upLoader = [[QNUploadManager alloc] initWithConfiguration:config];
         _upLoader = [[QNUploadManager alloc] init];
     }
     return _upLoader;
