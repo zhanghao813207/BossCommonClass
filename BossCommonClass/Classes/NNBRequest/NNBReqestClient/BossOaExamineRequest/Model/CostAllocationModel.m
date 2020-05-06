@@ -103,6 +103,10 @@
         if (![JYCSimpleToolClass stringIsEmpty:self.biz_district_name]) {
             [array addObject:self.biz_district_name];
         }
+        /// 团队信息
+        if (![JYCSimpleToolClass stringIsEmpty:self.team_name]) {
+            [array addObject:self.team_name];
+        }
         NSLog(@"个人信息:%@",self.staff_info);
         NSString *name = self.staff_info[@"name"];
         NSString *identityCardId = self.staff_info[@"identity_card_id"];
@@ -121,8 +125,11 @@
 }
 
 - (NSString *)idCardNumber:(NSString *)idCardNumber {
-    NSString *idCard = [idCardNumber stringByReplacingCharactersInRange:NSMakeRange(idCardNumber.length - 8, 8) withString:@"********"];
-    return idCard;
+    if (idCardNumber.length > 8) {
+        NSString *idCard = [idCardNumber stringByReplacingCharactersInRange:NSMakeRange(idCardNumber.length - 8, 8) withString:@"********"];
+        return idCard;
+    }
+    return idCardNumber;
 }
 
 - (NSString *)getTeamTypeString:(TeamType)type {
@@ -147,6 +154,21 @@
             break;
         case TEAM_TYPE_BUSINESS_TEAM:
             return @"商务小队";
+            break;
+        case DEPARTMENT_TYPE_COACH:
+            return @"私教";
+            break;
+        case DEPARTMENT_COACH_TEAM:
+            return @"大区";
+            break;
+        case DEPARTMENT_BUSINESS:
+            return @"分部";
+            break;
+        case DEPARTMENT_DEPARTMENT:
+            return @"事业部";
+            break;
+        case DEPARTMENT_OWNER_TEAM:
+            return @"业主";
             break;
         
         default:
