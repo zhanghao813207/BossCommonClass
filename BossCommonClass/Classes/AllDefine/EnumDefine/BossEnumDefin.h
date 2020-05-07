@@ -476,6 +476,11 @@ typedef NS_ENUM(NSUInteger,TeamType) {
     TEAM_TYPE_DATA_TEAM = 5, //数据小队
     TEAM_TYPE_OPERATION_TEAM = 6, //运维小队
     TEAM_TYPE_BUSINESS_TEAM = 7, //商务小队
+    DEPARTMENT_TYPE_COACH = 10,  // 私教
+    DEPARTMENT_COACH_TEAM = 20,  // 大区
+    DEPARTMENT_BUSINESS = 30,  // 分部
+    DEPARTMENT_DEPARTMENT = 40,  // 事业部
+    DEPARTMENT_OWNER_TEAM = 50,  // 业主
 };
 
 typedef NS_ENUM(NSUInteger, NodeApproveMode) {
