@@ -221,7 +221,7 @@
         mineType = @"image/jpeg";
     }else if([contentType isEqualToString:@"png"]) {
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
-        fileName =  @"image/png";
+        mineType = @"image/png";
     }else{
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
         mineType = @"video/quicktime";
