@@ -222,11 +222,14 @@
     }else if([contentType isEqualToString:@"png"]) {
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
         mimeType = @"image/png";
+        
+    }else if([contentType isEqualToString:@"MP4"] || [contentType isEqualToString:@"mp4"]|| [contentType isEqualToString:@"mpg4"]|| [contentType isEqualToString:@"m4v"]|| [contentType isEqualToString:@"mp4v"]){ //项目中上传视频的还是用的七牛上传,此处对于视频的格式和mimetype需用到的时候再核对
+        fileName = [NSString stringWithFormat:@"%@.mp4",str];
+        mimeType = @"video/mp4";
     }else{
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
         mimeType = @"video/quicktime";
     }
-
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
     NSString *keyStr = [policyDict valueForKey:@"key"];
     [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
