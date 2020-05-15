@@ -215,23 +215,23 @@
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString *str = [formatter stringFromDate:[NSDate date]];
     NSString *fileName = @"";
-    NSString *mineType = @"";
+    NSString *mimeType = @"";
     if([NSString isEmptyStringWithString:contentType]||[contentType isEqualToString:@"jpg"]||[contentType isEqualToString:@"jpeg"]){
         fileName = [NSString stringWithFormat:@"%@.jpg", str];
-        mineType = @"image/jpeg";
+        mimeType = @"image/jpeg";
     }else if([contentType isEqualToString:@"png"]) {
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
-        mineType = @"image/png";
+        mimeType = @"image/png";
     }else{
         fileName = [NSString stringWithFormat:@"%@.%@",str,contentType];
-        mineType = @"video/quicktime";
+        mimeType = @"video/quicktime";
     }
-    
+
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
     NSString *keyStr = [policyDict valueForKey:@"key"];
     [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // 其中name字段是跟服务端协商规定好的,不可随意更改
-        [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mineType];
+        [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mimeType];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"%@",uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -246,6 +246,7 @@
         }
     }];
 }
+
 
 /**
    获取银行卡信息查询接口
