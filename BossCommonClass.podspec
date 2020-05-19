@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '8.17.5'
+  s.version          = '8.17.15'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
