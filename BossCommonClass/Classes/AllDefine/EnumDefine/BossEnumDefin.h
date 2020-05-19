@@ -515,7 +515,8 @@ typedef NS_ENUM(NSUInteger, LineDustryType) {
     LineDustryTypeHotel                  = 9000,  // 酒店服务
     LineDustryTypeAdvertising            = 10000, // 广告投放
     LineDustryTypeCarSharing             = 11000, // 共享汽车
-    
+    LineDustryTypeHRService              = 12000, // 人力资源服务
+    LineDustryTypeAnchor                 = 13000, // 主播
 };
 
 // 身份信息状态
