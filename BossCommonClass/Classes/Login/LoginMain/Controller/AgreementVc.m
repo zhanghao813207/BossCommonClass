@@ -9,15 +9,17 @@
 #import "BossConstDataDefine.h"
 #import "AFHTTPSessionManager.h"
 #import <WebKit/WebKit.h>
+#import "JYCMethodDefine.h"
 
 @interface AgreementVc ()
 
 @end
 
 @implementation AgreementVc
+
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
     [self.navigationController setToolbarHidden:YES];
 }
 
@@ -31,8 +33,12 @@
     if (!self.url) {
         self.url = AGREEMENTURL;
     }
+    CGFloat webviewHeight = kScreenHeight - 64;
+    if (kIsiPhoneX){
+        webviewHeight = kScreenHeight - 64 - 34;
+    }
 //    CGRect bounds = [[UIScreen mainScreen]applicationFrame];
-    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, webviewHeight)];
     webView.backgroundColor = [UIColor whiteColor];
 //    webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
     NSURL* url = [NSURL URLWithString: self.url];//创建URL
