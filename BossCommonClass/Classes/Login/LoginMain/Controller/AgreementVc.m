@@ -25,6 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.isAddPresent){
+        [self setBackItem];
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
     UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
@@ -47,6 +50,22 @@
     [self.view addSubview:webView];
 }
 
+-(void)setBackItem
+{
+    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
+    [buttonItem_back setTintColor:[UIColor blackColor]];
+    self.navigationItem.leftBarButtonItem = buttonItem_back;
+}
+
+
+- (void)popToLastViewController:(UIBarButtonItem *)sender
+{
+    if (self.backBlock){
+        self.backBlock();
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
 /*
 #pragma mark - Navigation
 
