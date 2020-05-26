@@ -21,7 +21,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     //取消view的编辑状态
-    [self.view endEditing:YES];
+//    [self.view endEditing:YES];
     
 }
     
