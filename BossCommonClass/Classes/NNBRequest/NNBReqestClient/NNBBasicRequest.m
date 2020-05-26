@@ -229,9 +229,9 @@
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
-                if(!kCurrentBossOwnerAccount){
-                    return;
-                }
+//                if(!kCurrentBossOwnerAccount){
+//                    return;
+//                }
                 kCurrentBossOwnerAccount = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
