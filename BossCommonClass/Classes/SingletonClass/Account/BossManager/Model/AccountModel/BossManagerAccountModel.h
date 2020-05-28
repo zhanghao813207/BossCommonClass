@@ -115,6 +115,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ 保险授权
+ */
+@property (nonatomic, assign,readonly) BOOL safeAuth;
+
+
+/**
  模型转字典
  
  @return 字典

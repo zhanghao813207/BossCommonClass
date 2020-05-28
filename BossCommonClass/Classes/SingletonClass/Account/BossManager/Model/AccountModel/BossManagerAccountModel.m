@@ -78,6 +78,11 @@
     [super setValue:value forKey:key];
 }
 
+-(BOOL)safeAuth{
+    NSString *safeKey = [NSString stringWithFormat:@"%@safeAuthAgree",self._id];
+   return  [[NSUserDefaults standardUserDefaults] valueForKey:safeKey];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     
