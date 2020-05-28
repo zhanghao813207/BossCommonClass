@@ -20,9 +20,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.extendedLayoutIncludesOpaqueBars = YES;
-
     [self.navigationController setToolbarHidden:YES];
 }
 
@@ -43,7 +40,6 @@
     if (kIsiPhoneX){
         webviewHeight = kScreenHeight - 64 - 34;
     }
-//    CGRect bounds = [[UIScreen mainScreen]applicationFrame];
     WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, webviewHeight)];
     webView.backgroundColor = [UIColor whiteColor];
 //    webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
