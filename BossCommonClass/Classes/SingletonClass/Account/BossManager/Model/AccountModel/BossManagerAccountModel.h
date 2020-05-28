@@ -114,11 +114,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *_id;
 
 
-/**
- 保险授权
- */
-@property (nonatomic, assign,readonly) BOOL safeAuth;
-
+///**
+// 保险授权
+// */
+//@property (nonatomic, assign,readonly) BOOL safeAuth;
+//
 
 /**
  模型转字典
