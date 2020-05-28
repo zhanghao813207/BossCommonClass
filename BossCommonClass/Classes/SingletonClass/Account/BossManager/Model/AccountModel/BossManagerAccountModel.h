@@ -84,6 +84,39 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <SupplierModel *>*supplier_list;
 
 /**
+ account2.0接口改动city_list等信息放到了city_names，且只有names
+ */
+/**
+ 城市列表
+*/
+@property (nonatomic, strong) NSArray *city_names;
+
+/**
+ 城市id列表
+*/
+@property (nonatomic, strong) NSArray *city_codes;
+
+/**
+ 平台列表
+*/
+@property (nonatomic, strong) NSArray *platform_names;
+
+/**
+ 平台id列表
+*/
+@property (nonatomic, strong) NSArray *platform_codes;
+
+/**
+ 供应商列表
+*/
+@property (nonatomic, strong) NSArray *supplier_names;
+
+/**
+  供应商id列表
+*/
+@property (nonatomic, strong) NSArray *supplier_ids;
+
+/**
  创建时间
  */
 @property (nonatomic, strong) NSString *created_at;

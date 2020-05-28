@@ -94,6 +94,12 @@
                                           @"state":@(self.state),
                                           @"position_id":@(self.position_id),
                                           @"gid":@(self.gid),
+                                          @"city_names":self.city_names,
+                                          @"city_codes":self.city_codes,
+                                          @"platform_names":self.platform_names,
+                                          @"platform_codes":self.platform_codes,
+                                          @"supplier_names":self.supplier_names,
+                                          @"supplier_ids":self.supplier_ids,
                                           
                                           @"phone":self.phone ? : @"",
                                           @"staff_id":self.staff_id ? : @"",
@@ -104,10 +110,8 @@
                                           @"created_at":self.created_at ? : @"",
                                           @"operator_name":self.operator_name ? : @"",
                                           @"_id":self._id ? : @"",
-                               
                                           @"supplier_cascade_list":self.supplier_cascade_list ? : @[],
                                           @"city_cascade_list":self.city_cascade_list ? : @[],
-                                          
                                           @"permission": [JYCSimpleToolClass encodeArrayToArray:self.permission],
                                           @"city_list": [JYCSimpleToolClass encodeArrayToArray:self.city_list],
                                           @"platform_list": [JYCSimpleToolClass encodeArrayToArray:self.platform_list],
