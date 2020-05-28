@@ -58,7 +58,8 @@ these are common classes,they are used by boss system.
   # 友盟基础库
   s.dependency 'UMCCommon'
   # 'UMCSecurityPlugins'为安全组件，不需要开发者显式调用，为开发者提供安全的数据环境，能有效的防止刷量和反作弊等行为，属于可选项，如果对App的数据安全性要求不高的话，可以去掉
-  s.dependency 'UMCSecurityPlugins'
+  #注释UMCSecurityPlugins ,因为它与支付宝支付UTDID.framework有冲突
+#  s.dependency 'UMCSecurityPlugins'
   # 友盟Push库
   s.dependency 'UMCPush'
   # 友盟日志库（调试）
