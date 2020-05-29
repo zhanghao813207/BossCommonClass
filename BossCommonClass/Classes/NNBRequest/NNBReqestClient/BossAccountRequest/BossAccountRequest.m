@@ -51,12 +51,14 @@
 
         BossManagerAccountModel *accountModel = [[BossManagerAccountModel alloc] init];
         NSDictionary *dict = responseObject;
-        if ([dict.allKeys containsObject:@"employee_info"]) {
+        if ([dict.allKeys containsObject:@"employee_info"] && [dict[@"employee_info"] isMemberOfClass:[NSDictionary class]]) {
             [accountModel setValuesForKeysWithDictionary:responseObject[@"employee_info"]];
         }
         accountModel._id = responseObject[@"_id"];
         accountModel.phone = responseObject[@"phone"];
         accountModel.name = responseObject[@"name"];
+        accountModel.created_at = responseObject[@"created_at"];
+        accountModel.state = [responseObject[@"state"] integerValue];
         if (successBlock) {
             successBlock(accountModel);
         }
