@@ -54,6 +54,8 @@ UIKIT_EXTERN uint32_t const XINGEACCESSID; //信鸽推送配置中的 Access ID
 
 UIKIT_EXTERN NSString *const XINGEACCESSKEY; //信鸽推送配置中的 Access Key
 
+UIKIT_EXTERN NSString *const BUNDLEID; //bundle identifier
+
 
 /********* userdefaultKey ************/
 
