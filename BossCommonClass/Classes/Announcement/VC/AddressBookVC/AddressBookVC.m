@@ -108,6 +108,7 @@
     // 是否启动UMS
     if(!kCache.checkStartUMS){
         [self.tableview.mj_header endRefreshing];
+        [self judgeEmptyView];
         return;
     }
     
