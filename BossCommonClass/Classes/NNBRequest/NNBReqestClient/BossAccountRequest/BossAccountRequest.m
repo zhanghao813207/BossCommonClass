@@ -50,10 +50,14 @@
         NSLog(@"BossAccountRequestGainAccountWithAccountId->response\n%@", responseObject);
 
         BossManagerAccountModel *accountModel = [[BossManagerAccountModel alloc] init];
-        NSDictionary *dict = responseObject;
-        if ([dict.allKeys containsObject:@"employee_info"] && dict[@"employee_info"] != [NSNull null]) {
-            [accountModel setValuesForKeysWithDictionary:responseObject[@"employee_info"]];
+        NSDictionary *employeeData = responseObject;
+        if ([employeeData.allKeys containsObject:@"employee_info"] && employeeData[@"employee_info"] != [NSNull null]) {
+            NSDictionary *businessInfoData = employeeData[@"employee_info"];
+            if ([businessInfoData.allKeys containsObject:@"biz_data_business_info"] && businessInfoData[@"biz_data_business_info"] != [NSNull null]) {
+                [accountModel setValuesForKeysWithDictionary:businessInfoData[@"biz_data_business_info"]];
+            }
         }
+        [accountModel setValuesForKeysWithDictionary:responseObject];
         accountModel._id = responseObject[@"_id"];
         accountModel.phone = responseObject[@"phone"];
         accountModel.name = responseObject[@"name"];

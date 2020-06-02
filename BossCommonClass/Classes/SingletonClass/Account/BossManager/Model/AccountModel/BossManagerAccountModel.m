@@ -30,7 +30,8 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             SupplierModel *model = [[SupplierModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
+            model._id = dic.allKeys.firstObject;
+            model.name = dic.allValues.firstObject;
             [array addObject:model];
         }
         self.supplier_list = [array copy];
@@ -41,7 +42,8 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             CityModel *model = [[CityModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
+            model.city_code = dic.allKeys.firstObject;
+            model.city_name = dic.allValues.firstObject;
             [array addObject:model];
         }
         self.city_list = [array copy];
@@ -52,23 +54,25 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             PlatformModel *model = [[PlatformModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
+            model.platform_code = dic.allKeys.firstObject;
+            model.platform_name = dic.allValues.firstObject;
             [array addObject:model];
         }
         self.platform_list = [array copy];
         return;
     }
     
-    if ([key isEqualToString:@"biz_district_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            BizDistrictModel *model = [[BizDistrictModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.biz_district_list = [array copy];
-        return;
-    }
+//    if ([key isEqualToString:@"biz_district_list"]) {
+//        NSMutableArray *array = [NSMutableArray array];
+//        for (NSDictionary *dic in value) {
+//            BizDistrictModel *model = [[BizDistrictModel alloc] init];
+//            [model setValuesForKeysWithDictionary:dic];
+//            [array addObject:model];
+//        }
+//        self.biz_district_list = [array copy];
+//        return;
+//    }
+    
 //    if ([key isEqualToString:@"config"]) {
 //        NSDictionary *dic = value;
 //        self.configModel = [[configModel alloc] initWithDictionary:dic];
@@ -99,12 +103,6 @@
                                           @"state":@(self.state),
                                           @"position_id":@(self.position_id),
                                           @"gid":@(self.gid),
-                                          @"city_names":self.city_names ? : @[],
-                                          @"city_codes":self.city_codes ? : @[],
-                                          @"platform_names":self.platform_names ? : @[],
-                                          @"platform_codes":self.platform_codes ? : @[],
-                                          @"supplier_names":self.supplier_names ? : @[],
-                                          @"supplier_ids":self.supplier_ids ? : @[],
                                           
                                           @"phone":self.phone ? : @"",
                                           @"staff_id":self.staff_id ? : @"",
