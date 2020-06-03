@@ -103,7 +103,7 @@
                                           @"state":@(self.state),
                                           @"position_id":@(self.position_id),
                                           @"gid":@(self.gid),
-                                          
+                                          @"is_admin":@(self.is_admin),
                                           @"phone":self.phone ? : @"",
                                           @"staff_id":self.staff_id ? : @"",
                                           @"name":self.name ? : @"",

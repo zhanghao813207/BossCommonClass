@@ -42,6 +42,7 @@
                                @"city":self.city ? : @"",
                                @"city_spelling":self.city_spelling ? : @"",
                                @"city_name_joint":self.city_name_joint ? : @"",
+                               @"city_code":self.city_code ? : @"",
                                };
     return localDic;
 }
