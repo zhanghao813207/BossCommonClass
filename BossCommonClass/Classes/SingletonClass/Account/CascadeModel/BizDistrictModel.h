@@ -14,6 +14,8 @@
  */
 @property (nonatomic, strong) NSString *biz_district_id;
 
+@property (nonatomic, strong) NSString *_id;
+
 /**
  商圈名称
  */
