@@ -178,7 +178,7 @@
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[MQTTClientModel sharedInstance] disconnect];
-        NSString *logoutPhone = kCurrentBossManagerAccount.accountModel.phone;
+        NSString *logoutPhone = kCurrentBossManagerAccount.accountModel.phone ? : @"";
         kCache.lastLoginPhone = logoutPhone;
         [kCache addPhone:logoutPhone];
         kCurrentBossManagerAccount = nil;

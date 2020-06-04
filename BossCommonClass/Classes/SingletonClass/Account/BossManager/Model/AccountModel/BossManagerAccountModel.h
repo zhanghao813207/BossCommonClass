@@ -113,6 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSString *_id;
 
+/// 是否是超级管理员
+@property (nonatomic, assign) BOOL is_admin;
+
 
 ///**
 // 保险授权
