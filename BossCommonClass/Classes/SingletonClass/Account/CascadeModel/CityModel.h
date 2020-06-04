@@ -12,7 +12,7 @@
 /**
  城市名称
  */
-@property (nonatomic, strong) NSArray *city_name;
+@property (nonatomic, strong) NSString *city_name;
 
 /**
  城市全拼

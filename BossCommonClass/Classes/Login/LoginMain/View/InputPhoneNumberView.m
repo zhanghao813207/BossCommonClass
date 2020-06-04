@@ -90,6 +90,11 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         return;
     }
     BOOL isPhone = [JYCSimpleToolClass isPhoneStringWithString:phone];
+#ifdef DEBUG
+    if ([[phone substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"]) {
+        isPhone = YES;
+    }
+#endif
     if (!isPhone) {
         self.errorNoticeLabel.hidden = NO;
         return;
