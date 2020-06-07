@@ -32,8 +32,8 @@
 @property (nonatomic,strong)NSString *currentBizDistrictName;
 @property (nonatomic,strong)PGDatePickManager *datePickManager;
 @property (nonatomic,strong)UIView *maskView;
-
-
+@property (nonatomic,strong)NSTimer *timer;
+@property (nonatomic,assign)CGFloat time;
 
 @end
 
@@ -47,7 +47,7 @@
     datePicker.datePickerMode = PGDatePickerModeYearAndMonth;
     NSDate *date =[NSDate date];//简书 FlyElephant
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-
+    self.time = 0;
     [formatter setDateFormat:@"yyyy"];
     // 最大年份为当前年份
     int currentYear = [[formatter stringFromDate:date] intValue];
@@ -77,7 +77,8 @@
         weakSelf.selectedTimeView.selectTimeStr = [NSString stringWithFormat:@"%@-%@",weakSelf.currentYear,weakSelf.currentMouth];
         //        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@",year,mouth]];
         NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@&biz_district_id=%@",weakSelf.currentYear,weakSelf.currentMouth,weakSelf.currentBizDistrictId]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+//        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
         [weakSelf.webView loadRequest:request];
     };
     [self presentViewController:self.datePickManager animated:false completion:nil];
@@ -89,6 +90,11 @@
 //    [self pickDateCreate];
     self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     
+    self.timer = [NSTimer timerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        self.time += 0.1;
+        NSLog(@"%f", self.time);
+    }];
+    [NSRunLoop.currentRunLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
     [self setLeftItem];
     __weak typeof(self) weakSelf = self;
     //    NSLog(self.teamList);
@@ -143,12 +149,13 @@
 #ifdef kBossOwner
                  NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld&biz_district_id=%@",currentYear,currentMonth,firstDistrictId]];
 #else
-                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld",2019,6]];
+                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=201905"]];
 #endif
                  
                  
                  
-                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+//                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+                 NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
                  [weakSelf.webView loadRequest:request];
              }
          }
@@ -190,13 +197,13 @@
         weakSelf.currentBizDistrictName = name;
         [weakSelf.selectedTimeView setupDefault:weakSelf.currentBizDistrictName];
         NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@&biz_district_id=%@",weakSelf.currentYear,weakSelf.currentMouth,weakSelf.currentBizDistrictId]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
         [weakSelf.webView loadRequest:request];
     };
     
     //创建网页配置对象
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    
+//    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+//    config.websiteDataStore = [WKWebsiteDataStore defaultDataStore];
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     //最小字体大小 当将javaScriptEnabled属性设置为NO时，可以看到明显的效果
@@ -204,7 +211,7 @@
     //设置是否支持javaScript 默认是支持的
     preference.javaScriptEnabled = YES;
     
-    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2) configuration:config];
+    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2)];
     // UI代理
     _webView.UIDelegate = self;
     // 导航代理
@@ -245,8 +252,26 @@
 {
     [super viewWillDisappear:animated];
     [self.openSelectView  remove];
+    self.timer = nil;
 }
-
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    [self.view showLoadingView:@"加载中..."];
+    NSLog(@"页面开始加载:%s",__FUNCTION__);
+    [self.timer fire];
+}
+// 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+//    navigation.
+    NSLog(@"内容开始返回:%s",__FUNCTION__);
+}
+// 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    NSLog(@"页面加载完成:%s",__FUNCTION__);
+    [self.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+    }];
+    [self.timer invalidate];
+    NSLog(@"完成总用时: %f s", self.time);
+}
 -(void)setLeftItem
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popViewControllerAnimated)];
