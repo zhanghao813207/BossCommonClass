@@ -59,6 +59,7 @@
 
 // 线的颜色
 #define kLineColor (kHexRGBA(0x000000,0.1))
+#define kBossManagerLineColor [UIColor colorNamed:@"boss_000000-10_FFFFFF-20"]
 
 // BossCommonClass.bundle
 #define bundlePath  [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"]
