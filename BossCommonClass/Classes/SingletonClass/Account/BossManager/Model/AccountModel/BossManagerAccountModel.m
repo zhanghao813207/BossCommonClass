@@ -30,8 +30,7 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             SupplierModel *model = [[SupplierModel alloc] init];
-            model._id = dic.allKeys.firstObject;
-            model.name = dic.allValues.firstObject;
+            [model setValuesForKeysWithDictionary:dic];
             [array addObject:model];
         }
         self.supplier_list = [array copy];
@@ -42,8 +41,7 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             CityModel *model = [[CityModel alloc] init];
-            model.city_code = dic.allKeys.firstObject;
-            model.city_name = dic.allValues.firstObject;
+            [model setValuesForKeysWithDictionary:dic];
             [array addObject:model];
         }
         self.city_list = [array copy];
@@ -54,8 +52,7 @@
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dic in value) {
             PlatformModel *model = [[PlatformModel alloc] init];
-            model.platform_code = dic.allKeys.firstObject;
-            model.platform_name = dic.allValues.firstObject;
+            [model setValuesForKeysWithDictionary:dic];
             [array addObject:model];
         }
         self.platform_list = [array copy];
