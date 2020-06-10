@@ -131,15 +131,21 @@
          NSLog(@"返回url%@",responseObject);
          if(dic)
          {
-             NSDate *date =[NSDate date];//简书 FlyElephant
+//             NSDate *date =[NSDate date];//简书 FlyElephant
+             // 获取 两天前的时间 T+2
+             NSDate *date = [NSDate dateWithTimeInterval:-48*60*60 sinceDate:[NSDate date]];
+             
              NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
 
              [formatter setDateFormat:@"yyyy"];
              // 最大年份为当前年份
+             
              int currentYear = [[formatter stringFromDate:date] intValue];
              [formatter setDateFormat:@"MM"];
              // 最大时间为当前月份 -1
              int currentMonth = [[formatter stringFromDate:date] intValue] - 1;
+             
+             
              self.baseUrl = [dic objectForKey:@"url"];
              if (self.baseUrl)
              {
@@ -149,7 +155,7 @@
 #ifdef kBossOwner
                  NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02ld%02ld&biz_district_id=%@",currentYear,currentMonth,firstDistrictId]];
 #else
-                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=201905"]];
+                 NSString *url = [self.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%02d%02d", currentYear,currentMonth]];
 #endif
                  
                  
@@ -162,7 +168,7 @@
      } fail:^(id error) {
          
      }];
-    [self.view addSubview:self.selectedTimeView];
+//    [self.view addSubview:self.selectedTimeView];
     
     self.openSelectView = [[BOOpenSelectTimeView alloc]init];
     self.openSelectView.backgroundColor = UIColor.redColor;
@@ -211,7 +217,9 @@
     //设置是否支持javaScript 默认是支持的
     preference.javaScriptEnabled = YES;
     
-    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2)];
+//    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight - 44*2)];
+    
+    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44*2)];
     // UI代理
     _webView.UIDelegate = self;
     // 导航代理
