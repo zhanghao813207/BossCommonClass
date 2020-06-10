@@ -28,9 +28,11 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     if (@available(iOS 13.0, *)) {
-        UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-    
-        [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+        if (![self isKindOfClass:NSClassFromString(@"WalletPageVc")]){
+            UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
+                   [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+        }
+       
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
