@@ -263,7 +263,7 @@
     self.timer = nil;
 }
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-    [self.view showLoadingView:@"加载中..."];
+//    [self.view showLoadingView:@"加载中..."];
     NSLog(@"页面开始加载:%s",__FUNCTION__);
     [self.timer fire];
 }
@@ -275,8 +275,8 @@
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"页面加载完成:%s",__FUNCTION__);
-    [self.view dismissLoadingViewWithCompletion:^(BOOL finish) {
-    }];
+//    [self.view dismissLoadingViewWithCompletion:^(BOOL finish) {
+//    }];
     [self.timer invalidate];
     NSLog(@"完成总用时: %f s", self.time);
 }
