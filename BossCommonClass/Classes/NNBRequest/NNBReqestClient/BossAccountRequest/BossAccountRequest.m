@@ -21,27 +21,6 @@
  */
 + (void)BossAccountRequestGainAccountWithAccountId:(NSString *)accountId success:(void(^)(BossManagerAccountModel *))successBlock fail:(void(^)(id error))failBlock
 {
-//    NSString *url = [NSString stringWithFormat:@"%@/account/gain_account_detail", kUrlApiVersion(@"/1.0")];
-//    NSDictionary *paramDic = @{
-//                               @"id":accountId
-//                               };
-//    [NNBBasicRequest postJsonWithUrl:url parameters:paramDic CMD:nil success:^(id responseObject) {
-//
-//        NSLog(@"BossAccountRequestGainAccountWithAccountId->response\n%@", responseObject);
-//
-//        BossManagerAccountModel *accountModel = [[BossManagerAccountModel alloc] init];
-//        [accountModel setValuesForKeysWithDictionary:responseObject];
-//
-//        if (successBlock) {
-//            successBlock(accountModel);
-//        }
-//    } fail:^(id error) {
-//        if(failBlock){
-//            failBlock(error);
-//        }
-//    }];
-    
-    
     NSDictionary *paramDic = @{
                                @"_id":accountId
                                };
@@ -55,7 +34,30 @@
         if ([employeeData.allKeys containsObject:@"employee_info"] && employeeData[@"employee_info"] != [NSNull null]) {
             NSDictionary *businessInfoData = employeeData[@"employee_info"];
             if ([businessInfoData.allKeys containsObject:@"biz_data_business_info"] && businessInfoData[@"biz_data_business_info"] != [NSNull null]) {
-                [accountModel setValuesForKeysWithDictionary:businessInfoData[@"biz_data_business_info"]];
+                NSMutableArray *platform_list = [[NSMutableArray alloc] init];
+                NSMutableArray *supplier_list = [[NSMutableArray alloc] init];
+                NSMutableArray *city_list = [[NSMutableArray alloc] init];
+                for (NSDictionary *platform in businessInfoData[@"biz_data_business_info"][@"platform_list"]) {
+                    PlatformModel *model = [[PlatformModel alloc] init];
+                    model.platform_code = platform.allKeys.firstObject;
+                    model.platform_name = platform.allValues.firstObject;
+                    [platform_list addObject:model];
+                }
+                accountModel.platform_list = [[NSArray alloc] initWithArray:platform_list];
+                for (NSDictionary *supplier in businessInfoData[@"biz_data_business_info"][@"supplier_list"]) {
+                    SupplierModel *model = [[SupplierModel alloc] init];
+                    model._id = supplier.allKeys.firstObject;
+                    model.name = supplier.allValues.firstObject;
+                    [supplier_list addObject:model];
+                }
+                accountModel.supplier_list = [[NSArray alloc] initWithArray:supplier_list];
+                for (NSDictionary *city in businessInfoData[@"biz_data_business_info"][@"city_list"]) {
+                    CityModel *model = [[CityModel alloc] init];
+                    model.city_code = city.allKeys.firstObject;
+                    model.city_name = city.allValues.firstObject;
+                    [city_list addObject:model];
+                }
+                accountModel.city_list = [[NSArray alloc] initWithArray:city_list];
             }
         }
         // 保存个人信息
