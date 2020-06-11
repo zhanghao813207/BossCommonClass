@@ -30,7 +30,7 @@
     if (@available(iOS 13.0, *)) {
         if (![self isKindOfClass:NSClassFromString(@"WalletPageVc")]){
             UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-                   [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
         }
        
     }
