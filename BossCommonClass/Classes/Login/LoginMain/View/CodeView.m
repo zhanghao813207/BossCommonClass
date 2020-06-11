@@ -18,7 +18,8 @@
 @property (nonatomic, strong) NSString *codeString;
 
 @property (nonatomic, assign) BOOL autoInputEnd;
-
+/// 解决调用删除时，第一次会调用两次的问题
+@property (nonatomic, assign) BOOL returnDelete;
 
 @end
 
@@ -96,11 +97,19 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    // 自动填充过程中
     if (!self.autoInputEnd && ![textField.text isEqualToString:@""]) {
         return NO;
     }
+    // 第一次自动填充时事件
     if (string.length > 1) {
         self.autoInputEnd = NO;
+        
+        [self isBecomeFirstResponder];
+        // 截取前6位
+        if (string.length >= self.textArray.count) {
+            string = [string substringWithRange:NSMakeRange(0, self.textArray.count)];
+        }
         
         for (NSInteger i = 0; i < string.length; i++) {
             NSRange strRang = NSMakeRange(i, 1);
@@ -111,11 +120,12 @@
             }
         }
         if (string.length == self.textArray.count){
+            // 填充完成，回调
             [self performSelector:@selector(inputEnd) withObject:nil afterDelay:0.25];
         } else {
             self.autoInputEnd = YES;
         }
-        return YES;
+        return NO;
     }
     if (textField.text.length >= 1 && ![string isEqualToString:@""]) {
         NSInteger index = textField.tag - 1000;
@@ -148,6 +158,12 @@
             UITextField *textField = self.textArray[index - 1];
             [textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:kDelayTime];
         }
+        /*
+         已填验证码大于一位时，第一次点击删除会删除两位(调用一遍shouldChangeCharactersInRange,再调用一遍textFieldDeleteBackward,正常删除只调用textFieldDeleteBackward),所以第一遍时，调用本方法后，拦截，使之不再调用textFieldDeleteBackward
+         */
+        if (index > 1) {
+            self.returnDelete = YES;
+        }
         return YES;
     }
     return YES;
@@ -156,11 +172,12 @@
 - (void)textFieldDeleteBackward:(JYCTextField *)textField
 {
     NSInteger index = textField.tag - 1000;
-    if (index > 0) {
+    if (index > 0 && self.returnDelete == NO) {
         JYCTextField *textField = self.textArray[index - 1];
         textField.text = @"";
         [textField becomeFirstResponder];
     }
+    self.returnDelete = NO;
 }
 
 - (void)inputEnd
