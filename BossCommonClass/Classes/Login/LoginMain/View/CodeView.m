@@ -161,9 +161,7 @@
         /*
          已填验证码大于一位时，第一次点击删除会删除两位(调用一遍shouldChangeCharactersInRange,再调用一遍textFieldDeleteBackward,正常删除只调用textFieldDeleteBackward),所以第一遍时，调用本方法后，拦截，使之不再调用textFieldDeleteBackward
          */
-        if (index > 1) {
-            self.returnDelete = YES;
-        }
+        self.returnDelete = YES;
         return YES;
     }
     return YES;
