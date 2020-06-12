@@ -43,11 +43,9 @@
     self.datePickManager.datePicker.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     PGDatePicker *datePicker = self.datePickManager.datePicker;
     self.datePickManager.headerViewBackgroundColor = [UIColor colorNamed:@"boss_FBFBFB_1A1A1A"];
-//    self.confirmButtonTextColor
     datePicker.datePickerMode = PGDatePickerModeYearAndMonth;
-    NSDate *date =[NSDate date];//简书 FlyElephant
+    NSDate *date =[NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-
     [formatter setDateFormat:@"yyyy"];
     // 最大年份为当前年份
     int currentYear = [[formatter stringFromDate:date] intValue];
@@ -70,12 +68,9 @@
     datePicker.minimumDate = minDate;
     __weak typeof(self) weakSelf = self;
     datePicker.selectedDate = ^(NSDateComponents *dateComponents) {
-//        NSLog(@"dateComponents = %.d", dateComponents.month);
-//        NSLog(@"dateComponents = %.2d", dateComponents.year);
         weakSelf.currentYear = [NSString stringWithFormat:@"%ld",  dateComponents.year];
         weakSelf.currentMouth = [NSString stringWithFormat:@"%.2ld",  dateComponents.month];
         weakSelf.selectedTimeView.selectTimeStr = [NSString stringWithFormat:@"%@-%@",weakSelf.currentYear,weakSelf.currentMouth];
-        //        NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@",year,mouth]];
         NSString *url = [weakSelf.baseUrl stringByAppendingString:[NSString stringWithFormat:@"&date=%@%@&biz_district_id=%@",weakSelf.currentYear,weakSelf.currentMouth,weakSelf.currentBizDistrictId]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
         [weakSelf.webView loadRequest:request];
