@@ -14,6 +14,7 @@
 #import "BOOpenSelectbusinessDistrictView.h"
 #import "PGDatePickManager.h"
 #import "MaskView.h"
+#import "ZFJCacheProtocol.h"
 
 @interface BOOperatCompassVC ()<WKUIDelegate,WKNavigationDelegate>
 
@@ -88,6 +89,7 @@
 {
     [super viewDidLoad];
 //    [self pickDateCreate];
+    [ZFJCacheProtocol startMonitorRequest:ZFJCacheAllType];
     self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     
     self.timer = [NSTimer timerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
@@ -260,6 +262,7 @@
 {
     [super viewWillDisappear:animated];
     [self.openSelectView  remove];
+    [ZFJCacheProtocol cancelMonitorRequest];
     self.timer = nil;
 }
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
