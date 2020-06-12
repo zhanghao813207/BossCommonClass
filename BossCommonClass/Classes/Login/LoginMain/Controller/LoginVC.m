@@ -79,7 +79,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_000000"];
     self.navigationItem.leftBarButtonItem = nil;
     [self.view addSubview:self.BGView];
     
@@ -308,7 +308,7 @@
 {
     if (!_BGView) {
         _BGView = [[UIView alloc] initWithFrame:self.view.bounds];
-        _BGView.backgroundColor = [UIColor whiteColor];
+        _BGView.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_000000"];
         [_BGView addSubview:self.appLogoImageView];
         [_BGView addSubview:self.inputMerchantCodeView];
         [_BGView addSubview:self.inputPhoneNumberView];
@@ -629,7 +629,7 @@
     if (!_backBarButtonItem) {
         _backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(backBarButtonItemAction:)];
         
-        [_backBarButtonItem setTintColor:kHexRGBA(0x000000, 0.8)];
+        [_backBarButtonItem setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
     }
     return _backBarButtonItem;
 }
