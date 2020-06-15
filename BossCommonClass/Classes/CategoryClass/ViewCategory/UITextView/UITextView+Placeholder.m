@@ -9,6 +9,8 @@
 #import "UITextView+Placeholder.h"
 #import <objc/runtime.h>
 #import "BossBasicDefine.h"
+#define TextColor [UIColor colorNamed:@"boss_C1C1C1_FFFFFF-90"]
+#define PlaceHolderColor [UIColor colorNamed:@"boss_C1C1C1_FFFFFF-40"]
 static const void *placeHolderKey = &placeHolderKey;
 static const void *characterCountKey = &characterCountKey;
 static const void *characterLabelKey = &characterLabelKey;
@@ -25,12 +27,12 @@ static const void *characterLabelKey = &characterLabelKey;
     textView.placeHolder = placeHolder;
     textView.characterCount = count;
     textView.delegate = textView;
-    textView.backgroundColor = [UIColor whiteColor];
+    textView.backgroundColor = [UIColor colorNamed:@"boss_FFFFFF_2B2B2B"];
     textView.layer.masksToBounds = YES;
     textView.layer.borderWidth = .5;
-    textView.layer.borderColor = kHexRGB(0xdfdfdf).CGColor;
+    textView.layer.borderColor = [UIColor colorNamed:@"boss_DFDFDF_2B2B2B"].CGColor;
     textView.layer.cornerRadius = 2.0;
-    textView.textColor = kHexRGB(0xc1c1c1);
+    textView.textColor = PlaceHolderColor;
     textView.text = placeHolder;
     textView.font = BossFont(14.f);
     
@@ -48,6 +50,16 @@ static const void *characterLabelKey = &characterLabelKey;
                                               object:textView];
 //    [textView addSubview:countLabel];
     return textView;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (@available(iOS 12.0, *)) {
+        if (previousTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.layer.borderColor = kHexRGB(0xdfdfdf).CGColor;
+        }else {
+            self.layer.borderColor = kHexRGB(0x2B2B2B).CGColor;
+        }
+    }
 }
 
 #pragma mark private
@@ -70,7 +82,7 @@ static const void *characterLabelKey = &characterLabelKey;
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     if ([[textView.text stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@""] || [[textView.text stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:self.placeHolder]){
-        textView.textColor = kHexRGB(0xc1c1c1);
+        textView.textColor = PlaceHolderColor;
         textView.text = self.placeHolder;
         
         [self resetInputLocation];
@@ -85,7 +97,7 @@ static const void *characterLabelKey = &characterLabelKey;
                                                      withString:@""] isEqualToString:self.placeHolder]){
         
         [textView setSelectedRange:NSMakeRange(0, 0)];
-        textView.textColor = kHexRGB(0xc1c1c1);
+        textView.textColor = PlaceHolderColor;
         textView.text = self.placeHolder;
         
         [self resetInputLocation];
@@ -101,7 +113,7 @@ static const void *characterLabelKey = &characterLabelKey;
     }
     
     string = [textView.text stringByReplacingCharactersInRange:range withString:text];
-    textView.textColor = kHexRGBA(0x000000, 0.8);
+    textView.textColor = TextColor;
     
     return YES;
 }
@@ -125,7 +137,7 @@ static const void *characterLabelKey = &characterLabelKey;
         || [[textView.text stringByReplacingOccurrencesOfString:@" "
                                                   withString:@""] isEqualToString:self.placeHolder]){
         
-        textView.textColor = kHexRGB(0xc1c1c1);
+        textView.textColor = PlaceHolderColor;
         textView.text = self.placeHolder;
     }
 }

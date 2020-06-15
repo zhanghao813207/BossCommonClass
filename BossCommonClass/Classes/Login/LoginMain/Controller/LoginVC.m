@@ -330,7 +330,7 @@
         // 图片大小 111*88
         _appLogoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 111) / 2.0, 0, 111, 88)];
         _appLogoImageView.image = [UIImage imageNamed:@"appLaunchLogo"];
-        
+        _appLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
         // 手机显示图标，ipad隐藏图标。
         _appLogoImageView.hidden = !IS_ON_IPHONE;
     }

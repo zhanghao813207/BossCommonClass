@@ -93,7 +93,7 @@
 - (UIColor *)BGColor
 {
     if (!_BGColor) {
-        _BGColor = kHexRGB(0xf4f4f4);
+        _BGColor = [UIColor colorNamed:@"boss_F4F4F4_1A1A1A"];
     }
     return _BGColor;
 }
