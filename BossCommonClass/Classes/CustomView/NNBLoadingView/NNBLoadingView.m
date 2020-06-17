@@ -129,7 +129,7 @@
 {
     if (!_backGroundView) {
         UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((kCurrentViewWidth - kCurrentWidth(150)) / 2.0, (kCurrentViewHeight - kCurrentWidth(150)) / 2.0, kCurrentWidth(150), kCurrentWidth(150))];
-        backGroundView.backgroundColor = kHexRGBA(0x000000, 0.6);
+        backGroundView.backgroundColor = [UIColor colorNamed:@"boss_000000-60_303030"];
         backGroundView.layer.cornerRadius = 2.f;
         
         [backGroundView addSubview:self.loadingImageView];
