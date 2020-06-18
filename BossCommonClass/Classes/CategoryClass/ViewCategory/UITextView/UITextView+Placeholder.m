@@ -53,6 +53,7 @@ static const void *characterLabelKey = &characterLabelKey;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
     if (@available(iOS 12.0, *)) {
         if (previousTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             self.layer.borderColor = kHexRGB(0xdfdfdf).CGColor;
