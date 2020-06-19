@@ -632,4 +632,9 @@ typedef NS_ENUM(NSInteger, TeamInfo) {
     TeamInfoExit                = -100,   // 退出团队
 };
 
+typedef NS_ENUM(NSInteger, QuestionnaireState) {
+    QuestionnaireStateWaitDo              =  1,    //未提交
+    QuestionnaireStateDone                = 100,   // 已提交
+};
+
 #endif /* BossEnumDefin_h */
