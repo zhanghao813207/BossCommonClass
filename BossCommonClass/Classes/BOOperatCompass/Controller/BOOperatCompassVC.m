@@ -107,7 +107,7 @@
              int currentYear = [[formatter stringFromDate:date] intValue];
              [formatter setDateFormat:@"MM"];
              // 最大时间为当前月份 -1
-             int currentMonth = [[formatter stringFromDate:date] intValue] - 1;
+             int currentMonth = [[formatter stringFromDate:date] intValue];
              
              
              self.baseUrl = [dic objectForKey:@"url"];
@@ -226,7 +226,7 @@
         
         [formatter setDateFormat:@"MM"];
         // 获取月份
-        endIndex = [[formatter stringFromDate:date] intValue] - 1;
+        endIndex = [[formatter stringFromDate:date] intValue];
     }
     
     for (int i = startIndex; i < endIndex; i++) {
