@@ -637,4 +637,9 @@ typedef NS_ENUM(NSInteger, QuestionnaireState) {
     QuestionnaireStateDone                = 100,   // 已提交
 };
 
+typedef NS_ENUM(NSInteger, OrderType) {
+    OrderTypeIn              =  1,    //顺序
+    OrderTypeDe              = -1,    //逆序
+};
+
 #endif /* BossEnumDefin_h */
