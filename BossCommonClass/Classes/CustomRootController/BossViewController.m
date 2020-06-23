@@ -48,7 +48,7 @@
     #ifdef kBossOwner
         self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     #else
-         self.view.backgroundColor = kBossBGColor;
+         self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
     #endif
     self.packUpKeybordEnable = YES;
 
@@ -62,7 +62,7 @@
 #ifdef kBossKnight
     [buttonItem_back setTintColor:kAppMainColor];
 #elif defined kBossManager
-    [buttonItem_back setTintColor:kHexRGB(0x06041D)];
+    [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
 #else
     [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
 #endif
