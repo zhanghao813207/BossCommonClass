@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, AnimationStatus) {
 {
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth / 6.0, (self.height - 35) / 2.0, kScreenWidth * 2 / 3.0, 35)];
-        _contentView.backgroundColor = kHexRGBA(0x000000, 0.6);
+        _contentView.backgroundColor = [UIColor colorNamed:@"boss_000000-60_303030"];
         _contentView.layer.cornerRadius = 4.f;
         [_contentView addSubview:self.statusLabel];
     }
