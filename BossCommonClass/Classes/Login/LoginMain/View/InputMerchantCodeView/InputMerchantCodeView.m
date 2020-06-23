@@ -130,7 +130,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
         NSMutableAttributedString *placeholderAttString = [[NSMutableAttributedString alloc] initWithString:@"请输入商户号"];
         [placeholderAttString addAttributes:@{NSFontAttributeName:BossRegularFont(25.f)} range:NSMakeRange(0, placeholderAttString.length)];
         _merchantCodeTextField.attributedPlaceholder = placeholderAttString;
-        _merchantCodeTextField.textColor = kHexRGBA(0x0000000, 0.8);
+        _merchantCodeTextField.textColor = [UIColor colorNamed:@"boss_000000-80_FFFFFF-80"];
         _merchantCodeTextField.delegate = self;
         _merchantCodeTextField.keyboardType = UIKeyboardTypeDefault;
         _merchantCodeTextField.tintColor = kAppMainColor;
@@ -142,7 +142,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
 {
     if (!_line) {
         _line = [[UIView alloc] init];
-        _line.backgroundColor = kHexRGBA(0x000000, 0.2);
+        _line.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
     }
     return _line;
 }
@@ -153,7 +153,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
         _errorNoticeLabel = [[UILabel alloc] init];
         _errorNoticeLabel.text = @"错误";
         _errorNoticeLabel.font = BossRegularFont(12.f);
-        _errorNoticeLabel.textColor = kHexRGBA(0xD0021B, 0.4);
+        _errorNoticeLabel.textColor = [UIColor colorNamed:@"boss_D0021B-40_FF2729"];
         _errorNoticeLabel.hidden = YES;
     }
     return _errorNoticeLabel;
@@ -166,6 +166,7 @@ CGFloat const kInputMerchantCodeViewHeight = 240;
         _nextStepButton = [NNBButton buttonWithFrame:CGRectMake(0, Y, kScreenWidth, 47)];
         _nextStepButton.clickEnable = NO;
         [_nextStepButton setTitle:@"下一步" forState:UIControlStateNormal];
+        _nextStepButton.backgroundColor = [UIColor colorNamed:@"boss_479CFF_0087FF"];
         [_nextStepButton addTarget:self action:@selector(nextStepButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextStepButton;
