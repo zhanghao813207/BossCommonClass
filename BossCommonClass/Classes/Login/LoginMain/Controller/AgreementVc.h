@@ -9,9 +9,15 @@
 #import "BossViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AgreementBackBlock)(void); //返回
+
 @interface AgreementVc : BossViewController
 
 @property (nonatomic, strong) NSString *url;
+
+@property (nonatomic, assign) BOOL isAddPresent;
+
+@property (nonatomic, copy) AgreementBackBlock backBlock;
 
 @end
 

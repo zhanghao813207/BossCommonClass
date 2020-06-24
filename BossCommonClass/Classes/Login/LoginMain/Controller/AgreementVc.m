@@ -9,20 +9,27 @@
 #import "BossConstDataDefine.h"
 #import "AFHTTPSessionManager.h"
 #import <WebKit/WebKit.h>
+#import "JYCMethodDefine.h"
 
-@interface AgreementVc ()
+@interface AgreementVc ()<WKNavigationDelegate, WKUIDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
 @implementation AgreementVc
+
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
     [self.navigationController setToolbarHidden:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.isAddPresent){
+        [self setBackItem];
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
     UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
@@ -31,16 +38,71 @@
     if (!self.url) {
         self.url = AGREEMENTURL;
     }
-//    CGRect bounds = [[UIScreen mainScreen]applicationFrame];
-    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    webView.backgroundColor = [UIColor whiteColor];
+    CGFloat webviewHeight = kScreenHeight - 64;
+    if (kIsiPhoneX){
+        webviewHeight = kScreenHeight - 64 - 34;
+    }
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, webviewHeight)];
+    self.webView.backgroundColor = [UIColor whiteColor];
+    self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
 //    webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
     NSURL* url = [NSURL URLWithString: self.url];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
-    [webView loadRequest:request];//加载
-    [self.view addSubview:webView];
+    [self.webView loadRequest:request];//加载
+    [self.view addSubview:self.webView];
 }
 
+-(void)setBackItem
+{
+    UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
+    [buttonItem_back setTintColor:[UIColor blackColor]];
+    self.navigationItem.leftBarButtonItem = buttonItem_back;
+}
+
+
+- (void)popToLastViewController:(UIBarButtonItem *)sender
+{
+    if (self.backBlock){
+        self.backBlock();
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
+#pragma mark - Web代理
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
+    // 加载成功后暗黑适配
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            [self changeThemeToType:@"dark"];
+        }else {
+            [self changeThemeToType:@"light"];
+        }
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 12.0, *)) {
+        if (previousTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            [self changeThemeToType:@"light"];
+        }else {
+            [self changeThemeToType:@"dark"];
+        }
+    }
+}
+
+// 切换黑白主题
+- (void)changeThemeToType:(NSString *)style {
+    if ([style isEqualToString:@"dark"]) {
+        [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#F8F8FF'" completionHandler:nil];
+        [self.webView evaluateJavaScript:@"document.body.style.backgroundColor=\"#1E1E1E\"" completionHandler:nil];
+    }else {
+        [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#000000'" completionHandler:nil];
+        [self.webView evaluateJavaScript:@"document.body.style.backgroundColor=\"#FFFFFF\"" completionHandler:nil];
+    }
+}
 /*
 #pragma mark - Navigation
 

@@ -67,7 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     self.packUpKeybordEnable = false;
     if(!self.isShowSelectBar){
         self.navigationItem.leftBarButtonItem = nil;
@@ -108,6 +108,7 @@
     // 是否启动UMS
     if(!kCache.checkStartUMS){
         [self.tableview.mj_header endRefreshing];
+        [self judgeEmptyView];
         return;
     }
     
@@ -152,7 +153,8 @@
             self.tableview.mj_header = nil;
         }
     }];
-    
+    // 判断是否添加空页面
+    [self judgeEmptyView];
 }
 
 - (void)handleFailed {
@@ -164,6 +166,17 @@
             self.tableview.mj_header = nil;
         }
     }];
+    // 判断是否添加空页面
+    [self judgeEmptyView];
+}
+
+/// 判断是否添加空页面
+- (void)judgeEmptyView {
+    if (self.arrM.count > 0) {
+        self.tableview.tableFooterView = [[UIView alloc] init];
+    }else {
+        self.tableview.tableFooterView = self.emptyView;
+    }
 }
 
 - (void)refreshMoreData {

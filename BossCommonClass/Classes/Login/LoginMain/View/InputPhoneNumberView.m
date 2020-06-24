@@ -90,6 +90,11 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         return;
     }
     BOOL isPhone = [JYCSimpleToolClass isPhoneStringWithString:phone];
+#ifdef DEBUG
+    if ([[phone substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"]) {
+        isPhone = YES;
+    }
+#endif
     if (!isPhone) {
         self.errorNoticeLabel.hidden = NO;
         return;
@@ -189,7 +194,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
     if(!_merchantCodeLabel){
         // CGFloat Y = IsPhone_Size_4 ? 34 : 70;
         _merchantCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kScreenWidth - 40, 18)];
-        _merchantCodeLabel.textColor = kHexRGB(0x0B0817);
+        _merchantCodeLabel.textColor = [UIColor colorNamed:@"boss_0B0817_FFFFFF"];
         _merchantCodeLabel.font = BossRegularFont(18.f);
         // _merchantCodeLabel.text = @"123456";
         
@@ -201,7 +206,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 {
     if(!_merchantNameLabel){
         _merchantNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.merchantCodeLabel.frame) + 10, kScreenWidth - 40, 14)];
-        _merchantNameLabel.textColor = kHexRGBA(0x0B0817, 0.8);
+        _merchantNameLabel.textColor = [UIColor colorNamed:@"boss_0B0817-80_FFFFFF-80"];
         _merchantNameLabel.font = BossFont(14.f);
         // _merchantNameLabel.text = @"上海易继达科技有限公司";
     }
@@ -220,7 +225,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         //设置label的富文本
         [_privacyBtn addTarget:self action:@selector(privacyAction) forControlEvents:UIControlEventTouchUpInside];
         [_privacyBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_privacyBtn setTitleColor:kHexRGB(0x3589DE) forState:UIControlStateNormal];
+        [_privacyBtn setTitleColor:[UIColor colorNamed:@"boss_3589DE_3589DE-79"] forState:UIControlStateNormal];
         [_privacyBtn setTitle:@"隐私政策" forState:UIControlStateNormal];
         _privacyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
@@ -231,25 +236,18 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 
 - (UIButton *)agreementLabel{
     if (!_agreementLabel) {
-//       #ifdef kBossKnight
-//        NSString *str = @"";
-        //创建NSMutableAttributedString
-//        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:AGREEMENTTITLE];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:@"点击下一步即代表您已同意 软件许可及服务协议 和 "];
-
-//        UITapGestureRecognizer *tapRecognizerWeibo =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doIt:)];
-//        _agreementLabel.userInteractionEnabled = YES;
-//        [_agreementLabel addGestureRecognizer: tapRecognizerWeibo];
         //设置字体和设置字体的范围
         [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(0, attrStr.length)];
         //添加文字颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(1, 12)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(13, 9)];
-//        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x000000) range:NSMakeRange(15, 1)];
-//        [attrStr addAttribute:NSForegroundColorAttributeName value:kHexRGB(0x3589DE) range:NSMakeRange(16, 4)];
+        // 点击下一步即代表您已同意
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorNamed:@"boss_000000_FFFFFF-40"] range:NSMakeRange(0, 13)];
+        // 软件许可及服务协议
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorNamed:@"boss_3589DE_3589DE-79"] range:NSMakeRange(13, 9)];
+        // 和
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorNamed:@"boss_000000_FFFFFF-40"] range:NSMakeRange(23, 1)];
         //添加文字背景颜色
         _agreementLabel = [[UIButton alloc]initWithFrame:CGRectMake(20, self.nextStepButton.frame.origin.y - 30, 280, 13)];
-//        _agreementLabel.backgroundColor = [UIColor redColor];
         //设置label的富文本
         _agreementLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_agreementLabel addTarget:self action:@selector(doIt:) forControlEvents:UIControlEventTouchUpInside];
@@ -281,7 +279,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         NSMutableAttributedString *placeholderAttString = [[NSMutableAttributedString alloc] initWithString:@"请输入手机号码"];
         [placeholderAttString addAttributes:@{NSFontAttributeName:BossRegularFont(25.f)} range:NSMakeRange(0, placeholderAttString.length)];
         _phoneTextField.attributedPlaceholder = placeholderAttString;
-        _phoneTextField.textColor = kHexRGBA(0x0000000, 0.8);
+        _phoneTextField.textColor = [UIColor colorNamed:@"boss_000000-80_FFFFFF-80"];
         _phoneTextField.delegate = self;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.tintColor = kAppMainColor;
@@ -293,7 +291,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 {
     if (!_line) {
         _line = [[UIView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.phoneTextField.frame) + 10, kScreenWidth - 40, 1)];
-        _line.backgroundColor = kHexRGBA(0x000000, 0.2);
+        _line.backgroundColor = [UIColor colorNamed:@"boss_000000-20_FFFFFF-20"];
     }
     return _line;
 }
@@ -304,7 +302,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         _errorNoticeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.line.frame) + 10, kScreenWidth - 40, 17)];
         _errorNoticeLabel.text = @"您的手机号格式不正确";
         _errorNoticeLabel.font = BossRegularFont(12.f);
-        _errorNoticeLabel.textColor = kHexRGBA(0xD0021B, 0.4);
+        _errorNoticeLabel.textColor = [UIColor colorNamed:@"boss_D0021B-40_FF2729"];
         _errorNoticeLabel.hidden = YES;
     }
     return _errorNoticeLabel;
@@ -317,6 +315,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
         _nextStepButton = [NNBButton buttonWithFrame:CGRectMake(0, Y, kScreenWidth, 47)];
         _nextStepButton.clickEnable = NO;
         [_nextStepButton setTitle:@"下一步" forState:UIControlStateNormal];
+        _nextStepButton.backgroundColor = [UIColor colorNamed:@"boss_479CFF_0087FF"];
         [_nextStepButton addTarget:self action:@selector(nextStepButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextStepButton;

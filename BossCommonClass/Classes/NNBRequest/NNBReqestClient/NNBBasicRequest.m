@@ -229,9 +229,9 @@
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
-                if(!kCurrentBossOwnerAccount){
-                    return;
-                }
+//                if(!kCurrentBossOwnerAccount){
+//                    return;
+//                }
                 kCurrentBossOwnerAccount = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
@@ -265,8 +265,10 @@
         } else {
             [currentVc.navigationController popToRootViewControllerAnimated:YES];
         }
-        
-        if([rootVc isKindOfClass:NSClassFromString(@"ViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MessageVc")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
+        if ([rootVc isKindOfClass:NSClassFromString(@"AccountManagerController")] || [rootVc isKindOfClass:NSClassFromString(@"LoginVC")]) {
+            return;
+        }
+        if([rootVc isKindOfClass:NSClassFromString(@"AddressBookVC")] || [rootVc isKindOfClass:NSClassFromString(@"MessageViewController")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
             [rootVc viewWillAppear:YES];
         }
     }

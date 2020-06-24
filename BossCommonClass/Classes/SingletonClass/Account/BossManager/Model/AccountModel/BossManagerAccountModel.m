@@ -59,16 +59,17 @@
         return;
     }
     
-    if ([key isEqualToString:@"biz_district_list"]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSDictionary *dic in value) {
-            BizDistrictModel *model = [[BizDistrictModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [array addObject:model];
-        }
-        self.biz_district_list = [array copy];
-        return;
-    }
+//    if ([key isEqualToString:@"biz_district_list"]) {
+//        NSMutableArray *array = [NSMutableArray array];
+//        for (NSDictionary *dic in value) {
+//            BizDistrictModel *model = [[BizDistrictModel alloc] init];
+//            [model setValuesForKeysWithDictionary:dic];
+//            [array addObject:model];
+//        }
+//        self.biz_district_list = [array copy];
+//        return;
+//    }
+    
 //    if ([key isEqualToString:@"config"]) {
 //        NSDictionary *dic = value;
 //        self.configModel = [[configModel alloc] initWithDictionary:dic];
@@ -77,6 +78,11 @@
 
     [super setValue:value forKey:key];
 }
+
+//-(BOOL)safeAuth{
+//    NSString *safeKey = [NSString stringWithFormat:@"%@safeAuthAgree",self._id];
+//   return  [[NSUserDefaults standardUserDefaults] valueForKey:safeKey];
+//}
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
@@ -94,7 +100,7 @@
                                           @"state":@(self.state),
                                           @"position_id":@(self.position_id),
                                           @"gid":@(self.gid),
-                                          
+                                          @"is_admin":@(self.is_admin),
                                           @"phone":self.phone ? : @"",
                                           @"staff_id":self.staff_id ? : @"",
                                           @"name":self.name ? : @"",
@@ -104,10 +110,8 @@
                                           @"created_at":self.created_at ? : @"",
                                           @"operator_name":self.operator_name ? : @"",
                                           @"_id":self._id ? : @"",
-                               
                                           @"supplier_cascade_list":self.supplier_cascade_list ? : @[],
                                           @"city_cascade_list":self.city_cascade_list ? : @[],
-                                          
                                           @"permission": [JYCSimpleToolClass encodeArrayToArray:self.permission],
                                           @"city_list": [JYCSimpleToolClass encodeArrayToArray:self.city_list],
                                           @"platform_list": [JYCSimpleToolClass encodeArrayToArray:self.platform_list],

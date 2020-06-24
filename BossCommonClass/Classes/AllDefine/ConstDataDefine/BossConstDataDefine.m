@@ -149,23 +149,22 @@ NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?
 #ifdef kBossOwner
 // 当家
 NSString *const APPSTOREID = @"1466744567";
+NSString *const BUNDLEID = @"com.qlife.owner";
 
 #elif defined kBossKnight
 // 骑士
 NSString *const APPSTOREID = @"1391525314";
 uint32_t const XINGEACCESSID = 2200349479;
 NSString *const XINGEACCESSKEY = @"IIKF1I6821KB";
+NSString *const BUNDLEID = @"com.OuKeYun.BossKnight";
 
 #elif defined kBossManager
 //之家
 NSString *const APPSTOREID = @"1425789658";
 uint32_t const XINGEACCESSID = 2200351693;
 NSString *const XINGEACCESSKEY = @"IB34AA2D57XT";
-#else
-// 当家
-NSString *const APPSTOREID = @"1466744567";
-uint32_t const XINGEACCESSID = 2200353347;
-NSString *const XINGEACCESSKEY = @"I51AIF7GW69D";
+NSString *const BUNDLEID = @"com.OuKeYun.BossManager";
+
 #endif
 
 BOOL const kIsAlertPassword = NO;
