@@ -43,9 +43,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
-
+    #ifdef kBossOwner
+        self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+    #else
+         self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
+    #endif
     self.packUpKeybordEnable = YES;
 
     self.navigationItem.leftBarButtonItem = [self customCommentLeftBarButtonItem];
@@ -56,6 +58,7 @@
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
      [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
+
     _customCommentLeftBarButtonItem = buttonItem_back;
     return _customCommentLeftBarButtonItem;
 }

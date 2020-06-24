@@ -67,7 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+    self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     self.packUpKeybordEnable = false;
     if(!self.isShowSelectBar){
         self.navigationItem.leftBarButtonItem = nil;

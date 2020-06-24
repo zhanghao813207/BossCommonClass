@@ -205,7 +205,7 @@ CGFloat const kInputCodeViewHeight = 242;
         _voiceCodeButton.frame = CGRectMake(20, y, kScreenWidth - 40, 14);
         _voiceCodeButton.titleLabel.font = BossRegularFont(14.f);
         [_voiceCodeButton setTitle:@"收不到验证码？试一试语音验证码" forState:UIControlStateNormal];
-        [_voiceCodeButton setTitleColor: [UIColor colorNamed:@"boss_000000_FFFFFF"] forState:UIControlStateNormal];
+        [_voiceCodeButton setTitleColor: [UIColor colorNamed:@"boss_000000_FFFFFF-40"] forState:UIControlStateNormal];
         [_voiceCodeButton setImage:[[UIImage imageNamed:@"voiceIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         _voiceCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         CGFloat width = IsPhone_Size_4 ? 15 * 12 + 5 : 15 * 14 + 5;

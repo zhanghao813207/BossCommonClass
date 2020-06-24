@@ -11,7 +11,9 @@
 #import <WebKit/WebKit.h>
 #import "JYCMethodDefine.h"
 
-@interface AgreementVc ()
+@interface AgreementVc ()<WKNavigationDelegate, WKUIDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
@@ -40,13 +42,15 @@
     if (kIsiPhoneX){
         webviewHeight = kScreenHeight - 64 - 34;
     }
-    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, webviewHeight)];
-    webView.backgroundColor = [UIColor whiteColor];
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, webviewHeight)];
+    self.webView.backgroundColor = [UIColor whiteColor];
+    self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
 //    webView.scalesPageToFit = YES;//自动对页面进行缩放以适应屏幕
     NSURL* url = [NSURL URLWithString: self.url];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
-    [webView loadRequest:request];//加载
-    [self.view addSubview:webView];
+    [self.webView loadRequest:request];//加载
+    [self.view addSubview:self.webView];
 }
 
 -(void)setBackItem
@@ -65,5 +69,48 @@
     [self.navigationController popViewControllerAnimated:YES];
 
 }
+
+#pragma mark - Web代理
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
+    // 加载成功后暗黑适配
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            [self changeThemeToType:@"dark"];
+        }else {
+            [self changeThemeToType:@"light"];
+        }
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 12.0, *)) {
+        if (previousTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            [self changeThemeToType:@"light"];
+        }else {
+            [self changeThemeToType:@"dark"];
+        }
+    }
+}
+
+// 切换黑白主题
+- (void)changeThemeToType:(NSString *)style {
+    if ([style isEqualToString:@"dark"]) {
+        [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#F8F8FF'" completionHandler:nil];
+        [self.webView evaluateJavaScript:@"document.body.style.backgroundColor=\"#1E1E1E\"" completionHandler:nil];
+    }else {
+        [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#000000'" completionHandler:nil];
+        [self.webView evaluateJavaScript:@"document.body.style.backgroundColor=\"#FFFFFF\"" completionHandler:nil];
+    }
+}
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
