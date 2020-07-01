@@ -315,6 +315,13 @@ typedef NS_ENUM(NSInteger, COST_ORDER_STATE) {
     COST_ORDER_STATE_INIT    =    1, // 待提交
 };
 
+// 费用单类型
+typedef NS_ENUM(NSInteger, ApplicationSubType) {
+    ApplicationSubTypeNormal    =   1,  // 正常费用单
+    ApplicationSubTypeRefund    =  10,  // 退款费用单
+    ApplicationSubTypeRedPush   =  20,  // 红冲费用单
+};
+
 // 成本归属分摊模式
 typedef NS_ENUM(NSUInteger, ALLOCATION_MODE) {
     ALLOCATION_MODE_BALANCE  =  6, // 平均分摊
