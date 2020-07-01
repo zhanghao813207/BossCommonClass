@@ -732,7 +732,7 @@ static int textLength = 30;
     if (_containerView == nil) {
         _containerView = [[UIView alloc] init];
         _containerView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
-        UITapGestureRecognizer *selectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
+        UITapGestureRecognizer *selectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectReceiver)];
         [_containerView addGestureRecognizer:selectGesture];
         [self.contentView addSubview:_containerView];
         [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -747,7 +747,7 @@ static int textLength = 30;
 /**
  打开
  */
-- (void)select {
+- (void)selectReceiver {
 #ifdef kBossManager
     SelectContactVc *vc = [SelectContactVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
     vc.contentArr = self.contentArr;
@@ -775,7 +775,7 @@ static int textLength = 30;
     //    [self.viewController.navigationController pushViewController:vc animated:true];
 }
 //AddressBookVCDelegate
-- (void)select:(NSArray *)modelArr {
+- (void)selectModelDelegate:(NSArray *)modelArr {
     self.model.members = modelArr;
     self.selectLabel.textColor = [UIColor colorNamed:@"boss_000000-90_FFFFFF-90"];
     self.selectLabel.text = @"已选择 >";
