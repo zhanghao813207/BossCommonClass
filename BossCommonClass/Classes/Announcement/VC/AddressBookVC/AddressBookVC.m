@@ -204,8 +204,8 @@
      //    }*/
     NSLog(@"%@",self.selectArrM);
     if (self.selectArrM.count > 0) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(select:)]) {
-            [self.delegate select:self.selectArrM];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(selectModelDelegate:)]) {
+            [self.delegate selectModelDelegate:self.selectArrM];
         }
         [self.navigationController popViewControllerAnimated:true];
     }else {
