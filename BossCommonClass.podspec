@@ -71,5 +71,5 @@ these are common classes,they are used by boss system.
   s.dependency 'Realm', '~> 3.17.0'
   s.dependency 'IQKeyboardManager'
   
-#  s.dependency 'WSDatePickerView'
+  s.dependency 'YYCache'
 end
