@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param modelArr 选中的数组
  */
-- (void)select:(NSArray *)modelArr;
+- (void)selectModelDelegate:(NSArray *)modelArr;
 
 @end
 @interface AddressBookVC : BossViewController
