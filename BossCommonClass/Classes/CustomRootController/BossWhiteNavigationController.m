@@ -29,7 +29,7 @@
     }
     #if kBossKnight
         //默认显示
-     self.hasLine = false;
+     self.hasLine = true;
     #else
       //设置navigationBar背景色
      //默认不显示
