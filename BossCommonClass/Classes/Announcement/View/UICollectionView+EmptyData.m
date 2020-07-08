@@ -14,7 +14,9 @@
 - (void)collectionViewDisplayWitMsg:(NSString *)message imageName:(NSString *)imgName ifNecessaryForRowCount:(NSUInteger)rowCount{
     if (rowCount == 0) {
         UIView *noDataView = [[UIView alloc] init];
-        noDataView.backgroundColor = [UIColor whiteColor];
+//        noDataView.backgroundColor = [UIColor whiteColor];
+        noDataView.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+
         self.backgroundView = noDataView;
         UIImageView *imgView = [[UIImageView alloc] init];
         UIImage *image = [UIImage imageNamed:@"NoDataIcon"];
