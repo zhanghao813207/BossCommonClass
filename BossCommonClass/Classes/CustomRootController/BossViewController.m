@@ -28,23 +28,21 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     if (@available(iOS 13.0, *)) {
-        UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-    
-        [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+        if (![self isKindOfClass:NSClassFromString(@"WalletPageVc")]){
+            UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
+            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+        }
+       
     }
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
-    
     UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-    
-    
     [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     #ifdef kBossOwner
         self.view.backgroundColor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
     #else
@@ -59,13 +57,8 @@
 - (UIBarButtonItem *)customCommentLeftBarButtonItem
 {
     UIBarButtonItem *buttonItem_back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"popBack"] style:UIBarButtonItemStyleDone target:self action:@selector(popToLastViewController:)];
-#ifdef kBossKnight
-    [buttonItem_back setTintColor:kAppMainColor];
-#elif defined kBossManager
-    [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
-#else
-    [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
-#endif
+     [buttonItem_back setTintColor:[UIColor colorNamed:@"navbackicon_06041D_8E8C96"]];
+
     _customCommentLeftBarButtonItem = buttonItem_back;
     return _customCommentLeftBarButtonItem;
 }
