@@ -27,14 +27,14 @@
         self.delegate = self;
         self.interactivePopGestureRecognizer.enabled = YES;
     }
-
-    //设置navigationBar的字体
-    
-    
-    //设置navigationBar背景色
-    //默认不显示
-    self.hasLine = false;
-
+    #if kBossKnight
+        //默认显示
+     self.hasLine = true;
+    #else
+      //设置navigationBar背景色
+     //默认不显示
+     self.hasLine = false;
+    #endif
     self.navigationBar.translucent = NO;
 }
 
