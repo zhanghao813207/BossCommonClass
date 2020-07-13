@@ -6,6 +6,7 @@
 //
 
 #import "BossOwnerAccount.h"
+//@import 
 
 @implementation BossOwnerAccount
 
@@ -18,7 +19,9 @@
     }
     return @{};
 }
-
+- (void)setAccountModel:(BossOwnerUserModel *)accountModel{
+    
+}
 - (void)setValue:(id)value forKey:(NSString *)key
 {
     if (!value || value == [NSNull null]) {

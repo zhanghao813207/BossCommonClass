@@ -159,6 +159,7 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     
 	if(![dictionary[kBossOwnerUserModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kBossOwnerUserModelAccessToken];
+        
         YYCache *cache = [[YYCache alloc] initWithName: @"QH"];
         [cache setObject:self.accessToken forKey: @"accessToken"];
 	}
