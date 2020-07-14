@@ -199,6 +199,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_WORK_FLOW_CHANGES_TYPE                      = 105, // 人事异动
     APPLICATION_WORK_FLOW_DEPARTURE_TYPE                    = 106, // 离职申请
     APPLICATION_WORK_FLOW_HANDOVER_TYPE                     = 107, // 工作交接
+    APPLICATION_WORK_FLOW_EMPLOYED_TYPE                     = 108, // 录用申请
     // 考勤
     APPLICATION_WORK_FLOW_LEAVE_TYPE                        = 201, //请假
     APPLICATION_WORK_FLOW_OVERTIME_TYPE                     = 202, //加班
@@ -210,7 +211,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_WORK_FLOW_CANCEL_TYPE                       = 302, //印章作废
     APPLICATION_WORK_FLOW_USAGE_SEAL_TYPE                   = 303, //用章申请-用章申请表
     APPLICATION_WORK_FLOW_SEAL_LIBRARY_TYPE                 = 304, //用章申请-印章库
-    APPLICATION_WORK_FLOW_CARD_TYPE                         = 305, //面片申请
+    APPLICATION_WORK_FLOW_CARD_TYPE                         = 305, //名片申请
     APPLICATION_WORK_FLOW_LICENCE_TYPE                      = 306, //证照借用-证照借用
     APPLICATION_WORK_FLOW_LICENCE_LIBRARY_TYPE              = 307, //证照借用-证照库
     APPLICATION_WORK_FLOW_PUNISHMENTS_TYPE                  = 308, //奖惩通知
