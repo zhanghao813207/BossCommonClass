@@ -236,7 +236,7 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     if(![dictionary[kBossOwnerUserWalletModel] isKindOfClass:[NSNull class]]){
         self.WalletModel = [[BalanceMoneyModel alloc]initWithDictionary:dictionary[kBossOwnerUserWalletModel]] ;
     }
-    if(![dictionary[kBossOwnerUserWechatModel] isKindOfClass:[NSNull class]]){
+    if(![dictionary[kBossOwnerUserWechatModel] isKindOfClass:[NSNull class]] && ![dictionary[kBossOwnerUserWechatModel] isEqualToString:@""]){
         self.WeChatModel = [[WeChatModel alloc]initWithDictionary:dictionary[kBossOwnerUserWechatModel]];
     }
     if(![dictionary[kBossOwnerconfigurl] isKindOfClass:[NSNull class]]){
