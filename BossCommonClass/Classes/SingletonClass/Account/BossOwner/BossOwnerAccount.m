@@ -19,9 +19,6 @@
     }
     return @{};
 }
-- (void)setAccountModel:(BossOwnerUserModel *)accountModel{
-    
-}
 - (void)setValue:(id)value forKey:(NSString *)key
 {
     if (!value || value == [NSNull null]) {
@@ -59,6 +56,7 @@
 //        kCurrentBossKnightAccount = nil;
         kCurrentBossOwnerAccount = nil;
         kCache.umsAccessTokenModel = nil;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_key"];
         if (!confirmBlock) {
             return;
         }
