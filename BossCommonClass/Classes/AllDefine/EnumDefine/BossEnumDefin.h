@@ -461,6 +461,7 @@ typedef NS_ENUM(NSUInteger, SalaryComputeTaskType) {
 typedef NS_ENUM(NSUInteger, ExamineFlowBizType) {
     ExamineFlowBizTypeCost    =  1, // 成本
     ExamineFlowBizTypeNoCost  = 90, // 非成本
+    ExamineFlowBizTypeTransaction = 100, // 事务性审批
 };
 
 typedef enum : NSUInteger {
