@@ -10,6 +10,7 @@
 #import "BossManagerAccount.h"
 #import "BossKnightAccount.h"
 #import "BossOwnerAccount.h"
+#import "YYCache.h"
 
 @implementation BossCache
 
@@ -99,7 +100,8 @@ static BossCache *defaultCache = nil;
         NSDictionary *accountDic = [kUserDefault objectForKey:ACCOUNT_KEY];
         if(accountDic){
             BossOwnerAccount *accountModel = [[BossOwnerAccount alloc] init];
-            [accountModel setValuesForKeysWithDictionary:accountDic];
+            accountModel.accountModel = [[BossOwnerUserModel alloc] initWithDictionary:accountDic[@"account"]];
+//            [accountModel setValuesForKeysWithDictionary:accountDic];
             _currentBossOwnerAccount = accountModel;
         }
     }
@@ -214,12 +216,13 @@ static BossCache *defaultCache = nil;
 
 - (NSString *)accessToken
 {
+    YYCache *cache = [[YYCache alloc] initWithName: @"QH"];
 #ifdef kBossKnight
-    return self.currentBossOwnerAccount.accountModel.accessToken;
+    return [cache objectForKey:@"accessToken"];
 #elif defined kBossManager
     return self.currentManagerAccount.tokenModel.access_token;
 #elif defined kBossOwner
-    return self.currentBossOwnerAccount.accountModel.accessToken;
+    return [cache objectForKey:@"accessToken"];
 #else
     return self.currentBossOwnerAccount.accountModel.accessToken;
 #endif

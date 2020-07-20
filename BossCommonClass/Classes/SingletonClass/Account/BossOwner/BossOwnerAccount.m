@@ -6,6 +6,7 @@
 //
 
 #import "BossOwnerAccount.h"
+//@import 
 
 @implementation BossOwnerAccount
 
@@ -18,7 +19,6 @@
     }
     return @{};
 }
-
 - (void)setValue:(id)value forKey:(NSString *)key
 {
     if (!value || value == [NSNull null]) {
@@ -56,6 +56,7 @@
 //        kCurrentBossKnightAccount = nil;
         kCurrentBossOwnerAccount = nil;
         kCache.umsAccessTokenModel = nil;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_key"];
         if (!confirmBlock) {
             return;
         }

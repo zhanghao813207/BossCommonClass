@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)checkElectronicContract:(void(^)(void))onterContractBlock electronicContractBlock:(void(^)(void))electronicContractBlock withController:(UIViewController *)viewController;
 
+- (NSDictionary *)decodeToDic:(BossOwnerUserModel *)accountModel;
+
 @end
 
 NS_ASSUME_NONNULL_END
