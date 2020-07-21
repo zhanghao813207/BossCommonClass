@@ -30,7 +30,8 @@
     if (@available(iOS 13.0, *)) {
         if (![self isKindOfClass:NSClassFromString(@"WalletPageVc")]){
             UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+            UIColor *showdowColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
+            [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:showdowColor];
         }
        
     }
@@ -39,7 +40,8 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:BossBlodFont(18),NSForegroundColorAttributeName:[UIColor colorNamed:@"boss_000000-80_FFFFFF-80"]};
     UIColor *navcolor = [UIColor colorNamed:@"navcolor_FFFFFF_1A1A1A"];
-    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
+    UIColor *showdowColor = [UIColor colorNamed:@"linecolor_E8E8E8_2B2B2B"];
+    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:showdowColor];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
