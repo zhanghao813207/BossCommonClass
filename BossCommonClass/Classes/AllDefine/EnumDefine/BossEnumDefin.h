@@ -214,7 +214,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_WORK_FLOW_CARD_TYPE                         = 305, //名片申请
     APPLICATION_WORK_FLOW_LICENCE_TYPE                      = 306, //证照借用-证照借用
     APPLICATION_WORK_FLOW_LICENCE_LIBRARY_TYPE              = 307, //证照借用-证照库
-    APPLICATION_WORK_FLOW_PUNISHMENTS_TYPE                  = 308, //奖惩通知
+    APPLICATION_WORK_FLOW_PUNISHMENTS_TYPE                  = 308, //奖罚申请
     // 商务
     APPLICATION_WORK_FLOW_COMPANY_REGISTER_TYPE             = 401, //注册公司
     APPLICATION_WORK_FLOW_COMPANY_CHANGE_TYPE               = 402, //公司变更
