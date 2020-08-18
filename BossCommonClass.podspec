@@ -43,7 +43,7 @@ these are common classes,they are used by boss system.
   s.dependency 'AFNetworking', '~> 3.0'
   
   # 七牛
-  s.dependency 'Qiniu', '~> 7.1'
+  s.dependency 'Qiniu', '7.4'
   s.dependency 'HappyDNS'
   
   s.dependency 'BGFMDB', '~> 1.51'
@@ -65,7 +65,7 @@ these are common classes,they are used by boss system.
   # 友盟日志库（调试）
   s.dependency 'UMCCommonLog'
   # 友盟统计
-  s.dependency 'UMCAnalytics'
+  #s.dependency 'UMCAnalytics'
   
   s.dependency 'MGJRouter', '~> 0.10.0'
   s.dependency 'Realm', '~> 3.17.0'
