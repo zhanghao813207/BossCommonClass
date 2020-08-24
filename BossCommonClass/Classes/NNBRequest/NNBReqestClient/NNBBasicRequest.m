@@ -97,7 +97,8 @@
     
     NNBRequestManager *manager = [self configureManagerWithCMD:cmd];
     DLog(@"POST: parameters = %@ cmd = %@ url = %@",parameters,cmd,url);
-    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    
+    [manager POST:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
@@ -136,7 +137,7 @@
 {
     NNBRequestManager *manager = [self configureManagerWithCMD:cmd];
     DLog(@"GET: parameters = %@",parameters);
-    [manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+    [manager GET:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);

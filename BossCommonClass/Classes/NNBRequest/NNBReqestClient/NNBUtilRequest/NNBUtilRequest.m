@@ -232,7 +232,8 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
     NSString *keyStr = [policyDict valueForKey:@"key"];
-    [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    
+    [sharedManager POST:bucketUrl parameters:param headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // 其中name字段是跟服务端协商规定好的,不可随意更改
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mimeType];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
