@@ -233,17 +233,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:policyDict];
     NSString *keyStr = [policyDict valueForKey:@"key"];
     
-    
-    
-//    - (nullable NSURLSessionDataTask *)POST:(NSString *)URLString
-//                   parameters:(nullable id)parameters
-//                      headers:(nullable NSDictionary <NSString *, NSString *> *)headers
-//    constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
-//                     progress:(nullable void (^)(NSProgress *uploadProgress))uploadProgress
-//                      success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-//                      failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
     [sharedManager POST:bucketUrl parameters:param headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-         // 其中name字段是跟服务端协商规定好的,不可随意更改
+        // 其中name字段是跟服务端协商规定好的,不可随意更改
         [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mimeType];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"%@",uploadProgress);
@@ -258,24 +249,7 @@
             failBlock(@"");
         }
     }];
-    
-    
-//    [sharedManager POST:bucketUrl parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//        // 其中name字段是跟服务端协商规定好的,不可随意更改
-//        [formData appendPartWithFileData:data name:@"file" fileName:fileName mimeType:mimeType];
-//    } progress:^(NSProgress * _Nonnull uploadProgress) {
-//        NSLog(@"%@",uploadProgress);
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@",responseObject);
-//        if(successBlock){
-//            successBlock(keyStr);
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//        if (failBlock){
-//            failBlock(@"");
-//        }
-//    }];
+
 }
 
 
