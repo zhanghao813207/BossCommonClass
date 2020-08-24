@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.view.backgroundColor =   [UIColor colorNamed:@"boss_F9FBFC_000000"];
     self.title = @"在线预览";
     
     NSString *excelDirectory = [NSString stringWithFormat:@"%@/conract",kDocumentPath];
