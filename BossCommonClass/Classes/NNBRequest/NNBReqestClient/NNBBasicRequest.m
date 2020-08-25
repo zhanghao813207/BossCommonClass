@@ -101,36 +101,71 @@
     [manager POST:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+         DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         if (success) {
-            success(responseObject);
+          success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-        DLog(@"ERROR:%@",[error localizedDescription]);
-        
-        TraceError *model = [[TraceError alloc] initWithDictionary:@{
-            @"url":url,
-            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
-            @"data": [error localizedDescription]
-        }];
-        
-        NSString *cmdName = @"";
-        // 判断cmd是否为空
-        if ([cmd isEmptyString]){
-            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
-            if (![url isEmptyString]){
-                cmdName = url;
-            }
-        }else {
-        // 如果不为空直接用cmd
-            cmdName = cmd;
-        }
-        
-        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
-        
-        [self handleErrorCodeWithError:error success:success fail:fail];
+           DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+           DLog(@"ERROR:%@",[error localizedDescription]);
+           
+           TraceError *model = [[TraceError alloc] initWithDictionary:@{
+               @"url":url,
+               @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+               @"data": [error localizedDescription]
+           }];
+           
+           NSString *cmdName = @"";
+           // 判断cmd是否为空
+           if ([cmd isEmptyString]){
+               // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
+               if (![url isEmptyString]){
+                   cmdName = url;
+               }
+           }else {
+           // 如果不为空直接用cmd
+               cmdName = cmd;
+           }
+           
+           [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
+           
+           [self handleErrorCodeWithError:error success:success fail:fail];
     }];
+    
+    
+//    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+//
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+//        if (success) {
+//            success(responseObject);
+//        }
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+//        DLog(@"ERROR:%@",[error localizedDescription]);
+//
+//        TraceError *model = [[TraceError alloc] initWithDictionary:@{
+//            @"url":url,
+//            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+//            @"data": [error localizedDescription]
+//        }];
+//
+//        NSString *cmdName = @"";
+//        // 判断cmd是否为空
+//        if ([cmd isEmptyString]){
+//            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
+//            if (![url isEmptyString]){
+//                cmdName = url;
+//            }
+//        }else {
+//        // 如果不为空直接用cmd
+//            cmdName = cmd;
+//        }
+//
+//        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
+//
+//        [self handleErrorCodeWithError:error success:success fail:fail];
+//    }];
 }
 
 + (void)getJsonNativeWithURL:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
@@ -140,15 +175,28 @@
     [manager GET:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+      DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         if (success) {
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-        DLog(@"ERROR:%@",[error localizedDescription]);
+         DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+         DLog(@"ERROR:%@",[error localizedDescription]);
         [self handleErrorCodeWithError:error success:success fail:fail];
     }];
+    
+//    [manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+//
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+//        if (success) {
+//            success(responseObject);
+//        }
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+//        DLog(@"ERROR:%@",[error localizedDescription]);
+//        [self handleErrorCodeWithError:error success:success fail:fail];
+//    }];
 }
 
 /** get请求 ,所有错误统一校验 再返回 */

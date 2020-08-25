@@ -239,16 +239,17 @@
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"%@",uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
-        if(successBlock){
+         NSLog(@"%@",responseObject);
+         if(successBlock){
             successBlock(keyStr);
-        }
+         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
         if (failBlock){
             failBlock(@"");
         }
     }];
+
 }
 
 
