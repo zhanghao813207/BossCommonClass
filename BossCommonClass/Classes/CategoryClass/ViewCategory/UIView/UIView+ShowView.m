@@ -228,7 +228,7 @@ static char statusAnimationViewKey;
     }
     [self addSubview:self.statusAnimationView];
     [self.statusAnimationView showStatus:status];
-    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:8.f];
+    [self performSelector:@selector(dismissStatusAnimationViewWithCompletion:) withObject:completion afterDelay:2.0f];
 }
 
 - (void)showAnimationSuccessStaus:(NSString *)status completion:(void (^)(BOOL finish))completion
