@@ -13,10 +13,15 @@
 @property (nonatomic, strong) NSString * headimgurl;
 @property (nonatomic, strong) NSString * DarkModeHeadimgUrl;
 @property (nonatomic, strong) ProxyAccountInfo * proxyAccountInfo;
+
+//  个户注册 or 团队助手
+@property (nonatomic, assign) MessageTargetType messageTargetType;
+
 // 公众号 or 公告
 @property (nonatomic, assign) MessageListType messageType;
 
 #pragma mark - private
+
 @property (nonatomic, strong) AccountNotice *accountNotice;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;

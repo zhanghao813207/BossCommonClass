@@ -9,6 +9,8 @@
 #import "Sender_info.h"
 #import "Message_summary_info.h"
 #import "Message_counter_info.h"
+#import "Extra_data.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AnnoucementList : NSObject
@@ -24,15 +26,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)BOOL is_read;
 @property(nonatomic, strong)NSArray *media_info_list;
 @property(nonatomic, strong)Message_counter_info *message_counter_info;
+
 @property(nonatomic, strong)Message_summary_info *message_summary_info;
-@property(nonatomic, strong)Sender_info *sender_info;
+
+
+@property(nonatomic, strong) Extra_data *extra_data;
+
+@property(nonatomic, strong) Sender_info *sender_info;
 
 /// 是否全部标记为已读（本地字段）
 @property (nonatomic, assign) BOOL isReadAll;
 
-@property(nonatomic, strong)NSDictionary *extra_data;
 
 @property(nonatomic, assign)CGFloat progress;
+
 @end
 
 

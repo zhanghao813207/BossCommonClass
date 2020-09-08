@@ -8,7 +8,9 @@
 
 #import "AnnoucementList.h"
 #import "MJExtension.h"
+
 @implementation AnnoucementList
+
 - (instancetype)init
 {
     self = [super init];
@@ -19,6 +21,7 @@
     }
     return self;
 }
+
 - (CGFloat)progress {
     return  (CGFloat)self.message_counter_info.read_counter / (CGFloat)self.message_counter_info.total_counter;
 }

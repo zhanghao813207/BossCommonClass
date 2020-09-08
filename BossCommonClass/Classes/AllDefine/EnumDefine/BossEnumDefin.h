@@ -108,7 +108,7 @@ typedef NS_ENUM(NSUInteger, PaymentTypes) {
 
 typedef NS_ENUM(NSUInteger, PopupItemTypes) {
     PopupItemAccount    = 1, // 用户
-    PopupItemPost    = 2,  // 岗位
+    PopupItemPost       = 2, // 岗位
 };
 
 typedef NS_ENUM(NSUInteger, PositionID) {
@@ -542,6 +542,13 @@ typedef NS_ENUM(NSInteger, MessageType) {
 typedef NS_ENUM(NSInteger, MessageListType) {
     MessageListTypeAnnouncement =  10,
     MessageListTypeOfficial = 20,
+};
+
+//消息列表-新增消息类型  10 其他   20 个户注册   30 团队助手
+typedef NS_ENUM(NSInteger, MessageTargetType) {
+    MessageTargetTypeOther           = 10,  // 其他
+    MessageTargetTypeRegistration    = 20,  // 个户注册
+    MessageTargetTypeTeamAssistant   = 30,  // 团队助手
 };
 
 //业务线类型
