@@ -21,6 +21,13 @@
     }
     return self;
 }
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+        @"idField":@"_id",
+        @"extraDataModel":@"extra_data"
+             };
+}
+
 
 - (CGFloat)progress {
     return  (CGFloat)self.message_counter_info.read_counter / (CGFloat)self.message_counter_info.total_counter;

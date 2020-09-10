@@ -9,7 +9,7 @@
 #import "Sender_info.h"
 #import "Message_summary_info.h"
 #import "Message_counter_info.h"
-#import "Extra_data.h"
+#import "ExtraDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,13 +24,17 @@ NS_ASSUME_NONNULL_BEGIN
  是否已读
  */
 @property(nonatomic, assign)BOOL is_read;
+
+@property(nonatomic, strong)NSString *idField;
+
+
 @property(nonatomic, strong)NSArray *media_info_list;
 @property(nonatomic, strong)Message_counter_info *message_counter_info;
 
 @property(nonatomic, strong)Message_summary_info *message_summary_info;
 
 
-@property(nonatomic, strong) Extra_data *extra_data;
+@property(nonatomic, strong) ExtraDataModel *extraDataModel;
 
 @property(nonatomic, strong) Sender_info *sender_info;
 
