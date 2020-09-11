@@ -276,10 +276,12 @@ static BossCache *defaultCache = nil;
             NSMutableArray<NSDictionary *> *accountDicList = [NSMutableArray arrayWithArray:[saasDic objectForKey:@"accountList"]];
             // 检查account是否存在
             NSString *currentAccountId = [[accountDic objectForKey:@"account"] objectForKey:@"_id"];
+            NSString *currentAccountPhone = [[accountDic objectForKey:@"account"] objectForKey:@"phone"];
             i = 0;
             for(NSDictionary* saveAccountDic in accountDicList){
                 NSString *saveAccountId = [[saveAccountDic objectForKey:@"account"] objectForKey:@"_id"];
-                if([currentAccountId isEqualToString: saveAccountId]){
+                NSString *saveAccountPhone = [[saveAccountDic objectForKey:@"account"] objectForKey:@"phone"];
+                if([currentAccountId isEqualToString: saveAccountId] || [currentAccountPhone isEqualToString:saveAccountPhone]){
                     break;
                 }
                 i++;
