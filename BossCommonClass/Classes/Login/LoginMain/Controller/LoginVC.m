@@ -17,6 +17,7 @@
 #import "AgreementVc.h"
 #import "ProtocollAlertViewCommon.h"
 #import "Masonry.h"
+#import "UINavigationBar+BackgroundColor.h"
 @interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
@@ -100,62 +101,21 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-#ifdef kBossKnight
     if (self.protocolAlertView.alpha == 0){
         self.protocolAlertView.alpha = 1;
     }
-    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController.navigationItem setHidesBackButton:YES]; // 隐藏返回按钮
-    
-    //添加手势方法防止直接跳转回来的VC 可以滑动到主VC引起问题
-    id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
-    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
-    [self.view addGestureRecognizer:pan];
-    
-#elif defined kBossManager
-    if (self.protocolAlertView.alpha == 0){
-        self.protocolAlertView.alpha = 1;
-    }
-#else
-    
-#endif
-    
+    UIColor *navcolor = [UIColor colorNamed:@"bgcolor_FFFFFF_000000"];
+    [self.navigationController.navigationBar lt_setBackgroundColor:navcolor showdowColor:navcolor];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-#ifdef kBossKnight
-    // 禁用返回手势
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
-#elif defined kBossManager
-    
-#else
-    
-#endif
-    
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-#ifdef kBossKnight
-    // 开启返回手势
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    }
-#elif defined kBossManager
-    
-#else
-    
-#endif
-    
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
