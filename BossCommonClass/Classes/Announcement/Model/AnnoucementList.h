@@ -37,10 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) ExtraDataModel *extraDataModel;
 
 @property(nonatomic, strong) Sender_info *sender_info;
+@property(nonatomic, strong) NSString * message_id;
+
 
 /// 是否全部标记为已读（本地字段）
 @property (nonatomic, assign) BOOL isReadAll;
-
 
 @property(nonatomic, assign)CGFloat progress;
 

@@ -544,12 +544,19 @@ typedef NS_ENUM(NSInteger, MessageListType) {
     MessageListTypeOfficial = 20,
 };
 
-//消息列表-新增消息类型  10 其他   20 个户注册   30 团队助手
+//消息列表-新增消息类型  10 其他 20 个户注册 30 团队助手
 typedef NS_ENUM(NSInteger, MessageTargetType) {
     MessageTargetTypeOther           = 10,  // 其他
     MessageTargetTypeRegistration    = 20,  // 个户注册
     MessageTargetTypeTeamAssistant   = 30,  // 团队助手
 };
+
+//消息列表-个户注册页 个户注册状态 100 成功   -100 失败
+typedef NS_ENUM(NSInteger, IndividualState) {
+    IndividualStateSuccess    = 100,  //  成功
+    IndividualStateFail       = -100, //  失败
+};
+
 
 //业务线类型
 typedef NS_ENUM(NSUInteger, LineDustryType) {
