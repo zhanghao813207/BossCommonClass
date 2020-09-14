@@ -29,7 +29,8 @@
              @"teamId":@"team_id",
              @"teamName":@"team_name",
              @"gainPermission":@"permission_list",
-             @"individualState":@"individual_state"
+             @"individualState":@"individual_state",
+             @"merchantName":@"merchant_name"
              };
 }
 @end
