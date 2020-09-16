@@ -67,6 +67,10 @@ NSString *const kDataDarkModeHeadimgUrl = @"dark_mode_head_img_url";
     if(![dictionary[kDataDarkModeHeadimgUrl] isKindOfClass:[NSNull class]]){
         self.DarkModeHeadimgUrl = dictionary[kDataDarkModeHeadimgUrl];
     }
+    if(![dictionary[@"extra_data"] isKindOfClass:[NSNull class]] && ![dictionary[@"extra_data"][@"target_type"] isKindOfClass:[NSNull class]]){
+        self.messageTargetType = [dictionary[@"extra_data"][@"target_type"] integerValue];
+    }
+
 	return self;
 }
 /**
