@@ -64,11 +64,11 @@ typedef NS_ENUM(NSUInteger, AnimationStatus) {
 - (void)showStatus:(NSString *)title
 {
     self.statusLabel.text = title;
-    self.statusLabel.font = BossBlodFont(20);
+    self.statusLabel.font = BossBlodFont(16);
     [self layoutWithTitle:title status:AnimationStatusNormal];
-    self.alertView.animationType = JYCAlertViewAnimationTypeScale;
-    self.alertView.contentViewAlpha = 0.7;
-    self.alertView.showAnimationDuration = 0.5;
+    self.alertView.animationType = JYCAlertViewAnimationTypeFadeInAndFadeOut;
+    self.alertView.contentViewAlpha = 1;
+//    self.alertView.showAnimationDuration = 0.5;
     [self.alertView showJYCAlertView];
 }
 
