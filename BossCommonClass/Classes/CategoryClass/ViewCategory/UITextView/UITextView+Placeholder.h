@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #define TextColor [UIColor colorNamed:@"boss_000000-80_FFFFFF-90"]
-#define PlaceHolderColor [UIColor colorNamed:@"boss_000000-40_FFFFFF-40"]
+#define PlaceHolderColor [UIColor colorNamed:@"boss_000000-30_FFFFFF-40"]
 
 @interface UITextView (Placeholder) <UITextViewDelegate>
 @property (nonatomic,   copy) NSString *placeHolder;
