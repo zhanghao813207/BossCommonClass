@@ -9,8 +9,7 @@
 #import "UITextView+Placeholder.h"
 #import <objc/runtime.h>
 #import "BossBasicDefine.h"
-#define TextColor [UIColor colorNamed:@"boss_000000-80_FFFFFF-90"]
-#define PlaceHolderColor [UIColor colorNamed:@"boss_C1C1C1_FFFFFF-40"]
+
 static const void *placeHolderKey = &placeHolderKey;
 static const void *characterCountKey = &characterCountKey;
 static const void *characterLabelKey = &characterLabelKey;
