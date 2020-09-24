@@ -66,7 +66,7 @@ these are common classes,they are used by boss system.
   # 友盟日志库（调试）
   s.dependency 'UMCCommonLog'
   # 友盟统计
-  s.dependency 'UMCAnalytics'
+  #s.dependency 'UMCAnalytics'
   
   s.dependency 'MGJRouter', '~> 0.10.0'
   s.dependency 'Realm', '~> 3.17.0'
