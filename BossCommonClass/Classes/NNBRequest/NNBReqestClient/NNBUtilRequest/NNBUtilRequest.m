@@ -12,6 +12,7 @@
 #import "NNBRequestManager.h"
 #import "JYCSimpleToolClass.h"
 #import "NSString+base.h"
+#import "EnumModel.h"
 
 @implementation NNBUtilRequest
 
@@ -274,6 +275,18 @@
     } fail:^(id error) {
     }];
 }
-
-
+/**
+ * 通用枚举请求😑
+ */
++(void)requestGetEnumModelInfoSuccess:(void (^)(NSDictionary *dic))success fail:(void (^)(id error))fail{
+    [NNBBasicRequest postJsonWithUrl:BossBasicURLV2 parameters:nil CMD:@"qlife.utils.enumeration.gain_all_enumeration" success:^(id responseObject) {
+        NSDictionary *dic = responseObject;
+        if (dic){
+            [[NSUserDefaults standardUserDefaults] setValue:dic forKey: ENUMERATION];
+        }
+        if (success){
+            success(dic);
+        }
+    } fail: fail];
+}
 @end
