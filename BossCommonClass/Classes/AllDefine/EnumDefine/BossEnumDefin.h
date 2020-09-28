@@ -200,6 +200,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_WORK_FLOW_DEPARTURE_TYPE                    = 106, // 离职申请
     APPLICATION_WORK_FLOW_HANDOVER_TYPE                     = 107, // 工作交接
     APPLICATION_WORK_FLOW_EMPLOYED_TYPE                     = 108, // 录用申请
+    APPLICATION_EMPLOYMENT_APPLY                            = 109, // 入职申请
     // 考勤
     APPLICATION_WORK_FLOW_LEAVE_TYPE                        = 201, //请假
     APPLICATION_WORK_FLOW_OVERTIME_TYPE                     = 202, //加班
@@ -224,6 +225,9 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_WORK_FLOW_CONTRACT_APPROVAL_TYPE            = 405, //合同会审
     APPLICATION_WORK_FLOW_CONTRACT_BORROWING_TYPE           = 406, //合同借阅-合同借阅审批
     APPLICATION_WORK_FLOW_CONTRACT_BORROWING_LIBRARY_TYPE   = 407, //合同借阅-合同库
+    APPLICATION_CAPITAL_ALLOCATE_ORDER                      = 408, //资金调拨
+    
+    APPLICATION_ADMINISTRATION_PETITION                     = 501, //事务签呈
 };
 
 // 审批单整体状态
