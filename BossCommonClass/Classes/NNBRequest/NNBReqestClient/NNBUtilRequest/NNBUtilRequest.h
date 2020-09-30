@@ -63,4 +63,6 @@
 */
 +(void)requestGetBankCardInfoQueryUrl;
 
++(void)requestGetEnumModelInfoSuccess:(void (^)(NSDictionary *))success fail:(void (^)(id error))fail;
+
 @end

@@ -194,4 +194,6 @@ NSString *const LOGOUT_PHONE_LIST_KEY = @"logout_phone_list_key";
 // 刷新的token
 NSString *const REFRESH_TOKEN = @"refresh_token";
 
+// enumeration(公用枚举)
+NSString *const ENUMERATION = @"enumeration";
 @end
