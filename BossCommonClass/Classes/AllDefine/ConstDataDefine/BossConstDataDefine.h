@@ -79,4 +79,7 @@ UIKIT_EXTERN NSString *const LOGOUT_PHONE_LIST_KEY;
 // 刷新的token
 UIKIT_EXTERN NSString *const REFRESH_TOKEN ;
 
+// enumeration(公用枚举)
+UIKIT_EXTERN NSString *const ENUMERATION ;
+
 @end
