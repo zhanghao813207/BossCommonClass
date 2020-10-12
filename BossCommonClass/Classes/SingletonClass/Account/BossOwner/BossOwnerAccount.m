@@ -6,7 +6,8 @@
 //
 
 #import "BossOwnerAccount.h"
-//@import 
+//@import
+#import "YYCache.h"
 
 @implementation BossOwnerAccount
 
@@ -56,6 +57,11 @@
 //        kCurrentBossKnightAccount = nil;
         kCurrentBossOwnerAccount = nil;
         kCache.umsAccessTokenModel = nil;
+        
+        // 移除Swift 缓存的 UMSModel
+        YYCache *cache = [[YYCache alloc] initWithName: @"QH"];
+        [cache removeObjectForKey:@"UMSKEY"];
+        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_key"];
         if (!confirmBlock) {
             return;
