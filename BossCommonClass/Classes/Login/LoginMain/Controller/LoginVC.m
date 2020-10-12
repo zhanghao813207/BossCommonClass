@@ -153,7 +153,7 @@
 
 - (void)showInputCodeView:(NSString *)phoneNumber
 {
-    _currentOperatingView = CodeView;
+    _currentOperatingView = PhoneCodeView;
     self.inputCodeView.phoneNumber = phoneNumber;
     [self showView:self.inputCodeView showBack:YES commplete:nil];
     self.inputMerchantCodeView.hidden = YES;
@@ -180,7 +180,7 @@
         case PhoneNumberView:
             [self showInputMerchantCodeView:self.inputPhoneNumberView.saasModel.merchant_info.merchant_code];
             break;
-        case CodeView:
+        case PhoneCodeView:
             self.inputCodeView.showVoiceCode = NO;
             [self showInputPhoneNumberView:self.inputPhoneNumberView.saasModel phoneNumber:self.inputCodeView.phoneNumber];
             break;
