@@ -62,7 +62,7 @@ these are common classes,they are used by boss system.
   #注释UMCSecurityPlugins ,因为它与支付宝支付UTDID.framework有冲突
 #  s.dependency 'UMCSecurityPlugins'
   # 友盟Push库
-  s.dependency 'UMCPush'
+#  s.dependency 'UMCPush'
   # 友盟日志库（调试）
   s.dependency 'UMCCommonLog'
   # 友盟统计
