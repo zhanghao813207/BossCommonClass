@@ -59,6 +59,17 @@
                 }
                 accountModel.city_list = [[NSArray alloc] initWithArray:city_list];
             }
+            
+            // 岗位部门信息
+            NSDictionary *dict = @{
+                @"major_job_info":businessInfoData[@"major_job_info"],
+                @"major_department_info":businessInfoData[@"major_department_info"],
+                @"department_info_list":businessInfoData[@"department_info_list"],
+                @"pluralism_department_job_relation_list":businessInfoData[@"pluralism_department_job_relation_list"],
+            };
+            [kUserDefault setObject:dict forKey:@"JobAndDepartmentInfo"];
+            [kUserDefault synchronize];
+            
         }
         // 保存个人信息
         accountModel._id = responseObject[@"_id"];
