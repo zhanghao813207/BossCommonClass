@@ -61,14 +61,25 @@
             }
             
             // 岗位部门信息
-            NSDictionary *dict = @{
-                @"major_job_info":businessInfoData[@"major_job_info"],
-                @"major_department_info":businessInfoData[@"major_department_info"],
-                @"department_info_list":businessInfoData[@"department_info_list"],
-                @"pluralism_department_job_relation_list":businessInfoData[@"pluralism_department_job_relation_list"],
-            };
-            [kUserDefault setObject:dict forKey:@"JobAndDepartmentInfo"];
-            [kUserDefault synchronize];
+            if ([businessInfoData.allKeys containsObject:@"department_info_list"] && [businessInfoData.allKeys containsObject:@"pluralism_department_job_relation_list"]) {
+                NSMutableArray *pluralism_department_job_relation_list = [[NSMutableArray alloc] init];
+                for (NSDictionary *obj in businessInfoData[@"pluralism_department_job_relation_list"]) {
+                    [pluralism_department_job_relation_list addObject:@{
+                        @"department_info":obj[@"department_info"],
+                        @"job_info":@{@"name":obj[@"job_info"][@"name"]},
+                    }];
+                }
+
+                NSDictionary *dict = @{
+                    @"userId":[NSString stringWithFormat:@"%@", responseObject[@"_id"]],
+                    @"major_job_info":businessInfoData[@"major_job_info"],
+                    @"major_department_info":businessInfoData[@"major_department_info"],
+                    @"department_info_list":businessInfoData[@"department_info_list"],
+                    @"pluralism_department_job_relation_list":pluralism_department_job_relation_list,
+                };
+                [kUserDefault setObject:[self exchangeDict:dict] forKey:@"JobAndDepartmentInfo"];
+                [kUserDefault synchronize];
+            }
             
         }
         // 保存个人信息
@@ -111,6 +122,58 @@
             failBlock(error);
         }
     }];
+}
+
++ (NSDictionary *)exchangeDict:(NSDictionary *)dict {
+    
+    NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+    
+    for (NSString *key in dict.allKeys) {
+        
+        id obj = dict[key];
+        if ([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]]) {
+            
+            [newDict setObject:obj?:@"" forKey:key];
+            
+        }else if ([obj isKindOfClass:[NSArray class]]) {
+            
+            [newDict setObject:[self exchangeArray:obj] forKey:key];
+            
+        }else if ([obj isKindOfClass:[NSDictionary class]]) {
+            
+            NSDictionary *everyDict = [self exchangeDict:obj];
+            [newDict setObject:everyDict forKey:key];
+            
+        }
+        
+    }
+    return [NSDictionary dictionaryWithDictionary:newDict];
+}
+
++ (NSArray *)exchangeArray:(NSArray *)array {
+    
+    NSMutableArray *newArray = [[NSMutableArray alloc] init];
+    
+    for (id obj in array) {
+        
+        if ([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]]) {
+            
+            [newArray addObject:obj?:@""];
+            
+        }else if ([obj isKindOfClass:[NSArray class]]) {
+            
+            [newArray addObject:[self exchangeArray:obj]];
+            
+        }else if ([obj isKindOfClass:[NSDictionary class]]) {
+            
+            NSDictionary *everyDict = [self exchangeDict:obj];
+            [newArray addObject:everyDict];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:newArray];
 }
 
 @end
