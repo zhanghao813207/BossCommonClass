@@ -12,6 +12,8 @@
 #import "BossOwnerAccount.h"
 #import "YYCache.h"
 
+@import boss_basic_common_ios;
+
 @implementation BossCache
 
 static BossCache *defaultCache = nil;
@@ -229,14 +231,20 @@ static BossCache *defaultCache = nil;
 }
 
 - (NSString *)umsAccessToken {
+    NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
+    self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessToken : @"";
 }
 
 - (NSString *)umsAccessKey {
+    NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
+    self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessKey : @"";
 }
 
 - (NSString *)umsSecretKey {
+    NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
+    self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.secretKey : @"";
 }
 
