@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) IndividualState individualState; //个户注册状态
 
+@property (nonatomic, assign) EntrustRegistrationSource source; //个户供应商
+
 @end
 
 NS_ASSUME_NONNULL_END
