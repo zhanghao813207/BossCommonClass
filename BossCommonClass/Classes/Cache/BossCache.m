@@ -229,6 +229,14 @@ static BossCache *defaultCache = nil;
     return self.currentBossOwnerAccount.accountModel.accessToken;
 #endif
 }
+- (BOOL)checkStartUMS{
+    NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
+    UmsAccessTokenModel *model = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
+    if (model){
+        return true;
+    }
+    return false;
+}
 - (UmsAccessTokenModel*)umsAccessTokenModel{
     NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
     UmsAccessTokenModel *model = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
