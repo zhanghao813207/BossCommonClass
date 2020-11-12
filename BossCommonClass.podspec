@@ -42,7 +42,8 @@ these are common classes,they are used by boss system.
   # s.frameworks = 'UIKit', 'MapKit'
 
   s.dependency 'AFNetworking', '~> 4.0.1'
-  
+  s.dependency 'boss-common-ios'
+  s.dependency 'boss-basic-common-ios'
   # 七牛
   s.dependency 'Qiniu', '7.4'
   s.dependency 'HappyDNS'
