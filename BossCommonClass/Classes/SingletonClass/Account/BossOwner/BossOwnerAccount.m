@@ -8,6 +8,8 @@
 #import "BossOwnerAccount.h"
 //@import
 #import "YYCache.h"
+@import boss_basic_common_ios;
+@import boss_common_ios;
 
 @implementation BossOwnerAccount
 
@@ -59,8 +61,9 @@
         kCache.umsAccessTokenModel = nil;
         
         // 移除Swift 缓存的 UMSModel
-        YYCache *cache = [[YYCache alloc] initWithName: @"QH"];
-        [cache removeObjectForKey:@"UMSKEY"];
+        [[CacheManager manager] deleteValueForKey:@"UMSKEY"];
+//        YYCache *cache = [[YYCache alloc] initWithName: @"QH"];
+//        [cache removeObjectForKey:@"UMSKEY"];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_key"];
         if (!confirmBlock) {
@@ -73,6 +76,7 @@
     [alertController addAction:photoAction];
     [viewController.navigationController presentViewController:alertController animated:YES completion:nil];
 }
+
 
 /**
  判断用户是否登录
