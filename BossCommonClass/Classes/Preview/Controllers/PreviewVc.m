@@ -27,7 +27,12 @@
     self.view.backgroundColor =   [UIColor colorNamed:@"boss_F9FBFC_000000"];
     self.title = @"在线预览";
     
-    NSString *excelDirectory = [NSString stringWithFormat:@"%@/conract",kDocumentPath];
+    // 默认合同预览，有值则为传递的值
+    NSString *theStartFilePath = @"conract";
+    if (![JYCSimpleToolClass stringIsEmpty:self.filePath]) {
+        theStartFilePath = self.filePath;
+    }
+    NSString *excelDirectory = [NSString stringWithFormat:@"%@/%@",kDocumentPath, theStartFilePath];
     BOOL isDirectory;
     if ([[NSFileManager defaultManager] fileExistsAtPath:excelDirectory isDirectory:&isDirectory]) {
         if (!isDirectory) {
@@ -37,6 +42,10 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/conract",kDocumentPath] withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
+    // 不判断直接取会崩溃
+    if (![self.fileURLStr containsString:@"?"]) {
+        return;
+    }
     NSString *subStr = [self.fileURLStr substringToIndex:[self.fileURLStr rangeOfString:@"?"].location];
     NSString *fileName = [subStr substringFromIndex:[subStr rangeOfString:@"/" options:NSBackwardsSearch].location + 1];
     NSString *localFilePath = [NSString stringWithFormat:@"%@/conract/%@",kDocumentPath,fileName];
@@ -158,6 +167,9 @@
     rect.size.height -= kIsiPhoneX ? 40 : kStatusBarHeight + 40;
     rect.origin.y -= kIsiPhoneX ? kStatusBarHeight : 0;
     qlVc.view.frame = rect;
+    if (self.isBossManager) {
+        qlVc.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kStatusBarHeight);
+    }
     qlVc.delegate = self;
     qlVc.dataSource = self;
     qlVc.navigationController.navigationBar.userInteractionEnabled = YES;
