@@ -168,7 +168,7 @@
     rect.origin.y -= kIsiPhoneX ? kStatusBarHeight : 0;
     qlVc.view.frame = rect;
     if (self.isBossManager) {
-        qlVc.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kStatusBarHeight);
+        qlVc.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
     }
     qlVc.delegate = self;
     qlVc.dataSource = self;
