@@ -229,6 +229,9 @@ static BossCache *defaultCache = nil;
     return self.currentBossOwnerAccount.accountModel.accessToken;
 #endif
 }
+#ifdef kBossManager
+
+#else
 - (BOOL)checkStartUMS{
     NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
     UmsAccessTokenModel *model = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
@@ -242,21 +245,35 @@ static BossCache *defaultCache = nil;
     UmsAccessTokenModel *model = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
     return model;
 }
+#endif
+
 - (NSString *)umsAccessToken {
+#ifdef kBossManager
+    
+#else
     NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
     self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
+#endif
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessToken : @"";
 }
 
 - (NSString *)umsAccessKey {
+#ifdef kBossManager
+    
+#else
     NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
     self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
+#endif
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.accessKey : @"";
 }
 
 - (NSString *)umsSecretKey {
+#ifdef kBossManager
+    
+#else
     NSDictionary *dic = [CacheManager.manager getValueForKey:@"UMSKEY"];
     self.umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:dic];
+#endif
     return self.umsAccessTokenModel ? self.umsAccessTokenModel.secretKey : @"";
 }
 
