@@ -40,30 +40,29 @@
 
 @implementation AnnouncementRequest
 
-//+ (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock {
-//    
-//    NSDictionary *paramDic = @{
-//        @"app_code":APPCODE
-//    };
-//    
-//    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
-//        NSLog(@"AnnouncementRequest->getUmsAccesstokenInfo->response:\n%@",responseObject);
-//        
-//        NSDictionary *dic = responseObject;
-//        // 缓存UMS Token
-//        UmsAccessTokenModel *umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:responseObject];
-//        kCache.umsAccessTokenModel = umsAccessTokenModel;
-//        
-//        kCache.checkStartUMS = YES;
-//        
-//        [CacheManager.manager setValue:dic forKey: @"UMSKEY"];
-//        
-//        
-//        successBlock();
-//    } fail:^(id error) {
-//        NSLog(@"%@",error);
-//    }];
-//}
++ (void)getBossAdminUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock {
+
+    NSDictionary *paramDic = @{
+        @"app_code":APPCODE
+    };
+    
+    [NNBBasicRequest postJsonWithUrl:kUrl  parameters:paramDic CMD:@"auth.token.get_ums_access_token" success:^(id responseObject) {
+        NSLog(@"AnnouncementRequest->getUmsAccesstokenInfo->response:\n%@",responseObject);
+        
+        // 缓存UMS Token
+        UmsAccessTokenModel *umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:responseObject];
+        kCache.umsAccessTokenModel = umsAccessTokenModel;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[umsAccessTokenModel toDictionary] forKey:@"umsAccessTokenModel"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        kCache.checkStartUMS = YES;
+        
+        successBlock();
+    } fail:^(id error) {
+        NSLog(@"%@",error);
+    }];
+}
 
 + (void)findMessageList:(void(^)(MessageListDicModel *messageListDicModel))successBlock failBlock:(void(^)(void))failBlock {
     NSDictionary *paramDic = @{};
