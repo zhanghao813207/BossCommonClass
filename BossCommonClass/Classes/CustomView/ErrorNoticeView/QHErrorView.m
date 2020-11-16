@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UILabel *msgLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, assign) QHErrorViewType errorType;
+
+@property (nonatomic, assign) CGFloat messageLabHeight;
 @end
 @implementation QHErrorView
 
@@ -38,7 +40,6 @@
         _msgLabel.textAlignment = NSTextAlignmentCenter;
         _msgLabel.text = errorMsg;
         [self addSubview:_msgLabel];
-//        self.backgroundColor = QHColor(0, 0, 0, .5);
         [self addGestureRecognizer:self.tap];
         self.errorType = type;
     }
@@ -56,10 +57,9 @@
     if (isUp) {
         self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-_msgLabel.bounds.size.width)/2.0, 35+kStatusBarHeight + 44, _msgLabel.bounds.size.width, _msgLabel.bounds.size.height);
     }else {
-        self.msgLabel.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, 44);
+        self.msgLabel.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.messageLabHeight);
     }
     if (self.errorType == 0) {
-        
         self.msgLabel.alpha = 0.0;
         [view addSubview:self];
         [UIView animateWithDuration:0.25 animations:^{
@@ -82,7 +82,7 @@
             if (finished) {
                 if (!isUp) {
                     [UIView animateWithDuration:0.25 animations:^{
-                        self.msgLabel.frame = CGRectMake(0, self.bounds.size.height-44, self.bounds.size.width, 44);
+                        self.msgLabel.frame = CGRectMake(0, self.bounds.size.height-self.messageLabHeight, self.bounds.size.width, self.messageLabHeight);
                     }];
                 }
                 [self performSelector:@selector(dismiss) withObject:nil afterDelay:2.0];
@@ -114,14 +114,30 @@
 }
 
 - (instancetype)initWithTitle:(NSString *)string{
+    
+    if([string isEmptyString]){
+        self.messageLabHeight = 44;
+    }else{
+        CGSize baseSize = CGSizeMake(kScreenWidth -32, MAXFLOAT);
+        CGSize labelSize  = [string boundingRectWithSize:baseSize options:NSStringDrawingUsesLineFragmentOrigin
+                                   attributes:@{NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Light" size:16]}
+                                   context:nil].size;
+        self.messageLabHeight = labelSize.height + 20;
+        if (self.messageLabHeight < 44){
+            self.messageLabHeight = 44;
+        }
+    }
+    
+    CGFloat errorWidth = kScreenWidth - 32;
+    
     UIViewController *currentVC = [JYCSimpleToolClass getCurrentVC];
-    CGFloat y = [UIScreen mainScreen].bounds.size.height-35-kStatusBarHeight - 44;
+    CGFloat y = [UIScreen mainScreen].bounds.size.height-kStatusBarHeight - 44 - self.messageLabHeight;
     if (!currentVC.tabBarController.tabBar.isHidden) {
         y -= 49;
     }
-    self = [super initWithFrame:CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, 35)];
+    self = [super initWithFrame:CGRectMake(0, y, errorWidth, self.messageLabHeight)];
     if (self) {
-        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, 35)];
+        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, errorWidth, self.messageLabHeight)];
         _msgLabel.backgroundColor = kHexRGB(0x1C2227);
         _msgLabel.textColor = [UIColor whiteColor];
         _msgLabel.font = BossFont(16);
@@ -129,8 +145,12 @@
         _msgLabel.text = string;
         _msgLabel.numberOfLines = 0;
         [_msgLabel sizeToFit];
-        _msgLabel.frame = CGRectMake(0, 0, _msgLabel.bounds.size.width+40, 35);
-        self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-_msgLabel.bounds.size.width)/2.0, y, _msgLabel.bounds.size.width, 35);
+        if (self.messageLabHeight <= 44){
+            //
+            errorWidth =   _msgLabel.bounds.size.width + 40;
+        }
+        _msgLabel.frame = CGRectMake(0, 0,errorWidth, self.messageLabHeight);
+        self.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-_msgLabel.bounds.size.width)/2.0, y, _msgLabel.bounds.size.width, self.messageLabHeight);
         [self addSubview:_msgLabel];
         [self addGestureRecognizer:self.tap];
     }

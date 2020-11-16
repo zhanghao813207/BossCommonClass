@@ -628,13 +628,14 @@ typedef NS_ENUM(NSUInteger, WorkerType) {
     WorkerTypeSecondLine              = 20, //二线员工
 };
 
-// 个户工商注册来源 10为伯渡 20为盟达
+// 个户工商注册来源 
 typedef NS_ENUM(NSUInteger, EntrustRegistrationSource) {
-    EntrustRegistrationSourceBoDu                = 10, //工商注册 伯渡
-    EntrustRegistrationSourceMengDa              = 20, //工商注册 盟达
+    EntrustRegistrationSourceBoDu                   = 10, //工商注册 伯渡
+    EntrustRegistrationSourceZhongJian              = 30, //工商注册 众简
+    EntrustRegistrationSourceUnknown                = -1, //工商注册 未配置
 };
 
-// 个户工商注册来源 10为伯渡 20为盟达
+
 typedef NS_ENUM(NSUInteger,  authenticationType) {
     IDCardauthentication              = 10, //身份证识别认证
     FaceIDauthentication              = 20, //人脸识别认证
