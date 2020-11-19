@@ -27,6 +27,12 @@
     self.view.backgroundColor =   [UIColor colorNamed:@"boss_F9FBFC_000000"];
     self.title = @"在线预览";
     
+    if ([JYCSimpleToolClass stringIsEmpty:self.fileURLStr]) {
+        [self.view showAnimationErrorStaus:@"该文件格式不支持！" completion:^(BOOL finish) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
+    
     // 默认合同预览，有值则为传递的值
     NSString *theStartFilePath = @"conract";
     if (![JYCSimpleToolClass stringIsEmpty:self.filePath]) {
