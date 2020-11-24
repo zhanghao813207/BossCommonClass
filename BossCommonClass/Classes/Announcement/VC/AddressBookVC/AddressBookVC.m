@@ -173,7 +173,7 @@
 
 /// 判断是否添加空页面
 - (void)judgeEmptyView {
-    self.tableview.hidden = !(self.arrM.count > 0);
+    self.tableview.backgroundView.backgroundColor = self.arrM.count > 0 ? [UIColor colorNamed:@"bgcolor_F5F5F5_000000"] : UIColor.clearColor ;
 }
 
 - (void)refreshMoreData {
