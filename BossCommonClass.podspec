@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '9.13.9'
+  s.version          = '9.13.10'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -53,7 +53,7 @@ these are common classes,they are used by boss system.
   s.dependency 'SGPagingView', '~> 1.6.7'
   s.dependency 'MJExtension'
   s.dependency 'MJRefresh', '~> 3.5.0'
-  s.dependency 'SDWebImage', '~> 5.0.1'
+  s.dependency 'SDWebImage', '~> 5.10.0'
   s.dependency 'MQTTClient', '~> 0.15.2'
   s.dependency 'mob_linksdk_pro', '3.3.1'
   s.dependency 'LinkedME_LinkPage'
