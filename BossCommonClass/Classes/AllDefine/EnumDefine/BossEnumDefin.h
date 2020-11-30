@@ -400,6 +400,8 @@ typedef NS_ENUM(NSInteger, OA_EVENT) {
     OA_EVENT_APPLICATION_DONE   = 13, // 审批通过
     OA_EVENT_APPLICATION_CANCLE = 14, // 审批关闭
     OA_EVENT_APPLICATION_EXTRA  = 15, // 补充意见
+    OA_EVENT_APPLICATION_TICKET = 16, // 验票通知
+    OA_EVENT_ORDER_TRANSFER     = 17, // 审批转交
 };
 
 typedef NS_ENUM(NSInteger, BROAD_TYPE) {
