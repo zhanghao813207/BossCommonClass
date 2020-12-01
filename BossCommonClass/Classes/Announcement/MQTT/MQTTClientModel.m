@@ -45,7 +45,7 @@
 }
 
 - (void)connect:(NSString *) accountId {
-    self.accountId = accountId;
+    self.accountId = accountId?:@"";
     NSString *clientId = [NSString stringWithFormat:@"%@%@%@",mqttClientId,[JYCSimpleToolClass getUUID],accountId];
     [self.mySessionManager connectTo:mqttServer
                                 port:mqttPort
@@ -141,7 +141,9 @@
             [self countDownWithTopic:@"ums/"];
             
             // 订阅消息
-            [self subscribeTopic:self.accountId];
+            if (self.accountId) {
+                [self subscribeTopic:self.accountId];
+            }
         }
             break;
         case MQTTSessionManagerStateConnecting:

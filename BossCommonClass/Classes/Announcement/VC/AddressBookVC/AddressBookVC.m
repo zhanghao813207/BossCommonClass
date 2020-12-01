@@ -144,8 +144,8 @@
             }
         }
         self.tableview.backgroundColor = [UIColor colorNamed:@"bgcolor_F5F5F5_000000"];
-        [self.tableview reloadData];
     } else {
+        [self.arrM removeAllObjects];
         self.tableview.backgroundColor = nil;
     }
     [self.tableview.mj_header endRefreshingWithCompletionBlock:^{
@@ -153,6 +153,7 @@
             self.tableview.mj_header = nil;
         }
     }];
+    [self.tableview reloadData];
     // 判断是否添加空页面
     [self judgeEmptyView];
 }
@@ -172,11 +173,7 @@
 
 /// 判断是否添加空页面
 - (void)judgeEmptyView {
-    if (self.arrM.count > 0) {
-        self.tableview.tableFooterView = [[UIView alloc] init];
-    }else {
-        self.tableview.tableFooterView = self.emptyView;
-    }
+    self.tableview.backgroundView.backgroundColor = self.arrM.count > 0 ? [UIColor colorNamed:@"bgcolor_F5F5F5_000000"] : UIColor.clearColor ;
 }
 
 - (void)refreshMoreData {

@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, Storage_type) {
  @param failBlock 失败回调
  */
 //+ (void)getUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock;
++ (void)getBossAdminUmsAccessTokenInfo:(void(^)(void))successBlock failBlock:(void(^)(void))failBlock;
 
 /**
  消息列表

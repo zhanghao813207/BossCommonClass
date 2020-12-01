@@ -126,13 +126,13 @@ static NNBRequestManager *sharedManager = nil;
 // AUTH请求方式 hMD5加密
 - (NSString *)headAuthStr:(int)date{
     
-    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey data:[NSString stringWithFormat:@"%@:%d",[JYCSimpleToolClass getUUID],date]];
+    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey?:@"" data:[NSString stringWithFormat:@"%@:%d",[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 
 // TOKEN请求方式 hMD5加密
 - (NSString *)headTokenStr:(int)date {
-    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.accessToken,[JYCSimpleToolClass getUUID],date]];
+    NSString *str = [JYCSimpleToolClass HmacMD5:sharedManager.secretKey?:@"" data:[NSString stringWithFormat:@"%@:%@:%d",sharedManager.accessToken,[JYCSimpleToolClass getUUID],date]];
     return str;
 }
 
