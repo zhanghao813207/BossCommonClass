@@ -7,6 +7,7 @@
 #import "BossOwnerUserModel.h"
 #import "NSString+base.h"
 #import "YYCache.h"
+@import boss_basic_common_ios;
 
 NSString *const kBossOwnerUserModelAccessToken = @"access_token";
 NSString *const kBossOwnerUserModelAccountId = @"_id";
@@ -134,6 +135,8 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    [[CacheManager manager]setValueForKey:@"UESRINFO" :dictionary];
     
     if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
         self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];

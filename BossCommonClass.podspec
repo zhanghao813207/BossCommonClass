@@ -74,4 +74,5 @@ these are common classes,they are used by boss system.
   s.dependency 'IQKeyboardManager'
   
   s.dependency 'YYCache'
+  
 end
