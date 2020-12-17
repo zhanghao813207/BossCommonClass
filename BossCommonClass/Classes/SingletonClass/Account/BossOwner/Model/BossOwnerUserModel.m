@@ -133,7 +133,8 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
 
 
 - (NSString *)showIdcardEndDate{
-    if (self.idcardEndDate > 2099){
+    
+    if (self.idcardEndDate > 20990000){
         return @"长期";
     }
     NSString *endStr = [NSString stringWithFormat:@"%ld", self.idcardEndDate];
