@@ -64,6 +64,10 @@
 //身份证结束时间
 @property (nonatomic, assign) NSInteger idcardEndDate;
 
+//展示身份证结束时间
+@property (nonatomic, strong) NSString *showIdcardEndDate;
+
+
 // 临时身份证的剩余有限天数
 @property (nonatomic, assign) NSInteger temporaryIdcardEffectDays;
 

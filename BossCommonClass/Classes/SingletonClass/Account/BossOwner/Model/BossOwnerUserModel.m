@@ -132,6 +132,21 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
 }
 
 
+- (NSString *)showIdcardEndDate{
+    if (self.idcardEndDate > 2099){
+        return @"长期";
+    }
+    NSString *endStr = [NSString stringWithFormat:@"%ld", self.idcardEndDate];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyyMMdd";
+    NSDate *date = [format dateFromString:endStr];
+    format.dateFormat = @"yyyy.MM.dd";
+    if ([format stringFromDate:date]) {
+        return [format stringFromDate:date];
+    }
+    return @"";
+}
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
