@@ -41,6 +41,10 @@
 // 内容Arr
 @property(nonatomic, strong)NSMutableArray *userContentArr;
 @property(nonatomic, strong)NSMutableArray<ContactsPerson *> *selectArrM;
+
+@property(nonatomic, strong)NSMutableDictionary *titleDict;
+@property(nonatomic, strong)NSMutableArray *titleArr;
+
 @end
 
 @implementation PersonAddressBookVC
@@ -79,7 +83,7 @@
     [AnnouncementRequest announcementContactsMembersId:self.group._id Success:^(NSArray * _Nonnull dataArr) {
         self.arrM = [dataArr mutableCopy];
         [self setSelectModel];
-        self.userContentArr = [self sortObjectsAccordingToInitialWith:self.arrM];
+        [self sortObjectsAccordingToInitialWith:self.arrM];
         [self.tableview reloadData];
         [weakSelf.view dismissLoadingViewWithCompletion:nil];
     } fail:^(NSString * _Nonnull message) {
@@ -150,79 +154,54 @@
 //    NSLog(@"%@",self.selectArrM);
 //    [tableView reloadData];
 //}
--(NSMutableArray *)sortObjectsAccordingToInitialWith:(NSArray *)arr {
+
+-(void)sortObjectsAccordingToInitialWith:(NSArray *)arr {
     
-    // 初始化UILocalizedIndexedCollation
-    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-    
-    //得出collation索引的数量，这里是27个（26个字母和1个#）
-    NSInteger sectionTitlesCount = [[collation sectionTitles] count];
-    //初始化一个数组newSectionsArray用来存放最终的数据，我们最终要得到的数据模型应该形如@[@[以A开头的数据数组], @[以B开头的数据数组], @[以C开头的数据数组], ... @[以#(其它)开头的数据数组]]
-    NSMutableArray *newSectionsArray = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
-    
-    //初始化27个空数组加入newSectionsArray
-    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [newSectionsArray addObject:array];
+    self.titleDict = [NSMutableDictionary dictionary];
+    self.titleArr = [NSMutableArray array];
+    for (ContactsPerson *model in arr) {
+       
+        //获取到姓名的大写首字母
+          NSString *firstLetterString = [self getFirstLetterFromString:model.nick_name];
+          //如果该字母对应的联系人模型不为空,则将此联系人模型添加到此数组中
+          if (self.titleDict[firstLetterString])
+          {
+              [self.titleDict[firstLetterString] addObject:model];
+          }else//没有出现过该首字母，则在字典中新增一组key-value
+          {
+              //创建新发可变数组存储该首字母对应的联系人模型
+              NSMutableArray *arrGroupNames = [NSMutableArray array];
+              [arrGroupNames addObject:model];
+              //将首字母-姓名数组作为key-value加入到字典中
+              [self.titleDict setObject:arrGroupNames forKey:firstLetterString];
+          }
     }
     
-    //将每个名字分到某个section下
-    for (ContactsPerson *personModel in self.arrM) {
-        if (personModel.nick_name == nil ||[personModel.nick_name isEqualToString:@""]||[personModel.nick_name isKindOfClass:[NSNull class]]){
-            continue;
-        }
-        //获取name属性的值所在的位置，比如"林丹"，首字母是L，在A~Z中排第11（第一位是0），sectionNumber就为11
-        NSInteger sectionNumber = [collation sectionForObject:personModel collationStringSelector:@selector(nick_name)];
-        //把name为“林丹”的p加入newSectionsArray中的第11个数组中去
-        NSMutableArray *sectionNames = newSectionsArray[sectionNumber];
-        [sectionNames addObject:personModel];
-    }
-    
-    //对每个section中的数组按照name属性排序
-    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
-        NSMutableArray *personArrayForSection = newSectionsArray[index];
-        NSArray *sortedPersonArrayForSection = [collation sortedArrayFromArray:personArrayForSection collationStringSelector:@selector(nick_name)];
-        newSectionsArray[index] = sortedPersonArrayForSection;
-    }
-    
-    //    //删除空的数组
-    NSMutableArray *finalArr = [NSMutableArray new];
-    NSMutableArray *indexArr = [NSMutableArray new];
-    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
-        if (((NSMutableArray *)(newSectionsArray[index])).count != 0) {
-            NSMutableArray *personModelArr = (NSMutableArray *)(newSectionsArray[index]);
-            ContactsPerson *personModel = personModelArr[0];
-            //如果不等于空 直接取字符串首字母 ，否则用 # 号来代替；
-            if (![JYCSimpleToolClass stringIsEmpty:personModel.nick_name]){
-                [indexArr addObject: [self getFirstLetterFromString:personModel.nick_name]];
-            }else {
-                [indexArr addObject:@"#"];
-            }
-            [finalArr addObject:personModelArr];
-        }
-    }
-    self.indexArr = indexArr;
-    return finalArr;
-    
-    //    return newSectionsArray;
+     NSArray *nameKeys  = [[self.titleDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    self.titleArr = nameKeys.mutableCopy;
+       // 将 "#" 排列在 A~Z 的后面
+       if ([nameKeys.firstObject isEqualToString:@"#"])
+       {
+           NSMutableArray *mutableNamekeys = [NSMutableArray arrayWithArray:nameKeys];
+           [mutableNamekeys insertObject:nameKeys.firstObject atIndex:nameKeys.count];
+           [mutableNamekeys removeObjectAtIndex:0];
+           self.titleArr = mutableNamekeys;
+       }
+
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return self.userContentArr.count;
+    return self.titleArr.count;
 }
 //返回每个section的title
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    return self.indexArr[section];
+    return self.titleArr[section];
 }
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
-//}
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return self.indexArr;
+    return self.titleArr;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
@@ -240,31 +219,36 @@
     label.frame = CGRectMake(10, 0, 100, 35);
     label.textColor = [UIColor colorNamed:@"boss_000000_FFFFFF"];
     label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
-    label.text = self.indexArr[section];
+    label.text = self.titleArr[section];
     [view addSubview:label];
     return view;
 }
 // 获取字符首字母拼音
 - (NSString *)getFirstLetterFromString:(NSString *)aString
 {
-    //转成了可变字符串
-    NSMutableString *str = [NSMutableString stringWithString:aString];
-    //先转换为带声调的拼音
-    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
-    //再转换为不带声调的拼音
-    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
-    //转化为大写拼音
-    NSString *strPinYin = [str capitalizedString];
-    //获取并返回首字母
-    return [strPinYin substringToIndex:1];
+    NSMutableString *mutableString = [NSMutableString stringWithString:aString];
+    CFStringTransform((CFMutableStringRef)mutableString, NULL, kCFStringTransformToLatin, NO);
+    NSString *pinyinString = [mutableString stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
+    // 将拼音首字母装换成大写
+    NSString *strPinYin = [[self polyphoneStringHandle:aString pinyinString:pinyinString] uppercaseString];
+   // 截取大写首字母
+   NSString *firstString = [strPinYin substringToIndex:1];
+   // 判断姓名首位是否为大写字母
+   NSString * regexA = @"^[A-Z]$";
+   NSPredicate *predA = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regexA];
+   // 获取并返回首字母
+   return [predA evaluateWithObject:firstString] ? firstString : @"#";
+       
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSMutableArray *contentArr = self.userContentArr[section];
+    NSString * firstStr = self.titleArr[section];
+    NSMutableArray *contentArr = [self.titleDict valueForKey:firstStr];
     return contentArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonAddressBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    NSMutableArray *contentArr = self.userContentArr[indexPath.section];
+    NSString * firstStr = self.titleArr[indexPath.section];
+    NSMutableArray *contentArr = [self.titleDict valueForKey:firstStr];
     cell.model = contentArr[indexPath.row];
     return cell;
 }
@@ -281,10 +265,13 @@
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.iscloseTalk) {
         SendMessageStartVc * vc = [SendMessageStartVc storyBoardCreateViewControllerWithBundle:@"BossCommonClass" StoryBoardName:@"EntrustAccountRegistration"];
-        NSMutableArray *contentArr = self.userContentArr[indexPath.section];
+//        NSMutableArray *contentArr = self.userContentArr[indexPath.section];
+        NSString * firstStr = self.titleArr[indexPath.section];
+        NSMutableArray *contentArr = [self.titleDict valueForKey:firstStr];
         ContactsPerson *model = contentArr[indexPath.row];
         vc.name = model.nick_name;
         vc.teamName = self.title;
@@ -394,4 +381,15 @@
     return YES;
 }
 
+
+// 多音字处理
+ - (NSString *)polyphoneStringHandle:(NSString *)aString pinyinString:(NSString *)pinyinString
+{
+    if ([aString hasPrefix:@"长"]) { return @"chang";}
+    if ([aString hasPrefix:@"沈"]) { return @"shen"; }
+    if ([aString hasPrefix:@"厦"]) { return @"xia";  }
+    if ([aString hasPrefix:@"地"]) { return @"di";   }
+    if ([aString hasPrefix:@"重"]) { return @"chong";}
+    return pinyinString;
+}
 @end
