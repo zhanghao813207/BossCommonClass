@@ -7,6 +7,7 @@
 #import "BossOwnerUserModel.h"
 #import "NSString+base.h"
 #import "YYCache.h"
+@import boss_basic_common_ios;
 
 NSString *const kBossOwnerUserModelAccessToken = @"access_token";
 NSString *const kBossOwnerUserModelAccountId = @"_id";
@@ -131,9 +132,27 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
 }
 
 
+- (NSString *)showIdcardEndDate{
+    
+    if (self.idcardEndDate > 20990000){
+        return @"长期";
+    }
+    NSString *endStr = [NSString stringWithFormat:@"%ld", self.idcardEndDate];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyyMMdd";
+    NSDate *date = [format dateFromString:endStr];
+    format.dateFormat = @"yyyy.MM.dd";
+    if ([format stringFromDate:date]) {
+        return [format stringFromDate:date];
+    }
+    return @"";
+}
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    [[CacheManager manager]setValueForKey:@"UESRINFO" :dictionary];
     
     if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
         self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];
