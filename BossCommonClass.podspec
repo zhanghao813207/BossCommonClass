@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '9.13.10'
+  s.version          = '9.14'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -74,4 +74,5 @@ these are common classes,they are used by boss system.
   s.dependency 'IQKeyboardManager'
   
   s.dependency 'YYCache'
+  
 end
