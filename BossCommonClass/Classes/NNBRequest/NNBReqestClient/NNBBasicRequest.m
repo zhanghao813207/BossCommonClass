@@ -723,7 +723,7 @@
             zh_msg = @"账号没有找到";
             break;
         case 408002:
-            zh_msg = @"账号不可用";
+            zh_msg = @"当前账号已禁用，请联系客服邮箱service@cityio.cn";
             break;
         case 408003:
             zh_msg = @"人员没有找到";
