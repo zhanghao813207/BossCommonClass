@@ -268,7 +268,7 @@
             } else if (dealType == ResultDealTypesNNBStatusView){
                 [showView showStatus:errorMsg];
             }
-            if (errCode == 415001 || errCode == 415002) {
+            if (errCode == 415001 || errCode == 415002 || errCode == 408002) {
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
@@ -723,7 +723,7 @@
             zh_msg = @"账号没有找到";
             break;
         case 408002:
-            zh_msg = @"当前账号已禁用，请联系客服邮箱service@cityio.cn";
+            zh_msg = @"当前账号已禁用，如需重新启用，请联系客服service@cityio.cn";
             break;
         case 408003:
             zh_msg = @"人员没有找到";
