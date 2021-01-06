@@ -263,11 +263,24 @@
             } else {
                errorMsg = [self zh_msgWithErrorCode:errCode];
             }
-            if (dealType == ResultDealTypesQHErrorView) {
-                [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
-            } else if (dealType == ResultDealTypesNNBStatusView){
-                [showView showStatus:errorMsg];
+            if (errorMsg && errorMsg.length > 0 && [errorMsg containsString:@"service@cityio.cn"] ){
+                
+                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    [vc dismissViewControllerAnimated:false completion:nil];
+                }];
+                [alertC addAction:alertA];
+                [vc presentViewController:alertC animated:false completion:nil];
+ 
+            }else{
+
+                if (dealType == ResultDealTypesQHErrorView) {
+                    [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
+                } else if (dealType == ResultDealTypesNNBStatusView){
+                    [showView showStatus:errorMsg];
+                }
             }
+        
             if (errCode == 415001 || errCode == 415002 || errCode == 408002) {
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
