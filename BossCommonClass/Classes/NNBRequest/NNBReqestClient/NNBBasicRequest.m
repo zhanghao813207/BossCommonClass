@@ -263,16 +263,36 @@
             } else {
                errorMsg = [self zh_msgWithErrorCode:errCode];
             }
-//            if (errorMsg && errorMsg.length > 0 && [errorMsg containsString:@"service@cityio.cn"] ){
-//
-//                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
-//                UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-//                    [vc dismissViewControllerAnimated:false completion:nil];
-//                }];
-//                [alertC addAction:alertA];
-//                [vc presentViewController:alertC animated:false completion:nil];
-//
-//            }else{
+
+            if (errorMsg && errorMsg.length > 0 && ([errorMsg containsString:@"service@cityio.cn"]||errCode == 408002) ){
+                
+                static dispatch_once_t predicate;
+                 dispatch_once(&predicate, ^{
+                     
+                     UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
+                     UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+     #ifdef kBossManager
+                     if(!kCurrentBossManagerAccount){
+                         return;
+                     }
+                     NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                     kCache.lastLoginPhone = phone;
+                     [kCache addPhone:phone];
+                     kCurrentBossManagerAccount = nil;
+     #else
+                     kCurrentBossOwnerAccount = nil;
+     #endif
+                     kCache.umsAccessTokenModel = nil;
+                     [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+                     // 断开MQTT链接
+                     [[MQTTClientModel sharedInstance] disconnect];
+
+                     }];
+                     [alertC addAction:alertA];
+                     [vc presentViewController:alertC animated:false completion:nil];
+                });
+
+            }else{
 
                 if (dealType == ResultDealTypesQHErrorView) {
                     [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
@@ -280,9 +300,9 @@
                     [showView showStatus:errorMsg];
                 }
             
-//            }
+            }
         
-            if (errCode == 415001 || errCode == 415002 || errCode == 408002) {
+            if (errCode == 415001 || errCode == 415002 ) {
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
@@ -313,6 +333,11 @@
         success(dic);
     }
 }
+
++(void)showAccountDisableAlertView{
+    
+}
+
 
 + (void)showLoginVcWithViewController:(UIViewController *)currentVc
 {
@@ -737,7 +762,7 @@
             zh_msg = @"账号没有找到";
             break;
         case 408002:
-            zh_msg = @"当前账号已禁用，如需重新启用，请联系客服service@cityio.cn";
+            zh_msg = @"当前账号不可用，有问题请联系客服service@cityio.cn";
             break;
         case 408003:
             zh_msg = @"人员没有找到";
