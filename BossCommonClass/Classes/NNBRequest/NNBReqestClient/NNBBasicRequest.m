@@ -16,6 +16,7 @@
 #import "NSString+Router.h"
 #import "TraceManager.h"
 #import "JYCSimpleToolClass.h"
+@import boss_basic_common_ios;
 
 @class ViewController;
 
@@ -91,7 +92,7 @@
  @param parameters 请求参数
  @param success 成功返回参数
  @param fail 失败返回参数
- */ 
+ */
 + (void)postJsonNativeWithUrl:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     
@@ -281,6 +282,7 @@
                         kCurrentBossManagerAccount = nil;
 #else
                         kCurrentBossOwnerAccount = nil;
+                        [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
 #endif
                         kCache.umsAccessTokenModel = nil;
                         [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
@@ -316,6 +318,7 @@
                 //                    return;
                 //                }
                 kCurrentBossOwnerAccount = nil;
+                [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 kCache.umsAccessTokenModel = nil;
@@ -332,10 +335,6 @@
     if (success) {
         success(dic);
     }
-}
-
-+(void)showAccountDisableAlertView{
-    
 }
 
 
