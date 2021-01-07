@@ -101,71 +101,71 @@
     [manager POST:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-         DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         if (success) {
-          success(responseObject);
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-           DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-           DLog(@"ERROR:%@",[error localizedDescription]);
-           
-           TraceError *model = [[TraceError alloc] initWithDictionary:@{
-               @"url":url,
-               @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
-               @"data": [error localizedDescription]
-           }];
-           
-           NSString *cmdName = @"";
-           // 判断cmd是否为空
-           if ([cmd isEmptyString]){
-               // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
-               if (![url isEmptyString]){
-                   cmdName = url;
-               }
-           }else {
-           // 如果不为空直接用cmd
-               cmdName = cmd;
-           }
-           
-           [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
-           
-           [self handleErrorCodeWithError:error success:success fail:fail];
+        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+        DLog(@"ERROR:%@",[error localizedDescription]);
+        
+        TraceError *model = [[TraceError alloc] initWithDictionary:@{
+            @"url":url,
+            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+            @"data": [error localizedDescription]
+        }];
+        
+        NSString *cmdName = @"";
+        // 判断cmd是否为空
+        if ([cmd isEmptyString]){
+            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
+            if (![url isEmptyString]){
+                cmdName = url;
+            }
+        }else {
+            // 如果不为空直接用cmd
+            cmdName = cmd;
+        }
+        
+        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
+        
+        [self handleErrorCodeWithError:error success:success fail:fail];
     }];
     
     
-//    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-//        if (success) {
-//            success(responseObject);
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-//        DLog(@"ERROR:%@",[error localizedDescription]);
-//
-//        TraceError *model = [[TraceError alloc] initWithDictionary:@{
-//            @"url":url,
-//            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
-//            @"data": [error localizedDescription]
-//        }];
-//
-//        NSString *cmdName = @"";
-//        // 判断cmd是否为空
-//        if ([cmd isEmptyString]){
-//            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
-//            if (![url isEmptyString]){
-//                cmdName = url;
-//            }
-//        }else {
-//        // 如果不为空直接用cmd
-//            cmdName = cmd;
-//        }
-//
-//        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
-//
-//        [self handleErrorCodeWithError:error success:success fail:fail];
-//    }];
+    //    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    //
+    //    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    //        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+    //        if (success) {
+    //            success(responseObject);
+    //        }
+    //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    //        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+    //        DLog(@"ERROR:%@",[error localizedDescription]);
+    //
+    //        TraceError *model = [[TraceError alloc] initWithDictionary:@{
+    //            @"url":url,
+    //            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+    //            @"data": [error localizedDescription]
+    //        }];
+    //
+    //        NSString *cmdName = @"";
+    //        // 判断cmd是否为空
+    //        if ([cmd isEmptyString]){
+    //            // 如果为空，再判断 url 是否为空，如果不为空使用 url，否则使用默认值 @"" 空字符串。
+    //            if (![url isEmptyString]){
+    //                cmdName = url;
+    //            }
+    //        }else {
+    //        // 如果不为空直接用cmd
+    //            cmdName = cmd;
+    //        }
+    //
+    //        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
+    //
+    //        [self handleErrorCodeWithError:error success:success fail:fail];
+    //    }];
 }
 
 + (void)getJsonNativeWithURL:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
@@ -175,28 +175,28 @@
     [manager GET:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-      DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         if (success) {
             success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-         DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-         DLog(@"ERROR:%@",[error localizedDescription]);
+        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+        DLog(@"ERROR:%@",[error localizedDescription]);
         [self handleErrorCodeWithError:error success:success fail:fail];
     }];
     
-//    [manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-//        if (success) {
-//            success(responseObject);
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-//        DLog(@"ERROR:%@",[error localizedDescription]);
-//        [self handleErrorCodeWithError:error success:success fail:fail];
-//    }];
+    //    [manager GET:url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+    //
+    //    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    //        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+    //        if (success) {
+    //            success(responseObject);
+    //        }
+    //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    //        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
+    //        DLog(@"ERROR:%@",[error localizedDescription]);
+    //        [self handleErrorCodeWithError:error success:success fail:fail];
+    //    }];
 }
 
 /** get请求 ,所有错误统一校验 再返回 */
@@ -226,7 +226,7 @@
     NNBRequestManager *manager = [NNBRequestManager shareNNBRequestManager];
     
     [manager addTokenWithCMD:cmd];
-        
+    
     return manager;
 }
 
@@ -261,47 +261,47 @@
             if (dic[@"zh_message"]) {
                 errorMsg = dic[@"zh_message"];
             } else {
-               errorMsg = [self zh_msgWithErrorCode:errCode];
+                errorMsg = [self zh_msgWithErrorCode:errCode];
             }
-
+            
             if (errorMsg && errorMsg.length > 0 && ([errorMsg containsString:@"service@cityio.cn"]||errCode == 408002) ){
                 
                 static dispatch_once_t predicate;
-                 dispatch_once(&predicate, ^{
-                     
-                     UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
-                     UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-     #ifdef kBossManager
-                     if(!kCurrentBossManagerAccount){
-                         return;
-                     }
-                     NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
-                     kCache.lastLoginPhone = phone;
-                     [kCache addPhone:phone];
-                     kCurrentBossManagerAccount = nil;
-     #else
-                     kCurrentBossOwnerAccount = nil;
-     #endif
-                     kCache.umsAccessTokenModel = nil;
-                     [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
-                     // 断开MQTT链接
-                     [[MQTTClientModel sharedInstance] disconnect];
-
-                     }];
-                     [alertC addAction:alertA];
-                     [vc presentViewController:alertC animated:false completion:nil];
+                dispatch_once(&predicate, ^{
+                    
+                    UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
+                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+#ifdef kBossManager
+                        if(!kCurrentBossManagerAccount){
+                            return;
+                        }
+                        NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                        kCache.lastLoginPhone = phone;
+                        [kCache addPhone:phone];
+                        kCurrentBossManagerAccount = nil;
+#else
+                        kCurrentBossOwnerAccount = nil;
+#endif
+                        kCache.umsAccessTokenModel = nil;
+                        [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+                        // 断开MQTT链接
+                        [[MQTTClientModel sharedInstance] disconnect];
+                        
+                    }];
+                    [alertC addAction:alertA];
+                    [vc presentViewController:alertC animated:false completion:nil];
                 });
-
+                
             }else{
-
+                
                 if (dealType == ResultDealTypesQHErrorView) {
                     [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
                 } else if (dealType == ResultDealTypesNNBStatusView){
                     [showView showStatus:errorMsg];
                 }
-            
+                
             }
-        
+            
             if (errCode == 415001 || errCode == 415002 ) {
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
@@ -312,9 +312,9 @@
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
-//                if(!kCurrentBossOwnerAccount){
-//                    return;
-//                }
+                //                if(!kCurrentBossOwnerAccount){
+                //                    return;
+                //                }
                 kCurrentBossOwnerAccount = nil;
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
