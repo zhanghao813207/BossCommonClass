@@ -267,32 +267,30 @@
             
             if (errorMsg && errorMsg.length > 0 && ([errorMsg containsString:@"service@cityio.cn"]||errCode == 408002) ){
                 
-                static dispatch_once_t predicate;
-                dispatch_once(&predicate, ^{
-                    
-                    UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
-                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
 #ifdef kBossManager
-                        if(!kCurrentBossManagerAccount){
-                            return;
-                        }
-                        NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
-                        kCache.lastLoginPhone = phone;
-                        [kCache addPhone:phone];
-                        kCurrentBossManagerAccount = nil;
+                if(!kCurrentBossManagerAccount){
+                    return;
+                }
+                NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                kCache.lastLoginPhone = phone;
+                [kCache addPhone:phone];
+                kCurrentBossManagerAccount = nil;
 #else
-                        kCurrentBossOwnerAccount = nil;
-                        [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
+                kCurrentBossOwnerAccount = nil;
+                [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
 #endif
-                        kCache.umsAccessTokenModel = nil;
-                        [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+
+                UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
+                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                         // 断开MQTT链接
                         [[MQTTClientModel sharedInstance] disconnect];
+                        kCache.umsAccessTokenModel = nil;
+                        
+                        [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
                         
                     }];
                     [alertC addAction:alertA];
                     [vc presentViewController:alertC animated:false completion:nil];
-                });
                 
             }else{
                 
@@ -301,7 +299,6 @@
                 } else if (dealType == ResultDealTypesNNBStatusView){
                     [showView showStatus:errorMsg];
                 }
-                
             }
             
             if (errCode == 415001 || errCode == 415002 ) {
