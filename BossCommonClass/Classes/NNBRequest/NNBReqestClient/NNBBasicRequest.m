@@ -266,7 +266,6 @@
             }
             
             if (errorMsg && errorMsg.length > 0 && ([errorMsg containsString:@"service@cityio.cn"]||errCode == 408002) ){
-                
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
