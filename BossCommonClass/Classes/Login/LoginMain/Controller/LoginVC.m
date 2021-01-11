@@ -8,7 +8,7 @@
 #import "LoginVC.h"
 #import "InputMerchantCodeView.h"
 #import "InputPhoneNumberView.h"
-#import "InputCodeView.h"
+#import "InputCodeViewOC.h"
 #import "SaasRequest.h"
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
@@ -54,7 +54,7 @@
 /**
  输入验证码View
  */
-@property (nonatomic, strong) InputCodeView *inputCodeView;
+@property (nonatomic, strong) InputCodeViewOC *inputCodeView;
 
 @property (nonatomic, assign) OperatingView currentOperatingView;
 
@@ -238,7 +238,7 @@
  
  @param inputCodeView 输入验证码View
  */
-- (void)inputCodeViewWillStartCount:(InputCodeView *)inputCodeView
+- (void)inputCodeViewWillStartCount:(InputCodeViewOC *)inputCodeView
 {
     inputCodeView.showVoiceCode = YES;
     inputCodeView.inputCodeViewStatus = InputCodeViewStatusBegainCount;
@@ -413,12 +413,12 @@
     return _protocolAlertView;
 }
 
-- (InputCodeView *)inputCodeView
+- (InputCodeViewOC *)inputCodeView
 {
     if (!_inputCodeView) {
         // 区分手机和Ipad
         CGFloat y = IS_ON_IPHONE ? CGRectGetMaxY(self.appLogoImageView.frame) : 0;
-        _inputCodeView = [[InputCodeView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputCodeViewHeight)];
+        _inputCodeView = [[InputCodeViewOC alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputCodeViewHeight)];
         // _inputCodeView.alpha = 0;
         _inputCodeView.hidden = YES;
         _inputCodeView.delegate = self;
