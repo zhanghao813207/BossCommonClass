@@ -396,8 +396,8 @@
     }
     if( [errorMsg containsString:@"service@cityio.cn"] ){
         UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            [self.view endEditing:YES];
+        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.view endEditing:NO];
         }];
         [alertC addAction:alertA];
         [self presentViewController:alertC animated:false completion:nil];
