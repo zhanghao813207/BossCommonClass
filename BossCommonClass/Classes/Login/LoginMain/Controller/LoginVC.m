@@ -8,7 +8,7 @@
 #import "LoginVC.h"
 #import "InputMerchantCodeView.h"
 #import "InputPhoneNumberView.h"
-#import "InputCodeView.h"
+#import "InputCodeViewOC.h"
 #import "SaasRequest.h"
 #import "NNBUtilRequest.h"
 #import "NNBAuthRequest.h"
@@ -54,7 +54,7 @@
 /**
  输入验证码View
  */
-@property (nonatomic, strong) InputCodeView *inputCodeView;
+@property (nonatomic, strong) InputCodeViewOC *inputCodeView;
 
 @property (nonatomic, assign) OperatingView currentOperatingView;
 
@@ -238,7 +238,7 @@
  
  @param inputCodeView 输入验证码View
  */
-- (void)inputCodeViewWillStartCount:(InputCodeView *)inputCodeView
+- (void)inputCodeViewWillStartCount:(InputCodeViewOC *)inputCodeView
 {
     inputCodeView.showVoiceCode = YES;
     inputCodeView.inputCodeViewStatus = InputCodeViewStatusBegainCount;
@@ -250,7 +250,7 @@
             }
             inputCodeView.inputCodeViewStatus = InputCodeViewStatusCounting;
         }
-    } fail:^{
+    } fail:^(id  _Nonnull error){
         inputCodeView.inputCodeViewStatus = InputCodeViewStatusNomal;
     }];
 }
@@ -290,7 +290,7 @@
         // 图片大小 111*88
         _appLogoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 111) / 2.0, 0, 111, 88)];
         _appLogoImageView.image = [UIImage imageNamed:@"appLaunchLogo"];
-//        _appLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        //        _appLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
         // 手机显示图标，ipad隐藏图标。
         _appLogoImageView.hidden = !IS_ON_IPHONE;
     }
@@ -375,13 +375,33 @@
                     
                 }
                 
-            } fail:^{
+            } fail:^(id  _Nonnull error){
                 [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+                [weakSelf showAccountDisableError:error];
             }];
         }];
         
     }
     return _inputPhoneNumberView;
+}
+
+
+-(void)showAccountDisableError:(id)error{
+    NSString *errorMsg = @"";
+    if ([error isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dict = error;
+        errorMsg = dict[@"zh_message"]?:@"服务器未响应，请稍后重试";
+    }else {
+        errorMsg = @"服务器未响应，请稍后重试";
+    }
+    if( [errorMsg containsString:@"service@cityio.cn"] ){
+        UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.view endEditing:NO];
+        }];
+        [alertC addAction:alertA];
+        [self presentViewController:alertC animated:false completion:nil];
+    }
 }
 
 - (ProtocollAlertViewCommon *)protocolAlertView
@@ -393,12 +413,12 @@
     return _protocolAlertView;
 }
 
-- (InputCodeView *)inputCodeView
+- (InputCodeViewOC *)inputCodeView
 {
     if (!_inputCodeView) {
         // 区分手机和Ipad
         CGFloat y = IS_ON_IPHONE ? CGRectGetMaxY(self.appLogoImageView.frame) : 0;
-        _inputCodeView = [[InputCodeView alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputCodeViewHeight)];
+        _inputCodeView = [[InputCodeViewOC alloc] initWithFrame:CGRectMake(0, y, kScreenWidth, kInputCodeViewHeight)];
         // _inputCodeView.alpha = 0;
         _inputCodeView.hidden = YES;
         _inputCodeView.delegate = self;
@@ -521,6 +541,7 @@
                         }
 #endif
                     } fail:^(id error) { // 网络请求失败
+                        
                         [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
                             
                             [weakSelf.inputCodeView isBecomeFirstResponder];

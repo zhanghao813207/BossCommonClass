@@ -5,7 +5,7 @@
 //  Created by 贾远潮 on 2017/12/20
 //
 
-#import "InputCodeView.h"
+#import "InputCodeViewOC.h"
 #import "CodeView.h"
 #import "CountdownView.h"
 #import "BossBasicDefine.h"
@@ -15,7 +15,7 @@
  */
 CGFloat const kInputCodeViewHeight = 242;
 
-@interface InputCodeView()<CountdownViewDelegate>
+@interface InputCodeViewOC()<CountdownViewDelegate>
 
 @property (nonatomic, strong) UILabel *sendPhoneNumberLabel;
 
@@ -29,7 +29,7 @@ CGFloat const kInputCodeViewHeight = 242;
 
 @end
 
-@implementation InputCodeView
+@implementation InputCodeViewOC
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];

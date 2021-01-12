@@ -23,9 +23,15 @@ NSString *const BossUmsPrefix = @"boss";
 
 // Dev/Demo/QA
 NSString * BossBasicURL   = @"https://saas-api-dev.aoaosong.com/1.0/";
-NSString * BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
-NSString * ACCESS_KEY     = @"5c6bb6fcce6d2a1779126214";
-NSString * SECRET_KEY     = @"5c6bb6fcce6d2a1779126215";
+//NSString * BossBasicURLV2 = @"https://saas-api-dev.aoaosong.com/2.0/";
+//NSString * ACCESS_KEY     = @"5c6bb6fcce6d2a1779126214";
+//NSString * SECRET_KEY     = @"5c6bb6fcce6d2a1779126215";
+
+// UaT
+NSString * BossBasicURLV2 = @"https://uat-saas-api.o3cloud.cn/2.0/";
+NSString * ACCESS_KEY     = @"2A543CE70CF7CD3F5FD934B6FC07458B";
+NSString * SECRET_KEY     = @"E587782169FE3ADA4BF7C9F757E5F1CE";
+
 
 // Ums
 // Dev/QA
@@ -113,11 +119,14 @@ NSString * SalaryLoanBasicURL = @"";
 #ifdef kBossKnight
 
 NSString *const APPCODE        = @"qlife-knight-ios";
-NSString *const APP_ID         = @"5c0a1988ce6d2a984c1fe8fc";
+//NSString *const APP_ID         = @"5c0a1988ce6d2a984c1fe8fc";
+NSString *const APP_ID         = @"5d4a7006887d1f03ebf0fa3c";
+
 NSString *const AGREEMENTURL   = @"http://boss-dev.aoaosong.com/static/agreement-knight.html";
 NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss骑士用户协议与隐私政策";
 NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1391525314?l=zh&ls=1&mt=8";
 NSString *const SCHEME         = @"qhqs";
+
 #elif defined kBossManager
 
 NSString *const APPCODE        = @"aoao_boss_manager_ios";
@@ -130,7 +139,9 @@ NSString *const APPDOWNLOADURL = @"https://itunes.apple.com/us/app/id1425789658?
 #elif defined kBossOwner
 
 NSString *const APPCODE        = @"qlife-ios";
-NSString *const APP_ID         = @"5cc8173bce6d2a0961c4fa2e";
+//NSString *const APP_ID         = @"5cc8173bce6d2a0961c4fa2e";
+NSString *const APP_ID         = @"5cf75d0c887d1f281f108a7b";
+
 NSString *const SCHEME         = @"qhlb";
 NSString *const AGREEMENTTITLE = @"登录代表您已同意Boss老板用户协议与隐私政策";
 NSString *const AGREEMENTURL   = @"http://boss-dev.aoaosong.com/static/agreement-boss.html";

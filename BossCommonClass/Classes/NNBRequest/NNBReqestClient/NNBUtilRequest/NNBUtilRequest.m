@@ -24,7 +24,7 @@
  @param begainSendBlock 开始发送验证码
  @param successBlock 发送成功的回调 OK：是否成功 mockMessage：测试环境（不发验证码）模拟数据
  */
-+ (void)UtilRequestSendSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType begainSend:(void(^)(void))begainSendBlock success:(void(^)(BOOL ok,NSString *mockMessage,BOOL is_first_login))successBlock fail:(void(^)(void))failBlock
++ (void)UtilRequestSendSMSWithPhhoneNumber:(NSString *)phoneNumber smsType:(NNBSendSMSType)smsType begainSend:(void(^)(void))begainSendBlock success:(void(^)(BOOL ok,NSString *mockMessage,BOOL is_first_login))successBlock fail:(void(^)(id error))failBlock
 {
     if (!phoneNumber) {
         DLog(@"手机号为空，请查看原因");
@@ -67,7 +67,7 @@
         }
     } fail:^(id error) {
         if (failBlock) {
-            failBlock();
+            failBlock(error);
         }
     }];
 }

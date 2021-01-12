@@ -1,5 +1,5 @@
 //
-//  InputCodeView.h
+//  InputCodeViewOC.h
 //  验证码输入页
 //
 //  Created by 贾远潮 on 2017/12/20.
@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 UIKIT_EXTERN CGFloat const kInputCodeViewHeight;
-@class InputCodeView;
+@class InputCodeViewOC;
 
 /**
  倒计时状态
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, InputCodeViewStatus) {
 
  @param inputCodeView 验证码输入View
  */
-- (void)inputCodeViewWillStartCount:(InputCodeView *)inputCodeView;
+- (void)inputCodeViewWillStartCount:(InputCodeViewOC *)inputCodeView;
 
 @optional
 
@@ -42,18 +42,18 @@ typedef NS_ENUM(NSInteger, InputCodeViewStatus) {
 
  @param inputCodeView 验证码输入View
  */
-- (void)inputCodeViewDidStartCount:(InputCodeView *)inputCodeView;
+- (void)inputCodeViewDidStartCount:(InputCodeViewOC *)inputCodeView;
 
 /**
  倒计时结束
 
  @param inputCodeView 验证码输入View
  */
-- (void)inputCodeViewDidFinishedCountDown:(InputCodeView *)inputCodeView;
+- (void)inputCodeViewDidFinishedCountDown:(InputCodeViewOC *)inputCodeView;
 
 @end
 
-@interface InputCodeView : UIView
+@interface InputCodeViewOC : UIView
 
 /**
  验证码输入代理
