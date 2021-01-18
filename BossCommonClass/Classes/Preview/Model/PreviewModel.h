@@ -9,8 +9,6 @@
 @property (nonatomic,copy)NSString *fileId;
 /// 保存时间
 @property (nonatomic,copy)NSString *saveTime;
-/// 文件路径
-@property (nonatomic,copy)NSURL *filePath;
 
 @end
 

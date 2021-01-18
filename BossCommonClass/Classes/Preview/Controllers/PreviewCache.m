@@ -7,6 +7,7 @@
 
 #import "PreviewCache.h"
 #import "JYCSimpleToolClass.h"
+#import "JYCMethodDefine.h"
 
 #define previewPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"BossManagerPreview.data"]
 
@@ -60,7 +61,8 @@
     NSArray *array = [self getAllPreviewMsg];
     for (PreviewModel *model in array) {
         if ([model.fileName isEqualToString:fileName] && [model.fileId isEqualToString:fileId]) {
-            return model.filePath;
+            NSString *localFilePath = [NSString stringWithFormat:@"%@/conract/%@",kDocumentPath, fileName];
+            return [NSURL fileURLWithPath:localFilePath];
         }
     }
     

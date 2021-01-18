@@ -147,7 +147,6 @@
     if (self.isBossManager && ![JYCSimpleToolClass stringIsEmpty:self.fileId]) {
         PreviewModel *model = [[PreviewModel alloc] init];
         model.fileName = identifier?:@"";
-        model.filePath = localFileURL;
         model.fileId = self.fileId?:@"";
         model.saveTime = [NSDate stringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"];
         [[PreviewCache sharedManager] saveWithPreviewMsg:model];
