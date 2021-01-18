@@ -11,6 +11,8 @@
 #import "AFURLSessionManager.h"
 #import <QuickLook/QuickLook.h>
 #import "HWIFileDownloader.h"
+#import "PreviewCache.h"
+#import "NSDate+Helper.h"
 
 @interface PreviewVc ()<HWIFileDownloadDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate>
 
@@ -66,6 +68,21 @@
     
     [self.view showLoadingView:@"加载中..."];
     self.fileDownloader = [[HWIFileDownloader alloc] initWithDelegate:self];
+    
+//    [[PreviewCache sharedManager] removeAllMsg];
+    
+    // 之家附件预览
+    if (self.isBossManager && ![JYCSimpleToolClass stringIsEmpty:self.fileId]) {
+        // 文件路径
+        NSURL *cachePath = [[PreviewCache sharedManager] getPathWithFileName:fileName fileId:self.fileId];
+        // 判断是否可以打开
+        if (![JYCSimpleToolClass stringIsEmpty:cachePath.absoluteString] && [QLPreviewController canPreviewItem:cachePath]) {
+            self.fileUrl = cachePath;
+            [self previewFile];
+            return;
+        }
+    }
+    
     [self.fileDownloader startDownloadWithIdentifier:fileName fromRemoteURL:[NSURL URLWithString:self.fileURLStr]];
 }
 
@@ -124,6 +141,16 @@
             [self.navigationController popViewControllerAnimated:YES];
         }];
         return;
+    }
+    
+    /// 如果是之家，缓存信息
+    if (self.isBossManager && ![JYCSimpleToolClass stringIsEmpty:self.fileId]) {
+        PreviewModel *model = [[PreviewModel alloc] init];
+        model.fileName = identifier?:@"";
+        model.filePath = localFileURL;
+        model.fileId = self.fileId?:@"";
+        model.saveTime = [NSDate stringFromDate:[NSDate date] withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [[PreviewCache sharedManager] saveWithPreviewMsg:model];
     }
     
     [self previewFile];
