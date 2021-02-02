@@ -234,7 +234,7 @@
 + (void)handleSuccessWithResponseObject:(id)responseObject dealType:(ResultDealTypes)dealType success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     NSDictionary *dic = (NSDictionary *)responseObject;
-    if (dic[@"err_code"])
+    if ([responseObject isKindOfClass:[NSDictionary class]] && dic[@"err_code"])
     {
         NSInteger errCode = [dic[@"err_code"] integerValue];
         // 400403:商户不使用消息系统
