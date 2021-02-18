@@ -35,11 +35,8 @@ NSString * SECRET_KEY     = @"E587782169FE3ADA4BF7C9F757E5F1CE";
 
 // Ums
 // Dev/QA
-NSString * MessageBasicURL   = @"https://boss-quhuo-api.aoaosong.com:9090/1.0/";
-NSString * MessageBasicURLV2 = @"https://boss-quhuo-api.aoaosong.com:9090/2.0/";
-// Demo
-//NSString * MessageBasicURL   = @"https://boss-api-dev.aoaosong.com:1083/1.0/";
-//NSString * MessageBasicURLV2 = @"https://boss-api-dev.aoaosong.com:1083/2.0/";
+NSString * MessageBasicURL   = @"https://uat-ums-api.o3cloud.cn.com:9090/1.0/";
+NSString * MessageBasicURLV2 = @"https://uat-ums-api.o3cloud.cn:9090/2.0/";
 
 #else
 // 骑士 当家 配置(测试)

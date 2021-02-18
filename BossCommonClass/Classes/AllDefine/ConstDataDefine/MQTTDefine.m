@@ -10,7 +10,19 @@
 @implementation MQTTDefine
 
 #ifdef DEBUG
+
 // Dev/QA 默认测试环境
+#ifdef kBossManager
+
+NSString * mqttServer = @"uat-mqtt.o3cloud.cn";
+NSInteger  mqttPort   = 8011;
+NSString * mqttUserName = @"boss_im_clinet";
+NSString * mqttPassword = @"fzbyywbug";
+NSString * mqttClientId = @"ct-";
+NSString * mqttSecretKey = @"6fc6baf2875911e9bc42526af7764f64";
+
+#else
+
 NSString * mqttServer = @"boss-api-dev.aoaosong.com";
 NSInteger  mqttPort   = 1883;
 
@@ -19,6 +31,8 @@ NSString * mqttPassword = @"im_server-123";
 NSString * mqttClientId = @"im_server";
 
 NSString * mqttSecretKey = @"cc6803a649ff7f3f036566d1421c4315";
+
+#endif
 
 #else
 
