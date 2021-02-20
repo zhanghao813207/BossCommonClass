@@ -14,5 +14,7 @@
 @property (nonatomic, strong) NSString *filePath;
 /// 是否是BOSS之家
 @property (nonatomic, assign) BOOL isBossManager;
+/// 之家需fileId判断是否已经缓存过文件
+@property (nonatomic, strong) NSString *fileId;
 
 @end
