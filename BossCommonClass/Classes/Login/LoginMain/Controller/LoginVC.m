@@ -212,23 +212,6 @@
     }
     
     showView.hidden = NO;
-    // View切换动画
-    //    dismissView.alpha = 1;
-    //    [UIView animateWithDuration:0.25f animations:^{
-    //        dismissView.alpha = 0;
-    //    } completion:^(BOOL finished) {
-    //        dismissView.hidden = YES;
-    //        showView.hidden = NO;
-    //        showView.alpha = 0;
-    //        [UIView animateWithDuration:0.25 animations:^{
-    //            showView.alpha = 1;
-    //        } completion:^(BOOL finished) {
-    //            if (commplete) {
-    //                commplete(finished);
-    //            }
-    //        }];
-    //    }];
-    
 }
 
 #pragma mark -- 倒计时的代理
@@ -255,6 +238,56 @@
     }];
 }
 
+
+#pragma mark - 网络请求
+/// 请求商户号
+- (void)requestMerchantWithMerchantCode:(NSString *)merchantCode {
+    WS(weakSelf);
+    [self.navigationController.view showGrayLoadingStatus:@"加载中..."];
+    [SaasRequest getSaasResult:merchantCode success:^(SaasModel * _Nonnull saasModel) {
+        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+        weakSelf.saasModel = saasModel;
+        NSString *phoneNumber = @"";
+        if(kCache.currentSaasModel){
+            if ([saasModel._id isEqualToString:kCache.currentSaasModel._id]) {
+                phoneNumber = weakSelf.defaultPhoneNumber;
+            }
+        }
+        [weakSelf showInputPhoneNumberView:saasModel phoneNumber:phoneNumber];
+    } fail:^{
+        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
+    }];
+}
+
+/// 登录请求
+- (void)requestLoginWithCode:(NSString *)code
+                 phoneNumber:(NSString *)phoneNumber {
+    // 显示加载对话框
+    WS(weakSelf);
+    [self.navigationController.view showLoadingStatus:@"登录中..."];
+    [NNBAuthRequest authRequestLoginWithPhoneNumber:self.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
+        NSLog(@"%@", accountInfo);
+        //如果是账号管理页面跳转过来的就直接退到我的页面。
+        [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
+        weakSelf.currentTabbarController.selectedIndex = 0;
+        [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
+            if (weakSelf.loginSuccessBlock) {
+                weakSelf.loginSuccessBlock(YES);
+            }
+        }];
+    } fail:^(id error) { // 网络请求失败
+        
+        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
+            
+            [weakSelf.inputCodeView isBecomeFirstResponder];
+            [UIView animateWithDuration:0.25f animations:^{
+                weakSelf.BGView.y = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }];
+    }];
+}
 
 #pragma mark --lazy
 
@@ -297,6 +330,7 @@
     return _appLogoImageView;
 }
 
+/// 输入商户号view
 - (InputMerchantCodeView *) inputMerchantCodeView
 {
     if(!_inputMerchantCodeView){
@@ -308,21 +342,7 @@
         
         WS(weakSelf);
         [_inputMerchantCodeView setNextStepBlock:^(NSString * _Nonnull merchantCode) {
-            [weakSelf.navigationController.view showGrayLoadingStatus:@"加载中..."];
-            [SaasRequest getSaasResult:merchantCode success:^(SaasModel * _Nonnull saasModel) {
-                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-                weakSelf.saasModel = saasModel;
-                NSString *phoneNumber = @"";
-                if(kCache.currentSaasModel){
-                    if ([saasModel._id isEqualToString:kCache.currentSaasModel._id]) {
-                        phoneNumber = weakSelf.defaultPhoneNumber;
-                    }
-                }
-                [weakSelf showInputPhoneNumberView:saasModel phoneNumber:phoneNumber];
-            } fail:^{
-                [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-            }];
-            
+            [weakSelf requestMerchantWithMerchantCode:merchantCode];
         }];
     }
     
@@ -404,6 +424,7 @@
     }
 }
 
+/// 第一次登陆的用户协议
 - (ProtocollAlertViewCommon *)protocolAlertView
 {
     if(!_protocolAlertView)
@@ -413,6 +434,7 @@
     return _protocolAlertView;
 }
 
+/// 验证码输入view
 - (InputCodeViewOC *)inputCodeView
 {
     if (!_inputCodeView) {
@@ -446,13 +468,8 @@
             [UIView animateWithDuration:0.25f animations:^{
                 weakSelf.BGView.y = 85;
             } completion:^(BOOL finished) {
-                
-                
-#if (defined kBossKnight) || (defined kBossManager)
                 //如果是第一次登录 的 并且没有点击过同意协议的
                 if((self.isFirstLogin && (!weakSelf.isClickAgree))) {
-                    //                if(true) {
-                    
                     UIWindow *window = [UIApplication sharedApplication].keyWindow;
                     [window addSubview:weakSelf.protocolAlertView];
                     weakSelf.protocolAlertView.alpha = 0;
@@ -462,16 +479,9 @@
                         weakSelf.protocolAlertView.alpha = 1;
                     }];
                     
-                    
-                    
-                    
                     [weakSelf.protocolAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.top.width.equalTo(window);
-                        if (@available(iOS 11.0, *)) {
-                            make.bottom.mas_equalTo(window.mas_safeAreaLayoutGuideBottom);
-                        } else {
-                            make.bottom.mas_equalTo(window);
-                        }
+                        make.bottom.mas_equalTo(window.mas_safeAreaLayoutGuideBottom);
                     }];
                     
                     weakSelf.protocolAlertView.softBlock = ^{
@@ -482,103 +492,16 @@
                         [weakSelf agreementClicked:@"隐私协议"];
                         weakSelf.protocolAlertView.alpha = 0;
                     };
+                    /// 点击了同意按钮
                     weakSelf.protocolAlertView.agreeBlock = ^{
-                        // 显示加载对话框
-                        [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
-                        [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
-#if (defined kBossManager)
-                            //如果是账号管理页面跳转过来的就直接退到我的页面。
-                            [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
-                            weakSelf.currentTabbarController.selectedIndex = 0;
-                            
-                            // 登陆成功
-                            // 隐藏对话框
-                            [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
-                                if (weakSelf.loginSuccessBlock) {
-                                    weakSelf.loginSuccessBlock(YES);
-                                }
-                            }];
-                            
-#elif (defined kBossKnight)
-                            //BOSS骑士 特殊登录需求 直接显示VC
-                            [weakSelf removeNavigationLoginVC];
-                            if (weakSelf.loginSuccessBlock) {
-                                weakSelf.loginSuccessBlock(YES);
-                            }
-#endif
-                        } fail:^(id error) { // 网络请求失败
-                            [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
-                                weakSelf.isClickAgree = true;
-                                [weakSelf.inputCodeView isBecomeFirstResponder];
-                                [UIView animateWithDuration:0.25f animations:^{
-                                    weakSelf.BGView.y = 0;
-                                } completion:^(BOOL finished) {
-                                    
-                                }];
-                            }];
-                        }];
+                        // 登录
+                        weakSelf.isClickAgree = true;
+                        [weakSelf requestLoginWithCode:code phoneNumber:phoneNumber];
                     };
                 } else {
-                    // 显示加载对话框
-                    [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
-                    [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
-                        NSLog(@"%@", accountInfo);
-#if (defined kBossManager)
-                        //如果是账号管理页面跳转过来的就直接退到我的页面。
-                        [weakSelf.lastNavigationController popToRootViewControllerAnimated:NO];
-                        weakSelf.currentTabbarController.selectedIndex = 0;
-                        [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
-                            if (weakSelf.loginSuccessBlock) {
-                                weakSelf.loginSuccessBlock(YES);
-                            }
-                        }];
-                        
-#elif (defined kBossKnight)
-                        //BOSS骑士 特殊登录需求 直接显示VC
-                        [weakSelf removeNavigationLoginVC];
-                        if (weakSelf.loginSuccessBlock) {
-                            weakSelf.loginSuccessBlock(YES);
-                        }
-#endif
-                    } fail:^(id error) { // 网络请求失败
-                        
-                        [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
-                            
-                            [weakSelf.inputCodeView isBecomeFirstResponder];
-                            [UIView animateWithDuration:0.25f animations:^{
-                                weakSelf.BGView.y = 0;
-                            } completion:^(BOOL finished) {
-                                
-                            }];
-                        }];
-                    }];
+                    // 登录
+                    [weakSelf requestLoginWithCode:code phoneNumber:phoneNumber];
                 }
-#elif defined kBossOwner
-                [weakSelf.navigationController.view showLoadingStatus:@"登录中..."];
-                // 登陆请求
-                [NNBAuthRequest authRequestLoginWithPhoneNumber:weakSelf.saasModel phoneNumber:phoneNumber authCode:code success:^(id accountInfo) {
-                    
-                    [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:nil];
-                    
-                    [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{
-                        if (weakSelf.loginSuccessBlock) {
-                            weakSelf.loginSuccessBlock(YES);
-                        }
-                    }];
-                    
-                } fail:^(id error) { // 网络请求失败
-                    [weakSelf.navigationController.view dismissLoadingStatusViewWithCompletion:^(BOOL finish) {
-                        [weakSelf.inputCodeView isBecomeFirstResponder];
-                        [UIView animateWithDuration:0.25f animations:^{
-                            weakSelf.BGView.y = 0;
-                        } completion:^(BOOL finished) {
-                            
-                        }];
-                    }];
-                }];
-                
-#endif
-                
             }];
         }];
     }
@@ -626,10 +549,10 @@
     NSString *title;
     if ([type isEqualToString:@"用户服务协议"]) {
         title = @"用户服务协议";
-        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], [self getAgreementPath]];
+        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], @"agreement-home"];
     } else {
         title = @"隐私政策";
-        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], [self getPrivacyPath]];
+        url = [NSString stringWithFormat:@"%@static/%@.html", [self getHost], @"privacy-home"];
     }
     AgreementVc *vc = [[AgreementVc alloc] init];
     vc.url = url;
@@ -647,50 +570,6 @@
     return @"https://boss-dev.aoaosong.com/";
 #else
     return @"https://boss.aoaosong.com/";
-#endif
-}
-
-/**
- 用户协议path
- 
- @return 用户协议path
- */
-- (NSString *)getAgreementPath {
-    
-#ifdef kBossKnight
-    return @"agreement-knight";
-    
-#elif defined kBossOwner
-    if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
-            return @"agreement-boss-diablo-mode";
-        }
-    }
-    return @"agreement-boss";
-#else
-    return @"agreement-home";
-#endif
-}
-
-/**
- 隐私政策path
- 
- @return 隐私政策path
- */
-- (NSString *)getPrivacyPath {
-    
-#ifdef kBossKnight
-    return @"privacy-knight";
-    
-#elif defined kBossOwner
-    if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
-            return @"privacy-boss-diablo-mode";
-        }
-    }
-    return @"privacy-boss";
-#else
-    return @"privacy-home";
 #endif
 }
 
