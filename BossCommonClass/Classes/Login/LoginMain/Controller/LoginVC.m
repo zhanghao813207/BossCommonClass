@@ -414,7 +414,7 @@
     }else {
         errorMsg = @"服务器未响应，请稍后重试";
     }
-    if( [errorMsg containsString:@"service@cityio.cn"] ){
+    if ([errorMsg containsString:@"service@cityio.cn"] && !kCurrentBossManagerAccount){
         UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.view endEditing:NO];
