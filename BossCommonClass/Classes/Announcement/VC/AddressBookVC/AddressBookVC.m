@@ -173,7 +173,15 @@
 
 /// 判断是否添加空页面
 - (void)judgeEmptyView {
+#ifdef kBossManager
+    if (self.arrM.count > 0) {
+        self.tableview.tableFooterView = [[UIView alloc] init];
+    }else {
+        self.tableview.tableFooterView = self.emptyView;
+    }
+#else
     self.tableview.backgroundView.backgroundColor = self.arrM.count > 0 ? [UIColor colorNamed:@"bgcolor_F5F5F5_000000"] : UIColor.clearColor ;
+#endif
 }
 
 - (void)refreshMoreData {

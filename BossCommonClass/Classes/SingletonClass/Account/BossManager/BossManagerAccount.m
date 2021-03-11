@@ -52,7 +52,7 @@
 + (void)userIsLoginSuccess:(void (^)(BOOL isSuccess, BOOL isFirstLogin))success saasAccountBlock:(void(^)(void))saasAccountBlock withController:(UIViewController *)viewController{
     
     // 当前用户已经登录
-    if (kCurrentBossManagerAccount) {
+    if (kCurrentBossManagerAccount && [kCurrentBossManagerAccount.tokenModel.account_id isEqualToString:kCurrentBossManagerAccount.accountModel._id]) {
         if (success) {
             success(YES,NO);
         }
