@@ -228,6 +228,7 @@ typedef NS_ENUM(NSInteger, ApplicationOrderType) {
     APPLICATION_CAPITAL_ALLOCATE_ORDER                      = 408, //资金调拨
     
     APPLICATION_ADMINISTRATION_PETITION                     = 501, //事务签呈
+    APPLICATION_WORK_FLOW_TRAVEL_ORDER                      = 601, //事务类型的出差申请
 };
 
 // 审批单整体状态
