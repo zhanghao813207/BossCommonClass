@@ -22,7 +22,7 @@
 + (void)BossAccountRequestGainAccountWithAccountId:(NSString *)accountId success:(void(^)(BossManagerAccountModel *))successBlock fail:(void(^)(id error))failBlock
 {
     NSDictionary *paramDic = @{
-                               @"_id":accountId
+        @"_id":accountId?:@""
                                };
     [NNBBasicRequest postJsonWithUrl:kUrl parameters:paramDic CMD:@"account.account.get" success:^(id responseObject) {
 
