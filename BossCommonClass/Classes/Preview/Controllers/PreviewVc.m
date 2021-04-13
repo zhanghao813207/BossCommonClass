@@ -190,6 +190,15 @@
     NSLog(@"resumeDownloadWithIdentifier aDownloadIdentifier : %@", aDownloadIdentifier);
 }
 
+#ifdef kBossManager
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+#else
+
+#endif
+
 #pragma mark -- private
 
 - (void)previewFile

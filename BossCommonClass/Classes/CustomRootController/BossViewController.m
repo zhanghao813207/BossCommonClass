@@ -98,12 +98,16 @@
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
+#ifdef kBossManager
+    
+#else
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
         return NO;
     }
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UICollectionViewCellContentView"]) {
         return NO;
     }
+#endif
     return YES;
 }
 #pragma mark - tap gestureRecognizer action method
