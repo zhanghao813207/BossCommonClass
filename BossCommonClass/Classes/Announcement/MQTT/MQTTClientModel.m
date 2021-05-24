@@ -13,6 +13,7 @@
 #import "MQTTDefine.h"
 #import "QLifeAES256.h"
 #import "JYCSimpleToolClass.h"
+#import <FirebaseCrashlytics/FIRCrashlytics.h>
 
 @interface MQTTClientModel () <MQTTSessionManagerDelegate,WifiManagerDelegate>
 
@@ -37,6 +38,7 @@
 - (void)connect:(NSString *) accountId {
     self.accountId = accountId?:@"";
     NSString *clientId = [NSString stringWithFormat:@"%@%@%@",mqttClientId,[JYCSimpleToolClass getUUID],accountId];
+    [[FIRCrashlytics crashlytics] setCustomValue:self.accountId forKey:@"MQTTAccountId"];
     [self.mySessionManager connectTo:mqttServer
                                 port:mqttPort
                                  tls:NO
@@ -57,8 +59,6 @@
                       connectHandler:^(NSError *error) {
                           NSLog(@"%@",error);
                       }];
-    
-    self.mySessionManager.subscriptions = self.subedDict;
 }
 
 - (void)disconnect {
@@ -103,6 +103,7 @@
             // 订阅消息
             if (self.accountId) {
                 [self subscribeTopic:self.accountId];
+                self.mySessionManager.subscriptions = self.subedDict;
             }
             // 启动定时发布心跳包
             [self countDownWithTopic:@"ums/"];
@@ -160,7 +161,6 @@
     if (![self.subedDict.allKeys containsObject:topic]) {
         [self.subedDict setObject:[NSNumber numberWithLong:MQTTQosLevelAtLeastOnce] forKey:topic];
         NSLog(@"订阅字典 ----------- = %@",self.subedDict);
-        self.mySessionManager.subscriptions =  self.subedDict;
     }
     else {
         NSLog(@"已经存在，不用订阅");
