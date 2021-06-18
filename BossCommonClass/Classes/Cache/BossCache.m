@@ -332,17 +332,19 @@ static BossCache *defaultCache = nil;
             }else{ // 不存在
                 [accountDicList addObject:accountDic];
             }
-            [saasDic setValue:accountDicList forKey:@"accountList"];
-            i = 0;
-            for(NSDictionary* saveSaasDic in self.saasAccountList){
-                if([[saveSaasDic objectForKey:@"_id"] isEqualToString:[saasDic objectForKey:@"_id"]]){
-                    break;
+            if (accountDicList.count > 0) {
+                [saasDic setValue:accountDicList forKey:@"accountList"];
+                i = 0;
+                for(NSDictionary* saveSaasDic in self.saasAccountList){
+                    if([[saveSaasDic objectForKey:@"_id"] isEqualToString:[saasDic objectForKey:@"_id"]]){
+                        break;
+                    }
+                    i++;
                 }
-                i++;
-            }
-            
-            if(i < self.saasAccountList.count){
-                [self.saasAccountList replaceObjectAtIndex:i withObject:saasDic];
+                
+                if(i < self.saasAccountList.count){
+                    [self.saasAccountList replaceObjectAtIndex:i withObject:saasDic];
+                }
             }
         }else{ // saas不存在
             [[currentSaasDic objectForKey:@"accountList"] addObject:accountDic];
