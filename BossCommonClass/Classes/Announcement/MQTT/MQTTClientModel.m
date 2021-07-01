@@ -23,6 +23,8 @@
 /// 订阅的事件
 @property (nonatomic,strong) NSMutableDictionary *subedDict;
 
+@property (nonatomic, strong) dispatch_source_t heartbeatTimer;
+
 @end
 @implementation MQTTClientModel
 
@@ -62,14 +64,9 @@
 }
 
 - (void)disconnect {
-    //    self.isContented = NO;
     [self.mySessionManager disconnectWithDisconnectHandler:^(NSError *error) {
         NSLog(@"断开连接  error = %@",[error description]);
     }];
-    [self.mySessionManager setDelegate:nil];
-    self.mySessionManager = nil;
-    [self.subedDict removeAllObjects];
-    
 }
 
 
@@ -93,33 +90,45 @@
     
 }
 
+#pragma mark ---- dealloc
+- (void)dealloc {
+    dispatch_source_cancel(self.heartbeatTimer);
+    self.heartbeatTimer = nil;
+    [self.mySessionManager setDelegate:nil];
+    self.mySessionManager = nil;
+}
+
 #pragma mark ---- 状态
 - (void)sessionManager:(MQTTSessionManager *)sessionManager didChangeState:(MQTTSessionManagerState)newState {
     switch (newState) {
         case MQTTSessionManagerStateConnected:
         {
-            self.isConnect = true;
             NSLog(@"eventCode -- 连接成功");
             // 订阅消息
             if (self.accountId) {
-                [self subscribeTopic:self.accountId];
-                self.mySessionManager.subscriptions = self.subedDict;
+                [self.subedDict removeAllObjects];
+                [self addSubscribeTopic:self.accountId];
+                [self subscribeTopics];
             }
             // 启动定时发布心跳包
-            [self countDownWithTopic:@"ums/"];
+            [self startTimer];
+            self.isConnect = true;
+            
         }
             break;
         case MQTTSessionManagerStateConnecting:
             NSLog(@"eventCode -- 连接中");
-            
             break;
         case MQTTSessionManagerStateClosed:
             NSLog(@"eventCode -- 连接被关闭");
-            self.isConnect = false;
             // 取消定时发送心跳包
+            [self  stopTimer];
+            self.isConnect = false;
             break;
         case MQTTSessionManagerStateError:
             NSLog(@"eventCode -- 连接错误");
+            // 取消定时发送心跳包
+            [self  stopTimer];
             self.isConnect = false;
             break;
         case MQTTSessionManagerStateClosing:
@@ -135,7 +144,6 @@
             break;
     }
 }
-
 
 #pragma mark MQTTSessionManagerDelegate
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
@@ -155,9 +163,8 @@
 
 
 #pragma mark - 订阅
-- (void)subscribeTopic:(NSString *)topic{
-    
-    NSLog(@"当前需要订阅-------- topic = %@",topic);
+
+- (void)addSubscribeTopic:(NSString *)topic {
     if (![self.subedDict.allKeys containsObject:topic]) {
         [self.subedDict setObject:[NSNumber numberWithLong:MQTTQosLevelAtLeastOnce] forKey:topic];
         NSLog(@"订阅字典 ----------- = %@",self.subedDict);
@@ -165,23 +172,11 @@
     else {
         NSLog(@"已经存在，不用订阅");
     }
-    
 }
 
-#pragma mark - 取消订阅
-- (void)unsubscribeTopic:(NSString *)topic {
-    
-    NSLog(@"当前需要取消订阅-------- topic = %@",topic);
-    
-    if ([self.subedDict.allKeys containsObject:topic]) {
-        [self.subedDict removeObjectForKey:topic];
-        NSLog(@"更新之后的订阅字典 ----------- = %@",self.subedDict);
-        self.mySessionManager.subscriptions =  self.subedDict;
-    }
-    else {
-        NSLog(@"不存在，无需取消");
-    }
-    
+/// 订阅主题
+- (void)subscribeTopics {
+    self.mySessionManager.subscriptions = self.subedDict;
 }
 
 #pragma mark - 发布消息
@@ -200,27 +195,30 @@
     [self.mySessionManager sendData:data topic:topic qos:1 retain:NO];
 }
 
-#pragma mark - 启动心跳
-- (void)countDownWithTopic:(NSString *)topic {
-    if (self.isConnect == false) {
+#pragma mark - 启动/停止心跳
+
+- (void)startTimer{
+    if(self.isConnect){
         return;
     }
+    dispatch_resume(self.heartbeatTimer);
+}
+
+- (void)stopTimer{
+    if(self.isConnect){
+        dispatch_suspend(self.heartbeatTimer);
+    }
+}
+
+- (void)countDownWithTopic:(NSString *)topic {
     // 发送心跳信息
     __weak typeof(self) weakSelf = self;
-    if(kCache.deviceToken && self.mySessionManager) {
+    if(kCache.deviceToken) {
         NSDictionary *dic = @{@"event_name":@"heartbeat",@"payload":@{@"account_id":self.accountId?:@""}};
         NSLog(@"MQTTClientModel->countDownWithTopic->heartbeat \n %@",dic);
         NSData *data = [QLifeAES256 dataWithEncodeObj:dic password:mqttSecretKey];
         [weakSelf sendDataToTopic:topic data:data];
     }
-    
-    int64_t delayInSeconds = 60;      // 心跳间隔60s
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf countDownWithTopic:topic];
-        });
-    });
 }
 
 #pragma mark - 懒加载
@@ -231,6 +229,20 @@
         _mySessionManager.delegate = self;
     }
     return _mySessionManager;
+}
+
+- (dispatch_source_t)heartbeatTimer {
+    if(!_heartbeatTimer) {
+        __weak typeof(self) weakSelf = self;
+        int64_t delayInSeconds = 60;      // 心跳间隔60s
+        NSString *hearbeatTopic = @"ums/";
+        _heartbeatTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0,  0, dispatch_get_main_queue());
+        dispatch_source_set_timer(_heartbeatTimer, DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC, 0);
+        dispatch_source_set_event_handler(_heartbeatTimer, ^(void){
+            [weakSelf countDownWithTopic:hearbeatTopic];
+        });
+    }
+    return _heartbeatTimer;
 }
 
 - (NSMutableDictionary *)subedDict {

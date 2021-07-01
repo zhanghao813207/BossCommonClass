@@ -27,22 +27,6 @@
 - (void)reConnect;
 
 /**
- 订阅主题
- 
- @param topic 主题
- */
-typedef void (^SubscribeTopicHandler)(NSString *topic, BOOL success);
-
-- (void)subscribeTopic:(NSString *)topic;
-
-/**
- 取消订阅
- 
- @param topic 主题
- */
-- (void)unsubscribeTopic:(NSString *)topic;
-
-/**
  发布消息
  */
 - (void)sendDataToTopic:(NSString *)topic dict:(NSDictionary *)dict;
