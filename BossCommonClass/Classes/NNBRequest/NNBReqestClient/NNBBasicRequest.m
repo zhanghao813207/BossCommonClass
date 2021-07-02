@@ -246,7 +246,15 @@
             }else{
                 
                 if (dealType == ResultDealTypesQHErrorView) {
-                    [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
+                    
+                    // 设置2s的时间，防止多次提示弹框
+                    NSTimeInterval lastTime = [[NSUserDefaults standardUserDefaults] doubleForKey:@"loginFailErrorView"];
+                    
+                    if (([[NSDate date] timeIntervalSince1970] - lastTime) > 2) {
+                        [[[QHErrorView alloc] initWithTitle:errorMsg] showInView:showView];
+                        [[NSUserDefaults standardUserDefaults] setDouble:[[NSDate date] timeIntervalSince1970] forKey:@"loginFailErrorView"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                    }
                 } else if (dealType == ResultDealTypesNNBStatusView){
                     [showView showStatus:errorMsg];
                 }
@@ -270,7 +278,7 @@
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 kCache.umsAccessTokenModel = nil;
-                [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:2.f];
+                [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
                 // 断开MQTT链接
                 [[MQTTClientModel sharedInstance] disconnect];
             }
@@ -303,9 +311,11 @@
         if ([rootVc isKindOfClass:NSClassFromString(@"AccountManagerController")] || [rootVc isKindOfClass:NSClassFromString(@"LoginVC")]) {
             return;
         }
-        if([rootVc isKindOfClass:NSClassFromString(@"AddressBookVC")] || [rootVc isKindOfClass:NSClassFromString(@"MessageViewController")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
+        if([rootVc isKindOfClass:NSClassFromString(@"SecondTabbarVC")] || [rootVc isKindOfClass:NSClassFromString(@"MessageViewController")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
             [rootVc viewWillAppear:YES];
         }
+        // 需重新登录通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"bossAdminShouldLogin" object:nil];
     }
 }
 
