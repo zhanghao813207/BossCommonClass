@@ -230,18 +230,18 @@
                 kCurrentBossOwnerAccount = nil;
                 [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
 #endif
-
+                
                 UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
-                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-                        // 断开MQTT链接
-                        [[MQTTClientModel sharedInstance] disconnect];
-                        kCache.umsAccessTokenModel = nil;
-                        
-                        [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
-                        
-                    }];
-                    [alertC addAction:alertA];
-                    [vc presentViewController:alertC animated:false completion:nil];
+                UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    // 断开MQTT链接
+                    [[MQTTClientModel sharedInstance] disconnect];
+                    kCache.umsAccessTokenModel = nil;
+                    
+                    [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+                    
+                }];
+                [alertC addAction:alertA];
+                [vc presentViewController:alertC animated:false completion:nil];
                 
             }else{
                 
@@ -270,9 +270,6 @@
                 [kCache addPhone:phone];
                 kCurrentBossManagerAccount = nil;
 #else
-                //                if(!kCurrentBossOwnerAccount){
-                //                    return;
-                //                }
                 kCurrentBossOwnerAccount = nil;
                 [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
 #endif
@@ -315,7 +312,7 @@
             [rootVc viewWillAppear:YES];
         }
         // 需重新登录通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"bossAdminShouldLogin" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"bossManagerShouldLogin" object:nil];
     }
 }
 
