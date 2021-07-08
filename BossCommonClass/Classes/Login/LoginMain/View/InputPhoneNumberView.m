@@ -193,7 +193,7 @@ CGFloat const kInputPhoneNumberViewHeight = 263;
 {
     if(!_merchantCodeLabel){
         // CGFloat Y = IsPhone_Size_4 ? 34 : 70;
-        _merchantCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kScreenWidth - 40, 18)];
+        _merchantCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 16, kScreenWidth - 40, 22)];
         _merchantCodeLabel.textColor = [UIColor colorNamed:@"boss_0B0817_FFFFFF"];
         _merchantCodeLabel.font = BossRegularFont(18.f);
         // _merchantCodeLabel.text = @"123456";
