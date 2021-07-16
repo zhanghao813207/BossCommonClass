@@ -18,6 +18,7 @@
 #import "NNBButton.h"
 #import "BGFMDB.h"
 #import "UIView+ShowView.h"
+#import "ExamineCommonOrderEnum.h"
 //#import "NSString+TimeStr.h"
 
 #endif /* BossBasicDefine_h */

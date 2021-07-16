@@ -172,65 +172,6 @@ typedef NS_ENUM(NSUInteger, StaffCustomState) {
 };
 
 #pragma mark - 审批单相关常量
-
-/**
- 审批单类型
- */
-typedef NS_ENUM(NSInteger, ApplicationOrderType) {
-    ApplicationOrderTypeCost          = 1, // 费用申请
-    ApplicationOrderTypeSalaryRule    = 2, // 服务费规则
-    ApplicationOrderTypeSalaryPayment = 3, // 服务费发放
-    ApplicationOrderTypeMaterial      = 4, // 物资采购
-    ApplicationOrderTypeHouseContract = 5, // 房屋管理
-    ApplicationOrderTypeLoan          = 6, // 借款申请
-    ApplicationOrderTypeRepayment     = 7, // 还款
-    ApplicationOrderTypeBusinessTrave = 8, // 出差申请
-    ApplicationOrderTypeTravelExpense = 9, // 差旅报销
-    ApplicationOrderTypeOverTime      = 10,// 加班
-    ApplicationOrderTypeLeaveOrder    = 11,// 请假
-    ApplicationOrderTypePersonnelChanges    = 12,// 人员异动
-    ApplicationOrderTypeCustomPlugInApproval    = 13,// 自定义插件审批单
-    // 事务性审批流类型
-    // 人事
-    APPLICATION_WORK_FLOW_RECRUIT_TYPE                      = 101, // 招聘管理
-    APPLICATION_WORK_FLOW_ADDENDUM_TYPE                     = 102, // 增编管理
-    APPLICATION_WORK_FLOW_WORKER_TYPE                       = 103, // 转正申请
-    APPLICATION_WORK_FLOW_RENEWAL_TYPE                      = 104, // 合同续签
-    APPLICATION_WORK_FLOW_CHANGES_TYPE                      = 105, // 人事异动
-    APPLICATION_WORK_FLOW_DEPARTURE_TYPE                    = 106, // 离职申请
-    APPLICATION_WORK_FLOW_HANDOVER_TYPE                     = 107, // 工作交接
-    APPLICATION_WORK_FLOW_EMPLOYED_TYPE                     = 108, // 录用申请
-    APPLICATION_EMPLOYMENT_APPLY                            = 109, // 入职申请
-    // 考勤
-    APPLICATION_WORK_FLOW_LEAVE_TYPE                        = 201, //请假
-    APPLICATION_WORK_FLOW_OVERTIME_TYPE                     = 202, //加班
-    APPLICATION_WORK_FLOW_GO_OUT_TYPE                       = 203, //外出
-    APPLICATION_WORK_FLOW_ABNORMAL_TYPE                     = 204, //考勤异常
-    APPLICATION_WORK_FLOW_CONFIGURE_TYPE                    = 205, //假种配置
-    // 行政
-    APPLICATION_WORK_FLOW_ENGRAVING_TYPE                    = 301, //印章刻制
-    APPLICATION_WORK_FLOW_CANCEL_TYPE                       = 302, //印章作废
-    APPLICATION_WORK_FLOW_USAGE_SEAL_TYPE                   = 303, //用章申请-用章申请表
-    APPLICATION_WORK_FLOW_SEAL_LIBRARY_TYPE                 = 304, //用章申请-印章库
-    APPLICATION_WORK_FLOW_CARD_TYPE                         = 305, //名片申请
-    APPLICATION_WORK_FLOW_LICENCE_TYPE                      = 306, //证照借用-证照借用
-    APPLICATION_WORK_FLOW_LICENCE_LIBRARY_TYPE              = 307, //证照借用-证照库
-    APPLICATION_WORK_FLOW_PUNISHMENTS_TYPE                  = 308, //奖罚申请
-    APPLICATION_WORK_FLOW_BORROW_SEAL_TYPE                  = 309, //借章申请-借章申请表
-    // 商务
-    APPLICATION_WORK_FLOW_COMPANY_REGISTER_TYPE             = 401, //注册公司
-    APPLICATION_WORK_FLOW_COMPANY_CHANGE_TYPE               = 402, //公司变更
-    APPLICATION_WORK_FLOW_BANK_ACCOUNT_TYPE                 = 403, //银行开户
-    APPLICATION_WORK_FLOW_BANK_CANCEL_TYPE                  = 404, //注销开户
-    APPLICATION_WORK_FLOW_CONTRACT_APPROVAL_TYPE            = 405, //合同会审
-    APPLICATION_WORK_FLOW_CONTRACT_BORROWING_TYPE           = 406, //合同借阅-合同借阅审批
-    APPLICATION_WORK_FLOW_CONTRACT_BORROWING_LIBRARY_TYPE   = 407, //合同借阅-合同库
-    APPLICATION_CAPITAL_ALLOCATE_ORDER                      = 408, //资金调拨
-    
-    APPLICATION_ADMINISTRATION_PETITION                     = 501, //事务签呈
-    APPLICATION_WORK_FLOW_TRAVEL_ORDER                      = 601, //事务类型的出差申请
-};
-
 // 审批单整体状态
 typedef NS_ENUM(NSInteger, OA_EXAMINE_STATE) {
     OA_EXAMINE_STATE_INIT     =    1,  // 待提交
