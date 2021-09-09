@@ -180,7 +180,7 @@
         [[MQTTClientModel sharedInstance] disconnect];
         NSString *logoutPhone = kCurrentBossManagerAccount.accountModel.phone ? : @"";
         kCache.lastLoginPhone = logoutPhone;
-        [kCache addPhone:logoutPhone];
+        [kCache addLoginOutAccount:kCurrentBossManagerAccount.accountModel._id?:@""];
         kCurrentBossManagerAccount = nil;
         kCache.umsAccessTokenModel = nil;
         if (!confirmBlock) {

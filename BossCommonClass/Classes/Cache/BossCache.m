@@ -153,37 +153,34 @@ static BossCache *defaultCache = nil;
     return _lastLoginPhone;
 }
 
-- (NSMutableArray<NSString *> *)getlogoutPhoneList
+- (NSMutableArray<NSString *> *)getlogoutAccountList
 {
     return [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
 }
 
-- (void)addPhone:(NSString *)phone
+/// 添加登录失效的手机号
+- (void)addLoginOutAccount:(NSString *)accountId
 {
-    if([JYCSimpleToolClass stringIsEmpty:phone]){
+    if([JYCSimpleToolClass stringIsEmpty:accountId]){
         return;
     }
     NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
     if(!logoutPhoneList){
         logoutPhoneList = [NSMutableArray mutableCopy];
-        [logoutPhoneList addObject:phone];
-        return;
     }
-    [logoutPhoneList addObject:phone];
+    [logoutPhoneList addObject:accountId];
     NSSet *logoutPhoneSet = [NSSet setWithArray:logoutPhoneList];
     [kUserDefault setObject:[logoutPhoneSet allObjects] forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
-- (void)removePhone:(NSString *)phone
+/// 移除登录失效的手机号
+- (void)removeLoginOutAccount:(NSString *)accountId
 {
     NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
     if(!logoutPhoneList){
         return;
     }
-    [logoutPhoneList removeObject:phone];
-    if (logoutPhoneList.count == 0) {
-        return;
-    }
+    [logoutPhoneList removeObject:accountId];
     [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
 }
 

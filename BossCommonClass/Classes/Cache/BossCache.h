@@ -92,12 +92,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addAccount:(NSDictionary *)accountDic;
 
 - (void)removeAccount:(NSUInteger)saasIndex accountIndex:(NSUInteger)accountIndex;
+/// 获取登录失效列表
+- (NSMutableArray<NSString *> *)getlogoutAccountList;
 
-- (NSMutableArray<NSString *> *)getlogoutPhoneList;
-
-- (void)addPhone:(NSString *)phone;
-
-- (void)removePhone:(NSString *)phone;
+/// 添加登录失效的用户
+- (void)addLoginOutAccount:(NSString *)accountId;
+/// 移除登录失效的用户
+- (void)removeLoginOutAccount:(NSString *)accountId;
 
 @end
 
