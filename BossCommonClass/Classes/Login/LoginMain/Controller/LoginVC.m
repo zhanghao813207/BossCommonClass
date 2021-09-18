@@ -171,19 +171,27 @@
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
         case MerchantCodeView:
-            //            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
+        {
             [kCache initNetConfig:kCache.currentSaasModel];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 kLocalConfig = NO;
                 kCache.showBackMerchantCode = NO;
+                if (self.loginSuccessBlock) {
+                    self.loginSuccessBlock(NO);
+                }
             }];
+        }
             break;
         case PhoneNumberView:
+        {
             [self showInputMerchantCodeView:self.inputPhoneNumberView.saasModel.merchant_info.merchant_code];
+        }
             break;
         case PhoneCodeView:
+        {
             self.inputCodeView.showVoiceCode = NO;
             [self showInputPhoneNumberView:self.inputPhoneNumberView.saasModel phoneNumber:self.inputCodeView.phoneNumber];
+        }
             break;
         default:
             break;

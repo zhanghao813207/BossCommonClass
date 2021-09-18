@@ -378,4 +378,24 @@ static BossCache *defaultCache = nil;
     [kUserDefault synchronize];
 }
 
+/// 根据账号id删除账号
+- (void)removeAccountWithAccountId:(NSString *)accountId {
+    // 遍历本地，找到对应的账号
+    // 便利商户
+    for (int j = 0; j < self.saasAccountList.count; j++) {
+        NSDictionary *dict = self.saasAccountList[j];
+        SaasModel *saasModel = [[SaasModel alloc] init];
+        [saasModel setValuesForKeysWithDictionary:dict];
+        
+        // 便利商户下账号
+        for (int i = 0; i < saasModel.accountList.count; i++) {
+            NSDictionary *accountDic = saasModel.accountList[i];
+            if ([accountDic[@"account"][@"_id"]?:@"" isEqualToString:accountId]) {
+                [self removeAccount:j accountIndex:i];
+                return;
+            }
+        }
+    }
+}
+
 @end
