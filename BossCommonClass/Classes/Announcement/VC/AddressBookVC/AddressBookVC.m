@@ -18,6 +18,8 @@
 #import "JYCMethodDefine.h"
 #import "BossBasicDefine.h"
 #import "NotDateEmptyView.h"
+@import boss_common_ios;
+
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,AddressBookCellDelegate,PersonAddressBookVCDelegate>
 @property(nonatomic, strong)UITableView *tableview;
 @property (nonatomic, strong) NotDateEmptyView *emptyView;
@@ -104,6 +106,9 @@
  获取数据
  */
 - (void)refreshLatestData {
+    
+    // 刷新间隔 强制刷新
+    [[TabbarChildVCRefresh share] needRefreshWithIndex:self.tabBarController.selectedIndex forcedRefresh:true];
     
     // 是否启动UMS
     if(!kCache.checkStartUMS){
@@ -221,8 +226,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = false;
-    
-    [self.tableview.mj_header beginRefreshing];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    /// 刷新间隔
+    if ([[TabbarChildVCRefresh share] needRefreshWithIndex:self.tabBarController.selectedIndex forcedRefresh:false] == true) {
+        [self.tableview.mj_header beginRefreshing];
+    }
+    // 从后台回到app
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+/// app从后台返回到前台
+- (void)appDidBecomeActive {
+    /// 刷新间隔
+    if ([[TabbarChildVCRefresh share] needRefreshWithIndex:self.tabBarController.selectedIndex forcedRefresh:false] == true) {
+        [self.tableview.mj_header beginRefreshing];
+    }
 }
 
 //AddressBookCellDelegate
@@ -374,9 +395,9 @@
         
         // 设置下拉刷新 header view 并 设置回调
         MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
-//        MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshLatestData)];
+//        header.lastUpdatedTimeLabel.hidden = YES;
+//        header.stateLabel.hidden = YES;
         [header.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
-//        [footer.loadingView setColor:[UIColor colorNamed:@"boss_000000_FFFFFF"]];
         _tableview.mj_header = header;
         
         [self.view addSubview:_tableview];
