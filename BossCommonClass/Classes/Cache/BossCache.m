@@ -295,7 +295,12 @@ static BossCache *defaultCache = nil;
     NSDictionary *currentSaasDic = [kCache.currentSaasModel decodeToDic];
     // 检查是否保存过帐号
     if(self.saasAccountList.count <= 0){
-        [[currentSaasDic objectForKey:@"accountList"] addObject:accountDic];
+        NSMutableDictionary *mutableSaasDic = [[NSMutableDictionary alloc] initWithDictionary:currentSaasDic];
+        NSMutableArray *accountList = [[NSMutableArray alloc] init];
+        [accountList addObject:accountDic];
+        [mutableSaasDic setObject:accountList forKey:@"accountList"];
+        currentSaasDic = [[NSDictionary alloc] initWithDictionary:mutableSaasDic];
+//        [[currentSaasDic objectForKey:@"accountList"] addObject:accountDic];
         [self.saasAccountList addObject:currentSaasDic];
     }else{
         // 检查saas是否存在
