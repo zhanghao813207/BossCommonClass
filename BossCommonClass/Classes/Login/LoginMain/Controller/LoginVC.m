@@ -18,6 +18,7 @@
 #import "ProtocollAlertViewCommon.h"
 #import "Masonry.h"
 #import "UINavigationBar+BackgroundColor.h"
+@import boss_common_ios;
 @interface LoginVC ()<InputCodeViewDelegate,UIGestureRecognizerDelegate>
 
 /**
@@ -170,19 +171,27 @@
     DLog(@"返回按钮被点击");
     switch (self.currentOperatingView) {
         case MerchantCodeView:
-            //            NNBRequestManager.shareNNBRequestManager.saasModel = kCache.currentSaasModel;
+        {
             [kCache initNetConfig:kCache.currentSaasModel];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 kLocalConfig = NO;
                 kCache.showBackMerchantCode = NO;
+                if (self.loginSuccessBlock) {
+                    self.loginSuccessBlock(NO);
+                }
             }];
+        }
             break;
         case PhoneNumberView:
+        {
             [self showInputMerchantCodeView:self.inputPhoneNumberView.saasModel.merchant_info.merchant_code];
+        }
             break;
         case PhoneCodeView:
+        {
             self.inputCodeView.showVoiceCode = NO;
             [self showInputPhoneNumberView:self.inputPhoneNumberView.saasModel phoneNumber:self.inputCodeView.phoneNumber];
+        }
             break;
         default:
             break;
@@ -262,6 +271,10 @@
 /// 登录请求
 - (void)requestLoginWithCode:(NSString *)code
                  phoneNumber:(NSString *)phoneNumber {
+    // 防止重复请求
+    if ([[PreventNetworkRepeat manager] isRepeatNetworkWithStr:@"auth.auth.login"] == true) {
+        return;
+    }
     // 显示加载对话框
     WS(weakSelf);
     [self.navigationController.view showLoadingStatus:@"登录中..."];
