@@ -65,6 +65,13 @@
 #define bundlePath  [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"/BossCommonClass.bundle"]
 #define QH_Bundle [NSBundle bundleWithPath:bundlePath]
 
-#define iPhoneX [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen mainScreen] bounds].size.height >= 812.0f
+#define iPhoneX ({\
+BOOL isBangsScreen = NO; \
+if (@available(iOS 11.0, *)) { \
+UIWindow *window = [[UIApplication sharedApplication].windows firstObject]; \
+isBangsScreen = window.safeAreaInsets.bottom > 0; \
+} \
+isBangsScreen; \
+})
 
 #endif /* BossMethodDefine_h */

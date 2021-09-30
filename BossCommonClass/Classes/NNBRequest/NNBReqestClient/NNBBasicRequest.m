@@ -34,7 +34,7 @@
 + (void)postJsonNoneWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
 {
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
-        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesNone success:success fail:fail];
+        [self handleSuccessWithCMD:cmd ResponseObject:responseObject dealType:ResultDealTypesNone success:success fail:fail];
     } fail:^(id error) {
         [self handleFailWithError:error dealType:ResultDealTypesNone success:success fail:fail];
     }];
@@ -52,7 +52,7 @@
 {
     NSLog(@"-------------------------------------------\n请求URL:%@\n------------------------------------\n请求CMD:%@",url,cmd);
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
-        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
+        [self handleSuccessWithCMD:cmd ResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
     } fail:^(id error) {
         // 校验是否获取消息推送请求token的接口
         NSLog(@"fail=========%@",cmd);
@@ -79,7 +79,7 @@
 + (void)postLoginJsonWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     [self postJsonNativeWithUrl:url parameters:parameters cmd:cmd success:^(id responseObject) {
-        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesNNBStatusView success:success fail:fail];
+        [self handleSuccessWithCMD:cmd ResponseObject:responseObject dealType:ResultDealTypesNNBStatusView success:success fail:fail];
     } fail:^(id error) {
         [self handleFailWithError:error dealType:ResultDealTypesNNBStatusView success:success fail:fail];
     }];
@@ -134,44 +134,6 @@
     }];
 }
 
-+ (void)getJsonNativeWithURL:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
-{
-    NNBRequestManager *manager = [self configureManagerWithCMD:cmd];
-    DLog(@"GET: parameters = %@",parameters);
-    [manager GET:url parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"requestSuccessUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-        if (success) {
-            success(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
-        DLog(@"ERROR:%@",[error localizedDescription]);
-        [self handleErrorCodeWithError:error success:success fail:fail];
-    }];
-}
-
-/** get请求 ,所有错误统一校验 再返回 */
-+ (void)getJsonWithUrl:(NSString *)urlStr parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
-{
-    [self getJsonNativeWithURL:urlStr parameters:parameters cmd:cmd success:^(id responseObject) {
-        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesQHErrorView success:success fail:fail];
-    } fail:^(id error) {
-        [self handleFailWithError:error dealType:ResultDealTypesQHErrorView success:success fail:fail];
-    }];
-}
-
-/** get请求 (使用NNBStatusView处理),所有错误统一校验 再返回 */
-+ (void)getLoginJsonWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
-{
-    [self getJsonNativeWithURL:url parameters:parameters cmd:cmd success:^(id responseObject) {
-        [self handleSuccessWithResponseObject:responseObject dealType:ResultDealTypesNNBStatusView success:success fail:fail];
-    } fail:^(id error) {
-        [self handleFailWithError:error dealType:ResultDealTypesNNBStatusView success:success fail:fail];
-    }];
-}
-
 #pragma mark -- praviteMethod
 
 + (NNBRequestManager *)configureManagerWithCMD:(NSString *)cmd
@@ -183,7 +145,7 @@
     return manager;
 }
 
-+ (void)handleSuccessWithResponseObject:(id)responseObject dealType:(ResultDealTypes)dealType success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
++ (void)handleSuccessWithCMD:(NSString *)cmd ResponseObject:(id)responseObject dealType:(ResultDealTypes)dealType success:(void (^)(id responseObject))success fail:(void (^)(id error))fail
 {
     NSDictionary *dic = (NSDictionary *)responseObject;
     if ([responseObject isKindOfClass:[NSDictionary class]] && dic[@"err_code"])
@@ -222,10 +184,13 @@
                 if(!kCurrentBossManagerAccount){
                     return;
                 }
-                NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
-                kCache.lastLoginPhone = phone;
-                [kCache addPhone:phone];
-                kCurrentBossManagerAccount = nil;
+                // 如果是发送验证码接口，会造成当前已登录的账号登录失效
+                if ([cmd isEqualToString:@"auth.auth.send_verify_code"] == false) {
+                    NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
+                    kCache.lastLoginPhone = phone;
+                    [kCache addLoginOutAccount:kCurrentBossManagerAccount.accountModel._id?:@""];
+                    kCurrentBossManagerAccount = nil;
+                }
 #else
                 kCurrentBossOwnerAccount = nil;
                 [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
@@ -267,7 +232,7 @@
                 }
                 NSString *phone = kCurrentBossManagerAccount.accountModel.phone;
                 kCache.lastLoginPhone = phone;
-                [kCache addPhone:phone];
+                [kCache addLoginOutAccount:kCurrentBossManagerAccount.accountModel._id?:@""];
                 kCurrentBossManagerAccount = nil;
 #else
                 kCurrentBossOwnerAccount = nil;

@@ -27,17 +27,6 @@ typedef NS_ENUM(NSUInteger, ResultDealTypes) {
 /** post请求, post请求,不做任何处理返回 */
 + (void)postJsonNativeWithUrl:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
 
-/**
- get请求: 请求结果不做任何处理返回
- */
-+ (void)getJsonNativeWithURL:(NSString *)url parameters:(id)parameters cmd:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
-
-/** get请求 ,所有错误统一校验 再返回 */
-+ (void)getJsonWithUrl:(NSString *)urlStr parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
-
-/** get请求 (使用NNBStatusView处理),所有错误统一校验 再返回 */
-+ (void)getLoginJsonWithUrl:(NSString *)url parameters:(id)parameters CMD:(NSString *)cmd success:(void (^)(id responseObject))success fail:(void (^)(id error))fail;
-
 
 
 @end
