@@ -153,37 +153,34 @@ static BossCache *defaultCache = nil;
     return _lastLoginPhone;
 }
 
-- (NSMutableArray<NSString *> *)getlogoutPhoneList
+- (NSMutableArray<NSString *> *)getlogoutAccountList
 {
     return [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
 }
 
-- (void)addPhone:(NSString *)phone
+/// 添加登录失效的手机号
+- (void)addLoginOutAccount:(NSString *)accountId
 {
-    if([JYCSimpleToolClass stringIsEmpty:phone]){
+    if([JYCSimpleToolClass stringIsEmpty:accountId]){
         return;
     }
     NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
     if(!logoutPhoneList){
         logoutPhoneList = [NSMutableArray mutableCopy];
-        [logoutPhoneList addObject:phone];
-        return;
     }
-    [logoutPhoneList addObject:phone];
+    [logoutPhoneList addObject:accountId];
     NSSet *logoutPhoneSet = [NSSet setWithArray:logoutPhoneList];
     [kUserDefault setObject:[logoutPhoneSet allObjects] forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
-- (void)removePhone:(NSString *)phone
+/// 移除登录失效的手机号
+- (void)removeLoginOutAccount:(NSString *)accountId
 {
     NSMutableArray<NSString *> *logoutPhoneList = [kUserDefault mutableArrayValueForKey:LOGOUT_PHONE_LIST_KEY];
     if(!logoutPhoneList){
         return;
     }
-    [logoutPhoneList removeObject:phone];
-    if (logoutPhoneList.count == 0) {
-        return;
-    }
+    [logoutPhoneList removeObject:accountId];
     [kUserDefault setObject:logoutPhoneList forKey:LOGOUT_PHONE_LIST_KEY];
 }
 
@@ -298,7 +295,12 @@ static BossCache *defaultCache = nil;
     NSDictionary *currentSaasDic = [kCache.currentSaasModel decodeToDic];
     // 检查是否保存过帐号
     if(self.saasAccountList.count <= 0){
-        [[currentSaasDic objectForKey:@"accountList"] addObject:accountDic];
+        NSMutableDictionary *mutableSaasDic = [[NSMutableDictionary alloc] initWithDictionary:currentSaasDic];
+        NSMutableArray *accountList = [[NSMutableArray alloc] init];
+        [accountList addObject:accountDic];
+        [mutableSaasDic setObject:accountList forKey:@"accountList"];
+        currentSaasDic = [[NSDictionary alloc] initWithDictionary:mutableSaasDic];
+//        [[currentSaasDic objectForKey:@"accountList"] addObject:accountDic];
         [self.saasAccountList addObject:currentSaasDic];
     }else{
         // 检查saas是否存在
@@ -379,6 +381,26 @@ static BossCache *defaultCache = nil;
     // 保存
     [kUserDefault setObject:self.saasAccountList forKey:ACCOUNT_LIST_KEY];
     [kUserDefault synchronize];
+}
+
+/// 根据账号id删除账号
+- (void)removeAccountWithAccountId:(NSString *)accountId {
+    // 遍历本地，找到对应的账号
+    // 便利商户
+    for (int j = 0; j < self.saasAccountList.count; j++) {
+        NSDictionary *dict = self.saasAccountList[j];
+        SaasModel *saasModel = [[SaasModel alloc] init];
+        [saasModel setValuesForKeysWithDictionary:dict];
+        
+        // 便利商户下账号
+        for (int i = 0; i < saasModel.accountList.count; i++) {
+            NSDictionary *accountDic = saasModel.accountList[i];
+            if ([accountDic[@"account"][@"_id"]?:@"" isEqualToString:accountId]) {
+                [self removeAccount:j accountIndex:i];
+                return;
+            }
+        }
+    }
 }
 
 @end

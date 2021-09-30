@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, OperatingView) {
 @property (nonatomic, assign) BOOL addAccount;
 
 /**
- 登陆成功回调
+ 登陆成功回调 true：登录成功  false：点击了返回按钮
  */
 @property (nonatomic, copy) void(^loginSuccessBlock)(BOOL isLogin);
 
