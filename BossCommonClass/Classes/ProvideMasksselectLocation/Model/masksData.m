@@ -78,8 +78,7 @@ NSString *const kmaskrealQty = @"real_qty";
             NSString *dayAndMonth = [date substringFromIndex:4];
             self.yearStr = [date substringToIndex:4];
             self.dayStr = [dayAndMonth substringFromIndex:2];
-            NSString *month_z = [dayAndMonth substringToIndex:2];
-            self.monthStr = [NSString stringWithFormat:@"%@", [month_z substringFromIndex:1]];
+            self.monthStr = [dayAndMonth substringToIndex:2];
         }
 	}
 
