@@ -93,7 +93,7 @@
         [self.inputMerchantCodeView isBecomeFirstResponder];
         [self showInputMerchantCodeView:@""];
     }
-    self.navigationController.navigationBar.backgroundColor = UIColor.redColor;
+//    self.navigationController.navigationBar.backgroundColor = UIColor.redColor;
     
     
 }
