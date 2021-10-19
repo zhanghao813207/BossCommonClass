@@ -40,7 +40,23 @@
 - (void)connect:(NSString *) accountId {
     self.accountId = accountId?:@"";
     NSString *clientId = [NSString stringWithFormat:@"%@%@%@",mqttClientId,[JYCSimpleToolClass getUUID],accountId];
-    [[FIRCrashlytics crashlytics] setCustomValue:self.accountId forKey:@"MQTTAccountId"];
+#ifdef kBossManager
+    
+#else
+    NSDictionary *param = @{
+        @"AccountId": self.accountId?:@"无",
+        @"mqttServer": mqttServer?:@"无",
+        @"mqttPort": @(mqttPort),
+        @"mqttUserName": mqttUserName?:@"无",
+        @"mqttPassword": mqttPassword?:@"无",
+    };
+    [[FIRCrashlytics crashlytics] setCustomValue:param forKey:@"MQTTMsg"];
+    // 如果当家或骑士是第一次安装，莫名导致崩溃，所以第一次安装时不链接MQTT，并上传日志，查看信息
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunch"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunch"];
+        return;
+    }
+#endif
     [self.mySessionManager connectTo:mqttServer
                                 port:mqttPort
                                  tls:NO
