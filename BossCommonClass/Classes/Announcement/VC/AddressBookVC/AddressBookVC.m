@@ -230,10 +230,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+#ifdef kBossManager
+    [self.tableview.mj_header beginRefreshing];
+#else
     /// 刷新间隔
     if ([[TabbarChildVCRefresh share] needRefreshWithIndex:self.tabBarController.selectedIndex forcedRefresh:false] == true) {
         [self.tableview.mj_header beginRefreshing];
     }
+#endif
     // 从后台回到app
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
