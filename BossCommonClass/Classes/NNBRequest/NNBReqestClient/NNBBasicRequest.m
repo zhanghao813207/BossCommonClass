@@ -263,21 +263,7 @@
     if ([executableFile isEqualToString:@"BossOwner"] || [executableFile isEqualToString:@"BossKnight"]) {
         [@"login" openURL];
     } else {
-        UIViewController *rootVc = currentVc.navigationController.viewControllers.firstObject;
-        if ([currentVc isKindOfClass:[UINavigationController class]]) {
-            [(UINavigationController *)currentVc popToRootViewControllerAnimated:YES];
-            rootVc = ((UINavigationController *)currentVc).viewControllers.firstObject;
-        } else {
-            [currentVc.navigationController popToRootViewControllerAnimated:YES];
-        }
-        if ([rootVc isKindOfClass:NSClassFromString(@"AccountManagerController")] || [rootVc isKindOfClass:NSClassFromString(@"LoginVC")]) {
-            return;
-        }
-        if([rootVc isKindOfClass:NSClassFromString(@"SecondTabbarVC")] || [rootVc isKindOfClass:NSClassFromString(@"MessageViewController")] || [rootVc isKindOfClass:NSClassFromString(@"ExamineFlowViewController")] || [rootVc isKindOfClass:NSClassFromString(@"MineVc")]){
-            [rootVc viewWillAppear:YES];
-        }
-        // 需重新登录通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"bossManagerShouldLogin" object:nil];
+        [@"login" openURL];
     }
 }
 

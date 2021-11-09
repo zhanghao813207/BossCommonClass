@@ -85,6 +85,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     [self.view addSubview:self.BGView];
     
+    kCache.showBackMerchantCode = self.showBackMerchantCode;
     self.saasModel = kCache.currentSaasModel;
     if(kCache.currentSaasModel){
         [self.inputPhoneNumberView isBecomeFirstResponder];

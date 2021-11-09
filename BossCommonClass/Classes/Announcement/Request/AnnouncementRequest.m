@@ -61,6 +61,9 @@
         successBlock();
     } fail:^(id error) {
         NSLog(@"%@",error);
+        if (failBlock) {
+            failBlock();
+        }
     }];
 }
 
