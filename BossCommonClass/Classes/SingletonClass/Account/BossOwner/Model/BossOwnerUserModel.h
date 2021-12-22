@@ -114,6 +114,11 @@
 // 汗点三方是否授权
 @property (nonatomic, assign,readonly) BOOL hanDianAuth;
 
+// 是否发起注销申请
+@property (nonatomic, assign) BOOL hasCancellationApply;
+
+
+
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

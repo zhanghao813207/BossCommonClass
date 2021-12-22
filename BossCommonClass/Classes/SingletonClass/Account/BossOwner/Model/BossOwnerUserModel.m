@@ -73,6 +73,10 @@ NSString *const kBossOwnerUserHealthCertificateKey = @"health_certificate";
 // 健康证反面key
 NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_back";
 
+// 是否发起注销申请
+NSString *const kBossOwnerhascancellationapplyKey = @"has_cancellation_apply";
+
+
 
 @interface BossOwnerUserModel ()
 @end
@@ -171,7 +175,11 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     if(![dictionary[kBossOwnerUserhealthcertificatebackurl] isKindOfClass:[NSNull class]]){
         self.healthcertificatebackurl = dictionary[kBossOwnerUserhealthcertificatebackurl];
     }
-
+	
+	if(![dictionary[kBossOwnerhascancellationapplyKey] isKindOfClass:[NSNull class]]){
+		self.hasCancellationApply = [dictionary[kBossOwnerhascancellationapplyKey] boolValue];
+	}
+	
     if(![dictionary[kBossOwnerUserModelphone] isKindOfClass:[NSNull class]]){
         self.phone = dictionary[kBossOwnerUserModelphone];
     }
@@ -384,7 +392,7 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     dictionary[kBossOwnerUserTemporaryIDcardEffectDays] = @(self.temporaryIdcardEffectDays);
     dictionary[kBossOwnerUserHealthCardIsOk] = @(self.healthCardIsOK);
     dictionary[kBossOwnerUserHealthEffectDays] = @(self.healthEffectDays);
-    
+	dictionary[kBossOwnerhascancellationapplyKey] = @(self.hasCancellationApply);
     if(self.healthCertificateKey != nil){
         dictionary[kBossOwnerUserHealthCertificateKey] = self.healthCertificateKey;
     }
@@ -472,7 +480,8 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     [aCoder encodeObject:@(self.temporaryIdcardEffectDays) forKey:kBossOwnerUserTemporaryIDcardEffectDays];
     [aCoder encodeObject:@(self.healthCardIsOK) forKey:kBossOwnerUserHealthCardIsOk];
     [aCoder encodeObject:@(self.healthEffectDays) forKey:kBossOwnerUserHealthEffectDays];
-
+	
+	[aCoder encodeObject:@(self.hasCancellationApply) forKey:kBossOwnerhascancellationapplyKey];
     
     if(self.healthCertificateKey != nil){
         [aCoder encodeObject:self.healthCertificateKey forKey:kBossOwnerUserHealthCertificateKey];
@@ -517,6 +526,8 @@ NSString *const kBossOwnerUserHealthCertificateBackKey = @"health_certificate_ba
     self.idcardEndDate = [[aDecoder decodeObjectForKey:kBossOwnerUserIDcardEndDate] integerValue];
     self.temporaryIdcardEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserTemporaryIDcardEffectDays] integerValue];
     self.healthCardIsOK = [[aDecoder decodeObjectForKey:kBossOwnerUserHealthCardIsOk] boolValue];
+	
+	self.hasCancellationApply = [[aDecoder decodeObjectForKey:kBossOwnerhascancellationapplyKey] boolValue];
     self.healthEffectDays = [[aDecoder decodeObjectForKey:kBossOwnerUserHealthEffectDays] integerValue];
     self.healthCertificateKey = [aDecoder decodeObjectForKey:kBossOwnerUserHealthCertificateKey];
     self.healthCertificateBackKey = [aDecoder decodeObjectForKey:kBossOwnerUserHealthCertificateBackKey];
