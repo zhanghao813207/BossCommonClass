@@ -116,7 +116,9 @@
                                           @"city_list": [JYCSimpleToolClass encodeArrayToArray:self.city_list],
                                           @"platform_list": [JYCSimpleToolClass encodeArrayToArray:self.platform_list],
                                           @"biz_district_list": [JYCSimpleToolClass encodeArrayToArray:self.biz_district_list],
-                                          @"supplier_list": [JYCSimpleToolClass encodeArrayToArray:self.supplier_list]
+                                          @"supplier_list": [JYCSimpleToolClass encodeArrayToArray:self.supplier_list],
+										  @"bankInfo": self.bankInfoModel.toDictionary ? : @{},
+										  @"work_email": self.work_email? : @"",
                                           
                         };
     return dic;
