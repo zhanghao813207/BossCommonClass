@@ -14,7 +14,6 @@
 #import "BossManagerAccount.h"
 #import "MQTTClientModel.h"
 #import "NSString+Router.h"
-#import "TraceManager.h"
 #import "JYCSimpleToolClass.h"
 @import boss_basic_common_ios;
 
@@ -110,11 +109,11 @@
         DLog(@"requestErrorUrl: %@ \n date:%@",task.currentRequest.URL,[NSDate date]);
         DLog(@"ERROR:%@",[error localizedDescription]);
         
-        TraceError *model = [[TraceError alloc] initWithDictionary:@{
-            @"url":url,
-            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
-            @"data": [error localizedDescription]
-        }];
+//        TraceError *model = [[TraceError alloc] initWithDictionary:@{
+//            @"url":url,
+//            @"headers":[JYCSimpleToolClass dictionaryToJson:[NNBRequestManager requestHeader]] ,
+//            @"data": [error localizedDescription]
+//        }];
         
         NSString *cmdName = @"";
         // 判断cmd是否为空
@@ -128,7 +127,7 @@
             cmdName = cmd;
         }
         
-        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
+//        [[TraceManager shareTraceManager] requestTrace:cmdName Error:model];
         
         [self handleErrorCodeWithError:error success:success fail:fail];
     }];
