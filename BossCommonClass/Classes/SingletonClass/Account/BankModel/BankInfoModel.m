@@ -82,7 +82,13 @@ NSString *const kBankInfoModelPaymentType = @"payment_type";
 		dictionary[kBankInfoModelBankBranchName] = self.bankBranchName;
 	}
 	if(self.bankLocation != nil){
-		dictionary[kBankInfoModelBankLocation] = self.bankLocation;
+		NSMutableArray *arr = [NSMutableArray array];
+		for (NSString *bankLocation in self.bankLocation) {
+			if (!bankLocation) {
+				[arr addObject:bankLocation];
+			}
+		}
+		dictionary[kBankInfoModelBankLocation] = arr;
 	}
 	if(self.cardHolderBankCardNo != nil){
 		dictionary[kBankInfoModelCardHolderBankCardNo] = self.cardHolderBankCardNo;
