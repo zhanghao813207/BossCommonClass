@@ -255,27 +255,6 @@
 /**
    获取银行卡信息查询接口
 */
-+(void)requestGetBankCardInfoQueryUrl:(NSString *)requestUrl{
-	// 从本地去获取 查询银行卡名称的URL
-	NSString *saveBankUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"BANKURL"];
-	if (![NSString isEmptyStringWithString:saveBankUrl]){
-		  return;
-	}
-	[NNBBasicRequest postJsonWithUrl:requestUrl parameters:nil CMD:@"qlife.tool.tool.gain_uris" success:^(id responseObject) {
-		NSDictionary *dic = responseObject;
-		if (dic){
-			NSString *bankUrl = [dic valueForKey:@"bank_uri"];
-			if (![NSString isEmptyStringWithString:bankUrl]){
-				[[NSUserDefaults standardUserDefaults] setValue:bankUrl forKey:@"BANKURL"];
-				[[NSUserDefaults standardUserDefaults] synchronize];
-			}
-		}
-	} fail:^(id error) {
-	}];
-}
-/**
-   获取银行卡信息查询接口
-*/
 +(void)requestGetBankCardInfoQueryUrl{
     // 从本地去获取 查询银行卡名称的URL
     NSString *saveBankUrl = [[NSUserDefaults standardUserDefaults] valueForKey:@"BANKURL"];
