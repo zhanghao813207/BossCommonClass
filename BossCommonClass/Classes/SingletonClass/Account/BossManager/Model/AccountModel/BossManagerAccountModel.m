@@ -58,7 +58,7 @@
         self.platform_list = [array copy];
         return;
     }
-    
+
 //    if ([key isEqualToString:@"biz_district_list"]) {
 //        NSMutableArray *array = [NSMutableArray array];
 //        for (NSDictionary *dic in value) {
@@ -118,7 +118,7 @@
                                           @"biz_district_list": [JYCSimpleToolClass encodeArrayToArray:self.biz_district_list],
                                           @"supplier_list": [JYCSimpleToolClass encodeArrayToArray:self.supplier_list],
 										  @"bankInfo": self.bankInfoModel.toDictionary ? : @{},
-										  @"work_email": self.work_email? : @"",
+										  @"work_email": self.work_email ? : @"",
                                           
                         };
     return dic;
