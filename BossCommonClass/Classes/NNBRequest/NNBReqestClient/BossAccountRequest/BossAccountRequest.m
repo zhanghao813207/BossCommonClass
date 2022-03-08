@@ -88,7 +88,7 @@
 				accountModel.bankInfoModel = model;
 			}
 			
-			if (businessInfoData[@"work_email"] && businessInfoData[@"work_email"] != [NSNull null]) {
+			if (businessInfoData[@"work_email"] && businessInfoData[@"work_email"] != [NSNull null] && ![[businessInfoData[@"work_email"] stringValue] isEqual:@""]) {
 				NSString * work_email =  [businessInfoData[@"work_email"] stringValue];
 				accountModel.work_email = work_email;
 			}
