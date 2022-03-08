@@ -80,6 +80,18 @@
                 [kUserDefault setObject:[self exchangeDict:dict] forKey:@"JobAndDepartmentInfo"];
                 [kUserDefault synchronize];
             }
+			
+			// 银行卡信息
+			if (businessInfoData[@"bank_info"]) {
+				NSDictionary *bankinfoData = businessInfoData[@"bank_info"];
+				BankInfoModel *model = [[BankInfoModel alloc]initWithDictionary:bankinfoData];
+				accountModel.bankInfoModel = model;
+			}
+			
+			if (businessInfoData[@"work_email"] && businessInfoData[@"work_email"] != [NSNull null] && ![[businessInfoData[@"work_email"] stringValue] isEqual:@""]) {
+				NSString * work_email =  [businessInfoData[@"work_email"] stringValue];
+				accountModel.work_email = work_email;
+			}
             
         }
         // 保存个人信息
