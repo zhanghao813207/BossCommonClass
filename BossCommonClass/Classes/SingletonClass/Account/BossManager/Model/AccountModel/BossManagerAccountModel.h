@@ -12,6 +12,7 @@
 #import "CityModel.h"
 #import "PlatformModel.h"
 #import "BizDistrictModel.h"
+#import "BankInfoModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -116,6 +117,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否是超级管理员
 @property (nonatomic, assign) BOOL is_admin;
 
+/// 银行卡信息
+@property (nonatomic, strong) BankInfoModel *bankInfoModel;
+
+/// 邮箱信息
+@property (nonatomic, strong) NSString *work_email;
 
 ///**
 // 保险授权
