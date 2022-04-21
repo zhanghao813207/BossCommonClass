@@ -156,7 +156,7 @@ NSString *const kBossOwnerhascancellationapplyKey = @"has_cancellation_apply";
 {
 	self = [super init];
     
-    [[CacheManager manager]setValueForKey:@"UESRINFO" :dictionary];
+    [[CacheManager manager]setValueForKey:@"USERINFO" :dictionary];
     
     if(![dictionary[kBossOwnerUserhealthcertificateendModel] isKindOfClass:[NSNull class]]){
         self.healthcertificateend = [dictionary[kBossOwnerUserhealthcertificateendModel] integerValue];
