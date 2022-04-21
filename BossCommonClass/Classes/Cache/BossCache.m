@@ -61,7 +61,13 @@ static BossCache *defaultCache = nil;
         [kUserDefault synchronize];
     }
 }
-
+- (void)loginout{
+    kCurrentBossOwnerAccount = nil;
+    kCache.umsAccessTokenModel = nil;
+    
+    // 移除Swift 缓存的 UMSModel
+    [[CacheManager manager] deleteValueForKey:@"UMSKEY"];
+}
 - (BossKnightAccount *)currentKnightAccount
 {
     if(!_currentKnightAccount){
