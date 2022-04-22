@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *saasAccountList;
 
 /**
- 检查是否已登录
+ 检查是否已登录 
  - YES:已登录
  - NO:未登录
  */
@@ -102,6 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeAccount:(NSUInteger)saasIndex accountIndex:(NSUInteger)accountIndex;
 /// 根据账号id删除账号
 - (void)removeAccountWithAccountId:(NSString *)accountId;
+
+- (void)loginout;
 
 @end
 

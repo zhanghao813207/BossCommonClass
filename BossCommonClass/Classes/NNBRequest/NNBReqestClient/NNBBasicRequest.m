@@ -192,7 +192,7 @@
                 }
 #else
                 kCurrentBossOwnerAccount = nil;
-                [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
+                [[CacheManager manager]deleteValueForKey:@"USERINFO"];
 #endif
                 
                 UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
@@ -235,7 +235,7 @@
                 kCurrentBossManagerAccount = nil;
 #else
                 kCurrentBossOwnerAccount = nil;
-                [[CacheManager manager]deleteValueForKey:@"UESRINFO"];
+                [[CacheManager manager]deleteValueForKey:@"USERINFO"];
 #endif
                 NSLog(@"-- lastLoginPhone : %@",kCache.lastLoginPhone);
                 kCache.umsAccessTokenModel = nil;
