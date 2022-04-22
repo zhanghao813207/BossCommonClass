@@ -271,10 +271,6 @@
 /// 登录请求
 - (void)requestLoginWithCode:(NSString *)code
                  phoneNumber:(NSString *)phoneNumber {
-    // 防止重复请求
-    if ([[PreventNetworkRepeat manager] isRepeatNetworkWithStr:@"auth.auth.login"] == true) {
-        return;
-    }
     // 显示加载对话框
     WS(weakSelf);
     [self.navigationController.view showLoadingStatus:@"登录中..."];
