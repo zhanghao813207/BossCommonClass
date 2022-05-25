@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '9.19'
+  s.version          = '9.19.2'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -70,7 +70,7 @@ these are common classes,they are used by boss system.
   # 友盟统计
   #s.dependency 'UMCAnalytics'
   
-  s.dependency 'MGJRouter', '~> 0.10.0'
+  #s.dependency 'MGJRouter'
   s.dependency 'Realm', '~> 3.17.0'
   s.dependency 'IQKeyboardManager'
   
