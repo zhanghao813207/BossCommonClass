@@ -63,6 +63,11 @@
             }
             return;
         }
+		// 已取消的请求不作处理
+		NSError *requestError = error;
+		if ([requestError.localizedDescription isEqualToString:@"已取消"]) {
+			return;
+		}
         [self handleFailWithError:error dealType:ResultDealTypesQHErrorView success:success fail:fail];
     }];
 }
