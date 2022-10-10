@@ -552,6 +552,7 @@ typedef enum : NSUInteger {
     fixIDNumber = 20, // 身份证号
     fixIDCardDate = 30, // 身份证日期
     fixIDcard = 40, // 临时换正式
+	anewAuthentication = 50, //重新实名认证
 } SelectModifyOperationType;
 
 // 身份证类型
