@@ -154,6 +154,7 @@
     NSDictionary *dic = (NSDictionary *)responseObject;
     if ([responseObject isKindOfClass:[NSDictionary class]] && dic[@"err_code"])
     {
+        NSLog(@"fail=========%@",cmd);
         NSInteger errCode = [dic[@"err_code"] integerValue];
         // 400403:商户不使用消息系统
         if(errCode == 400403){
