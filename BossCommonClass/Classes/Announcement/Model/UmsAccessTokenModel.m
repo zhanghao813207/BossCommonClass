@@ -6,6 +6,7 @@
 
 #import "UmsAccessTokenModel.h"
 #import "NSDate+Extension.h"
+#import "BossManagerAccount.h"
 NSString *const kUmsAccessTokenModelAccessToken = @"access_token";
 NSString *const kUmsAccessTokenModelAccountId = @"account_id";
 NSString *const kUmsAccessTokenModelAppId = @"app_id";
@@ -13,6 +14,7 @@ NSString *const kUmsAccessTokenModelExpiredAt = @"expired_at";
 NSString *const kUmsAccessTokenModelRefreshToken = @"refresh_token";
 NSString *const kUmsAccessTokenModelAccessKey = @"access_key";
 NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
+NSString *const kUmsAccessTokenModelBossAccountIdKey = @"boss_account_id";
 
 @interface UmsAccessTokenModel ()
 @end
@@ -21,7 +23,10 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 
 // token是否可用
 -(BOOL)tokenAvailable{
-    
+    // 登录人不一致
+    if (![self.bossAccountId isEqualToString:kCurrentBossManagerAccount.accountModel._id]) {
+        return NO;
+    }
     if(self.expiredAt && self.expiredAt != nil  && ![self.expiredAt isEqualToString:@""]){
         NSArray *arr = [self.expiredAt componentsSeparatedByString:@"T"];
         if (!arr || arr.count != 2){
@@ -39,6 +44,7 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    self.bossAccountId = @"";
 	if(![dictionary[kUmsAccessTokenModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kUmsAccessTokenModelAccessToken];
 	}	
@@ -90,6 +96,9 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
     if(self.secretKey != nil){
         dictionary[kUmsAccessTokenModelSecretKey] = self.secretKey;
     }
+    if(self.bossAccountId != nil){
+        dictionary[kUmsAccessTokenModelBossAccountIdKey] = self.bossAccountId;
+    }
 	return dictionary;
 
 }
@@ -123,6 +132,9 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
     if(self.secretKey != nil){
         [aCoder encodeObject:self.secretKey forKey:kUmsAccessTokenModelSecretKey];
     }
+    if(self.bossAccountId != nil){
+        [aCoder encodeObject:self.bossAccountId forKey:kUmsAccessTokenModelBossAccountIdKey];
+    }
 
 }
 
@@ -134,6 +146,7 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 	self = [super init];
 	self.accessToken = [aDecoder decodeObjectForKey:kUmsAccessTokenModelAccessToken];
 	self.accountId = [aDecoder decodeObjectForKey:kUmsAccessTokenModelAccountId];
+    self.bossAccountId = [aDecoder decodeObjectForKey:kUmsAccessTokenModelBossAccountIdKey];
 	self.appId = [aDecoder decodeObjectForKey:kUmsAccessTokenModelAppId];
 	self.expiredAt = [aDecoder decodeObjectForKey:kUmsAccessTokenModelExpiredAt];
 	self.refreshToken = [aDecoder decodeObjectForKey:kUmsAccessTokenModelRefreshToken];
@@ -157,7 +170,7 @@ NSString *const kUmsAccessTokenModelSecretKey = @"secret_key";
 	copy.refreshToken = [self.refreshToken copy];
     copy.accessKey = [self.accessKey copy];
     copy.secretKey = [self.secretKey copy];
-
+    copy.bossAccountId = [self.bossAccountId copy];
 	return copy;
 }
 @end

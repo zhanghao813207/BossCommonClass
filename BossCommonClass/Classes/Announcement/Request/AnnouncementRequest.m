@@ -51,6 +51,8 @@
         
         // 缓存UMS Token
         UmsAccessTokenModel *umsAccessTokenModel = [[UmsAccessTokenModel alloc] initWithDictionary:responseObject];
+        umsAccessTokenModel.bossAccountId = kCurrentBossManagerAccount.accountModel._id;
+        
         kCache.umsAccessTokenModel = umsAccessTokenModel;
         
         [[NSUserDefaults standardUserDefaults] setObject:[umsAccessTokenModel toDictionary] forKey:@"umsAccessTokenModel"];

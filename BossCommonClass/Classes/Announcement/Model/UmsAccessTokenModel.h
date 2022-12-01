@@ -11,6 +11,7 @@
 @property (nonatomic, strong) NSString * refreshToken;
 @property (nonatomic, strong) NSString * accessKey;
 @property (nonatomic, strong) NSString * secretKey;
+@property (nonatomic, strong) NSString * bossAccountId;
 
 @property (nonatomic, assign, readonly) BOOL tokenAvailable; // token是否有效
 
