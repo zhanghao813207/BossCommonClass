@@ -20,6 +20,9 @@
 @property (nonatomic, assign) BOOL autoInputEnd;
 /// 解决调用删除时，第一次会调用两次的问题
 @property (nonatomic, assign) BOOL returnDelete;
+/// 解决重复调用的问题
+@property (nonatomic, assign) BOOL isSelectInputEnd;
+
 
 @end
 
@@ -52,6 +55,7 @@
         if (maxNumber < 1) {
             return self;
         }
+		self.isSelectInputEnd = NO;
         self.autoInputEnd = YES;
         [self.textArray removeAllObjects];
         CGFloat marginAll = (self.width - self.height * maxNumber);
@@ -180,9 +184,15 @@
 
 - (void)inputEnd
 {
+	// 添加防止重复调用机制
+	// 如果已经调用过将不再执行
+	if (self.isSelectInputEnd) {
+		return;
+	}
     if (self.inputCodeEndBlock) {
         NSString *code = self.codeString;
         self.autoInputEnd = YES;
+		self.isSelectInputEnd = YES;
         self.inputCodeEndBlock(code);
     }
 }
