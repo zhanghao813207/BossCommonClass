@@ -208,6 +208,7 @@
         }
         UITextField *textField = self.textArray[0];
         [textField becomeFirstResponder];
+		self.isSelectInputEnd = false;
     }
 }
 
