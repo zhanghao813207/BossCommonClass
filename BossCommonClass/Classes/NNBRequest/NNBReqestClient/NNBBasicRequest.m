@@ -185,6 +185,7 @@
             }
             
             if (errorMsg && errorMsg.length > 0 && ([errorMsg containsString:@"service@cityio.cn"]||errCode == 408002) ){
+				UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
 #ifdef kBossManager
                 if(!kCurrentBossManagerAccount){
                     return;
@@ -196,20 +197,40 @@
                     [kCache addLoginOutAccount:kCurrentBossManagerAccount.accountModel._id?:@""];
                     kCurrentBossManagerAccount = nil;
                 }
+//				UIAlertAction *alertB = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+//					// 断开MQTT链接
+//					[[MQTTClientModel sharedInstance] disconnect];
+//					kCache.umsAccessTokenModel = nil;
+//					
+//					[self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+//					
+//				}];
+				// 说明:
+				// 账号不可用:
+				// 多账号登录 展示取消页 跳转至账号管理
+				// 单账号 不展示取消按钮
+//				if (kCache.saasAccountList && kCache.saasAccountList.count > 1) {
+//					[alertC addAction:alertB];
+//				}
 #else
                 kCurrentBossOwnerAccount = nil;
                 [[CacheManager manager]deleteValueForKey:@"USERINFO"];
 #endif
                 
-                UIAlertController  *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                     // 断开MQTT链接
                     [[MQTTClientModel sharedInstance] disconnect];
                     kCache.umsAccessTokenModel = nil;
-                    
-                    [self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
-                    
+					
+#ifdef kBossManager
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"bossManagerLogin" object:nil];
+#else
+					[self performSelector:@selector(showLoginVcWithViewController:) withObject:currentVc afterDelay:0];
+#endif
                 }];
+				
+				
+				// 判断是否有账号管理
                 [alertC addAction:alertA];
                 [vc presentViewController:alertC animated:false completion:nil];
                 
