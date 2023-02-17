@@ -31,8 +31,8 @@
 #import "JYCPickImage.h"
 #import "PhotoManager.h"
 #import "BossCache.h"
-#import "IQKeyboardManager.h"
 #import "NSString+base.h"
+@import IQKeyboardManager;
 
 typedef void(^uploadImage)(BOOL isSuccess);
 @interface MessageContentVc ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
