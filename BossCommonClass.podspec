@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '9.23.5'
+  s.version          = '9.23.6'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -58,7 +58,7 @@ these are common classes,they are used by boss system.
   s.dependency 'mob_linksdk_pro', '3.3.1'
   s.dependency 'LinkedME_LinkPage'
   # 友盟基础库
-  s.dependency 'UMCCommon'
+  s.dependency 'UMCCommon', '7.3.6'
 
   # 'UMCSecurityPlugins'为安全组件，不需要开发者显式调用，为开发者提供安全的数据环境，能有效的防止刷量和反作弊等行为，属于可选项，如果对App的数据安全性要求不高的话，可以去掉
   #注释UMCSecurityPlugins ,因为它与支付宝支付UTDID.framework有冲突
@@ -72,7 +72,7 @@ these are common classes,they are used by boss system.
   
   #s.dependency 'MGJRouter'
   s.dependency 'Realm', '~> 3.17.0'
-  s.dependency 'IQKeyboardManager'
+  s.dependency 'IQKeyboardManager', '6.5.9'
   
   s.dependency 'YYCache'
   
