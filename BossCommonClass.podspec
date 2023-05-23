@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BossCommonClass'
-  s.version          = '9.25'
+  s.version          = '9.25.1'
   s.summary          = 'a common class of boss system'
 #s.static_framework = true
 
@@ -48,7 +48,7 @@ these are common classes,they are used by boss system.
   s.dependency 'Qiniu', '7.4'
   s.dependency 'HappyDNS'
   
-  s.dependency 'BGFMDB', '~> 1.51'
+#  s.dependency 'BGFMDB', '~> 1.51'
   s.dependency 'Masonry'
   s.dependency 'SGPagingView', '~> 1.6.7'
   s.dependency 'MJExtension'
