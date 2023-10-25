@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) NSURL *fileUrl;
 
+@property (nonatomic, strong) NSString *fileName;
+
 @property (nonatomic, strong) HWIFileDownloader *fileDownloader;
 
 @end
@@ -26,8 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor =   [UIColor colorNamed:@"boss_F9FBFC_000000"];
+    self.view.backgroundColor = [UIColor colorNamed:@"boss_F9FBFC_000000"];
     self.title = @"在线预览";
+	self.fileName = [NSURL URLWithString:self.fileURLStr].lastPathComponent;
+	// 解决附件名称为中文无法预览的问题
+	self.fileURLStr = [self.fileURLStr stringByRemovingPercentEncoding];
+	self.fileURLStr = [self.fileURLStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     if ([JYCSimpleToolClass stringIsEmpty:self.fileURLStr]) {
         [self.view showAnimationErrorStaus:@"该文件格式不支持！" completion:^(BOOL finish) {
@@ -55,8 +61,8 @@
         return;
     }
     NSString *subStr = [self.fileURLStr substringToIndex:[self.fileURLStr rangeOfString:@"?"].location];
-    NSString *fileName = [subStr substringFromIndex:[subStr rangeOfString:@"/" options:NSBackwardsSearch].location + 1];
-    NSString *localFilePath = [NSString stringWithFormat:@"%@/conract/%@",kDocumentPath,fileName];
+    
+    NSString *localFilePath = [NSString stringWithFormat:@"%@/conract/%@",kDocumentPath,self.fileName];
     
     NSLog(@"localFilePath : %@", localFilePath);
     
@@ -74,7 +80,7 @@
     // 之家附件预览
     if (self.isBossManager && ![JYCSimpleToolClass stringIsEmpty:self.fileId]) {
         // 文件路径
-        NSURL *cachePath = [[PreviewCache sharedManager] getPathWithFileName:fileName fileId:self.fileId];
+        NSURL *cachePath = [[PreviewCache sharedManager] getPathWithFileName:self.fileName fileId:self.fileId];
         // 判断是否可以打开
         if (![JYCSimpleToolClass stringIsEmpty:cachePath.absoluteString] && [QLPreviewController canPreviewItem:cachePath]) {
             self.fileUrl = cachePath;
@@ -83,7 +89,7 @@
         }
     }
     
-    [self.fileDownloader startDownloadWithIdentifier:fileName fromRemoteURL:[NSURL URLWithString:self.fileURLStr]];
+    [self.fileDownloader startDownloadWithIdentifier: self.fileName fromRemoteURL:[NSURL URLWithString:self.fileURLStr]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
