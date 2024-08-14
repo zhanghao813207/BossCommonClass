@@ -82,7 +82,7 @@
             }
 			
 			// 银行卡信息
-			if (businessInfoData[@"bank_info"]) {
+			if (businessInfoData[@"bank_info"] && businessInfoData[@"bank_info"] != [NSNull null]) {
 				NSDictionary *bankinfoData = businessInfoData[@"bank_info"];
 				BankInfoModel *model = [[BankInfoModel alloc]initWithDictionary:bankinfoData];
 				accountModel.bankInfoModel = model;
