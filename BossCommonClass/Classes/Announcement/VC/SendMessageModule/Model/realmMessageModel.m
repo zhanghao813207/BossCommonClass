@@ -25,6 +25,10 @@
 		return nil;
 	}
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 
 	if(![dictionary[@"sectionid"] isKindOfClass:[NSNull class]]){
 		self.sectionid = dictionary[@"sectionid"];

@@ -42,6 +42,9 @@ NSString *const kmaskrealQty = @"real_qty";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kmasksDataIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kmasksDataIdField];
 	}

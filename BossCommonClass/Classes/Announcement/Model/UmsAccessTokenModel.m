@@ -44,6 +44,9 @@ NSString *const kUmsAccessTokenModelBossAccountIdKey = @"boss_account_id";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     self.bossAccountId = @"";
 	if(![dictionary[kUmsAccessTokenModelAccessToken] isKindOfClass:[NSNull class]]){
 		self.accessToken = dictionary[kUmsAccessTokenModelAccessToken];

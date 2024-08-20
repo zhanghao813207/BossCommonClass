@@ -24,6 +24,9 @@ NSString *const kmasksAccountInfoName = @"name";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kmasksAccountInfoIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kmasksAccountInfoIdField];
 	}	

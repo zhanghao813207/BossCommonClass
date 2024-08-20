@@ -23,6 +23,9 @@ NSString *const kDataSenderInfo = @"sender_info";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kDataCount] isKindOfClass:[NSNull class]]){
 		self.count = [dictionary[kDataCount] integerValue];
 	}

@@ -26,6 +26,10 @@ NSString *const kMobileOpenModelWallet = @"wallet";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kMobileOpenModelBoduRegister] isKindOfClass:[NSNull class]]){
 		self.boduRegister = [dictionary[kMobileOpenModelBoduRegister] boolValue];
 	}

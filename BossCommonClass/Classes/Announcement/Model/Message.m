@@ -45,6 +45,9 @@ NSString *const kDataDarkModeHeadimgUrl = @"dark_mode_head_img_url";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kDataIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kDataIdField];
 	}

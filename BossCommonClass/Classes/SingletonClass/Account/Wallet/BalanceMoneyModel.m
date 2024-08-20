@@ -37,6 +37,9 @@ NSString *const kBalanceMoneyModeltotalScore = @"total_score";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kBalanceMoneyModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kBalanceMoneyModelIdField];
 	}	

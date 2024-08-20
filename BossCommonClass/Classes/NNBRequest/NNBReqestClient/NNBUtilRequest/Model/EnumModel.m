@@ -22,6 +22,9 @@ NSString *const kEnumModelIndustryCodes = @"industry_codes";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(dictionary[kEnumModelIndustryCodes] != nil && [dictionary[kEnumModelIndustryCodes] isKindOfClass:[NSArray class]]){
 		NSArray * industryCodesDictionaries = dictionary[kEnumModelIndustryCodes];
 		NSMutableArray * industryCodesItems = [NSMutableArray array];

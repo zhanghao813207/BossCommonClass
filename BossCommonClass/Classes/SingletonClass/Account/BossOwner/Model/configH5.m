@@ -22,6 +22,9 @@ NSString *const kconfigH5Url = @"url";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kconfigH5Url] isKindOfClass:[NSNull class]]){
 		self.url = dictionary[kconfigH5Url];
 	}	

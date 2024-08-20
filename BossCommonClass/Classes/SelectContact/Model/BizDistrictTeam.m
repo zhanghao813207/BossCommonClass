@@ -31,6 +31,10 @@ NSString *const kBizDistrictTeamVendorTargetId = @"vendor_target_id";
 {
 	self = [super init];
     
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
+    
 	if(![dictionary[kBizDistrictTeamIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kBizDistrictTeamIdField];
 	}	
