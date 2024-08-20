@@ -35,6 +35,9 @@ NSString *const kSendResultModelUpdatedAt = @"updated_at";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kSendResultModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kSendResultModelIdField];
 	}	

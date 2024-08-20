@@ -21,6 +21,9 @@ NSString *const kMessageListDicModelData = @"data";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kMessageListDicModelMeta] isKindOfClass:[NSNull class]]){
 		self.meta = [[Meta alloc] initWithDictionary:dictionary[kMessageListDicModelMeta]];
 	}

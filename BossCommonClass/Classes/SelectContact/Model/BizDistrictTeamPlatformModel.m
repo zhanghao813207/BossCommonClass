@@ -89,6 +89,10 @@ NSString *const BizDistrictTeamPlatformVendorTargetId = @"vendor_target_id";
 {
     self = [super init];
     
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
+    
     if(![dictionary[BizDistrictTeamPlatformIdField] isKindOfClass:[NSNull class]]){
         self.idField = dictionary[BizDistrictTeamPlatformIdField];
     }

@@ -27,6 +27,9 @@ NSString *const kcustom_list_ModelState = @"state";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kcustom_list_ModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kcustom_list_ModelIdField];
 	}	

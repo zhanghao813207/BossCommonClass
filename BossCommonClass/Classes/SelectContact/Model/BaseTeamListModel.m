@@ -24,6 +24,9 @@ NSString *const kBaseTeamListModelBizDistrictTeam = @"data";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(dictionary[kBaseTeamListModelBizDistrictTeam] != nil && [dictionary[kBaseTeamListModelBizDistrictTeam] isKindOfClass:[NSArray class]]){
 		NSArray * bizDistrictTeamDictionaries = dictionary[kBaseTeamListModelBizDistrictTeam];
 		NSMutableArray * bizDistrictTeamItems = [NSMutableArray array];

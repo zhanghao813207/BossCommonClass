@@ -25,6 +25,9 @@ NSString *const kSenderInfoVendorAccountId = @"vendor_account_id";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kSenderInfoIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kSenderInfoIdField];
 	}	

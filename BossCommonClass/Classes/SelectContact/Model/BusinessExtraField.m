@@ -27,6 +27,10 @@ NSString *const kBusinessExtraFieldSupplierName = @"supplier_name";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kBusinessExtraFieldCityCode] isKindOfClass:[NSNull class]]){
 		self.cityCode = dictionary[kBusinessExtraFieldCityCode];
 	}	

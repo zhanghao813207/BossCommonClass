@@ -18,6 +18,9 @@ NSString *const kRootClassRefreshToken = @"refresh_token";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     if(![dictionary[kRootClassAccessToken] isKindOfClass:[NSNull class]]){
         self.access_token = dictionary[kRootClassAccessToken];
     }

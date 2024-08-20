@@ -31,6 +31,9 @@ NSString *const krecordModelUpdatedAt = @"updated_at";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[krecordModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[krecordModelIdField];
 	}	

@@ -23,6 +23,9 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     if(![dictionary[@"selectStatus"] isKindOfClass:[NSNull class]]){
         self.isselect = [dictionary[@"selectStatus"] boolValue];
     }

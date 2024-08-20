@@ -19,6 +19,9 @@ NSString *const kconfigSalaryLoanUrl = @"url";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     if(![dictionary[kconfigSalaryLoanUrl] isKindOfClass:[NSNull class]]){
         self.url = dictionary[kconfigSalaryLoanUrl];
     }

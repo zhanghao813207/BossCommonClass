@@ -25,6 +25,9 @@ NSString *const kProxyAccountInfoVendorAccountId = @"vendor_account_id";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kProxyAccountInfoIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kProxyAccountInfoIdField];
 	}	
