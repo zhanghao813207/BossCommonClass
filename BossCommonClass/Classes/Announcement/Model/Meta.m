@@ -25,6 +25,9 @@ NSString *const kMetaResultCount = @"result_count";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kMetaHasMore] isKindOfClass:[NSNull class]]){
 		self.hasMore = [dictionary[kMetaHasMore] boolValue];
 	}

@@ -23,6 +23,9 @@ NSString *const kmasksporvideMasksModelData = @"data";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kmasksporvideMasksModelMeta] isKindOfClass:[NSNull class]]){
 		self.meta = [[masksMeta alloc] initWithDictionary:dictionary[kmasksporvideMasksModelMeta]];
 	}

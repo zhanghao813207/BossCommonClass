@@ -21,6 +21,9 @@ NSString *const kAccountNoticeListDicModelOk = @"ok";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(dictionary[kAccountNoticeListDicModelData] != nil && [dictionary[kAccountNoticeListDicModelData] isKindOfClass:[NSArray class]]){
 		NSArray * dataDictionaries = dictionary[kAccountNoticeListDicModelData];
 		NSMutableArray * dataItems = [NSMutableArray array];

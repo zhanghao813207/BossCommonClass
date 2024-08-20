@@ -23,6 +23,10 @@ NSString *const kRootClassName = @"name";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(dictionary[kRoleTeamData] != nil && [dictionary[kRoleTeamData] isKindOfClass:[NSArray class]]){
 		NSArray * dataDictionaries = dictionary[kRoleTeamData];
 		NSMutableArray * dataItems = [NSMutableArray array];

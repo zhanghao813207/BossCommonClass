@@ -27,6 +27,9 @@ NSString *const kconfigMqttUserName = @"user_name";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kconfigMqttClientid] isKindOfClass:[NSNull class]]){
 		self.clientid = dictionary[kconfigMqttClientid];
 	}	

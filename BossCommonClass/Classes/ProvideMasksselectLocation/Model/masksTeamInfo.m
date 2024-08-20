@@ -37,6 +37,9 @@ NSString *const kmasksTeamInfoUpdatedAt = @"updated_at";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kmasksTeamInfoIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kmasksTeamInfoIdField];
 	}	

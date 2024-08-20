@@ -33,6 +33,9 @@ NSString *const kWeChatModelUpdatedAt = @"updated_at";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kWeChatModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kWeChatModelIdField];
 	}	

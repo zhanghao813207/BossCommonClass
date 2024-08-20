@@ -40,6 +40,10 @@
 		return nil;
 	}
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 
 	if(![dictionary[@"realmMessageModel"] isKindOfClass:[NSNull class]]){
 		self.realmMessageModel = [[realmMessageModel alloc] initWithDictionary:dictionary[@"realmMessageModel"]];

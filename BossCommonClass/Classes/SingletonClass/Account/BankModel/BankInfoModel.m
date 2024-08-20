@@ -31,6 +31,10 @@ NSString *const kBankInfoModelPaymentType = @"payment_type";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kBankInfoModelIdField] isKindOfClass:[NSNull class]]){
 		self.idField = dictionary[kBankInfoModelIdField];
 	}	

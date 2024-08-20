@@ -32,6 +32,9 @@ NSString *const kDataWorkbenchLabel = @"workbench_label";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     if(![dictionary[kOwnerTeamListIdField] isKindOfClass:[NSNull class]]){
         self.idField = dictionary[kOwnerTeamListIdField];
     }

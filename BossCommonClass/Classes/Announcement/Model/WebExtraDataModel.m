@@ -16,7 +16,9 @@ NSString *const kmessageSessionsModelTeam_id= @"team_id";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     if(![dictionary[kmessageSessionsModelTeam_id] isKindOfClass:[NSNull class]]){
         self.team_id = dictionary[kmessageSessionsModelTeam_id];
     }

@@ -25,6 +25,9 @@ NSString *const kconfigModelSalaryLoan = @"pushu";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kconfigModelH5] isKindOfClass:[NSNull class]]){
 		self.h5 = [[configH5 alloc] initWithDictionary:dictionary[kconfigModelH5]];
 	}

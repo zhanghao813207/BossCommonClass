@@ -25,6 +25,9 @@ NSString *const kEnumIndustryCodeName = @"name";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
 	if(![dictionary[kEnumIndustryCodeBlackIcon] isKindOfClass:[NSNull class]]){
 		self.blackIcon = dictionary[kEnumIndustryCodeBlackIcon];
 	}	

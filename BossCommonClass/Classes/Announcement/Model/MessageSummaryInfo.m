@@ -37,6 +37,9 @@ NSString *const kMessageMessagemimekindTitle = @"message_mime_kind";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    if ([dictionary isKindOfClass:[NSNull class]]) {
+        return self;
+    }
     
     if(![dictionary[kmessageSessionsModelExtraData] isKindOfClass:[NSNull class]]){
         
